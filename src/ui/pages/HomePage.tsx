@@ -4,6 +4,7 @@
  * 規格對照：第 39 節（我的庫存、快速操作、最近使用）、第 24 節（賽事資料建置中）、
  * 第 38 節（新手模式說明為什麼）、第 46 節（主流程引導）。
  */
+import { useState } from 'react'
 import { catalogMeta, useAppStore } from '../../store/appStore.ts'
 import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
@@ -130,9 +131,12 @@ export function HomePage() {
             圖鑑版本：{catalogVersion ?? '未載入'}（來源擷取日 {catalogMeta.fetchedAt}）
           </div>
           {/* 手機上看不到最新改動時，先比對這個戳記確認跑的是不是新版。 */}
-          <div>
-            前端建置：<span className="code">{__BUILD_STAMP__}</span>
-          </div>
+          <Row>
+            <span style={{ flex: 1 }}>
+              前端建置：<span className="code">{__BUILD_STAMP__}</span>
+            </span>
+            <ReloadLatestButton />
+          </Row>
           <div>
             資料來源：
             <a href={catalogMeta.sourceUrl} target="_blank" rel="noreferrer">
@@ -154,6 +158,46 @@ export function HomePage() {
         </div>
       </Section>
     </>
+  )
+}
+
+/**
+ * 手動抓最新版。
+ *
+ * 舊的 Service Worker 有時仍在服務舊的預快取，畫面就會停在上一版。
+ * 這裡只清掉程式檔的快取並重新註冊，庫存資料存在 IndexedDB，完全不動。
+ */
+function ReloadLatestButton() {
+  const [busy, setBusy] = useState(false)
+
+  async function reloadLatest() {
+    setBusy(true)
+    try {
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations()
+        await Promise.all(registrations.map((registration) => registration.unregister()))
+      }
+      if ('caches' in globalThis) {
+        const keys = await caches.keys()
+        await Promise.all(keys.map((key) => caches.delete(key)))
+      }
+    } catch {
+      // 清不掉就直接重新載入，至少還有機會拿到新版。
+    } finally {
+      window.location.reload()
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      className="btn"
+      data-testid="reload-latest"
+      disabled={busy}
+      onClick={() => void reloadLatest()}
+    >
+      {busy ? '重新載入中…' : '重新載入最新版'}
+    </button>
   )
 }
 

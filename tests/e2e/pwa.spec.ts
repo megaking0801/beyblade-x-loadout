@@ -113,6 +113,29 @@ test('斷網後重新開啟仍可使用，且能繼續修改本地庫存', async
   await context.setOffline(false)
 })
 
+test('「重新載入最新版」會清掉程式快取，但不能動到庫存', async ({ page }) => {
+  await openApp(page, '/products')
+  await page.getByTestId('tab-catalog').click()
+  await page.getByTestId('product-search').fill('BX-01')
+  const card = page.getByTestId('catalog-product').first()
+  await expect(card).toBeVisible()
+  await card.getByTestId('add-owned').click()
+  await page.getByTestId('tab-my-products').click()
+  await expect(page.getByTestId('owned-product').first()).toBeVisible()
+
+  await openApp(page, '/')
+  await page.evaluate(async () => navigator.serviceWorker.ready)
+  await expect.poll(async () => page.evaluate(async () => (await caches.keys()).length)).toBeGreaterThan(0)
+
+  await page.getByTestId('reload-latest').click()
+
+  // 重新載入後：程式快取清掉了，但 IndexedDB 裡的庫存必須原封不動。
+  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
+  await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
+  await expect(page.getByTestId('stat-products-value')).toHaveText('1')
+  await expect(page.getByTestId('stat-blades-value')).toHaveText('1')
+})
+
 test('所有主要頁面都沒有執行期錯誤', async ({ page }) => {
   const problems: string[] = []
   page.on('console', (message) => {
