@@ -1,0 +1,55 @@
+{
+  "sources": [
+    "Takara Tomy BEYBLADE X 官方商品頁",
+    "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
+    "Amazon Japan 商品搜尋（外部圖片連結）"
+  ],
+  "generatedAt": "2026-09-16T10:58:18.217Z",
+  "productCount": 153,
+  "imageCount": 145,
+  "officialImageCount": 112,
+  "rakutenImageCount": 32,
+  "amazonImageCount": 1,
+  "unresolved": [
+    {
+      "id": "bx00-st01",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-st02",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-st03",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-mit",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-msv",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-bit_silver_white",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "bx00-emb",
+      "sku": "BX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    },
+    {
+      "id": "cx00-drb",
+      "sku": "CX-00",
+      "reason": "官方商品主圖 HTTP 404；Rakuten 搜尋找不到型號與商品名皆匹配的圖片；Amazon 搜尋找不到商品名匹配的圖片"
+    }
+  ]
+}

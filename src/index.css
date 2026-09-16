@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+
+/*
+ * 第 2 節：手機優先 RWD。第 38 節：新手模式要大圖大字。
+ * 顏色以 CSS 變數定義，深淺色都可用。
+ */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --text: #16202c;
+  --text-dim: #5b6775;
+  --border: #d8dee7;
+  --accent: #1f6feb;
+  --accent-text: #ffffff;
+  --danger: #c02a2a;
+  --warn: #8a5a00;
+  --ok: #1d7a44;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --surface: #17202f;
+    --surface-2: #1e2937;
+    --text: #e8edf4;
+    --text-dim: #9aa8b8;
+    --border: #2b3747;
+    --accent: #4d8ef7;
+    --accent-text: #0b1220;
+    --danger: #ff8a8a;
+    --warn: #f0c04a;
+    --ok: #63d391;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei',
+    'Helvetica Neue', Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.app-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px calc(84px + env(safe-area-inset-bottom));
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.btn-danger {
+  color: var(--danger);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 2px;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  z-index: 20;
+}
+
+.tabbar a {
+  flex: 1;
+  text-align: center;
+  padding: 6px 2px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.3;
+  text-decoration: none;
+  color: var(--text-dim);
+}
+
+.tabbar a[aria-current='page'] {
+  color: var(--accent);
+  background: var(--surface-2);
+  font-weight: 600;
+}
+
+.beginner-mode {
+  font-size: 17px;
+}

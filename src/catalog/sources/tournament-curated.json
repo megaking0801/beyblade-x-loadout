@@ -1,0 +1,222 @@
+{
+  "sourcePolicy": "Only complete reported Standard 3on3 decks are included. Every partId is checked against the generated catalog when building; any unmapped or incomplete deck is rejected rather than partially imported.",
+  "events": [
+    {
+      "event": {
+        "id": "beywatch-mcb-bbx-s2-ranked-event-2",
+        "name": "MCB BBX S2 RANKED EVENT 2",
+        "date": "2026-08-02",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-mcb-bbx-s2-ranked-event-2-127178"
+      },
+      "decks": [
+        {
+          "id": "beywatch-mcb-bbx-s2-ranked-event-2-1",
+          "placement": 1,
+          "reportedCombos": ["Wizard Rod 1-60H", "Meteor Dragoon 7-60L", "Cobalt Dragoon 5-60E"],
+          "comboPartIds": [["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:メテオドラグーン", "ratchet:7-60", "bit:L"], ["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-auto-x13",
+        "name": "AUTO X13",
+        "date": "2026-05-31",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-auto-x13-125669"
+      },
+      "decks": [
+        {
+          "id": "beywatch-auto-x13-3",
+          "placement": 3,
+          "reportedCombos": ["Meteor Dragoon 7-60L", "Cobalt Dragoon 5-60E", "Silver Wolf 9-60FB"],
+          "comboPartIds": [["blade:メテオドラグーン", "ratchet:7-60", "bit:L"], ["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"], ["blade:シルバーウルフ", "ratchet:9-60", "bit:FB"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-x-masters-37",
+        "name": "X Masters 37",
+        "date": "2026-02-07",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-x-masters-37-123224"
+      },
+      "decks": [
+        {
+          "id": "beywatch-x-masters-37-2",
+          "placement": 2,
+          "reportedCombos": ["Cobalt Dragoon 5-60E", "Meteor Dragoon 7-60L", "Wizard Rod 1-60H"],
+          "comboPartIds": [["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"], ["blade:メテオドラグーン", "ratchet:7-60", "bit:L"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-nook-arena-33",
+        "name": "Nook Arena 33",
+        "date": "2026-05-16",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-nook-arena-33-125739"
+      },
+      "decks": [
+        {
+          "id": "beywatch-nook-arena-33-2",
+          "placement": 2,
+          "reportedCombos": ["Meteor Dragoon 7-60L", "Phoenix Wing 3-60LR", "Wizard Rod 9-60FB"],
+          "comboPartIds": [["blade:メテオドラグーン", "ratchet:7-60", "bit:L"], ["blade:フェニックスウイング", "ratchet:3-60", "bit:LR"], ["blade:ウィザードロッド", "ratchet:9-60", "bit:FB"]]
+        },
+        {
+          "id": "beywatch-nook-arena-33-1",
+          "placement": 1,
+          "reportedCombos": ["Cobalt Dragoon 5-60E", "Meteor Dragoon 7-60L", "Shark Scale 1-60LO"],
+          "comboPartIds": [["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"], ["blade:メテオドラグーン", "ratchet:7-60", "bit:L"], ["blade:シャークスケイル", "ratchet:1-60", "bit:LO"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-t-bladez-ninjaxchange-carlsbad-2",
+        "name": "T Bladez NinjaXchange Carlsbad 2",
+        "date": "2026-05-16",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-t-bladez-ninjaxchange-carlsbad-2-125426"
+      },
+      "decks": [
+        {
+          "id": "beywatch-t-bladez-ninjaxchange-carlsbad-2-1",
+          "placement": 1,
+          "reportedCombos": ["Wizard Rod 1-60H", "Shark Scale 1-70LR", "Cobalt Dragoon 5-60E"],
+          "comboPartIds": [["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:シャークスケイル", "ratchet:1-70", "bit:LR"], ["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"]]
+        },
+        {
+          "id": "beywatch-t-bladez-ninjaxchange-carlsbad-2-3",
+          "placement": 3,
+          "reportedCombos": ["Shark Scale 7-60LO", "Wizard Rod 1-60K", "Aero Pegasus 3-60L"],
+          "comboPartIds": [["blade:シャークスケイル", "ratchet:7-60", "bit:LO"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:K"], ["blade:エアロペガサス", "ratchet:3-60", "bit:L"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-voxel-x-beyblade-tournament-10",
+        "name": "Voxel X Beyblade Tournament 10",
+        "date": "2026-05-31",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-voxel-x-beyblade-tournament-10-125297"
+      },
+      "decks": [
+        {
+          "id": "beywatch-voxel-x-beyblade-tournament-10-1",
+          "placement": 1,
+          "reportedCombos": ["Cobalt Dragoon 5-60E", "Wizard Rod 1-60H", "Shark Scale 1-70LR"],
+          "comboPartIds": [["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:シャークスケイル", "ratchet:1-70", "bit:LR"]]
+        },
+        {
+          "id": "beywatch-voxel-x-beyblade-tournament-10-3",
+          "placement": 3,
+          "reportedCombos": ["Shark Scale 9-60FB", "Wizard Rod 1-60H", "Phoenix Wing 7-60K"],
+          "comboPartIds": [["blade:シャークスケイル", "ratchet:9-60", "bit:FB"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:フェニックスウイング", "ratchet:7-60", "bit:K"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-peak-x-2",
+        "name": "Peak X 2 Stretch for the Stars All Out Beyblade Battle",
+        "date": "2026-02-28",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-peak-x-2-stretch-for-the-stars-all-out-beyblade-battle-123643"
+      },
+      "decks": [
+        {
+          "id": "beywatch-peak-x-2-1",
+          "placement": 1,
+          "reportedCombos": ["Meteor Dragoon 9-60E", "Shark Scale 1-70LR", "Wizard Rod 1-60H"],
+          "comboPartIds": [["blade:メテオドラグーン", "ratchet:9-60", "bit:E"], ["blade:シャークスケイル", "ratchet:1-70", "bit:LR"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-lghs-ranked-invitational",
+        "name": "LGHS Ranked Invitational",
+        "date": "2025-11-30",
+        "country": "Canada",
+        "region": "Winnipeg, Manitoba",
+        "tier": "community",
+        "format": "Standard 3on3 Top cut",
+        "participantCount": 32,
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/metabeys-6941b821b0b47c6f5a8e5369"
+      },
+      "decks": [
+        {
+          "id": "beywatch-lghs-ranked-invitational-3",
+          "placement": 3,
+          "reportedCombos": ["Shark Scale 9-60FB", "Wizard Rod 1-60H", "Cobalt Dragoon 5-60E"],
+          "comboPartIds": [["blade:シャークスケイル", "ratchet:9-60", "bit:FB"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-sabo-santas-lil-helpers-2025",
+        "name": "SABO Presents Santa's Li l Helpers Holiday Classic U13 Youth Tournament",
+        "date": "2025-12-17",
+        "tier": "community",
+        "format": "Standard 3on3",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-sabo-presents-santa-s-li-l-helpers-holiday-classic-u13-youth-tournament-122351"
+      },
+      "decks": [
+        {
+          "id": "beywatch-sabo-santas-lil-helpers-2025-1",
+          "placement": 1,
+          "reportedCombos": ["Cobalt Dragoon 5-60E", "Wizard Rod 1-60H", "Shark Scale 1-70LR"],
+          "comboPartIds": [["blade:コバルトドラグーン", "ratchet:5-60", "bit:E"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:シャークスケイル", "ratchet:1-70", "bit:LR"]]
+        },
+        {
+          "id": "beywatch-sabo-santas-lil-helpers-2025-2",
+          "placement": 2,
+          "reportedCombos": ["Shark Scale 1-70LR", "Wizard Rod 1-60H", "Silver Wolf 9-60B"],
+          "comboPartIds": [["blade:シャークスケイル", "ratchet:1-70", "bit:LR"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:シルバーウルフ", "ratchet:9-60", "bit:B"]]
+        }
+      ]
+    },
+    {
+      "event": {
+        "id": "beywatch-mcb-season-1-friday-night-ranked-event-3",
+        "name": "MCB BEYBLADE X SEASON 1 FRIDAY NIGHT RANKED EVENT 3",
+        "date": "2026-04-03",
+        "tier": "community",
+        "format": "Standard 3on3 Top cut",
+        "sourceTier": "community",
+        "sourceUrl": "https://beywatch.gg/tournaments/wbo-mcb-beyblade-x-season-1-friday-night-ranked-event-3-124683"
+      },
+      "decks": [
+        {
+          "id": "beywatch-mcb-season-1-friday-night-ranked-event-3-2",
+          "placement": 2,
+          "reportedCombos": ["Aero Pegasus 7-60LR", "Wizard Rod 1-60H", "Shark Scale 9-60FB"],
+          "comboPartIds": [["blade:エアロペガサス", "ratchet:7-60", "bit:LR"], ["blade:ウィザードロッド", "ratchet:1-60", "bit:H"], ["blade:シャークスケイル", "ratchet:9-60", "bit:FB"]]
+        }
+      ]
+    }
+  ]
+}

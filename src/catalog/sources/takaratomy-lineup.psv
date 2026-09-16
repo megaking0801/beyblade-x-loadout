@@ -1,0 +1,158 @@
+# BEYBLADE X 官方商品一覽（原始擷取資料）
+# 來源：https://beyblade.takaratomy.co.jp/beyblade-x/lineup/
+# 擷取日期：2026-09-16
+# 欄位：型號|日文商品名|官方分類|發售日|官方商品頁路徑
+# 本檔為原始資料，請勿手動修改內容；要更新請重新擷取官方頁面並整檔替換。
+BX-01|ドランソード3-60F|スターター|2023.7.15|/beyblade-x/lineup/bx01.html
+BX-02|ヘルズサイズ4-60T|スターター|2023.7.15|/beyblade-x/lineup/bx02.html
+BX-03|ウィザードアロー4-80B|スターター|2023.7.15|/beyblade-x/lineup/bx03.html
+BX-04|ナイトシールド3-80N|スターター|2023.7.15|/beyblade-x/lineup/bx04.html
+BX-05|ウィザードアロー4-80B|ブースター|2023.7.15|/beyblade-x/lineup/bx05.html
+BX-06|ナイトシールド3-80N|ブースター|2023.7.15|/beyblade-x/lineup/bx06.html
+BX-07|スタートダッシュセット|セット|2023.7.15|/beyblade-x/lineup/bx07.html
+BX-08|3on3デッキセット|セット|2023.7.15|/beyblade-x/lineup/bx08.html
+BX-09|ベイバトルパス|ツール|2023.7.15|/beyblade-x/lineup/bx09.html
+BX-10|エクストリームスタジアム|ツール|2023.7.15|/beyblade-x/lineup/bx10.html
+BX-11|ランチャーグリップ|ツール|2023.7.15|/beyblade-x/lineup/bx11.html
+BX-12|3on3デッキケース|ツール|2023.7.15|/beyblade-x/lineup/bx12.html
+BX-00|エクストリームスタジアム ライトパッケージ|ツール|2023.7.15|/beyblade-x/lineup/bx00-es.html
+BX-00|ドランザースパイラル3-80T|ブースター|2023.7.15|/beyblade-x/lineup/bx00-ds.html
+BX-13|ナイトランス4-80HN|ブースター|2023.8.10|/beyblade-x/lineup/bx13.html
+BX-14|ランダムブースターVol.1|ランダムブースター|2023.9.9|/beyblade-x/lineup/bx14.html
+BX-00|ヘルズサイズ4-60T メタルコート:ゴールド|ブースター|2023.9.11|/beyblade-x/lineup/bx00-hc.html
+BX-15|レオンクロー5-60P|スターター|2023.10.7|/beyblade-x/lineup/bx15.html
+BX-16|ランダムブースター ヴァイパーテイルセレクト|ランダムブースター|2023.10.7|/beyblade-x/lineup/bx16.html
+BX-17|バトルエントリーセット|セット|2023.10.7|/beyblade-x/lineup/bx17.html
+BX-18|ストリングランチャー|ツール|2023.10.7|/beyblade-x/lineup/bx18.html
+BX-19|ライノホーン3-80S|ブースター|2023.11.2|/beyblade-x/lineup/bx19.html
+BX-20|ドランダガーデッキセット|セット|2023.11.2|/beyblade-x/lineup/bx20.html
+BX-21|ヘルズチェインデッキセット|セット|2023.11.2|/beyblade-x/lineup/bx21.html
+BX-22|ドランソード3-60F エントリーパッケージ|スターター|2023.12.2|/beyblade-x/lineup/bx22.html
+BX-23|フェニックスウイング9-60GF|スターター|2023.12.27|/beyblade-x/lineup/bx23.html
+BX-24|ランダムブースターVol.2|ランダムブースター|2023.12.27|/beyblade-x/lineup/bx24.html
+BX-25|ギアケース|ツール|2023.12.27|/beyblade-x/lineup/bx25.html
+BX-26|ユニコーンスティング5-60GP|ブースター|2024.1.27|/beyblade-x/lineup/bx26.html
+BX-27|ランダムブースター スフィンクスカウルセレクト|ランダムブースター|2024.2.22|/beyblade-x/lineup/bx27.html
+BX-00|レオンクロー5-60P メタルコート:ゴールド|ブースター|2024.2.22|/beyblade-x/lineup/bx00-lc.html
+BX-00|シャークエッジ5-60GF メタルコート:ブルー|ブースター|2024.3.23|/beyblade-x/lineup/bx00-se.html
+BX-28|ストリングランチャー ホワイトVer.|ツール|2024.3.30|/beyblade-x/lineup/bx28.html
+BX-29|カスタムグリップ ホワイトVer.|ツール|2024.3.30|/beyblade-x/lineup/bx29.html
+BX-30|カスタムグリップ レッドVer.|ツール|2024.3.30|/beyblade-x/lineup/bx30.html
+UX-01|ドランバスター1-60A|スターター|2024.3.30|/beyblade-x/lineup/ux01.html
+UX-02|ヘルズハンマー3-70H|スターター|2024.3.30|/beyblade-x/lineup/ux02.html
+UX-03|ウィザードロッド5-70DB|ブースター|2024.3.30|/beyblade-x/lineup/ux03.html
+UX-04|バトルエントリーセットU|セット|2024.4.27|/beyblade-x/lineup/ux04.html
+BX-00|ドライガースラッシュ4-80P|ブースター|2024.4.27|/beyblade-x/lineup/bx00-drs.html
+BX-31|ランダムブースターVol.3|ランダムブースター|2024.4.27|/beyblade-x/lineup/bx31.html
+BX-00|ヘルズチェイン5-60HT メタルコート:ブラック|ブースター|2024.5.16|/beyblade-x/lineup/bx00-hch.html
+UX-05|ランダムブースター シノビシャドウセレクト|ランダムブースター|2024.5.18|/beyblade-x/lineup/ux05.html
+BX-00|カスタムグリップ クリアブラックVer.|ツール|2024.6.1|/beyblade-x/lineup/bx00-cg.html
+BX-33|ヴァイスタイガー3-60U|ブースター|2024.6.15|/beyblade-x/lineup/bx33.html
+BX-32|ワイドエクストリームスタジアム|ツール|2024.7.13|/beyblade-x/lineup/bx32.html
+BX-34|コバルトドラグーン2-60C|スターター|2024.7.13|/beyblade-x/lineup/bx34.html
+BX-35|ランダムブースターVol.4|ランダムブースター|2024.7.13|/beyblade-x/lineup/bx35.html
+BX-00|ベイブレードステッカー 01|ツール|2024.7.30|/beyblade-x/lineup/bx00-st01.html
+BX-00|ベイブレードステッカー 02|ツール|2024.7.30|/beyblade-x/lineup/bx00-st02.html
+BX-00|ベイブレードステッカー 03|ツール|2024.7.30|/beyblade-x/lineup/bx00-st03.html
+BX-00|ビットセット F/T/B/N ゴールド×ブラック|セット|2024.7.30|/beyblade-x/lineup/bx00-bit01.html
+BX-00|ドランダガー2-80GP メタルコート:ブラック ジャイアンツVer.|スターター|2024.8.3|/beyblade-x/lineup/bx00-dd.html
+BX-00|ドランザースパイラル3-80T ブラックVer.|ブースター|2024.8.10|/beyblade-x/lineup/bx00-ds3.html
+UX-06|レオンクレスト7-60GN|ブースター|2024.8.10|/beyblade-x/lineup/ux06.html
+UX-07|フェニックスラダーデッキセット|セット|2024.8.10|/beyblade-x/lineup/ux07.html
+BX-00|コバルトドラグーン2-60C メタルコート:ブラック|スターター|2024.8.31|/beyblade-x/lineup/bx00-cd.html
+BX-00|ランダムブースター ライトニングエルドラゴ1-60F|ランダムブースター|2024.9.14|/beyblade-x/lineup/bx00-ld.html
+BX-36|ランダムブースター ホエールウェーブセレクト|ランダムブースター|2024.9.14|/beyblade-x/lineup/bx36.html
+UX-08|シルバーウルフ3-80FB|スターター|2024.10.12|/beyblade-x/lineup/ux08.html
+BX-37|ダブルエクストリームスタジアムセット|セット|2024.10.12|/beyblade-x/lineup/bx37.html
+BX-38|クリムゾンガルーダ4-70TP|ブースター|2024.11.2|/beyblade-x/lineup/bx38.html
+UX-09|サムライセイバー2-70L|スターター|2024.11.2|/beyblade-x/lineup/ux09.html
+UX-10|カスタマイズセットU|セット|2024.11.2|/beyblade-x/lineup/ux10.html
+UX-00|アジアチャンピオンシップ開催記念 ドランデッキスターター|スターター|2024.11.16|/beyblade-x/lineup/bxa02.html
+BX-00|コバルトドレイク4-60F クリアVer.|ブースター|2024.11.28|/beyblade-x/lineup/bx00-cdr.html
+UX-00|ドランバスター1-60A|カラーチョイスブースター|2024.12.27|/beyblade-x/lineup/bx00-cc.html
+BX-00|マンモスタスク2-80E メタルコート:ブラック|ブースター|2024.12.27|/beyblade-x/lineup/bx00-mt.html
+UX-11|インパクトドレイク9-60LR|スターター|2024.12.28|/beyblade-x/lineup/ux11.html
+UX-12|ランダムブースターVol.5|ランダムブースター|2024.12.28|/beyblade-x/lineup/ux12.html
+BX-00|ドラシエルシールド7-60D|ブースター|2024.12.28|/beyblade-x/lineup/bx00-drsh.html
+UX-00|ドランバスター1-60A メタルコート:ブルー FCバルセロナVer.|スターター|2025.1.25|/beyblade-x/lineup/ux00-db_bc.html
+UX-00|ベイキックオフセット FCバルセロナVer.|セット|2025.1.25|/beyblade-x/lineup/ux00-hs_bc.html
+UX-13|ゴーレムロック1-60UN|ブースター|2025.1.25|/beyblade-x/lineup/ux13.html
+BX-39|ランダムブースター シェルタードレイクセレクト|ランダムブースター|2025.2.15|/beyblade-x/lineup/bx39.html
+BX-00|フェニックスウイング9-60GF メタルコート:ブラック キタニタツヤVer.|スターター|2025.3.15|/beyblade-x/lineup/bx00-pw.html
+BX-00|ベイブレード25周年記念セット|セット|2025.3.21|/beyblade-x/lineup/bx00-25set.html
+BX-40|ワインダーランチャーL|ツール|2025.3.29|/beyblade-x/lineup/bx40.html
+BX-41|ラバーカスタムグリップ ガンメタVer.|ツール|2025.3.29|/beyblade-x/lineup/bx41.html
+BX-42|ラバーカスタムグリップ ブルーVer.|ツール|2025.3.29|/beyblade-x/lineup/bx42.html
+BX-43|ギアケース ホワイトVer.|ツール|2025.3.29|/beyblade-x/lineup/bx43.html
+CX-01|ドランブレイブS6-60V|スターター|2025.3.29|/beyblade-x/lineup/cx01.html
+CX-02|ウィザードアークR4-55LO|スターター|2025.3.29|/beyblade-x/lineup/cx02.html
+CX-03|ペルセウスダークB6-80W|ブースター|2025.3.29|/beyblade-x/lineup/cx03.html
+CX-04|バトルエントリーセットC|セット|2025.3.29|/beyblade-x/lineup/cx04.html
+BX-00|ゼノエクスカリバー3-60GF|スターター|2025.3.29|/beyblade-x/lineup/bx00-xc.html
+CX-05|ランダムブースターVol.6|ランダムブースター|2025.4.26|/beyblade-x/lineup/cx05.html
+BX-00|マーベル アイアンマン4-80B/サノス4-60P|ダブルスターター|2025.4.26|/beyblade-x/lineup/bx00-mit.html
+BX-00|マーベル スパイダーマン3-60F/ヴェノム3-80N|ダブルスターター|2025.4.26|/beyblade-x/lineup/bx00-msv.html
+BX-00|スター・ウォーズ ルーク・スカイウォーカー4-80B/ダース・ベイダー4-60P|ダブルスターター|2025.4.26|/beyblade-x/lineup/bx00-sld.html
+BX-00|スター・ウォーズ マンダロリアン3-60F/モフ・ギデオン3-80N|ダブルスターター|2025.4.26|/beyblade-x/lineup/bx00-smm.html
+UX-14|スコーピオスピア0-70Z|スターター|2025.4.26|/beyblade-x/lineup/ux14.html
+BX-00|トランスフォーマー オプティマスプライム4-60P/メガトロン4-80B|ダブルスターター|2025.5.17|/beyblade-x/lineup/bx00-tom.html
+BX-00|トランスフォーマー オプティマスプライマル3-60F/スタースクリーム3-80N|ダブルスターター|2025.5.17|/beyblade-x/lineup/bx00-tos.html
+CX-06|ランダムブースター フォックスブラッシュセレクト|ランダムブースター|2025.5.17|/beyblade-x/lineup/cx06.html
+BX-44|トリケラプレスM-85BS|ブースター|2025.6.28|/beyblade-x/lineup/bx44.html
+UX-00|ナイトメイル3-85BS メタルコート:ネイビー|ブースター|2025.7.17|/beyblade-x/lineup/ux00-nm.html
+CX-07|ペガサスブラストATr|スターター|2025.7.19|/beyblade-x/lineup/cx07.html
+CX-08|ランダムブースターVol.7|ランダムブースター|2025.7.19|/beyblade-x/lineup/cx08.html
+BX-00|ジュラシック・ワールド T-レックス/モササウルス|ダブルスターター|2025.7.19|/beyblade-x/lineup/bx00-jtm.html
+BX-00|ジュラシック・ワールド スピノサウルス/ケツァルコアトルス|ダブルスターター|2025.7.19|/beyblade-x/lineup/bx00-jsq.html
+BX-00|ロックレオーネ6-80GN|ブースター|2025.7.19|/beyblade-x/lineup/bx00-rl.html
+CX-00|ペガサスブラストATr メタルコート:レッド|スターター|2025.8.3|/beyblade-x/lineup/cx00-pb.html
+CX-00|ウィザードアークR4-55LO メタルコート:ブラック|ブースター|2025.8.9|/beyblade-x/lineup/cx00-wa.html
+BX-45|サムライカリバー6-70M|ブースター|2025.8.9|/beyblade-x/lineup/bx45.html
+UX-15|シャークスケイルデッキセット|セット|2025.8.9|/beyblade-x/lineup/ux15.html
+CX-09|ソルエクリプスD5-70TK|スターター|2025.9.27|/beyblade-x/lineup/cx09.html
+BX-46|バトルエントリーセット∞|セット|2025.10.11|/beyblade-x/lineup/bx46.html
+BX-47|ストリングランチャーL レッドVer.|ツール|2025.10.11|/beyblade-x/lineup/bx47.html
+UX-16|ランダムブースター クロックミラージュセレクト|ランダムブースター|2025.10.11|/beyblade-x/lineup/ux16.html
+CX-10|ウルフハントF0-60DB|ブースター|2025.11.1|/beyblade-x/lineup/cx10.html
+CX-11|エンペラーマイトデッキセット|セット|2025.11.1|/beyblade-x/lineup/cx11.html
+BX-00|ビットセット F/T/B/N シルバー×ホワイト|セット|2025.11.15|/beyblade-x/lineup/bx00-bit_silver_white.html
+BX-00|ベイエンブレムステッカー 01|ツール|2025.11.15|/beyblade-x/lineup/bx00-emb.html
+UX-17|メテオドラグーン3-70J|スターター|2025.12.27|/beyblade-x/lineup/ux17.html
+UX-18|ランダムブースターVol.8|ランダムブースター|2025.12.27|/beyblade-x/lineup/ux18.html
+BX-00|ドラグーンストーム4-60RA|ブースター|2025.12.27|/beyblade-x/lineup/bx00-drgs.html
+CX-12|フェニックスフレアZ9-80WW|ブースター|2026.1.24|/beyblade-x/lineup/cx12.html
+BX-48|ランダムブースターVol.9|ランダムブースター|2026.2.14|/beyblade-x/lineup/bx48.html
+UX-00|エアロペガサス3-70A レッドVer.|ブースター|2026.2.21|/beyblade-x/lineup/ux00-ap_red.html
+BX-00|ドランソード1-60V メタルコート:ブラック JリーグVer.|スターター|2026.3.14|/beyblade-x/lineup/bx00-ds_black.html
+BX-00|コバルトドラグーン9-60F メタルコート:ホワイト JリーグVer|スターター|2026.3.14|/beyblade-x/lineup/bx00-cd_white.html
+CX-13|バハムートブリッツBK1-50I|スターター|2026.3.28|/beyblade-x/lineup/cx13.html
+CX-14|ナイトフォートレスGV8-70UN|スターター|2026.3.28|/beyblade-x/lineup/cx14.html
+CX-15|ラグナレイジFE4-55Y|ブースター|2026.3.28|/beyblade-x/lineup/cx15.html
+CX-16|スタートダッシュセットC|セット|2026.3.28|/beyblade-x/lineup/cx16.html
+BX-00|ストリングランチャー B4ストア限定カラーVer.|ツール|2026.3.28|/beyblade-x/lineup/bx00-sl.html
+BX-00|ストームスプリガン2-70M|スターター|2026.3.28|/beyblade-x/lineup/bx00-ss.html
+UX-19|バレットグリフォンH|スターター|2026.4.25|/beyblade-x/lineup/ux19.html
+UX-00|スコーピオスピア0-70Z メタルコート:マゼンタ|ブースター|2026.4.25|/beyblade-x/lineup/ux00-ss.html
+CX-17|ランダムブースターVol.10|ランダムブースター|2026.4.25|/beyblade-x/lineup/cx17.html
+BX-49|ドランストライク4-50FF|スターター|2026.5.16|/beyblade-x/lineup/bx49.html
+CX-00|ドランブレイブS6-60V メタルコート:ブラック|ブースター|2026.5.30|/beyblade-x/lineup/cx00-db.html
+UX-00|サムライセイバー5-60K メタルコート:サムライブルー サッカー日本代表Ver.|スターター|2026.6.13|/beyblade-x/lineup/ux00-samurai.html
+BX-51|ストリングランチャー ブラック×グリーン|ツール|2026.6.13|/beyblade-x/lineup/bx51.html
+CX-18|ランダムブースター ブラキオウィップセレクト|ランダムブースター|2026.6.13|/beyblade-x/lineup/cx18.html
+CX-00|バックスアントラーズB2-60D メタルコート:オレンジ|ブースター|2026.7.9|/beyblade-x/lineup/cx00-ba.html
+CX-00|クラーケンリグルS3-70O メタルコート:ブルー|ブースター|2026.7.9|/beyblade-x/lineup/cx00-kw.html
+CX-00|ホーネットフォートR7-60T メタルコート:イエロー|ブースター|2026.7.9|/beyblade-x/lineup/cx00-hf.html
+CX-00|ドレイクブレイブG4-70I メタルコート:ブルー|ブースター|2026.7.9|/beyblade-x/lineup/cx00-drb.html
+BX-00|ストームペガシス3-70RA|スターター|2026.7.11|/beyblade-x/lineup/bx00-sp.html
+BX-50|ランダムブースターVol.11|ランダムブースター|2026.7.11|/beyblade-x/lineup/bx50.html
+UX-20|グローリーワルキューレLF|スターター|2026.7.11|/beyblade-x/lineup/ux20.html
+BX-00|ドランソード3-60F バージョン2.0|ブースター|2026.8.8|/beyblade-x/lineup/bx00-ds_v2.html
+BX-57|3on3デッキケース ブラックVer.|ツール|2026.8.8|/beyblade-x/lineup/bx57.html
+UX-21|ヘルズネザーデッキセット|セット|2026.8.8|/beyblade-x/lineup/ux21.html
+UX-00|グローリーワルキューレLF メタルコート:ブルー|スターター|2026.8.29|/beyblade-x/lineup/ux00-gv.html
+CX-00|エヴァンゲリオンデッキセット|セット|2026.8.29|/beyblade-x/lineup/cx00-eva.html
+CX-00|ティガレイジFT3-60T|スターター|2026.9.12|/beyblade-x/lineup/cx00-tiga.html
+CX-19|ランダムブースター クロコトレッドセレクト|ランダムブースター|2026.9.12|/beyblade-x/lineup/cx19.html
+BX-52|ラスタードラグーン6-60LC|スターター|2026.10.10|/beyblade-x/lineup/bx52.html
+BX-53|オールインワンセット|セット|2026.10.10|/beyblade-x/lineup/bx53.html
+BX-56|ストリングランチャーL ホワイト×バイオレット|ツール|2026.10.10|/beyblade-x/lineup/bx56.html

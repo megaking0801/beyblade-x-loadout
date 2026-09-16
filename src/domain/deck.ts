@@ -1,0 +1,349 @@
+/**
+ * 3on3 組隊（純函式）。
+ *
+ * 規格對照：第 32 節（組隊檢查與推薦模式）、第 33 節（角色分工與說明）、
+ * 第 16 節（只有可用零件能進 3on3）、第 45 節 Case 9（不得超過可用數量）。
+ *
+ * 正式規則下的重複零件限制以 DeckRuleSet 資料表達，並保留官方規章網址。
+ */
+import { analyzeCombo, type ComboAnalysis } from './analysis.ts'
+import { computeAvailabilityMap } from './inventory.ts'
+import { resolveDisplayName } from './naming.ts'
+import type { BuildableCombo } from './builder.ts'
+import {
+  PART_FAMILY_ZH,
+  type CompatibilityRule,
+  type ComboSlots,
+  type InventoryLot,
+  type Part,
+  type PartFamily,
+  type Provenance,
+  type SavedCombo,
+} from './types.ts'
+
+export interface DeckRuleSet {
+  id: string
+  nameZhTW: string
+  teamSize: number
+  /** 同一隊伍中不可重複使用的零件種類。 */
+  noDuplicateFamilies: PartFamily[]
+  /** 例外：不論所屬種類，這些零件代號在同一隊伍中也不可重複。 */
+  noDuplicatePartCodes?: string[]
+  provenance: Provenance
+}
+
+const OFFICIAL_REGULATION_URL =
+  'https://beyblade.takaratomy.co.jp/beyblade-x/_image/regulation.pdf'
+
+/**
+ * 現行官方 3on3 規則：三顆陀螺不可重複使用相同零件，顏色不同仍視為相同。
+ * CX 鎖定晶片只有ワルキューレ、エンペラー各限一個，其餘鎖定晶片可重複。
+ */
+export const DEFAULT_DECK_RULES: DeckRuleSet = {
+  id: 'default-3on3',
+  nameZhTW: '一般 3on3',
+  teamSize: 3,
+  noDuplicateFamilies: ['blade', 'ratchet', 'bit', 'main_blade', 'assist_blade', 'integrated_blade'],
+  noDuplicatePartCodes: ['ワルキューレ', 'エンペラー'],
+  provenance: {
+    sourceUrls: [OFFICIAL_REGULATION_URL],
+    verificationStatus: 'official_verified',
+  },
+}
+
+export interface DeckMember {
+  slots: ComboSlots
+  analysis: ComboAnalysis
+  roleZhTW: string
+  reasonZhTW: string
+}
+
+export interface DeckValidation {
+  ok: boolean
+  errorsZhTW: string[]
+  warningsZhTW: string[]
+  members: DeckMember[]
+  occupiedPartIds: string[]
+}
+
+export interface ValidateDeckArgs {
+  slotsList: ComboSlots[]
+  parts: Part[]
+  rules: CompatibilityRule[]
+  lots: InventoryLot[]
+  combos: SavedCombo[]
+  ruleSet: DeckRuleSet
+}
+
+const OCCUPYING_SLOT_KEYS = [
+  'bladeId',
+  'lockChipId',
+  'mainBladeId',
+  'assistBladeId',
+  'ratchetId',
+  'bitId',
+] as const
+
+function partName(part: Part): string {
+  return resolveDisplayName(part.naming).titleZhTW
+}
+
+export function validateDeck(args: ValidateDeckArgs): DeckValidation {
+  const { slotsList, parts, rules, lots, combos, ruleSet } = args
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  const errorsZhTW: string[] = []
+  const warningsZhTW: string[] = []
+
+  if (slotsList.length !== ruleSet.teamSize) {
+    errorsZhTW.push(
+      `3on3 需要 ${ruleSet.teamSize} 套配裝，目前有 ${slotsList.length} 套`,
+    )
+  }
+
+  const analyses = slotsList.map((slots) =>
+    analyzeCombo({ slots, parts, rules, lots, combos }),
+  )
+
+  analyses.forEach((analysis, index) => {
+    if (!analysis.compatibility.ok) {
+      const reason = analysis.compatibility.errors[0]?.messageZhTW ?? '原因不明'
+      errorsZhTW.push(`第 ${index + 1} 套無法實際安裝：${reason}`)
+    }
+  })
+
+  // 重複零件限制（第 32 節）
+  const familyPartCounts = new Map<string, number>()
+  for (const slots of slotsList) {
+    for (const key of OCCUPYING_SLOT_KEYS) {
+      const partId = slots[key]
+      if (!partId) continue
+      const part = byId.get(partId)
+      if (!part) continue
+      const isRestricted =
+        ruleSet.noDuplicateFamilies.includes(part.family) ||
+        ruleSet.noDuplicatePartCodes?.includes(part.code)
+      if (!isRestricted) continue
+      familyPartCounts.set(partId, (familyPartCounts.get(partId) ?? 0) + 1)
+    }
+  }
+  for (const [partId, count] of familyPartCounts) {
+    if (count <= 1) continue
+    const part = byId.get(partId)
+    if (!part) continue
+    errorsZhTW.push(
+      `同一隊伍不可重複使用相同${PART_FAMILY_ZH[part.family]}：${partName(part)}`,
+    )
+  }
+
+  // 庫存檢查（第 16、45 節 Case 9）
+  const availability = computeAvailabilityMap(lots, combos)
+  const needed = new Map<string, number>()
+  const occupiedPartIds: string[] = []
+  for (const slots of slotsList) {
+    for (const key of OCCUPYING_SLOT_KEYS) {
+      const partId = slots[key]
+      if (!partId) continue
+      if (!needed.has(partId)) occupiedPartIds.push(partId)
+      needed.set(partId, (needed.get(partId) ?? 0) + 1)
+    }
+  }
+  for (const partId of occupiedPartIds) {
+    const required = needed.get(partId) ?? 0
+    const free = availability.get(partId)?.free ?? 0
+    if (free >= required) continue
+    const part = byId.get(partId)
+    const label = part ? partName(part) : partId
+    errorsZhTW.push(`${label} 需要 ${required} 個，可用只有 ${free} 個`)
+  }
+
+  const structurallyValid =
+    slotsList.length === ruleSet.teamSize && analyses.every((a) => a.compatibility.ok)
+
+  return {
+    ok: errorsZhTW.length === 0,
+    errorsZhTW,
+    warningsZhTW,
+    members: structurallyValid ? assignRoles(slotsList, analyses) : [],
+    occupiedPartIds,
+  }
+}
+
+/** 第 33 節：主攻、持久、穩定／抗攻，並說明為什麼這三顆一起用。 */
+function assignRoles(slotsList: ComboSlots[], analyses: ComboAnalysis[]): DeckMember[] {
+  const rows = slotsList.map((slots, index) => ({ slots, analysis: analyses[index]! }))
+  const remaining = [...rows]
+
+  const pick = (compare: (a: typeof rows[number], b: typeof rows[number]) => number) => {
+    remaining.sort(compare)
+    return remaining.shift()
+  }
+
+  const members: DeckMember[] = []
+
+  const attacker = pick((a, b) => (b.analysis.scores?.attack ?? 0) - (a.analysis.scores?.attack ?? 0))
+  if (attacker) {
+    members.push({
+      ...attacker,
+      roleZhTW: '主攻',
+      reasonZhTW: `攻擊 ${attacker.analysis.scores?.attack ?? 0} 分為隊中最高，負責主動撞擊（模型推估）`,
+    })
+  }
+
+  const stamina = pick((a, b) => (b.analysis.scores?.stamina ?? 0) - (a.analysis.scores?.stamina ?? 0))
+  if (stamina) {
+    members.push({
+      ...stamina,
+      roleZhTW: '持久',
+      reasonZhTW: `持久 ${stamina.analysis.scores?.stamina ?? 0} 分為隊中最高，負責拖時間比轉久（模型推估）`,
+    })
+  }
+
+  const stable = pick((a, b) => (b.analysis.scores?.stability ?? 0) - (a.analysis.scores?.stability ?? 0))
+  if (stable) {
+    members.push({
+      ...stable,
+      roleZhTW: '穩定／抗攻',
+      reasonZhTW: `穩定 ${stable.analysis.scores?.stability ?? 0} 分，負責接下對手的攻擊（模型推估）`,
+    })
+  }
+
+  for (const rest of remaining) {
+    members.push({
+      ...rest,
+      roleZhTW: '特殊對位',
+      reasonZhTW: '作為特定對位的備援配置（模型推估）',
+    })
+  }
+
+  return members
+}
+
+/* ------------------------------------------------------------------ 推薦 */
+
+/** 第 32 節推薦模式。 */
+export type DeckStrategy =
+  | 'beginner'
+  | 'stable'
+  | 'aggressive'
+  | 'balanced'
+  | 'evidence'
+  | 'vs_attack'
+  | 'vs_stamina'
+
+export const DECK_STRATEGY_ZH: Record<DeckStrategy, string> = {
+  beginner: '最適合新手',
+  stable: '最穩定',
+  aggressive: '最暴力',
+  balanced: '平衡型',
+  evidence: '最高賽事證據',
+  vs_attack: '對攻擊',
+  vs_stamina: '對持久',
+}
+
+export interface DeckSuggestion {
+  strategy: DeckStrategy
+  strategyZhTW: string
+  slotsList: ComboSlots[]
+  validation: DeckValidation
+  score: number
+  /** 第 33 節：哪些替代方案可用。 */
+  alternativesZhTW: string[]
+}
+
+export interface SuggestDecksArgs {
+  candidates: BuildableCombo[]
+  parts: Part[]
+  lots: InventoryLot[]
+  combos: SavedCombo[]
+  ruleSet: DeckRuleSet
+  strategy: DeckStrategy
+  limit?: number
+  /** 候選數量上限，避免組合爆炸。 */
+  candidateCap?: number
+}
+
+const DEFAULT_CANDIDATE_CAP = 24
+const DEFAULT_SUGGESTION_LIMIT = 5
+
+function average(values: number[]): number {
+  if (values.length === 0) return 0
+  return values.reduce((sum, value) => sum + value, 0) / values.length
+}
+
+function scoreDeck(strategy: DeckStrategy, members: DeckMember[]): number {
+  const scores = members.map((m) => m.analysis.scores)
+  const axis = (key: 'attack' | 'defense' | 'stamina' | 'stability' | 'burst' | 'burstResistance') =>
+    scores.map((s) => s?.[key] ?? 0)
+
+  switch (strategy) {
+    case 'aggressive':
+      return average(axis('attack'))
+    case 'stable':
+      return average(axis('stability'))
+    case 'beginner':
+      return -average(members.map((m) => m.analysis.operationDifficulty ?? 100))
+    case 'balanced':
+      // 三個面向各取隊中最高值相加，鼓勵角色互補。
+      return (
+        Math.max(...axis('attack')) + Math.max(...axis('stamina')) + Math.max(...axis('stability'))
+      )
+    case 'evidence':
+      return members.reduce((sum, m) => sum + (m.analysis.evidence?.appearances ?? 0), 0)
+    case 'vs_attack':
+      return average(axis('defense')) + average(axis('burstResistance'))
+    case 'vs_stamina':
+      return average(axis('attack')) + average(axis('burst'))
+  }
+}
+
+export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
+  const {
+    candidates,
+    parts,
+    lots,
+    combos,
+    ruleSet,
+    strategy,
+    limit = DEFAULT_SUGGESTION_LIMIT,
+    candidateCap = DEFAULT_CANDIDATE_CAP,
+  } = args
+
+  if (candidates.length < ruleSet.teamSize) return []
+  if (ruleSet.teamSize !== 3) return []
+
+  const pool = candidates.slice(0, candidateCap)
+  const suggestions: DeckSuggestion[] = []
+
+  for (let i = 0; i < pool.length; i += 1) {
+    for (let j = i + 1; j < pool.length; j += 1) {
+      for (let k = j + 1; k < pool.length; k += 1) {
+        const slotsList = [pool[i]!.slots, pool[j]!.slots, pool[k]!.slots]
+        const validation = validateDeck({ slotsList, parts, rules: [], lots, combos, ruleSet })
+        if (!validation.ok) continue
+        suggestions.push({
+          strategy,
+          strategyZhTW: DECK_STRATEGY_ZH[strategy],
+          slotsList,
+          validation,
+          score: scoreDeck(strategy, validation.members),
+          alternativesZhTW: buildAlternatives(pool, slotsList),
+        })
+      }
+    }
+  }
+
+  suggestions.sort((a, b) => b.score - a.score)
+  return suggestions.slice(0, limit)
+}
+
+function buildAlternatives(pool: BuildableCombo[], used: ComboSlots[]): string[] {
+  const usedCodes = new Set(
+    used.map((slots) =>
+      pool.find((row) => row.slots === slots)?.analysis.fullCode ?? '',
+    ),
+  )
+  return pool
+    .filter((row) => !usedCodes.has(row.analysis.fullCode))
+    .slice(0, 3)
+    .map((row) => `還可以改用：${row.analysis.fullNameZhTW}`)
+}

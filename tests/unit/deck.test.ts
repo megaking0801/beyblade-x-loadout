@@ -1,0 +1,284 @@
+import { describe, expect, it } from 'vitest'
+import {
+  DEFAULT_DECK_RULES,
+  suggestDecks,
+  validateDeck,
+} from '../../src/domain/deck.ts'
+import { generateBuildableCombos } from '../../src/domain/builder.ts'
+import type { ComboSlots, InventoryLot, Part } from '../../src/domain/types.ts'
+
+const prov = { sourceUrls: [], verificationStatus: 'official_verified' as const }
+
+function part(over: Partial<Part> & Pick<Part, 'id' | 'family'>): Part {
+  return {
+    system: 'BX',
+    code: over.id,
+    naming: { primaryZhTW: `中文-${over.id}` },
+    provenance: prov,
+    ...over,
+  }
+}
+
+const bladeA = part({ id: 'b-atk', family: 'blade', type: 'attack', spinDirection: 'right', officialWeightG: 34 })
+const bladeS = part({ id: 'b-sta', family: 'blade', type: 'stamina', spinDirection: 'right', officialWeightG: 34 })
+const bladeD = part({ id: 'b-def', family: 'blade', type: 'defense', spinDirection: 'right', officialWeightG: 36 })
+const ratchet60 = part({ id: 'r-60', family: 'ratchet', code: '3-60', spinDirection: 'dual', heightCode: 60, officialWeightG: 6 })
+const ratchet80 = part({ id: 'r-80', family: 'ratchet', code: '9-80', spinDirection: 'dual', heightCode: 80, officialWeightG: 7 })
+const ratchet70 = part({ id: 'r-70', family: 'ratchet', code: '5-70', spinDirection: 'dual', heightCode: 70, officialWeightG: 6 })
+const bitFlat = part({ id: 'bit-f', family: 'bit', code: 'F', type: 'attack', spinDirection: 'dual', officialWeightG: 3, bitContact: 'flat' })
+const bitBall = part({ id: 'bit-b', family: 'bit', code: 'B', type: 'stamina', spinDirection: 'dual', officialWeightG: 3, bitContact: 'ball' })
+const bitPoint = part({ id: 'bit-p', family: 'bit', code: 'P', type: 'defense', spinDirection: 'dual', officialWeightG: 3, bitContact: 'point' })
+const lockChipOther = part({ id: 'chip-other', family: 'lock_chip', system: 'CX', code: 'ドラン' })
+const lockChipValkyrie = part({ id: 'chip-valkyrie', family: 'lock_chip', system: 'CX', code: 'ワルキューレ' })
+
+const parts: Part[] = [bladeA, bladeS, bladeD, ratchet60, ratchet80, ratchet70, bitFlat, bitBall, bitPoint, lockChipOther, lockChipValkyrie]
+
+function lot(partId: string, quantity = 1, status: InventoryLot['status'] = 'available'): InventoryLot {
+  return {
+    id: `lot-${partId}-${status}-${quantity}`,
+    sourceType: 'standalone_part',
+    partId,
+    quantity,
+    status,
+    condition: 'new',
+    createdAt: '2026-01-01T00:00:00.000Z',
+  }
+}
+
+const threeDistinct: ComboSlots[] = [
+  { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f' },
+  { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b' },
+  { bladeId: 'b-def', ratchetId: 'r-70', bitId: 'bit-p' },
+]
+
+/**
+ * 固鎖與軸心各備 3 個，讓不同隊伍組合在操作難度上真的有差別。
+ * 若每種只有 1 個，合法隊伍會被庫存鎖死成固定配對，難度總和恆等，測不出策略差異。
+ */
+const fullStock = [
+  lot('b-atk'),
+  lot('b-sta'),
+  lot('b-def'),
+  lot('r-60', 3),
+  lot('r-80', 3),
+  lot('r-70', 3),
+  lot('bit-f', 3),
+  lot('bit-b', 3),
+  lot('bit-p', 3),
+  lot('chip-other', 2),
+  lot('chip-valkyrie', 2),
+]
+
+function validate(slotsList: ComboSlots[], lots: InventoryLot[] = fullStock) {
+  return validateDeck({ slotsList, parts, rules: [], lots, combos: [], ruleSet: DEFAULT_DECK_RULES })
+}
+
+describe('預設隊伍規則（第 32 節）', () => {
+  it('隊伍人數為 3', () => {
+    expect(DEFAULT_DECK_RULES.teamSize).toBe(3)
+  })
+
+  it('預設禁止所有一般可玩零件重複', () => {
+    expect(DEFAULT_DECK_RULES.noDuplicateFamilies).toContain('blade')
+    expect(DEFAULT_DECK_RULES.noDuplicateFamilies).toContain('ratchet')
+    expect(DEFAULT_DECK_RULES.noDuplicateFamilies).toContain('bit')
+  })
+
+  it('規則有官方規章來源', () => {
+    expect(DEFAULT_DECK_RULES.provenance.verificationStatus).toBe('official_verified')
+    expect(DEFAULT_DECK_RULES.provenance.sourceUrls[0]).toContain('regulation.pdf')
+  })
+})
+
+describe('3on3 驗證（第 32 節、第 45 節 Case 9）', () => {
+  it('三套不重複且庫存足夠時通過', () => {
+    const r = validate(threeDistinct)
+    expect(r.ok).toBe(true)
+    expect(r.errorsZhTW).toEqual([])
+  })
+
+  it('官方規則已核對，不提出待查提醒', () => {
+    expect(validate(threeDistinct).warningsZhTW).toEqual([])
+  })
+
+  it('只有兩套配裝時不通過', () => {
+    const r = validate(threeDistinct.slice(0, 2))
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW).toContain('3on3 需要 3 套配裝，目前有 2 套')
+  })
+
+  it('四套配裝時不通過', () => {
+    const r = validate([...threeDistinct, { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-b' }])
+    expect(r.ok).toBe(false)
+  })
+
+  it('重複使用同一上蓋時不通過', () => {
+    const r = validate([
+      { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f' },
+      { bladeId: 'b-atk', ratchetId: 'r-80', bitId: 'bit-b' },
+      { bladeId: 'b-def', ratchetId: 'r-80', bitId: 'bit-p' },
+    ])
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW).toContain('同一隊伍不可重複使用相同上蓋：中文-b-atk')
+  })
+
+  it('重複使用相同固鎖或軸心時不通過，即使庫存數量足夠', () => {
+    const r = validate([
+      { bladeId: 'b-atk', ratchetId: 'r-80', bitId: 'bit-f' },
+      { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b' },
+      { bladeId: 'b-def', ratchetId: 'r-70', bitId: 'bit-p' },
+    ])
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW).toEqual(
+      expect.arrayContaining([
+        '同一隊伍不可重複使用相同固鎖：中文-r-80',
+      ]),
+    )
+  })
+
+  it('CX 一般鎖定晶片可重複，但ワルキューレ鎖定晶片不可重複', () => {
+    const generic = validate([
+      { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f', lockChipId: 'chip-other' },
+      { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b', lockChipId: 'chip-other' },
+      { bladeId: 'b-def', ratchetId: 'r-80', bitId: 'bit-p' },
+    ])
+    expect(generic.errorsZhTW.some((error) => error.includes('中文-chip-other'))).toBe(false)
+
+    const valkyrie = validate([
+      { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f', lockChipId: 'chip-valkyrie' },
+      { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b', lockChipId: 'chip-valkyrie' },
+      { bladeId: 'b-def', ratchetId: 'r-80', bitId: 'bit-p' },
+    ])
+    expect(valkyrie.errorsZhTW).toContain('同一隊伍不可重複使用相同鎖定晶片：中文-chip-valkyrie')
+  })
+
+  it('庫存不足時不通過並指出缺幾個（第 45 節 Case 9）', () => {
+    const r = validate(threeDistinct, [
+      lot('b-atk'),
+      lot('b-sta'),
+      lot('b-def'),
+      lot('r-60'),
+      lot('r-80'),
+      lot('bit-f'),
+      lot('bit-b'),
+      lot('bit-p'),
+    ])
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW).toContain('中文-r-70 需要 1 個，可用只有 0 個')
+  })
+
+  it('未到貨零件不算可用（第 15、16 節）', () => {
+    const r = validate(threeDistinct, [
+      lot('b-atk'),
+      lot('b-sta'),
+      lot('b-def', 1, 'ordered'),
+      lot('r-60'),
+      lot('r-80', 2),
+      lot('bit-f'),
+      lot('bit-b'),
+      lot('bit-p'),
+    ])
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW.some((e) => e.includes('中文-b-def'))).toBe(true)
+  })
+
+  it('其中一套無法安裝時不通過（第 18 節）', () => {
+    const r = validate([
+      { bladeId: 'b-atk', ratchetId: 'r-60' },
+      { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b' },
+      { bladeId: 'b-def', ratchetId: 'r-80', bitId: 'bit-p' },
+    ])
+    expect(r.ok).toBe(false)
+    expect(r.errorsZhTW.some((e) => e.includes('第 1 套'))).toBe(true)
+  })
+
+  it('空隊伍不通過', () => {
+    expect(validate([]).ok).toBe(false)
+  })
+})
+
+describe('3on3 角色分工（第 33 節）', () => {
+  it('攻擊分數最高的擔任主攻、持久最高的擔任持久', () => {
+    const r = validate(threeDistinct)
+    const roles = r.members.map((m) => m.roleZhTW)
+    expect(roles).toContain('主攻')
+    expect(roles).toContain('持久')
+    expect(roles).toContain('穩定／抗攻')
+  })
+
+  it('每位成員都有解釋為什麼被放進隊伍', () => {
+    const r = validate(threeDistinct)
+    expect(r.members.every((m) => m.reasonZhTW.length > 0)).toBe(true)
+  })
+
+  it('列出被占用的零件（第 33 節）', () => {
+    const r = validate(threeDistinct)
+    expect(r.occupiedPartIds).toEqual(
+      expect.arrayContaining(['b-atk', 'b-sta', 'b-def', 'r-60', 'r-80', 'bit-f', 'bit-b', 'bit-p']),
+    )
+  })
+
+  it('驗證失敗時不硬給角色', () => {
+    expect(validate([]).members).toEqual([])
+  })
+})
+
+describe('3on3 推薦（第 32 節推薦模式）', () => {
+  const candidates = generateBuildableCombos({
+    parts,
+    rules: [],
+    lots: fullStock,
+    combos: [],
+    mode: 'owned',
+  })
+
+  it('可用零件足夠時能產生至少一組建議', () => {
+    const r = suggestDecks({ candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES, strategy: 'balanced' })
+    expect(r.length).toBeGreaterThan(0)
+  })
+
+  it('每組建議都通過驗證', () => {
+    const r = suggestDecks({ candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES, strategy: 'balanced' })
+    expect(r.every((deck) => deck.validation.ok)).toBe(true)
+  })
+
+  it('最暴力策略不會選到比最穩定策略更低的平均攻擊分數', () => {
+    const args = { candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES }
+    const aggressive = suggestDecks({ ...args, strategy: 'aggressive' })[0]!
+    const stable = suggestDecks({ ...args, strategy: 'stable' })[0]!
+    const avgAttack = (deck: typeof aggressive) =>
+      deck.validation.members.reduce((s, m) => s + (m.analysis.scores?.attack ?? 0), 0) / 3
+    expect(avgAttack(aggressive)).toBeGreaterThanOrEqual(avgAttack(stable))
+  })
+
+  it('最適合新手策略不會比最暴力策略更難操作', () => {
+    const args = { candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES }
+    const beginner = suggestDecks({ ...args, strategy: 'beginner' })[0]!
+    const aggressive = suggestDecks({ ...args, strategy: 'aggressive' })[0]!
+    const avgDifficulty = (deck: typeof beginner) =>
+      deck.validation.members.reduce((s, m) => s + m.analysis.operationDifficulty!, 0) / 3
+    expect(avgDifficulty(beginner)).toBeLessThanOrEqual(avgDifficulty(aggressive))
+  })
+
+  it('候選不足 3 套時回空陣列', () => {
+    const r = suggestDecks({
+      candidates: candidates.slice(0, 2),
+      parts,
+      lots: fullStock,
+      combos: [],
+      ruleSet: DEFAULT_DECK_RULES,
+      strategy: 'balanced',
+    })
+    expect(r).toEqual([])
+  })
+
+  it('每組建議都附上替代方案說明欄位', () => {
+    const r = suggestDecks({ candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES, strategy: 'balanced' })
+    expect(Array.isArray(r[0]!.alternativesZhTW)).toBe(true)
+  })
+
+  it('上限參數生效', () => {
+    const r = suggestDecks({ candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES, strategy: 'balanced', limit: 2 })
+    expect(r.length).toBeLessThanOrEqual(2)
+  })
+})
