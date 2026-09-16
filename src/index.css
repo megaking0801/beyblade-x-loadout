@@ -91,10 +91,17 @@ textarea {
   }
 }
 
+/*
+ * 四邊都要讓開 safe area。狀態列樣式是 black-translucent，加到桌面後畫面會延伸到
+ * 瀏海／動態島底下，沒補上方 inset 的話標題會被切掉；橫放時左右也會被圓角吃到。
+ */
 .app-shell {
   max-width: var(--shell);
   margin: 0 auto;
-  padding: 0 16px calc(84px + env(safe-area-inset-bottom));
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
 }
 
 /*
@@ -253,7 +260,10 @@ textarea {
   bottom: 0;
   display: flex;
   gap: 2px;
-  padding: 0 4px calc(4px + env(safe-area-inset-bottom));
+  padding-top: 0;
+  padding-right: max(4px, env(safe-area-inset-right, 0px));
+  padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(4px, env(safe-area-inset-left, 0px));
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--rule);

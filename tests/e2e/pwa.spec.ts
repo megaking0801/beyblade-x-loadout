@@ -136,6 +136,55 @@ test('「重新載入最新版」會清掉程式快取，但不能動到庫存',
   await expect(page.getByTestId('stat-blades-value')).toHaveText('1')
 })
 
+/**
+ * 第 2 節：手機優先 RWD。
+ *
+ * 市面上手機的 CSS 寬度大致落在 320（iPhone SE 第一代）到 430（iPhone Pro Max）之間，
+ * 這裡取最窄的三個檔位；最窄的過得了，寬的就不會爆版。
+ */
+const PHONE_WIDTHS = [320, 360, 390]
+
+test('各種手機寬度下畫面都不會橫向超出', async ({ page }) => {
+  // 先放一點庫存，空畫面量不出真正的版面寬度。
+  await openApp(page, '/products')
+  await page.getByTestId('tab-catalog').click()
+  for (const sku of ['BX-01', 'CX-14']) {
+    await page.getByTestId('product-search').fill(sku)
+    const card = page.getByTestId('catalog-product').first()
+    await expect(card).toBeVisible()
+    await card.getByTestId('add-owned').click()
+    await page.getByTestId('tab-catalog').click()
+  }
+
+  for (const width of PHONE_WIDTHS) {
+    await page.setViewportSize({ width, height: 844 })
+    for (const route of ROUTES) {
+      await openApp(page, route)
+      const offenders = await page.evaluate((viewportWidth) => {
+        const out: string[] = []
+        for (const element of document.querySelectorAll('body *')) {
+          const box = element.getBoundingClientRect()
+          if (box.width === 0 && box.height === 0) continue
+          if (box.right > viewportWidth + 1 || box.left < -1) {
+            out.push(
+              `${element.tagName.toLowerCase()}.${String(element.className).slice(0, 30)} ` +
+                `[${Math.round(box.left)}, ${Math.round(box.right)}] ` +
+                `${(element.textContent ?? '').trim().slice(0, 20)}`,
+            )
+          }
+        }
+        return out.slice(0, 5)
+      }, width)
+      expect(offenders, `${route} 在 ${width}px 有元素超出畫面`).toEqual([])
+
+      const documentOverflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      expect(documentOverflow, `${route} 在 ${width}px 出現橫向捲動`).toBeLessThanOrEqual(0)
+    }
+  }
+})
+
 test('所有主要頁面都沒有執行期錯誤', async ({ page }) => {
   const problems: string[] = []
   page.on('console', (message) => {
