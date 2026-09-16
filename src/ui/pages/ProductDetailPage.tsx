@@ -40,7 +40,7 @@ export function ProductDetailPage({ productId }: { productId: string }) {
 
   return (
     <>
-      <PageHeader title={label.titleZhTW} description={`${label.subtitle} ・ ${label.categoryZhTW}`} />
+      <PageHeader title={label.titleZhTW} description={label.categoryZhTW} />
 
       <Section title="基本資料">
         <div className="card" style={{ display: 'grid', gap: 8 }}>
@@ -99,7 +99,7 @@ export function ProductDetailPage({ productId }: { productId: string }) {
                     <div style={{ flex: 1 }}>
                       <div>{partLabel.titleZhTW}</div>
                       <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                        {[partLabel.familyZhTW, partLabel.subtitle].filter(Boolean).join(' ・ ')}
+                        {partLabel.familyZhTW}
                       </div>
                     </div>
                     <span>×{content.quantity}</span>

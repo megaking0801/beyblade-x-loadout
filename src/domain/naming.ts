@@ -55,44 +55,37 @@ export function hasJapaneseKana(text: string): boolean {
   return JAPANESE_KANA.test(text)
 }
 
-const KANA = JAPANESE_KANA
-
 export interface PartLabel extends DisplayName {
   /**
-   * 第 26 節：副標為型號／代號。
+   * 第 26 節：型號已併入主名稱，副標只剩分類。
    *
-   * 上蓋類零件的官方「代號」就是日文名稱本身，直接當副標會讓前台出現日文，
-   * 違反第 1.4 節；主標已含型號時再顯示一次也只是重複。這兩種情況都回空字串，
-   * 日文名稱只在詳細頁的次要名稱出現（第 5 節）。
+   * 固鎖與軸心的主名稱本身就是型號；上蓋類的官方「代號」是日文名稱，
+   * 只會出現在詳細頁的次要名稱（第 5 節），不再當副標（第 1.4 節）。
    */
-  subtitle: string
   familyZhTW: string
   plainDescriptionZhTW?: string
 }
 
 export function formatPartLabel(part: Part): PartLabel {
-  const display = resolveDisplayName(part.naming)
-  const code = part.code.trim()
-  const showCode = code.length > 0 && !KANA.test(code) && !display.titleZhTW.includes(code)
   return {
-    ...display,
-    subtitle: showCode ? code : '',
+    ...resolveDisplayName(part.naming),
     familyZhTW: PART_FAMILY_ZH[part.family],
     ...(part.plainDescriptionZhTW ? { plainDescriptionZhTW: part.plainDescriptionZhTW } : {}),
   }
 }
 
 export interface ProductLabel extends DisplayName {
-  /** 第 28 節：優先顯示型號，沒有型號時退回分類中文。 */
-  subtitle: string
+  /** 第 28 節：型號已併入主名稱，副標只剩分類。 */
   categoryZhTW: string
 }
 
 export function formatProductLabel(product: Product): ProductLabel {
   const categoryZhTW = PRODUCT_CATEGORY_ZH[product.category]
+  const base = resolveDisplayName(product.naming)
   return {
-    ...resolveDisplayName(product.naming),
-    subtitle: product.sku ?? categoryZhTW,
+    ...base,
+    // 第 28 節：型號直接寫在主名稱前，不另外開小標。
+    titleZhTW: product.sku ? `${product.sku} ${base.titleZhTW}` : base.titleZhTW,
     categoryZhTW,
   }
 }

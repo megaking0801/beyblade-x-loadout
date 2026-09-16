@@ -133,7 +133,7 @@ function MyParts() {
                       <div style={{ flex: 1, minWidth: 150 }}>
                         <div style={{ fontWeight: 600 }}>{label.titleZhTW}</div>
                         <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                          {[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
+                          {label.familyZhTW}
                           {preferenceByPartId.get(part.id)?.favorite ? ' ・ 已收藏' : ''}
                         </div>
                         {label.plainDescriptionZhTW ? (
@@ -305,7 +305,7 @@ function CatalogPartCard({ part }: { part: Part }) {
             {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-            {[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
+            {label.familyZhTW}
           </div>
         </div>
       </Row>

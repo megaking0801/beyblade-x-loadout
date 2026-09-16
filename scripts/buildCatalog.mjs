@@ -7,7 +7,7 @@
  * 原則：
  *  - 商品身分（型號、日文名、分類、發售日）來自官方頁面，標 official_verified。
  *  - 零件組成由官方商品名稱解析而得（商品名本身就是官方資料），解析成功才標 official_verified。
- *  - 解析不出來的（隨機補充包內容、套裝內容、少數特殊命名）一律 needs_review，內容留空，
+ *  - 解析不出來的（隨機強化組內容、套裝內容、少數特殊命名）一律 needs_review，內容留空，
  *    絕對不推測（第 1.5 節）。
  *  - 零件的類型／重量／旋向／軸心特性官方未公布，一律留空，不補值。
  *  - 台灣官方中文名稱尚未取得，所有中文名標記為暫譯（第 5 節）。
@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { translate } from './zhTwTokens.mjs'
+import { translate, CONFIRMED_JA } from './zhTwTokens.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, '..')
@@ -194,16 +194,25 @@ function makeNaming(nameJa, fallbackZhTW) {
     naming: {
       primaryZhTW,
       nameJa,
-      isProvisionalZhTW: true,
+      isProvisionalZhTW: !isConfirmedName(nameJa),
     },
     untranslated,
   }
 }
 
+/** BeybladeHub 已收錄的上蓋名稱不再標暫譯；商品名只要開頭是已收錄上蓋即視為確認。 */
+function isConfirmedName(nameJa) {
+  if (CONFIRMED_JA.has(nameJa)) return true
+  for (const ja of CONFIRMED_JA) {
+    if (nameJa.startsWith(ja)) return true
+  }
+  return false
+}
+
 const PART_FAMILY_LABEL = {
   blade: '上蓋',
-  main_blade: '主上蓋',
-  assist_blade: '輔助上蓋',
+  main_blade: '主刃',
+  assist_blade: '輔助戰刃',
   ratchet: '固鎖',
   bit: '軸心',
 }
@@ -232,10 +241,10 @@ function main() {
     untranslatedNames: [],
     knownGaps: [
       '官方商品頁未公布零件的類型、重量、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。',
-      '官方商品頁未公布隨機補充包的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。',
-      '套裝商品（隊伍組、對戰入門組等）的內含陀螺未在官方一覽頁公布，內容留空並標 needs_review。',
-      'CX 上蓋在商品上為「鎖定晶片 + 主上蓋」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。',
-      '尚未取得台灣官方中文名稱，所有中文名稱皆為暫譯並已標記。',
+      '官方商品頁未公布隨機強化組的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。',
+      '套裝商品（套組、對戰入門組等）的內含陀螺未在官方一覽頁公布，內容留空並標 needs_review。',
+      'CX 上蓋在商品上為「鎖定紋章 + 主刃」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。',
+      '中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。',
     ],
   }
 
@@ -250,11 +259,12 @@ function main() {
       naming = {
         primaryZhTW: untranslated.length > 0 ? `${label} ${code}` : translated,
         nameJa: code,
-        isProvisionalZhTW: true,
+        isProvisionalZhTW: !isConfirmedName(code),
       }
       if (untranslated.length > 0) audit.untranslatedNames.push({ kind: 'part', code, untranslated })
     } else {
-      naming = { primaryZhTW: `${label} ${code}`, isProvisionalZhTW: true }
+      // 固鎖／軸心／輔助戰刃的名稱就是型號本身，不再加分類前綴（第 26 節：型號直接當主名稱）。
+      naming = { primaryZhTW: code, isProvisionalZhTW: false }
     }
     parts.set(id, {
       id,

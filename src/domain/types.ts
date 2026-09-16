@@ -83,9 +83,9 @@ export const PART_FAMILY_ZH: Record<PartFamily, string> = {
   blade: '上蓋',
   ratchet: '固鎖',
   bit: '軸心',
-  lock_chip: '鎖定晶片',
-  main_blade: '主上蓋',
-  assist_blade: '輔助上蓋',
+  lock_chip: '鎖定紋章',
+  main_blade: '主刃',
+  assist_blade: '輔助戰刃',
   integrated_blade: '一體式上蓋',
   other: '其他',
 }
@@ -121,9 +121,9 @@ export interface Part {
   /** 第 20 節 A：軸心特性，僅軸心類零件適用。 */
   bitContact?: BitContact
   /**
-   * CX 上蓋在商品上是「鎖定晶片 + 主上蓋」已組合的狀態。
+   * CX 上蓋在商品上是「鎖定紋章 + 主刃」已組合的狀態。
    * 官方商品頁只公布整體名稱、未公布兩者的個別名稱，因此暫以一個 main_blade 零件表示，
-   * 並標記 cxFused，讓相容性檢查知道此配裝不需要再選鎖定晶片（第 1.5 節：不得編造零件）。
+   * 並標記 cxFused，讓相容性檢查知道此配裝不需要再選鎖定紋章（第 1.5 節：不得編造零件）。
    */
   cxFused?: boolean
   /** 白話用途說明，給新手模式用（第 26、38 節）。 */
@@ -170,9 +170,9 @@ export type ProductCategory =
 /** 第 6 節：前台顯示用的商品分類中文名稱。 */
 export const PRODUCT_CATEGORY_ZH: Record<ProductCategory, string> = {
   starter: '入門組',
-  booster: '補充包',
-  random_booster: '隨機補充包',
-  deck_set: '三對三組合',
+  booster: '增強包',
+  random_booster: '隨機強化組',
+  deck_set: '套組',
   battle_set: '對戰組',
   entry_set: '入門套裝',
   part_set: '零件組',

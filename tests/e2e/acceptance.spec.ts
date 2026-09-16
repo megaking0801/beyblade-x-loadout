@@ -172,11 +172,11 @@ test.describe('第 45 節 驗收核心情境', () => {
     await page.getByTestId('product-search').fill('ドランソード')
     const title = page.getByTestId('catalog-product-title').first()
     await expect(title).toBeVisible()
-    await expect(title).toContainText('龍之劍')
+    await expect(title).toContainText('蒼龍神劍')
     expect(await title.textContent()).not.toMatch(/[぀-ヿ]/)
 
     await page.getByTestId('product-search').fill('BX-01')
-    await expect(page.getByTestId('catalog-product-title').first()).toContainText('龍之劍3-60F')
+    await expect(page.getByTestId('catalog-product-title').first()).toContainText('BX-01 蒼龍神劍3-60F')
   })
 })
 

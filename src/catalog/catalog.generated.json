@@ -9,9 +9,9 @@
       "code": "ドランソード",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "龍之劍",
+        "primaryZhTW": "蒼龍神劍",
         "nameJa": "ドランソード",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -27,8 +27,8 @@
       "code": "3-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 3-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "3-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -45,8 +45,8 @@
       "code": "F",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 F",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "F",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -62,9 +62,9 @@
       "code": "ヘルズサイズ",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "地獄鎌",
+        "primaryZhTW": "惡魔紅鐮",
         "nameJa": "ヘルズサイズ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -80,8 +80,8 @@
       "code": "4-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 4-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "4-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -98,8 +98,8 @@
       "code": "T",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 T",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "T",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -115,9 +115,9 @@
       "code": "ウィザードアロー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "巫師之箭",
+        "primaryZhTW": "魔導幻箭",
         "nameJa": "ウィザードアロー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -133,8 +133,8 @@
       "code": "4-80",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 4-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "4-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -151,8 +151,8 @@
       "code": "B",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 B",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "B",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -168,9 +168,9 @@
       "code": "ナイトシールド",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "騎士之盾",
+        "primaryZhTW": "騎士重盾",
         "nameJa": "ナイトシールド",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -186,8 +186,8 @@
       "code": "3-80",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 3-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "3-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -204,8 +204,8 @@
       "code": "N",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 N",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "N",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -221,9 +221,9 @@
       "code": "ドランザースパイラル",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "火龍螺旋",
+        "primaryZhTW": "烈焰飛鳳S",
         "nameJa": "ドランザースパイラル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -241,7 +241,7 @@
       "naming": {
         "primaryZhTW": "騎士長槍",
         "nameJa": "ナイトランス",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -257,8 +257,8 @@
       "code": "HN",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 HN",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "HN",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -274,9 +274,9 @@
       "code": "レオンクロー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "獅之爪",
+        "primaryZhTW": "雄獅獵爪",
         "nameJa": "レオンクロー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -292,8 +292,8 @@
       "code": "5-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 5-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "5-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -310,8 +310,8 @@
       "code": "P",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 P",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "P",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -327,9 +327,9 @@
       "code": "ライノホーン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "犀牛角",
+        "primaryZhTW": "戰犀號角",
         "nameJa": "ライノホーン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -345,8 +345,8 @@
       "code": "S",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 S",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "S",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -362,9 +362,9 @@
       "code": "ドランダガー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "龍之短劍",
+        "primaryZhTW": "蒼龍利刃",
         "nameJa": "ドランダガー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -380,8 +380,8 @@
       "code": "R",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 R",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "R",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -397,9 +397,9 @@
       "code": "シャークエッジ",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "鯊魚之刃",
+        "primaryZhTW": "鮫鯊鋒鰭",
         "nameJa": "シャークエッジ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -415,8 +415,8 @@
       "code": "5-80",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 5-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "5-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -433,9 +433,9 @@
       "code": "ヘルズチェイン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "地獄鎖鏈",
+        "primaryZhTW": "惡魔鎖鏈",
         "nameJa": "ヘルズチェイン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -451,8 +451,8 @@
       "code": "HT",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 HT",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "HT",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -468,8 +468,8 @@
       "code": "LF",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 LF",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "LF",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -485,9 +485,9 @@
       "code": "フェニックスウイング",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "鳳凰之翼",
+        "primaryZhTW": "鳳凰飛翼",
         "nameJa": "フェニックスウイング",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -503,8 +503,8 @@
       "code": "9-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 9-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "9-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -521,8 +521,8 @@
       "code": "GF",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 GF",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "GF",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -538,9 +538,9 @@
       "code": "ユニコーンスティング",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "獨角獸之刺",
+        "primaryZhTW": "獨角刺心",
         "nameJa": "ユニコーンスティング",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -556,8 +556,8 @@
       "code": "GP",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 GP",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "GP",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -573,9 +573,9 @@
       "code": "ドランバスター",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "龍之破壞者",
+        "primaryZhTW": "蒼龍爆刃",
         "nameJa": "ドランバスター",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -591,8 +591,8 @@
       "code": "1-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 1-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "1-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -609,8 +609,8 @@
       "code": "A",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 A",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "A",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -626,9 +626,9 @@
       "code": "ヘルズハンマー",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "地獄之鎚",
+        "primaryZhTW": "惡魔戰鎚",
         "nameJa": "ヘルズハンマー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -644,8 +644,8 @@
       "code": "3-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 3-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "3-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -662,8 +662,8 @@
       "code": "H",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 H",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "H",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -679,9 +679,9 @@
       "code": "ウィザードロッド",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "巫師之杖",
+        "primaryZhTW": "魔導神杖",
         "nameJa": "ウィザードロッド",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -697,8 +697,8 @@
       "code": "5-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 5-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "5-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -715,8 +715,8 @@
       "code": "DB",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 DB",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "DB",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -732,9 +732,9 @@
       "code": "ドライガースラッシュ",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "聖獸虎斬",
+        "primaryZhTW": "銀牙烈虎S",
         "nameJa": "ドライガースラッシュ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -750,9 +750,9 @@
       "code": "ヴァイスタイガー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "冰霜虎",
+        "primaryZhTW": "皓戰猛虎",
         "nameJa": "ヴァイスタイガー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -768,8 +768,8 @@
       "code": "U",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 U",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "U",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -785,9 +785,9 @@
       "code": "コバルトドラグーン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "鈷藍龍捲",
+        "primaryZhTW": "蒼穹龍騎士",
         "nameJa": "コバルトドラグーン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -803,8 +803,8 @@
       "code": "2-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 2-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "2-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -821,8 +821,8 @@
       "code": "C",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 C",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "C",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -838,8 +838,8 @@
       "code": "2-80",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 2-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "2-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -856,9 +856,9 @@
       "code": "レオンクレスト",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "獅之冠",
+        "primaryZhTW": "雄獅巔峰",
         "nameJa": "レオンクレスト",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -874,8 +874,8 @@
       "code": "7-60",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 7-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "7-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -892,8 +892,8 @@
       "code": "GN",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 GN",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "GN",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -909,9 +909,9 @@
       "code": "フェニックスラダー",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "鳳凰之梯",
+        "primaryZhTW": "鳳凰尾翼",
         "nameJa": "フェニックスラダー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -927,8 +927,8 @@
       "code": "9-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 9-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "9-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -945,8 +945,8 @@
       "code": "G",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 G",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "G",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -962,9 +962,9 @@
       "code": "ワイバーンゲイル",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "飛龍疾風",
+        "primaryZhTW": "飛龍旋翼",
         "nameJa": "ワイバーンゲイル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -980,9 +980,9 @@
       "code": "スフィンクスカウル",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "斯芬克斯之罩",
+        "primaryZhTW": "幻神護甲",
         "nameJa": "スフィンクスカウル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -998,8 +998,8 @@
       "code": "1-80",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 1-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "1-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -1016,9 +1016,9 @@
       "code": "シルバーウルフ",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "銀狼",
+        "primaryZhTW": "霜輝銀狼",
         "nameJa": "シルバーウルフ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1034,8 +1034,8 @@
       "code": "FB",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 FB",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "FB",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1051,9 +1051,9 @@
       "code": "クリムゾンガルーダ",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "赤紅迦樓羅",
+        "primaryZhTW": "赫燃天鳳",
         "nameJa": "クリムゾンガルーダ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1069,8 +1069,8 @@
       "code": "4-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 4-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "4-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -1087,8 +1087,8 @@
       "code": "TP",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 TP",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "TP",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1104,9 +1104,9 @@
       "code": "サムライセイバー",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "武士軍刀",
+        "primaryZhTW": "武士星劍",
         "nameJa": "サムライセイバー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1122,8 +1122,8 @@
       "code": "2-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 2-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "2-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -1140,8 +1140,8 @@
       "code": "L",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 L",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "L",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1157,9 +1157,9 @@
       "code": "ナイトメイル",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "騎士鎧",
+        "primaryZhTW": "騎士圓甲",
         "nameJa": "ナイトメイル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1175,9 +1175,9 @@
       "code": "プテラスイング",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "翼龍擺擊",
+        "primaryZhTW": "翼龍神翼",
         "nameJa": "プテラスイング",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1193,9 +1193,9 @@
       "code": "ティラノビート",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "暴龍重擊",
+        "primaryZhTW": "暴龍霸擊",
         "nameJa": "ティラノビート",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1211,8 +1211,8 @@
       "code": "3-85",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 3-85",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "3-85",
+        "isProvisionalZhTW": false
       },
       "heightCode": 85,
       "provenance": {
@@ -1229,8 +1229,8 @@
       "code": "7-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 7-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "7-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -1247,8 +1247,8 @@
       "code": "BS",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 BS",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "BS",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1264,8 +1264,8 @@
       "code": "RA",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 RA",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "RA",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1281,8 +1281,8 @@
       "code": "MN",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 MN",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "MN",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1298,9 +1298,9 @@
       "code": "コバルトドレイク",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "鈷藍飛龍",
+        "primaryZhTW": "蒼穹龍神",
         "nameJa": "コバルトドレイク",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1316,9 +1316,9 @@
       "code": "マンモスタスク",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "長毛象牙",
+        "primaryZhTW": "猛獁獠牙",
         "nameJa": "マンモスタスク",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1334,8 +1334,8 @@
       "code": "E",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 E",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "E",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1351,9 +1351,9 @@
       "code": "インパクトドレイク",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "衝擊飛龍",
+        "primaryZhTW": "衝擊龍神",
         "nameJa": "インパクトドレイク",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1369,8 +1369,8 @@
       "code": "LR",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 LR",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "LR",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1386,9 +1386,9 @@
       "code": "ドラシエルシールド",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "聖龜之盾",
+        "primaryZhTW": "堅甲戰龜S",
         "nameJa": "ドラシエルシールド",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1404,8 +1404,8 @@
       "code": "D",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 D",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "D",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1421,9 +1421,9 @@
       "code": "ゴーレムロック",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "魔像鎖定",
+        "primaryZhTW": "魔像奇岩",
         "nameJa": "ゴーレムロック",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1439,8 +1439,8 @@
       "code": "UN",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 UN",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "UN",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1456,7 +1456,7 @@
       "code": "ドランブレイブ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "勇龍",
+        "primaryZhTW": "蒼龍勇氣",
         "nameJa": "ドランブレイブ",
         "isProvisionalZhTW": true
       },
@@ -1475,8 +1475,8 @@
       "code": "S",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 S",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "S",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1492,8 +1492,8 @@
       "code": "6-60",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 6-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "6-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -1510,8 +1510,8 @@
       "code": "V",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 V",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "V",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1527,7 +1527,7 @@
       "code": "ウィザードアーク",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "巫師之弧",
+        "primaryZhTW": "魔導至尊",
         "nameJa": "ウィザードアーク",
         "isProvisionalZhTW": true
       },
@@ -1546,8 +1546,8 @@
       "code": "R",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 R",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "R",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1563,8 +1563,8 @@
       "code": "4-55",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 4-55",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "4-55",
+        "isProvisionalZhTW": false
       },
       "heightCode": 55,
       "provenance": {
@@ -1581,8 +1581,8 @@
       "code": "LO",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 LO",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "LO",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1598,7 +1598,7 @@
       "code": "ペルセウスダーク",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "英仙暗影",
+        "primaryZhTW": "英仙幽冥",
         "nameJa": "ペルセウスダーク",
         "isProvisionalZhTW": true
       },
@@ -1617,8 +1617,8 @@
       "code": "B",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 B",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "B",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1634,8 +1634,8 @@
       "code": "6-80",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 6-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "6-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -1652,8 +1652,8 @@
       "code": "W",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 W",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "W",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1669,9 +1669,9 @@
       "code": "ゼノエクスカリバー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "傑諾王者之劍",
+        "primaryZhTW": "神力聖劍",
         "nameJa": "ゼノエクスカリバー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1689,7 +1689,7 @@
       "naming": {
         "primaryZhTW": "鋼鐵人",
         "nameJa": "アイアンマン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1707,7 +1707,7 @@
       "naming": {
         "primaryZhTW": "薩諾斯",
         "nameJa": "サノス",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1725,7 +1725,7 @@
       "naming": {
         "primaryZhTW": "蜘蛛人",
         "nameJa": "スパイダーマン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1743,7 +1743,7 @@
       "naming": {
         "primaryZhTW": "猛毒",
         "nameJa": "ヴェノム",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1761,7 +1761,7 @@
       "naming": {
         "primaryZhTW": "路克天行者",
         "nameJa": "ルーク・スカイウォーカー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1779,7 +1779,7 @@
       "naming": {
         "primaryZhTW": "達斯維達",
         "nameJa": "ダース・ベイダー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1797,7 +1797,7 @@
       "naming": {
         "primaryZhTW": "曼達洛人",
         "nameJa": "マンダロリアン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1813,9 +1813,9 @@
       "code": "モフ・ギデオン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "莫夫吉甸",
+        "primaryZhTW": "星區長吉迪恩",
         "nameJa": "モフ・ギデオン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1831,9 +1831,9 @@
       "code": "スコーピオスピア",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "天蠍之矛",
+        "primaryZhTW": "天蠍長矛",
         "nameJa": "スコーピオスピア",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1849,8 +1849,8 @@
       "code": "0-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 0-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "0-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -1867,8 +1867,8 @@
       "code": "Z",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 Z",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "Z",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1886,7 +1886,7 @@
       "naming": {
         "primaryZhTW": "柯博文",
         "nameJa": "オプティマスプライム",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1904,7 +1904,7 @@
       "naming": {
         "primaryZhTW": "密卡登",
         "nameJa": "メガトロン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1920,9 +1920,9 @@
       "code": "オプティマスプライマル",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "猩猩隊長",
+        "primaryZhTW": "金剛王",
         "nameJa": "オプティマスプライマル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1940,7 +1940,7 @@
       "naming": {
         "primaryZhTW": "天王星",
         "nameJa": "スタースクリーム",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1956,9 +1956,9 @@
       "code": "トリケラプレス",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "三角龍壓",
+        "primaryZhTW": "三角強襲",
         "nameJa": "トリケラプレス",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -1974,8 +1974,8 @@
       "code": "M-85",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 M-85",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "M-85",
+        "isProvisionalZhTW": false
       },
       "heightCode": 85,
       "provenance": {
@@ -1992,9 +1992,9 @@
       "code": "ロックレオーネ",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "岩石獅",
+        "primaryZhTW": "巨岩雄獅",
         "nameJa": "ロックレオーネ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2010,9 +2010,9 @@
       "code": "サムライカリバー",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "武士之劍",
+        "primaryZhTW": "武士魂斬",
         "nameJa": "サムライカリバー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2028,8 +2028,8 @@
       "code": "6-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 6-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "6-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -2046,8 +2046,8 @@
       "code": "M",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 M",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "M",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2063,9 +2063,9 @@
       "code": "シャークスケイル",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "鯊魚鱗",
+        "primaryZhTW": "鮫鯊狂鱗",
         "nameJa": "シャークスケイル",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2081,8 +2081,8 @@
       "code": "4-50",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 4-50",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "4-50",
+        "isProvisionalZhTW": false
       },
       "heightCode": 50,
       "provenance": {
@@ -2099,8 +2099,8 @@
       "code": "UF",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 UF",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "UF",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2118,7 +2118,7 @@
       "naming": {
         "primaryZhTW": "暴龍咆哮",
         "nameJa": "ティラノロア",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2134,8 +2134,8 @@
       "code": "1-70",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "固鎖 1-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "1-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -2152,7 +2152,7 @@
       "code": "ヘルズブレイブ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "地獄勇者",
+        "primaryZhTW": "惡魔勇氣",
         "nameJa": "ヘルズブレイブ",
         "isProvisionalZhTW": true
       },
@@ -2171,8 +2171,8 @@
       "code": "J",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 J",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "J",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2188,7 +2188,7 @@
       "code": "ソルエクリプス",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "日蝕",
+        "primaryZhTW": "焰神滅世",
         "nameJa": "ソルエクリプス",
         "isProvisionalZhTW": true
       },
@@ -2207,8 +2207,8 @@
       "code": "D",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 D",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "D",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2224,8 +2224,8 @@
       "code": "TK",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 TK",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "TK",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2241,7 +2241,7 @@
       "code": "ウルフハント",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "狼之獵",
+        "primaryZhTW": "銀狼狩獵",
         "nameJa": "ウルフハント",
         "isProvisionalZhTW": true
       },
@@ -2260,8 +2260,8 @@
       "code": "F",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 F",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "F",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2277,8 +2277,8 @@
       "code": "0-60",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 0-60",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "0-60",
+        "isProvisionalZhTW": false
       },
       "heightCode": 60,
       "provenance": {
@@ -2295,9 +2295,9 @@
       "code": "メテオドラグーン",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "隕石龍捲",
+        "primaryZhTW": "隕星龍騎士",
         "nameJa": "メテオドラグーン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2313,8 +2313,8 @@
       "code": "J",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 J",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "J",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2330,9 +2330,9 @@
       "code": "ドラグーンストーム",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "龍捲暴風",
+        "primaryZhTW": "暴風龍騎士",
         "nameJa": "ドラグーンストーム",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2348,7 +2348,7 @@
       "code": "フェニックスフレア",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "鳳凰烈焰",
+        "primaryZhTW": "鳳凰閃焰",
         "nameJa": "フェニックスフレア",
         "isProvisionalZhTW": true
       },
@@ -2367,8 +2367,8 @@
       "code": "Z",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 Z",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "Z",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2384,8 +2384,8 @@
       "code": "9-80",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 9-80",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "9-80",
+        "isProvisionalZhTW": false
       },
       "heightCode": 80,
       "provenance": {
@@ -2402,8 +2402,8 @@
       "code": "WW",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 WW",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "WW",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2419,9 +2419,9 @@
       "code": "エアロペガサス",
       "system": "UX",
       "naming": {
-        "primaryZhTW": "氣流天馬",
+        "primaryZhTW": "空力天馬",
         "nameJa": "エアロペガサス",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2437,7 +2437,7 @@
       "code": "バハムートブリッツ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "巨獸閃擊",
+        "primaryZhTW": "龍王閃擊",
         "nameJa": "バハムートブリッツ",
         "isProvisionalZhTW": true
       },
@@ -2456,8 +2456,8 @@
       "code": "BK",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 BK",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "BK",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2473,8 +2473,8 @@
       "code": "1-50",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 1-50",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "1-50",
+        "isProvisionalZhTW": false
       },
       "heightCode": 50,
       "provenance": {
@@ -2491,8 +2491,8 @@
       "code": "I",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 I",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "I",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2527,8 +2527,8 @@
       "code": "GV",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 GV",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "GV",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2544,8 +2544,8 @@
       "code": "8-70",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "固鎖 8-70",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "8-70",
+        "isProvisionalZhTW": false
       },
       "heightCode": 70,
       "provenance": {
@@ -2562,7 +2562,7 @@
       "code": "ラグナレイジ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "終焉之怒",
+        "primaryZhTW": "邪神狂怒",
         "nameJa": "ラグナレイジ",
         "isProvisionalZhTW": true
       },
@@ -2581,8 +2581,8 @@
       "code": "FE",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 FE",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "FE",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2598,8 +2598,8 @@
       "code": "Y",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 Y",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "Y",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2615,9 +2615,9 @@
       "code": "ストームスプリガン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "暴風精靈",
+        "primaryZhTW": "暴風巨神",
         "nameJa": "ストームスプリガン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2633,9 +2633,9 @@
       "code": "ドランストライク",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "龍之擊",
+        "primaryZhTW": "蒼龍突擊",
         "nameJa": "ドランストライク",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2651,8 +2651,8 @@
       "code": "FF",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 FF",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "FF",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2668,8 +2668,8 @@
       "code": "K",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 K",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "K",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2723,8 +2723,8 @@
       "code": "O",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "軸心 O",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "O",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2759,7 +2759,7 @@
       "code": "ドレイクブレイブ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "勇飛龍",
+        "primaryZhTW": "龍神勇氣",
         "nameJa": "ドレイクブレイブ",
         "isProvisionalZhTW": true
       },
@@ -2778,8 +2778,8 @@
       "code": "G",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 G",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "G",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2797,7 +2797,7 @@
       "naming": {
         "primaryZhTW": "暴風天馬",
         "nameJa": "ストームペガシス",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2813,7 +2813,7 @@
       "code": "ティガレイジ",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "虎之怒",
+        "primaryZhTW": "迪卡狂怒",
         "nameJa": "ティガレイジ",
         "isProvisionalZhTW": true
       },
@@ -2832,8 +2832,8 @@
       "code": "FT",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "輔助上蓋 FT",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "FT",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2849,9 +2849,9 @@
       "code": "ラスタードラグーン",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "光輝龍捲",
+        "primaryZhTW": "光耀龍騎士",
         "nameJa": "ラスタードラグーン",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2867,8 +2867,8 @@
       "code": "LC",
       "system": "BX",
       "naming": {
-        "primaryZhTW": "軸心 LC",
-        "isProvisionalZhTW": true
+        "primaryZhTW": "LC",
+        "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
@@ -2887,9 +2887,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之劍3-60F",
+        "primaryZhTW": "蒼龍神劍3-60F",
         "nameJa": "ドランソード3-60F",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -2925,9 +2925,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "地獄鎌4-60T",
+        "primaryZhTW": "惡魔紅鐮4-60T",
         "nameJa": "ヘルズサイズ4-60T",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -2963,9 +2963,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "巫師之箭4-80B",
+        "primaryZhTW": "魔導幻箭4-80B",
         "nameJa": "ウィザードアロー4-80B",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -3001,9 +3001,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "騎士之盾3-80N",
+        "primaryZhTW": "騎士重盾3-80N",
         "nameJa": "ナイトシールド3-80N",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -3039,9 +3039,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "巫師之箭4-80B",
+        "primaryZhTW": "魔導幻箭4-80B",
         "nameJa": "ウィザードアロー4-80B",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -3077,9 +3077,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "騎士之盾3-80N",
+        "primaryZhTW": "騎士重盾3-80N",
         "nameJa": "ナイトシールド3-80N",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -3166,7 +3166,7 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "3on3 隊伍組",
+        "primaryZhTW": "3on3 套組",
         "nameJa": "3on3デッキセット",
         "isProvisionalZhTW": true
       },
@@ -3354,9 +3354,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "火龍螺旋3-80T",
+        "primaryZhTW": "烈焰飛鳳S3-80T",
         "nameJa": "ドランザースパイラル3-80T",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-07-15",
       "region": [
@@ -3394,7 +3394,7 @@
       "naming": {
         "primaryZhTW": "騎士長槍4-80HN",
         "nameJa": "ナイトランス4-80HN",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-08-10",
       "region": [
@@ -3430,7 +3430,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.1",
+        "primaryZhTW": "隨機強化組Vol.1",
         "nameJa": "ランダムブースターVol.1",
         "isProvisionalZhTW": true
       },
@@ -3455,9 +3455,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "地獄鎌4-60T 金屬塗層:金",
+        "primaryZhTW": "惡魔紅鐮4-60T 金屬塗層:金",
         "nameJa": "ヘルズサイズ4-60T メタルコート:ゴールド",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-09-11",
       "region": [
@@ -3493,9 +3493,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "獅之爪5-60P",
+        "primaryZhTW": "雄獅獵爪5-60P",
         "nameJa": "レオンクロー5-60P",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-10-07",
       "region": [
@@ -3531,7 +3531,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 毒蛇之尾精選",
+        "primaryZhTW": "隨機強化組 王蛇鞭尾精選",
         "nameJa": "ランダムブースター ヴァイパーテイルセレクト",
         "isProvisionalZhTW": true
       },
@@ -3644,9 +3644,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "犀牛角3-80S",
+        "primaryZhTW": "戰犀號角3-80S",
         "nameJa": "ライノホーン3-80S",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-11-02",
       "region": [
@@ -3682,9 +3682,9 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "龍之短劍隊伍組",
+        "primaryZhTW": "蒼龍利刃套組",
         "nameJa": "ドランダガーデッキセット",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-11-02",
       "region": [
@@ -3745,9 +3745,9 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "地獄鎖鏈隊伍組",
+        "primaryZhTW": "惡魔鎖鏈套組",
         "nameJa": "ヘルズチェインデッキセット",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-11-02",
       "region": [
@@ -3808,9 +3808,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之劍3-60F 入門包裝",
+        "primaryZhTW": "蒼龍神劍3-60F 入門包裝",
         "nameJa": "ドランソード3-60F エントリーパッケージ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-12-02",
       "region": [
@@ -3846,9 +3846,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "鳳凰之翼9-60GF",
+        "primaryZhTW": "鳳凰飛翼9-60GF",
         "nameJa": "フェニックスウイング9-60GF",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2023-12-27",
       "region": [
@@ -3884,7 +3884,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.2",
+        "primaryZhTW": "隨機強化組Vol.2",
         "nameJa": "ランダムブースターVol.2",
         "isProvisionalZhTW": true
       },
@@ -3934,9 +3934,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "獨角獸之刺5-60GP",
+        "primaryZhTW": "獨角刺心5-60GP",
         "nameJa": "ユニコーンスティング5-60GP",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-01-27",
       "region": [
@@ -3972,7 +3972,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 斯芬克斯之罩精選",
+        "primaryZhTW": "隨機強化組 幻神護甲精選",
         "nameJa": "ランダムブースター スフィンクスカウルセレクト",
         "isProvisionalZhTW": true
       },
@@ -3997,9 +3997,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "獅之爪5-60P 金屬塗層:金",
+        "primaryZhTW": "雄獅獵爪5-60P 金屬塗層:金",
         "nameJa": "レオンクロー5-60P メタルコート:ゴールド",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-02-22",
       "region": [
@@ -4035,9 +4035,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "鯊魚之刃5-60GF 金屬塗層:藍",
+        "primaryZhTW": "鮫鯊鋒鰭5-60GF 金屬塗層:藍",
         "nameJa": "シャークエッジ5-60GF メタルコート:ブルー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-03-23",
       "region": [
@@ -4148,9 +4148,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之破壞者1-60A",
+        "primaryZhTW": "蒼龍爆刃1-60A",
         "nameJa": "ドランバスター1-60A",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-03-30",
       "region": [
@@ -4186,9 +4186,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "地獄之鎚3-70H",
+        "primaryZhTW": "惡魔戰鎚3-70H",
         "nameJa": "ヘルズハンマー3-70H",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-03-30",
       "region": [
@@ -4224,9 +4224,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "巫師之杖5-70DB",
+        "primaryZhTW": "魔導神杖5-70DB",
         "nameJa": "ウィザードロッド5-70DB",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-03-30",
       "region": [
@@ -4325,9 +4325,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "聖獸虎斬4-80P",
+        "primaryZhTW": "銀牙烈虎S4-80P",
         "nameJa": "ドライガースラッシュ4-80P",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-04-27",
       "region": [
@@ -4363,7 +4363,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.3",
+        "primaryZhTW": "隨機強化組Vol.3",
         "nameJa": "ランダムブースターVol.3",
         "isProvisionalZhTW": true
       },
@@ -4388,9 +4388,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "地獄鎖鏈5-60HT 金屬塗層:黑",
+        "primaryZhTW": "惡魔鎖鏈5-60HT 金屬塗層:黑",
         "nameJa": "ヘルズチェイン5-60HT メタルコート:ブラック",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-05-16",
       "region": [
@@ -4426,7 +4426,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 忍者之影精選",
+        "primaryZhTW": "隨機強化組 忍者闇影精選",
         "nameJa": "ランダムブースター シノビシャドウセレクト",
         "isProvisionalZhTW": true
       },
@@ -4476,9 +4476,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "冰霜虎3-60U",
+        "primaryZhTW": "皓戰猛虎3-60U",
         "nameJa": "ヴァイスタイガー3-60U",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-06-15",
       "region": [
@@ -4539,9 +4539,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "鈷藍龍捲2-60C",
+        "primaryZhTW": "蒼穹龍騎士2-60C",
         "nameJa": "コバルトドラグーン2-60C",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-07-13",
       "region": [
@@ -4577,7 +4577,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.4",
+        "primaryZhTW": "隨機強化組Vol.4",
         "nameJa": "ランダムブースターVol.4",
         "isProvisionalZhTW": true
       },
@@ -4719,9 +4719,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之短劍2-80GP 金屬塗層:黑 巨人隊版",
+        "primaryZhTW": "蒼龍利刃2-80GP 金屬塗層:黑 巨人隊版",
         "nameJa": "ドランダガー2-80GP メタルコート:ブラック ジャイアンツVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-08-03",
       "region": [
@@ -4757,9 +4757,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "火龍螺旋3-80T 黑版",
+        "primaryZhTW": "烈焰飛鳳S3-80T 黑版",
         "nameJa": "ドランザースパイラル3-80T ブラックVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-08-10",
       "region": [
@@ -4795,9 +4795,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "獅之冠7-60GN",
+        "primaryZhTW": "雄獅巔峰7-60GN",
         "nameJa": "レオンクレスト7-60GN",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-08-10",
       "region": [
@@ -4833,9 +4833,9 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "鳳凰之梯隊伍組",
+        "primaryZhTW": "鳳凰尾翼套組",
         "nameJa": "フェニックスラダーデッキセット",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-08-10",
       "region": [
@@ -4896,9 +4896,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "鈷藍龍捲2-60C 金屬塗層:黑",
+        "primaryZhTW": "蒼穹龍騎士2-60C 金屬塗層:黑",
         "nameJa": "コバルトドラグーン2-60C メタルコート:ブラック",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-08-31",
       "region": [
@@ -4934,7 +4934,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 閃電神龍1-60F",
+        "primaryZhTW": "隨機強化組 雷霆天龍1-60F",
         "nameJa": "ランダムブースター ライトニングエルドラゴ1-60F",
         "isProvisionalZhTW": true
       },
@@ -4959,7 +4959,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 鯨之浪精選",
+        "primaryZhTW": "隨機強化組 巨鯨怒濤精選",
         "nameJa": "ランダムブースター ホエールウェーブセレクト",
         "isProvisionalZhTW": true
       },
@@ -4984,9 +4984,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "銀狼3-80FB",
+        "primaryZhTW": "霜輝銀狼3-80FB",
         "nameJa": "シルバーウルフ3-80FB",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-10-12",
       "region": [
@@ -5047,9 +5047,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "赤紅迦樓羅4-70TP",
+        "primaryZhTW": "赫燃天鳳4-70TP",
         "nameJa": "クリムゾンガルーダ4-70TP",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-11-02",
       "region": [
@@ -5085,9 +5085,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "武士軍刀2-70L",
+        "primaryZhTW": "武士星劍2-70L",
         "nameJa": "サムライセイバー2-70L",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-11-02",
       "region": [
@@ -5202,7 +5202,7 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "亞洲錦標賽紀念 龍之隊伍入門組",
+        "primaryZhTW": "亞洲錦標賽紀念 蒼龍套組入門版",
         "nameJa": "アジアチャンピオンシップ開催記念 ドランデッキスターター",
         "isProvisionalZhTW": true
       },
@@ -5227,9 +5227,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "鈷藍飛龍4-60F 透明版",
+        "primaryZhTW": "蒼穹龍神4-60F 透明版",
         "nameJa": "コバルトドレイク4-60F クリアVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-11-28",
       "region": [
@@ -5265,9 +5265,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "龍之破壞者1-60A",
+        "primaryZhTW": "蒼龍爆刃1-60A",
         "nameJa": "ドランバスター1-60A",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-12-27",
       "region": [
@@ -5303,9 +5303,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "長毛象牙2-80E 金屬塗層:黑",
+        "primaryZhTW": "猛獁獠牙2-80E 金屬塗層:黑",
         "nameJa": "マンモスタスク2-80E メタルコート:ブラック",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-12-27",
       "region": [
@@ -5341,9 +5341,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "衝擊飛龍9-60LR",
+        "primaryZhTW": "衝擊龍神9-60LR",
         "nameJa": "インパクトドレイク9-60LR",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-12-28",
       "region": [
@@ -5379,7 +5379,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.5",
+        "primaryZhTW": "隨機強化組Vol.5",
         "nameJa": "ランダムブースターVol.5",
         "isProvisionalZhTW": true
       },
@@ -5404,9 +5404,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "聖龜之盾7-60D",
+        "primaryZhTW": "堅甲戰龜S7-60D",
         "nameJa": "ドラシエルシールド7-60D",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2024-12-28",
       "region": [
@@ -5442,9 +5442,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之破壞者1-60A 金屬塗層:藍 FC 巴薩版",
+        "primaryZhTW": "蒼龍爆刃1-60A 金屬塗層:藍 FC 巴薩版",
         "nameJa": "ドランバスター1-60A メタルコート:ブルー FCバルセロナVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-01-25",
       "region": [
@@ -5505,9 +5505,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "魔像鎖定1-60UN",
+        "primaryZhTW": "魔像奇岩1-60UN",
         "nameJa": "ゴーレムロック1-60UN",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-01-25",
       "region": [
@@ -5543,7 +5543,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 護盾飛龍精選",
+        "primaryZhTW": "隨機強化組 護城龍神精選",
         "nameJa": "ランダムブースター シェルタードレイクセレクト",
         "isProvisionalZhTW": true
       },
@@ -5568,9 +5568,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "鳳凰之翼9-60GF 金屬塗層:黑 雅屋達也版",
+        "primaryZhTW": "鳳凰飛翼9-60GF 金屬塗層:黑 雅屋達也版",
         "nameJa": "フェニックスウイング9-60GF メタルコート:ブラック キタニタツヤVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-03-15",
       "region": [
@@ -5731,7 +5731,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "勇龍S6-60V",
+        "primaryZhTW": "蒼龍勇氣S6-60V",
         "nameJa": "ドランブレイブS6-60V",
         "isProvisionalZhTW": true
       },
@@ -5773,7 +5773,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "巫師之弧R4-55LO",
+        "primaryZhTW": "魔導至尊R4-55LO",
         "nameJa": "ウィザードアークR4-55LO",
         "isProvisionalZhTW": true
       },
@@ -5815,7 +5815,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "英仙暗影B6-80W",
+        "primaryZhTW": "英仙幽冥B6-80W",
         "nameJa": "ペルセウスダークB6-80W",
         "isProvisionalZhTW": true
       },
@@ -5882,9 +5882,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "傑諾王者之劍3-60GF",
+        "primaryZhTW": "神力聖劍3-60GF",
         "nameJa": "ゼノエクスカリバー3-60GF",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-03-29",
       "region": [
@@ -5920,7 +5920,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.6",
+        "primaryZhTW": "隨機強化組Vol.6",
         "nameJa": "ランダムブースターVol.6",
         "isProvisionalZhTW": true
       },
@@ -6095,7 +6095,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "星際大戰 曼達洛人3-60F/莫夫吉甸3-80N",
+        "primaryZhTW": "星際大戰 曼達洛人3-60F/星區長吉迪恩3-80N",
         "nameJa": "スター・ウォーズ マンダロリアン3-60F/モフ・ギデオン3-80N",
         "isProvisionalZhTW": true
       },
@@ -6145,9 +6145,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "天蠍之矛0-70Z",
+        "primaryZhTW": "天蠍長矛0-70Z",
         "nameJa": "スコーピオスピア0-70Z",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-04-26",
       "region": [
@@ -6233,7 +6233,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "變形金剛 猩猩隊長3-60F/天王星3-80N",
+        "primaryZhTW": "變形金剛 金剛王3-60F/天王星3-80N",
         "nameJa": "トランスフォーマー オプティマスプライマル3-60F/スタースクリーム3-80N",
         "isProvisionalZhTW": true
       },
@@ -6283,7 +6283,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 狐之尾精選",
+        "primaryZhTW": "隨機強化組 極狐九尾精選",
         "nameJa": "ランダムブースター フォックスブラッシュセレクト",
         "isProvisionalZhTW": true
       },
@@ -6308,9 +6308,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "三角龍壓M-85BS",
+        "primaryZhTW": "三角強襲M-85BS",
         "nameJa": "トリケラプレスM-85BS",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-06-28",
       "region": [
@@ -6346,9 +6346,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "騎士鎧3-85BS 金屬塗層:深藍",
+        "primaryZhTW": "騎士圓甲3-85BS 金屬塗層:深藍",
         "nameJa": "ナイトメイル3-85BS メタルコート:ネイビー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-07-17",
       "region": [
@@ -6384,7 +6384,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "天馬爆裂ATr",
+        "primaryZhTW": "天馬爆擊ATr",
         "nameJa": "ペガサスブラストATr",
         "isProvisionalZhTW": true
       },
@@ -6409,7 +6409,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.7",
+        "primaryZhTW": "隨機強化組Vol.7",
         "nameJa": "ランダムブースターVol.7",
         "isProvisionalZhTW": true
       },
@@ -6484,9 +6484,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "岩石獅6-80GN",
+        "primaryZhTW": "巨岩雄獅6-80GN",
         "nameJa": "ロックレオーネ6-80GN",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-07-19",
       "region": [
@@ -6522,7 +6522,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "天馬爆裂ATr 金屬塗層:紅",
+        "primaryZhTW": "天馬爆擊ATr 金屬塗層:紅",
         "nameJa": "ペガサスブラストATr メタルコート:レッド",
         "isProvisionalZhTW": true
       },
@@ -6547,7 +6547,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "巫師之弧R4-55LO 金屬塗層:黑",
+        "primaryZhTW": "魔導至尊R4-55LO 金屬塗層:黑",
         "nameJa": "ウィザードアークR4-55LO メタルコート:ブラック",
         "isProvisionalZhTW": true
       },
@@ -6589,9 +6589,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "武士之劍6-70M",
+        "primaryZhTW": "武士魂斬6-70M",
         "nameJa": "サムライカリバー6-70M",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-08-09",
       "region": [
@@ -6627,9 +6627,9 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "鯊魚鱗隊伍組",
+        "primaryZhTW": "鮫鯊狂鱗套組",
         "nameJa": "シャークスケイルデッキセット",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-08-09",
       "region": [
@@ -6698,7 +6698,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "日蝕D5-70TK",
+        "primaryZhTW": "焰神滅世D5-70TK",
         "nameJa": "ソルエクリプスD5-70TK",
         "isProvisionalZhTW": true
       },
@@ -6790,7 +6790,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 時鐘幻影精選",
+        "primaryZhTW": "隨機強化組 時鐘幻象精選",
         "nameJa": "ランダムブースター クロックミラージュセレクト",
         "isProvisionalZhTW": true
       },
@@ -6815,7 +6815,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "狼之獵F0-60DB",
+        "primaryZhTW": "銀狼狩獵F0-60DB",
         "nameJa": "ウルフハントF0-60DB",
         "isProvisionalZhTW": true
       },
@@ -6857,7 +6857,7 @@
       "line": "CX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "帝王之力隊伍組",
+        "primaryZhTW": "帝王威能套組",
         "nameJa": "エンペラーマイトデッキセット",
         "isProvisionalZhTW": true
       },
@@ -6949,9 +6949,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "隕石龍捲3-70J",
+        "primaryZhTW": "隕星龍騎士3-70J",
         "nameJa": "メテオドラグーン3-70J",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-12-27",
       "region": [
@@ -6987,7 +6987,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.8",
+        "primaryZhTW": "隨機強化組Vol.8",
         "nameJa": "ランダムブースターVol.8",
         "isProvisionalZhTW": true
       },
@@ -7012,9 +7012,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "龍捲暴風4-60RA",
+        "primaryZhTW": "暴風龍騎士4-60RA",
         "nameJa": "ドラグーンストーム4-60RA",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2025-12-27",
       "region": [
@@ -7050,7 +7050,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "鳳凰烈焰Z9-80WW",
+        "primaryZhTW": "鳳凰閃焰Z9-80WW",
         "nameJa": "フェニックスフレアZ9-80WW",
         "isProvisionalZhTW": true
       },
@@ -7092,7 +7092,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.9",
+        "primaryZhTW": "隨機強化組Vol.9",
         "nameJa": "ランダムブースターVol.9",
         "isProvisionalZhTW": true
       },
@@ -7117,9 +7117,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "氣流天馬3-70A 紅版",
+        "primaryZhTW": "空力天馬3-70A 紅版",
         "nameJa": "エアロペガサス3-70A レッドVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-02-21",
       "region": [
@@ -7155,9 +7155,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之劍1-60V 金屬塗層:黑 J 聯盟版",
+        "primaryZhTW": "蒼龍神劍1-60V 金屬塗層:黑 J 聯盟版",
         "nameJa": "ドランソード1-60V メタルコート:ブラック JリーグVer.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-03-14",
       "region": [
@@ -7193,9 +7193,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "鈷藍龍捲9-60F 金屬塗層:白 J 聯盟版",
+        "primaryZhTW": "蒼穹龍騎士9-60F 金屬塗層:白 J 聯盟版",
         "nameJa": "コバルトドラグーン9-60F メタルコート:ホワイト JリーグVer",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-03-14",
       "region": [
@@ -7231,7 +7231,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "巨獸閃擊BK1-50I",
+        "primaryZhTW": "龍王閃擊BK1-50I",
         "nameJa": "バハムートブリッツBK1-50I",
         "isProvisionalZhTW": true
       },
@@ -7315,7 +7315,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "終焉之怒FE4-55Y",
+        "primaryZhTW": "邪神狂怒FE4-55Y",
         "nameJa": "ラグナレイジFE4-55Y",
         "isProvisionalZhTW": true
       },
@@ -7407,9 +7407,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "暴風精靈2-70M",
+        "primaryZhTW": "暴風巨神2-70M",
         "nameJa": "ストームスプリガン2-70M",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-03-28",
       "region": [
@@ -7445,9 +7445,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "彈道獅鷲H",
+        "primaryZhTW": "子彈獅鷲H",
         "nameJa": "バレットグリフォンH",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-04-25",
       "region": [
@@ -7470,9 +7470,9 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "天蠍之矛0-70Z 金屬塗層:洋紅",
+        "primaryZhTW": "天蠍長矛0-70Z 金屬塗層:洋紅",
         "nameJa": "スコーピオスピア0-70Z メタルコート:マゼンタ",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-04-25",
       "region": [
@@ -7508,7 +7508,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.10",
+        "primaryZhTW": "隨機強化組Vol.10",
         "nameJa": "ランダムブースターVol.10",
         "isProvisionalZhTW": true
       },
@@ -7533,9 +7533,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "龍之擊4-50FF",
+        "primaryZhTW": "蒼龍突擊4-50FF",
         "nameJa": "ドランストライク4-50FF",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-05-16",
       "region": [
@@ -7571,7 +7571,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "勇龍S6-60V 金屬塗層:黑",
+        "primaryZhTW": "蒼龍勇氣S6-60V 金屬塗層:黑",
         "nameJa": "ドランブレイブS6-60V メタルコート:ブラック",
         "isProvisionalZhTW": true
       },
@@ -7613,9 +7613,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "武士軍刀5-60K 金屬塗層:武士藍 日本足球代表隊版",
+        "primaryZhTW": "武士星劍5-60K 金屬塗層:武士藍 日本足球代表隊版",
         "nameJa": "サムライセイバー5-60K メタルコート:サムライブルー サッカー日本代表Ver.",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-06-13",
       "region": [
@@ -7676,7 +7676,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 腕龍之鞭精選",
+        "primaryZhTW": "隨機強化組 腕龍鞭打精選",
         "nameJa": "ランダムブースター ブラキオウィップセレクト",
         "isProvisionalZhTW": true
       },
@@ -7827,7 +7827,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "勇飛龍G4-70I 金屬塗層:藍",
+        "primaryZhTW": "龍神勇氣G4-70I 金屬塗層:藍",
         "nameJa": "ドレイクブレイブG4-70I メタルコート:ブルー",
         "isProvisionalZhTW": true
       },
@@ -7871,7 +7871,7 @@
       "naming": {
         "primaryZhTW": "暴風天馬3-70RA",
         "nameJa": "ストームペガシス3-70RA",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-07-11",
       "region": [
@@ -7907,7 +7907,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包Vol.11",
+        "primaryZhTW": "隨機強化組Vol.11",
         "nameJa": "ランダムブースターVol.11",
         "isProvisionalZhTW": true
       },
@@ -7932,9 +7932,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "榮光女武神LF",
+        "primaryZhTW": "榮耀戰神LF",
         "nameJa": "グローリーワルキューレLF",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-07-11",
       "region": [
@@ -7957,9 +7957,9 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "龍之劍3-60F 版本2.0",
+        "primaryZhTW": "蒼龍神劍3-60F 版本2.0",
         "nameJa": "ドランソード3-60F バージョン2.0",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-08-08",
       "region": [
@@ -8020,9 +8020,9 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "地獄深淵隊伍組",
+        "primaryZhTW": "惡魔幽冥套組",
         "nameJa": "ヘルズネザーデッキセット",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-08-08",
       "region": [
@@ -8045,9 +8045,9 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "榮光女武神LF 金屬塗層:藍",
+        "primaryZhTW": "榮耀戰神LF 金屬塗層:藍",
         "nameJa": "グローリーワルキューレLF メタルコート:ブルー",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-08-29",
       "region": [
@@ -8070,7 +8070,7 @@
       "line": "CX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "EVA隊伍組",
+        "primaryZhTW": "EVA套組",
         "nameJa": "エヴァンゲリオンデッキセット",
         "isProvisionalZhTW": true
       },
@@ -8095,7 +8095,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "虎之怒FT3-60T",
+        "primaryZhTW": "迪卡狂怒FT3-60T",
         "nameJa": "ティガレイジFT3-60T",
         "isProvisionalZhTW": true
       },
@@ -8137,7 +8137,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機補充包 鱷之踏精選",
+        "primaryZhTW": "隨機強化組 巨鱷碾壓精選",
         "nameJa": "ランダムブースター クロコトレッドセレクト",
         "isProvisionalZhTW": true
       },
@@ -8162,9 +8162,9 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "光輝龍捲6-60LC",
+        "primaryZhTW": "光耀龍騎士6-60LC",
         "nameJa": "ラスタードラグーン6-60LC",
-        "isProvisionalZhTW": true
+        "isProvisionalZhTW": false
       },
       "releaseDate": "2026-10-10",
       "region": [

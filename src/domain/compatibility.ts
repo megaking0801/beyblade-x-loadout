@@ -44,9 +44,9 @@ const STANDARD_SCHEMA: SlotDef[] = [
 ]
 
 const CX_SCHEMA: SlotDef[] = [
-  { key: 'lockChipId', labelZhTW: '鎖定晶片', families: ['lock_chip'], required: true },
-  { key: 'mainBladeId', labelZhTW: '主上蓋', families: ['main_blade'], required: true },
-  { key: 'assistBladeId', labelZhTW: '輔助上蓋', families: ['assist_blade'], required: true },
+  { key: 'lockChipId', labelZhTW: '鎖定紋章', families: ['lock_chip'], required: true },
+  { key: 'mainBladeId', labelZhTW: '主刃', families: ['main_blade'], required: true },
+  { key: 'assistBladeId', labelZhTW: '輔助戰刃', families: ['assist_blade'], required: true },
   { key: 'ratchetId', labelZhTW: '固鎖', families: ['ratchet'], required: true },
   { key: 'bitId', labelZhTW: '軸心', families: ['bit'], required: true },
 ]
@@ -56,12 +56,12 @@ export function getSlotSchema(system: AssemblySystem): SlotDef[] {
   return system === 'CX' ? CX_SCHEMA : STANDARD_SCHEMA
 }
 
-/** CX 上蓋為未拆分狀態時，鎖定晶片已含在主上蓋內，不再是獨立槽位。 */
+/** CX 上蓋為未拆分狀態時，鎖定紋章已含在主刃內，不再是獨立槽位。 */
 const CX_FUSED_SCHEMA: SlotDef[] = CX_SCHEMA.filter((slot) => slot.key !== 'lockChipId')
 
 /**
  * 依實際選中的零件決定槽位表。
- * 選到 cxFused 的主上蓋時，鎖定晶片槽位會消失（第 17 節：依實際規則顯示正確欄位）。
+ * 選到 cxFused 的主刃時，鎖定紋章槽位會消失（第 17 節：依實際規則顯示正確欄位）。
  */
 export function getSlotSchemaForSlots(slots: ComboSlots, parts: Part[]): SlotDef[] {
   const system = deriveSystem(slots, parts)
@@ -81,9 +81,9 @@ const ALL_SLOT_KEYS: SlotKey[] = [
 
 const SLOT_LABEL: Record<SlotKey, string> = {
   bladeId: '上蓋',
-  lockChipId: '鎖定晶片',
-  mainBladeId: '主上蓋',
-  assistBladeId: '輔助上蓋',
+  lockChipId: '鎖定紋章',
+  mainBladeId: '主刃',
+  assistBladeId: '輔助戰刃',
   ratchetId: '固鎖',
   bitId: '軸心',
 }

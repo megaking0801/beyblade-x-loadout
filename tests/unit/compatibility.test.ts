@@ -51,7 +51,7 @@ describe('槽位結構（第 17、18 節）', () => {
     expect(getSlotSchema('UX').map((s) => s.key)).toEqual(['bladeId', 'ratchetId', 'bitId'])
   })
 
-  it('CX 為五槽：鎖定晶片、主上蓋、輔助上蓋、固鎖、軸心', () => {
+  it('CX 為五槽：鎖定紋章、主刃、輔助戰刃、固鎖、軸心', () => {
     expect(getSlotSchema('CX').map((s) => s.key)).toEqual([
       'lockChipId',
       'mainBladeId',
@@ -154,10 +154,10 @@ describe('系統混用限制（第 18 節）', () => {
   it('CX 專用件不能放進三件式配裝', () => {
     const r = check({ bladeId: 'main-cx', ratchetId: 'ratchet-r', bitId: 'bit-r' })
     expect(r.ok).toBe(false)
-    expect(r.errors.map((e) => e.messageZhTW)).toContain('上蓋槽不能放入主上蓋')
+    expect(r.errors.map((e) => e.messageZhTW)).toContain('上蓋槽不能放入主刃')
   })
 
-  it('CX 配裝缺少輔助上蓋時不可組裝', () => {
+  it('CX 配裝缺少輔助戰刃時不可組裝', () => {
     const r = check({
       lockChipId: 'chip-cx',
       mainBladeId: 'main-cx',
@@ -165,7 +165,7 @@ describe('系統混用限制（第 18 節）', () => {
       bitId: 'bit-r',
     })
     expect(r.ok).toBe(false)
-    expect(r.errors.map((e) => e.messageZhTW)).toContain('尚未選擇輔助上蓋')
+    expect(r.errors.map((e) => e.messageZhTW)).toContain('尚未選擇輔助戰刃')
   })
 
   it('三件式配裝填入 CX 槽位時被擋下', () => {
@@ -176,7 +176,7 @@ describe('系統混用限制（第 18 節）', () => {
       assistBladeId: 'assist-cx',
     })
     expect(r.ok).toBe(false)
-    expect(r.errors.some((e) => e.messageZhTW.includes('不使用輔助上蓋'))).toBe(true)
+    expect(r.errors.some((e) => e.messageZhTW.includes('不使用輔助戰刃'))).toBe(true)
   })
 })
 
@@ -252,7 +252,7 @@ describe('資料驅動的特殊限制（第 18 節、第 1.5 節）', () => {
   })
 })
 
-describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定晶片名稱）', () => {
+describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定紋章名稱）', () => {
   const fusedBlade: Part = {
     id: 'cx-fused',
     family: 'main_blade',
@@ -265,7 +265,7 @@ describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定晶片
   }
   const withFused = [...parts, fusedBlade]
 
-  it('未拆分上蓋 + 輔助上蓋 + 固鎖 + 軸心即可組裝，不需要鎖定晶片', () => {
+  it('未拆分上蓋 + 輔助戰刃 + 固鎖 + 軸心即可組裝，不需要鎖定紋章', () => {
     const r = checkCompatibility({
       slots: {
         mainBladeId: fusedBlade.id,
@@ -280,7 +280,7 @@ describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定晶片
     expect(r.system).toBe('CX')
   })
 
-  it('未拆分上蓋時再選鎖定晶片會被擋下', () => {
+  it('未拆分上蓋時再選鎖定紋章會被擋下', () => {
     const r = checkCompatibility({
       slots: {
         lockChipId: 'chip-cx',
@@ -293,10 +293,10 @@ describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定晶片
       rules: [],
     })
     expect(r.ok).toBe(false)
-    expect(r.errors.some((e) => e.messageZhTW.includes('不使用鎖定晶片'))).toBe(true)
+    expect(r.errors.some((e) => e.messageZhTW.includes('不使用鎖定紋章'))).toBe(true)
   })
 
-  it('一般 CX 上蓋仍然需要鎖定晶片', () => {
+  it('一般 CX 上蓋仍然需要鎖定紋章', () => {
     const r = checkCompatibility({
       slots: {
         mainBladeId: 'main-cx',
@@ -308,7 +308,7 @@ describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定晶片
       rules: [],
     })
     expect(r.ok).toBe(false)
-    expect(r.errors.map((e) => e.messageZhTW)).toContain('尚未選擇鎖定晶片')
+    expect(r.errors.map((e) => e.messageZhTW)).toContain('尚未選擇鎖定紋章')
   })
 
   it('槽位表會依選中的上蓋變化', () => {

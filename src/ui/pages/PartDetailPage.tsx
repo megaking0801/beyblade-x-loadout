@@ -84,7 +84,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
     <>
       <PageHeader
         title={label.titleZhTW}
-        description={[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
+        description={label.familyZhTW}
       />
 
       <Section title="基本資料">
@@ -108,7 +108,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
           {part.family === 'bit' ? <div>軸心特性：{part.bitContact ?? '官方未公布'}</div> : null}
           {part.cxFused ? (
             <div style={{ color: 'var(--warn)' }}>
-              此為 CX「鎖定晶片 + 主上蓋」已組合的狀態，官方尚未公布兩者個別名稱。
+              此為 CX「鎖定紋章 + 主刃」已組合的狀態，官方尚未公布兩者個別名稱。
             </div>
           ) : null}
         </div>

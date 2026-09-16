@@ -116,7 +116,7 @@ function OwnedProductCard({ owned, product }: { owned: OwnedProduct; product: Pr
             {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-            {label.subtitle} ・ {label.categoryZhTW}
+            {label.categoryZhTW}
           </div>
         </div>
         <Badge tone={owned.status === 'owned' ? 'ok' : 'warn'}>
@@ -284,9 +284,7 @@ function ManualOpenForm({ ownedId, sealed }: { ownedId: string; sealed: number }
             <option value="">選擇零件</option>
             {options.map((option) => (
               <option key={option.id} value={option.id}>
-                {option.label.subtitle
-                  ? `${option.label.familyZhTW}：${option.label.titleZhTW}（${option.label.subtitle}）`
-                  : `${option.label.familyZhTW}：${option.label.titleZhTW}`}
+                {option.label.familyZhTW}：{option.label.titleZhTW}
               </option>
             ))}
           </select>
@@ -403,7 +401,7 @@ function CatalogProductCard({ product }: { product: Product }) {
             {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-            {label.subtitle} ・ {label.categoryZhTW}
+            {label.categoryZhTW}
             {product.releaseDate ? ` ・ ${product.releaseDate}` : ''}
           </div>
         </div>

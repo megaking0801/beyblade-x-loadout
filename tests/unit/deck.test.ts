@@ -136,7 +136,7 @@ describe('3on3 驗證（第 32 節、第 45 節 Case 9）', () => {
     )
   })
 
-  it('CX 一般鎖定晶片可重複，但ワルキューレ鎖定晶片不可重複', () => {
+  it('CX 一般鎖定紋章可重複，但ワルキューレ鎖定紋章不可重複', () => {
     const generic = validate([
       { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f', lockChipId: 'chip-other' },
       { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b', lockChipId: 'chip-other' },
@@ -149,7 +149,7 @@ describe('3on3 驗證（第 32 節、第 45 節 Case 9）', () => {
       { bladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b', lockChipId: 'chip-valkyrie' },
       { bladeId: 'b-def', ratchetId: 'r-80', bitId: 'bit-p' },
     ])
-    expect(valkyrie.errorsZhTW).toContain('同一隊伍不可重複使用相同鎖定晶片：中文-chip-valkyrie')
+    expect(valkyrie.errorsZhTW).toContain('同一隊伍不可重複使用相同鎖定紋章：中文-chip-valkyrie')
   })
 
   it('庫存不足時不通過並指出缺幾個（第 45 節 Case 9）', () => {

@@ -42,7 +42,7 @@ const OFFICIAL_REGULATION_URL =
 
 /**
  * 現行官方 3on3 規則：三顆陀螺不可重複使用相同零件，顏色不同仍視為相同。
- * CX 鎖定晶片只有ワルキューレ、エンペラー各限一個，其餘鎖定晶片可重複。
+ * CX 鎖定紋章只有ワルキューレ、エンペラー各限一個，其餘鎖定紋章可重複。
  */
 export const DEFAULT_DECK_RULES: DeckRuleSet = {
   id: 'default-3on3',
@@ -54,7 +54,7 @@ export const DEFAULT_DECK_RULES: DeckRuleSet = {
     { code: 'エンペラー', nameZhTW: '帝王' },
   ],
   summaryZhTW:
-    '依官方 3on3 規則檢查重複零件：同一隊伍不可重複使用相同零件，顏色不同仍算同一零件。CX 鎖定晶片只有「女武神」與「帝王」不可重複，其餘可重複。（零件中文名為暫譯）',
+    '依官方 3on3 規則檢查重複零件：同一隊伍不可重複使用相同零件，顏色不同仍算同一零件。CX 鎖定紋章只有「戰神」與「帝王」不可重複，其餘可重複。（BeybladeHub 未收錄的零件名為暫譯）',
   provenance: {
     sourceUrls: [OFFICIAL_REGULATION_URL],
     verificationStatus: 'official_verified',

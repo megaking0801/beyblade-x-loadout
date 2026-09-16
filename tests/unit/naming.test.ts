@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../src/domain/naming.ts'
+import { JAPANESE_KANA, formatPartLabel, formatProductLabel, resolveDisplayName } from '../../src/domain/naming.ts'
 import type { Naming, Part, Product } from '../../src/domain/types.ts'
 
 const prov = { sourceUrls: [], verificationStatus: 'needs_review' as const }
@@ -53,10 +53,9 @@ describe('零件與商品的卡片標籤（第 26、28 節）', () => {
     provenance: prov,
   }
 
-  it('零件卡主標為中文名、副標為型號、並帶白話用途', () => {
+  it('零件卡主標為中文名、副標只剩分類、並帶白話用途', () => {
     const label = formatPartLabel(part)
     expect(label.titleZhTW).toBe('九柱六十')
-    expect(label.subtitle).toBe('9-60')
     expect(label.familyZhTW).toBe('固鎖')
     expect(label.plainDescriptionZhTW).toBe('重一點、比較耐撞')
   })
@@ -66,7 +65,7 @@ describe('零件與商品的卡片標籤（第 26、28 節）', () => {
     expect(label.plainDescriptionZhTW).toBeUndefined()
   })
 
-  it('商品卡副標優先顯示型號，沒有型號時顯示分類中文', () => {
+  it('商品卡主標把型號寫在名稱前，副標只剩分類中文', () => {
     const product: Product = {
       id: 'prod1',
       line: 'BX',
@@ -77,44 +76,37 @@ describe('零件與商品的卡片標籤（第 26、28 節）', () => {
       contents: [],
       provenance: prov,
     }
-    expect(formatProductLabel({ ...product, sku: 'BX-100' }).subtitle).toBe('BX-100')
-    expect(formatProductLabel(product).subtitle).toBe('隨機補充包')
+    expect(formatProductLabel({ ...product, sku: 'BX-100' }).titleZhTW).toBe('BX-100 測試隨機包')
+    expect(formatProductLabel(product).titleZhTW).toBe('測試隨機包')
+    expect(formatProductLabel(product).categoryZhTW).toBe('隨機強化組')
   })
 })
 
-describe('副標不得出現日文（第 1.4、5 節）', () => {
+describe('前台標籤不得出現日文（第 1.4、5 節）', () => {
   const base: Part = {
     id: 'p',
     family: 'blade',
     system: 'BX',
     code: 'ドランソード',
-    naming: { primaryZhTW: '龍之劍', nameJa: 'ドランソード', isProvisionalZhTW: true },
+    naming: { primaryZhTW: '蒼龍神劍', nameJa: 'ドランソード', isProvisionalZhTW: false },
     provenance: prov,
   }
 
-  it('代號本身是日文時副標留空，日文只留在次要名稱', () => {
+  it('代號本身是日文時不進入任何前台欄位，只留在次要名稱', () => {
     const label = formatPartLabel(base)
-    expect(label.subtitle).toBe('')
+    expect(label.titleZhTW).toBe('蒼龍神劍')
+    expect(label.familyZhTW).not.toMatch(JAPANESE_KANA)
     expect(label.secondaryNames).toEqual(['ドランソード'])
   })
 
-  it('主標已包含型號時不重複顯示副標', () => {
+  it('固鎖與軸心的主標就是型號本身，不另外加分類前綴', () => {
     const label = formatPartLabel({
       ...base,
       family: 'ratchet',
       code: '4-80',
-      naming: { primaryZhTW: '固鎖 4-80', isProvisionalZhTW: true },
+      naming: { primaryZhTW: '4-80', isProvisionalZhTW: false },
     })
-    expect(label.subtitle).toBe('')
-  })
-
-  it('型號是拉丁字且未出現在主標時照常顯示', () => {
-    const label = formatPartLabel({
-      ...base,
-      family: 'ratchet',
-      code: '9-60',
-      naming: { primaryZhTW: '九柱六十' },
-    })
-    expect(label.subtitle).toBe('9-60')
+    expect(label.titleZhTW).toBe('4-80')
+    expect(label.familyZhTW).toBe('固鎖')
   })
 })

@@ -22,7 +22,8 @@ export default defineConfig({
     { name: '桌機寬度', use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: {
-    command: 'npm run build && npm run preview -- --port 4173 --strictPort',
+    // 明確綁 127.0.0.1：vite preview 預設只監聽 ::1，url 用 IPv4 會等不到而超時。
+    command: 'npm run build && npm run preview -- --host 127.0.0.1 --port 4173 --strictPort',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

@@ -91,7 +91,7 @@ export interface EstimateArgs {
   blade?: Part
   ratchet?: Part
   bit?: Part
-  /** CX 的鎖定晶片與輔助上蓋等額外零件。 */
+  /** CX 的鎖定紋章與輔助戰刃等額外零件。 */
   extras: Part[]
 }
 

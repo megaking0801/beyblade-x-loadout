@@ -22,7 +22,7 @@ describe('Catalog 基本完整性（第 42 節）', () => {
     expect(catalog.products.length).toBeGreaterThanOrEqual(150)
   })
 
-  it('零件涵蓋上蓋、固鎖、軸心、CX 主上蓋與輔助上蓋', () => {
+  it('零件涵蓋上蓋、固鎖、軸心、CX 主刃與輔助戰刃', () => {
     const families = new Set(catalog.parts.map((part) => part.family))
     expect(families).toContain('blade')
     expect(families).toContain('ratchet')
@@ -69,10 +69,15 @@ describe('前台名稱規則（第 1.4、5 節）', () => {
     }
   })
 
-  it('尚未取得台灣官方名稱者一律標記暫譯', () => {
-    for (const product of catalog.products) {
-      expect(product.naming.isProvisionalZhTW).toBe(true)
+  it('BeybladeHub 未收錄的名稱才標暫譯，收錄者不標', () => {
+    const provisional = catalog.products.filter((product) => product.naming.isProvisionalZhTW)
+    const confirmed = catalog.products.filter((product) => !product.naming.isProvisionalZhTW)
+    expect(confirmed.length).toBeGreaterThan(0)
+    for (const product of provisional) {
       expect(resolveDisplayName(product.naming).provisionalLabelZhTW).toBe('暫譯')
+    }
+    for (const product of confirmed) {
+      expect(resolveDisplayName(product.naming).provisionalLabelZhTW).toBeUndefined()
     }
   })
 
@@ -191,19 +196,19 @@ describe('實際 Catalog 可以組出合法配裝（第 17、18 節）', () => {
 })
 
 describe('實際 Catalog 的前台標籤不得出現日文（第 1.4 節）', () => {
-  it('每個零件的主標與副標都沒有日文假名', () => {
+  it('每個零件的主標與分類都沒有日文假名', () => {
     for (const part of catalog.parts) {
       const label = formatPartLabel(part)
       expect(label.titleZhTW).not.toMatch(/[぀-ヿ]/)
-      expect(label.subtitle).not.toMatch(/[぀-ヿ]/)
+      expect(label.familyZhTW).not.toMatch(/[぀-ヿ]/)
     }
   })
 
-  it('每個商品的主標與副標都沒有日文假名', () => {
+  it('每個商品的主標與分類都沒有日文假名', () => {
     for (const product of catalog.products) {
       const label = formatProductLabel(product)
       expect(label.titleZhTW).not.toMatch(/[぀-ヿ]/)
-      expect(label.subtitle).not.toMatch(/[぀-ヿ]/)
+      expect(label.categoryZhTW).not.toMatch(/[぀-ヿ]/)
     }
   })
 })
@@ -222,6 +227,6 @@ describe('相容性提示不得吐出內部 id 或日文（第 1.4 節）', () =
       expect(warning.messageZhTW).not.toContain('ratchet:')
       expect(warning.messageZhTW).not.toContain('bit:')
     }
-    expect(result.warnings[0]!.messageZhTW).toContain('龍之劍')
+    expect(result.warnings[0]!.messageZhTW).toContain('蒼龍神劍')
   })
 })

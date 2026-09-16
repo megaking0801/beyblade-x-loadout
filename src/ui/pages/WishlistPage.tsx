@@ -124,7 +124,7 @@ function WishlistCard({
         <div style={{ flex: 1, minWidth: 150 }}>
           <div style={{ fontWeight: 600 }}>{label.titleZhTW}</div>
           <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-            {label.subtitle} ・ {label.categoryZhTW}
+            {label.categoryZhTW}
           </div>
         </div>
         <Quantity label="想買盒數" min={1} value={quantityDraft} onChange={setQuantityDraft} />

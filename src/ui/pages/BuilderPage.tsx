@@ -359,9 +359,7 @@ function SlotPicker({
           const partLabel = formatPartLabel(part)
           return (
             <option key={part.id} value={part.id}>
-              {partLabel.subtitle
-                ? `${partLabel.titleZhTW}（${partLabel.subtitle}）`
-                : partLabel.titleZhTW}
+              {partLabel.titleZhTW}
             </option>
           )
         })}
