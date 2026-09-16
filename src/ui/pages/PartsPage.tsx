@@ -15,15 +15,7 @@ import {
   type PartStatus,
 } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import {
-  Badge,
-  EmptyState,
-  PageHeader,
-  PartThumb,
-  Quantity,
-  Row,
-  Section,
-} from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section } from '../components/ui.tsx'
 
 /** 第 26 節指定的分類。 */
 const GROUPS: { key: string; label: string; families: PartFamily[] }[] = [
@@ -112,7 +104,7 @@ function MyParts() {
         if (rows.length === 0) return null
         return (
           <Section key={group.key} title={`${group.label}（${rows.length}）`}>
-            <div style={{ display: 'grid', gap: 8 }}>
+            <div className="spec-list">
               {rows.map((row) => {
                 const part = partById.get(row.partId)
                 if (!part) return null
@@ -123,25 +115,30 @@ function MyParts() {
                   <Link
                     to="/part"
                     query={{ id: part.id }}
-                    className="card"
+                    className="spec-row"
                     key={row.partId}
                     testId="part-stock"
                     dataPartId={part.id}
                   >
-                    <Row>
-                      <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
-                      <div style={{ flex: 1, minWidth: 150 }}>
-                        <div style={{ fontWeight: 600 }}>{label.titleZhTW}</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                          {label.familyZhTW}
-                          {preferenceByPartId.get(part.id)?.favorite ? ' ・ 已收藏' : ''}
-                        </div>
-                        {label.plainDescriptionZhTW ? (
-                          <div style={{ fontSize: 13 }}>{label.plainDescriptionZhTW}</div>
-                        ) : null}
+                    <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontWeight: 600, fontSize: 15 }}>
+                        <CatalogTitle>{label.titleZhTW}</CatalogTitle>
                       </div>
-                      <div style={{ textAlign: 'right', fontSize: 13 }}>
-                        <div data-testid="part-available">可用 ×{row.available}</div>
+                      {/* 分類已經寫在區塊標題上，列裡不再重複一次。 */}
+                      {label.plainDescriptionZhTW ? (
+                        <div className="meta">{label.plainDescriptionZhTW}</div>
+                      ) : null}
+                      {preferenceByPartId.get(part.id)?.favorite ? (
+                        <div className="meta" style={{ fontSize: 12 }}>
+                          已收藏
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="spec-figure" style={{ fontSize: 13 }}>
+                        <div data-testid="part-available">
+                          可用 <span className="code">×{row.available}</span>
+                        </div>
                         {reserved > 0 ? (
                           <div style={{ color: 'var(--warn)' }} data-testid="part-reserved">
                             已組裝占用 ×{reserved}
@@ -157,9 +154,8 @@ function MyParts() {
                         {row.worn > 0 ? <div>磨耗 ×{row.worn}</div> : null}
                         {row.damaged > 0 ? <div>損壞 ×{row.damaged}</div> : null}
                         {row.lost > 0 ? <div>遺失 ×{row.lost}</div> : null}
-                        {row.sold > 0 ? <div>已出售 ×{row.sold}</div> : null}
-                      </div>
-                    </Row>
+                      {row.sold > 0 ? <div>已出售 ×{row.sold}</div> : null}
+                    </div>
                   </Link>
                 )
               })}
@@ -302,7 +298,8 @@ function CatalogPartCard({ part }: { part: Part }) {
         <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
         <div style={{ flex: 1, minWidth: 150 }}>
           <div style={{ fontWeight: 600 }} data-testid="catalog-part-title">
-            {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
+            <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
+            {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
             {label.familyZhTW}

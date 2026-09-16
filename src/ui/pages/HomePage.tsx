@@ -8,15 +8,7 @@ import { catalogMeta, useAppStore } from '../../store/appStore.ts'
 import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { Link, navigate } from '../router.tsx'
-import {
-  EmptyState,
-  Grid,
-  NoticeCard,
-  PageHeader,
-  Row,
-  Section,
-  StatTile,
-} from '../components/ui.tsx'
+import { EmptyState, NoticeCard, PageHeader, Row, Section, StatTile } from '../components/ui.tsx'
 
 const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
   { label: '新增商品', path: '/products', hint: '登記你買了哪一盒' },
@@ -39,6 +31,8 @@ export function HomePage() {
   const recentCombos = [...combos].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
   const recentDecks = [...decks].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
   const isEmpty = summary.ownedProductCount === 0 && summary.bladeCount === 0
+  // 三種零件各自可用數相乘＝理論上排得出來的配裝數（不代表全都合法，實際要看「我能組什麼」）。
+  const comboSpace = summary.bladeCount * summary.ratchetCount * summary.bitCount
 
   return (
     <>
@@ -53,32 +47,54 @@ export function HomePage() {
         </NoticeCard>
       ) : null}
 
-      <Section title="我的庫存">
-        <Grid min={110}>
+      {/*
+        一顆陀螺就是「上蓋 × 固鎖 × 軸心」。把這條乘式當首頁主角，
+        右邊直接給出理論組合數，回答使用者真正想問的「我現在能組幾種」。
+      */}
+      <Section title="我的零件">
+        <div className="slot-rack">
+          <SlotCount testId="stat-blades" label="上蓋" value={summary.bladeCount} />
+          <span className="slot-rack-op" aria-hidden>
+            ×
+          </span>
+          <SlotCount testId="stat-ratchets" label="固鎖" value={summary.ratchetCount} />
+          <span className="slot-rack-op" aria-hidden>
+            ×
+          </span>
+          <SlotCount testId="stat-bits" label="軸心" value={summary.bitCount} />
+          <Link to="/buildable" className="slot-rack-total">
+            <span className="meta">理論組合</span>
+            <span className="code" style={{ fontSize: 34, lineHeight: 1.05 }}>
+              {comboSpace}
+            </span>
+            <span className="meta">看能實際組出哪些</span>
+          </Link>
+        </div>
+      </Section>
+
+      <Section title="我的紀錄">
+        <div className="stat-grid">
           <StatTile testId="stat-products" label="我的商品" value={summary.ownedProductCount} hint="盒數" />
-          <StatTile testId="stat-blades" label="上蓋" value={summary.bladeCount} hint="可用數" />
-          <StatTile testId="stat-ratchets" label="固鎖" value={summary.ratchetCount} hint="可用數" />
-          <StatTile testId="stat-bits" label="軸心" value={summary.bitCount} hint="可用數" />
-          <StatTile testId="stat-combos" label="我的配裝" value={summary.comboCount} />
-          <StatTile testId="stat-decks" label="我的 3on3" value={summary.deckCount} />
-        </Grid>
+          <StatTile testId="stat-combos" label="我的配裝" value={summary.comboCount} hint="已存的單顆配置" />
+          <StatTile testId="stat-decks" label="我的 3on3" value={summary.deckCount} hint="已存的隊伍" />
+        </div>
       </Section>
 
       <Section title="快速操作">
-        <Grid min={150}>
+        <div className="spec-list">
           {QUICK_ACTIONS.map((action) => (
             <button
               key={action.path}
               type="button"
-              className="card"
-              style={{ textAlign: 'left', cursor: 'pointer' }}
+              className="spec-row"
+              style={{ width: '100%', textAlign: 'left', cursor: 'pointer', background: 'none', border: 0 }}
               onClick={() => navigate(action.path)}
             >
-              <div style={{ fontWeight: 600 }}>{action.label}</div>
-              <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>{action.hint}</div>
+              <span style={{ fontWeight: 600, minWidth: 96 }}>{action.label}</span>
+              <span className="meta">{action.hint}</span>
             </button>
           ))}
-        </Grid>
+        </div>
       </Section>
 
       <Section title="最近使用">
@@ -134,6 +150,17 @@ export function HomePage() {
         </div>
       </Section>
     </>
+  )
+}
+
+function SlotCount({ label, value, testId }: { label: string; value: number; testId: string }) {
+  return (
+    <div className="slot-rack-item" data-testid={testId}>
+      <span className="meta">{label}</span>
+      <span className="code" style={{ fontSize: 34, lineHeight: 1.05 }} data-testid={`${testId}-value`}>
+        {value}
+      </span>
+    </div>
   )
 }
 

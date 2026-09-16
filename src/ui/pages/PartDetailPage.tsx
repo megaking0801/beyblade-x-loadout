@@ -10,7 +10,7 @@ import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../d
 import { getPartTournamentDecks } from '../../domain/tournament.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
-import { Badge, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
 
 export function PartDetailPage({ partId }: { partId: string }) {
   const parts = useAppStore((state) => state.parts)
@@ -163,7 +163,9 @@ export function PartDetailPage({ partId }: { partId: string }) {
             {containingProducts.map((product) => (
               <Link to="/product" query={{ id: product.id }} className="card" key={product.id}>
                 <Row>
-                  <span style={{ flex: 1 }}>{formatProductLabel(product).titleZhTW}</span>
+                  <span style={{ flex: 1 }}>
+                    <CatalogTitle>{formatProductLabel(product).titleZhTW}</CatalogTitle>
+                  </span>
                   <span style={{ fontSize: 12, color: 'var(--text-dim)' }}>{product.sku}</span>
                 </Row>
               </Link>

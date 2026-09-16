@@ -16,15 +16,7 @@ import {
   type Product,
 } from '../../domain/types.ts'
 import { Link, navigate } from '../router.tsx'
-import {
-  Badge,
-  EmptyState,
-  PageHeader,
-  PartThumb,
-  Quantity,
-  Row,
-  Section,
-} from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section } from '../components/ui.tsx'
 import { formatPartLabel } from '../../domain/naming.ts'
 
 const STATUS_OPTIONS: OwnedProductStatus[] = ['owned', 'ordered', 'wishlist', 'sold']
@@ -81,7 +73,7 @@ function MyProducts() {
   }
 
   return (
-    <div style={{ display: 'grid', gap: 10 }}>
+    <div className="list-grid">
       {ownedProducts.map((owned) => {
         const product = productById.get(owned.productId)
         if (!product) return null
@@ -109,19 +101,16 @@ function OwnedProductCard({ owned, product }: { owned: OwnedProduct; product: Pr
   return (
     <div className="card" data-testid="owned-product">
       <Row>
-        <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} />
+        <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} size={56} />
         <div style={{ flex: 1, minWidth: 160 }}>
-          <div style={{ fontWeight: 600 }} data-testid="owned-product-title">
-            {label.titleZhTW}{' '}
+          <div style={{ fontWeight: 600, fontSize: 15 }} data-testid="owned-product-title">
+            <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
             {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
             {label.categoryZhTW}
           </div>
         </div>
-        <Badge tone={owned.status === 'owned' ? 'ok' : 'warn'}>
-          {OWNED_PRODUCT_STATUS_ZH[owned.status]}
-        </Badge>
       </Row>
 
       <div style={{ height: 10 }} />
@@ -171,18 +160,25 @@ function OwnedProductCard({ owned, product }: { owned: OwnedProduct; product: Pr
         </>
       ) : null}
 
-      <textarea
-        className="field"
-        aria-label={`${label.titleZhTW} 備註`}
-        placeholder="商品備註（例如購買日期、來源或預計到貨日）"
-        rows={2}
-        value={notes}
-        onChange={(event) => setNotes(event.target.value)}
-        onBlur={() => {
-          if (notes === (owned.notes ?? '')) return
-          void run(() => repo.updateOwnedProduct(owned.id, { notes: notes.trim() || undefined }))
-        }}
-      />
+      {/* 備註大多是空的，展開後才佔版面，收起來時整份清單才掃得快。 */}
+      <details open={Boolean(owned.notes)} style={{ marginTop: 10 }}>
+        <summary style={{ cursor: 'pointer', fontSize: 13, color: 'var(--ink-dim)' }}>
+          備註{owned.notes ? '' : '（空白）'}
+        </summary>
+        <textarea
+          className="field"
+          style={{ marginTop: 8 }}
+          aria-label={`${label.titleZhTW} 備註`}
+          placeholder="例如購買日期、來源或預計到貨日"
+          rows={2}
+          value={notes}
+          onChange={(event) => setNotes(event.target.value)}
+          onBlur={() => {
+            if (notes === (owned.notes ?? '')) return
+            void run(() => repo.updateOwnedProduct(owned.id, { notes: notes.trim() || undefined }))
+          }}
+        />
+      </details>
 
       <div style={{ height: 10 }} />
       <Row>
@@ -373,7 +369,7 @@ function CatalogList() {
         {filtered.length === 0 ? (
           <EmptyState title="找不到符合的商品" hint="試試型號，例如 BX-01。" />
         ) : (
-          <div style={{ display: 'grid', gap: 10 }}>
+          <div className="list-grid">
             {filtered.map((row) => (
               <CatalogProductCard key={row.product.id} product={row.product} />
             ))}
@@ -395,14 +391,15 @@ function CatalogProductCard({ product }: { product: Product }) {
   return (
     <div className="card" data-testid="catalog-product">
       <Row>
-        <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} />
+        <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} size={56} />
         <div style={{ flex: 1, minWidth: 160 }}>
-          <div style={{ fontWeight: 600 }} data-testid="catalog-product-title">
-            {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
+          <div style={{ fontWeight: 600, fontSize: 15 }} data-testid="catalog-product-title">
+            <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
+            {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
             {label.categoryZhTW}
-            {product.releaseDate ? ` ・ ${product.releaseDate}` : ''}
+            {product.releaseDate ? `　${product.releaseDate} 發售` : ''}
           </div>
         </div>
       </Row>

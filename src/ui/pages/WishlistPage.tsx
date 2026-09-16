@@ -10,14 +10,7 @@ import { formatProductLabel } from '../../domain/naming.ts'
 import { searchProducts } from '../../domain/search.ts'
 import type { Product } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import {
-  Badge,
-  EmptyState,
-  PageHeader,
-  Quantity,
-  Row,
-  Section,
-} from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, Quantity, Row, Section } from '../components/ui.tsx'
 
 export function WishlistPage() {
   const products = useAppStore((state) => state.products)
@@ -52,7 +45,9 @@ export function WishlistPage() {
           {results.map((row) => (
             <div className="card" key={row.product.id}>
               <Row>
-                <span style={{ flex: 1 }}>{formatProductLabel(row.product).titleZhTW}</span>
+                <span style={{ flex: 1 }}>
+                  <CatalogTitle>{formatProductLabel(row.product).titleZhTW}</CatalogTitle>
+                </span>
                 <button
                   type="button"
                   className="btn btn-primary"
@@ -122,7 +117,9 @@ function WishlistCard({
     <div className="card">
       <Row>
         <div style={{ flex: 1, minWidth: 150 }}>
-          <div style={{ fontWeight: 600 }}>{label.titleZhTW}</div>
+          <div style={{ fontWeight: 600, fontSize: 15 }}>
+            <CatalogTitle>{label.titleZhTW}</CatalogTitle>
+          </div>
           <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
             {label.categoryZhTW}
           </div>

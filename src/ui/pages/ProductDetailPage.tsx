@@ -9,7 +9,7 @@ import { useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../domain/naming.ts'
 import { OWNED_PRODUCT_STATUS_ZH } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
 
 export function ProductDetailPage({ productId }: { productId: string }) {
   const products = useAppStore((state) => state.products)
@@ -51,7 +51,8 @@ export function ProductDetailPage({ productId }: { productId: string }) {
             </div>
           </Row>
           <Field name="台灣中文名稱">
-            {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
+            <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
+            {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </Field>
           {label.secondaryNames.length > 0 ? (
             <Field name="其他名稱">{label.secondaryNames.join(' ／ ')}</Field>
@@ -97,7 +98,9 @@ export function ProductDetailPage({ productId }: { productId: string }) {
                   <Row>
                     <PartThumb code={part.code} nameZhTW={partLabel.titleZhTW} />
                     <div style={{ flex: 1 }}>
-                      <div>{partLabel.titleZhTW}</div>
+                      <div style={{ fontWeight: 600 }}>
+                        <CatalogTitle>{partLabel.titleZhTW}</CatalogTitle>
+                      </div>
                       <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
                         {partLabel.familyZhTW}
                       </div>

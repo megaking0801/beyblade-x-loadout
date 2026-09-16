@@ -17,13 +17,17 @@ export function PageHeader({
   action?: ReactNode
 }) {
   return (
-    <header style={{ padding: '18px 0 12px' }}>
+    <header style={{ padding: '22px 0 14px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-        <h1 style={{ margin: 0, fontSize: 22, flex: 1 }}>{title}</h1>
+        <h1 className="page-title" style={{ flex: 1 }}>
+          {title}
+        </h1>
         {action}
       </div>
       {description ? (
-        <p style={{ margin: '6px 0 0', color: 'var(--text-dim)', fontSize: 14 }}>{description}</p>
+        <p className="meta" style={{ margin: '6px 0 0', maxWidth: '58ch' }}>
+          {description}
+        </p>
       ) : null}
     </header>
   )
@@ -39,9 +43,11 @@ export function Section({
   action?: ReactNode
 }) {
   return (
-    <section style={{ marginBottom: 18 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-        <h2 style={{ margin: 0, fontSize: 16, flex: 1 }}>{title}</h2>
+    <section style={{ marginBottom: 22 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <h2 className="section-title" style={{ flex: 1 }}>
+          {title}
+        </h2>
         {action}
       </div>
       {children}
@@ -81,20 +87,49 @@ const TONE_COLOR: Record<BadgeTone, string> = {
 }
 
 export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: BadgeTone }) {
+  const color = TONE_COLOR[tone]
   return (
     <span
       style={{
         display: 'inline-block',
-        padding: '2px 8px',
-        borderRadius: 999,
+        padding: '3px 8px',
+        borderRadius: 6,
         fontSize: 12,
-        border: `1px solid ${TONE_COLOR[tone]}`,
-        color: TONE_COLOR[tone],
+        fontWeight: 600,
+        background: `color-mix(in srgb, ${color} 12%, transparent)`,
+        color,
         whiteSpace: 'nowrap',
       }}
     >
       {children}
     </span>
+  )
+}
+
+/** 型號在型錄裡是主角，拉丁代號用寬體，中文名維持正常字寬（第 5 節）。 */
+const LEADING_SKU = /^([A-Z]{2,3}-\d+[A-Za-z]*)\s+(.*)$/
+const TRAILING_COMBO = /^(.*?)((?:[A-Z]{1,2})?\d+-\d+[A-Za-z]+)$/
+
+export function CatalogTitle({ children }: { children: string }) {
+  const skuMatch = LEADING_SKU.exec(children)
+  const sku = skuMatch?.[1]
+  const rest = skuMatch?.[2] ?? children
+  const comboMatch = TRAILING_COMBO.exec(rest)
+  const name = comboMatch?.[1] || rest
+  const combo = comboMatch?.[1] ? comboMatch[2] : undefined
+
+  return (
+    <>
+      {sku ? (
+        <>
+          <span className="code" style={{ color: 'var(--ink-dim)' }}>
+            {sku}
+          </span>{' '}
+        </>
+      ) : null}
+      {name}
+      {combo ? <span className="code">{combo}</span> : null}
+    </>
   )
 }
 
@@ -120,15 +155,16 @@ export function StatTile({
   testId?: string
 }) {
   return (
-    <div className="card" style={{ padding: 12 }} {...(testId ? { 'data-testid': testId } : {})}>
-      <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>{label}</div>
+    <div className="card" style={{ padding: '12px 14px' }} {...(testId ? { 'data-testid': testId } : {})}>
+      <div style={{ fontSize: 12, color: 'var(--ink-dim)' }}>{label}</div>
       <div
-        style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.2 }}
+        className="code"
+        style={{ fontSize: 30, lineHeight: 1.15, margin: '2px 0' }}
         {...(testId ? { 'data-testid': `${testId}-value` } : {})}
       >
         {value}
       </div>
-      {hint ? <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>{hint}</div> : null}
+      {hint ? <div style={{ fontSize: 12, color: 'var(--ink-dim)' }}>{hint}</div> : null}
     </div>
   )
 }
@@ -168,7 +204,8 @@ export function PartThumb({
   imageUrl?: string
 }) {
   const [failed, setFailed] = useState(false)
-  const latin = code.replace(/[^0-9A-Za-z-]/g, '').slice(0, 4)
+  // 「BX-01」被切成「BX-0」會看起來像壞掉，型號一律留完整。
+  const latin = code.replace(/[^0-9A-Za-z-]/g, '').slice(0, 6)
   const chinese = (nameZhTW ?? '').replace(/\s/g, '').slice(0, 2)
   const short = latin || chinese || '—'
 
@@ -176,9 +213,9 @@ export function PartThumb({
     width: size,
     height: size,
     flex: `0 0 ${size}px`,
-    borderRadius: 10,
+    borderRadius: 'var(--radius-sm)',
     background: 'var(--surface-2)',
-    border: '1px solid var(--border)',
+    border: '1px solid var(--rule)',
     overflow: 'hidden',
   } as const
 
@@ -200,13 +237,16 @@ export function PartThumb({
   return (
     <div
       aria-hidden
+      className="code"
       style={{
         ...frame,
         display: 'grid',
         placeItems: 'center',
-        fontSize: size <= 40 ? 11 : 13,
-        color: 'var(--text-dim)',
-        fontWeight: 600,
+        padding: 2,
+        fontSize: short.length > 4 ? 10 : 12,
+        color: 'var(--ink-dim)',
+        textAlign: 'center',
+        lineHeight: 1.1,
       }}
     >
       {short}
