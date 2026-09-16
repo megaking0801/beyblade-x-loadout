@@ -15,6 +15,10 @@ import { fileURLToPath } from 'node:url'
 const root = resolve(fileURLToPath(import.meta.url), '../..')
 const BRANCH = 'gh-pages'
 
+// 在這裡設 base 旗標，子行程會繼承：npm 在 Windows 用 cmd 跑 script，
+// package.json 裡的 `GITHUB_ACTIONS=1 node ...` 前綴語法會直接失敗。
+process.env.GITHUB_ACTIONS = '1'
+
 function git(args, options = {}) {
   // stdio: 'ignore' 時 execFileSync 會回 null，所以不能直接 trim。
   const output = execFileSync('git', args, { cwd: root, encoding: 'utf8', ...options })
@@ -22,7 +26,10 @@ function git(args, options = {}) {
 }
 
 function run(command, args, cwd = root) {
-  execFileSync(command, args, { cwd, stdio: 'inherit' })
+  // Windows 的 npm 是 npm.cmd，execFileSync 不經 shell 找不到；但 shell 會重新切詞，
+  // 會把 commit 訊息裡的空白拆成多個參數，所以只有 npm 走 shell。
+  const shell = process.platform === 'win32' && command === 'npm'
+  execFileSync(command, args, { cwd, stdio: 'inherit', shell })
 }
 
 // 1. 用 Pages 的 base path 打包（vite.config.ts 依 GITHUB_ACTIONS 決定 base）

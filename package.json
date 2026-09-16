@@ -15,7 +15,7 @@
     "build:catalog-images": "node scripts/buildCatalogImages.mjs",
     "shots": "playwright test --config=playwright.shots.config.ts",
     "build:pages": "GITHUB_ACTIONS=1 npm run build",
-    "deploy:pages": "GITHUB_ACTIONS=1 node scripts/deployPages.mjs",
+    "deploy:pages": "node scripts/deployPages.mjs",
     "test:live": "playwright test --config=playwright.live.config.ts"
   },
   "dependencies": {
