@@ -19,7 +19,11 @@ describe('Catalog 基本完整性（第 42 節）', () => {
   })
 
   it('商品數達到官方一覽的規模，不是少量樣本', () => {
-    expect(catalog.products.length).toBeGreaterThanOrEqual(150)
+    expect(catalog.products.length).toBeGreaterThanOrEqual(145)
+  })
+
+  it('貼紙類周邊不收進圖鑑（沒有零件，對庫存與配裝沒有意義）', () => {
+    expect(catalog.products.filter((product) => product.naming.nameJa?.includes('ステッカー'))).toEqual([])
   })
 
   it('零件涵蓋上蓋、固鎖、軸心、CX 主刃與輔助戰刃', () => {

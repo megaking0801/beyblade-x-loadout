@@ -3115,7 +3115,7 @@
       "line": "BX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "起跑衝刺組",
+        "primaryZhTW": "起跑包",
         "nameJa": "スタートダッシュセット",
         "isProvisionalZhTW": true
       },
@@ -3166,7 +3166,7 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "3on3 套組",
+        "primaryZhTW": "3on3 對戰套組",
         "nameJa": "3on3デッキセット",
         "isProvisionalZhTW": true
       },
@@ -3254,7 +3254,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "極限戰鬥盤",
+        "primaryZhTW": "極限對戰盤",
         "nameJa": "エクストリームスタジアム",
         "isProvisionalZhTW": true
       },
@@ -3304,7 +3304,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "3on3 收納盒",
+        "primaryZhTW": "3on3 陀螺收納盒",
         "nameJa": "3on3デッキケース",
         "isProvisionalZhTW": true
       },
@@ -3329,7 +3329,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "極限戰鬥盤 輕裝包裝",
+        "primaryZhTW": "極限對戰盤 簡易包裝版",
         "nameJa": "エクストリームスタジアム ライトパッケージ",
         "isProvisionalZhTW": true
       },
@@ -3430,7 +3430,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.1",
+        "primaryZhTW": "隨機強化組 Vol.1",
         "nameJa": "ランダムブースターVol.1",
         "isProvisionalZhTW": true
       },
@@ -3455,7 +3455,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "惡魔紅鐮4-60T 金屬塗層:金",
+        "primaryZhTW": "惡魔紅鐮4-60T 金色金屬塗裝",
         "nameJa": "ヘルズサイズ4-60T メタルコート:ゴールド",
         "isProvisionalZhTW": false
       },
@@ -3531,7 +3531,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 王蛇鞭尾精選",
+        "primaryZhTW": "王蛇鞭尾隨機強化組",
         "nameJa": "ランダムブースター ヴァイパーテイルセレクト",
         "isProvisionalZhTW": true
       },
@@ -3556,7 +3556,7 @@
       "line": "BX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "對戰入門組",
+        "primaryZhTW": "戰鬥入門套組",
         "nameJa": "バトルエントリーセット",
         "isProvisionalZhTW": true
       },
@@ -3619,7 +3619,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器",
+        "primaryZhTW": "旋風發射器",
         "nameJa": "ストリングランチャー",
         "isProvisionalZhTW": true
       },
@@ -3682,7 +3682,7 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "蒼龍利刃套組",
+        "primaryZhTW": "蒼龍利刃改造組",
         "nameJa": "ドランダガーデッキセット",
         "isProvisionalZhTW": false
       },
@@ -3745,7 +3745,7 @@
       "line": "BX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "惡魔鎖鏈套組",
+        "primaryZhTW": "惡魔鎖鏈改造組",
         "nameJa": "ヘルズチェインデッキセット",
         "isProvisionalZhTW": false
       },
@@ -3808,7 +3808,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "蒼龍神劍3-60F 入門包裝",
+        "primaryZhTW": "蒼龍神劍3-60F 入門包",
         "nameJa": "ドランソード3-60F エントリーパッケージ",
         "isProvisionalZhTW": false
       },
@@ -3884,7 +3884,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.2",
+        "primaryZhTW": "隨機強化組 Vol.2",
         "nameJa": "ランダムブースターVol.2",
         "isProvisionalZhTW": true
       },
@@ -3909,7 +3909,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "齒輪收納盒",
+        "primaryZhTW": "陀螺收納盒",
         "nameJa": "ギアケース",
         "isProvisionalZhTW": true
       },
@@ -3972,7 +3972,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 幻神護甲精選",
+        "primaryZhTW": "幻神護甲隨機強化組",
         "nameJa": "ランダムブースター スフィンクスカウルセレクト",
         "isProvisionalZhTW": true
       },
@@ -3997,7 +3997,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "雄獅獵爪5-60P 金屬塗層:金",
+        "primaryZhTW": "雄獅獵爪5-60P 金色金屬塗裝",
         "nameJa": "レオンクロー5-60P メタルコート:ゴールド",
         "isProvisionalZhTW": false
       },
@@ -4035,7 +4035,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "鮫鯊鋒鰭5-60GF 金屬塗層:藍",
+        "primaryZhTW": "鮫鯊鋒鰭5-60GF 藍色金屬塗裝",
         "nameJa": "シャークエッジ5-60GF メタルコート:ブルー",
         "isProvisionalZhTW": false
       },
@@ -4073,7 +4073,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器 白版",
+        "primaryZhTW": "旋風發射器 白色版",
         "nameJa": "ストリングランチャー ホワイトVer.",
         "isProvisionalZhTW": true
       },
@@ -4098,7 +4098,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "自訂握把 白版",
+        "primaryZhTW": "自訂握把 白色版",
         "nameJa": "カスタムグリップ ホワイトVer.",
         "isProvisionalZhTW": true
       },
@@ -4123,7 +4123,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "自訂握把 紅版",
+        "primaryZhTW": "自訂握把 紅色版",
         "nameJa": "カスタムグリップ レッドVer.",
         "isProvisionalZhTW": true
       },
@@ -4262,7 +4262,7 @@
       "line": "UX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "對戰入門組U",
+        "primaryZhTW": "戰鬥入門套組 U",
         "nameJa": "バトルエントリーセットU",
         "isProvisionalZhTW": true
       },
@@ -4363,7 +4363,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.3",
+        "primaryZhTW": "隨機強化組 Vol.3",
         "nameJa": "ランダムブースターVol.3",
         "isProvisionalZhTW": true
       },
@@ -4388,7 +4388,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "惡魔鎖鏈5-60HT 金屬塗層:黑",
+        "primaryZhTW": "惡魔鎖鏈5-60HT 黑色金屬塗裝",
         "nameJa": "ヘルズチェイン5-60HT メタルコート:ブラック",
         "isProvisionalZhTW": false
       },
@@ -4426,7 +4426,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 忍者闇影精選",
+        "primaryZhTW": "忍者闇影隨機強化組",
         "nameJa": "ランダムブースター シノビシャドウセレクト",
         "isProvisionalZhTW": true
       },
@@ -4451,7 +4451,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "自訂握把 透明黑版",
+        "primaryZhTW": "自訂握把 透明黑色版",
         "nameJa": "カスタムグリップ クリアブラックVer.",
         "isProvisionalZhTW": true
       },
@@ -4514,7 +4514,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "寬版極限戰鬥盤",
+        "primaryZhTW": "寬版極限對戰盤",
         "nameJa": "ワイドエクストリームスタジアム",
         "isProvisionalZhTW": true
       },
@@ -4577,7 +4577,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.4",
+        "primaryZhTW": "隨機強化組 Vol.4",
         "nameJa": "ランダムブースターVol.4",
         "isProvisionalZhTW": true
       },
@@ -4594,81 +4594,6 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "needs_review"
-      }
-    },
-    {
-      "id": "bx00-st01",
-      "sku": "BX-00",
-      "line": "BX",
-      "category": "tool",
-      "naming": {
-        "primaryZhTW": "貼紙 01",
-        "nameJa": "ベイブレードステッカー 01",
-        "isProvisionalZhTW": true
-      },
-      "releaseDate": "2024-07-30",
-      "region": [
-        "JP"
-      ],
-      "contents": [],
-      "isRandom": false,
-      "provenance": {
-        "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-st01.html"
-        ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
-      }
-    },
-    {
-      "id": "bx00-st02",
-      "sku": "BX-00",
-      "line": "BX",
-      "category": "tool",
-      "naming": {
-        "primaryZhTW": "貼紙 02",
-        "nameJa": "ベイブレードステッカー 02",
-        "isProvisionalZhTW": true
-      },
-      "releaseDate": "2024-07-30",
-      "region": [
-        "JP"
-      ],
-      "contents": [],
-      "isRandom": false,
-      "provenance": {
-        "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-st02.html"
-        ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
-      }
-    },
-    {
-      "id": "bx00-st03",
-      "sku": "BX-00",
-      "line": "BX",
-      "category": "tool",
-      "naming": {
-        "primaryZhTW": "貼紙 03",
-        "nameJa": "ベイブレードステッカー 03",
-        "isProvisionalZhTW": true
-      },
-      "releaseDate": "2024-07-30",
-      "region": [
-        "JP"
-      ],
-      "contents": [],
-      "isRandom": false,
-      "provenance": {
-        "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-st03.html"
-        ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
       }
     },
     {
@@ -4757,7 +4682,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "烈焰飛鳳S3-80T 黑版",
+        "primaryZhTW": "烈焰飛鳳S3-80T 黑色版",
         "nameJa": "ドランザースパイラル3-80T ブラックVer.",
         "isProvisionalZhTW": false
       },
@@ -4833,7 +4758,7 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "鳳凰尾翼套組",
+        "primaryZhTW": "鳳凰尾翼改造組",
         "nameJa": "フェニックスラダーデッキセット",
         "isProvisionalZhTW": false
       },
@@ -4896,7 +4821,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "蒼穹龍騎士2-60C 金屬塗層:黑",
+        "primaryZhTW": "蒼穹龍騎士2-60C 黑色金屬塗裝",
         "nameJa": "コバルトドラグーン2-60C メタルコート:ブラック",
         "isProvisionalZhTW": false
       },
@@ -4959,7 +4884,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 巨鯨怒濤精選",
+        "primaryZhTW": "巨鯨怒濤隨機強化組",
         "nameJa": "ランダムブースター ホエールウェーブセレクト",
         "isProvisionalZhTW": true
       },
@@ -5022,7 +4947,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "雙重極限戰鬥盤組",
+        "primaryZhTW": "雙極限對戰盤套組",
         "nameJa": "ダブルエクストリームスタジアムセット",
         "isProvisionalZhTW": true
       },
@@ -5123,7 +5048,7 @@
       "line": "UX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "改裝組U",
+        "primaryZhTW": "客製套組 U",
         "nameJa": "カスタマイズセットU",
         "isProvisionalZhTW": true
       },
@@ -5202,7 +5127,7 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "亞洲錦標賽紀念 蒼龍套組入門版",
+        "primaryZhTW": "亞洲錦標賽紀念 蒼龍起始對戰套組",
         "nameJa": "アジアチャンピオンシップ開催記念 ドランデッキスターター",
         "isProvisionalZhTW": true
       },
@@ -5303,7 +5228,7 @@
       "line": "BX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "猛獁獠牙2-80E 金屬塗層:黑",
+        "primaryZhTW": "猛獁獠牙2-80E 黑色金屬塗裝",
         "nameJa": "マンモスタスク2-80E メタルコート:ブラック",
         "isProvisionalZhTW": false
       },
@@ -5379,7 +5304,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.5",
+        "primaryZhTW": "隨機強化組 Vol.5",
         "nameJa": "ランダムブースターVol.5",
         "isProvisionalZhTW": true
       },
@@ -5442,7 +5367,7 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "蒼龍爆刃1-60A 金屬塗層:藍 FC 巴薩版",
+        "primaryZhTW": "蒼龍爆刃1-60A 金屬塗層:藍 FC 巴塞隆納版",
         "nameJa": "ドランバスター1-60A メタルコート:ブルー FCバルセロナVer.",
         "isProvisionalZhTW": false
       },
@@ -5480,7 +5405,7 @@
       "line": "UX",
       "category": "battle_set",
       "naming": {
-        "primaryZhTW": "開球組 FC 巴薩版",
+        "primaryZhTW": "開球套組 FC 巴塞隆納版",
         "nameJa": "ベイキックオフセット FCバルセロナVer.",
         "isProvisionalZhTW": true
       },
@@ -5543,7 +5468,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 護城龍神精選",
+        "primaryZhTW": "護城龍神隨機強化組",
         "nameJa": "ランダムブースター シェルタードレイクセレクト",
         "isProvisionalZhTW": true
       },
@@ -5606,7 +5531,7 @@
       "line": "BX",
       "category": "battle_set",
       "naming": {
-        "primaryZhTW": "25 週年紀念組",
+        "primaryZhTW": "戰鬥陀螺 25 週年紀念套組",
         "nameJa": "ベイブレード25周年記念セット",
         "isProvisionalZhTW": true
       },
@@ -5631,7 +5556,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "捲軸發射器L",
+        "primaryZhTW": "左迴旋拉條發射器 L",
         "nameJa": "ワインダーランチャーL",
         "isProvisionalZhTW": true
       },
@@ -5656,7 +5581,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "橡膠自訂握把 槍鐵灰版",
+        "primaryZhTW": "橡膠自訂握把 槍鐵色版",
         "nameJa": "ラバーカスタムグリップ ガンメタVer.",
         "isProvisionalZhTW": true
       },
@@ -5681,7 +5606,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "橡膠自訂握把 藍版",
+        "primaryZhTW": "橡膠自訂握把 藍色版",
         "nameJa": "ラバーカスタムグリップ ブルーVer.",
         "isProvisionalZhTW": true
       },
@@ -5706,7 +5631,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "齒輪收納盒 白版",
+        "primaryZhTW": "陀螺收納盒 白色版",
         "nameJa": "ギアケース ホワイトVer.",
         "isProvisionalZhTW": true
       },
@@ -5857,7 +5782,7 @@
       "line": "CX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "對戰入門組C",
+        "primaryZhTW": "戰鬥入門套組 C",
         "nameJa": "バトルエントリーセットC",
         "isProvisionalZhTW": true
       },
@@ -5920,7 +5845,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.6",
+        "primaryZhTW": "隨機強化組 Vol.6",
         "nameJa": "ランダムブースターVol.6",
         "isProvisionalZhTW": true
       },
@@ -5945,7 +5870,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "漫威 鋼鐵人4-80B/薩諾斯4-60P",
+        "primaryZhTW": "漫威 鋼鐵人4-80B vs 薩諾斯4-60P",
         "nameJa": "マーベル アイアンマン4-80B/サノス4-60P",
         "isProvisionalZhTW": true
       },
@@ -5995,7 +5920,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "漫威 蜘蛛人3-60F/猛毒3-80N",
+        "primaryZhTW": "漫威 蜘蛛人3-60F vs 猛毒3-80N",
         "nameJa": "マーベル スパイダーマン3-60F/ヴェノム3-80N",
         "isProvisionalZhTW": true
       },
@@ -6045,7 +5970,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "星際大戰 路克天行者4-80B/達斯維達4-60P",
+        "primaryZhTW": "星際大戰 路克天行者4-80B vs 達斯維達4-60P",
         "nameJa": "スター・ウォーズ ルーク・スカイウォーカー4-80B/ダース・ベイダー4-60P",
         "isProvisionalZhTW": true
       },
@@ -6095,7 +6020,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "星際大戰 曼達洛人3-60F/星區長吉迪恩3-80N",
+        "primaryZhTW": "星際大戰 曼達洛人3-60F vs 星區長吉迪恩3-80N",
         "nameJa": "スター・ウォーズ マンダロリアン3-60F/モフ・ギデオン3-80N",
         "isProvisionalZhTW": true
       },
@@ -6183,7 +6108,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "變形金剛 柯博文4-60P/密卡登4-80B",
+        "primaryZhTW": "變形金剛 柯博文4-60P vs 密卡登4-80B",
         "nameJa": "トランスフォーマー オプティマスプライム4-60P/メガトロン4-80B",
         "isProvisionalZhTW": true
       },
@@ -6233,7 +6158,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "變形金剛 金剛王3-60F/天王星3-80N",
+        "primaryZhTW": "變形金剛 金剛王3-60F vs 天王星3-80N",
         "nameJa": "トランスフォーマー オプティマスプライマル3-60F/スタースクリーム3-80N",
         "isProvisionalZhTW": true
       },
@@ -6283,7 +6208,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 極狐九尾精選",
+        "primaryZhTW": "極狐九尾隨機強化組",
         "nameJa": "ランダムブースター フォックスブラッシュセレクト",
         "isProvisionalZhTW": true
       },
@@ -6346,7 +6271,7 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "騎士圓甲3-85BS 金屬塗層:深藍",
+        "primaryZhTW": "騎士圓甲3-85BS 深藍色金屬塗裝",
         "nameJa": "ナイトメイル3-85BS メタルコート:ネイビー",
         "isProvisionalZhTW": false
       },
@@ -6409,7 +6334,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.7",
+        "primaryZhTW": "隨機強化組 Vol.7",
         "nameJa": "ランダムブースターVol.7",
         "isProvisionalZhTW": true
       },
@@ -6434,7 +6359,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "侏羅紀世界 暴龍/滄龍",
+        "primaryZhTW": "侏羅紀世界 暴龍 vs 滄龍",
         "nameJa": "ジュラシック・ワールド T-レックス/モササウルス",
         "isProvisionalZhTW": true
       },
@@ -6459,7 +6384,7 @@
       "line": "BX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "侏羅紀世界 棘龍/風神翼龍",
+        "primaryZhTW": "侏羅紀世界 棘龍 vs 風神翼龍",
         "nameJa": "ジュラシック・ワールド スピノサウルス/ケツァルコアトルス",
         "isProvisionalZhTW": true
       },
@@ -6522,7 +6447,7 @@
       "line": "CX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "天馬爆擊ATr 金屬塗層:紅",
+        "primaryZhTW": "天馬爆擊ATr 紅色金屬塗裝",
         "nameJa": "ペガサスブラストATr メタルコート:レッド",
         "isProvisionalZhTW": true
       },
@@ -6547,7 +6472,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "魔導至尊R4-55LO 金屬塗層:黑",
+        "primaryZhTW": "魔導至尊R4-55LO 黑色金屬塗裝",
         "nameJa": "ウィザードアークR4-55LO メタルコート:ブラック",
         "isProvisionalZhTW": true
       },
@@ -6627,7 +6552,7 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "鮫鯊狂鱗套組",
+        "primaryZhTW": "鮫鯊狂鱗改造組",
         "nameJa": "シャークスケイルデッキセット",
         "isProvisionalZhTW": false
       },
@@ -6740,7 +6665,7 @@
       "line": "BX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "對戰入門組∞",
+        "primaryZhTW": "戰鬥入門套組 ∞",
         "nameJa": "バトルエントリーセット∞",
         "isProvisionalZhTW": true
       },
@@ -6765,7 +6690,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器L 紅版",
+        "primaryZhTW": "左迴旋旋風發射器 L 紅色版",
         "nameJa": "ストリングランチャーL レッドVer.",
         "isProvisionalZhTW": true
       },
@@ -6790,7 +6715,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 時鐘幻象精選",
+        "primaryZhTW": "時鐘幻象隨機強化組",
         "nameJa": "ランダムブースター クロックミラージュセレクト",
         "isProvisionalZhTW": true
       },
@@ -6857,7 +6782,7 @@
       "line": "CX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "帝王威能套組",
+        "primaryZhTW": "帝王威能改造組",
         "nameJa": "エンペラーマイトデッキセット",
         "isProvisionalZhTW": true
       },
@@ -6919,31 +6844,6 @@
       }
     },
     {
-      "id": "bx00-emb",
-      "sku": "BX-00",
-      "line": "BX",
-      "category": "tool",
-      "naming": {
-        "primaryZhTW": "徽章貼紙 01",
-        "nameJa": "ベイエンブレムステッカー 01",
-        "isProvisionalZhTW": true
-      },
-      "releaseDate": "2025-11-15",
-      "region": [
-        "JP"
-      ],
-      "contents": [],
-      "isRandom": false,
-      "provenance": {
-        "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-emb.html"
-        ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
-      }
-    },
-    {
       "id": "ux17",
       "sku": "UX-17",
       "line": "UX",
@@ -6987,7 +6887,7 @@
       "line": "UX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.8",
+        "primaryZhTW": "隨機強化組 Vol.8",
         "nameJa": "ランダムブースターVol.8",
         "isProvisionalZhTW": true
       },
@@ -7092,7 +6992,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.9",
+        "primaryZhTW": "隨機強化組 Vol.9",
         "nameJa": "ランダムブースターVol.9",
         "isProvisionalZhTW": true
       },
@@ -7117,7 +7017,7 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "空力天馬3-70A 紅版",
+        "primaryZhTW": "空力天馬3-70A 紅色版",
         "nameJa": "エアロペガサス3-70A レッドVer.",
         "isProvisionalZhTW": false
       },
@@ -7357,7 +7257,7 @@
       "line": "CX",
       "category": "entry_set",
       "naming": {
-        "primaryZhTW": "起跑衝刺組C",
+        "primaryZhTW": "起跑包 C",
         "nameJa": "スタートダッシュセットC",
         "isProvisionalZhTW": true
       },
@@ -7382,7 +7282,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器 B4 門市限定色版",
+        "primaryZhTW": "旋風發射器 B4 限定色版",
         "nameJa": "ストリングランチャー B4ストア限定カラーVer.",
         "isProvisionalZhTW": true
       },
@@ -7470,7 +7370,7 @@
       "line": "UX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "天蠍長矛0-70Z 金屬塗層:洋紅",
+        "primaryZhTW": "天蠍長矛0-70Z 洋紅色金屬塗裝",
         "nameJa": "スコーピオスピア0-70Z メタルコート:マゼンタ",
         "isProvisionalZhTW": false
       },
@@ -7508,7 +7408,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.10",
+        "primaryZhTW": "隨機強化組 Vol.10",
         "nameJa": "ランダムブースターVol.10",
         "isProvisionalZhTW": true
       },
@@ -7571,7 +7471,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "蒼龍勇氣S6-60V 金屬塗層:黑",
+        "primaryZhTW": "蒼龍勇氣S6-60V 黑色金屬塗裝",
         "nameJa": "ドランブレイブS6-60V メタルコート:ブラック",
         "isProvisionalZhTW": true
       },
@@ -7651,7 +7551,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器 黑×綠",
+        "primaryZhTW": "旋風發射器 黑×綠",
         "nameJa": "ストリングランチャー ブラック×グリーン",
         "isProvisionalZhTW": true
       },
@@ -7676,7 +7576,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 腕龍鞭打精選",
+        "primaryZhTW": "腕龍鞭打隨機強化組",
         "nameJa": "ランダムブースター ブラキオウィップセレクト",
         "isProvisionalZhTW": true
       },
@@ -7701,7 +7601,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "雄鹿之角B2-60D 金屬塗層:橙",
+        "primaryZhTW": "雄鹿之角B2-60D 橙色金屬塗裝",
         "nameJa": "バックスアントラーズB2-60D メタルコート:オレンジ",
         "isProvisionalZhTW": true
       },
@@ -7743,7 +7643,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "海怪扭動S3-70O 金屬塗層:藍",
+        "primaryZhTW": "海怪扭動S3-70O 藍色金屬塗裝",
         "nameJa": "クラーケンリグルS3-70O メタルコート:ブルー",
         "isProvisionalZhTW": true
       },
@@ -7785,7 +7685,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "大黃蜂堡R7-60T 金屬塗層:黃",
+        "primaryZhTW": "大黃蜂堡R7-60T 黃色金屬塗裝",
         "nameJa": "ホーネットフォートR7-60T メタルコート:イエロー",
         "isProvisionalZhTW": true
       },
@@ -7827,7 +7727,7 @@
       "line": "CX",
       "category": "booster",
       "naming": {
-        "primaryZhTW": "龍神勇氣G4-70I 金屬塗層:藍",
+        "primaryZhTW": "龍神勇氣G4-70I 藍色金屬塗裝",
         "nameJa": "ドレイクブレイブG4-70I メタルコート:ブルー",
         "isProvisionalZhTW": true
       },
@@ -7907,7 +7807,7 @@
       "line": "BX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組Vol.11",
+        "primaryZhTW": "隨機強化組 Vol.11",
         "nameJa": "ランダムブースターVol.11",
         "isProvisionalZhTW": true
       },
@@ -7995,7 +7895,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "3on3 收納盒 黑版",
+        "primaryZhTW": "3on3 陀螺收納盒 黑色版",
         "nameJa": "3on3デッキケース ブラックVer.",
         "isProvisionalZhTW": true
       },
@@ -8020,7 +7920,7 @@
       "line": "UX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "惡魔幽冥套組",
+        "primaryZhTW": "惡魔幽冥改造組",
         "nameJa": "ヘルズネザーデッキセット",
         "isProvisionalZhTW": false
       },
@@ -8045,7 +7945,7 @@
       "line": "UX",
       "category": "starter",
       "naming": {
-        "primaryZhTW": "榮耀戰神LF 金屬塗層:藍",
+        "primaryZhTW": "榮耀戰神LF 藍色金屬塗裝",
         "nameJa": "グローリーワルキューレLF メタルコート:ブルー",
         "isProvisionalZhTW": false
       },
@@ -8070,7 +7970,7 @@
       "line": "CX",
       "category": "deck_set",
       "naming": {
-        "primaryZhTW": "EVA套組",
+        "primaryZhTW": "EVA改造組",
         "nameJa": "エヴァンゲリオンデッキセット",
         "isProvisionalZhTW": true
       },
@@ -8137,7 +8037,7 @@
       "line": "CX",
       "category": "random_booster",
       "naming": {
-        "primaryZhTW": "隨機強化組 巨鱷碾壓精選",
+        "primaryZhTW": "巨鱷碾壓隨機強化組",
         "nameJa": "ランダムブースター クロコトレッドセレクト",
         "isProvisionalZhTW": true
       },
@@ -8200,7 +8100,7 @@
       "line": "BX",
       "category": "battle_set",
       "naming": {
-        "primaryZhTW": "全能組",
+        "primaryZhTW": "全配套組",
         "nameJa": "オールインワンセット",
         "isProvisionalZhTW": true
       },
@@ -8225,7 +8125,7 @@
       "line": "BX",
       "category": "tool",
       "naming": {
-        "primaryZhTW": "拉繩發射器L 白×紫",
+        "primaryZhTW": "左迴旋旋風發射器 L 白×紫",
         "nameJa": "ストリングランチャーL ホワイト×バイオレット",
         "isProvisionalZhTW": true
       },

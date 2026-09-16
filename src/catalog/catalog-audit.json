@@ -3,25 +3,13 @@
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-16",
-  "productCount": 153,
+  "productCount": 149,
   "partCount": 162,
   "imageCount": 145,
   "tournamentEventCount": 10,
   "tournamentDeckCount": 14,
   "rejectedTournamentDecks": [],
   "productsWithoutImages": [
-    {
-      "id": "bx00-st01",
-      "sku": "BX-00"
-    },
-    {
-      "id": "bx00-st02",
-      "sku": "BX-00"
-    },
-    {
-      "id": "bx00-st03",
-      "sku": "BX-00"
-    },
     {
       "id": "bx00-mit",
       "sku": "BX-00"
@@ -32,10 +20,6 @@
     },
     {
       "id": "bx00-bit_silver_white",
-      "sku": "BX-00"
-    },
-    {
-      "id": "bx00-emb",
       "sku": "BX-00"
     },
     {

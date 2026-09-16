@@ -135,6 +135,9 @@ const CX_BEY = new RegExp(
   `^(?<blade>.+?)(?<assist>[A-Z][A-Za-z]?)(?<ratchet>${RATCHET})(?<bit>[A-Za-z]+)$`,
 )
 
+/** 貼紙類周邊不含任何零件，對庫存與配裝沒有意義，不收進圖鑑。 */
+const EXCLUDED_NAME_PATTERN = /ステッカー/u
+
 function parseLines() {
   const text = readFileSync(SOURCE_FILE, 'utf8')
   return text
@@ -145,6 +148,7 @@ function parseLines() {
       const [sku, nameJa, categoryJa, dateJa, path] = line.split('|')
       return { sku, nameJa, categoryJa, dateJa, path }
     })
+    .filter((row) => !EXCLUDED_NAME_PATTERN.test(row.nameJa))
 }
 
 function toIsoDate(dateJa) {
@@ -187,9 +191,39 @@ function splitBeyAndSuffix(nameJa) {
   return { head: nameJa.slice(0, spaceIndex), suffix: nameJa.slice(spaceIndex + 1) }
 }
 
+/**
+ * 詞素翻完後的台灣語序修正（來源：BeybladeHub 的商品標題寫法）。
+ *
+ * 詞素表只能逐段直譯，但台灣的寫法會換語序：日文把「ランダムブースター」放前面、
+ * 「メタルコート:色」放後面，台灣則寫成「王蛇鞭尾隨機強化組」「藍色金屬塗裝」。
+ */
+const ZH_TW_PHRASE_RULES = [
+  // ランダムブースター ○○セレクト → ○○隨機強化組
+  [/^隨機強化組 (.+?)精選$/u, '$1隨機強化組'],
+  // ランダムブースターVol.1 → 隨機強化組 Vol.1
+  [/^隨機強化組Vol\./u, '隨機強化組 Vol.'],
+  // メタルコート:ブルー → 藍色金屬塗裝（單色補「色」，複合色如「黑×綠」不補）
+  [/金屬塗層:([^\s]+)$/u, (_, color) => `${/[×]/u.test(color) ? color : `${color}色`}金屬塗裝`],
+  // 聯名雙顆組：A/B → A vs B
+  [/^(.*?[^\s]+)\/([^\s]+)$/u, '$1 vs $2'],
+  // 套組的系列尾碼要空一格：戰鬥入門套組U → 戰鬥入門套組 U
+  [/^(.*(?:套組|包))([A-Z∞])$/u, '$1 $2'],
+]
+
+function applyZhTwPhraseRules(name) {
+  let result = name
+  for (const [pattern, replacement] of ZH_TW_PHRASE_RULES) {
+    result = result.replace(pattern, replacement)
+  }
+  return result
+}
+
 function makeNaming(nameJa, fallbackZhTW) {
   const { translated, untranslated } = translate(nameJa)
-  const primaryZhTW = untranslated.length > 0 || translated.trim() === '' ? fallbackZhTW : translated
+  const primaryZhTW =
+    untranslated.length > 0 || translated.trim() === ''
+      ? fallbackZhTW
+      : applyZhTwPhraseRules(translated)
   return {
     naming: {
       primaryZhTW,
