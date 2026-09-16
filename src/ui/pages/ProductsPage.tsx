@@ -284,7 +284,9 @@ function ManualOpenForm({ ownedId, sealed }: { ownedId: string; sealed: number }
             <option value="">選擇零件</option>
             {options.map((option) => (
               <option key={option.id} value={option.id}>
-                {option.label.familyZhTW}：{option.label.titleZhTW}（{option.label.subtitle}）
+                {option.label.subtitle
+                  ? `${option.label.familyZhTW}：${option.label.titleZhTW}（${option.label.subtitle}）`
+                  : `${option.label.familyZhTW}：${option.label.titleZhTW}`}
               </option>
             ))}
           </select>

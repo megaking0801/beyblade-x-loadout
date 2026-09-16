@@ -282,3 +282,138 @@ describe('3on3 推薦（第 32 節推薦模式）', () => {
     expect(r.length).toBeLessThanOrEqual(2)
   })
 })
+
+describe('候選很多時仍要找得到合法隊伍（回歸測試）', () => {
+  /**
+   * 官方規則要求三套之間零件完全不重複。
+   * 之前 suggestDecks 只看排序後的前 24 個候選，當候選共用同一批固鎖／軸心時
+   * 會誤判成「排不出合法隊伍」。這裡用 4×4×4 的庫存確認不會再發生。
+   */
+  const manyParts: Part[] = [
+    part({ id: 'B1', family: 'blade', type: 'attack', spinDirection: 'right', officialWeightG: 34 }),
+    part({ id: 'B2', family: 'blade', type: 'stamina', spinDirection: 'right', officialWeightG: 34 }),
+    part({ id: 'B3', family: 'blade', type: 'defense', spinDirection: 'right', officialWeightG: 35 }),
+    part({ id: 'B4', family: 'blade', type: 'balance', spinDirection: 'right', officialWeightG: 36 }),
+    part({ id: 'R1', family: 'ratchet', code: '1-60', spinDirection: 'dual', heightCode: 60, officialWeightG: 6 }),
+    part({ id: 'R2', family: 'ratchet', code: '2-70', spinDirection: 'dual', heightCode: 70, officialWeightG: 6 }),
+    part({ id: 'R3', family: 'ratchet', code: '3-80', spinDirection: 'dual', heightCode: 80, officialWeightG: 7 }),
+    part({ id: 'R4', family: 'ratchet', code: '4-60', spinDirection: 'dual', heightCode: 60, officialWeightG: 7 }),
+    part({ id: 'T1', family: 'bit', code: 'F', type: 'attack', spinDirection: 'dual', officialWeightG: 3, bitContact: 'flat' }),
+    part({ id: 'T2', family: 'bit', code: 'B', type: 'stamina', spinDirection: 'dual', officialWeightG: 3, bitContact: 'ball' }),
+    part({ id: 'T3', family: 'bit', code: 'P', type: 'defense', spinDirection: 'dual', officialWeightG: 3, bitContact: 'point' }),
+    part({ id: 'T4', family: 'bit', code: 'R', type: 'attack', spinDirection: 'dual', officialWeightG: 3, bitContact: 'rubber' }),
+  ]
+
+  const manyLots = manyParts.map((row) => lot(row.id, 1))
+
+  const candidates = generateBuildableCombos({
+    parts: manyParts,
+    rules: [],
+    lots: manyLots,
+    combos: [],
+    mode: 'owned',
+    sortBy: 'beginner',
+    limit: 60,
+  })
+
+  it('候選數量確實超過舊的 24 筆上限', () => {
+    expect(candidates.length).toBeGreaterThan(24)
+  })
+
+  it('仍然找得到通過驗證的隊伍', () => {
+    const r = suggestDecks({
+      candidates,
+      parts: manyParts,
+      lots: manyLots,
+      combos: [],
+      ruleSet: DEFAULT_DECK_RULES,
+      strategy: 'balanced',
+    })
+    expect(r.length).toBeGreaterThan(0)
+    expect(r.every((deck) => deck.validation.ok)).toBe(true)
+  })
+
+  it('建議的三套之間不會重複使用同一零件', () => {
+    const r = suggestDecks({
+      candidates,
+      parts: manyParts,
+      lots: manyLots,
+      combos: [],
+      ruleSet: DEFAULT_DECK_RULES,
+      strategy: 'aggressive',
+    })
+    for (const deck of r) {
+      const used = deck.slotsList.flatMap((slots) => Object.values(slots).filter(Boolean))
+      expect(new Set(used).size).toBe(used.length)
+    }
+  })
+})
+
+describe('規則說明必須全中文（第 1.4 節）', () => {
+  it('前台摘要不含日文假名', () => {
+    expect(DEFAULT_DECK_RULES.summaryZhTW).not.toMatch(/[぀-ヿ]/)
+  })
+
+  it('不可重複的特殊零件都有中文暫譯', () => {
+    for (const row of DEFAULT_DECK_RULES.noDuplicatePartCodes ?? []) {
+      expect(row.nameZhTW).not.toMatch(/[぀-ヿ]/)
+      expect(row.nameZhTW.length).toBeGreaterThan(0)
+    }
+  })
+})
+
+describe('沒有官方資料時不得假裝比較過（第 1.5、49.4 節）', () => {
+  const plain: Part[] = [
+    part({ id: 'p-b1', family: 'blade', spinDirection: 'right' }),
+    part({ id: 'p-b2', family: 'blade', spinDirection: 'right' }),
+    part({ id: 'p-b3', family: 'blade', spinDirection: 'right' }),
+    part({ id: 'p-r1', family: 'ratchet', code: '1-60', spinDirection: 'dual', heightCode: 60 }),
+    part({ id: 'p-r2', family: 'ratchet', code: '2-70', spinDirection: 'dual', heightCode: 70 }),
+    part({ id: 'p-r3', family: 'ratchet', code: '3-80', spinDirection: 'dual', heightCode: 80 }),
+    part({ id: 'p-t1', family: 'bit', code: 'A', spinDirection: 'dual' }),
+    part({ id: 'p-t2', family: 'bit', code: 'C', spinDirection: 'dual' }),
+    part({ id: 'p-t3', family: 'bit', code: 'D', spinDirection: 'dual' }),
+  ]
+  const plainLots = plain.map((row) => lot(row.id, 1))
+  const slotsList: ComboSlots[] = [
+    { bladeId: 'p-b1', ratchetId: 'p-r1', bitId: 'p-t1' },
+    { bladeId: 'p-b2', ratchetId: 'p-r2', bitId: 'p-t2' },
+    { bladeId: 'p-b3', ratchetId: 'p-r3', bitId: 'p-t3' },
+  ]
+
+  const result = validateDeck({
+    slotsList,
+    parts: plain,
+    rules: [],
+    lots: plainLots,
+    combos: [],
+    ruleSet: DEFAULT_DECK_RULES,
+  })
+
+  it('隊伍本身仍然合法', () => {
+    expect(result.ok).toBe(true)
+  })
+
+  it('角色說明不會出現「0 分」這種假比較', () => {
+    for (const member of result.members) {
+      expect(member.reasonZhTW).not.toContain('0 分')
+      expect(member.reasonZhTW).toContain('無法評分')
+    }
+  })
+
+  it('會提醒角色分配只依可組性', () => {
+    expect(result.warningsZhTW.some((w) => w.includes('不代表強弱'))).toBe(true)
+  })
+
+  it('有官方類型資料時仍照常顯示分數', () => {
+    const scored = validateDeck({
+      slotsList: threeDistinct,
+      parts,
+      rules: [],
+      lots: fullStock,
+      combos: [],
+      ruleSet: DEFAULT_DECK_RULES,
+    })
+    expect(scored.members.some((member) => /\d+ 分/.test(member.reasonZhTW))).toBe(true)
+  })
+})

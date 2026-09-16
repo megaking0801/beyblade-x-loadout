@@ -129,11 +129,11 @@ function MyParts() {
                     dataPartId={part.id}
                   >
                     <Row>
-                      <PartThumb code={part.code} />
+                      <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
                       <div style={{ flex: 1, minWidth: 150 }}>
                         <div style={{ fontWeight: 600 }}>{label.titleZhTW}</div>
                         <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                          {label.familyZhTW} ・ {label.subtitle}
+                          {[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
                           {preferenceByPartId.get(part.id)?.favorite ? ' ・ 已收藏' : ''}
                         </div>
                         {label.plainDescriptionZhTW ? (
@@ -299,13 +299,13 @@ function CatalogPartCard({ part }: { part: Part }) {
   return (
     <div className="card" data-testid="catalog-part">
       <Row>
-        <PartThumb code={part.code} />
+        <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
         <div style={{ flex: 1, minWidth: 150 }}>
           <div style={{ fontWeight: 600 }} data-testid="catalog-part-title">
             {label.titleZhTW} {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-            {label.familyZhTW} ・ {label.subtitle}
+            {[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
           </div>
         </div>
       </Row>

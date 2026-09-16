@@ -107,6 +107,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     [slots, parts, rules, lots, combos, evidence],
   )
 
+  // 還沒選任何零件時不要先跳紅字，等使用者動作後再提示（第 46 節：新手友善）。
+  const hasAnySelection = Object.values(slots).some(Boolean)
   const canSave = analysis.compatibility.ok && name.trim().length > 0
 
   return (
@@ -173,7 +175,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         </div>
       </Section>
 
-      {analysis.compatibility.ok ? null : (
+      {analysis.compatibility.ok || !hasAnySelection ? null : (
         <NoticeCard tone="danger" testId="compat-error">
           <strong>{analysis.compatibility.headlineZhTW}</strong>
           <ul style={{ margin: '6px 0 0', paddingLeft: 18 }}>
@@ -193,6 +195,12 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
           </ul>
         </NoticeCard>
       )}
+
+      {!analysis.compatibility.ok && !hasAnySelection ? (
+        <NoticeCard tone="accent">
+          從上蓋開始選，三個欄位都選好就會顯示完整分析。
+        </NoticeCard>
+      ) : null}
 
       {analysis.compatibility.warnings.length > 0 ? (
         <NoticeCard tone="warn">
@@ -289,7 +297,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
               className="btn"
               disabled={!analysis.compatibility.ok}
               onClick={async () => {
-                const text = `${analysis.fullNameZhTW}（${analysis.fullCode}）`
+                const text = `${analysis.fullNameZhTW}（${analysis.objective.structureZhTW}）`
                 const ok = await copyText(text)
                 setShareMessage(ok ? '已複製配裝文字' : '複製失敗，請手動選取')
               }}
@@ -351,7 +359,9 @@ function SlotPicker({
           const partLabel = formatPartLabel(part)
           return (
             <option key={part.id} value={part.id}>
-              {partLabel.titleZhTW}（{partLabel.subtitle}）
+              {partLabel.subtitle
+                ? `${partLabel.titleZhTW}（${partLabel.subtitle}）`
+                : partLabel.titleZhTW}
             </option>
           )
         })}
@@ -368,7 +378,13 @@ export function ComboResult({ analysis }: { analysis: ReturnType<typeof analyzeC
           <div style={{ fontSize: 18, fontWeight: 700 }}>
             {analysis.fullNameZhTW || '尚未選完零件'}
           </div>
-          <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>{analysis.fullCode}</div>
+          {/*
+            不顯示 fullCode：它由官方日文上蓋代號組成，前台不得以日文為名稱（第 1.4 節）。
+            日文原名可在零件詳情頁的次要名稱看到（第 5 節）。
+          */}
+          <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
+            {analysis.objective.structureZhTW}
+          </div>
         </div>
 
         <Row>

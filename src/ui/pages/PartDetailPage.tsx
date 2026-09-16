@@ -84,13 +84,13 @@ export function PartDetailPage({ partId }: { partId: string }) {
     <>
       <PageHeader
         title={label.titleZhTW}
-        description={`${label.familyZhTW} ・ ${label.subtitle}`}
+        description={[label.familyZhTW, label.subtitle].filter(Boolean).join(' ・ ')}
       />
 
       <Section title="基本資料">
         <div className="card" style={{ display: 'grid', gap: 6, fontSize: 14 }}>
           <Row>
-            <PartThumb code={part.code} size={64} />
+            <PartThumb code={part.code} nameZhTW={label.titleZhTW} size={64} />
             <div style={{ flex: 1 }}>
               {label.isProvisional ? <Badge>暫譯名稱</Badge> : null}
               {label.secondaryNames.length > 0 ? (

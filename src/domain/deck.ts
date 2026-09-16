@@ -27,8 +27,13 @@ export interface DeckRuleSet {
   teamSize: number
   /** 同一隊伍中不可重複使用的零件種類。 */
   noDuplicateFamilies: PartFamily[]
-  /** 例外：不論所屬種類，這些零件代號在同一隊伍中也不可重複。 */
-  noDuplicatePartCodes?: string[]
+  /**
+   * 例外：不論所屬種類，這些零件在同一隊伍中也不可重複。
+   * code 是官方代號（可能是日文），nameZhTW 是前台顯示用的中文暫譯（第 1.4 節）。
+   */
+  noDuplicatePartCodes?: { code: string; nameZhTW: string }[]
+  /** 前台顯示的規則摘要，必須全中文。 */
+  summaryZhTW: string
   provenance: Provenance
 }
 
@@ -44,7 +49,12 @@ export const DEFAULT_DECK_RULES: DeckRuleSet = {
   nameZhTW: '一般 3on3',
   teamSize: 3,
   noDuplicateFamilies: ['blade', 'ratchet', 'bit', 'main_blade', 'assist_blade', 'integrated_blade'],
-  noDuplicatePartCodes: ['ワルキューレ', 'エンペラー'],
+  noDuplicatePartCodes: [
+    { code: 'ワルキューレ', nameZhTW: '女武神' },
+    { code: 'エンペラー', nameZhTW: '帝王' },
+  ],
+  summaryZhTW:
+    '依官方 3on3 規則檢查重複零件：同一隊伍不可重複使用相同零件，顏色不同仍算同一零件。CX 鎖定晶片只有「女武神」與「帝王」不可重複，其餘可重複。（零件中文名為暫譯）',
   provenance: {
     sourceUrls: [OFFICIAL_REGULATION_URL],
     verificationStatus: 'official_verified',
@@ -121,7 +131,7 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
       if (!part) continue
       const isRestricted =
         ruleSet.noDuplicateFamilies.includes(part.family) ||
-        ruleSet.noDuplicatePartCodes?.includes(part.code)
+        ruleSet.noDuplicatePartCodes?.some((row) => row.code === part.code)
       if (!isRestricted) continue
       familyPartCounts.set(partId, (familyPartCounts.get(partId) ?? 0) + 1)
     }
@@ -159,11 +169,18 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
   const structurallyValid =
     slotsList.length === ruleSet.teamSize && analyses.every((a) => a.compatibility.ok)
 
+  const members = structurallyValid ? assignRoles(slotsList, analyses) : []
+  if (members.length > 0 && members.every((member) => !member.analysis.scores)) {
+    warningsZhTW.push(
+      '這幾套配裝都缺少官方類型與重量資料，角色分配只依可組性，不代表強弱',
+    )
+  }
+
   return {
     ok: errorsZhTW.length === 0,
     errorsZhTW,
     warningsZhTW,
-    members: structurallyValid ? assignRoles(slotsList, analyses) : [],
+    members,
     occupiedPartIds,
   }
 }
@@ -173,37 +190,56 @@ function assignRoles(slotsList: ComboSlots[], analyses: ComboAnalysis[]): DeckMe
   const rows = slotsList.map((slots, index) => ({ slots, analysis: analyses[index]! }))
   const remaining = [...rows]
 
-  const pick = (compare: (a: typeof rows[number], b: typeof rows[number]) => number) => {
+  const pick = (compare: (a: (typeof rows)[number], b: (typeof rows)[number]) => number) => {
     remaining.sort(compare)
     return remaining.shift()
   }
 
+  /**
+   * 官方沒公布零件類型與重量時就沒有分數，這時不能印「0 分」假裝比較過，
+   * 只能說明角色是依可組性分配的（第 1.5、49.4 節）。
+   */
+  const reasonFor = (
+    score: number | undefined,
+    axisZhTW: string,
+    dutyZhTW: string,
+  ): string =>
+    score === undefined
+      ? `${dutyZhTW}。目前官方未公布這些零件的類型與重量，${axisZhTW}無法評分，角色只依可組性分配`
+      : `${axisZhTW} ${score} 分為隊中最高，${dutyZhTW}（模型推估）`
+
   const members: DeckMember[] = []
 
-  const attacker = pick((a, b) => (b.analysis.scores?.attack ?? 0) - (a.analysis.scores?.attack ?? 0))
+  const attacker = pick(
+    (a, b) => (b.analysis.scores?.attack ?? -1) - (a.analysis.scores?.attack ?? -1),
+  )
   if (attacker) {
     members.push({
       ...attacker,
       roleZhTW: '主攻',
-      reasonZhTW: `攻擊 ${attacker.analysis.scores?.attack ?? 0} 分為隊中最高，負責主動撞擊（模型推估）`,
+      reasonZhTW: reasonFor(attacker.analysis.scores?.attack, '攻擊', '負責主動撞擊'),
     })
   }
 
-  const stamina = pick((a, b) => (b.analysis.scores?.stamina ?? 0) - (a.analysis.scores?.stamina ?? 0))
+  const stamina = pick(
+    (a, b) => (b.analysis.scores?.stamina ?? -1) - (a.analysis.scores?.stamina ?? -1),
+  )
   if (stamina) {
     members.push({
       ...stamina,
       roleZhTW: '持久',
-      reasonZhTW: `持久 ${stamina.analysis.scores?.stamina ?? 0} 分為隊中最高，負責拖時間比轉久（模型推估）`,
+      reasonZhTW: reasonFor(stamina.analysis.scores?.stamina, '持久', '負責拖時間比轉久'),
     })
   }
 
-  const stable = pick((a, b) => (b.analysis.scores?.stability ?? 0) - (a.analysis.scores?.stability ?? 0))
+  const stable = pick(
+    (a, b) => (b.analysis.scores?.stability ?? -1) - (a.analysis.scores?.stability ?? -1),
+  )
   if (stable) {
     members.push({
       ...stable,
       roleZhTW: '穩定／抗攻',
-      reasonZhTW: `穩定 ${stable.analysis.scores?.stability ?? 0} 分，負責接下對手的攻擊（模型推估）`,
+      reasonZhTW: reasonFor(stable.analysis.scores?.stability, '穩定', '負責接下對手的攻擊'),
     })
   }
 
@@ -262,7 +298,11 @@ export interface SuggestDecksArgs {
   candidateCap?: number
 }
 
-const DEFAULT_CANDIDATE_CAP = 24
+const DEFAULT_CANDIDATE_CAP = 60
+/** 枚舉上限，避免候選很多時卡住 UI。 */
+const MAX_TRIPLES_EXAMINED = 200_000
+/** 先用便宜的分數挑出前幾名，再做完整驗證（含跨隊伍庫存檢查）。 */
+const VERIFY_MULTIPLIER = 6
 const DEFAULT_SUGGESTION_LIMIT = 5
 
 function average(values: number[]): number {
@@ -312,28 +352,74 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
   if (ruleSet.teamSize !== 3) return []
 
   const pool = candidates.slice(0, candidateCap)
-  const suggestions: DeckSuggestion[] = []
+  const byId = new Map(parts.map((part) => [part.id, part]))
 
-  for (let i = 0; i < pool.length; i += 1) {
+  /** 每個候選配置中「同隊不可重複」的零件集合，用來便宜地先剪枝。 */
+  const restrictedIds = pool.map((row) => {
+    const ids = new Set<string>()
+    for (const key of OCCUPYING_SLOT_KEYS) {
+      const partId = row.slots[key]
+      if (!partId) continue
+      const part = byId.get(partId)
+      if (!part) continue
+      const restricted =
+        ruleSet.noDuplicateFamilies.includes(part.family) ||
+        ruleSet.noDuplicatePartCodes?.some((rule) => rule.code === part.code)
+      if (restricted) ids.add(partId)
+    }
+    return ids
+  })
+
+  const disjoint = (a: Set<string>, b: Set<string>): boolean => {
+    for (const id of a) {
+      if (b.has(id)) return false
+    }
+    return true
+  }
+
+  // 先枚舉出通過重複零件限制的三套組合，並用候選本身的分析算出便宜分數。
+  const rough: { indexes: [number, number, number]; score: number }[] = []
+  let examined = 0
+  outer: for (let i = 0; i < pool.length; i += 1) {
     for (let j = i + 1; j < pool.length; j += 1) {
+      if (!disjoint(restrictedIds[i]!, restrictedIds[j]!)) continue
       for (let k = j + 1; k < pool.length; k += 1) {
-        const slotsList = [pool[i]!.slots, pool[j]!.slots, pool[k]!.slots]
-        const validation = validateDeck({ slotsList, parts, rules: [], lots, combos, ruleSet })
-        if (!validation.ok) continue
-        suggestions.push({
-          strategy,
-          strategyZhTW: DECK_STRATEGY_ZH[strategy],
-          slotsList,
-          validation,
-          score: scoreDeck(strategy, validation.members),
-          alternativesZhTW: buildAlternatives(pool, slotsList),
-        })
+        examined += 1
+        if (examined > MAX_TRIPLES_EXAMINED) break outer
+        if (!disjoint(restrictedIds[i]!, restrictedIds[k]!)) continue
+        if (!disjoint(restrictedIds[j]!, restrictedIds[k]!)) continue
+        const members = [i, j, k].map((index) => ({
+          slots: pool[index]!.slots,
+          analysis: pool[index]!.analysis,
+          roleZhTW: '',
+          reasonZhTW: '',
+        }))
+        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members) })
       }
     }
   }
 
+  rough.sort((a, b) => b.score - a.score)
+
+  // 只對分數最高的前幾名做完整驗證（會檢查跨隊伍的可用庫存，成本較高）。
+  const suggestions: DeckSuggestion[] = []
+  for (const row of rough.slice(0, Math.max(limit * VERIFY_MULTIPLIER, limit))) {
+    const slotsList = row.indexes.map((index) => pool[index]!.slots)
+    const validation = validateDeck({ slotsList, parts, rules: [], lots, combos, ruleSet })
+    if (!validation.ok) continue
+    suggestions.push({
+      strategy,
+      strategyZhTW: DECK_STRATEGY_ZH[strategy],
+      slotsList,
+      validation,
+      score: scoreDeck(strategy, validation.members),
+      alternativesZhTW: buildAlternatives(pool, slotsList),
+    })
+    if (suggestions.length >= limit) break
+  }
+
   suggestions.sort((a, b) => b.score - a.score)
-  return suggestions.slice(0, limit)
+  return suggestions
 }
 
 function buildAlternatives(pool: BuildableCombo[], used: ComboSlots[]): string[] {

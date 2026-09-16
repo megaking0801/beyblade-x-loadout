@@ -42,17 +42,41 @@ export function resolveDisplayName(naming: Naming): DisplayName {
   }
 }
 
+/**
+ * 日文假名。第 1.4 節：前台不得以日文作為主要或副標名稱。
+ *
+ * 刻意排除 U+30FB「・」與 U+30A0，因為中文排版也會用全形中點當分隔符，
+ * 把它當成日文會產生假警報。長音記號 U+30FC「ー」仍算日文。
+ */
+export const JAPANESE_KANA = /[\u3040-\u309f\u30a1-\u30fa\u30fc-\u30ff]/
+
+/** 字串裡是否含日文假名（不含全形中點）。 */
+export function hasJapaneseKana(text: string): boolean {
+  return JAPANESE_KANA.test(text)
+}
+
+const KANA = JAPANESE_KANA
+
 export interface PartLabel extends DisplayName {
-  /** 第 26 節：副標為型號／代號。 */
+  /**
+   * 第 26 節：副標為型號／代號。
+   *
+   * 上蓋類零件的官方「代號」就是日文名稱本身，直接當副標會讓前台出現日文，
+   * 違反第 1.4 節；主標已含型號時再顯示一次也只是重複。這兩種情況都回空字串，
+   * 日文名稱只在詳細頁的次要名稱出現（第 5 節）。
+   */
   subtitle: string
   familyZhTW: string
   plainDescriptionZhTW?: string
 }
 
 export function formatPartLabel(part: Part): PartLabel {
+  const display = resolveDisplayName(part.naming)
+  const code = part.code.trim()
+  const showCode = code.length > 0 && !KANA.test(code) && !display.titleZhTW.includes(code)
   return {
-    ...resolveDisplayName(part.naming),
-    subtitle: part.code,
+    ...display,
+    subtitle: showCode ? code : '',
     familyZhTW: PART_FAMILY_ZH[part.family],
     ...(part.plainDescriptionZhTW ? { plainDescriptionZhTW: part.plainDescriptionZhTW } : {}),
   }

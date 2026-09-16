@@ -8,6 +8,7 @@
 import rawCatalog from './catalog.generated.json'
 import rawAudit from './catalog-audit.json'
 import type { CatalogBundle } from '../data/repository.ts'
+import { JAPANESE_KANA } from '../domain/naming.ts'
 import type { Part, Product } from '../domain/types.ts'
 
 export interface CatalogAudit {
@@ -31,8 +32,8 @@ export interface CatalogMeta {
   fetchedAt: string
 }
 
-/** 日文假名。前台主名稱不得含假名（第 1.4 節）。 */
-const KANA = /[぀-ゟ゠-ヿ]/
+/** 日文假名判斷集中在 naming.ts，避免各處寫出不一致的字元範圍。 */
+const KANA = JAPANESE_KANA
 
 export interface CatalogIssue {
   entity: string

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { auditCatalog, catalog, catalogAudit, catalogMeta } from '../../src/catalog/index.ts'
 import { checkCompatibility } from '../../src/domain/compatibility.ts'
-import { resolveDisplayName } from '../../src/domain/naming.ts'
+import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../src/domain/naming.ts'
 
 /**
  * 第 42 節 Catalog Audit：這些檢查是發布前的守門條件。
@@ -187,5 +187,41 @@ describe('實際 Catalog 可以組出合法配裝（第 17、18 節）', () => {
     })
     expect(result.warnings.length).toBeGreaterThan(0)
     expect(result.warnings[0]!.messageZhTW).toContain('缺少旋向資料')
+  })
+})
+
+describe('實際 Catalog 的前台標籤不得出現日文（第 1.4 節）', () => {
+  it('每個零件的主標與副標都沒有日文假名', () => {
+    for (const part of catalog.parts) {
+      const label = formatPartLabel(part)
+      expect(label.titleZhTW).not.toMatch(/[぀-ヿ]/)
+      expect(label.subtitle).not.toMatch(/[぀-ヿ]/)
+    }
+  })
+
+  it('每個商品的主標與副標都沒有日文假名', () => {
+    for (const product of catalog.products) {
+      const label = formatProductLabel(product)
+      expect(label.titleZhTW).not.toMatch(/[぀-ヿ]/)
+      expect(label.subtitle).not.toMatch(/[぀-ヿ]/)
+    }
+  })
+})
+
+describe('相容性提示不得吐出內部 id 或日文（第 1.4 節）', () => {
+  it('缺少旋向資料的警告用中文零件名稱', () => {
+    const result = checkCompatibility({
+      slots: { bladeId: 'blade:ドランソード', ratchetId: 'ratchet:3-60', bitId: 'bit:F' },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(result.warnings.length).toBeGreaterThan(0)
+    for (const warning of result.warnings) {
+      expect(warning.messageZhTW).not.toMatch(/[぀-ヿ]/)
+      expect(warning.messageZhTW).not.toContain('blade:')
+      expect(warning.messageZhTW).not.toContain('ratchet:')
+      expect(warning.messageZhTW).not.toContain('bit:')
+    }
+    expect(result.warnings[0]!.messageZhTW).toContain('龍之劍')
   })
 })

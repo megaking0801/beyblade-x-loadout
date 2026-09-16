@@ -116,7 +116,8 @@ export function BuildablePage() {
                   <div style={{ flex: 1, minWidth: 160 }}>
                     <div style={{ fontWeight: 600 }}>{row.analysis.fullNameZhTW}</div>
                     <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                      {row.analysis.fullCode} ・ {row.analysis.objective.structureZhTW}
+                      {/* fullCode 含官方日文上蓋代號，前台不顯示（第 1.4 節），只當內部鍵值。 */}
+                      {row.analysis.objective.structureZhTW}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right', fontSize: 13 }}>

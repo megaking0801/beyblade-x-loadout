@@ -7,6 +7,7 @@
  * 其他已知特殊限制一律由 CompatibilityRule 資料提供，並附來源。
  * 沒有資料支持的限制不得自行推測。
  */
+import { resolveDisplayName } from './naming.ts'
 import {
   PART_FAMILY_ZH,
   type AssemblySystem,
@@ -182,7 +183,10 @@ export function checkCompatibility(args: CheckArgs): CompatibilityResult {
   const directions = new Set<SpinDirection>()
   for (const part of resolved) {
     if (!part.spinDirection) {
-      warnings.push({ messageZhTW: `${part.id} 缺少旋向資料，無法完整檢查相容性` })
+      // 給使用者看的訊息一律用台灣中文名稱，不要吐內部 id（第 1.4 節）。
+      warnings.push({
+        messageZhTW: `${resolveDisplayName(part.naming).titleZhTW} 缺少旋向資料，無法完整檢查相容性`,
+      })
       continue
     }
     if (part.spinDirection !== 'dual') directions.add(part.spinDirection)

@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "typecheck": "tsc -b",
     "build:catalog": "node scripts/buildCatalog.mjs",
-    "build:catalog-images": "node scripts/buildCatalogImages.mjs"
+    "build:catalog-images": "node scripts/buildCatalogImages.mjs",
+    "shots": "playwright test --config=playwright.shots.config.ts"
   },
   "dependencies": {
     "dexie": "^4.4.6",

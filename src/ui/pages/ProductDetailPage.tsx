@@ -95,11 +95,11 @@ export function ProductDetailPage({ productId }: { productId: string }) {
               return (
                 <Link to="/part" query={{ id: part.id }} className="card" key={`${part.id}-${index}`}>
                   <Row>
-                    <PartThumb code={part.code} />
+                    <PartThumb code={part.code} nameZhTW={partLabel.titleZhTW} />
                     <div style={{ flex: 1 }}>
                       <div>{partLabel.titleZhTW}</div>
                       <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                        {partLabel.familyZhTW} ・ {partLabel.subtitle}
+                        {[partLabel.familyZhTW, partLabel.subtitle].filter(Boolean).join(' ・ ')}
                       </div>
                     </div>
                     <span>×{content.quantity}</span>

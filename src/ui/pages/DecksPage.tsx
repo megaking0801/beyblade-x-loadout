@@ -46,7 +46,8 @@ export function DecksPage() {
         combos,
         mode: 'owned',
         sortBy: 'beginner',
-        limit: 24,
+        // 官方規則要求三套之間零件完全不重複，候選太少會排不出隊伍。
+        limit: 60,
       }),
     [parts, rules, lots, combos],
   )
@@ -93,10 +94,16 @@ export function DecksPage() {
         description="用現有可用零件排出三顆一組，會檢查庫存、相容性與重複零件限制。"
       />
 
-      <NoticeCard tone="warn">
-        {DEFAULT_DECK_RULES.provenance.verificationStatus === 'needs_review'
-          ? '隊伍重複零件限制尚未對照官方規則，目前預設「不可重複使用相同上蓋」，請依實際比賽規定確認。'
-          : '已依官方 3on3 規則檢查重複零件；顏色不同仍算同一零件。CX 鎖定晶片只有「ワルキューレ」與「エンペラー」不可重複。'}
+      <NoticeCard tone={DEFAULT_DECK_RULES.provenance.verificationStatus === 'official_verified' ? 'accent' : 'warn'}>
+        {DEFAULT_DECK_RULES.summaryZhTW}
+        {DEFAULT_DECK_RULES.provenance.sourceUrls[0] ? (
+          <>
+            {' '}
+            <a href={DEFAULT_DECK_RULES.provenance.sourceUrls[0]} target="_blank" rel="noreferrer">
+              官方規章
+            </a>
+          </>
+        ) : null}
       </NoticeCard>
 
       <Section title="推薦模式">
@@ -158,6 +165,15 @@ export function DecksPage() {
                     </div>
                   ))}
                 </div>
+                {suggestion.validation.warningsZhTW.length > 0 ? (
+                  <ul
+                    style={{ margin: '8px 0 0', paddingLeft: 18, color: 'var(--warn)', fontSize: 13 }}
+                  >
+                    {suggestion.validation.warningsZhTW.map((warning) => (
+                      <li key={warning}>{warning}</li>
+                    ))}
+                  </ul>
+                ) : null}
                 <div style={{ height: 8 }} />
                 <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
                   占用零件：{describeParts(suggestion.validation.occupiedPartIds, parts)}

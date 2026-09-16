@@ -174,3 +174,43 @@ test('匯出備份與匯入備份可以來回', async ({ page }) => {
   await expect(page.getByTestId('stat-products-value')).toHaveText('1')
   await expect(page.getByTestId('stat-blades-value')).toHaveText('2')
 })
+
+/**
+ * 第 1.4 節：前台一律使用台灣中文名稱，英文／日文只能當搜尋別名或詳細頁的次要名稱。
+ * 這個測試巡所有列表與工具頁面，確認畫面上看不到日文假名。
+ */
+test('主要頁面畫面上不得出現日文假名', async ({ page }) => {
+  // 排除 U+30FB「・」：中文排版也用它當分隔符，算進去會產生假警報。
+  const KANA = /[\u3040-\u309f\u30a1-\u30fa\u30fc-\u30ff]/
+
+  // 先放一筆庫存，讓各頁面有實際內容可渲染
+  await openApp(page, '/products')
+  await page.getByTestId('tab-catalog').click()
+  await page.getByTestId('product-search').fill('BX-01')
+  await page.getByTestId('catalog-product').first().getByTestId('add-owned').click()
+  await page.getByTestId('tab-my-products').click()
+  await expect(page.getByTestId('owned-product').first()).toBeVisible()
+
+  for (const route of ROUTES) {
+    await openApp(page, route)
+    const text = await page.locator('body').innerText()
+    const hits = text
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => KANA.test(line))
+    expect(hits, `${route} 出現日文：${hits.join(' | ')}`).toEqual([])
+  }
+
+  // 配裝器選滿零件後的結果面板也要檢查
+  await openApp(page, '/builder')
+  await page.getByLabel('上蓋').selectOption('blade:ドランソード')
+  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
+  await page.getByLabel('軸心').selectOption('bit:F')
+  await expect(page.getByText('配裝結果')).toBeVisible()
+  const builderText = await page.locator('body').innerText()
+  const builderHits = builderText
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => KANA.test(line))
+  expect(builderHits, `配裝器出現日文：${builderHits.join(' | ')}`).toEqual([])
+})

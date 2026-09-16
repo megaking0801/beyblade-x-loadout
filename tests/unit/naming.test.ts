@@ -81,3 +81,40 @@ describe('零件與商品的卡片標籤（第 26、28 節）', () => {
     expect(formatProductLabel(product).subtitle).toBe('隨機補充包')
   })
 })
+
+describe('副標不得出現日文（第 1.4、5 節）', () => {
+  const base: Part = {
+    id: 'p',
+    family: 'blade',
+    system: 'BX',
+    code: 'ドランソード',
+    naming: { primaryZhTW: '龍之劍', nameJa: 'ドランソード', isProvisionalZhTW: true },
+    provenance: prov,
+  }
+
+  it('代號本身是日文時副標留空，日文只留在次要名稱', () => {
+    const label = formatPartLabel(base)
+    expect(label.subtitle).toBe('')
+    expect(label.secondaryNames).toEqual(['ドランソード'])
+  })
+
+  it('主標已包含型號時不重複顯示副標', () => {
+    const label = formatPartLabel({
+      ...base,
+      family: 'ratchet',
+      code: '4-80',
+      naming: { primaryZhTW: '固鎖 4-80', isProvisionalZhTW: true },
+    })
+    expect(label.subtitle).toBe('')
+  })
+
+  it('型號是拉丁字且未出現在主標時照常顯示', () => {
+    const label = formatPartLabel({
+      ...base,
+      family: 'ratchet',
+      code: '9-60',
+      naming: { primaryZhTW: '九柱六十' },
+    })
+    expect(label.subtitle).toBe('9-60')
+  })
+})

@@ -8,6 +8,8 @@ export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: false,
   workers: 1,
+  // 只跑 *.spec.ts；截圖工具是 screenshot.shots.ts，用 npm run shots 手動觸發。
+  testMatch: /.*\.spec\.ts$/,
   reporter: [['list']],
   use: {
     baseURL: 'http://127.0.0.1:4173',

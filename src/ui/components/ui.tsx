@@ -156,43 +156,52 @@ export function Row({ children, gap = 8 }: { children: ReactNode; gap?: number }
  */
 export function PartThumb({
   code,
+  nameZhTW,
   size = 44,
   imageUrl,
 }: {
   code: string
+  /** 代號是日文時改用中文名稱取字，避免前台出現日文（第 1.4 節）。 */
+  nameZhTW?: string
   size?: number
+  /** 第 25 節：外部連結圖片。載入失敗或離線時退回型號佔位圖。 */
   imageUrl?: string
 }) {
   const [failed, setFailed] = useState(false)
-  const short = code.replace(/[^0-9A-Za-z\-]/g, '').slice(0, 4) || code.slice(0, 2)
+  const latin = code.replace(/[^0-9A-Za-z-]/g, '').slice(0, 4)
+  const chinese = (nameZhTW ?? '').replace(/\s/g, '').slice(0, 2)
+  const short = latin || chinese || '—'
+
+  const frame = {
+    width: size,
+    height: size,
+    flex: `0 0 ${size}px`,
+    borderRadius: 10,
+    background: 'var(--surface-2)',
+    border: '1px solid var(--border)',
+    overflow: 'hidden',
+  } as const
+
   if (imageUrl && !failed) {
     return (
-      <img
-        src={imageUrl}
-        alt=""
-        onError={() => setFailed(true)}
-        style={{
-          width: size,
-          height: size,
-          flex: `0 0 ${size}px`,
-          borderRadius: 10,
-          border: '1px solid var(--border)',
-          background: 'var(--surface-2)',
-          objectFit: 'cover',
-        }}
-      />
+      <div style={frame}>
+        <img
+          src={imageUrl}
+          alt=""
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={() => setFailed(true)}
+          style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+        />
+      </div>
     )
   }
+
   return (
     <div
       aria-hidden
       style={{
-        width: size,
-        height: size,
-        flex: `0 0 ${size}px`,
-        borderRadius: 10,
-        background: 'var(--surface-2)',
-        border: '1px solid var(--border)',
+        ...frame,
         display: 'grid',
         placeItems: 'center',
         fontSize: size <= 40 ? 11 : 13,
