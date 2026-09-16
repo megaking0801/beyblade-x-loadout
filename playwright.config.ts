@@ -10,6 +10,8 @@ export default defineConfig({
   workers: 1,
   // 只跑 *.spec.ts；截圖工具是 screenshot.shots.ts，用 npm run shots 手動觸發。
   testMatch: /.*\.spec\.ts$/,
+  // 線上煙霧測試另有設定檔（npm run test:live），不要混進本機驗收。
+  testIgnore: /live\//,
   reporter: [['list']],
   use: {
     baseURL: 'http://127.0.0.1:4173',

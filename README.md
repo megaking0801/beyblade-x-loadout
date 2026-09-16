@@ -24,6 +24,7 @@ iPhone Safari 從「分享 → 加入主畫面」安裝，Android Chrome 會出�
 npm run typecheck        # tsc -b
 npm test                 # Vitest：領域邏輯單元測試 + repository 整合測試
 npm run test:e2e         # Playwright：第 45 節 Case 1–10 驗收情境 + PWA / 離線 / 執行期錯誤
+npm run test:live        # 對已部署的線上版做煙霧測試（可用 LIVE_BASE_URL 覆寫網址）
 npm run shots            # 擷取手機與桌機寬度截圖到 test-results/shots（人工檢查版面用）
 npm run build:catalog    # 由官方商品一覽重建 Master Catalog
 npm run build:catalog-images  # 重建圖片對應表
@@ -37,6 +38,7 @@ npm run build:catalog-images  # 重建圖片對應表
 | 驗收與 PWA e2e | 33 passed、1 skipped（見下方） |
 | 型別檢查 | `tsc -b` 無錯誤 |
 | 打包 | 成功，service worker 預快取 13 個檔案 |
+| 線上版煙霧測試 | 4 passed（手機 WebKit + 桌機 Chrome，含 service worker 註冊） |
 | 圖鑑 | 官方商品 153 筆、零件 162 筆 |
 | 賽事資料 | 社群來源 10 場、可完整對應圖鑑的牌組 14 副 |
 
@@ -86,16 +88,25 @@ tests/e2e      第 45 節驗收情境、PWA、離線、執行期錯誤、日文�
 
 ## 部署
 
-打包產物是純靜態檔（`dist/`），任何靜態主機都能放：
+線上版本（GitHub Pages）：<https://megaking0801.github.io/beyblade-x-loadout/>
 
 ```bash
-npm run build
+npm run deploy:pages   # 用 Pages 的 base path 打包，再把 dist 推到 gh-pages 分支
+```
+
+`scripts/deployPages.mjs` 會用 git worktree 掛上 `gh-pages`、清空後放入 `dist`、補上 `.nojekyll`
+再 commit / push，不會把原始碼推到 gh-pages。`vite.config.ts` 依 `GITHUB_ACTIONS` 決定
+`base`（Pages 用 `/beyblade-x-loadout/`，本機用 `/`），manifest 的 `start_url` 與 `scope` 也跟著改。
+
+想放到其他靜態主機：
+
+```bash
+npm run build          # base 為 /
 # 然後把 dist/ 整個目錄上傳
 ```
 
 - Netlify / Vercel / Cloudflare Pages：build command `npm run build`、publish directory `dist`。
-- GitHub Pages 等放在子路徑的情況：要在 `vite.config.ts` 設 `base: '/<repo>/'` 後重新打包，
-  否則 service worker 與資源路徑會找不到。
+- 放在子路徑時要改 `vite.config.ts` 的 `base`，否則 service worker 與資源路徑會找不到。
 - 必須用 HTTPS（或 localhost）才能註冊 service worker、才能加入主畫面。
 - 個人資料只存在使用者裝置的 IndexedDB，沒有後端、不會上傳；換裝置請用「設定 → 匯出我的資料」。
 
