@@ -129,6 +129,10 @@ export function HomePage() {
           <div>
             圖鑑版本：{catalogVersion ?? '未載入'}（來源擷取日 {catalogMeta.fetchedAt}）
           </div>
+          {/* 手機上看不到最新改動時，先比對這個戳記確認跑的是不是新版。 */}
+          <div>
+            前端建置：<span className="code">{__BUILD_STAMP__}</span>
+          </div>
           <div>
             資料來源：
             <a href={catalogMeta.sourceUrl} target="_blank" rel="noreferrer">

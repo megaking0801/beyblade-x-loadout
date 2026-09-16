@@ -6,8 +6,12 @@ import { VitePWA } from 'vite-plugin-pwa'
 /** GitHub Pages 專案頁必須從 repo 子路徑載入資源；本機與其他主機仍使用根目錄。 */
 const base = process.env.GITHUB_ACTIONS ? '/beyblade-x-loadout/' : '/'
 
+/** 版本戳記：首頁「資料狀態」會顯示，用來確認手機上跑的是不是最新一版。 */
+const buildStamp = new Date().toISOString().slice(0, 16).replace('T', ' ')
+
 export default defineConfig({
   base,
+  define: { __BUILD_STAMP__: JSON.stringify(buildStamp) },
   plugins: [
     react(),
     tailwindcss(),
@@ -32,6 +36,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // 新版一上線就接管，不必等所有分頁關掉；不然手機上會一直看到舊畫面。
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
