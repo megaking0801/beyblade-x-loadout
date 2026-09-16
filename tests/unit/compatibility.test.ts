@@ -192,14 +192,30 @@ describe('旋向限制（第 18 節）', () => {
     expect(r.ok).toBe(false)
   })
 
-  it('旋向未知的零件不阻擋，但標記為未驗證', () => {
+  it('單一零件旋向未知不阻擋，也不逐件警告（固鎖與軸心本來就左右通用）', () => {
     const r = checkCompatibility({
       slots: { bladeId: 'blade-unknown', ratchetId: 'ratchet-r', bitId: 'bit-r' },
       parts: [...parts, p('blade-unknown', 'blade', 'BX', undefined)],
       rules: [],
     })
     expect(r.ok).toBe(true)
-    expect(r.warnings.map((w) => w.messageZhTW)).toContain('blade-unknown 缺少旋向資料，無法完整檢查相容性')
+    expect(r.warnings.map((w) => w.messageZhTW).join()).not.toContain('旋向')
+  })
+
+  it('整組都查不到旋向時才提醒無法檢查', () => {
+    const r = checkCompatibility({
+      slots: { bladeId: 'blade-unknown', ratchetId: 'ratchet-unknown', bitId: 'bit-unknown' },
+      parts: [
+        p('blade-unknown', 'blade', 'BX', undefined),
+        p('ratchet-unknown', 'ratchet', 'BX', undefined),
+        p('bit-unknown', 'bit', 'BX', undefined),
+      ],
+      rules: [],
+    })
+    expect(r.ok).toBe(true)
+    expect(r.warnings.map((w) => w.messageZhTW)).toContain(
+      '這套配裝的零件都查不到旋向，無法檢查左右旋相容性',
+    )
   })
 })
 

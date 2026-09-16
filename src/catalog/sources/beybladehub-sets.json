@@ -1,0 +1,300 @@
+{
+  "source": "BeybladeHub",
+  "fetchedAt": "2026-09-16",
+  "note": "社群整理的套裝內容，非 Takara Tomy 官方公布；前台需標示為社群來源。",
+  "sets": [
+    {
+      "id": "cx04",
+      "sku": "CX-04",
+      "sourceUrl": "https://beybladehub.app/parts/combos/CX-04",
+      "partIds": [
+        "main_blade:ドランブレイブ",
+        "main_blade:ペルセウスダーク",
+        "assist_blade:S",
+        "assist_blade:B",
+        "ratchet:6-60",
+        "ratchet:6-80",
+        "bit:V",
+        "bit:W"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "id": "bx09",
+      "sku": "BX-09",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx10",
+      "sku": "BX-10",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx11",
+      "sku": "BX-11",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx12",
+      "sku": "BX-12",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx00-es",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx18",
+      "sku": "BX-18",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx25",
+      "sku": "BX-25",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx28",
+      "sku": "BX-28",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx29",
+      "sku": "BX-29",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx30",
+      "sku": "BX-30",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx00-cg",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx32",
+      "sku": "BX-32",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx37",
+      "sku": "BX-37",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-BrSc",
+        "ratchet-5-60",
+        "bit-F"
+      ]
+    },
+    {
+      "id": "bxa02",
+      "sku": "UX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "ux00-hs_bc",
+      "sku": "UX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx00-25set",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx40",
+      "sku": "BX-40",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx41",
+      "sku": "BX-41",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx42",
+      "sku": "BX-42",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx43",
+      "sku": "BX-43",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "cx07",
+      "sku": "CX-07",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": []
+    },
+    {
+      "id": "bx00-jtm",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx00-jsq",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "cx00-pb",
+      "sku": "CX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx46",
+      "sku": "BX-46",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-CbDr",
+        "ratchet-9-60",
+        "bit-R",
+        "blade-GtTc",
+        "ratchet-7-70",
+        "bit-T"
+      ]
+    },
+    {
+      "id": "bx47",
+      "sku": "BX-47",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "cx11",
+      "sku": "CX-11",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-cx-chip-Em",
+        "blade-cx-main-Mg",
+        "blade-cx-assist-H",
+        "ratchet-Op",
+        "blade-GlRc",
+        "ratchet-M-85",
+        "bit-HN",
+        "blade-ShGl",
+        "ratchet-5-60",
+        "bit-FB",
+        "ratchet-1-60",
+        "ratchet-6-60",
+        "ratchet-9-60",
+        "bit-Q",
+        "bit-LR",
+        "bit-LO"
+      ]
+    },
+    {
+      "id": "cx16",
+      "sku": "CX-16",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-cx-chip-Bh",
+        "blade-cx-metal-Bl",
+        "blade-cx-over-B",
+        "blade-cx-assist-K",
+        "ratchet-1-50",
+        "bit-I"
+      ]
+    },
+    {
+      "id": "bx00-sl",
+      "sku": "BX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "ux19",
+      "sku": "UX-19",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "bit-H",
+        "blade-BlGr"
+      ]
+    },
+    {
+      "id": "bx51",
+      "sku": "BX-51",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "ux20",
+      "sku": "UX-20",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "bit-LF",
+        "blade-GlVl",
+        "bit-LR",
+        "bit-UF",
+        "bit-K",
+        "bit-UN",
+        "bit-WW",
+        "bit-WB",
+        "bit-B",
+        "bit-FB",
+        "ratchet-3-80",
+        "bit-H"
+      ]
+    },
+    {
+      "id": "bx57",
+      "sku": "BX-57",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "ux21",
+      "sku": "UX-21",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-HlNt",
+        "bit-Z",
+        "blade-SlWl",
+        "ratchet-9-70",
+        "bit-R",
+        "blade-WyHv",
+        "ratchet-8-80",
+        "bit-B",
+        "bit-LR",
+        "bit-H",
+        "ratchet-3-60",
+        "ratchet-5-60",
+        "ratchet-7-70",
+        "ratchet-9-60",
+        "bit-FB"
+      ]
+    },
+    {
+      "id": "ux00-gv",
+      "sku": "UX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "cx00-eva",
+      "sku": "CX-00",
+      "reason": "商品頁回應 404"
+    },
+    {
+      "id": "bx53",
+      "sku": "BX-53",
+      "reason": "商品頁的零件連結無法完整對應到三個槽位",
+      "anchors": [
+        "blade-KnSh2",
+        "ratchet-3-80",
+        "bit-N",
+        "blade-WzAr2",
+        "ratchet-4-80",
+        "bit-B",
+        "blade-ArPg",
+        "ratchet-3-70",
+        "bit-A"
+      ]
+    },
+    {
+      "id": "bx56",
+      "sku": "BX-56",
+      "reason": "商品頁回應 404"
+    }
+  ]
+}

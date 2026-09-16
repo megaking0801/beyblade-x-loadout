@@ -15,8 +15,8 @@ import {
   type OwnedProductStatus,
   type Product,
 } from '../../domain/types.ts'
-import { Link, navigate } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section } from '../components/ui.tsx'
+import { Link } from '../router.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, useJustAdded } from '../components/ui.tsx'
 import { formatPartLabel } from '../../domain/naming.ts'
 
 const STATUS_OPTIONS: OwnedProductStatus[] = ['owned', 'ordered', 'wishlist', 'sold']
@@ -321,16 +321,37 @@ function ManualOpenForm({ ownedId, sealed }: { ownedId: string; sealed: number }
   )
 }
 
+/** 產品線是找商品時最先用的條件：多數人記得的是「CX 那條」而不是分類。 */
+const LINE_FILTERS = ['all', 'BX', 'UX', 'CX'] as const
+type LineFilter = (typeof LINE_FILTERS)[number]
+const LINE_LABEL: Record<LineFilter, string> = {
+  all: '全部',
+  BX: 'BX 三件式',
+  UX: 'UX 三件式',
+  CX: 'CX 模組化',
+}
+
 function CatalogList() {
   const products = useAppStore((state) => state.products)
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
+  const [line, setLine] = useState<LineFilter>('all')
 
   const filtered = useMemo(() => {
+    const byLine = line === 'all' ? products : products.filter((product) => product.line === line)
     const pool =
-      category === 'all' ? products : products.filter((product) => product.category === category)
+      category === 'all' ? byLine : byLine.filter((product) => product.category === category)
     return searchProducts(pool, query).slice(0, 80)
-  }, [products, query, category])
+  }, [products, query, category, line])
+
+  const countByLine = useMemo(() => {
+    const counts = new Map<LineFilter, number>([['all', products.length]])
+    for (const product of products) {
+      const key = product.line as LineFilter
+      if (LINE_FILTERS.includes(key)) counts.set(key, (counts.get(key) ?? 0) + 1)
+    }
+    return counts
+  }, [products])
 
   const categories = useMemo(
     () => [...new Set(products.map((product) => product.category))],
@@ -339,6 +360,22 @@ function CatalogList() {
 
   return (
     <>
+      <Row gap={6}>
+        {LINE_FILTERS.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className={line === item ? 'btn btn-primary' : 'btn'}
+            data-testid={`line-filter-${item}`}
+            aria-pressed={line === item}
+            onClick={() => setLine(item)}
+          >
+            {LINE_LABEL[item]}
+            {countByLine.get(item) ? `（${countByLine.get(item)}）` : ''}
+          </button>
+        ))}
+      </Row>
+      <div style={{ height: 10 }} />
       <Row>
         <input
           className="field"
@@ -385,11 +422,12 @@ function CatalogProductCard({ product }: { product: Product }) {
   const images = useAppStore((state) => state.images)
   const [quantity, setQuantity] = useState(1)
   const [status, setStatus] = useState<OwnedProductStatus>('owned')
+  const [justAdded, markAdded] = useJustAdded()
   const label = formatProductLabel(product)
   const imageUrl = images.find((image) => image.entityType === 'product' && image.entityId === product.id)?.url
 
   return (
-    <div className="card" data-testid="catalog-product">
+    <div className={justAdded ? 'card just-added' : 'card'} data-testid="catalog-product">
       <Row>
         <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} size={56} />
         <div style={{ flex: 1, minWidth: 160 }}>
@@ -434,10 +472,12 @@ function CatalogProductCard({ product }: { product: Product }) {
             const ok = await run(() =>
               repo.addOwnedProduct({ productId: product.id, quantity, status }),
             )
-            if (ok) navigate('/products')
+            // 加入後留在原地繼續挑，只用按鈕與外框回饋；原本會 navigate 回同一頁，
+            // 畫面毫無變化，使用者會以為沒按到而重複加。
+            if (ok) markAdded()
           }}
         >
-          加入我的商品
+          {justAdded ? `已加入 ×${quantity}` : '加入我的商品'}
         </button>
         <Link to="/product" query={{ id: product.id }} className="btn">
           詳情

@@ -73,7 +73,11 @@ export function ProductDetailPage({ productId }: { productId: string }) {
         {product.contents.length === 0 ? (
           <EmptyState
             title={product.isRandom ? '隨機內容，官方未公布款式清單' : '官方尚未公布內含零件'}
-            hint="這筆資料標記為待查，不會憑空填入內容。"
+            hint={
+              product.isRandom
+                ? '開封後可以在「我的商品」自行登記實際抽到什麼，系統只採信你登記的內容。'
+                : '官方商品一覽只列商品名稱，套裝內含哪幾顆沒有公布；社群圖鑑也還原不出完整清單，所以這裡留空而不是猜一組。'
+            }
           />
         ) : (
           <div style={{ display: 'grid', gap: 8 }}>
@@ -96,7 +100,15 @@ export function ProductDetailPage({ productId }: { productId: string }) {
               return (
                 <Link to="/part" query={{ id: part.id }} className="card" key={`${part.id}-${index}`}>
                   <Row>
-                    <PartThumb code={part.code} nameZhTW={partLabel.titleZhTW} />
+                    <PartThumb
+                      code={part.code}
+                      nameZhTW={partLabel.titleZhTW}
+                      imageUrl={
+                        images.find(
+                          (image) => image.entityType === 'part' && image.entityId === part.id,
+                        )?.url
+                      }
+                    />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 600 }}>
                         <CatalogTitle>{partLabel.titleZhTW}</CatalogTitle>

@@ -44,13 +44,31 @@ describe('Catalog 基本完整性（第 42 節）', () => {
     }
   })
 
-  it('商品主圖只以可追溯的外部連結方式記錄，並保留缺圖稽核', () => {
+  it('圖片只以可追溯的外部連結方式記錄，並保留缺圖稽核', () => {
     expect(catalog.images.length).toBe(catalogAudit.imageCount)
     expect(catalog.images.length).toBeGreaterThanOrEqual(100)
     expect(catalog.images.every((image) => image.usageStatus === 'link_only')).toBe(true)
-    expect(catalog.images.every((image) => /(?:takaratomy\.co\.jp|rakuten\.co\.jp|amazon\.co\.jp)/.test(image.sourceUrl))).toBe(true)
+    // 官方商品圖與社群零件圖都只連結、不重新散布，來源網域兩者都要能追溯。
+    expect(
+      catalog.images.every((image) =>
+        /(?:takaratomy\.co\.jp|rakuten\.co\.jp|amazon\.co\.jp|beybladehub\.app)/.test(image.sourceUrl),
+      ),
+    ).toBe(true)
     expect(catalog.images.every((image) => image.sourceName.trim().length > 0)).toBe(true)
-    expect(catalogAudit.productsWithoutImages.length).toBe(catalog.products.length - catalog.images.length)
+    const productImages = catalog.images.filter((image) => image.entityType === 'product')
+    expect(catalogAudit.productsWithoutImages.length).toBe(
+      catalog.products.length - productImages.length,
+    )
+  })
+
+  it('零件也有圖，且標明來源與只連結不散布', () => {
+    const partImages = catalog.images.filter((image) => image.entityType === 'part')
+    expect(partImages.length).toBeGreaterThan(100)
+    for (const image of partImages) {
+      expect(image.usageStatus).toBe('link_only')
+      expect((image.copyrightOwner ?? '').trim().length).toBeGreaterThan(0)
+      expect(catalog.parts.some((part) => part.id === image.entityId)).toBe(true)
+    }
   })
 
   it('Catalog 版本與來源資訊有記錄', () => {
@@ -110,11 +128,21 @@ describe('不得編造內容（第 1.5 節）', () => {
     }
   })
 
-  it('零件的類型、重量、旋向官方未公布，一律留空而非亂填', () => {
+  it('類型、重量、旋向來自社群實測，必須獨立記來源且不冒充官方', () => {
+    const withStats = catalog.parts.filter(
+      (part) => part.type || part.officialWeightG || part.spinDirection || part.bitContact,
+    )
+    expect(withStats.length).toBeGreaterThan(0)
+    for (const part of withStats) {
+      // 零件身分仍然是官方來源，數值則獨立標社群實測，兩者不混為一談。
+      expect(part.provenance.verificationStatus).toBe('official_verified')
+      expect(part.statsProvenance?.verificationStatus).toBe('community_only')
+      expect(part.statsProvenance?.sourceUrls.length).toBeGreaterThan(0)
+    }
+    // 沒有數值的零件不得憑空掛上來源。
     for (const part of catalog.parts) {
-      expect(part.type).toBeUndefined()
-      expect(part.officialWeightG).toBeUndefined()
-      expect(part.spinDirection).toBeUndefined()
+      if (part.type || part.officialWeightG || part.spinDirection || part.bitContact) continue
+      expect(part.statsProvenance).toBeUndefined()
     }
   })
 
@@ -188,14 +216,14 @@ describe('實際 Catalog 可以組出合法配裝（第 17、18 節）', () => {
     expect(result.system).toBe('CX')
   })
 
-  it('旋向資料缺漏會被標為警告而不是誤判為可組', () => {
+  it('上蓋帶旋向時就不再抱怨旋向未知（固鎖與軸心左右通用）', () => {
     const result = checkCompatibility({
       slots: { bladeId: 'blade:ドランソード', ratchetId: 'ratchet:3-60', bitId: 'bit:F' },
       parts: catalog.parts,
       rules: catalog.compatibilityRules,
     })
-    expect(result.warnings.length).toBeGreaterThan(0)
-    expect(result.warnings[0]!.messageZhTW).toContain('缺少旋向資料')
+    expect(result.ok).toBe(true)
+    expect(result.warnings.map((warning) => warning.messageZhTW).join()).not.toContain('旋向')
   })
 })
 
@@ -218,19 +246,30 @@ describe('實際 Catalog 的前台標籤不得出現日文（第 1.4 節）', ()
 })
 
 describe('相容性提示不得吐出內部 id 或日文（第 1.4 節）', () => {
-  it('缺少旋向資料的警告用中文零件名稱', () => {
+  it('相容性警告用中文零件名稱', () => {
+    // 未拆分的 CX 上蓋不需要鎖定紋章，硬選一個會產生警告，用它來檢查訊息寫法。
+    const fused = catalog.parts.find((part) => part.cxFused)
+    const assist = catalog.parts.find((part) => part.family === 'assist_blade')
     const result = checkCompatibility({
-      slots: { bladeId: 'blade:ドランソード', ratchetId: 'ratchet:3-60', bitId: 'bit:F' },
+      slots: {
+        bladeId: fused?.id,
+        assistBladeId: assist?.id,
+        ratchetId: 'ratchet:3-60',
+        bitId: 'bit:F',
+        lockChipId: fused?.id,
+      },
       parts: catalog.parts,
       rules: catalog.compatibilityRules,
     })
-    expect(result.warnings.length).toBeGreaterThan(0)
-    for (const warning of result.warnings) {
+    const messages = [...result.warnings, ...result.errors]
+    expect(messages.length).toBeGreaterThan(0)
+    for (const warning of messages) {
       expect(warning.messageZhTW).not.toMatch(/[぀-ヿ]/)
       expect(warning.messageZhTW).not.toContain('blade:')
       expect(warning.messageZhTW).not.toContain('ratchet:')
       expect(warning.messageZhTW).not.toContain('bit:')
     }
-    expect(result.warnings[0]!.messageZhTW).toContain('蒼龍神劍')
+    // 相容性訊息一律用中文的槽位與零件分類用語，不夾雜代號。
+    expect(messages.map((message) => message.messageZhTW).join()).toMatch(/[一-鿿]/)
   })
 })

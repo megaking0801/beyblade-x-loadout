@@ -5,7 +5,7 @@
   "generatedAt": "2026-09-16",
   "productCount": 149,
   "partCount": 162,
-  "imageCount": 145,
+  "imageCount": 280,
   "tournamentEventCount": 10,
   "tournamentDeckCount": 14,
   "rejectedTournamentDecks": [],
@@ -228,5 +228,273 @@
     "套裝商品（套組、對戰入門組等）的內含陀螺未在官方一覽頁公布，內容留空並標 needs_review。",
     "CX 上蓋在商品上為「鎖定紋章 + 主刃」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。",
     "中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。"
-  ]
+  ],
+  "hubStats": {
+    "source": "BeybladeHub",
+    "fetchedAt": "2026-09-16",
+    "matchedParts": 135,
+    "partsWithoutStats": [
+      {
+        "id": "main_blade:ドランブレイブ",
+        "name": "蒼龍勇氣"
+      },
+      {
+        "id": "main_blade:ウィザードアーク",
+        "name": "魔導至尊"
+      },
+      {
+        "id": "main_blade:ペルセウスダーク",
+        "name": "英仙幽冥"
+      },
+      {
+        "id": "main_blade:ヘルズブレイブ",
+        "name": "惡魔勇氣"
+      },
+      {
+        "id": "main_blade:ソルエクリプス",
+        "name": "焰神滅世"
+      },
+      {
+        "id": "main_blade:ウルフハント",
+        "name": "銀狼狩獵"
+      },
+      {
+        "id": "main_blade:フェニックスフレア",
+        "name": "鳳凰閃焰"
+      },
+      {
+        "id": "main_blade:バハムートブリッツ",
+        "name": "龍王閃擊"
+      },
+      {
+        "id": "main_blade:ナイトフォートレス",
+        "name": "騎士堡壘"
+      },
+      {
+        "id": "main_blade:ラグナレイジ",
+        "name": "邪神狂怒"
+      },
+      {
+        "id": "main_blade:バックスアントラーズ",
+        "name": "雄鹿之角"
+      },
+      {
+        "id": "main_blade:クラーケンリグル",
+        "name": "海怪扭動"
+      },
+      {
+        "id": "main_blade:ホーネットフォート",
+        "name": "大黃蜂堡"
+      },
+      {
+        "id": "main_blade:ドレイクブレイブ",
+        "name": "龍神勇氣"
+      },
+      {
+        "id": "main_blade:ティガレイジ",
+        "name": "迪卡狂怒"
+      }
+    ]
+  },
+  "hubSetContents": {
+    "source": "BeybladeHub",
+    "fetchedAt": "2026-09-16",
+    "appliedProducts": 1,
+    "unresolved": [
+      {
+        "id": "bx09",
+        "sku": "BX-09",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx10",
+        "sku": "BX-10",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx11",
+        "sku": "BX-11",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx12",
+        "sku": "BX-12",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx00-es",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx18",
+        "sku": "BX-18",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx25",
+        "sku": "BX-25",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx28",
+        "sku": "BX-28",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx29",
+        "sku": "BX-29",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx30",
+        "sku": "BX-30",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx00-cg",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx32",
+        "sku": "BX-32",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx37",
+        "sku": "BX-37",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bxa02",
+        "sku": "UX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "ux00-hs_bc",
+        "sku": "UX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx00-25set",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx40",
+        "sku": "BX-40",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx41",
+        "sku": "BX-41",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx42",
+        "sku": "BX-42",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx43",
+        "sku": "BX-43",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "cx07",
+        "sku": "CX-07",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx00-jtm",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx00-jsq",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "cx00-pb",
+        "sku": "CX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx46",
+        "sku": "BX-46",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx47",
+        "sku": "BX-47",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "cx11",
+        "sku": "CX-11",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "cx16",
+        "sku": "CX-16",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx00-sl",
+        "sku": "BX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "ux19",
+        "sku": "UX-19",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx51",
+        "sku": "BX-51",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "ux20",
+        "sku": "UX-20",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx57",
+        "sku": "BX-57",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "ux21",
+        "sku": "UX-21",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "ux00-gv",
+        "sku": "UX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "cx00-eva",
+        "sku": "CX-00",
+        "reason": "商品頁回應 404"
+      },
+      {
+        "id": "bx53",
+        "sku": "BX-53",
+        "reason": "商品頁的零件連結無法完整對應到三個槽位"
+      },
+      {
+        "id": "bx56",
+        "sku": "BX-56",
+        "reason": "商品頁回應 404"
+      }
+    ]
+  },
+  "hubImages": {
+    "partImages": 135,
+    "productImagesReplaced": 57
+  }
 }

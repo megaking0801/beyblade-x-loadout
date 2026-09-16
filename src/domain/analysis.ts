@@ -254,6 +254,9 @@ const STRUCTURE_ZH: Record<AssemblySystem, string> = {
   CX: 'CX 模組化五件式',
 }
 
+/** 缺漏欄位名稱只寫一次，判斷可信度時要比對它。 */
+const WEIGHT_FIELD_ZH = '官方重量'
+
 const SPIN_ZH: Record<SpinDirection, string> = {
   right: '右旋',
   left: '左旋',
@@ -297,7 +300,7 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   const missingFieldsZhTW: string[] = []
   const weights = resolvedParts.map((part) => part.officialWeightG)
   const allWeightsKnown = resolvedParts.length > 0 && weights.every((w): w is number => typeof w === 'number')
-  if (!allWeightsKnown) missingFieldsZhTW.push('官方重量')
+  if (!allWeightsKnown) missingFieldsZhTW.push(WEIGHT_FIELD_ZH)
 
   if (!blade?.type) missingFieldsZhTW.push('官方類型')
   if (ratchet && typeof ratchet.heightCode !== 'number') missingFieldsZhTW.push('高度')
@@ -305,7 +308,8 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   const knownSpins = resolvedParts
     .map((part) => part.spinDirection)
     .filter((spin): spin is SpinDirection => Boolean(spin))
-  if (knownSpins.length !== resolvedParts.length) missingFieldsZhTW.push('旋向')
+  // 旋向由上蓋決定，固鎖左右通用；只要有一件標了旋向，這套的旋向就是已知。
+  if (knownSpins.length === 0) missingFieldsZhTW.push('旋向')
   const decisiveSpin = knownSpins.find((spin) => spin !== 'dual')
   const spinDirectionZhTW = decisiveSpin
     ? SPIN_ZH[decisiveSpin]
@@ -349,11 +353,19 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   const evidenceOutput = evidence ? buildEvidence(evidence) : undefined
 
   /* --- D 可信度（第 20 節 D）--- */
+  //
+  // 固鎖與軸心沒有公開的公克數，總重永遠算不出來。若把「缺重量」一律判為低可信度，
+  // 每一套配裝都會是低，這個欄位就失去分辨力。因此只缺重量時降一級到中等，
+  // 連類型或高度都沒有才是低。
+  const onlyWeightMissing =
+    missingFieldsZhTW.length === 1 && missingFieldsZhTW[0] === WEIGHT_FIELD_ZH
   const confidence: Confidence =
-    missingFieldsZhTW.length > 0
-      ? 'low'
-      : evidence
+    missingFieldsZhTW.length === 0
+      ? evidence
         ? computeConfidence({ sampleSize: evidence.totalDecks, sourceTier: evidence.sourceTier })
+        : 'medium'
+      : onlyWeightMissing
+        ? 'medium'
         : 'low'
 
   const { prosZhTW, consZhTW } = buildProsCons({ scores, synergyNotesZhTW, operationDifficulty })

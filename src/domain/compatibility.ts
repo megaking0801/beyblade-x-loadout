@@ -7,7 +7,6 @@
  * 其他已知特殊限制一律由 CompatibilityRule 資料提供，並附來源。
  * 沒有資料支持的限制不得自行推測。
  */
-import { resolveDisplayName } from './naming.ts'
 import {
   PART_FAMILY_ZH,
   type AssemblySystem,
@@ -180,16 +179,16 @@ export function checkCompatibility(args: CheckArgs): CompatibilityResult {
   }
 
   // 3. 旋向一致（機構上必然：左旋與右旋介面不相容）
+  //
+  // 旋向由上蓋決定，固鎖本身左右通用，軸心只有標 L 的左旋專用款才有旋向。
+  // 因此沒有旋向的零件視為左右通用，不逐件警告；只有整組都查不到旋向時才提醒。
   const directions = new Set<SpinDirection>()
   for (const part of resolved) {
-    if (!part.spinDirection) {
-      // 給使用者看的訊息一律用台灣中文名稱，不要吐內部 id（第 1.4 節）。
-      warnings.push({
-        messageZhTW: `${resolveDisplayName(part.naming).titleZhTW} 缺少旋向資料，無法完整檢查相容性`,
-      })
-      continue
-    }
+    if (!part.spinDirection) continue
     if (part.spinDirection !== 'dual') directions.add(part.spinDirection)
+  }
+  if (resolved.length > 0 && resolved.every((part) => !part.spinDirection)) {
+    warnings.push({ messageZhTW: '這套配裝的零件都查不到旋向，無法檢查左右旋相容性' })
   }
   if (directions.has('right') && directions.has('left')) {
     errors.push({

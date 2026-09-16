@@ -361,3 +361,22 @@ textarea {
     margin-top: 8px;
   }
 }
+
+/*
+ * 加入成功的回饋：外框閃一下硃紅。
+ * 動畫被系統關掉時（prefers-reduced-motion）外框仍然會變色，按鈕文字也會改，
+ * 不會只剩「什麼都沒發生」。
+ */
+@keyframes just-added-flash {
+  from {
+    box-shadow: inset 0 0 0 3px var(--signal);
+  }
+  to {
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+}
+
+.just-added {
+  border-color: var(--signal);
+  animation: just-added-flash 0.9s ease-out;
+}

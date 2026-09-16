@@ -130,6 +130,13 @@ export interface Part {
   plainDescriptionZhTW?: string
   notes?: string
   provenance: Provenance
+  /**
+   * 第 20 節：重量、類型、旋向、軸心特性的來源。
+   *
+   * Takara Tomy 官方商品頁不公布這些欄位，數值來自社群圖鑑的玩家實測，
+   * 與零件身分（型號、名稱）的來源不同，所以分開記錄，前台才能誠實標示。
+   */
+  statsProvenance?: Provenance
 }
 
 /** 第 9 節：同一零件的不同顏色／Metal Coat／模具版本。 */

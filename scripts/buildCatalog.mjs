@@ -24,6 +24,8 @@ const OUT_FILE = resolve(root, 'src/catalog/catalog.generated.json')
 const AUDIT_FILE = resolve(root, 'src/catalog/catalog-audit.json')
 const IMAGES_FILE = resolve(root, 'src/catalog/images.generated.json')
 const TOURNAMENT_FILE = resolve(root, 'src/catalog/sources/tournament-curated.json')
+const HUB_STATS_FILE = resolve(root, 'src/catalog/sources/beybladehub-stats.json')
+const HUB_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-sets.json')
 
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
@@ -251,10 +253,166 @@ const PART_FAMILY_LABEL = {
   bit: '軸心',
 }
 
+/**
+ * 把社群圖鑑的實測數值合併進零件。
+ *
+ * 官方商品頁不公布重量、類型、旋向與軸心特性，少了這些欄位，強度分析每一項
+ * 都只能顯示「資料不足」。這裡補上 BeybladeHub 的玩家實測值，並且獨立記在
+ * statsProvenance，標 community_only —— 零件身分仍然是官方來源，兩者不混為一談。
+ */
+function applyHubStats(parts, hubStats, audit) {
+  const byFamilyKey = new Map()
+  for (const row of hubStats.parts) {
+    // 上蓋在本專案的 code 就是日文名，所以用日文名當索引；固鎖與軸心的 key 本身就是型號。
+    const lookupKey = row.family === 'blade' ? row.nameJa : row.key
+    if (lookupKey) byFamilyKey.set(`${row.family}:${lookupKey}`, row)
+  }
+
+  const statsProvenance = {
+    sourceUrls: hubStats.sourceUrls,
+    verifiedAt: hubStats.fetchedAt,
+    verificationStatus: 'community_only',
+  }
+
+  let matched = 0
+  const missing = []
+  for (const part of parts) {
+    const family = part.family === 'main_blade' ? 'blade' : part.family
+    const row = byFamilyKey.get(`${family}:${part.code}`)
+    if (!row) {
+      if (family === 'blade' || family === 'ratchet' || family === 'bit') {
+        missing.push({ id: part.id, name: part.naming.primaryZhTW })
+      }
+      continue
+    }
+    const before = JSON.stringify(part)
+    if (row.type) part.type = row.type
+    if (row.spinDirection) part.spinDirection = row.spinDirection
+    if (typeof row.officialWeightG === 'number') part.officialWeightG = row.officialWeightG
+    if (row.bitContact) part.bitContact = row.bitContact
+    if (row.descriptionZhTW && !part.plainDescriptionZhTW) {
+      part.plainDescriptionZhTW = row.descriptionZhTW
+    }
+    if (JSON.stringify(part) !== before) {
+      part.statsProvenance = statsProvenance
+      matched += 1
+    }
+  }
+
+  audit.hubStats = {
+    source: hubStats.source,
+    fetchedAt: hubStats.fetchedAt,
+    matchedParts: matched,
+    partsWithoutStats: missing,
+  }
+  console.log(`社群實測數值套用 ${matched} 筆，未涵蓋 ${missing.length} 筆`)
+}
+
+/**
+ * 補上社群整理的套裝內容。
+ *
+ * 官方一覽頁不列套裝內含哪幾顆，這些商品原本內容全空，登記一盒也不會進任何零件。
+ * 只覆蓋原本就是空的商品，並把商品的驗證狀態降為 community_only，
+ * 讓前台知道這一筆不是官方公布的內容。
+ */
+function applyHubSetContents(products, hubSets, audit) {
+  const byId = new Map(products.map((product) => [product.id, product]))
+  let applied = 0
+  for (const set of hubSets.sets) {
+    const product = byId.get(set.id)
+    if (!product || product.contents.length > 0) continue
+    product.contents = set.partIds.map((partId) => ({ partId, quantity: 1 }))
+    product.provenance = {
+      sourceUrls: [...product.provenance.sourceUrls, set.sourceUrl],
+      verifiedAt: hubSets.fetchedAt,
+      verificationStatus: 'community_only',
+    }
+    applied += 1
+  }
+  audit.hubSetContents = {
+    source: hubSets.source,
+    fetchedAt: hubSets.fetchedAt,
+    appliedProducts: applied,
+    unresolved: hubSets.skipped.map((row) => ({ id: row.id, sku: row.sku, reason: row.reason })),
+  }
+  console.log(`社群套裝內容補上 ${applied} 筆，仍未知 ${hubSets.skipped.length} 筆`)
+}
+
+/**
+ * 補上社群圖鑑的單件去背圖。
+ *
+ * 官方圖是整盒包裝照（常常還是背面），在手機上縮成 44px 完全看不出是哪顆陀螺。
+ * BeybladeHub 有逐件去背圖，改用它當零件縮圖；只含一顆陀螺的商品也改用該上蓋的圖，
+ * 讓清單一眼認得出來。沿用第 25 節的 link_only：只連結，不下載也不重新散布。
+ */
+function addHubImages(catalog, hubStats, audit) {
+  const imageByFamilyKey = new Map()
+  for (const row of hubStats.parts) {
+    if (!row.imageUrl) continue
+    const lookupKey = row.family === 'blade' ? row.nameJa : row.key
+    if (lookupKey) imageByFamilyKey.set(`${row.family}:${lookupKey}`, row.imageUrl)
+  }
+
+  const imageByPartId = new Map()
+  for (const part of catalog.parts) {
+    const family = part.family === 'main_blade' ? 'blade' : part.family
+    const url = imageByFamilyKey.get(`${family}:${part.code}`)
+    if (!url) continue
+    imageByPartId.set(part.id, url)
+    catalog.images.push({
+      id: `part:${part.id}:main`,
+      entityType: 'part',
+      entityId: part.id,
+      url,
+      sourceUrl: `https://beybladehub.app/parts/${family === 'blade' ? 'blades' : `${family}s`}`,
+      sourceName: 'BeybladeHub 零件圖鑑',
+      copyrightOwner: 'BeybladeHub',
+      usageStatus: 'link_only',
+    })
+  }
+
+  // 只含一顆陀螺的商品，用那顆上蓋的去背圖取代包裝照。
+  let replaced = 0
+  for (const product of catalog.products) {
+    const blades = product.contents
+      .map((entry) => catalog.parts.find((part) => part.id === entry.partId))
+      .filter((part) => part && (part.family === 'blade' || part.family === 'main_blade'))
+    if (blades.length !== 1) continue
+    const url = imageByPartId.get(blades[0].id)
+    if (!url) continue
+    const existing = catalog.images.find(
+      (image) => image.entityType === 'product' && image.entityId === product.id,
+    )
+    if (existing) {
+      existing.url = url
+      existing.sourceName = 'BeybladeHub 零件圖鑑'
+      existing.copyrightOwner = 'BeybladeHub'
+    } else {
+      catalog.images.push({
+        id: `product:${product.id}:hub`,
+        entityType: 'product',
+        entityId: product.id,
+        url,
+        sourceUrl: 'https://beybladehub.app/parts/blades',
+        sourceName: 'BeybladeHub 零件圖鑑',
+        copyrightOwner: 'BeybladeHub',
+        usageStatus: 'link_only',
+      })
+    }
+    replaced += 1
+  }
+
+  audit.imageCount = catalog.images.length
+  audit.hubImages = { partImages: imageByPartId.size, productImagesReplaced: replaced }
+  console.log(`零件圖 ${imageByPartId.size} 張，商品圖改用單件圖 ${replaced} 筆`)
+}
+
 function main() {
   const rows = parseLines()
   const images = JSON.parse(readFileSync(IMAGES_FILE, 'utf8'))
   const tournamentSource = JSON.parse(readFileSync(TOURNAMENT_FILE, 'utf8'))
+  const hubStats = JSON.parse(readFileSync(HUB_STATS_FILE, 'utf8'))
+  const hubSets = JSON.parse(readFileSync(HUB_SETS_FILE, 'utf8'))
 
   const parts = new Map()
   const products = []
@@ -265,7 +423,7 @@ function main() {
     generatedAt: new Date().toISOString().slice(0, 10),
     productCount: 0,
     partCount: 0,
-    imageCount: images.length,
+    imageCount: 0,
     tournamentEventCount: 0,
     tournamentDeckCount: 0,
     rejectedTournamentDecks: [],
@@ -476,6 +634,9 @@ function main() {
   }
 
   audit.productCount = products.length
+  applyHubStats(catalog.parts, hubStats, audit)
+  applyHubSetContents(catalog.products, hubSets, audit)
+  addHubImages(catalog, hubStats, audit)
   audit.partCount = catalog.parts.length
   audit.tournamentEventCount = tournamentEvents.length
   audit.tournamentDeckCount = tournamentDecks.length

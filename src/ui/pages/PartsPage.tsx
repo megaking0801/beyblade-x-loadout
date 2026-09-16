@@ -15,7 +15,7 @@ import {
   type PartStatus,
 } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, useJustAdded } from '../components/ui.tsx'
 
 /** 第 26 節指定的分類。 */
 const GROUPS: { key: string; label: string; families: PartFamily[] }[] = [
@@ -80,6 +80,16 @@ function MyParts() {
   const parts = useAppStore((state) => state.parts)
   const partPreferences = useAppStore((state) => state.partPreferences)
   const partById = useMemo(() => new Map(parts.map((part) => [part.id, part])), [parts])
+  const images = useAppStore((state) => state.images)
+  const partImageUrl = useMemo(
+    () =>
+      new Map(
+        images
+          .filter((image) => image.entityType === 'part')
+          .map((image) => [image.entityId, image.url] as const),
+      ),
+    [images],
+  )
   const preferenceByPartId = useMemo(
     () => new Map(partPreferences.map((preference) => [preference.partId, preference])),
     [partPreferences],
@@ -120,7 +130,11 @@ function MyParts() {
                     testId="part-stock"
                     dataPartId={part.id}
                   >
-                    <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
+                    <PartThumb
+                      code={part.code}
+                      nameZhTW={label.titleZhTW}
+                      imageUrl={partImageUrl.get(part.id)}
+                    />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 600, fontSize: 15 }}>
                         <CatalogTitle>{label.titleZhTW}</CatalogTitle>
@@ -290,10 +304,11 @@ function PartCatalog() {
 function CatalogPartCard({ part }: { part: Part }) {
   const run = useAppStore((state) => state.run)
   const [quantity, setQuantity] = useState(1)
+  const [justAdded, markAdded] = useJustAdded()
   const label = formatPartLabel(part)
 
   return (
-    <div className="card" data-testid="catalog-part">
+    <div className={justAdded ? 'card just-added' : 'card'} data-testid="catalog-part">
       <Row>
         <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
         <div style={{ flex: 1, minWidth: 150 }}>
@@ -319,13 +334,14 @@ function CatalogPartCard({ part }: { part: Part }) {
           type="button"
           className="btn btn-primary"
           data-testid="add-standalone"
-          onClick={() =>
-            void run(() =>
+          onClick={async () => {
+            const ok = await run(() =>
               repo.addStandalonePart({ partId: part.id, quantity, status: 'available' }),
             )
-          }
+            if (ok) markAdded()
+          }}
         >
-          單獨新增
+          {justAdded ? `已加入 ×${quantity}` : '單獨新增'}
         </button>
         <Link to="/part" query={{ id: part.id }} className="btn">
           詳情

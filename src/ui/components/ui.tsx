@@ -4,7 +4,7 @@
  * 規格對照：第 6 節（前台用語一律中文）、第 25 節（圖片缺漏時的 fallback）、
  * 第 38 節（新手／進階模式）。
  */
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { CONFIDENCE_ZH, type Confidence } from '../../domain/types.ts'
 
 export function PageHeader({
@@ -131,6 +131,28 @@ export function CatalogTitle({ children }: { children: string }) {
       {combo ? <span className="code">{combo}</span> : null}
     </>
   )
+}
+
+/**
+ * 「剛剛加進去了」的短暫狀態。
+ *
+ * 加入之後畫面若完全沒變化，使用者會以為沒按到而重複點，庫存就多算了。
+ * 回傳的 flag 用來同時改按鈕文字與卡片外框，動畫關掉時文字仍然會變。
+ */
+export function useJustAdded(durationMs = 1600): [boolean, () => void] {
+  const [active, setActive] = useState(false)
+  const timer = useRef<number | undefined>(undefined)
+
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+
+  return [
+    active,
+    () => {
+      window.clearTimeout(timer.current)
+      setActive(true)
+      timer.current = window.setTimeout(() => setActive(false), durationMs)
+    },
+  ]
 }
 
 /** 第 20 節 B：模型推估的資料一律掛這個標籤。 */

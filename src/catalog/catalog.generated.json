@@ -19,6 +19,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 34.8,
+      "plainDescriptionZhTW": "三攻Upper刃擅於把對手向斜上方撞飛。2026/8/8 推出 B4 門市限定的 2.0 版（BX-00 BXG49）：背面三個打擊點的簍空處填實、上蓋加重至 37.42 克，內側模具編號由 E24 改為 B26。⚠️ 本欄 34.8 克為本站既有基準值，官方開發者評測影片實測原版為 34.47 克，屬個體與量測差異；比較 2.0 版增重幅度請以同影片的 34.47 → 37.42 為準。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -37,6 +50,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用高撞擊性能的三枚刃。60高度是賽場最常見組合，連打頻率與破壞力兼備，新手強烈推薦。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -54,6 +78,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "平坦軸端令陀螺跑動，提高以X Dash決勝的容易度。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -72,6 +108,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 32.7,
+      "plainDescriptionZhTW": "四枚Smash刃擅於令對手姿勢崩倒。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -90,6 +139,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易化解攻擊的四枚刃。60高度是防守系的標準配置，穩定性與重量的均衡首選。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -107,6 +167,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "收細的軸端既有頭段的攻擊力及尾段的持久力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -125,6 +197,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 32,
+      "plainDescriptionZhTW": "兩枚大型圓形刃為産生強離心力的外重心設計。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -143,6 +228,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易化解攻擊的四枚刃。80高度為攻擊型配置主流，高重心配合適當軸心可增加爆裂力道。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -160,6 +256,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "球狀軸端以適度移動來躱避攻擊及實現高持久力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -178,6 +286,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 32.3,
+      "plainDescriptionZhTW": "採用容易以六枚防禦刃吸收衝擊的阻尼器構造。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -196,6 +317,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用高撞擊性能的三枚刃。80高度重量最重，重心略高，Burst 風險稍增但破壞力驚人。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -213,6 +345,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "尖鋭軸端令陀螺傾斜，提高反擊性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -231,6 +375,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "爆轉陀螺世代「烈焰飛鳳S」的 BEYBLADE X 復刻上蓋。圓形兩枚刃兼顧攻擊與持久性能，官方性能數值為攻擊 35、防禦 30、持久 35。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -249,6 +405,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 32.9,
+      "plainDescriptionZhTW": "刃的位置在高處的設計擅於壓制對手的攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -266,6 +435,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "提高因傾斜的反擊力。軸端尖鋭度亦減低。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -284,6 +465,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 31.5,
+      "plainDescriptionZhTW": "一併持有攻擊刃及防禦刃，可用不同發射方法分別使用不同性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -302,6 +496,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及離心力優秀的五枚刃。60高度穩固且重量適中，是防守型陀螺的首選固鎖。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -319,6 +524,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "在中心設有突起的平坦軸端，令動態由活躍變化為平靜的機動。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -337,6 +554,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 32.8,
+      "plainDescriptionZhTW": "金屬凝縮在内側的内重心構造，令姿勢受到強衝擊也難以崩倒。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -354,6 +584,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "細小尖鋭的軸端持續穩守對戰盤中央，提高反擊機會。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -372,6 +614,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 35.2,
+      "plainDescriptionZhTW": "六枚攻擊刃擅於連打對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -389,6 +644,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "十枚刃Gear以壓抑X Dash的速度來增加衝刺次數。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -407,6 +674,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 34.5,
+      "plainDescriptionZhTW": "急角度的Upper刃潛入對手身内，能從低位置向上撞。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -425,6 +705,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及離心力優秀的五枚刃。80高度是同系最重配置，離心力最大化，耐久對戰表現最佳。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -443,6 +734,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 33.2,
+      "plainDescriptionZhTW": "性能依高度變化：有化解性下段刃及撞擊性上段刃的二層構造設計。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -460,6 +764,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "兼備Smash力及持久力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -477,6 +793,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "提高X Dash的加速力。軸端的凹洞亦被填滿。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -495,6 +823,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 38.5,
+      "plainDescriptionZhTW": "厚重三枚刃強烈撞向對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -513,6 +854,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "使用小凸點密集排列的九枚刃。全能高抗爆，進攻時不易被反切，60高度是速攻型的熱門選擇。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -530,6 +882,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "更容易勾住X Line，實現更高速的X Dash。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -548,6 +912,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 33.2,
+      "plainDescriptionZhTW": "左右的刃形狀有巨大差異，一併持有攻擊及防禦構造。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -565,6 +942,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "實現巨大的動態變化。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -583,6 +972,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 36.5,
+      "plainDescriptionZhTW": "突出的大型攻擊刃，特法於一擊撞飛對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -601,6 +1003,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用特化於攻擊性能的一枚刃。60高度是攻擊型主流，衝撞集中在單點，適合速攻打法。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -618,6 +1031,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "由平坦軸端加上大型Gear組成，提高X Dash性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -636,6 +1061,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 33.2,
+      "plainDescriptionZhTW": "有厚度的Smash刃特化於把對手砸向對戰盤。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -654,6 +1092,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用高撞擊性能的三枚刃。70高度讓攻擊角度較高，適合對付低重心防守型對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -671,6 +1120,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "軸端側面六個平面形狀抑制陀螺的傾斜，持續保持安定姿勢。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -689,6 +1150,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 35.4,
+      "plainDescriptionZhTW": "外重心又大徑幅的五枚刃形狀，特化於産生離心力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -707,6 +1181,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及離心力優秀的五枚刃。70高度防守均衡，離心力加持讓旋轉持久力更強。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -724,6 +1209,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "加上圓盤狀重量器的〔B〕Bit，産生離心力及堅韌的迴轉。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -742,6 +1239,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "爆轉陀螺世代「銀牙烈虎S」的 BEYBLADE X 復刻上蓋。圓形兩枚刃平衡攻擊與防禦性能，官方性能數值為攻擊 40、防禦 35、持久 25。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -760,6 +1269,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 34.7,
+      "plainDescriptionZhTW": "一併持有Upper刃、Damper刃及Smash刃三種性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -777,6 +1299,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "球狀軸端的尖端磨平同時在中央設有突起，迴避、衝刺、反擊三種軌道都可能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -795,6 +1329,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "left",
+      "officialWeightG": 37.8,
+      "plainDescriptionZhTW": "尖端厚的四枚Upper刃擁有高撞擊性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -813,6 +1360,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "plainDescriptionZhTW": "採用左迴轉時容易撞走對手、右迴轉時容易化解攻擊之形狀的兩枚刃。60高度均衡適用各種戰術。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -830,6 +1388,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "渦形的平坦軸端在左迴轉時提高與對戰盤的緊咬度，能高速攻擊；右迴轉時則減輕與對戰盤的摩擦，能作高持久力的攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -848,6 +1418,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "plainDescriptionZhTW": "採用左迴轉時容易撞走對手、右迴轉時容易化解攻擊之形狀的兩枚刃。80高度為最重型均衡配置。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -866,6 +1447,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 35,
+      "plainDescriptionZhTW": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -884,6 +1478,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及防禦性能優秀的垂直七枚刃。60高度垂直排列厚刃，提供優秀的防禦穩定性。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -901,6 +1506,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "尖端可獨立旋轉，容易穩守對戰盤中央；失去動能後由針狀軸端穩定姿勢，也能承受 X Dash。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -919,6 +1536,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 34.7,
+      "plainDescriptionZhTW": "凸出的逆台形六枚刃由上壓向對手並削弱持久力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -937,6 +1567,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "使用小凸點密集排列的九枚刃。全能高抗爆，進攻不易被反切，70高度是攻擊型陀螺的主流選擇。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -954,6 +1595,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "以低摩擦素材製的半球形軸端及其周圍容易使姿勢維持的形狀，實現高持久性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -972,6 +1625,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 32,
+      "plainDescriptionZhTW": "流線形狀四枚刃減低空氣抵抗，擅於持續迴轉。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -990,6 +1656,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 32.6,
+      "plainDescriptionZhTW": "以圓形配置的連打九枚刃把從各個方向而來的攻擊都分散及撞回。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1008,6 +1687,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用特化於攻擊性能的一枚刃。80高度適合需要上打角度的特殊攻擊戰術。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1026,6 +1716,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 36.9,
+      "plainDescriptionZhTW": "下部的Free Ring能迴轉，卸走對手攻擊以維持迴轉力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1043,6 +1746,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "對於Ratchet能自由迴轉的〔B〕Bit，收細的球狀軸端減少迴轉力的損失。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1061,6 +1776,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 35.1,
+      "plainDescriptionZhTW": "上下擁有不同的性能：上面擅於少持久損失的攻擊、下面擅於反擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1079,6 +1807,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易化解攻擊的四枚刃。70高度讓防守重心稍高，面對低重心攻擊型更容易化解衝撞。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1096,6 +1835,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "有高度模式轉換的〔P〕Bit。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1114,6 +1865,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 36.4,
+      "plainDescriptionZhTW": "小型金屬刃能開關，依擊中對手的方式而改變攻擊力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1132,6 +1896,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "plainDescriptionZhTW": "採用左迴轉時容易撞走對手、右迴轉時容易化解攻擊之形狀的兩枚刃。70高度重心更穩。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1149,6 +1924,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "軸端有三級的高度，實現低速、中速、高速三種攻擊速度。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1167,6 +1954,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 36.6,
+      "plainDescriptionZhTW": "圓形十二枚刃中内藏的三顆金屬球能上下移動，緩和衝擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1185,6 +1985,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 34.4,
+      "plainDescriptionZhTW": "向下方的鋸齒狀六枚刃，擅於消耗對手迴轉力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1203,6 +2016,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 37,
+      "plainDescriptionZhTW": "上下方向都呈鋸齒狀又突出的厚八枚刃，擅於給予不規則的打擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1221,6 +2047,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用把攻擊化解的三枚刃。85超高高度搭配簡化型輕量設計，適合入門套組。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1239,6 +2076,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及防禦性能優秀的垂直七枚刃。70高度是七枚刃系最均衡配置，防守能力頂尖。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1256,6 +2104,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "對Ratchet能以上下方向陷入的〔S〕Bit，吸收着地的衝擊。軸端亦稍為增大。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1273,6 +2133,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "橡膠製的〔A〕Bit，提高接地摩擦，在對戰盤内高速跑動。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1290,6 +2162,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "使用金屬軸端的〔N〕Bit，以重量及減低的摩擦提高安定性。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1308,6 +2192,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 37.7,
+      "plainDescriptionZhTW": "四枚大型龍型刃撞飛對手，刃體施加金屬塗裝（紅）提升性能。官方類型為攻擊型（攻擊 70／防禦 35／持久 25）。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1326,6 +2223,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 32.4,
+      "plainDescriptionZhTW": "Smash形狀四枚刃容易令對手傾側。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1343,6 +2253,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "附有大型Guide（移動引導物）的設計容易保持姿勢；X Dash時軸端浮上，可作Smash攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1361,6 +2283,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 38.8,
+      "plainDescriptionZhTW": "在厚四枚刃配備的橡膠帶來的摩擦力及反發力，特化於把對手撞飛。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1378,6 +2313,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "擅長Upper攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1396,6 +2343,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "爆轉陀螺世代「堅甲戰龜S」的 BEYBLADE X 復刻上蓋。外周突起能承受對手攻擊並反擊，官方性能數值為攻擊 30、防禦 50、持久 20。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1413,6 +2372,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "在軸端的多數突起提高與對戰盤的摩擦，受攻擊時也難以被推走。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1431,6 +2402,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 34,
+      "plainDescriptionZhTW": "一併擁有能抵擋對手攻擊的連打形狀側面、及於傾側時撞擊對手的向上打擊面。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1448,6 +2432,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "高度下降20的〔N〕Bit，降低陀螺重心，以支援在低位置的反擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1502,6 +2498,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用由兩種交互配置的刃以提高撞擊性能的六枚刃。60高度撞擊集中，適合速攻型戰術。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1519,6 +2526,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "渦形的粗大平坦軸端在右迴轉時提高與對戰盤的緊咬性，能高速攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1573,6 +2592,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用重心平衡良好的四枚刃。55高度簡化型輕量設計，適合入門套組搭配使用。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1590,6 +2620,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "低重心化令持久性能向上。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1644,6 +2686,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用由兩種交互配置的刃以提高撞擊性能的六枚刃。80高度為最重型配置，適合重量攻擊打法。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1661,6 +2714,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "鈍角的尖銳軸端難以傾斜；十枚齒X Dash時減輕持久損失。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1679,6 +2744,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 30.8,
+      "plainDescriptionZhTW": "Burst（爆裂世代）「神力聖劍」的 X 代復刻上蓋，官方定位攻擊型右旋，性能數值攻擊 65／防禦 25／持久 10。劍型大型單枚刃，擅長把對手強烈彈飛；官方主打「高速 × 一擊」，搭配好跑的軸心打出高威力衝刺攻擊。BX-00（品番 BXG-13，2025/3/29 發售）。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1697,6 +2775,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Marvel 復仇者聯盟聯名。共用騎士重盾（KnSh）模具，防禦型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1715,6 +2805,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Marvel 復仇者聯盟聯名。共用騎士長槍（KnLn）模具，防禦型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1733,6 +2835,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Marvel 蜘蛛人聯名。共用王蛇鞭尾（VpTl）模具，持久型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1751,6 +2865,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Marvel 蜘蛛人聯名。共用蒼龍神劍（DrSw）模具，攻擊型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1769,6 +2895,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Star Wars 聯名。共用騎士重盾（KnSh）模具，防禦型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1787,6 +2925,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Star Wars 聯名。共用騎士長槍（KnLn）模具，防禦型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1805,6 +2955,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Star Wars 聯名。共用雄獅獵爪（LnCl）模具，均衡型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1823,6 +2985,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Star Wars 聯名。共用惡魔紅鐮（HlSc）模具，均衡型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1841,6 +3015,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 39.6,
+      "plainDescriptionZhTW": "X Dash時從高化解性防禦性能的圓形六枚刃變形至高攻擊性能的三枚刃。（只能以六枚刃發射）",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1859,6 +3046,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易抵受由水平方向而來之攻擊的零枚刃。70高度讓重心略高，適合搭配持久型軸心。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1876,6 +3074,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "大形Gear上一併擁有平軸帶來的活躍攻擊及中央突起帶來的平靜防守。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1894,6 +3104,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Transformers 聯名。共用騎士重盾（KnSh）模具，防禦型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1912,6 +3134,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Transformers 聯名。共用惡魔紅鐮（HlSc）模具，均衡型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1930,6 +3164,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Transformers 聯名。共用鮫鯊鋒鰭（ShEd）模具，攻擊型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1948,6 +3194,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "Transformers 聯名。共用魔導幻箭（WzAr）模具，持久型。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1966,6 +3224,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 36.4,
+      "plainDescriptionZhTW": "擁有大型Launcher hook的内重心構造，受到攻擊也難以被撞飛。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -1984,6 +3255,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "plainDescriptionZhTW": "金屬零件令重量大幅增加的特殊固鎖。重量高達11g等級，85高度讓整體重心偏高，大幅改變旋轉特性。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2002,6 +3284,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 29.8,
+      "plainDescriptionZhTW": "金屬戰魂（Metal Fight）世代「巨岩雄獅」的 X 代復刻上蓋，官方定位防禦型右旋，性能數值攻擊 30／防禦 55／持久 15。梯形六枚刃在化解對手攻擊的同時給予反擊，官方稱這套打法為「寬幅反擊（Wide Counter）」——在場地中央大幅搖擺的同時反打回去。BX-00（品番 BXG-20，2025/7/19 發售）。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2020,6 +3315,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 35.7,
+      "plainDescriptionZhTW": "一併擁有角度不同的大型刃及小型刃，在水平時發揮防禦、傾斜時發揮攻擊性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2038,6 +3346,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用由兩種交互配置的刃以提高撞擊性能的六枚刃。70高度讓撞擊角度略高，破壞力更集中。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2055,6 +3374,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "高摩擦的橡膠素材圍繞鈍角的尖軸端，抓力及持久力兼備。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2073,6 +3404,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 37.2,
+      "plainDescriptionZhTW": "備有多數打擊部位的大型兩枚刃，特化於從低位置的強烈Upper攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2091,6 +3435,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易化解攻擊的四枚刃。50特低高度讓重心壓到極低，防守穩定性出色，賽場常見。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2108,6 +3463,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "高度下降20的〔F〕Bit，能在更低位置攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2126,6 +3493,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 36.1,
+      "plainDescriptionZhTW": "具重量的三枚刃擅於強力地撞走對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2144,6 +3524,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用特化於攻擊性能的一枚刃。70高度讓攻擊角度略高，適合對付高重心對手。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2233,6 +3624,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "有高度模式轉換的〔K〕Bit，軸端亦較幼細。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2287,6 +3690,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易抵受由水平方向而來之攻擊的零枚刃。圓滑外型讓對手攻擊滑開，是防守型首選。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2305,6 +3719,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "left",
+      "officialWeightG": 39.1,
+      "plainDescriptionZhTW": "搭載大型橡膠的三枚刃不斷作出強烈一擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2322,6 +3749,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "一併展現以幼細平坦軸端來壓抑持久損失的攻擊、及大型Gear的高速X Dash。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2340,6 +3779,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "left",
+      "officialWeightG": 25.6,
+      "plainDescriptionZhTW": "爆轉陀螺（初代）世代「龍騎士」的 X 代復刻上蓋，官方定位攻擊型左旋。克重約 25.6 克，是全系列最輕的上蓋之一。初代動畫台灣譯名與玩家社群多直接稱「龍騎士」，站內為與蒼穹龍騎士、隕星龍騎士（Cobalt／Meteor Dragoon）區別，採「暴風龍騎士」。首度收錄於 25 週年紀念套組，後於 BX-00 單售（品番 BXG-22，2025/12/27 發售）。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2394,6 +3846,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "使用小凸點密集排列的九枚刃。全能高抗爆，80高度為最重型配置，兼顧重量衝撞與穩定性。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2411,6 +3874,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "軸端被筒狀壁包圍的〔W〕Bit，進一步減低陀螺傾斜。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2429,6 +3904,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 38.2,
+      "plainDescriptionZhTW": "大型三枚刃産生高打擊力。正本圖採最早色版（BXH-10 藍綠雙金屬塗層，2024-07 App 抽選）；紅色版見下方異色版。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2483,6 +3971,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "採用特化於攻擊性能的一枚刃。50極低高度讓重心壓到最低，一次命中集中爆發，破壞力強。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2500,6 +3999,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "設有多個突起的大型圓筒形軸端強力抓向對戰盤，實現高速機動的攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2554,6 +4065,17 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "plainDescriptionZhTW": "使用大徑及擅於強化離心力的八枚刃。大徑設計讓離心力最大化，70高度適合均衡型對戰。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2607,6 +4129,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "大型球狀軸端既有持久性能，四方向突出的重量器亦具姿勢制御性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2625,6 +4159,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "2016 年 Burst 系列「暴風巨神」的 X 代復刻版。上段兩枚刃強攻擊 + 下段兩枚刃化解性防禦，攻防兩面兼備。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2643,6 +4189,19 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 41.27,
+      "plainDescriptionZhTW": "金屬連接至中央能提高剛性；重量級的六枚刃作強烈連打攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2660,6 +4219,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "對於Ratchet能自由迴轉的〔F〕Bit，少許變幼的平坦軸端既減輕持久損失也確保衝刺的速度。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2677,6 +4248,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "有角的軸端側面於對戰盤内踢蹴，實現連續攻擊或反擊防禦的動態。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2732,6 +4315,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "小型半球狀的軸端減低摩擦，提高持久性能。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2805,6 +4400,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "金屬戰魂（Metal Fight）世代「暴風天馬」的 X 代復刻版，上段刃形搭配橡膠平軸端特化於 Upper 攻擊把對手撞飛，附特別色 String Launcher。BX-00（圖碼 BXG-47，2026/7/11）。克重待官方公布。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2859,6 +4466,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "left",
+      "plainDescriptionZhTW": "BX 擴張上蓋（BX Expand Blade）：金屬連接至中央因此剛性高，與 UX 的固鎖一體型擴張上蓋不同，仍搭配獨立固鎖。官方說明為偏重心二枚刃，擅長從低位置把對手撈起後強烈彈飛的重量級左迴旋上蓋。官方性能標示：攻擊 75／防禦 15／持久 10。BX-52 入門組主打款（日本 2026/10/10 發售），原裝配置 6-60LC。官方克重未公布。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -2876,6 +4495,18 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "BX-52 光耀龍騎士 6-60LC 的原裝軸心。官方說明：設計成比 C（Cyclone）軸心低 1mm，左迴旋時提高與對戰盤的咬合，可做低重心高速攻擊。⚠️ 官方只給「比 C 低 1mm」這個相對值、沒公布絕對高度，故 height 欄留空不填推算值。官方性能標示：攻擊 45／防禦 5／持久 5／極限衝擊 45／爆裂耐性 80——官方註明這組數值是左迴旋時的表現。官方未公布重量與齒數。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     }
   ],
@@ -5790,15 +7421,49 @@
       "region": [
         "JP"
       ],
-      "contents": [],
+      "contents": [
+        {
+          "partId": "main_blade:ドランブレイブ",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:ペルセウスダーク",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:S",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:B",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:6-60",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:6-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:V",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:W",
+          "quantity": 1
+        }
+      ],
       "isRandom": false,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx04.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx04.html",
+          "https://beybladehub.app/parts/combos/CX-04"
         ],
         "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -8152,70 +9817,70 @@
       "id": "product:bx01:main",
       "entityType": "product",
       "entityId": "bx01",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx01.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx01.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx02:main",
       "entityType": "product",
       "entityId": "bx02",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx02.png",
+      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx02.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx03:main",
       "entityType": "product",
       "entityId": "bx03",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx03.png",
+      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx03.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx04:main",
       "entityType": "product",
       "entityId": "bx04",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx04.png",
+      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx04.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx05:main",
       "entityType": "product",
       "entityId": "bx05",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx05.png",
+      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx05.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx06:main",
       "entityType": "product",
       "entityId": "bx06",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx06.png",
+      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx06.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx07:main",
       "entityType": "product",
       "entityId": "bx07",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx07.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx07.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8278,20 +9943,20 @@
       "id": "product:bx00-ds:main",
       "entityType": "product",
       "entityId": "bx00-ds",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg01.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ds.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx13:main",
       "entityType": "product",
       "entityId": "bx13",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx13.png",
+      "url": "https://img.beybladehub.app/blades-db/KnLn.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx13.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8308,20 +9973,20 @@
       "id": "product:bx00-hc:main",
       "entityType": "product",
       "entityId": "bx00-hc",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG03.png",
+      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-hc.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx15:main",
       "entityType": "product",
       "entityId": "bx15",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx15.png",
+      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx15.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8358,10 +10023,10 @@
       "id": "product:bx19:main",
       "entityType": "product",
       "entityId": "bx19",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx19.png",
+      "url": "https://img.beybladehub.app/blades-db/RhHr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx19.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8388,20 +10053,20 @@
       "id": "product:bx22:main",
       "entityType": "product",
       "entityId": "bx22",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx22.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx22.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx23:main",
       "entityType": "product",
       "entityId": "bx23",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx23.png",
+      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx23.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8428,10 +10093,10 @@
       "id": "product:bx26:main",
       "entityType": "product",
       "entityId": "bx26",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx26.png",
+      "url": "https://img.beybladehub.app/blades-db/UnSt.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx26.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8448,20 +10113,20 @@
       "id": "product:bx00-lc:main",
       "entityType": "product",
       "entityId": "bx00-lc",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG05.png",
+      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-lc.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx00-se:main",
       "entityType": "product",
       "entityId": "bx00-se",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG06.png",
+      "url": "https://img.beybladehub.app/blades-db/ShEd.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-se.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8498,30 +10163,30 @@
       "id": "product:ux01:main",
       "entityType": "product",
       "entityId": "ux01",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux01.png",
+      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux01.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux02:main",
       "entityType": "product",
       "entityId": "ux02",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux02.png",
+      "url": "https://img.beybladehub.app/blades-db/HlHm.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux02.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux03:main",
       "entityType": "product",
       "entityId": "ux03",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux03.png",
+      "url": "https://img.beybladehub.app/blades-db/WzRd.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux03.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8538,10 +10203,10 @@
       "id": "product:bx00-drs:main",
       "entityType": "product",
       "entityId": "bx00-drs",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg04.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSl.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-drs.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8558,10 +10223,11 @@
       "id": "product:bx00-hch:main",
       "entityType": "product",
       "entityId": "bx00-hch",
-      "url": "https://tshop.r10s.jp/otaculture/cabinet/item20260909/p6437-008-1.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/HlCh.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%83%98%E3%83%AB%E3%82%BA%E3%83%81%E3%82%A7%E3%82%A4%E3%83%B35-60HT%20%E3%83%A1%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%88%3A%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:ux05:main",
@@ -8587,10 +10253,10 @@
       "id": "product:bx33:main",
       "entityType": "product",
       "entityId": "bx33",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx33.png",
+      "url": "https://img.beybladehub.app/blades-db/WsTg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx33.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8606,10 +10272,10 @@
       "id": "product:bx34:main",
       "entityType": "product",
       "entityId": "bx34",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx34.png",
+      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx34.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8635,29 +10301,30 @@
       "id": "product:bx00-dd:main",
       "entityType": "product",
       "entityId": "bx00-dd",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg09.png",
+      "url": "https://img.beybladehub.app/blades-db/DrDg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-dd.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx00-ds3:main",
       "entityType": "product",
       "entityId": "bx00-ds3",
-      "url": "https://tshop.r10s.jp/mediaworldkaitoriworld/cabinet/6571/8/cg65718241.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%83%89%E3%83%A9%E3%83%B3%E3%82%B6%E3%83%BC%E3%82%B9%E3%83%91%E3%82%A4%E3%83%A9%E3%83%AB3-80T%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AFVer./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:ux06:main",
       "entityType": "product",
       "entityId": "ux06",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux06.png",
+      "url": "https://img.beybladehub.app/blades-db/LnCr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux06.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8674,10 +10341,10 @@
       "id": "product:bx00-cd:main",
       "entityType": "product",
       "entityId": "bx00-cd",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg14.png",
+      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-cd.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8704,10 +10371,10 @@
       "id": "product:ux08:main",
       "entityType": "product",
       "entityId": "ux08",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux08.png",
+      "url": "https://img.beybladehub.app/blades-db/SlWl.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux08.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8724,20 +10391,20 @@
       "id": "product:bx38:main",
       "entityType": "product",
       "entityId": "bx38",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx38.png",
+      "url": "https://img.beybladehub.app/blades-db/CrGr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx38.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux09:main",
       "entityType": "product",
       "entityId": "ux09",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux09.png",
+      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux09.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8764,39 +10431,40 @@
       "id": "product:bx00-cdr:main",
       "entityType": "product",
       "entityId": "bx00-cdr",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0035/52002485_1.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/CbDr.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B3%E3%83%90%E3%83%AB%E3%83%88%E3%83%89%E3%83%AC%E3%82%A4%E3%82%AF4-60F%20%E3%82%AF%E3%83%AA%E3%82%A2Ver./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:bx00-cc:main",
       "entityType": "product",
       "entityId": "bx00-cc",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg31.png",
+      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-cc.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx00-mt:main",
       "entityType": "product",
       "entityId": "bx00-mt",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg32.png",
+      "url": "https://img.beybladehub.app/blades-db/MmTs.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-mt.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux11:main",
       "entityType": "product",
       "entityId": "ux11",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux11.png",
+      "url": "https://img.beybladehub.app/blades-db/ImDr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux11.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8813,20 +10481,20 @@
       "id": "product:bx00-drsh:main",
       "entityType": "product",
       "entityId": "bx00-drsh",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg11.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSh.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-drsh.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux00-db_bc:main",
       "entityType": "product",
       "entityId": "ux00-db_bc",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg18.png",
+      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux00-db_bc.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8843,10 +10511,11 @@
       "id": "product:ux13:main",
       "entityType": "product",
       "entityId": "ux13",
-      "url": "https://tshop.r10s.jp/denitselect/cabinet/13830958/b0dskbg6vf_main.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/GlRc.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/UX-13%20%E3%82%B4%E3%83%BC%E3%83%AC%E3%83%A0%E3%83%AD%E3%83%83%E3%82%AF1-60UN/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:bx39:main",
@@ -8862,10 +10531,10 @@
       "id": "product:bx00-pw:main",
       "entityType": "product",
       "entityId": "bx00-pw",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG35.png",
+      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-pw.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8957,10 +10626,10 @@
       "id": "product:bx00-xc:main",
       "entityType": "product",
       "entityId": "bx00-xc",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG13.png",
+      "url": "https://img.beybladehub.app/blades-db/XnXc.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-xc.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -8995,10 +10664,10 @@
       "id": "product:ux14:main",
       "entityType": "product",
       "entityId": "ux14",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX14.png",
+      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux14.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9033,20 +10702,21 @@
       "id": "product:bx44:main",
       "entityType": "product",
       "entityId": "bx44",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX44.png",
+      "url": "https://img.beybladehub.app/blades-db/TrPr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx44.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:ux00-nm:main",
       "entityType": "product",
       "entityId": "ux00-nm",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0202/52002652_1.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/KnMl.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/UX-00%20%E3%83%8A%E3%82%A4%E3%83%88%E3%83%A1%E3%82%A4%E3%83%AB3-85BS%20%E3%83%A1%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%88%3A%E3%83%8D%E3%82%A4%E3%83%93%E3%83%BC/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:cx07:main",
@@ -9090,10 +10760,10 @@
       "id": "product:bx00-rl:main",
       "entityType": "product",
       "entityId": "bx00-rl",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG20.png",
+      "url": "https://img.beybladehub.app/blades-db/RkLn.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-rl.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9119,10 +10789,10 @@
       "id": "product:bx45:main",
       "entityType": "product",
       "entityId": "bx45",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX45.png",
+      "url": "https://img.beybladehub.app/blades-db/SmCl.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx45.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9198,10 +10868,10 @@
       "id": "product:ux17:main",
       "entityType": "product",
       "entityId": "ux17",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX17.png",
+      "url": "https://img.beybladehub.app/blades-db/MtDg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux17.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9218,10 +10888,10 @@
       "id": "product:bx00-drgs:main",
       "entityType": "product",
       "entityId": "bx00-drgs",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG22.png",
+      "url": "https://img.beybladehub.app/blades-db/DgSt.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-drgs.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9248,29 +10918,30 @@
       "id": "product:ux00-ap_red:main",
       "entityType": "product",
       "entityId": "ux00-ap_red",
-      "url": "https://tshop.r10s.jp/otaculture/cabinet/item20260913/p6494-008-1.jpg?fitin=275:275",
+      "url": "https://img.beybladehub.app/blades-db/ArPg.webp",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/UX-00%20%E3%82%A8%E3%82%A2%E3%83%AD%E3%83%9A%E3%82%AC%E3%82%B5%E3%82%B93-70A%20%E3%83%AC%E3%83%83%E3%83%89Ver./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "usageStatus": "link_only",
+      "copyrightOwner": "BeybladeHub"
     },
     {
       "id": "product:bx00-ds_black:main",
       "entityType": "product",
       "entityId": "bx00-ds_black",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG52.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ds_black.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
       "id": "product:bx00-cd_white:main",
       "entityType": "product",
       "entityId": "bx00-cd_white",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG53.png",
+      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-cd_white.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9326,10 +10997,10 @@
       "id": "product:bx00-ss:main",
       "entityType": "product",
       "entityId": "bx00-ss",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG21.png",
+      "url": "https://img.beybladehub.app/blades-db/S2.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ss.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9346,10 +11017,10 @@
       "id": "product:ux00-ss:main",
       "entityType": "product",
       "entityId": "ux00-ss",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG61.png",
+      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux00-ss.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9366,10 +11037,10 @@
       "id": "product:bx49:main",
       "entityType": "product",
       "entityId": "bx49",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX49.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSt.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx49.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9385,10 +11056,10 @@
       "id": "product:ux00-samurai:main",
       "entityType": "product",
       "entityId": "ux00-samurai",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG54.png",
+      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux00-samurai.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9441,10 +11112,10 @@
       "id": "product:bx00-sp:main",
       "entityType": "product",
       "entityId": "bx00-sp",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG47.png",
+      "url": "https://img.beybladehub.app/blades-db/StPg.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-sp.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9471,10 +11142,10 @@
       "id": "product:bx00-ds_v2:main",
       "entityType": "product",
       "entityId": "bx00-ds_v2",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG49.png",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ds_v2.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9540,10 +11211,10 @@
       "id": "product:bx52:main",
       "entityType": "product",
       "entityId": "bx52",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX52.png",
+      "url": "https://img.beybladehub.app/blades-db/LuDr.webp",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx52.html",
-      "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
-      "copyrightOwner": "Takara Tomy",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     },
     {
@@ -9563,6 +11234,1356 @@
       "url": "https://tshop.r10s.jp/auc-ookawaya/cabinet/10032/12/4904810058915.jpg?fitin=275:275",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-56%20%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BCL%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%C3%97%E3%83%90%E3%82%A4%E3%82%AA%E3%83%AC%E3%83%83%E3%83%88/",
       "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドランソード:main",
+      "entityType": "part",
+      "entityId": "blade:ドランソード",
+      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:3-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:3-60",
+      "url": "https://img.beybladehub.app/ratchets/3-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:F:main",
+      "entityType": "part",
+      "entityId": "bit:F",
+      "url": "https://img.beybladehub.app/bits/F.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ヘルズサイズ:main",
+      "entityType": "part",
+      "entityId": "blade:ヘルズサイズ",
+      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:4-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:4-60",
+      "url": "https://img.beybladehub.app/ratchets/4-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:T:main",
+      "entityType": "part",
+      "entityId": "bit:T",
+      "url": "https://img.beybladehub.app/bits/T.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ウィザードアロー:main",
+      "entityType": "part",
+      "entityId": "blade:ウィザードアロー",
+      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:4-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:4-80",
+      "url": "https://img.beybladehub.app/ratchets/4-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:B:main",
+      "entityType": "part",
+      "entityId": "bit:B",
+      "url": "https://img.beybladehub.app/bits/B.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ナイトシールド:main",
+      "entityType": "part",
+      "entityId": "blade:ナイトシールド",
+      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:3-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:3-80",
+      "url": "https://img.beybladehub.app/ratchets/3-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:N:main",
+      "entityType": "part",
+      "entityId": "bit:N",
+      "url": "https://img.beybladehub.app/bits/N.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドランザースパイラル:main",
+      "entityType": "part",
+      "entityId": "blade:ドランザースパイラル",
+      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ナイトランス:main",
+      "entityType": "part",
+      "entityId": "blade:ナイトランス",
+      "url": "https://img.beybladehub.app/blades-db/KnLn.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:HN:main",
+      "entityType": "part",
+      "entityId": "bit:HN",
+      "url": "https://img.beybladehub.app/bits/HN.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:レオンクロー:main",
+      "entityType": "part",
+      "entityId": "blade:レオンクロー",
+      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:5-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:5-60",
+      "url": "https://img.beybladehub.app/ratchets/5-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:P:main",
+      "entityType": "part",
+      "entityId": "bit:P",
+      "url": "https://img.beybladehub.app/bits/P.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ライノホーン:main",
+      "entityType": "part",
+      "entityId": "blade:ライノホーン",
+      "url": "https://img.beybladehub.app/blades-db/RhHr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:S:main",
+      "entityType": "part",
+      "entityId": "bit:S",
+      "url": "https://img.beybladehub.app/bits/S.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドランダガー:main",
+      "entityType": "part",
+      "entityId": "blade:ドランダガー",
+      "url": "https://img.beybladehub.app/blades-db/DrDg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:R:main",
+      "entityType": "part",
+      "entityId": "bit:R",
+      "url": "https://img.beybladehub.app/bits/R.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:シャークエッジ:main",
+      "entityType": "part",
+      "entityId": "blade:シャークエッジ",
+      "url": "https://img.beybladehub.app/blades-db/ShEd.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:5-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:5-80",
+      "url": "https://img.beybladehub.app/ratchets/5-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ヘルズチェイン:main",
+      "entityType": "part",
+      "entityId": "blade:ヘルズチェイン",
+      "url": "https://img.beybladehub.app/blades-db/HlCh.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:HT:main",
+      "entityType": "part",
+      "entityId": "bit:HT",
+      "url": "https://img.beybladehub.app/bits/HT.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:LF:main",
+      "entityType": "part",
+      "entityId": "bit:LF",
+      "url": "https://img.beybladehub.app/bits/LF.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:フェニックスウイング:main",
+      "entityType": "part",
+      "entityId": "blade:フェニックスウイング",
+      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:9-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:9-60",
+      "url": "https://img.beybladehub.app/ratchets/9-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:GF:main",
+      "entityType": "part",
+      "entityId": "bit:GF",
+      "url": "https://img.beybladehub.app/bits/GF.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ユニコーンスティング:main",
+      "entityType": "part",
+      "entityId": "blade:ユニコーンスティング",
+      "url": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:GP:main",
+      "entityType": "part",
+      "entityId": "bit:GP",
+      "url": "https://img.beybladehub.app/bits/GP.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドランバスター:main",
+      "entityType": "part",
+      "entityId": "blade:ドランバスター",
+      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:1-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:1-60",
+      "url": "https://img.beybladehub.app/ratchets/1-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:A:main",
+      "entityType": "part",
+      "entityId": "bit:A",
+      "url": "https://img.beybladehub.app/bits/A.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ヘルズハンマー:main",
+      "entityType": "part",
+      "entityId": "blade:ヘルズハンマー",
+      "url": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:3-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:3-70",
+      "url": "https://img.beybladehub.app/ratchets/3-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:H:main",
+      "entityType": "part",
+      "entityId": "bit:H",
+      "url": "https://img.beybladehub.app/bits/H.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ウィザードロッド:main",
+      "entityType": "part",
+      "entityId": "blade:ウィザードロッド",
+      "url": "https://img.beybladehub.app/blades-db/WzRd.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:5-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:5-70",
+      "url": "https://img.beybladehub.app/ratchets/5-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:DB:main",
+      "entityType": "part",
+      "entityId": "bit:DB",
+      "url": "https://img.beybladehub.app/bits/DB.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドライガースラッシュ:main",
+      "entityType": "part",
+      "entityId": "blade:ドライガースラッシュ",
+      "url": "https://img.beybladehub.app/blades-db/DrSl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ヴァイスタイガー:main",
+      "entityType": "part",
+      "entityId": "blade:ヴァイスタイガー",
+      "url": "https://img.beybladehub.app/blades-db/WsTg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:U:main",
+      "entityType": "part",
+      "entityId": "bit:U",
+      "url": "https://img.beybladehub.app/bits/U.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:コバルトドラグーン:main",
+      "entityType": "part",
+      "entityId": "blade:コバルトドラグーン",
+      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:2-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:2-60",
+      "url": "https://img.beybladehub.app/ratchets/2-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:C:main",
+      "entityType": "part",
+      "entityId": "bit:C",
+      "url": "https://img.beybladehub.app/bits/C.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:2-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:2-80",
+      "url": "https://img.beybladehub.app/ratchets/2-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:レオンクレスト:main",
+      "entityType": "part",
+      "entityId": "blade:レオンクレスト",
+      "url": "https://img.beybladehub.app/blades-db/LnCr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:7-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:7-60",
+      "url": "https://img.beybladehub.app/ratchets/7-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:GN:main",
+      "entityType": "part",
+      "entityId": "bit:GN",
+      "url": "https://img.beybladehub.app/bits/GN.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:フェニックスラダー:main",
+      "entityType": "part",
+      "entityId": "blade:フェニックスラダー",
+      "url": "https://img.beybladehub.app/blades-db/PhRd.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:9-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:9-70",
+      "url": "https://img.beybladehub.app/ratchets/9-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:G:main",
+      "entityType": "part",
+      "entityId": "bit:G",
+      "url": "https://img.beybladehub.app/bits/G.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ワイバーンゲイル:main",
+      "entityType": "part",
+      "entityId": "blade:ワイバーンゲイル",
+      "url": "https://img.beybladehub.app/blades-db/WyGl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:スフィンクスカウル:main",
+      "entityType": "part",
+      "entityId": "blade:スフィンクスカウル",
+      "url": "https://img.beybladehub.app/blades-db/SpCw.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:1-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:1-80",
+      "url": "https://img.beybladehub.app/ratchets/1-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:シルバーウルフ:main",
+      "entityType": "part",
+      "entityId": "blade:シルバーウルフ",
+      "url": "https://img.beybladehub.app/blades-db/SlWl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:FB:main",
+      "entityType": "part",
+      "entityId": "bit:FB",
+      "url": "https://img.beybladehub.app/bits/FB.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:クリムゾンガルーダ:main",
+      "entityType": "part",
+      "entityId": "blade:クリムゾンガルーダ",
+      "url": "https://img.beybladehub.app/blades-db/CrGr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:4-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:4-70",
+      "url": "https://img.beybladehub.app/ratchets/4-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:TP:main",
+      "entityType": "part",
+      "entityId": "bit:TP",
+      "url": "https://img.beybladehub.app/bits/TP.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:サムライセイバー:main",
+      "entityType": "part",
+      "entityId": "blade:サムライセイバー",
+      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:2-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:2-70",
+      "url": "https://img.beybladehub.app/ratchets/2-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:L:main",
+      "entityType": "part",
+      "entityId": "bit:L",
+      "url": "https://img.beybladehub.app/bits/L.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ナイトメイル:main",
+      "entityType": "part",
+      "entityId": "blade:ナイトメイル",
+      "url": "https://img.beybladehub.app/blades-db/KnMl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:プテラスイング:main",
+      "entityType": "part",
+      "entityId": "blade:プテラスイング",
+      "url": "https://img.beybladehub.app/blades-db/PtSw.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ティラノビート:main",
+      "entityType": "part",
+      "entityId": "blade:ティラノビート",
+      "url": "https://img.beybladehub.app/blades-db/TyBt.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:3-85:main",
+      "entityType": "part",
+      "entityId": "ratchet:3-85",
+      "url": "https://img.beybladehub.app/ratchets/3-85.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:7-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:7-70",
+      "url": "https://img.beybladehub.app/ratchets/7-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:BS:main",
+      "entityType": "part",
+      "entityId": "bit:BS",
+      "url": "https://img.beybladehub.app/bits/BS.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:RA:main",
+      "entityType": "part",
+      "entityId": "bit:RA",
+      "url": "https://img.beybladehub.app/bits/RA.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:MN:main",
+      "entityType": "part",
+      "entityId": "bit:MN",
+      "url": "https://img.beybladehub.app/bits/MN.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:コバルトドレイク:main",
+      "entityType": "part",
+      "entityId": "blade:コバルトドレイク",
+      "url": "https://img.beybladehub.app/blades-db/CbDr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:マンモスタスク:main",
+      "entityType": "part",
+      "entityId": "blade:マンモスタスク",
+      "url": "https://img.beybladehub.app/blades-db/MmTs.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:E:main",
+      "entityType": "part",
+      "entityId": "bit:E",
+      "url": "https://img.beybladehub.app/bits/E.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:インパクトドレイク:main",
+      "entityType": "part",
+      "entityId": "blade:インパクトドレイク",
+      "url": "https://img.beybladehub.app/blades-db/ImDr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:LR:main",
+      "entityType": "part",
+      "entityId": "bit:LR",
+      "url": "https://img.beybladehub.app/bits/LR.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドラシエルシールド:main",
+      "entityType": "part",
+      "entityId": "blade:ドラシエルシールド",
+      "url": "https://img.beybladehub.app/blades-db/DrSh.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:D:main",
+      "entityType": "part",
+      "entityId": "bit:D",
+      "url": "https://img.beybladehub.app/bits/D.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ゴーレムロック:main",
+      "entityType": "part",
+      "entityId": "blade:ゴーレムロック",
+      "url": "https://img.beybladehub.app/blades-db/GlRc.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:UN:main",
+      "entityType": "part",
+      "entityId": "bit:UN",
+      "url": "https://img.beybladehub.app/bits/UN.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:6-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:6-60",
+      "url": "https://img.beybladehub.app/ratchets/6-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:V:main",
+      "entityType": "part",
+      "entityId": "bit:V",
+      "url": "https://img.beybladehub.app/bits/V.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:4-55:main",
+      "entityType": "part",
+      "entityId": "ratchet:4-55",
+      "url": "https://img.beybladehub.app/ratchets/4-55.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:LO:main",
+      "entityType": "part",
+      "entityId": "bit:LO",
+      "url": "https://img.beybladehub.app/bits/LO.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:6-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:6-80",
+      "url": "https://img.beybladehub.app/ratchets/6-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:W:main",
+      "entityType": "part",
+      "entityId": "bit:W",
+      "url": "https://img.beybladehub.app/bits/W.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ゼノエクスカリバー:main",
+      "entityType": "part",
+      "entityId": "blade:ゼノエクスカリバー",
+      "url": "https://img.beybladehub.app/blades-db/XnXc.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:アイアンマン:main",
+      "entityType": "part",
+      "entityId": "blade:アイアンマン",
+      "url": "https://img.beybladehub.app/blades-db/Iron.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:サノス:main",
+      "entityType": "part",
+      "entityId": "blade:サノス",
+      "url": "https://img.beybladehub.app/blades-db/Than.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:スパイダーマン:main",
+      "entityType": "part",
+      "entityId": "blade:スパイダーマン",
+      "url": "https://img.beybladehub.app/blades-db/Spid.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ヴェノム:main",
+      "entityType": "part",
+      "entityId": "blade:ヴェノム",
+      "url": "https://img.beybladehub.app/blades-db/Veno.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ルーク・スカイウォーカー:main",
+      "entityType": "part",
+      "entityId": "blade:ルーク・スカイウォーカー",
+      "url": "https://img.beybladehub.app/blades-db/Luke.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ダース・ベイダー:main",
+      "entityType": "part",
+      "entityId": "blade:ダース・ベイダー",
+      "url": "https://img.beybladehub.app/blades-db/Dart.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:マンダロリアン:main",
+      "entityType": "part",
+      "entityId": "blade:マンダロリアン",
+      "url": "https://img.beybladehub.app/blades-db/Mand.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:モフ・ギデオン:main",
+      "entityType": "part",
+      "entityId": "blade:モフ・ギデオン",
+      "url": "https://img.beybladehub.app/blades-db/Moff.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:スコーピオスピア:main",
+      "entityType": "part",
+      "entityId": "blade:スコーピオスピア",
+      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:0-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:0-70",
+      "url": "https://img.beybladehub.app/ratchets/0-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:Z:main",
+      "entityType": "part",
+      "entityId": "bit:Z",
+      "url": "https://img.beybladehub.app/bits/Z.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:オプティマスプライム:main",
+      "entityType": "part",
+      "entityId": "blade:オプティマスプライム",
+      "url": "https://img.beybladehub.app/blades-db/Opme.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:メガトロン:main",
+      "entityType": "part",
+      "entityId": "blade:メガトロン",
+      "url": "https://img.beybladehub.app/blades-db/Mega.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:オプティマスプライマル:main",
+      "entityType": "part",
+      "entityId": "blade:オプティマスプライマル",
+      "url": "https://img.beybladehub.app/blades-db/Opal.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:スタースクリーム:main",
+      "entityType": "part",
+      "entityId": "blade:スタースクリーム",
+      "url": "https://img.beybladehub.app/blades-db/Star.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:トリケラプレス:main",
+      "entityType": "part",
+      "entityId": "blade:トリケラプレス",
+      "url": "https://img.beybladehub.app/blades-db/TrPr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:M-85:main",
+      "entityType": "part",
+      "entityId": "ratchet:M-85",
+      "url": "https://img.beybladehub.app/ratchets/M-85.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ロックレオーネ:main",
+      "entityType": "part",
+      "entityId": "blade:ロックレオーネ",
+      "url": "https://img.beybladehub.app/blades-db/RkLn.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:サムライカリバー:main",
+      "entityType": "part",
+      "entityId": "blade:サムライカリバー",
+      "url": "https://img.beybladehub.app/blades-db/SmCl.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:6-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:6-70",
+      "url": "https://img.beybladehub.app/ratchets/6-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:M:main",
+      "entityType": "part",
+      "entityId": "bit:M",
+      "url": "https://img.beybladehub.app/bits/M.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:シャークスケイル:main",
+      "entityType": "part",
+      "entityId": "blade:シャークスケイル",
+      "url": "https://img.beybladehub.app/blades-db/ShSc.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:4-50:main",
+      "entityType": "part",
+      "entityId": "ratchet:4-50",
+      "url": "https://img.beybladehub.app/ratchets/4-50.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:UF:main",
+      "entityType": "part",
+      "entityId": "bit:UF",
+      "url": "https://img.beybladehub.app/bits/UF.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ティラノロア:main",
+      "entityType": "part",
+      "entityId": "blade:ティラノロア",
+      "url": "https://img.beybladehub.app/blades-db/TyRr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:1-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:1-70",
+      "url": "https://img.beybladehub.app/ratchets/1-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:TK:main",
+      "entityType": "part",
+      "entityId": "bit:TK",
+      "url": "https://img.beybladehub.app/bits/TK.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:0-60:main",
+      "entityType": "part",
+      "entityId": "ratchet:0-60",
+      "url": "https://img.beybladehub.app/ratchets/0-60.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:メテオドラグーン:main",
+      "entityType": "part",
+      "entityId": "blade:メテオドラグーン",
+      "url": "https://img.beybladehub.app/blades-db/MtDg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:J:main",
+      "entityType": "part",
+      "entityId": "bit:J",
+      "url": "https://img.beybladehub.app/bits/J.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドラグーンストーム:main",
+      "entityType": "part",
+      "entityId": "blade:ドラグーンストーム",
+      "url": "https://img.beybladehub.app/blades-db/DgSt.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:9-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:9-80",
+      "url": "https://img.beybladehub.app/ratchets/9-80.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:WW:main",
+      "entityType": "part",
+      "entityId": "bit:WW",
+      "url": "https://img.beybladehub.app/bits/WW.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:エアロペガサス:main",
+      "entityType": "part",
+      "entityId": "blade:エアロペガサス",
+      "url": "https://img.beybladehub.app/blades-db/ArPg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:1-50:main",
+      "entityType": "part",
+      "entityId": "ratchet:1-50",
+      "url": "https://img.beybladehub.app/ratchets/1-50.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:I:main",
+      "entityType": "part",
+      "entityId": "bit:I",
+      "url": "https://img.beybladehub.app/bits/I.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:ratchet:8-70:main",
+      "entityType": "part",
+      "entityId": "ratchet:8-70",
+      "url": "https://img.beybladehub.app/ratchets/8-70.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:Y:main",
+      "entityType": "part",
+      "entityId": "bit:Y",
+      "url": "https://img.beybladehub.app/bits/Y.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ストームスプリガン:main",
+      "entityType": "part",
+      "entityId": "blade:ストームスプリガン",
+      "url": "https://img.beybladehub.app/blades-db/S2.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ドランストライク:main",
+      "entityType": "part",
+      "entityId": "blade:ドランストライク",
+      "url": "https://img.beybladehub.app/blades-db/DrSt.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:FF:main",
+      "entityType": "part",
+      "entityId": "bit:FF",
+      "url": "https://img.beybladehub.app/bits/FF.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:K:main",
+      "entityType": "part",
+      "entityId": "bit:K",
+      "url": "https://img.beybladehub.app/bits/K.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:O:main",
+      "entityType": "part",
+      "entityId": "bit:O",
+      "url": "https://img.beybladehub.app/bits/O.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ストームペガシス:main",
+      "entityType": "part",
+      "entityId": "blade:ストームペガシス",
+      "url": "https://img.beybladehub.app/blades-db/StPg.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:blade:ラスタードラグーン:main",
+      "entityType": "part",
+      "entityId": "blade:ラスタードラグーン",
+      "url": "https://img.beybladehub.app/blades-db/LuDr.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
+      "usageStatus": "link_only"
+    },
+    {
+      "id": "part:bit:LC:main",
+      "entityType": "part",
+      "entityId": "bit:LC",
+      "url": "https://img.beybladehub.app/bits/LC_z5m.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件圖鑑",
+      "copyrightOwner": "BeybladeHub",
       "usageStatus": "link_only"
     }
   ],
