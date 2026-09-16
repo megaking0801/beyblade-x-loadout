@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/beyblade-x-loadout/sw.js', { scope: '/beyblade-x-loadout/' })})}
