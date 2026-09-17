@@ -19,6 +19,7 @@
   "supplementalCatalogParts": [
     { "hubKey": "Nr", "family": "bit", "system": "BX", "note": "G1 通常組來源可確認使用；隨機包款式尚未有官方固定內容表" },
     { "hubKey": "ClMr", "family": "blade", "system": "UX", "note": "UX-16 隨機強化組的已知上蓋款式；名稱與數值來自社群零件頁" },
-    { "hubKey": "cx-chip-Vl", "family": "lock_chip", "system": "CX", "note": "CX 戰神紋章；官方只公布合併上蓋名稱，個別名稱來自社群零件頁" }
+    { "hubKey": "cx-chip-Vl", "family": "lock_chip", "system": "CX", "note": "CX 戰神紋章；官方只公布合併上蓋名稱，個別名稱來自社群零件頁" },
+    { "hubKey": "cx-assist-W", "family": "assist_blade", "system": "CX", "note": "CX 輔助戰刃 W；高雄 G1 通常組來源可確認使用，名稱與數值來自社群零件頁" }
   ]
 }

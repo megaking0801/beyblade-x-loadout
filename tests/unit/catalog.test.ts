@@ -38,13 +38,13 @@ describe('Catalog 基本完整性（第 42 節）', () => {
   })
 
   it('已知的隨機包款式與 CX 紋章可作為社群來源零件收錄', () => {
-    for (const id of ['bit:Nr', 'blade:クロックミラージュ', 'lock_chip:Vl']) {
+    for (const id of ['bit:Nr', 'blade:クロックミラージュ', 'lock_chip:Vl', 'assist_blade:W']) {
       const part = catalog.parts.find((row) => row.id === id)
       expect(part, `缺少社群補充零件：${id}`).toBeDefined()
       expect(part?.provenance.verificationStatus).toBe('community_only')
       expect(part?.provenance.sourceUrls.some((url) => url.includes('beybladehub.app'))).toBe(true)
     }
-    expect(catalog.tournamentObservations).toHaveLength(8)
+    expect(catalog.tournamentObservations).toHaveLength(9)
   })
 
   it('每筆商品都有官方來源網址與驗證狀態', () => {

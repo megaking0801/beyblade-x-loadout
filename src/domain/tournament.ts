@@ -135,12 +135,19 @@ export function getObservedComboMatches(args: {
   observations: TournamentObservation[]
 }): TournamentObservationMatch[] {
   const selected = [args.slots.bladeId, args.slots.ratchetId, args.slots.bitId]
-  if (selected.some((partId) => !partId)) return []
+  const hasStandardSlots = selected.every((partId): partId is string => Boolean(partId))
   const eventById = new Map(args.events.map((event) => [event.id, event]))
   return args.observations.flatMap((observation) => {
     const event = eventById.get(observation.eventId)
-    if (!event || observation.comboPartIds.length !== selected.length) return []
-    if (!observation.comboPartIds.every((partId, index) => partId === selected[index])) return []
+    if (!event) return []
+    const standardMatch =
+      hasStandardSlots &&
+      observation.comboPartIds?.length === selected.length &&
+      observation.comboPartIds.every((partId, index) => partId === selected[index])
+    const slottedMatch =
+      observation.slots !== undefined &&
+      Object.entries(observation.slots).every(([key, partId]) => args.slots[key as keyof ComboSlots] === partId)
+    if (!standardMatch && !slottedMatch) return []
     return [{
       id: observation.id,
       eventName: event.name,
@@ -156,5 +163,8 @@ export function getPartTournamentObservations(
   partId: string,
   observations: TournamentObservation[],
 ): TournamentObservation[] {
-  return observations.filter((observation) => observation.comboPartIds.includes(partId))
+  return observations.filter(
+    (observation) =>
+      observation.comboPartIds?.includes(partId) || Object.values(observation.slots ?? {}).includes(partId),
+  )
 }

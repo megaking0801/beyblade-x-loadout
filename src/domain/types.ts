@@ -463,8 +463,10 @@ export interface TournamentObservation {
   id: string
   eventId: string
   placement?: number
-  /** 依序為上蓋、固鎖、軸心；每顆都必須已映射到 Catalog。 */
-  comboPartIds: string[]
+  /** 標準三件式的依序上蓋、固鎖、軸心；每顆都必須已映射到 Catalog。 */
+  comboPartIds?: string[]
+  /** CX 等非標準結構以具名槽位記錄，避免把零件順序誤判成三件式。 */
+  slots?: ComboSlots
   /** 來源頁上的原始配置文字，供資料維護回查。 */
   reportedCombo: string
   sourceUrl: string

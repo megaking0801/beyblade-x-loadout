@@ -280,6 +280,18 @@
           "placement": 3,
           "reportedCombo": "鮫鯊狂鱗1-50Nr",
           "comboPartIds": ["blade:シャークスケイル", "ratchet:1-50", "bit:Nr"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-3-valkyrie-blast-w-9-60h",
+          "placement": 3,
+          "reportedCombo": "戰神爆擊輔助 W9-60H",
+          "slots": {
+            "lockChipId": "lock_chip:Vl",
+            "mainBladeId": "main_blade:Bl",
+            "assistBladeId": "assist_blade:W",
+            "ratchetId": "ratchet:9-60",
+            "bitId": "bit:H"
+          }
         }
       ]
     }

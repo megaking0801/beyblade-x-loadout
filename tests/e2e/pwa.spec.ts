@@ -329,6 +329,22 @@ test('部分映射的 G1 牌組只顯示來源觀測，不灌入賽事統計', a
   await expect(observations.getByRole('link')).toHaveCount(2)
 })
 
+test('CX 配裝也能顯示具名槽位的 G1 來源觀測', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await page.getByRole('button', { name: 'CX 模組化' }).click()
+  await pickSlot(page, 'lockChipId', 'lock_chip:Vl')
+  await pickSlot(page, 'mainBladeId', 'main_blade:Bl')
+  await pickSlot(page, 'assistBladeId', 'assist_blade:W')
+  await pickSlot(page, 'ratchetId', 'ratchet:9-60')
+  await pickSlot(page, 'bitId', 'bit:H')
+
+  const observations = page.getByTestId('observed-combo-matches')
+  await expect(observations).toContainText('極限盃 G1 高雄站（通常組）')
+  await expect(observations).toContainText('不計入出場率、Meta share 或可信度')
+  await expect(observations.getByRole('link')).toHaveCount(1)
+})
+
 /**
  * CX 四件式（超越拆組）的配裝器流程。
  *

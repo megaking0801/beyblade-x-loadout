@@ -1,5 +1,5 @@
 {
-  "version": "takaratomy-lineup-2026-09-16-r3",
+  "version": "takaratomy-lineup-2026-09-16-r5",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "parts": [
@@ -89,6 +89,37 @@
         "verificationStatus": "community_only"
       },
       "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:W",
+      "family": "assist_blade",
+      "code": "W",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "W",
+        "nameEn": "Wheel",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "stamina",
       "spinDirection": "right",
       "statsProvenance": {
         "sourceUrls": [
@@ -13603,6 +13634,17 @@
       "isLocalMirror": true
     },
     {
+      "id": "part:assist_blade:W:main",
+      "entityType": "part",
+      "entityId": "assist_blade:W",
+      "url": "/img/9a861387d940a655.webp",
+      "sourceUrl": "https://beybladehub.app/parts/assist_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-W.webp",
+      "isLocalMirror": true
+    },
+    {
       "id": "part:blade:ドランソード:main",
       "entityType": "part",
       "entityId": "blade:ドランソード",
@@ -16343,6 +16385,20 @@
         "bit:Nr"
       ],
       "reportedCombo": "鮫鯊狂鱗1-50Nr",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-3-valkyrie-blast-w-9-60h",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 3,
+      "slots": {
+        "lockChipId": "lock_chip:Vl",
+        "mainBladeId": "main_blade:Bl",
+        "assistBladeId": "assist_blade:W",
+        "ratchetId": "ratchet:9-60",
+        "bitId": "bit:H"
+      },
+      "reportedCombo": "戰神爆擊輔助 W9-60H",
       "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     }
   ],

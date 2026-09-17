@@ -42,6 +42,19 @@ const observations = [
     reportedCombo: '測試配置 A',
     sourceUrl: 'https://example.test/event-1',
   },
+  {
+    id: 'observation-cx',
+    eventId: 'event-1',
+    placement: 3,
+    slots: {
+      lockChipId: 'test-blade-b',
+      mainBladeId: 'test-blade-c',
+      ratchetId: 'test-ratchet-b',
+      bitId: 'test-bit-b',
+    },
+    reportedCombo: '測試 CX 配置',
+    sourceUrl: 'https://example.test/event-1',
+  },
 ]
 
 describe('賽事資料反查', () => {
@@ -118,5 +131,19 @@ describe('賽事資料反查', () => {
       events,
       decks: [],
     })).toBeUndefined()
+  })
+
+  it('具名槽位的 CX 觀測必須完整選到相同零件才會顯示', () => {
+    const slots = {
+      lockChipId: 'test-blade-b',
+      mainBladeId: 'test-blade-c',
+      ratchetId: 'test-ratchet-b',
+      bitId: 'test-bit-b',
+    }
+    expect(getObservedComboMatches({ slots, events, observations })).toEqual([
+      expect.objectContaining({ id: 'observation-cx', placement: 3 }),
+    ])
+    expect(getObservedComboMatches({ slots: { ...slots, bitId: 'test-bit-a' }, events, observations })).toEqual([])
+    expect(getPartTournamentObservations('test-blade-c', observations)).toHaveLength(1)
   })
 })

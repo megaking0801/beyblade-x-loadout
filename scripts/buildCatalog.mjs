@@ -34,7 +34,7 @@ const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
 const FETCHED_AT = '2026-09-16'
 // 非商品一覽的策展資料更新也必須讓既有裝置重新載入 Catalog。
-const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r3`
+const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r5`
 
 const CATEGORY_BY_JA = {
   'スターター': 'starter',
@@ -1153,7 +1153,8 @@ function main() {
         id: sourceObservation.id,
         eventId: sourceEvent.event.id,
         placement: sourceObservation.placement,
-        comboPartIds: sourceObservation.comboPartIds,
+        ...(sourceObservation.comboPartIds ? { comboPartIds: sourceObservation.comboPartIds } : {}),
+        ...(sourceObservation.slots ? { slots: sourceObservation.slots } : {}),
         reportedCombo: sourceObservation.reportedCombo,
         sourceUrl: sourceEvent.event.sourceUrl,
       })
@@ -1255,13 +1256,21 @@ function validateTournamentObservation(observation, partById) {
   if (typeof observation.reportedCombo !== 'string' || observation.reportedCombo.trim() === '') {
     return '缺少來源頁的原始配置文字'
   }
-  if (!Array.isArray(observation.comboPartIds) || observation.comboPartIds.length !== 3) {
-    return '觀測配置不是上蓋、固鎖、軸心三件式'
+  if (Array.isArray(observation.comboPartIds)) {
+    if (observation.comboPartIds.length !== 3) return '觀測配置不是上蓋、固鎖、軸心三件式'
+    const [blade, ratchet, bit] = observation.comboPartIds.map((id) => partById.get(id))
+    if (!blade || !ratchet || !bit) return `型錄找不到零件：${observation.comboPartIds.join(', ')}`
+    if (!['blade', 'integrated_blade'].includes(blade.family) || ratchet.family !== 'ratchet' || bit.family !== 'bit') {
+      return `零件家族不符：${observation.comboPartIds.join(', ')}`
+    }
+    return undefined
   }
-  const [blade, ratchet, bit] = observation.comboPartIds.map((id) => partById.get(id))
-  if (!blade || !ratchet || !bit) return `型錄找不到零件：${observation.comboPartIds.join(', ')}`
-  if (!['blade', 'integrated_blade'].includes(blade.family) || ratchet.family !== 'ratchet' || bit.family !== 'bit') {
-    return `零件家族不符：${observation.comboPartIds.join(', ')}`
+  if (!observation.slots || typeof observation.slots !== 'object') {
+    return '觀測配置缺少已映射零件'
+  }
+  const ids = Object.values(observation.slots)
+  if (ids.length === 0 || ids.some((id) => typeof id !== 'string' || !partById.has(id))) {
+    return `型錄找不到零件：${ids.join(', ')}`
   }
   return undefined
 }
