@@ -3,7 +3,7 @@ import { formatPartLabel } from '../../domain/naming.ts'
 import { searchParts } from '../../domain/search.ts'
 import { BEY_TYPE_ZH, type ImageAsset, type Part } from '../../domain/types.ts'
 import type { SlotDef } from '../../domain/compatibility.ts'
-import { Badge, EmptyState, PartThumb } from './ui.tsx'
+import { Badge, EmptyState, PartThumb, TypeTag } from './ui.tsx'
 import { Sheet } from './Sheet.tsx'
 
 type Availability = ReadonlyMap<string, { free: number }>
@@ -123,8 +123,16 @@ export function PartPickerField({
                 <PartThumb code={part.code} nameZhTW={displayTitleZhTW} imageUrl={imageUrlByPartId.get(part.id)} />
                 <span style={{ minWidth: 0, textAlign: 'left' }}>
                   <strong>{displayTitleZhTW}</strong>
+                  {/*
+                    這裡本來寫類型與重量。重量拿掉了（同款零件個體差異大，
+                    標一個數字是誤導），改放白話說明 —— 挑固鎖與軸心時只看
+                    「3-60」「F」這種型號，不熟的人根本不知道差在哪。
+                  */}
                   <span className="meta part-picker-meta">
-                    {part.type ? `類型 ${BEY_TYPE_ZH[part.type]}` : '類型 資料不足'} ・ 重量 {part.officialWeightG ? `${part.officialWeightG} g` : '資料不足'}
+                    <TypeTag type={part.type} />
+                    {part.plainDescriptionZhTW ? (
+                      <span className="clamp-2">{part.plainDescriptionZhTW}</span>
+                    ) : null}
                   </span>
                   {part.integratedRatchet ? <Badge>含固鎖</Badge> : null}
                 </span>

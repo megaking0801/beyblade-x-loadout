@@ -127,10 +127,6 @@ export function PartDetailPage({ partId }: { partId: string }) {
             {part.type ? BEY_TYPE_ZH[part.type] : '官方未公布'}
           </div>
           <div>
-            {statFieldLabel(part, '重量')}：
-            {part.officialWeightG ? `${part.officialWeightG} g` : '官方未公布'}
-          </div>
-          <div>
             {statFieldLabel(part, '旋向')}：
             {part.spinDirection ? SPIN_DIRECTION_ZH[part.spinDirection] : '官方未公布'}
           </div>

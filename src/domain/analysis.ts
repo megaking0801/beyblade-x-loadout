@@ -59,7 +59,6 @@ const BASE_BY_TYPE: Record<BeyType, ComboScores> = {
 const TYPE_WEIGHT = { blade: 0.5, bit: 0.3, ratchet: 0.2 } as const
 
 /** 重量與高度的基準值，用於計算相對修正量。 */
-export const WEIGHT_BASELINE_G = 43
 /** 高度標示的基準值，取常見的 70。 */
 export const HEIGHT_BASELINE_CODE = 70
 
@@ -98,8 +97,7 @@ export interface EstimateArgs {
  *
  * 公式（模型推估，固定可驗算）：
  *  1. 以各零件官方類型的基礎向量按權重混合，權重只在有類型的零件之間正規化。
- *  2. 重量修正：以 43 g 為基準，每 1 g 調整 防守/持久 ±1.5、抗爆/穩定 ±1.0、攻擊 ±0.5。
- *  3. 高度修正：以 70 mm 為基準，每低 1 mm 攻擊 +0.5；每高 1 mm 穩定 +0.3、持久 +0.2。
+ *  2. 高度修正：以 70 mm 為基準，每低 1 mm 攻擊 +0.5；每高 1 mm 穩定 +0.3、持久 +0.2。
  */
 export function estimateScores(args: EstimateArgs): ComboScores {
   const { blade, ratchet, bit, extras } = args
@@ -122,16 +120,13 @@ export function estimateScores(args: EstimateArgs): ComboScores {
     }
   }
 
-  const allParts = [blade, ratchet, bit, ...extras].filter((part): part is Part => Boolean(part))
-  const weights = allParts.map((part) => part.officialWeightG)
-  if (weights.length > 0 && weights.every((w): w is number => typeof w === 'number')) {
-    const delta = weights.reduce((sum, w) => sum + w, 0) - WEIGHT_BASELINE_G
-    scores.defense += delta * 1.5
-    scores.stamina += delta * 1.5
-    scores.burstResistance += delta * 1.0
-    scores.stability += delta * 1.0
-    scores.attack += delta * 0.5
-  }
+  /*
+   * 重量不進模型。
+   *
+   * 來源只給得出「某一顆的實測值」，但同款零件的個體差異（模具批次、塗裝）
+   * 常常比配裝之間的差異還大。拿單一數字去加減分數，等於把雜訊當訊號，
+   * 還會讓使用者以為那是官方規格。寧可少一個修正項（第 1.5 節）。
+   */
 
   const heightCode = ratchet?.heightCode
   if (typeof heightCode === 'number') {
@@ -202,7 +197,6 @@ export interface ObjectiveData {
   /** 第 22、41 節：數值來源不是官方時要講清楚。 */
   statsNoticeZhTW?: string
   statsSourceUrls?: string[]
-  totalWeightG?: number
   heightCode?: number
   spinDirectionZhTW?: string
   structureZhTW: string
@@ -256,9 +250,6 @@ const STRUCTURE_ZH: Record<AssemblySystem, string> = {
   CX: 'CX 模組化',
 }
 
-/** 缺漏欄位名稱只寫一次，判斷可信度時要比對它。 */
-const WEIGHT_FIELD_ZH = '官方重量'
-
 
 const LAUNCH_BY_TYPE: Record<BeyType, string> = {
   attack: '用較強力道發射，瞄準對手側面製造撞擊',
@@ -295,10 +286,6 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
 
   /* --- A 客觀資料 --- */
   const missingFieldsZhTW: string[] = []
-  const weights = resolvedParts.map((part) => part.officialWeightG)
-  const allWeightsKnown = resolvedParts.length > 0 && weights.every((w): w is number => typeof w === 'number')
-  if (!allWeightsKnown) missingFieldsZhTW.push(WEIGHT_FIELD_ZH)
-
   if (!blade?.type) missingFieldsZhTW.push('官方類型')
   if (ratchet && typeof ratchet.heightCode !== 'number') missingFieldsZhTW.push('高度')
 
@@ -321,9 +308,6 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
           statsNoticeZhTW: statsSummary.noticeZhTW as string,
           statsSourceUrls: statsSummary.sourceUrls,
         }
-      : {}),
-    ...(allWeightsKnown
-      ? { totalWeightG: (weights as number[]).reduce((sum, w) => sum + w, 0) }
       : {}),
     ...(typeof ratchet?.heightCode === 'number' ? { heightCode: ratchet.heightCode } : {}),
     ...(spinDirectionZhTW ? { spinDirectionZhTW } : {}),
@@ -361,19 +345,14 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
 
   /* --- D 可信度（第 20 節 D）--- */
   //
-  // 固鎖與軸心沒有公開的公克數，總重永遠算不出來。若把「缺重量」一律判為低可信度，
-  // 每一套配裝都會是低，這個欄位就失去分辨力。因此只缺重量時降一級到中等，
-  // 連類型或高度都沒有才是低。
-  const onlyWeightMissing =
-    missingFieldsZhTW.length === 1 && missingFieldsZhTW[0] === WEIGHT_FIELD_ZH
+  // 重量已經不列入缺漏（見 estimateScores 的說明），所以缺漏只剩類型、高度、旋向
+  // 這些真的會影響判斷的欄位；全都有就以賽事樣本決定，沒有賽事樣本時給中等。
   const confidence: Confidence =
     missingFieldsZhTW.length === 0
       ? evidence
         ? computeConfidence({ sampleSize: evidence.totalDecks, sourceTier: evidence.sourceTier })
         : 'medium'
-      : onlyWeightMissing
-        ? 'medium'
-        : 'low'
+      : 'low'
 
   const { prosZhTW, consZhTW } = buildProsCons({ scores, synergyNotesZhTW, operationDifficulty })
 

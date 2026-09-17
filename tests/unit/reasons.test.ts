@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../../src/catalog/index.ts'
 import { getExpertPartRatings } from '../../src/catalog/tierLists.ts'
-import { buildEvidenceReasons, NO_EVIDENCE_NOTE_ZH } from '../../src/domain/reasons.ts'
+import {
+  buildComboVerdict,
+  buildEvidenceReasons,
+  NO_EVIDENCE_NOTE_ZH,
+} from '../../src/domain/reasons.ts'
 import type { ComboSlots } from '../../src/domain/types.ts'
 
 function reasonsFor(slots: ComboSlots) {
@@ -48,7 +52,9 @@ describe('配裝理由的證據層（第 20 節 C、第 22 節）', () => {
     const expert = reasons.filter((reason) => reason.kind === 'expert')
     expect(expert.length).toBeGreaterThan(0)
     for (const reason of expert) {
-      expect(reason.textZhTW).toMatch(/\d+\/\d+ 位高手評為 \S+ 級/)
+      // 講法壓縮成「固鎖3-60　S 級（3/5 位高手）」，但等級與共識人數都不能省。
+      expect(reason.textZhTW).toMatch(/\S+ 級/)
+      expect(reason.textZhTW).toMatch(/\d+\/\d+ 位高手/)
     }
   })
 
@@ -76,11 +82,76 @@ describe('配裝理由的證據層（第 20 節 C、第 22 節）', () => {
     expect(NO_EVIDENCE_NOTE_ZH).toContain('模型推估')
   })
 
+  it('整套命中標 combo、單件命中標 part，前台才分得開', () => {
+    const reasons = reasonsFor(G1_WINNER)
+    expect(reasons.some((reason) => reason.scope === 'combo')).toBe(true)
+    for (const reason of reasons) {
+      expect(['combo', 'part']).toContain(reason.scope)
+      if (reason.textZhTW.includes('整套出現在')) expect(reason.scope).toBe('combo')
+    }
+  })
+
+  it('「整套出現過」要完全一樣，重複零件不能矇混過去', () => {
+    // 觀測 [A, B, B] 與選取 [A, A, B]：長度相同、每一件也都在對方的集合裡，
+    // 但不是同一套。用集合比對會誤判成整套命中。
+    const [a, b] = [catalog.parts[0]!, catalog.parts[1]!]
+    const reasons = buildEvidenceReasons({
+      slots: { bladeId: a.id, ratchetId: a.id, bitId: b.id },
+      parts: catalog.parts,
+      ratings: [],
+      events: [
+        {
+          id: 'fake-event',
+          name: '假想賽事',
+          date: '2026-01-01',
+          tier: 'community',
+          sourceTier: 'community',
+          sourceUrl: 'https://example.invalid/x',
+        },
+      ],
+      observations: [
+        {
+          id: 'fake-observation',
+          eventId: 'fake-event',
+          placement: 1,
+          comboPartIds: [a.id, b.id, b.id],
+          reportedCombo: '假想配置',
+          sourceUrl: 'https://example.invalid/x',
+        },
+      ],
+    })
+    expect(reasons.some((reason) => reason.scope === 'combo')).toBe(false)
+  })
+
   it('每一條理由都指得出是哪些零件撐起來的', () => {
     const partIds = new Set(catalog.parts.map((part) => part.id))
     for (const reason of reasonsFor(G1_WINNER)) {
       expect(reason.partIds.length).toBeGreaterThan(0)
       for (const id of reason.partIds) expect(partIds.has(id)).toBe(true)
     }
+  })
+})
+
+
+describe('整顆陀螺的一句話結論', () => {
+  it('沒有分數時不硬湊一句話', () => {
+    expect(buildComboVerdict({})).toBeUndefined()
+  })
+
+  it('講得出最強與最弱的面向', () => {
+    const verdict = buildComboVerdict({
+      scores: { attack: 88, defense: 30, stamina: 28, burst: 70, burstResistance: 35, stability: 32 },
+      typeZhTW: '攻擊',
+    })
+    expect(verdict).toContain('攻擊型配置')
+    expect(verdict).toContain('強在')
+    expect(verdict).toContain('弱在')
+  })
+
+  it('六軸差距太小時說是平均型，不硬講擅長什麼', () => {
+    const verdict = buildComboVerdict({
+      scores: { attack: 50, defense: 52, stamina: 48, burst: 51, burstResistance: 49, stability: 50 },
+    })
+    expect(verdict).toContain('沒有明顯偏向')
   })
 })

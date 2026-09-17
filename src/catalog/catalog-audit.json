@@ -516,7 +516,7 @@
   "hubStats": {
     "source": "BeybladeHub",
     "fetchedAt": "2026-09-16",
-    "matchedParts": 199,
+    "matchedParts": 201,
     "partsWithoutStats": [
       {
         "id": "main_blade:バックスアントラーズ",

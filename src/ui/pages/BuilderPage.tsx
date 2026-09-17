@@ -10,7 +10,12 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
-import { buildEvidenceReasons, NO_EVIDENCE_NOTE_ZH } from '../../domain/reasons.ts'
+import {
+  buildComboVerdict,
+  buildEvidenceReasons,
+  NO_EVIDENCE_NOTE_ZH,
+  summarizePartEvidence,
+} from '../../domain/reasons.ts'
 import {
   getBuilderSlotSchema,
   hasIntegratedRatchet,
@@ -428,6 +433,15 @@ export function ComboResult({
   hasAnySelection: boolean
   observedMatches: ReturnType<typeof getObservedComboMatches>
 }) {
+  // 整套命中與單件證據分開呈現；結論句由六軸算出來，沒有分數就不硬湊。
+  const comboReasons = evidenceReasons.filter((reason) => reason.scope === 'combo')
+  const partReasons = evidenceReasons.filter((reason) => reason.scope === 'part')
+  const partEvidence = summarizePartEvidence(evidenceReasons)
+  const comboVerdictZhTW = buildComboVerdict({
+    scores: analysis.scores,
+    typeZhTW: analysis.typeZhTW,
+  })
+
   return (
     <Section title="配裝結果">
       <div className="card" style={{ display: 'grid', gap: 10 }}>
@@ -450,9 +464,6 @@ export function ComboResult({
           <Badge>旋向 {analysis.objective.spinDirectionZhTW ?? '資料不足'}</Badge>
           <Badge>
             高度 {analysis.objective.heightCode ?? '資料不足'}
-          </Badge>
-          <Badge>
-            總重 {analysis.objective.totalWeightG ? `${analysis.objective.totalWeightG} g` : '資料不足'}
           </Badge>
           <ConfidenceBadge confidence={analysis.confidence} />
         </Row>
@@ -502,17 +513,21 @@ export function ComboResult({
         */}
         {hasAnySelection ? (
           <div style={{ fontSize: 13 }} data-testid="evidence-reasons">
-            <strong>為什麼這樣配：</strong>
-            {evidenceReasons.length === 0 ? (
-              <div className="meta" style={{ marginTop: 4 }}>{NO_EVIDENCE_NOTE_ZH}</div>
-            ) : (
+            <strong>這顆是什麼打法</strong>
+            {/*
+              先給整顆陀螺的結論，再給整套命中的賽事，最後才把單件證據併成一行。
+              原本逐件列出三條，讀起來像三份零件報告而不是一顆陀螺的分析。
+            */}
+            {comboVerdictZhTW ? (
+              <div style={{ marginTop: 4 }}>{comboVerdictZhTW}</div>
+            ) : null}
+
+            {comboReasons.length > 0 ? (
               <ul style={{ margin: '6px 0 0', paddingLeft: 18, display: 'grid', gap: 5 }}>
-                {evidenceReasons.map((reason) => (
-                  <li key={`${reason.kind}-${reason.textZhTW}`}>
-                    <Badge tone={reason.kind === 'tournament' ? 'accent' : 'warn'}>
-                      {reason.kind === 'tournament' ? '賽事' : '高手'}
-                    </Badge>{' '}
-                    {reason.textZhTW}
+                {/* 同一套可能在很多場出現過，列前三場就夠，其餘用一行帶過。 */}
+                {comboReasons.slice(0, 3).map((reason) => (
+                  <li key={reason.textZhTW}>
+                    <Badge tone="accent">賽事</Badge> {reason.textZhTW}
                     {reason.sourceUrl ? (
                       <>
                         {' '}
@@ -523,8 +538,40 @@ export function ComboResult({
                     ) : null}
                   </li>
                 ))}
+                {comboReasons.length > 3 ? (
+                  <li className="meta">另有 {comboReasons.length - 3} 場也用過同一套</li>
+                ) : null}
               </ul>
-            )}
+            ) : null}
+
+            {partReasons.length > 0 ? (
+              <div className="meta" style={{ marginTop: 6 }}>
+                零件的來歷：
+                {partEvidence.map((part, index) => (
+                  <span key={part.partId}>
+                    {index > 0 ? '；' : ''}
+                    {part.labelZhTW}
+                    {part.notesZhTW.length > 0 ? `（${part.notesZhTW.join('、')}）` : ''}
+                  </span>
+                ))}
+                {partEvidence.find((part) => part.sourceUrl)?.sourceUrl ? (
+                  <>
+                    {' '}
+                    <a
+                      href={partEvidence.find((part) => part.sourceUrl)?.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      來源
+                    </a>
+                  </>
+                ) : null}
+              </div>
+            ) : null}
+
+            {comboReasons.length === 0 && partReasons.length === 0 ? (
+              <div className="meta" style={{ marginTop: 4 }}>{NO_EVIDENCE_NOTE_ZH}</div>
+            ) : null}
           </div>
         ) : null}
 

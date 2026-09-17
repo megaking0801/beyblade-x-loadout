@@ -5052,6 +5052,19 @@
         ],
         "verifiedAt": "2026-09-17",
         "verificationStatus": "community_only"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 61,
+      "plainDescriptionZhTW": "對戰中分身成內藏平坦軸端以跑動來攻擊對手的「子彈」、及以防禦性能優秀的圓形來抵耐對手攻擊的「本體」。（勝負以本體判定）",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -5323,6 +5336,18 @@
           "https://beybladehub.app/parts/bits"
         ],
         "verifiedAt": "2026-09-17",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "UX 擴張上蓋（Expand Blade，固鎖一體型），以彈跳式 Power Attack 把對手撞飛，特化高速 X Dash。白色金屬塗裝。UX-20 入門組（2026/7/11）。台灣代理商麗嬰國際／FUNBOX 正貨包裝正式標示為「榮耀武神」；先前依日本官方公告翻譯與市場慣稱，站內另稱「榮耀戰神」「榮耀女武神」，三者皆指同一顆。官方克重未公布；玩家實測約 43.7 克（多筆落在 43.65–43.74 克），盤徑約 50.09mm。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
       }
     },

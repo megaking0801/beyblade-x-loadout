@@ -344,7 +344,13 @@ function applyHubStats(parts, hubStats, audit, cxHubKeyByPartId = new Map()) {
   const missing = []
   const byHubKey = new Map(hubStats.parts.map((row) => [row.key, row]))
   for (const part of parts) {
-    const family = part.cxFused ? 'blade' : part.family
+    /*
+     * 一體型上蓋（UX 擴張）在社群站是收在上蓋頁，family 是 blade。
+     * 不映射過去的話這幾顆完全沒有類型與旋向，配裝器的六軸就整組算不出來
+     * （blade 沒有類型時 canEstimate 為 false），整頁分析等於空的。
+     */
+    const family =
+      part.cxFused || part.family === 'integrated_blade' ? 'blade' : part.family
     const hubKey = cxHubKeyByPartId.get(part.id)
     const row = hubKey
       ? byHubKey.get(hubKey)

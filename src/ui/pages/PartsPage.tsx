@@ -137,15 +137,11 @@ function MyParts() {
                       </div>
                       {/*
                         分類已經寫在區塊標題上，列裡改放真正有辨識度的規格：
-                        類型（有顏色）、重量、旋向。這三個才是挑零件時在比的東西。
+                        類型（有顏色）與旋向。重量刻意不顯示：同款零件的個體差異
+                        比配裝差異還大，標一個數字會讓人以為那是規格。
                       */}
                       <div className="chip-row" style={{ gap: 5, marginTop: 3 }}>
                         <TypeTag type={part.type} />
-                        {typeof part.officialWeightG === 'number' ? (
-                          <span className="code" style={{ fontSize: 11, color: 'var(--ink-dim)' }}>
-                            {part.officialWeightG}g
-                          </span>
-                        ) : null}
                         {part.spinDirection ? (
                           <span style={{ fontSize: 11, color: 'var(--ink-faint)' }}>
                             {SPIN_DIRECTION_ZH[part.spinDirection]}

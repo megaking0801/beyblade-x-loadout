@@ -144,15 +144,16 @@ function args(over: Partial<AnalyzeArgs> = {}): AnalyzeArgs {
 }
 
 describe('客觀資料層（第 20 節 A）', () => {
-  it('總重量為各零件官方重量相加', () => {
-    const r = analyzeCombo(args())
-    expect(r.objective.totalWeightG).toBe(34 + 6 + 3)
-  })
-
-  it('任一零件缺官方重量時總重量為 undefined，且列入缺漏欄位', () => {
+  /*
+   * 重量刻意不進客觀資料，也不列入缺漏。
+   *
+   * 來源只給得出「某一顆的實測值」，同款零件的個體差異常常比配裝差異還大；
+   * 顯示單一數字會讓人以為那是規格，拿去加減分數則是把雜訊當訊號。
+   */
+  it('重量不列入缺漏欄位，缺重量也不該壓低可信度', () => {
     const r = analyzeCombo(args({ slots: { bladeId: bladeNoWeight.id, ratchetId: ratchetLow.id, bitId: bitFlat.id } }))
-    expect(r.objective.totalWeightG).toBeUndefined()
-    expect(r.dataCompleteness.missingFieldsZhTW).toContain('官方重量')
+    expect(r.dataCompleteness.missingFieldsZhTW).not.toContain('官方重量')
+    expect(r.dataCompleteness.missingFieldsZhTW.join()).not.toContain('重量')
   })
 
   it('高度取自固鎖', () => {
@@ -219,11 +220,12 @@ describe('配裝協同性層必須標示模型推估（第 20 節 B）', () => {
     expect(defense.defense).toBeGreaterThan(attack.defense)
   })
 
-  it('同樣配置下較重的上蓋提升防守與持久', () => {
+  it('重量不影響分數：同類型只差重量的兩顆上蓋分數相同', () => {
+    // 來源只有單顆實測值，同款零件的個體差異常比配裝差異還大，
+    // 拿去加減分數是把雜訊當訊號，所以模型刻意不看重量。
     const heavy = estimateScores({ blade: heavyBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
     const light = estimateScores({ blade: lightBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
-    expect(heavy.defense).toBeGreaterThan(light.defense)
-    expect(heavy.stamina).toBeGreaterThan(light.stamina)
+    expect(heavy).toEqual(light)
   })
 
   it('所有分數都落在 0 到 100 之間', () => {
