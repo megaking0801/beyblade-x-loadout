@@ -16,7 +16,7 @@ import {
   type Product,
 } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, TypeTag, useJustAdded } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, TypeTag, assetUrl, useJustAdded } from '../components/ui.tsx'
 import { formatPartLabel } from '../../domain/naming.ts'
 
 const STATUS_OPTIONS: OwnedProductStatus[] = ['owned', 'ordered', 'wishlist', 'sold']
@@ -442,7 +442,8 @@ function CatalogProductCard({ product }: { product: Product }) {
       {/* 圖片佔上半：挑盒子時先認得出是哪顆陀螺，名稱才是輔助。 */}
       <div className="product-card-art">
         {imageUrl ? (
-          <img src={imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" />
+          // 本機圖片一定要經 assetUrl：GitHub Pages 是子路徑，直接用 /img/... 會 404。
+          <img src={assetUrl(imageUrl)} alt="" loading="lazy" referrerPolicy="no-referrer" />
         ) : (
           // 圖磚是淺底，共用的深色佔位圖放上去會變成一個黑洞，這裡直接寫型號。
           <span className="code" style={{ fontSize: 18, color: '#8d9bb0' }}>

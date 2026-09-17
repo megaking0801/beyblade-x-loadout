@@ -311,22 +311,33 @@ function PartCatalog() {
 
 function CatalogPartCard({ part }: { part: Part }) {
   const run = useAppStore((state) => state.run)
+  const images = useAppStore((state) => state.images)
   const [quantity, setQuantity] = useState(1)
   const [justAdded, markAdded] = useJustAdded()
   const label = formatPartLabel(part)
+  // 圖鑑這半原本沒接零件圖，整頁只有型號佔位字，認不出是哪顆。
+  const imageUrl = images.find(
+    (image) => image.entityType === 'part' && image.entityId === part.id,
+  )?.url
 
   return (
     <div className={justAdded ? 'card just-added' : 'card'} data-testid="catalog-part">
       <Row>
-        <PartThumb code={part.code} nameZhTW={label.titleZhTW} />
+        <PartThumb code={part.code} nameZhTW={label.titleZhTW} imageUrl={imageUrl} size={54} />
         <div style={{ flex: 1, minWidth: 150 }}>
           <div style={{ fontWeight: 600 }} data-testid="catalog-part-title">
             <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
             {label.isProvisional ? <Badge>暫譯</Badge> : null}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-            {label.familyZhTW}
+          <div className="chip-row" style={{ gap: 5, marginTop: 3 }}>
+            <TypeTag type={part.type} />
+            <span style={{ fontSize: 11, color: 'var(--ink-faint)' }}>{label.familyZhTW}</span>
           </div>
+          {part.plainDescriptionZhTW ? (
+            <div className="meta clamp-2" style={{ marginTop: 3 }}>
+              {part.plainDescriptionZhTW}
+            </div>
+          ) : null}
         </div>
       </Row>
       <div style={{ height: 8 }} />

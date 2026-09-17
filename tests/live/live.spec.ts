@@ -35,3 +35,42 @@ test('線上版有註冊 service worker', async ({ page }) => {
   })
   expect(scriptUrl).toContain('/beyblade-x-loadout/sw.js')
 })
+
+
+/**
+ * 圖片路徑必須帶得動部署的子路徑。
+ *
+ * 這條只能在線上跑：本機 preview 的 base 是 /，少呼叫一次 assetUrl() 完全看不出來，
+ * 但 Pages 部署在 /beyblade-x-loadout/，沒補 base 的 /img/... 會整批 404。
+ * 實際發生過一次（商品卡改用原生 img 時漏掉），所以直接守「畫面上沒有破圖」。
+ */
+test('線上版的圖片都載得到，沒有漏掉部署子路徑', async ({ page }) => {
+  const notFound: string[] = []
+  page.on('response', (response) => {
+    if (response.status() >= 400 && /\.(webp|png|jpe?g)$/i.test(response.url())) {
+      notFound.push(`${response.status()} ${response.url()}`)
+    }
+  })
+
+  for (const [route, tab] of [
+    ['#/products', 'tab-catalog'],
+    ['#/parts', 'tab-part-catalog'],
+  ] as const) {
+    await page.goto(`${BASE}${route}`)
+    await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
+    await page.getByTestId(tab).click()
+    await page.waitForTimeout(2500)
+
+    const images = await page.locator('img').count()
+    expect(images, `${route} 應該要有圖片可檢查`).toBeGreaterThan(0)
+    const broken = await page.evaluate(() =>
+      [...document.querySelectorAll('img')]
+        .filter((img) => img.complete && img.naturalWidth === 0)
+        .map((img) => img.getAttribute('src') ?? '(no src)')
+        .slice(0, 5),
+    )
+    expect(broken, `${route} 有破圖`).toEqual([])
+  }
+
+  expect([...new Set(notFound)].slice(0, 5), '有圖片回 4xx').toEqual([])
+})
