@@ -27,3 +27,8 @@ test-results/
 playwright-report/
 blob-report/
 .playwright/
+
+# 設計稿畫布的產生檔（2.6 MB，內含整份編輯器程式）。
+# 原始的 .dc.html 與 canvas.json 有進版控，要重生就跑 /design 的 seed-canvas.mjs。
+design-draft/*.html
+!design-draft/*.dc.html
