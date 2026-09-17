@@ -20,11 +20,12 @@ import type {
   SavedCombo,
   TournamentDeck,
   TournamentEvent,
+  TournamentObservation,
   WishlistItem,
 } from '../domain/types.ts'
 
 export const DB_NAME = 'beyblade-x-loadout'
-export const DB_SCHEMA_VERSION = 2
+export const DB_SCHEMA_VERSION = 3
 
 /** 第 38 節：新手模式／進階模式。 */
 export interface AppSettings {
@@ -58,13 +59,14 @@ export interface BeybladeDb extends Dexie {
   // E. Tournament Data
   tournamentEvents: EntityTable<TournamentEvent, 'id'>
   tournamentDecks: EntityTable<TournamentDeck, 'id'>
+  tournamentObservations: EntityTable<TournamentObservation, 'id'>
   // 設定與資料版本
   meta: EntityTable<MetaRow, 'key'>
 }
 
 export function createDb(name: string = DB_NAME): BeybladeDb {
   const db = new Dexie(name) as BeybladeDb
-  db.version(DB_SCHEMA_VERSION).stores({
+  db.version(2).stores({
     parts: 'id, family, system, code',
     partVariants: 'id, partId',
     products: 'id, line, category, sku',
@@ -79,6 +81,24 @@ export function createDb(name: string = DB_NAME): BeybladeDb {
     wishlist: 'id, productId',
     tournamentEvents: 'id, date, country',
     tournamentDecks: 'id, eventId',
+    meta: 'key',
+  })
+  db.version(3).stores({
+    parts: 'id, family, system, code',
+    partVariants: 'id, partId',
+    products: 'id, line, category, sku',
+    productVariants: 'id, productId',
+    compatibilityRules: 'id, partId',
+    images: 'id, [entityType+entityId]',
+    ownedProducts: 'id, productId, status',
+    inventoryLots: 'id, partId, status, sourceType',
+    partPreferences: 'partId, favorite',
+    savedCombos: 'id, favorite, physicallyBuilt',
+    decks: 'id',
+    wishlist: 'id, productId',
+    tournamentEvents: 'id, date, country',
+    tournamentDecks: 'id, eventId',
+    tournamentObservations: 'id, eventId',
     meta: 'key',
   })
   return db

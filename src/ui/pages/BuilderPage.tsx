@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { getExpertTierMatches } from '../../catalog/tierLists.ts'
-import { getTournamentEvidenceReport } from '../../domain/tournament.ts'
+import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import {
   getSlotSchemaForStructure,
   hasIntegratedRatchet,
@@ -51,6 +51,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const combos = useAppStore((state) => state.combos)
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
+  const tournamentObservations = useAppStore((state) => state.tournamentObservations)
   const availability = useAppStore((state) => state.availability)
   const images = useAppStore((state) => state.images)
   const run = useAppStore((state) => state.run)
@@ -146,6 +147,10 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     [slots, parts, rules, lots, combos, evidenceReport.exact],
   )
   const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
+  const observedMatches = useMemo(
+    () => getObservedComboMatches({ slots, events: tournamentEvents, observations: tournamentObservations }),
+    [slots, tournamentEvents, tournamentObservations],
+  )
 
   // 還沒選任何零件時不要先跳紅字，等使用者動作後再提示（第 46 節：新手友善）。
   const hasAnySelection = Object.values(slots).some(Boolean)
@@ -264,7 +269,12 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       </div>
 
       <div className="work-result">
-      <ComboResult analysis={analysis} evidenceReport={evidenceReport} expertTierMatches={expertTierMatches} />
+      <ComboResult
+        analysis={analysis}
+        evidenceReport={evidenceReport}
+        expertTierMatches={expertTierMatches}
+        observedMatches={observedMatches}
+      />
 
       <Section title="儲存這套配裝">
         <div className="card" style={{ display: 'grid', gap: 10 }}>
@@ -385,10 +395,12 @@ export function ComboResult({
   analysis,
   evidenceReport,
   expertTierMatches,
+  observedMatches,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
   expertTierMatches: ReturnType<typeof getExpertTierMatches>
+  observedMatches: ReturnType<typeof getObservedComboMatches>
 }) {
   return (
     <Section title="配裝結果">
@@ -540,6 +552,23 @@ export function ComboResult({
                 <div className="meta">{match.noteZhTW}</div>
               </div>
             ))}
+          </div>
+        ) : null}
+
+        {observedMatches.length > 0 ? (
+          <div style={{ fontSize: 13 }} data-testid="observed-combo-matches">
+            <strong>來源觀測：</strong>這些已映射的單顆配置來自一副尚未完整映射的牌組，
+            不計入出場率、Meta share 或可信度。
+            <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
+              {observedMatches.map((match) => (
+                <li key={match.id}>
+                  <a href={match.sourceUrl} target="_blank" rel="noreferrer">
+                    {match.eventName}
+                  </a>
+                  （第 {match.placement ?? '未標示'} 名・{match.eventDate}）
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
       </div>

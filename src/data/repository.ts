@@ -35,6 +35,7 @@ import type {
   SavedCombo,
   TournamentDeck,
   TournamentEvent,
+  TournamentObservation,
   WishlistItem,
 } from '../domain/types.ts'
 import { DB_SCHEMA_VERSION, DEFAULT_SETTINGS, type AppSettings, type BeybladeDb } from './db.ts'
@@ -56,6 +57,7 @@ export interface CatalogBundle {
   images: ImageAsset[]
   tournamentEvents?: TournamentEvent[]
   tournamentDecks?: TournamentDeck[]
+  tournamentObservations?: TournamentObservation[]
 }
 
 /** 零件 id 搬遷紀錄，寫在 meta 裡供事後查核。 */
@@ -117,6 +119,7 @@ export interface Repository {
   listImages(): Promise<ImageAsset[]>
   listTournamentEvents(): Promise<TournamentEvent[]>
   listTournamentDecks(): Promise<TournamentDeck[]>
+  listTournamentObservations(): Promise<TournamentObservation[]>
 
   listOwnedProducts(): Promise<OwnedProduct[]>
   addOwnedProduct(input: AddOwnedProductInput): Promise<string>
@@ -373,7 +376,7 @@ export function createRepository(db: BeybladeDb): Repository {
       // 只清 Catalog 相關表，個人資料表完全不動（第 3 節）。
       await db.transaction(
         'rw',
-        [db.parts, db.partVariants, db.products, db.productVariants, db.compatibilityRules, db.images, db.tournamentEvents, db.tournamentDecks, db.meta],
+        [db.parts, db.partVariants, db.products, db.productVariants, db.compatibilityRules, db.images, db.tournamentEvents, db.tournamentDecks, db.tournamentObservations, db.meta],
         async () => {
           await Promise.all([
             db.parts.clear(),
@@ -384,6 +387,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.images.clear(),
             db.tournamentEvents.clear(),
             db.tournamentDecks.clear(),
+            db.tournamentObservations.clear(),
           ])
           await Promise.all([
             db.parts.bulkPut(bundle.parts),
@@ -394,6 +398,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.images.bulkPut(bundle.images),
             db.tournamentEvents.bulkPut(bundle.tournamentEvents ?? []),
             db.tournamentDecks.bulkPut(bundle.tournamentDecks ?? []),
+            db.tournamentObservations.bulkPut(bundle.tournamentObservations ?? []),
           ])
           await db.meta.put({ key: META_CATALOG_VERSION, value: bundle.version })
         },
@@ -411,6 +416,7 @@ export function createRepository(db: BeybladeDb): Repository {
     listImages: () => db.images.toArray(),
     listTournamentEvents: () => db.tournamentEvents.toArray(),
     listTournamentDecks: () => db.tournamentDecks.toArray(),
+    listTournamentObservations: () => db.tournamentObservations.toArray(),
 
     /* ---------------------------------------------------------- 我的商品 */
 

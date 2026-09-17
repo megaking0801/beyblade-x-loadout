@@ -316,6 +316,19 @@ test('配裝器會顯示對應上蓋的專家 T 表，且清楚標成社群意�
   await expect(sources.nth(1)).toHaveAttribute('href', 'https://beybladehub.app/t/NAu9mbLh')
 })
 
+test('部分映射的 G1 牌組只顯示來源觀測，不灌入賽事統計', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ウィザードロッド')
+  await pickSlot(page, 'ratchetId', 'ratchet:1-60')
+  await pickSlot(page, 'bitId', 'bit:FB')
+
+  const observations = page.getByTestId('observed-combo-matches')
+  await expect(observations).toContainText('極限盃 G1 高雄站（通常組）')
+  await expect(observations).toContainText('不計入出場率、Meta share 或可信度')
+  await expect(observations.getByRole('link')).toHaveCount(2)
+})
+
 /**
  * CX 四件式（超越拆組）的配裝器流程。
  *
@@ -416,6 +429,14 @@ test('零件詳情頁也顯示可追溯的高手 T 表評級', async ({ page }) 
   await expect(tier).toContainText('七月份T度排行')
   await expect(tier).toContainText('不會改變賽事統計、模型分數或可信度')
   await expect(tier.getByRole('link', { name: '來源' })).toHaveCount(2)
+})
+
+test('零件詳情把未完整映射牌組標示為來源觀測', async ({ page }) => {
+  await openApp(page, '/part?id=blade%3A%E3%82%A6%E3%82%A3%E3%82%B6%E3%83%BC%E3%83%89%E3%83%AD%E3%83%83%E3%83%89')
+  const observations = page.getByTestId('part-tournament-observations')
+  await expect(observations).toContainText('尚有零件未映射')
+  await expect(observations).toContainText('不納入出場率、Meta share 或可信度')
+  await expect(observations.getByRole('link')).toHaveCount(3)
 })
 
 /**

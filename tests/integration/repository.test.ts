@@ -47,6 +47,16 @@ const catalog = {
       sourceUrl: 'https://example.test/tournament-1',
     },
   ],
+  tournamentObservations: [
+    {
+      id: 'tournament-observation-1',
+      eventId: 'tournament-1',
+      placement: 2,
+      comboPartIds: ['test-blade-a', 'test-ratchet-a', 'test-bit-a'],
+      reportedCombo: '測試配置 A',
+      sourceUrl: 'https://example.test/tournament-1',
+    },
+  ],
 }
 
 beforeEach(async () => {
@@ -85,6 +95,9 @@ describe('第一次開啟時個人資料完全空白（第 1 節、第 45 節 Ca
     expect(await repo.getCatalogVersion()).toBe('test-1')
     expect((await repo.listTournamentEvents()).map((event) => event.id)).toEqual(['tournament-1'])
     expect((await repo.listTournamentDecks()).map((deck) => deck.id)).toEqual(['tournament-deck-1'])
+    expect((await repo.listTournamentObservations()).map((observation) => observation.id)).toEqual([
+      'tournament-observation-1',
+    ])
   })
 })
 

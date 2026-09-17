@@ -455,6 +455,21 @@ export interface TournamentDeck {
   sourceUrl: string
 }
 
+/**
+ * 已確認的單顆配置，但來源沒有提供（或尚無法完整映射）同副完整三對三牌組。
+ * 僅供「來源觀測」顯示，絕不可用於出場率、Meta share 或可信度計算。
+ */
+export interface TournamentObservation {
+  id: string
+  eventId: string
+  placement?: number
+  /** 依序為上蓋、固鎖、軸心；每顆都必須已映射到 Catalog。 */
+  comboPartIds: string[]
+  /** 來源頁上的原始配置文字，供資料維護回查。 */
+  reportedCombo: string
+  sourceUrl: string
+}
+
 /* -------------------------------------------------------------- 可信度 */
 
 /** 第 20 節 D：資料可信度。 */

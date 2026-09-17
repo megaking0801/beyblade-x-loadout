@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { getComboTournamentEvidence, getPartTournamentDecks, getTournamentEvidenceReport } from '../../src/domain/tournament.ts'
+import {
+  getComboTournamentEvidence,
+  getObservedComboMatches,
+  getPartTournamentDecks,
+  getPartTournamentObservations,
+  getTournamentEvidenceReport,
+} from '../../src/domain/tournament.ts'
 import { testParts } from '../fixtures/testCatalog.ts'
 
 const events = [
@@ -23,6 +29,17 @@ const decks = [
       ['test-blade-b', 'test-ratchet-b', 'test-bit-b'],
       ['test-blade-c', 'test-ratchet-c', 'test-bit-c'],
     ],
+    sourceUrl: 'https://example.test/event-1',
+  },
+]
+
+const observations = [
+  {
+    id: 'observation-1',
+    eventId: 'event-1',
+    placement: 2,
+    comboPartIds: ['test-blade-a', 'test-ratchet-a', 'test-bit-a'],
+    reportedCombo: '測試配置 A',
     sourceUrl: 'https://example.test/event-1',
   },
 ]
@@ -76,5 +93,30 @@ describe('賽事資料反查', () => {
         kind: 'blade', appearances: 1, totalComboSlots: 3, sourceTier: 'community',
       }),
     ])
+  })
+
+  it('不完整牌組中的單顆觀測可揭露來源，但不當成完整牌組證據', () => {
+    expect(
+      getObservedComboMatches({
+        slots: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
+        events,
+        observations,
+      }),
+    ).toEqual([
+      {
+        id: 'observation-1',
+        eventName: '測試賽事',
+        eventDate: '2026-01-01',
+        placement: 2,
+        sourceUrl: 'https://example.test/event-1',
+      },
+    ])
+    expect(getPartTournamentObservations('test-bit-a', observations)).toHaveLength(1)
+    expect(getComboTournamentEvidence({
+      slots: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
+      parts: testParts,
+      events,
+      decks: [],
+    })).toBeUndefined()
   })
 })

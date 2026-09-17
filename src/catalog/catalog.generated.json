@@ -1,5 +1,5 @@
 {
-  "version": "takaratomy-lineup-2026-09-16",
+  "version": "takaratomy-lineup-2026-09-16-r2",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "parts": [
@@ -15711,6 +15711,17 @@
       "format": "Standard 3on3 Top cut",
       "sourceTier": "community",
       "sourceUrl": "https://beywatch.gg/tournaments/wbo-mcb-beyblade-x-season-1-friday-night-ranked-event-3-124683"
+    },
+    {
+      "id": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "name": "極限盃 G1 高雄站（通常組）",
+      "date": "2026-07-25",
+      "country": "Taiwan",
+      "region": "高雄",
+      "tier": "G1",
+      "format": "Standard 3on3 Top Cut",
+      "sourceTier": "verified_community",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     }
   ],
   "tournamentDecks": [
@@ -16105,6 +16116,68 @@
         ]
       ],
       "sourceUrl": "https://beywatch.gg/tournaments/wbo-mcb-beyblade-x-season-1-friday-night-ranked-event-3-124683"
+    }
+  ],
+  "tournamentObservations": [
+    {
+      "id": "kaohsiung-g1-regular-1-wizard-1-60fb",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 1,
+      "comboPartIds": [
+        "blade:ウィザードロッド",
+        "ratchet:1-60",
+        "bit:FB"
+      ],
+      "reportedCombo": "魔導神杖1-60FB",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-1-cobalt-9-60e",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 1,
+      "comboPartIds": [
+        "blade:コバルトドラグーン",
+        "ratchet:9-60",
+        "bit:E"
+      ],
+      "reportedCombo": "蒼穹龍騎士9-60E",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-2-wizard-3-60fb",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 2,
+      "comboPartIds": [
+        "blade:ウィザードロッド",
+        "ratchet:3-60",
+        "bit:FB"
+      ],
+      "reportedCombo": "魔導神杖3-60FB",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-2-shark-1-60lr",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 2,
+      "comboPartIds": [
+        "blade:シャークスケイル",
+        "ratchet:1-60",
+        "bit:LR"
+      ],
+      "reportedCombo": "鮫鯊狂鱗1-60LR",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-3-wizard-1-60fb",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 3,
+      "comboPartIds": [
+        "blade:ウィザードロッド",
+        "ratchet:1-60",
+        "bit:FB"
+      ],
+      "reportedCombo": "魔導神杖1-60FB",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     }
   ],
   "partIdMigrations": {

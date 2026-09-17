@@ -23,6 +23,7 @@ import type {
   SavedCombo,
   TournamentDeck,
   TournamentEvent,
+  TournamentObservation,
   WishlistItem,
 } from '../domain/types.ts'
 import type { InventorySummary } from '../data/repository.ts'
@@ -41,6 +42,7 @@ export interface AppState {
   images: ImageAsset[]
   tournamentEvents: TournamentEvent[]
   tournamentDecks: TournamentDeck[]
+  tournamentObservations: TournamentObservation[]
 
   ownedProducts: OwnedProduct[]
   lots: InventoryLot[]
@@ -83,6 +85,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   images: [],
   tournamentEvents: [],
   tournamentDecks: [],
+  tournamentObservations: [],
 
   ownedProducts: [],
   lots: [],
@@ -121,6 +124,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       images,
       tournamentEvents,
       tournamentDecks,
+      tournamentObservations,
       ownedProducts,
       lots,
       partPreferences,
@@ -141,6 +145,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       repo.listImages(),
       repo.listTournamentEvents(),
       repo.listTournamentDecks(),
+      repo.listTournamentObservations(),
       repo.listOwnedProducts(),
       repo.getAllLots(),
       repo.listPartPreferences(),
@@ -162,6 +167,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       images,
       tournamentEvents,
       tournamentDecks,
+      tournamentObservations,
       ownedProducts,
       lots,
       partPreferences,

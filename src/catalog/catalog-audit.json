@@ -1,14 +1,16 @@
 {
-  "catalogVersion": "takaratomy-lineup-2026-09-16",
+  "catalogVersion": "takaratomy-lineup-2026-09-16-r2",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-17",
   "productCount": 149,
   "partCount": 201,
   "imageCount": 340,
-  "tournamentEventCount": 10,
+  "tournamentEventCount": 11,
   "tournamentDeckCount": 14,
+  "tournamentObservationCount": 5,
   "rejectedTournamentDecks": [],
+  "rejectedTournamentObservations": [],
   "productsWithoutImages": [
     {
       "id": "bx00-mit",

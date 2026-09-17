@@ -1,6 +1,13 @@
 /** 已匯入賽事資料的反查與統計。只處理完整、已映射到 Catalog 的牌組。 */
 import { comboFullCode, type EvidenceInput } from './analysis.ts'
-import type { ComboSlots, Part, SourceTier, TournamentDeck, TournamentEvent } from './types.ts'
+import type {
+  ComboSlots,
+  Part,
+  SourceTier,
+  TournamentDeck,
+  TournamentEvent,
+  TournamentObservation,
+} from './types.ts'
 
 const TIER_RANK: Record<SourceTier, number> = {
   official: 5,
@@ -33,6 +40,14 @@ export interface TournamentEvidenceReport {
   eventCount: number
   fullDeckCount: number
   comboSlotCount: number
+}
+
+export interface TournamentObservationMatch {
+  id: string
+  eventName: string
+  eventDate: string
+  placement?: number
+  sourceUrl: string
 }
 
 /**
@@ -108,4 +123,38 @@ export function getTournamentEvidenceReport(args: {
 
 export function getPartTournamentDecks(partId: string, decks: TournamentDeck[]): TournamentDeck[] {
   return decks.filter((deck) => deck.comboPartIds?.some((combo) => combo.includes(partId)))
+}
+
+/**
+ * 從「不是完整三對三牌組」的來源觀測裡找出一顆已映射配置。
+ * 回傳值只能做來源揭露，不能交給 analyzeCombo 當作賽事 evidence。
+ */
+export function getObservedComboMatches(args: {
+  slots: ComboSlots
+  events: TournamentEvent[]
+  observations: TournamentObservation[]
+}): TournamentObservationMatch[] {
+  const selected = [args.slots.bladeId, args.slots.ratchetId, args.slots.bitId]
+  if (selected.some((partId) => !partId)) return []
+  const eventById = new Map(args.events.map((event) => [event.id, event]))
+  return args.observations.flatMap((observation) => {
+    const event = eventById.get(observation.eventId)
+    if (!event || observation.comboPartIds.length !== selected.length) return []
+    if (!observation.comboPartIds.every((partId, index) => partId === selected[index])) return []
+    return [{
+      id: observation.id,
+      eventName: event.name,
+      eventDate: event.date,
+      ...(observation.placement === undefined ? {} : { placement: observation.placement }),
+      sourceUrl: observation.sourceUrl,
+    }]
+  })
+}
+
+/** 單一零件的來源觀測反查；同樣不構成完整牌組統計。 */
+export function getPartTournamentObservations(
+  partId: string,
+  observations: TournamentObservation[],
+): TournamentObservation[] {
+  return observations.filter((observation) => observation.comboPartIds.includes(partId))
 }

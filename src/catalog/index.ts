@@ -142,6 +142,7 @@ export const catalog: CatalogBundle = {
   images: parsed.images,
   tournamentEvents: parsed.tournamentEvents ?? [],
   tournamentDecks: parsed.tournamentDecks ?? [],
+  tournamentObservations: parsed.tournamentObservations ?? [],
   // 零件 id 搬遷表：圖鑑結構改變時，用它把裝置上的舊資料搬到新 id。
   partIdMigrations: parsed.partIdMigrations ?? {},
 }

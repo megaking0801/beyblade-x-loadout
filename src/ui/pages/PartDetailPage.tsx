@@ -13,7 +13,7 @@ import {
   statFieldLabel,
 } from '../../domain/provenance.ts'
 import { BEY_TYPE_ZH, BIT_CONTACT_ZH, SPIN_DIRECTION_ZH } from '../../domain/types.ts'
-import { getPartTournamentDecks } from '../../domain/tournament.ts'
+import { getPartTournamentDecks, getPartTournamentObservations } from '../../domain/tournament.ts'
 import { getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
@@ -31,6 +31,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
   const partPreferences = useAppStore((state) => state.partPreferences)
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
+  const tournamentObservations = useAppStore((state) => state.tournamentObservations)
   const [sources, setSources] = useState<PartSourceEntryLike[]>([])
 
   const part = parts.find((row) => row.id === partId)
@@ -69,6 +70,10 @@ export function PartDetailPage({ partId }: { partId: string }) {
   const tournamentUses = useMemo(
     () => getPartTournamentDecks(partId, tournamentDecks),
     [partId, tournamentDecks],
+  )
+  const tournamentObservationsForPart = useMemo(
+    () => getPartTournamentObservations(partId, tournamentObservations),
+    [partId, tournamentObservations],
   )
   const tournamentEventById = useMemo(
     () => new Map(tournamentEvents.map((event) => [event.id, event])),
@@ -270,6 +275,24 @@ export function PartDetailPage({ partId }: { partId: string }) {
           </div>
         )}
       </Section>
+
+      {tournamentObservationsForPart.length > 0 ? (
+        <Section title="賽事來源觀測">
+          <div className="card" style={{ display: 'grid', gap: 6, fontSize: 14 }} data-testid="part-tournament-observations">
+            <div className="meta">
+              這些配置所在的三對三牌組尚有零件未映射，因此只揭露來源，不納入出場率、Meta share 或可信度。
+            </div>
+            {tournamentObservationsForPart.map((observation) => {
+              const event = tournamentEventById.get(observation.eventId)
+              return event ? (
+                <a key={observation.id} href={observation.sourceUrl} target="_blank" rel="noreferrer">
+                  {event.name}（第 {observation.placement ?? '未標示'} 名・{event.date}）
+                </a>
+              ) : null
+            })}
+          </div>
+        </Section>
+      ) : null}
 
       <Section title="來源網址">
         <div className="card" style={{ display: 'grid', gap: 10, fontSize: 14 }}>

@@ -218,5 +218,52 @@
         }
       ]
     }
+  ],
+  "observationEvents": [
+    {
+      "event": {
+        "id": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+        "name": "極限盃 G1 高雄站（通常組）",
+        "date": "2026-07-25",
+        "country": "Taiwan",
+        "region": "高雄",
+        "tier": "G1",
+        "format": "Standard 3on3 Top Cut",
+        "sourceTier": "verified_community",
+        "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+      },
+      "observations": [
+        {
+          "id": "kaohsiung-g1-regular-1-wizard-1-60fb",
+          "placement": 1,
+          "reportedCombo": "魔導神杖1-60FB",
+          "comboPartIds": ["blade:ウィザードロッド", "ratchet:1-60", "bit:FB"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-1-cobalt-9-60e",
+          "placement": 1,
+          "reportedCombo": "蒼穹龍騎士9-60E",
+          "comboPartIds": ["blade:コバルトドラグーン", "ratchet:9-60", "bit:E"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-2-wizard-3-60fb",
+          "placement": 2,
+          "reportedCombo": "魔導神杖3-60FB",
+          "comboPartIds": ["blade:ウィザードロッド", "ratchet:3-60", "bit:FB"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-2-shark-1-60lr",
+          "placement": 2,
+          "reportedCombo": "鮫鯊狂鱗1-60LR",
+          "comboPartIds": ["blade:シャークスケイル", "ratchet:1-60", "bit:LR"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-3-wizard-1-60fb",
+          "placement": 3,
+          "reportedCombo": "魔導神杖1-60FB",
+          "comboPartIds": ["blade:ウィザードロッド", "ratchet:1-60", "bit:FB"]
+        }
+      ]
+    }
   ]
 }

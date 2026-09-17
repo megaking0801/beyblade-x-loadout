@@ -33,7 +33,8 @@ const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
 const FETCHED_AT = '2026-09-16'
-const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}`
+// 非商品一覽的策展資料更新也必須讓既有裝置重新載入 Catalog。
+const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r2`
 
 const CATEGORY_BY_JA = {
   'スターター': 'starter',
@@ -622,7 +623,9 @@ function main() {
     imageCount: 0,
     tournamentEventCount: 0,
     tournamentDeckCount: 0,
+    tournamentObservationCount: 0,
     rejectedTournamentDecks: [],
+    rejectedTournamentObservations: [],
     productsWithoutImages: [],
     unparsedBeyProducts: [],
     contentsUnknownProducts: [],
@@ -1082,6 +1085,7 @@ function main() {
 
   const tournamentEvents = []
   const tournamentDecks = []
+  const tournamentObservations = []
   const partById = parts
   for (const sourceEvent of tournamentSource.events) {
     const acceptedDecks = []
@@ -1107,6 +1111,31 @@ function main() {
     }
   }
 
+  for (const sourceEvent of tournamentSource.observationEvents ?? []) {
+    const acceptedObservations = []
+    for (const sourceObservation of sourceEvent.observations) {
+      const reason = validateTournamentObservation(sourceObservation, partById)
+      if (reason) {
+        audit.rejectedTournamentObservations.push({ id: sourceObservation.id, reason })
+        continue
+      }
+      acceptedObservations.push({
+        id: sourceObservation.id,
+        eventId: sourceEvent.event.id,
+        placement: sourceObservation.placement,
+        comboPartIds: sourceObservation.comboPartIds,
+        reportedCombo: sourceObservation.reportedCombo,
+        sourceUrl: sourceEvent.event.sourceUrl,
+      })
+    }
+    if (acceptedObservations.length > 0) {
+      if (!tournamentEvents.some((event) => event.id === sourceEvent.event.id)) {
+        tournamentEvents.push(sourceEvent.event)
+      }
+      tournamentObservations.push(...acceptedObservations)
+    }
+  }
+
   const catalog = {
     version: CATALOG_VERSION,
     sourceUrl: LINEUP_URL,
@@ -1119,6 +1148,7 @@ function main() {
     images,
     tournamentEvents,
     tournamentDecks,
+    tournamentObservations,
     partIdMigrations,
   }
 
@@ -1150,6 +1180,7 @@ function main() {
   audit.partCount = catalog.parts.length
   audit.tournamentEventCount = tournamentEvents.length
   audit.tournamentDeckCount = tournamentDecks.length
+  audit.tournamentObservationCount = tournamentObservations.length
   const imageProductIds = new Set(
     images.filter((image) => image.entityType === 'product').map((image) => image.entityId),
   )
@@ -1173,7 +1204,7 @@ function main() {
       `無零件商品：${audit.noPartsProducts.length} 筆`,
   )
   console.log(`中文名稱未完全翻譯：${audit.untranslatedNames.length} 筆`)
-  console.log(`賽事 ${tournamentEvents.length} 場、完整牌組 ${tournamentDecks.length} 副、拒絕 ${audit.rejectedTournamentDecks.length} 副`)
+  console.log(`賽事 ${tournamentEvents.length} 場、完整牌組 ${tournamentDecks.length} 副、來源觀測 ${tournamentObservations.length} 筆`)
 }
 
 function validateTournamentDeck(deck, partById) {
@@ -1186,6 +1217,21 @@ function validateTournamentDeck(deck, partById) {
     if (!['blade', 'integrated_blade'].includes(blade.family) || ratchet.family !== 'ratchet' || bit.family !== 'bit') {
       return `零件家族不符：${ids.join(', ')}`
     }
+  }
+  return undefined
+}
+
+function validateTournamentObservation(observation, partById) {
+  if (typeof observation.reportedCombo !== 'string' || observation.reportedCombo.trim() === '') {
+    return '缺少來源頁的原始配置文字'
+  }
+  if (!Array.isArray(observation.comboPartIds) || observation.comboPartIds.length !== 3) {
+    return '觀測配置不是上蓋、固鎖、軸心三件式'
+  }
+  const [blade, ratchet, bit] = observation.comboPartIds.map((id) => partById.get(id))
+  if (!blade || !ratchet || !bit) return `型錄找不到零件：${observation.comboPartIds.join(', ')}`
+  if (!['blade', 'integrated_blade'].includes(blade.family) || ratchet.family !== 'ratchet' || bit.family !== 'bit') {
+    return `零件家族不符：${observation.comboPartIds.join(', ')}`
   }
   return undefined
 }
