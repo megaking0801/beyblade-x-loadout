@@ -31,8 +31,16 @@ export function ImageSourceNote({ image }: { image: ImageAsset | undefined }) {
       </span>
       <span>
         {image.copyrightOwner ? `版權：${image.copyrightOwner}・` : '版權人未標示・'}
-        {USAGE_ZH[image.usageStatus]}
+        {image.isLocalMirror ? '本機副本（未取得授權）' : USAGE_ZH[image.usageStatus]}
       </span>
+      {image.remoteUrl ? (
+        <span>
+          原始位置：
+          <a href={image.remoteUrl} target="_blank" rel="noreferrer">
+            {new URL(image.remoteUrl).host}
+          </a>
+        </span>
+      ) : null}
     </div>
   )
 }

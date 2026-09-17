@@ -364,9 +364,12 @@
   "knownGaps": [
     "官方商品頁未公布零件的類型、重量、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。",
     "官方商品頁未公布隨機強化組的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。",
-    "套裝商品（套組、對戰入門組等）的內含陀螺未在官方一覽頁公布，內容留空並標 needs_review。",
-    "CX 上蓋在商品上為「鎖定紋章 + 主刃」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。",
-    "中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。"
+    "套裝商品的內含陀螺未在官方一覽頁公布，改以 BeybladeHub 商品頁逐筆彙整，這些商品標 community_only 並附該頁網址與原文引述。",
+    "只出現在套裝內的上蓋（官方一覽頁沒有單獨列出）身分也標 community_only。",
+    "CX 上蓋的鎖定紋章與主刃名稱官方未公布，依 BeybladeHub 零件頁拆成兩顆零件；該站未收錄的 4 顆維持合併並標記 cxFused。",
+    "「哪些零件是固鎖一體型」官方商品名不會標，依 BeybladeHub 零件頁記錄，屬社群來源。",
+    "中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。",
+    "圖片為本機副本（自存一份避免來源改路徑就破圖），不代表已取得授權：usageStatus 標 unknown，原始位置與來源名稱都保留在資料裡。"
   ],
   "cxSplitCount": 12,
   "curatedSets": {
@@ -534,5 +537,9 @@
   "hubImages": {
     "partImages": 195,
     "productImagesReplaced": 73
+  },
+  "localImages": {
+    "mirrored": 340,
+    "stillRemote": 0
   }
 }

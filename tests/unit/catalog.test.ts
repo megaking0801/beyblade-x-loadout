@@ -46,11 +46,24 @@ describe('Catalog 基本完整性（第 42 節）', () => {
     }
   })
 
-  it('圖片只以可追溯的外部連結方式記錄，並保留缺圖稽核', () => {
+  it('圖片一律可追溯來源，並保留缺圖稽核', () => {
     expect(catalog.images.length).toBe(catalogAudit.imageCount)
     expect(catalog.images.length).toBeGreaterThanOrEqual(100)
-    expect(catalog.images.every((image) => image.usageStatus === 'link_only')).toBe(true)
-    // 官方商品圖與社群零件圖都只連結、不重新散布，來源網域兩者都要能追溯。
+    /*
+     * 圖片已改成本機副本（專案擁有者決定自存一份，避免來源改路徑就整批破圖）。
+     * 鏡像不等於取得授權，所以狀態是 unknown 而不是 permission_granted；
+     * 原始網址與來源名稱都要留著，前台才交代得出來。
+     */
+    for (const image of catalog.images) {
+      if (image.isLocalMirror) {
+        expect(image.usageStatus).toBe('unknown')
+        expect(image.url.startsWith('/img/')).toBe(true)
+        expect(image.remoteUrl).toBeDefined()
+      } else {
+        expect(image.usageStatus).toBe('link_only')
+      }
+    }
+    // 官方商品圖與社群零件圖的來源網域兩者都要能追溯。
     expect(
       catalog.images.every((image) =>
         /(?:takaratomy\.co\.jp|rakuten\.co\.jp|amazon\.co\.jp|beybladehub\.app)/.test(image.sourceUrl),
@@ -67,7 +80,7 @@ describe('Catalog 基本完整性（第 42 節）', () => {
     const partImages = catalog.images.filter((image) => image.entityType === 'part')
     expect(partImages.length).toBeGreaterThan(100)
     for (const image of partImages) {
-      expect(image.usageStatus).toBe('link_only')
+      expect(['link_only', 'unknown']).toContain(image.usageStatus)
       expect(image.sourceName.trim().length).toBeGreaterThan(0)
       expect(image.sourceUrl.trim().length).toBeGreaterThan(0)
       expect(catalog.parts.some((part) => part.id === image.entityId)).toBe(true)
@@ -80,17 +93,21 @@ describe('Catalog 基本完整性（第 42 節）', () => {
      * 以前把 copyrightOwner 寫成 BeybladeHub，那是捏造的歸屬。
      * 不知道版權人時就留空，並讓 sourceName／sourceUrl 指向實際取圖的地方。
      */
-    const hubImages = catalog.images.filter((image) => image.url.includes('beybladehub.app'))
+    const hubImages = catalog.images.filter((image) =>
+      (image.remoteUrl ?? image.url).includes('beybladehub.app'),
+    )
     expect(hubImages.length).toBeGreaterThan(100)
     for (const image of hubImages) {
       expect(image.copyrightOwner).toBeUndefined()
       expect(image.sourceUrl).toContain('beybladehub.app')
-      expect(image.sourceName).toContain('外部連結')
+      expect(image.sourceName).toContain('BeybladeHub')
     }
   })
 
   it('官方商品圖仍標明版權人為 Takara Tomy', () => {
-    const official = catalog.images.filter((image) => image.url.includes('takaratomy.co.jp'))
+    const official = catalog.images.filter((image) =>
+      (image.remoteUrl ?? image.url).includes('takaratomy.co.jp'),
+    )
     expect(official.length).toBeGreaterThan(0)
     for (const image of official) {
       expect(image.copyrightOwner).toBe('Takara Tomy')
@@ -657,5 +674,45 @@ describe('套裝內容已全部補齊（第 14、24、41 節）', () => {
     expect(setOnly).toBeDefined()
     expect(setOnly!.provenance.verificationStatus).toBe('community_only')
     expect(setOnly!.naming.primaryZhTW).toBe('戰羊阻截')
+  })
+})
+
+describe('圖片本機副本（第 25 節）', () => {
+  /**
+   * 原本全部是外部連結，來源改路徑或擋掉就整批破圖。
+   * 專案擁有者決定自存一份，但鏡像不等於取得授權，所以：
+   *  - usageStatus 標 unknown，不寫成 permission_granted
+   *  - 原始網址與來源名稱都保留，前台照樣顯示來源
+   */
+  it('每張圖都有本機副本，並保留原始網址', () => {
+    expect(catalogAudit.localImages.mirrored).toBe(catalog.images.length)
+    expect(catalogAudit.localImages.stillRemote).toBe(0)
+    for (const image of catalog.images) {
+      expect(image.isLocalMirror).toBe(true)
+      expect(image.url).toMatch(/^\/img\/[0-9a-f]{16}\.(webp|png|jpg)$/)
+      expect(image.remoteUrl).toMatch(/^https:\/\//)
+      expect(image.sourceUrl).toMatch(/^https:\/\//)
+    }
+  })
+
+  it('不得把鏡像講成已取得授權', () => {
+    for (const image of catalog.images) {
+      expect(image.usageStatus).not.toBe('permission_granted')
+      expect(image.usageStatus).toBe('unknown')
+    }
+  })
+
+  it('本機路徑不重複指到同一個實體時仍各自對得上原始網址', () => {
+    const byUrl = new Map<string, Set<string>>()
+    for (const image of catalog.images) {
+      const set = byUrl.get(image.url) ?? new Set<string>()
+      set.add(image.remoteUrl as string)
+      byUrl.set(image.url, set)
+    }
+    // 同一個本機檔可以被多筆共用（同一顆上蓋的商品圖與零件圖），
+    // 但它們必須來自同一個原始網址，否則表示對應表出錯。
+    for (const [localPath, remotes] of byUrl) {
+      expect(remotes.size, `${localPath} 對到多個原始網址`).toBe(1)
+    }
   })
 })

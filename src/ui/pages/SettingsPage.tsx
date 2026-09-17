@@ -143,8 +143,8 @@ export function SettingsPage() {
       <Section title="圖片來源">
         <div className="card" style={{ display: 'grid', gap: 6, fontSize: 13 }}>
           <div style={{ color: 'var(--text-dim)' }}>
-            所有圖片都只做外部連結，不下載也不重新散布（第 25 節）。
-            看過的圖會由 service worker 快取，離線時仍看得到；來源端改路徑或擋掉時會退回型號佔位圖。
+            圖片已下載成本機副本並跟著 App 一起發佈，來源端改路徑或擋掉也不會破圖。
+            這不代表已取得授權，所以每張圖都保留原始位置與來源，授權狀態標為「未確認」。
           </div>
           {imageSources.map((row) => (
             <div key={row.sourceName}>
@@ -155,7 +155,8 @@ export function SettingsPage() {
             </div>
           ))}
           <div style={{ color: 'var(--text-dim)' }}>
-            共 {images.length} 張。可用 `npm run check:images` 重新檢查是否還取得到。
+            共 {images.length} 張，全部為本機副本。
+            可用 `npm run fetch:images` 重新抓取、`npm run check:images` 檢查檔案是否完整。
           </div>
         </div>
       </Section>

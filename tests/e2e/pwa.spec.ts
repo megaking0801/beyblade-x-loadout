@@ -365,7 +365,7 @@ test('service worker 有把外部圖片納入快取規則', async ({ request }) 
 test('設定頁列出所有圖片來源與只連結不散布的說明', async ({ page }) => {
   await openApp(page, '/settings')
   await expect(page.getByRole('heading', { name: '圖片來源' })).toBeVisible()
-  await expect(page.getByText('不下載也不重新散布', { exact: false })).toBeVisible()
+  await expect(page.getByText('這不代表已取得授權', { exact: false })).toBeVisible()
   await expect(page.getByRole('link', { name: /BeybladeHub/ }).first()).toBeVisible()
   await expect(page.getByRole('link', { name: /Takara Tomy/ }).first()).toBeVisible()
 })
@@ -373,5 +373,37 @@ test('設定頁列出所有圖片來源與只連結不散布的說明', async ({
 test('零件詳情頁看得到圖片來源與授權狀態', async ({ page }) => {
   await openApp(page, '/part?id=blade%3A%E3%83%89%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%89')
   await expect(page.getByText('圖片來源：', { exact: false })).toBeVisible()
-  await expect(page.getByText('僅外部連結，未重新散布', { exact: false })).toBeVisible()
+  await expect(page.getByText('本機副本（未取得授權）', { exact: false })).toBeVisible()
+})
+
+/**
+ * 配裝比較的實際流程（第 34 節）。
+ * 這頁版面重排過，順手守住「選兩套就會出現比較表」這條主線。
+ */
+test('配裝比較選兩套之後出現比較表', async ({ page }) => {
+  for (const sku of ['BX-01', 'BX-02']) {
+    await openApp(page, '/products')
+    await page.getByTestId('tab-catalog').click()
+    await page.getByTestId('product-search').fill(sku)
+    await page.getByTestId('catalog-product').first().getByTestId('add-owned').click()
+  }
+
+  await openApp(page, '/compare')
+  await expect(page.getByText('還沒選滿兩套')).toBeVisible()
+
+  const optionsA = page.getByLabel('配裝 A')
+  const values = await optionsA.locator('option').evaluateAll((nodes) =>
+    nodes.map((node) => (node as HTMLOptionElement).value).filter(Boolean),
+  )
+  expect(values.length).toBeGreaterThanOrEqual(2)
+
+  await optionsA.selectOption(values[0]!)
+  await page.getByLabel('配裝 B').selectOption(values[1]!)
+
+  await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
+  // 第 34 節要求的八個比較項目
+  for (const label of ['攻擊', '防守', '持久', '高度', '穩定', '操作難度', '賽事證據', '資料可信度']) {
+    await expect(page.getByRole('cell', { name: label, exact: true })).toBeVisible()
+  }
+  await expect(page.getByText('換掉的零件')).toBeVisible()
 })

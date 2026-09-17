@@ -7,7 +7,7 @@
  * 圖片全部是外部連結，對方隨時可能改路徑或擋掉，所以這支要能隨時重跑。
  * 用法：npm run check:images
  */
-import { readFileSync } from 'node:fs'
+import { readFileSync, existsSync, statSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -23,6 +23,7 @@ const targets = (catalog.images ?? []).map((image) => ({
   kind: KIND_ZH[image.entityType] ?? image.entityType,
   id: image.entityId,
   url: image.url,
+  local: image.isLocalMirror === true,
 }))
 
 console.log(`要檢查 ${targets.length} 張圖片`)
@@ -32,6 +33,19 @@ const broken = []
 const byHost = new Map()
 
 async function head(target) {
+  // 本機副本檢查檔案在不在、是不是空的就好，不用連外。
+  if (target.local) {
+    byHost.set('本機 public/img', (byHost.get('本機 public/img') ?? 0) + 1)
+    const path = resolve(root, 'public', target.url.replace(/^\//, ''))
+    if (!existsSync(path)) {
+      broken.push({ ...target, reason: '本機副本不存在（跑 npm run fetch:images）' })
+      return
+    }
+    if (statSync(path).size === 0) {
+      broken.push({ ...target, reason: '本機副本是空檔' })
+    }
+    return
+  }
   const host = new URL(target.url).host
   byHost.set(host, (byHost.get(host) ?? 0) + 1)
   try {

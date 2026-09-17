@@ -134,8 +134,10 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     <>
       <PageHeader title="配裝器" description="順序是上蓋 → 固鎖 → 軸心；CX 會顯示對應欄位。" />
 
+      <div className="work-split">
+      <div className="stack">
       <Section title="模式">
-        <Row gap={6}>
+        <div className="chip-row">
           {(Object.keys(MODE_LABEL) as BuilderMode[]).map((item) => (
             <button
               key={item}
@@ -146,16 +148,16 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
               {MODE_LABEL[item]}
             </button>
           ))}
-        </Row>
+        </div>
         {mode === 'hypothetical' ? (
-          <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 6 }}>
+          <div className="meta" style={{ marginTop: 6 }}>
             假想購買：可以選還沒有的零件，結果會標示庫存不足。
           </div>
         ) : null}
       </Section>
 
       <Section title="結構">
-        <Row gap={6}>
+        <div className="chip-row">
           <button
             type="button"
             className={structure === 'standard' ? 'btn btn-primary' : 'btn'}
@@ -176,11 +178,11 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
           >
             CX 模組化
           </button>
-        </Row>
+        </div>
       </Section>
 
       <Section title="選擇零件">
-        <div style={{ display: 'grid', gap: 10 }}>
+        <div className="stack">
           {visibleKeys.map((key) => (
             <SlotPicker
               key={key}
@@ -231,6 +233,9 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         </NoticeCard>
       ) : null}
 
+      </div>
+
+      <div className="work-result">
       <ComboResult analysis={analysis} />
 
       <Section title="儲存這套配裝">
@@ -306,10 +311,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       </Section>
 
       <Section title="分享">
-        <div className="card" style={{ display: 'grid', gap: 8 }}>
-          <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-            只分享這套配裝，不會包含你的庫存。
-          </div>
+        <div className="card stack">
+          <div className="meta">只分享這套配裝，不會包含你的庫存。</div>
           <Row>
             <button
               type="button"
@@ -336,9 +339,11 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
               分享連結
             </button>
           </Row>
-          {shareMessage ? <div style={{ fontSize: 13 }}>{shareMessage}</div> : null}
+          {shareMessage ? <div className="meta">{shareMessage}</div> : null}
         </div>
       </Section>
+      </div>
+      </div>
     </>
   )
 }

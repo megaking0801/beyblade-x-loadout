@@ -106,6 +106,8 @@ export function DecksPage() {
         ) : null}
       </NoticeCard>
 
+      <div className="work-split">
+      <div className="stack">
       <Section title="推薦模式">
         <select
           className="field"
@@ -121,6 +123,9 @@ export function DecksPage() {
         </select>
       </Section>
 
+      </div>
+
+      <div className="work-result">
       <Section title="建議隊伍" action={<EstimateBadge />}>
         {candidates.length < DEFAULT_DECK_RULES.teamSize ? (
           <EmptyState
@@ -135,7 +140,7 @@ export function DecksPage() {
             hint="可能是上蓋重複或某個零件不夠用。"
           />
         ) : (
-          <div style={{ display: 'grid', gap: 12 }}>
+          <div className="stack">
             {suggestions.map((suggestion, index) => (
               <div className="card" data-testid="deck-suggestion" key={`${suggestion.strategy}-${index}`}>
                 <Row>
@@ -144,24 +149,17 @@ export function DecksPage() {
                   </strong>
                   <Badge tone="ok">可實際組出</Badge>
                 </Row>
-                <div style={{ height: 8 }} />
-                <div style={{ display: 'grid', gap: 8 }}>
+                <div className="stack" style={{ marginTop: 8 }}>
                   {suggestion.validation.members.map((member) => (
                     <div
+                      className="deck-member"
                       key={`${member.roleZhTW}-${member.analysis.fullCode}`}
-                      style={{
-                        borderLeft: '3px solid var(--accent)',
-                        paddingLeft: 10,
-                        fontSize: 14,
-                      }}
                     >
                       <div>
                         <Badge tone="accent">{member.roleZhTW}</Badge>{' '}
                         {member.analysis.fullNameZhTW}
                       </div>
-                      <div style={{ color: 'var(--text-dim)', fontSize: 13 }}>
-                        {member.reasonZhTW}
-                      </div>
+                      <div className="meta">{member.reasonZhTW}</div>
                     </div>
                   ))}
                 </div>
@@ -174,14 +172,11 @@ export function DecksPage() {
                     ))}
                   </ul>
                 ) : null}
-                <div style={{ height: 8 }} />
-                <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
+                <div className="meta" style={{ marginTop: 8 }}>
                   占用零件：{describeParts(suggestion.validation.occupiedPartIds, parts)}
                 </div>
                 {suggestion.alternativesZhTW.length > 0 ? (
-                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-                    {suggestion.alternativesZhTW.join('；')}
-                  </div>
+                  <div className="meta">{suggestion.alternativesZhTW.join('；')}</div>
                 ) : null}
                 <div style={{ height: 8 }} />
                 <Row>
@@ -222,12 +217,14 @@ export function DecksPage() {
           </div>
         )}
       </Section>
+      </div>
+      </div>
 
       <Section title="我的 3on3">
         {savedComboDecks.length === 0 ? (
           <EmptyState title="還沒有儲存隊伍" />
         ) : (
-          <div style={{ display: 'grid', gap: 10 }}>
+          <div className="list-grid">
             {savedComboDecks.map(({ deck, validation }) => (
               <div className="card" key={deck.id}>
                 <Row>
@@ -238,12 +235,13 @@ export function DecksPage() {
                     <Badge tone="danger">目前不可組</Badge>
                   )}
                 </Row>
-                <div style={{ height: 6 }} />
-                {validation.members.map((member) => (
-                  <div key={member.analysis.fullCode} style={{ fontSize: 14 }}>
-                    <Badge tone="accent">{member.roleZhTW}</Badge> {member.analysis.fullNameZhTW}
-                  </div>
-                ))}
+                <div className="stack" style={{ marginTop: 6, gap: 4 }}>
+                  {validation.members.map((member) => (
+                    <div key={member.analysis.fullCode}>
+                      <Badge tone="accent">{member.roleZhTW}</Badge> {member.analysis.fullNameZhTW}
+                    </div>
+                  ))}
+                </div>
                 {validation.errorsZhTW.length > 0 ? (
                   <ul style={{ margin: '8px 0 0', paddingLeft: 18, color: 'var(--danger)', fontSize: 13 }}>
                     {validation.errorsZhTW.map((error) => (

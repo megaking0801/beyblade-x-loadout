@@ -40,6 +40,8 @@ export default defineConfig({
         skipWaiting: true,
         clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // 本機圖片有 340 張、約 9 MB，全部預快取會讓安裝包爆掉；改走執行時快取。
+        globIgnores: ['img/**'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
         /*
@@ -48,6 +50,16 @@ export default defineConfig({
          * 目前佔全部圖片的多數，漏掉它等於零件頁離線全破。
          */
         runtimeCaching: [
+          {
+            // 本機圖片副本：看過就留著，離線也看得到。
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.includes('/img/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'beyblade-local-images',
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           {
             urlPattern:
               /^https:\/\/(?:img\.beybladehub\.app|beyblade\.takaratomy\.co\.jp|tshop\.r10s\.jp|m\.media-amazon\.com)\//,

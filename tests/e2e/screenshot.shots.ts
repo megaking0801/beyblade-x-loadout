@@ -6,6 +6,7 @@ const SHOTS = [
   { hash: '/parts', name: 'parts' },
   { hash: '/buildable', name: 'buildable' },
   { hash: '/decks', name: 'decks' },
+  { hash: '/compare', name: 'compare' },
   { hash: '/wishlist', name: 'wishlist' },
   { hash: '/settings', name: 'settings' },
 ]

@@ -11834,3108 +11834,3788 @@
       "id": "product:bx01:main",
       "entityType": "product",
       "entityId": "bx01",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx02:main",
       "entityType": "product",
       "entityId": "bx02",
-      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "url": "/img/b0dde61f79138cf4.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx03:main",
       "entityType": "product",
       "entityId": "bx03",
-      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "url": "/img/352146717d2dcab2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx04:main",
       "entityType": "product",
       "entityId": "bx04",
-      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "url": "/img/efd67bcd421d4ff9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx05:main",
       "entityType": "product",
       "entityId": "bx05",
-      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "url": "/img/352146717d2dcab2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx06:main",
       "entityType": "product",
       "entityId": "bx06",
-      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "url": "/img/efd67bcd421d4ff9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx07:main",
       "entityType": "product",
       "entityId": "bx07",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx08:main",
       "entityType": "product",
       "entityId": "bx08",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_y.png",
+      "url": "/img/ad9f2007114d75ea.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx08.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_y.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx09:main",
       "entityType": "product",
       "entityId": "bx09",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx09.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx10:main",
       "entityType": "product",
       "entityId": "bx10",
-      "url": "https://tshop.r10s.jp/auc-ookawaya/cabinet/65/4904810910596.jpg?fitin=275:275",
+      "url": "/img/8d32e3cdefe69026.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-10%20%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%A2%E3%83%A0/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/auc-ookawaya/cabinet/65/4904810910596.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx11:main",
       "entityType": "product",
       "entityId": "bx11",
-      "url": "https://tshop.r10s.jp/toy-manoa/cabinet/02946748/4904810910787.jpg?fitin=275:275",
+      "url": "/img/51441848fed5dcbb.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-11%20%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%E3%82%B0%E3%83%AA%E3%83%83%E3%83%97/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/toy-manoa/cabinet/02946748/4904810910787.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx12:main",
       "entityType": "product",
       "entityId": "bx12",
-      "url": "https://tshop.r10s.jp/ekobo/cabinet/10466052/24424058_0.jpg?fitin=275:275",
+      "url": "/img/c05acd700ed837fa.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-12%203on3%E3%83%87%E3%83%83%E3%82%AD%E3%82%B1%E3%83%BC%E3%82%B9/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/ekobo/cabinet/10466052/24424058_0.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-es:main",
       "entityType": "product",
       "entityId": "bx00-es",
-      "url": "https://tshop.r10s.jp/auc-ookawaya/cabinet/65/4904810910596.jpg?fitin=275:275",
+      "url": "/img/8d32e3cdefe69026.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%A2%E3%83%A0%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/auc-ookawaya/cabinet/65/4904810910596.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ds:main",
       "entityType": "product",
       "entityId": "bx00-ds",
-      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "url": "/img/8f60ff04fbf5d400.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx13:main",
       "entityType": "product",
       "entityId": "bx13",
-      "url": "https://img.beybladehub.app/blades-db/KnLn.webp",
+      "url": "/img/c622d4bd06dc40c7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnLn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx14:main",
       "entityType": "product",
       "entityId": "bx14",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx14.png",
+      "url": "/img/674765a605db684c.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx14.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx14.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-hc:main",
       "entityType": "product",
       "entityId": "bx00-hc",
-      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "url": "/img/b0dde61f79138cf4.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx15:main",
       "entityType": "product",
       "entityId": "bx15",
-      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "url": "/img/ab8485ab2dc4cc67.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx16:main",
       "entityType": "product",
       "entityId": "bx16",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx16.png",
+      "url": "/img/1f493584249a1c03.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx16.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx16.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx17:main",
       "entityType": "product",
       "entityId": "bx17",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx17A.png",
+      "url": "/img/c7f388fdad49131d.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx17.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx17A.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx18:main",
       "entityType": "product",
       "entityId": "bx18",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx18.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx19:main",
       "entityType": "product",
       "entityId": "bx19",
-      "url": "https://img.beybladehub.app/blades-db/RhHr.webp",
+      "url": "/img/10526ce0b67297f9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/RhHr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx20:main",
       "entityType": "product",
       "entityId": "bx20",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx20B.png",
+      "url": "/img/37f9ddec7a3b9690.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx20.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx20B.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx21:main",
       "entityType": "product",
       "entityId": "bx21",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx21_p.png",
+      "url": "/img/37da6a7cba43cbb9.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx21.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx21_p.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx22:main",
       "entityType": "product",
       "entityId": "bx22",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx23:main",
       "entityType": "product",
       "entityId": "bx23",
-      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "url": "/img/74cb6e8ffb421110.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx24:main",
       "entityType": "product",
       "entityId": "bx24",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx24.png",
+      "url": "/img/5c8e8ead9bea8918.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx24.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx24.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx25:main",
       "entityType": "product",
       "entityId": "bx25",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx25.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx26:main",
       "entityType": "product",
       "entityId": "bx26",
-      "url": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "url": "/img/75ad075550a2b660.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx27:main",
       "entityType": "product",
       "entityId": "bx27",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx27.png",
+      "url": "/img/770c3f159e7f368d.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx27.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx27.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-lc:main",
       "entityType": "product",
       "entityId": "bx00-lc",
-      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "url": "/img/ab8485ab2dc4cc67.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-se:main",
       "entityType": "product",
       "entityId": "bx00-se",
-      "url": "https://img.beybladehub.app/blades-db/ShEd.webp",
+      "url": "/img/921875c6f398efa3.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShEd.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx28:main",
       "entityType": "product",
       "entityId": "bx28",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx28.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx29:main",
       "entityType": "product",
       "entityId": "bx29",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx29.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx30:main",
       "entityType": "product",
       "entityId": "bx30",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx30.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux01:main",
       "entityType": "product",
       "entityId": "ux01",
-      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "url": "/img/ab5749a32d060f98.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux02:main",
       "entityType": "product",
       "entityId": "ux02",
-      "url": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "url": "/img/89d776fe47c3b68e.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux03:main",
       "entityType": "product",
       "entityId": "ux03",
-      "url": "https://img.beybladehub.app/blades-db/WzRd.webp",
+      "url": "/img/a808988a67744f86.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzRd.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux04:main",
       "entityType": "product",
       "entityId": "ux04",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux04A.png",
+      "url": "/img/3db33e154bd4ba16.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux04.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux04A.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-drs:main",
       "entityType": "product",
       "entityId": "bx00-drs",
-      "url": "https://img.beybladehub.app/blades-db/DrSl.webp",
+      "url": "/img/3d0b76e6f7b7580f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx31:main",
       "entityType": "product",
       "entityId": "bx31",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx31.png",
+      "url": "/img/cc9caaf228f49339.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx31.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx31.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-hch:main",
       "entityType": "product",
       "entityId": "bx00-hch",
-      "url": "https://img.beybladehub.app/blades-db/HlCh.webp",
+      "url": "/img/77d95f9ec71e73e6.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlCh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux05:main",
       "entityType": "product",
       "entityId": "ux05",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux05.png",
+      "url": "/img/b8dfe589906bc565.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux05.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux05.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-cg:main",
       "entityType": "product",
       "entityId": "bx00-cg",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "url": "/img/fa52337b2e491ecf.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-cg.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx08_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx33:main",
       "entityType": "product",
       "entityId": "bx33",
-      "url": "https://img.beybladehub.app/blades-db/WsTg.webp",
+      "url": "/img/9cb6513356c46687.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WsTg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx32:main",
       "entityType": "product",
       "entityId": "bx32",
-      "url": "https://tshop.r10s.jp/zononetshop/cabinet/13215726/517cbqwo7ql.jpg?fitin=275:275",
+      "url": "/img/ecbd84f76d5233cf.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-32%20%E3%83%AF%E3%82%A4%E3%83%89%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%A2%E3%83%A0/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/zononetshop/cabinet/13215726/517cbqwo7ql.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx34:main",
       "entityType": "product",
       "entityId": "bx34",
-      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "url": "/img/16bb3150c5c3d454.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx35:main",
       "entityType": "product",
       "entityId": "bx35",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx35.png",
+      "url": "/img/256a96d8acf8d20b.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx35.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx35.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-bit01:main",
       "entityType": "product",
       "entityId": "bx00-bit01",
-      "url": "https://m.media-amazon.com/images/I/31GhVp1lKUL._AC_UL320_.jpg",
+      "url": "/img/96468a69bda06bf3.jpg",
       "sourceUrl": "https://www.amazon.co.jp/s?k=BX-00%20%E3%83%93%E3%83%83%E3%83%88%E3%82%BB%E3%83%83%E3%83%88%20F%2FT%2FB%2FN%20%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%89%C3%97%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF",
-      "sourceName": "Amazon Japan 商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Amazon Japan 商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://m.media-amazon.com/images/I/31GhVp1lKUL._AC_UL320_.jpg",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-dd:main",
       "entityType": "product",
       "entityId": "bx00-dd",
-      "url": "https://img.beybladehub.app/blades-db/DrDg.webp",
+      "url": "/img/143afb2cc5339f88.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ds3:main",
       "entityType": "product",
       "entityId": "bx00-ds3",
-      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "url": "/img/8f60ff04fbf5d400.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux06:main",
       "entityType": "product",
       "entityId": "ux06",
-      "url": "https://img.beybladehub.app/blades-db/LnCr.webp",
+      "url": "/img/bf616f9e410ea3d1.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LnCr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux07:main",
       "entityType": "product",
       "entityId": "ux07",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux07_r.png",
+      "url": "/img/81b4a394ecc8fe3d.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux07.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux07_r.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-cd:main",
       "entityType": "product",
       "entityId": "bx00-cd",
-      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "url": "/img/16bb3150c5c3d454.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ld:main",
       "entityType": "product",
       "entityId": "bx00-ld",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg_07_1.png",
+      "url": "/img/8fbdf236cf59b6fe.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ld.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxg_07_1.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx36:main",
       "entityType": "product",
       "entityId": "bx36",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx36.png",
+      "url": "/img/e6c8eea13b9d2817.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx36.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx36.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux08:main",
       "entityType": "product",
       "entityId": "ux08",
-      "url": "https://img.beybladehub.app/blades-db/SlWl.webp",
+      "url": "/img/2e183dfa00210d3e.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SlWl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx37:main",
       "entityType": "product",
       "entityId": "bx37",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx37.png",
+      "url": "/img/8f4237fb4b24ab7d.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx37.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx37.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx38:main",
       "entityType": "product",
       "entityId": "bx38",
-      "url": "https://img.beybladehub.app/blades-db/CrGr.webp",
+      "url": "/img/d7d1f722c7b4c1b5.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CrGr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux09:main",
       "entityType": "product",
       "entityId": "ux09",
-      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "url": "/img/9636e0536bb5b6f2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux10:main",
       "entityType": "product",
       "entityId": "ux10",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux10.png",
+      "url": "/img/ea1a73c484c9f970.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux10.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux10.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bxa02:main",
       "entityType": "product",
       "entityId": "bxa02",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxa_02_db2.png",
+      "url": "/img/8e3f9c7fe6da708c.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bxa02.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bxa_02_db2.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-cdr:main",
       "entityType": "product",
       "entityId": "bx00-cdr",
-      "url": "https://img.beybladehub.app/blades-db/CbDr.webp",
+      "url": "/img/8ac2aedc4bebc302.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-cc:main",
       "entityType": "product",
       "entityId": "bx00-cc",
-      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "url": "/img/ab5749a32d060f98.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-mt:main",
       "entityType": "product",
       "entityId": "bx00-mt",
-      "url": "https://img.beybladehub.app/blades-db/MmTs.webp",
+      "url": "/img/a5ca069ba7a1e2c7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/MmTs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux11:main",
       "entityType": "product",
       "entityId": "ux11",
-      "url": "https://img.beybladehub.app/blades-db/ImDr.webp",
+      "url": "/img/786f4e60a5d3b0e3.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ImDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux12:main",
       "entityType": "product",
       "entityId": "ux12",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux12.png",
+      "url": "/img/1933e08a4493ab24.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux12.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_ux12.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-drsh:main",
       "entityType": "product",
       "entityId": "bx00-drsh",
-      "url": "https://img.beybladehub.app/blades-db/DrSh.webp",
+      "url": "/img/e1bd25394dbf4ac1.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-db_bc:main",
       "entityType": "product",
       "entityId": "ux00-db_bc",
-      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "url": "/img/ab5749a32d060f98.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-hs_bc:main",
       "entityType": "product",
       "entityId": "ux00-hs_bc",
-      "url": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "url": "/img/89d776fe47c3b68e.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux13:main",
       "entityType": "product",
       "entityId": "ux13",
-      "url": "https://img.beybladehub.app/blades-db/GlRc.webp",
+      "url": "/img/102ed8d4b652fdfc.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/GlRc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx39:main",
       "entityType": "product",
       "entityId": "bx39",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx39.png",
+      "url": "/img/3e8740c677d075ac.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx39.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_bx39.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-pw:main",
       "entityType": "product",
       "entityId": "bx00-pw",
-      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "url": "/img/74cb6e8ffb421110.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-25set:main",
       "entityType": "product",
       "entityId": "bx00-25set",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0112/52002562_1.jpg?fitin=275:275",
+      "url": "/img/3cbc2f815b54bb8a.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%83%99%E3%82%A4%E3%83%96%E3%83%AC%E3%83%BC%E3%83%8925%E5%91%A8%E5%B9%B4%E8%A8%98%E5%BF%B5%E3%82%BB%E3%83%83%E3%83%88/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0112/52002562_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx40:main",
       "entityType": "product",
       "entityId": "bx40",
-      "url": "https://tshop.r10s.jp/auc-ookawaya/cabinet/10032/11/4904810958765.jpg?fitin=275:275",
+      "url": "/img/12f66c4e537a590d.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-40%20%E3%83%AF%E3%82%A4%E3%83%B3%E3%83%80%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BCL/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/auc-ookawaya/cabinet/10032/11/4904810958765.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx41:main",
       "entityType": "product",
       "entityId": "bx41",
-      "url": "https://tshop.r10s.jp/lifel-lifel/cabinet/amayahoo/13598175/0435-013708.jpg?fitin=275:275",
+      "url": "/img/4cbcaff7eede7967.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-41%20%E3%83%A9%E3%83%90%E3%83%BC%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%B0%E3%83%AA%E3%83%83%E3%83%97%20%E3%82%AC%E3%83%B3%E3%83%A1%E3%82%BFVer./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/lifel-lifel/cabinet/amayahoo/13598175/0435-013708.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx42:main",
       "entityType": "product",
       "entityId": "bx42",
-      "url": "https://tshop.r10s.jp/mimiy331/cabinet/24/tb4904810958536.jpg?fitin=275:275",
+      "url": "/img/0f321de06dc77a32.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-42%20%E3%83%A9%E3%83%90%E3%83%BC%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%B0%E3%83%AA%E3%83%83%E3%83%97%20%E3%83%96%E3%83%AB%E3%83%BCVer./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/mimiy331/cabinet/24/tb4904810958536.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx43:main",
       "entityType": "product",
       "entityId": "bx43",
-      "url": "https://tshop.r10s.jp/hobbyone/cabinet/plamodel/sonota2/4904810958796.jpg?fitin=275:275",
+      "url": "/img/a62a86ec979ba54d.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-43%20%E3%82%AE%E3%82%A2%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88Ver./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/hobbyone/cabinet/plamodel/sonota2/4904810958796.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx01:main",
       "entityType": "product",
       "entityId": "cx01",
-      "url": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "url": "/img/6a7fd80291be7efa.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx02:main",
       "entityType": "product",
       "entityId": "cx02",
-      "url": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "url": "/img/9d4bf58717dcbdf7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx03:main",
       "entityType": "product",
       "entityId": "cx03",
-      "url": "https://img.beybladehub.app/blades-cx/main-Dr.webp",
+      "url": "/img/c21bff73f2aa931b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Dr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx04:main",
       "entityType": "product",
       "entityId": "cx04",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX04_d.png",
+      "url": "/img/fdbff456cb4cd741.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx04.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX04_d.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-xc:main",
       "entityType": "product",
       "entityId": "bx00-xc",
-      "url": "https://img.beybladehub.app/blades-db/XnXc.webp",
+      "url": "/img/bca251b0b11d1e7b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/XnXc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx05:main",
       "entityType": "product",
       "entityId": "cx05",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX05.png",
+      "url": "/img/723bbb17759167b5.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx05.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX05.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-sld:main",
       "entityType": "product",
       "entityId": "bx00-sld",
-      "url": "https://tshop.r10s.jp/clothoid/cabinet/03431336/imgrc0063911199.jpg?fitin=275:275",
+      "url": "/img/f7ac3b5602f9ce83.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%BB%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%BA%20%E3%83%AB%E3%83%BC%E3%82%AF%E3%83%BB%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AB%E3%83%BC4-80B%2F%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%99%E3%82%A4%E3%83%80%E3%83%BC4-60P/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/clothoid/cabinet/03431336/imgrc0063911199.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-smm:main",
       "entityType": "product",
       "entityId": "bx00-smm",
-      "url": "https://tshop.r10s.jp/starford/cabinet/imgrc0196534657.jpg?fitin=275:275",
+      "url": "/img/35db0798054a87be.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%BB%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%BA%20%E3%83%9E%E3%83%B3%E3%83%80%E3%83%AD%E3%83%AA%E3%82%A2%E3%83%B33-60F%2F%E3%83%A2%E3%83%95%E3%83%BB%E3%82%AE%E3%83%87%E3%82%AA%E3%83%B33-80N/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/starford/cabinet/imgrc0196534657.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux14:main",
       "entityType": "product",
       "entityId": "ux14",
-      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "url": "/img/8c3037bf94583d04.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-tom:main",
       "entityType": "product",
       "entityId": "bx00-tom",
-      "url": "https://tshop.r10s.jp/asahi-abe/cabinet/rakuk300_0054/b0clfnmpf600.jpg?fitin=275:275",
+      "url": "/img/b3ddccc8110261f2.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%BC%20%E3%82%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%9E%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%A04-60P%2F%E3%83%A1%E3%82%AC%E3%83%88%E3%83%AD%E3%83%B34-80B/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/asahi-abe/cabinet/rakuk300_0054/b0clfnmpf600.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-tos:main",
       "entityType": "product",
       "entityId": "bx00-tos",
-      "url": "https://tshop.r10s.jp/i-selection/cabinet/starwars3/isb0d457zhkk.jpg?fitin=275:275",
+      "url": "/img/bd61ca72ecda03df.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%BC%20%E3%82%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%9E%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%9E%E3%83%AB3-60F%2F%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A03-80N/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/i-selection/cabinet/starwars3/isb0d457zhkk.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx06:main",
       "entityType": "product",
       "entityId": "cx06",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX06.png",
+      "url": "/img/1e301386fd371328.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx06.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX06.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx44:main",
       "entityType": "product",
       "entityId": "bx44",
-      "url": "https://img.beybladehub.app/blades-db/TrPr.webp",
+      "url": "/img/548a5434c5f3a46f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/TrPr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-nm:main",
       "entityType": "product",
       "entityId": "ux00-nm",
-      "url": "https://img.beybladehub.app/blades-db/KnMl.webp",
+      "url": "/img/8cfaf8b20e037eff.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnMl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx07:main",
       "entityType": "product",
       "entityId": "cx07",
-      "url": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "url": "/img/305ab94793b39964.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx08:main",
       "entityType": "product",
       "entityId": "cx08",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX08.png",
+      "url": "/img/f533b380692f0b9a.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx08.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX08.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-jtm:main",
       "entityType": "product",
       "entityId": "bx00-jtm",
-      "url": "https://tshop.r10s.jp/netbaby/cabinet/620/194735270620.jpg?fitin=275:275",
+      "url": "/img/17a8e8edf36cbfb5.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B8%E3%83%A5%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%BB%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%20T-%E3%83%AC%E3%83%83%E3%82%AF%E3%82%B9%2F%E3%83%A2%E3%82%B5%E3%82%B5%E3%82%A6%E3%83%AB%E3%82%B9/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/netbaby/cabinet/620/194735270620.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-jsq:main",
       "entityType": "product",
       "entityId": "bx00-jsq",
-      "url": "https://tshop.r10s.jp/book/cabinet/0276/5702017850276_1_2.jpg?fitin=275:275",
+      "url": "/img/c97538d4d4e3b972.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B8%E3%83%A5%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%BB%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%20%E3%82%B9%E3%83%94%E3%83%8E%E3%82%B5%E3%82%A6%E3%83%AB%E3%82%B9%2F%E3%82%B1%E3%83%84%E3%82%A1%E3%83%AB%E3%82%B3%E3%82%A2%E3%83%88%E3%83%AB%E3%82%B9/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/book/cabinet/0276/5702017850276_1_2.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-rl:main",
       "entityType": "product",
       "entityId": "bx00-rl",
-      "url": "https://img.beybladehub.app/blades-db/RkLn.webp",
+      "url": "/img/6f79d6fb51ad1eb0.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/RkLn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-pb:main",
       "entityType": "product",
       "entityId": "cx00-pb",
-      "url": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "url": "/img/305ab94793b39964.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-wa:main",
       "entityType": "product",
       "entityId": "cx00-wa",
-      "url": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "url": "/img/9d4bf58717dcbdf7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx45:main",
       "entityType": "product",
       "entityId": "bx45",
-      "url": "https://img.beybladehub.app/blades-db/SmCl.webp",
+      "url": "/img/baa0a7bcbef74bf8.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SmCl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux15:main",
       "entityType": "product",
       "entityId": "ux15",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX15.png",
+      "url": "/img/f4dad484432c01d1.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux15.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX15.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx09:main",
       "entityType": "product",
       "entityId": "cx09",
-      "url": "https://img.beybladehub.app/blades-cx/main-Ec.webp",
+      "url": "/img/791804d84e804135.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Ec.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx46:main",
       "entityType": "product",
       "entityId": "bx46",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX46_01.png",
+      "url": "/img/acb5438556c52f59.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx46.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX46_01.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx47:main",
       "entityType": "product",
       "entityId": "bx47",
-      "url": "https://tshop.r10s.jp/gozigen-shop/cabinet/onesell004/go6438c010cb_0.jpg?fitin=275:275",
+      "url": "/img/cfc45d1938418eaf.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-47%20%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BCL%20%E3%83%AC%E3%83%83%E3%83%89Ver./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/gozigen-shop/cabinet/onesell004/go6438c010cb_0.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux16:main",
       "entityType": "product",
       "entityId": "ux16",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX16.png",
+      "url": "/img/9a71558787f890a6.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux16.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX16.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx10:main",
       "entityType": "product",
       "entityId": "cx10",
-      "url": "https://img.beybladehub.app/blades-cx/main-Hn.webp",
+      "url": "/img/dda11180509d6922.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Hn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx11:main",
       "entityType": "product",
       "entityId": "cx11",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX11.png",
+      "url": "/img/c9feba0852cf2754.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx11.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX11.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux17:main",
       "entityType": "product",
       "entityId": "ux17",
-      "url": "https://img.beybladehub.app/blades-db/MtDg.webp",
+      "url": "/img/08dd2058016836e9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/MtDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux18:main",
       "entityType": "product",
       "entityId": "ux18",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX18.png",
+      "url": "/img/32a311e1e2c44ffb.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux18.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX18.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-drgs:main",
       "entityType": "product",
       "entityId": "bx00-drgs",
-      "url": "https://img.beybladehub.app/blades-db/DgSt.webp",
+      "url": "/img/f1455067655c9b7a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DgSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx12:main",
       "entityType": "product",
       "entityId": "cx12",
-      "url": "https://img.beybladehub.app/blades-cx/main-Fr.webp",
+      "url": "/img/641f3c3e460ce667.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Fr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx48:main",
       "entityType": "product",
       "entityId": "bx48",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX48.png",
+      "url": "/img/95c088c264c7672b.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx48.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX48.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-ap_red:main",
       "entityType": "product",
       "entityId": "ux00-ap_red",
-      "url": "https://img.beybladehub.app/blades-db/ArPg.webp",
+      "url": "/img/837d87760af207bf.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ArPg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ds_black:main",
       "entityType": "product",
       "entityId": "bx00-ds_black",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-cd_white:main",
       "entityType": "product",
       "entityId": "bx00-cd_white",
-      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "url": "/img/16bb3150c5c3d454.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx13:main",
       "entityType": "product",
       "entityId": "cx13",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "url": "/img/f90fce038d0d5c2b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx14:main",
       "entityType": "product",
       "entityId": "cx14",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Fr.webp",
+      "url": "/img/25f2618587fb5f51.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Fr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx15:main",
       "entityType": "product",
       "entityId": "cx15",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "url": "/img/63185e620550b2e0.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx16:main",
       "entityType": "product",
       "entityId": "cx16",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "url": "/img/f90fce038d0d5c2b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-sl:main",
       "entityType": "product",
       "entityId": "bx00-sl",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0366/52003266_1.jpg?fitin=275:275",
+      "url": "/img/51b0a2f2ca908aa6.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-00%20%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%20B4%E3%82%B9%E3%83%88%E3%82%A2%E9%99%90%E5%AE%9A%E3%82%AB%E3%83%A9%E3%83%BCVer./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0366/52003266_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ss:main",
       "entityType": "product",
       "entityId": "bx00-ss",
-      "url": "https://img.beybladehub.app/blades-db/S2.webp",
+      "url": "/img/b9458256e3aadc66.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/S2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux19:main",
       "entityType": "product",
       "entityId": "ux19",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX19.png",
+      "url": "/img/e413df274951ecef.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux19.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX19.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-ss:main",
       "entityType": "product",
       "entityId": "ux00-ss",
-      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "url": "/img/8c3037bf94583d04.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx17:main",
       "entityType": "product",
       "entityId": "cx17",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX17.png",
+      "url": "/img/4555ef778e91b061.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx17.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX17.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx49:main",
       "entityType": "product",
       "entityId": "bx49",
-      "url": "https://img.beybladehub.app/blades-db/DrSt.webp",
+      "url": "/img/9214eace73247ccd.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-db:main",
       "entityType": "product",
       "entityId": "cx00-db",
-      "url": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "url": "/img/6a7fd80291be7efa.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-samurai:main",
       "entityType": "product",
       "entityId": "ux00-samurai",
-      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "url": "/img/9636e0536bb5b6f2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx51:main",
       "entityType": "product",
       "entityId": "bx51",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0162/52003062_1.jpg?fitin=275:275",
+      "url": "/img/0ba9e197312744ca.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-51%20%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%C3%97%E3%82%B0%E3%83%AA%E3%83%BC%E3%83%B3/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0162/52003062_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx18:main",
       "entityType": "product",
       "entityId": "cx18",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX18.png",
+      "url": "/img/ad75e5925395904f.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx18.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX18.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-ba:main",
       "entityType": "product",
       "entityId": "cx00-ba",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0296/52003196_1.jpg?fitin=275:275",
+      "url": "/img/c792bac3bcbd8277.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/CX-00%20%E3%83%90%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A2%E3%83%B3%E3%83%88%E3%83%A9%E3%83%BC%E3%82%BAB2-60D%20%E3%83%A1%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%88%3A%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0296/52003196_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-kw:main",
       "entityType": "product",
       "entityId": "cx00-kw",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0298/52003198_1.jpg?fitin=275:275",
+      "url": "/img/95e5220f7d81f7f3.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/CX-00%20%E3%82%AF%E3%83%A9%E3%83%BC%E3%82%B1%E3%83%B3%E3%83%AA%E3%82%B0%E3%83%ABS3-70O%20%E3%83%A1%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%88%3A%E3%83%96%E3%83%AB%E3%83%BC/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0298/52003198_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-hf:main",
       "entityType": "product",
       "entityId": "cx00-hf",
-      "url": "https://tshop.r10s.jp/bii-dama/cabinet/image0300/52003200_1.jpg?fitin=275:275",
+      "url": "/img/d81c670d5bc7a4cd.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/CX-00%20%E3%83%9B%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%88R7-60T%20%E3%83%A1%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%88%3A%E3%82%A4%E3%82%A8%E3%83%AD%E3%83%BC/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bii-dama/cabinet/image0300/52003200_1.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-sp:main",
       "entityType": "product",
       "entityId": "bx00-sp",
-      "url": "https://img.beybladehub.app/blades-db/StPg.webp",
+      "url": "/img/1496163000901999.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/StPg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx50:main",
       "entityType": "product",
       "entityId": "bx50",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX50.png",
+      "url": "/img/1200c7acf7071a50.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx50.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX50.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux20:main",
       "entityType": "product",
       "entityId": "ux20",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX20.png",
+      "url": "/img/b7c3f44ea81fa963.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux20.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX20.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx00-ds_v2:main",
       "entityType": "product",
       "entityId": "bx00-ds_v2",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx57:main",
       "entityType": "product",
       "entityId": "bx57",
-      "url": "https://tshop.r10s.jp/bjdesigns/cabinet/13256231/imgrc0121654953.jpg?fitin=275:275",
+      "url": "/img/b0d6b51c05ac1b89.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-57%203on3%E3%83%87%E3%83%83%E3%82%AD%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AFVer./",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/bjdesigns/cabinet/13256231/imgrc0121654953.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux21:main",
       "entityType": "product",
       "entityId": "ux21",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX21.png",
+      "url": "/img/6af045b24b211e47.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux21.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_UX21.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:ux00-gv:main",
       "entityType": "product",
       "entityId": "ux00-gv",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG63.png",
+      "url": "/img/f74bf1a0a339615d.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux00-gv.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG63.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-eva:main",
       "entityType": "product",
       "entityId": "cx00-eva",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG57_02.png",
+      "url": "/img/49299c5a5f0709a9.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx00-eva.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BXG57_02.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx00-tiga:main",
       "entityType": "product",
       "entityId": "cx00-tiga",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "url": "/img/63185e620550b2e0.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:cx19:main",
       "entityType": "product",
       "entityId": "cx19",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX19.png",
+      "url": "/img/4ae71957a051c500.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx19.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX19.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx52:main",
       "entityType": "product",
       "entityId": "bx52",
-      "url": "https://img.beybladehub.app/blades-db/LuDr.webp",
+      "url": "/img/fb92fe4639918b09.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LuDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx53:main",
       "entityType": "product",
       "entityId": "bx53",
-      "url": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX53.png",
+      "url": "/img/4a1a78bc26fe4be0.png",
       "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx53.html",
       "sourceName": "Takara Tomy BEYBLADE X 官方商品頁",
       "copyrightOwner": "Takara Tomy",
-      "usageStatus": "link_only"
+      "usageStatus": "unknown",
+      "remoteUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_BX53.png",
+      "isLocalMirror": true
     },
     {
       "id": "product:bx56:main",
       "entityType": "product",
       "entityId": "bx56",
-      "url": "https://tshop.r10s.jp/auc-ookawaya/cabinet/10032/12/4904810058915.jpg?fitin=275:275",
+      "url": "/img/6fe7466d685b3e59.jpg",
       "sourceUrl": "https://search.rakuten.co.jp/search/mall/BX-56%20%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BCL%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%C3%97%E3%83%90%E3%82%A4%E3%82%AA%E3%83%AC%E3%83%83%E3%83%88/",
-      "sourceName": "Rakuten 日本樂天市場商品搜尋（外部圖片連結）",
-      "usageStatus": "link_only"
+      "sourceName": "Rakuten 日本樂天市場商品搜尋",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://tshop.r10s.jp/auc-ookawaya/cabinet/10032/12/4904810058915.jpg?fitin=275:275",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドランソード:main",
       "entityType": "part",
       "entityId": "blade:ドランソード",
-      "url": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "url": "/img/5f42b0ea93aeb34a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:3-60:main",
       "entityType": "part",
       "entityId": "ratchet:3-60",
-      "url": "https://img.beybladehub.app/ratchets/3-60.webp",
+      "url": "/img/46921fc09113e509.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/3-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:F:main",
       "entityType": "part",
       "entityId": "bit:F",
-      "url": "https://img.beybladehub.app/bits/F.webp",
+      "url": "/img/71e2f71b812b1949.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/F.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ヘルズサイズ:main",
       "entityType": "part",
       "entityId": "blade:ヘルズサイズ",
-      "url": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "url": "/img/b0dde61f79138cf4.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlSc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:4-60:main",
       "entityType": "part",
       "entityId": "ratchet:4-60",
-      "url": "https://img.beybladehub.app/ratchets/4-60.webp",
+      "url": "/img/c9cac20316a54eb8.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/4-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:T:main",
       "entityType": "part",
       "entityId": "bit:T",
-      "url": "https://img.beybladehub.app/bits/T.webp",
+      "url": "/img/8a8ae4c59f020226.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/T.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ウィザードアロー:main",
       "entityType": "part",
       "entityId": "blade:ウィザードアロー",
-      "url": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "url": "/img/352146717d2dcab2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzAr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:4-80:main",
       "entityType": "part",
       "entityId": "ratchet:4-80",
-      "url": "https://img.beybladehub.app/ratchets/4-80.webp",
+      "url": "/img/6a21b09c2e9fe105.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/4-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:B:main",
       "entityType": "part",
       "entityId": "bit:B",
-      "url": "https://img.beybladehub.app/bits/B.webp",
+      "url": "/img/29df48975e5fa6f8.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/B.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ナイトシールド:main",
       "entityType": "part",
       "entityId": "blade:ナイトシールド",
-      "url": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "url": "/img/efd67bcd421d4ff9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnSh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:3-80:main",
       "entityType": "part",
       "entityId": "ratchet:3-80",
-      "url": "https://img.beybladehub.app/ratchets/3-80.webp",
+      "url": "/img/175804615244f28f.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/3-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:N:main",
       "entityType": "part",
       "entityId": "bit:N",
-      "url": "https://img.beybladehub.app/bits/N.webp",
+      "url": "/img/52b17883853a7ace.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/N.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドランザースパイラル:main",
       "entityType": "part",
       "entityId": "blade:ドランザースパイラル",
-      "url": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "url": "/img/8f60ff04fbf5d400.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ナイトランス:main",
       "entityType": "part",
       "entityId": "blade:ナイトランス",
-      "url": "https://img.beybladehub.app/blades-db/KnLn.webp",
+      "url": "/img/c622d4bd06dc40c7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnLn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:HN:main",
       "entityType": "part",
       "entityId": "bit:HN",
-      "url": "https://img.beybladehub.app/bits/HN.webp",
+      "url": "/img/672c1f3c565d7f67.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/HN.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:レオンクロー:main",
       "entityType": "part",
       "entityId": "blade:レオンクロー",
-      "url": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "url": "/img/ab8485ab2dc4cc67.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LnCl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:5-60:main",
       "entityType": "part",
       "entityId": "ratchet:5-60",
-      "url": "https://img.beybladehub.app/ratchets/5-60.webp",
+      "url": "/img/78f28d622ce7990d.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/5-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:P:main",
       "entityType": "part",
       "entityId": "bit:P",
-      "url": "https://img.beybladehub.app/bits/P.webp",
+      "url": "/img/edf96dc7507d8f2b.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/P.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ライノホーン:main",
       "entityType": "part",
       "entityId": "blade:ライノホーン",
-      "url": "https://img.beybladehub.app/blades-db/RhHr.webp",
+      "url": "/img/10526ce0b67297f9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/RhHr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:S:main",
       "entityType": "part",
       "entityId": "bit:S",
-      "url": "https://img.beybladehub.app/bits/S.webp",
+      "url": "/img/b0e40acb317dd258.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/S.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドランダガー:main",
       "entityType": "part",
       "entityId": "blade:ドランダガー",
-      "url": "https://img.beybladehub.app/blades-db/DrDg.webp",
+      "url": "/img/143afb2cc5339f88.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:R:main",
       "entityType": "part",
       "entityId": "bit:R",
-      "url": "https://img.beybladehub.app/bits/R.webp",
+      "url": "/img/1eb916d29c62c060.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/R.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:シャークエッジ:main",
       "entityType": "part",
       "entityId": "blade:シャークエッジ",
-      "url": "https://img.beybladehub.app/blades-db/ShEd.webp",
+      "url": "/img/921875c6f398efa3.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShEd.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:5-80:main",
       "entityType": "part",
       "entityId": "ratchet:5-80",
-      "url": "https://img.beybladehub.app/ratchets/5-80.webp",
+      "url": "/img/de186e5d66f55735.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/5-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ヘルズチェイン:main",
       "entityType": "part",
       "entityId": "blade:ヘルズチェイン",
-      "url": "https://img.beybladehub.app/blades-db/HlCh.webp",
+      "url": "/img/77d95f9ec71e73e6.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlCh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:HT:main",
       "entityType": "part",
       "entityId": "bit:HT",
-      "url": "https://img.beybladehub.app/bits/HT.webp",
+      "url": "/img/c96299763d92a8ad.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/HT.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:LF:main",
       "entityType": "part",
       "entityId": "bit:LF",
-      "url": "https://img.beybladehub.app/bits/LF.webp",
+      "url": "/img/b04c30e0dbf6604d.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/LF.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:フェニックスウイング:main",
       "entityType": "part",
       "entityId": "blade:フェニックスウイング",
-      "url": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "url": "/img/74cb6e8ffb421110.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PhWn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:9-60:main",
       "entityType": "part",
       "entityId": "ratchet:9-60",
-      "url": "https://img.beybladehub.app/ratchets/9-60.webp",
+      "url": "/img/9cd55b60920f6e07.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/9-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:GF:main",
       "entityType": "part",
       "entityId": "bit:GF",
-      "url": "https://img.beybladehub.app/bits/GF.webp",
+      "url": "/img/16e7a456778e2597.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GF.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ユニコーンスティング:main",
       "entityType": "part",
       "entityId": "blade:ユニコーンスティング",
-      "url": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "url": "/img/75ad075550a2b660.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:GP:main",
       "entityType": "part",
       "entityId": "bit:GP",
-      "url": "https://img.beybladehub.app/bits/GP.webp",
+      "url": "/img/fdbc260fde5e5afb.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GP.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドランバスター:main",
       "entityType": "part",
       "entityId": "blade:ドランバスター",
-      "url": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "url": "/img/ab5749a32d060f98.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrBs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:1-60:main",
       "entityType": "part",
       "entityId": "ratchet:1-60",
-      "url": "https://img.beybladehub.app/ratchets/1-60.webp",
+      "url": "/img/9827268394ea8d52.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/1-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:A:main",
       "entityType": "part",
       "entityId": "bit:A",
-      "url": "https://img.beybladehub.app/bits/A.webp",
+      "url": "/img/710f6cb2f1cbf088.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/A.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ヘルズハンマー:main",
       "entityType": "part",
       "entityId": "blade:ヘルズハンマー",
-      "url": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "url": "/img/89d776fe47c3b68e.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlHm.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:3-70:main",
       "entityType": "part",
       "entityId": "ratchet:3-70",
-      "url": "https://img.beybladehub.app/ratchets/3-70.webp",
+      "url": "/img/36bb24258bbba63b.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/3-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:H:main",
       "entityType": "part",
       "entityId": "bit:H",
-      "url": "https://img.beybladehub.app/bits/H.webp",
+      "url": "/img/09e82830b0e79231.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/H.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ウィザードロッド:main",
       "entityType": "part",
       "entityId": "blade:ウィザードロッド",
-      "url": "https://img.beybladehub.app/blades-db/WzRd.webp",
+      "url": "/img/a808988a67744f86.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzRd.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:5-70:main",
       "entityType": "part",
       "entityId": "ratchet:5-70",
-      "url": "https://img.beybladehub.app/ratchets/5-70.webp",
+      "url": "/img/139e724c9ab5dfee.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/5-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:DB:main",
       "entityType": "part",
       "entityId": "bit:DB",
-      "url": "https://img.beybladehub.app/bits/DB.webp",
+      "url": "/img/f5dceaa585b3a2ee.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/DB.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドライガースラッシュ:main",
       "entityType": "part",
       "entityId": "blade:ドライガースラッシュ",
-      "url": "https://img.beybladehub.app/blades-db/DrSl.webp",
+      "url": "/img/3d0b76e6f7b7580f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ヴァイスタイガー:main",
       "entityType": "part",
       "entityId": "blade:ヴァイスタイガー",
-      "url": "https://img.beybladehub.app/blades-db/WsTg.webp",
+      "url": "/img/9cb6513356c46687.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WsTg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:U:main",
       "entityType": "part",
       "entityId": "bit:U",
-      "url": "https://img.beybladehub.app/bits/U.webp",
+      "url": "/img/468c1cd7c628fb43.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/U.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:コバルトドラグーン:main",
       "entityType": "part",
       "entityId": "blade:コバルトドラグーン",
-      "url": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "url": "/img/16bb3150c5c3d454.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:2-60:main",
       "entityType": "part",
       "entityId": "ratchet:2-60",
-      "url": "https://img.beybladehub.app/ratchets/2-60.webp",
+      "url": "/img/dca22a28977f149f.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/2-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:C:main",
       "entityType": "part",
       "entityId": "bit:C",
-      "url": "https://img.beybladehub.app/bits/C.webp",
+      "url": "/img/1ab3d1c7c6fc2e32.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/C.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:2-80:main",
       "entityType": "part",
       "entityId": "ratchet:2-80",
-      "url": "https://img.beybladehub.app/ratchets/2-80.webp",
+      "url": "/img/a92f0c49ffac14ee.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/2-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:レオンクレスト:main",
       "entityType": "part",
       "entityId": "blade:レオンクレスト",
-      "url": "https://img.beybladehub.app/blades-db/LnCr.webp",
+      "url": "/img/bf616f9e410ea3d1.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LnCr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:7-60:main",
       "entityType": "part",
       "entityId": "ratchet:7-60",
-      "url": "https://img.beybladehub.app/ratchets/7-60.webp",
+      "url": "/img/282e2f3f80bc789d.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/7-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:GN:main",
       "entityType": "part",
       "entityId": "bit:GN",
-      "url": "https://img.beybladehub.app/bits/GN.webp",
+      "url": "/img/85d8f4887cfe5594.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GN.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:フェニックスラダー:main",
       "entityType": "part",
       "entityId": "blade:フェニックスラダー",
-      "url": "https://img.beybladehub.app/blades-db/PhRd.webp",
+      "url": "/img/243dbf8c9c68b143.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PhRd.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:9-70:main",
       "entityType": "part",
       "entityId": "ratchet:9-70",
-      "url": "https://img.beybladehub.app/ratchets/9-70.webp",
+      "url": "/img/c887d5b43895aa63.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/9-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:G:main",
       "entityType": "part",
       "entityId": "bit:G",
-      "url": "https://img.beybladehub.app/bits/G.webp",
+      "url": "/img/2b86ccf95e306e7d.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/G.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ワイバーンゲイル:main",
       "entityType": "part",
       "entityId": "blade:ワイバーンゲイル",
-      "url": "https://img.beybladehub.app/blades-db/WyGl.webp",
+      "url": "/img/da807f49ed4f5129.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WyGl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:スフィンクスカウル:main",
       "entityType": "part",
       "entityId": "blade:スフィンクスカウル",
-      "url": "https://img.beybladehub.app/blades-db/SpCw.webp",
+      "url": "/img/a3f734dcbb685705.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SpCw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:1-80:main",
       "entityType": "part",
       "entityId": "ratchet:1-80",
-      "url": "https://img.beybladehub.app/ratchets/1-80.webp",
+      "url": "/img/39afb6f75ce0c1e9.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/1-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:シルバーウルフ:main",
       "entityType": "part",
       "entityId": "blade:シルバーウルフ",
-      "url": "https://img.beybladehub.app/blades-db/SlWl.webp",
+      "url": "/img/2e183dfa00210d3e.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SlWl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:FB:main",
       "entityType": "part",
       "entityId": "bit:FB",
-      "url": "https://img.beybladehub.app/bits/FB.webp",
+      "url": "/img/dc0687c71cbcdd6d.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/FB.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:クリムゾンガルーダ:main",
       "entityType": "part",
       "entityId": "blade:クリムゾンガルーダ",
-      "url": "https://img.beybladehub.app/blades-db/CrGr.webp",
+      "url": "/img/d7d1f722c7b4c1b5.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CrGr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:4-70:main",
       "entityType": "part",
       "entityId": "ratchet:4-70",
-      "url": "https://img.beybladehub.app/ratchets/4-70.webp",
+      "url": "/img/7c99a37df00eb55e.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/4-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:TP:main",
       "entityType": "part",
       "entityId": "bit:TP",
-      "url": "https://img.beybladehub.app/bits/TP.webp",
+      "url": "/img/d420456508390b9d.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/TP.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:サムライセイバー:main",
       "entityType": "part",
       "entityId": "blade:サムライセイバー",
-      "url": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "url": "/img/9636e0536bb5b6f2.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SmSb.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:2-70:main",
       "entityType": "part",
       "entityId": "ratchet:2-70",
-      "url": "https://img.beybladehub.app/ratchets/2-70.webp",
+      "url": "/img/6a35486aef8f81c2.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/2-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:L:main",
       "entityType": "part",
       "entityId": "bit:L",
-      "url": "https://img.beybladehub.app/bits/L.webp",
+      "url": "/img/741320255141e455.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/L.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ナイトメイル:main",
       "entityType": "part",
       "entityId": "blade:ナイトメイル",
-      "url": "https://img.beybladehub.app/blades-db/KnMl.webp",
+      "url": "/img/8cfaf8b20e037eff.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnMl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:プテラスイング:main",
       "entityType": "part",
       "entityId": "blade:プテラスイング",
-      "url": "https://img.beybladehub.app/blades-db/PtSw.webp",
+      "url": "/img/1f50be349a9b4b61.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PtSw.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ティラノビート:main",
       "entityType": "part",
       "entityId": "blade:ティラノビート",
-      "url": "https://img.beybladehub.app/blades-db/TyBt.webp",
+      "url": "/img/3d853edd687d4e66.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/TyBt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:3-85:main",
       "entityType": "part",
       "entityId": "ratchet:3-85",
-      "url": "https://img.beybladehub.app/ratchets/3-85.webp",
+      "url": "/img/ae5403b49615cb8d.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/3-85.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:7-70:main",
       "entityType": "part",
       "entityId": "ratchet:7-70",
-      "url": "https://img.beybladehub.app/ratchets/7-70.webp",
+      "url": "/img/47a06a1095eedf5c.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/7-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:BS:main",
       "entityType": "part",
       "entityId": "bit:BS",
-      "url": "https://img.beybladehub.app/bits/BS.webp",
+      "url": "/img/3ed1565b7dc1bfdd.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/BS.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:RA:main",
       "entityType": "part",
       "entityId": "bit:RA",
-      "url": "https://img.beybladehub.app/bits/RA.webp",
+      "url": "/img/08582c3d21383d8c.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/RA.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:MN:main",
       "entityType": "part",
       "entityId": "bit:MN",
-      "url": "https://img.beybladehub.app/bits/MN.webp",
+      "url": "/img/a2a1dac9c3f1c7c2.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/MN.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:コバルトドレイク:main",
       "entityType": "part",
       "entityId": "blade:コバルトドレイク",
-      "url": "https://img.beybladehub.app/blades-db/CbDr.webp",
+      "url": "/img/8ac2aedc4bebc302.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/CbDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:マンモスタスク:main",
       "entityType": "part",
       "entityId": "blade:マンモスタスク",
-      "url": "https://img.beybladehub.app/blades-db/MmTs.webp",
+      "url": "/img/a5ca069ba7a1e2c7.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/MmTs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:E:main",
       "entityType": "part",
       "entityId": "bit:E",
-      "url": "https://img.beybladehub.app/bits/E.webp",
+      "url": "/img/0bdea3baf079420b.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/E.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:インパクトドレイク:main",
       "entityType": "part",
       "entityId": "blade:インパクトドレイク",
-      "url": "https://img.beybladehub.app/blades-db/ImDr.webp",
+      "url": "/img/786f4e60a5d3b0e3.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ImDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:LR:main",
       "entityType": "part",
       "entityId": "bit:LR",
-      "url": "https://img.beybladehub.app/bits/LR.webp",
+      "url": "/img/286371a44471f3b3.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/LR.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドラシエルシールド:main",
       "entityType": "part",
       "entityId": "blade:ドラシエルシールド",
-      "url": "https://img.beybladehub.app/blades-db/DrSh.webp",
+      "url": "/img/e1bd25394dbf4ac1.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:D:main",
       "entityType": "part",
       "entityId": "bit:D",
-      "url": "https://img.beybladehub.app/bits/D.webp",
+      "url": "/img/75d28cf45344f5f8.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/D.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ゴーレムロック:main",
       "entityType": "part",
       "entityId": "blade:ゴーレムロック",
-      "url": "https://img.beybladehub.app/blades-db/GlRc.webp",
+      "url": "/img/102ed8d4b652fdfc.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/GlRc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:UN:main",
       "entityType": "part",
       "entityId": "bit:UN",
-      "url": "https://img.beybladehub.app/bits/UN.webp",
+      "url": "/img/bad96f5e595ab05f.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/UN.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Dr:main",
       "entityType": "part",
       "entityId": "lock_chip:Dr",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Dr.webp",
+      "url": "/img/61dcc1e05477f7a3.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Dr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Br:main",
       "entityType": "part",
       "entityId": "main_blade:Br",
-      "url": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "url": "/img/6a7fd80291be7efa.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Br.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:S:main",
       "entityType": "part",
       "entityId": "assist_blade:S",
-      "url": "https://img.beybladehub.app/blades-cx/assist-S.webp",
+      "url": "/img/0b3a927cd123022d.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-S.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:V:main",
       "entityType": "part",
       "entityId": "bit:V",
-      "url": "https://img.beybladehub.app/bits/V.webp",
+      "url": "/img/d464f45c378df9e3.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/V.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:6-60:main",
       "entityType": "part",
       "entityId": "ratchet:6-60",
-      "url": "https://img.beybladehub.app/ratchets/6-60.webp",
+      "url": "/img/819b5dfc5c85259d.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/6-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Wz:main",
       "entityType": "part",
       "entityId": "lock_chip:Wz",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Wz.webp",
+      "url": "/img/3a5c6f37a2f3b70d.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Wz.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Ar:main",
       "entityType": "part",
       "entityId": "main_blade:Ar",
-      "url": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "url": "/img/9d4bf58717dcbdf7.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Ar.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:R:main",
       "entityType": "part",
       "entityId": "assist_blade:R",
-      "url": "https://img.beybladehub.app/blades-cx/assist-R.webp",
+      "url": "/img/bbf5975a7c8645dc.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-R.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:LO:main",
       "entityType": "part",
       "entityId": "bit:LO",
-      "url": "https://img.beybladehub.app/bits/LO.webp",
+      "url": "/img/207ea53403da5c6f.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/LO.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:4-55:main",
       "entityType": "part",
       "entityId": "ratchet:4-55",
-      "url": "https://img.beybladehub.app/ratchets/4-55.webp",
+      "url": "/img/9c7b8be35f6f0894.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/4-55.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Pr:main",
       "entityType": "part",
       "entityId": "lock_chip:Pr",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Pr.webp",
+      "url": "/img/a9b6ae5bfead4e38.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Pr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Dr:main",
       "entityType": "part",
       "entityId": "main_blade:Dr",
-      "url": "https://img.beybladehub.app/blades-cx/main-Dr.webp",
+      "url": "/img/c21bff73f2aa931b.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Dr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:B:main",
       "entityType": "part",
       "entityId": "assist_blade:B",
-      "url": "https://img.beybladehub.app/blades-cx/assist-B.webp",
+      "url": "/img/0424778acb30d048.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-B.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:W:main",
       "entityType": "part",
       "entityId": "bit:W",
-      "url": "https://img.beybladehub.app/bits/W.webp",
+      "url": "/img/5b874fd8a1679480.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/W.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:6-80:main",
       "entityType": "part",
       "entityId": "ratchet:6-80",
-      "url": "https://img.beybladehub.app/ratchets/6-80.webp",
+      "url": "/img/243a6269e9982308.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/6-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ゼノエクスカリバー:main",
       "entityType": "part",
       "entityId": "blade:ゼノエクスカリバー",
-      "url": "https://img.beybladehub.app/blades-db/XnXc.webp",
+      "url": "/img/bca251b0b11d1e7b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/XnXc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:アイアンマン:main",
       "entityType": "part",
       "entityId": "blade:アイアンマン",
-      "url": "https://img.beybladehub.app/blades-db/Iron.webp",
+      "url": "/img/bf9fe8c7f23e3c44.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Iron.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:サノス:main",
       "entityType": "part",
       "entityId": "blade:サノス",
-      "url": "https://img.beybladehub.app/blades-db/Than.webp",
+      "url": "/img/9adb663aab76501f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Than.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:スパイダーマン:main",
       "entityType": "part",
       "entityId": "blade:スパイダーマン",
-      "url": "https://img.beybladehub.app/blades-db/Spid.webp",
+      "url": "/img/752936ae7cf57d5c.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Spid.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ヴェノム:main",
       "entityType": "part",
       "entityId": "blade:ヴェノム",
-      "url": "https://img.beybladehub.app/blades-db/Veno.webp",
+      "url": "/img/153ec842303f7115.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Veno.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ルーク・スカイウォーカー:main",
       "entityType": "part",
       "entityId": "blade:ルーク・スカイウォーカー",
-      "url": "https://img.beybladehub.app/blades-db/Luke.webp",
+      "url": "/img/5a6e9d3327262304.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Luke.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ダース・ベイダー:main",
       "entityType": "part",
       "entityId": "blade:ダース・ベイダー",
-      "url": "https://img.beybladehub.app/blades-db/Dart.webp",
+      "url": "/img/aa4d184f2c392aa5.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Dart.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:マンダロリアン:main",
       "entityType": "part",
       "entityId": "blade:マンダロリアン",
-      "url": "https://img.beybladehub.app/blades-db/Mand.webp",
+      "url": "/img/b6bb69b7b683bc92.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Mand.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:モフ・ギデオン:main",
       "entityType": "part",
       "entityId": "blade:モフ・ギデオン",
-      "url": "https://img.beybladehub.app/blades-db/Moff.webp",
+      "url": "/img/12e68037bea17a08.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Moff.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:スコーピオスピア:main",
       "entityType": "part",
       "entityId": "blade:スコーピオスピア",
-      "url": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "url": "/img/8c3037bf94583d04.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ScSp.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:0-70:main",
       "entityType": "part",
       "entityId": "ratchet:0-70",
-      "url": "https://img.beybladehub.app/ratchets/0-70.webp",
+      "url": "/img/92fe14dcece4d858.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/0-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:Z:main",
       "entityType": "part",
       "entityId": "bit:Z",
-      "url": "https://img.beybladehub.app/bits/Z.webp",
+      "url": "/img/d5e51134c19fdd1a.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Z.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:オプティマスプライム:main",
       "entityType": "part",
       "entityId": "blade:オプティマスプライム",
-      "url": "https://img.beybladehub.app/blades-db/Opme.webp",
+      "url": "/img/f2dc1f1ea7f73f3c.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Opme.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:メガトロン:main",
       "entityType": "part",
       "entityId": "blade:メガトロン",
-      "url": "https://img.beybladehub.app/blades-db/Mega.webp",
+      "url": "/img/8b957e66b61e2e11.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Mega.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:オプティマスプライマル:main",
       "entityType": "part",
       "entityId": "blade:オプティマスプライマル",
-      "url": "https://img.beybladehub.app/blades-db/Opal.webp",
+      "url": "/img/69b8f48de3ebe3c8.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Opal.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:スタースクリーム:main",
       "entityType": "part",
       "entityId": "blade:スタースクリーム",
-      "url": "https://img.beybladehub.app/blades-db/Star.webp",
+      "url": "/img/80910cc9475ff562.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Star.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:トリケラプレス:main",
       "entityType": "part",
       "entityId": "blade:トリケラプレス",
-      "url": "https://img.beybladehub.app/blades-db/TrPr.webp",
+      "url": "/img/548a5434c5f3a46f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/TrPr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:M-85:main",
       "entityType": "part",
       "entityId": "ratchet:M-85",
-      "url": "https://img.beybladehub.app/ratchets/M-85.webp",
+      "url": "/img/e945c819726182d2.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/M-85.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Pg:main",
       "entityType": "part",
       "entityId": "lock_chip:Pg",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Pg.webp",
+      "url": "/img/80bd2718c772bca0.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Pg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Bl:main",
       "entityType": "part",
       "entityId": "main_blade:Bl",
-      "url": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "url": "/img/305ab94793b39964.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:A:main",
       "entityType": "part",
       "entityId": "assist_blade:A",
-      "url": "https://img.beybladehub.app/blades-cx/assist-A.webp",
+      "url": "/img/81f81e65fd307917.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-A.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:Tr:main",
       "entityType": "part",
       "entityId": "bit:Tr",
-      "url": "https://img.beybladehub.app/bits/Tr.webp",
+      "url": "/img/4956e528aa4a862a.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Tr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ロックレオーネ:main",
       "entityType": "part",
       "entityId": "blade:ロックレオーネ",
-      "url": "https://img.beybladehub.app/blades-db/RkLn.webp",
+      "url": "/img/6f79d6fb51ad1eb0.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/RkLn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:サムライカリバー:main",
       "entityType": "part",
       "entityId": "blade:サムライカリバー",
-      "url": "https://img.beybladehub.app/blades-db/SmCl.webp",
+      "url": "/img/baa0a7bcbef74bf8.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/SmCl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:6-70:main",
       "entityType": "part",
       "entityId": "ratchet:6-70",
-      "url": "https://img.beybladehub.app/ratchets/6-70.webp",
+      "url": "/img/a50384775d40abee.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/6-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:M:main",
       "entityType": "part",
       "entityId": "bit:M",
-      "url": "https://img.beybladehub.app/bits/M.webp",
+      "url": "/img/61ff3b2eb4c44f01.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/M.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:シャークスケイル:main",
       "entityType": "part",
       "entityId": "blade:シャークスケイル",
-      "url": "https://img.beybladehub.app/blades-db/ShSc.webp",
+      "url": "/img/3394137357225744.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShSc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:4-50:main",
       "entityType": "part",
       "entityId": "ratchet:4-50",
-      "url": "https://img.beybladehub.app/ratchets/4-50.webp",
+      "url": "/img/b9d73d35be41a292.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/4-50.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:UF:main",
       "entityType": "part",
       "entityId": "bit:UF",
-      "url": "https://img.beybladehub.app/bits/UF.webp",
+      "url": "/img/8ecc9699e86f4149.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/UF.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ティラノロア:main",
       "entityType": "part",
       "entityId": "blade:ティラノロア",
-      "url": "https://img.beybladehub.app/blades-db/TyRr.webp",
+      "url": "/img/bcd071813adb0b3f.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/TyRr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:1-70:main",
       "entityType": "part",
       "entityId": "ratchet:1-70",
-      "url": "https://img.beybladehub.app/ratchets/1-70.webp",
+      "url": "/img/d7be6c10bab461d7.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/1-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Hl:main",
       "entityType": "part",
       "entityId": "lock_chip:Hl",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Hl.webp",
+      "url": "/img/58e268c9bf2d253b.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Hl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:J:main",
       "entityType": "part",
       "entityId": "assist_blade:J",
-      "url": "https://img.beybladehub.app/blades-cx/assist-J.webp",
+      "url": "/img/d916b321f9824207.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-J.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Sl:main",
       "entityType": "part",
       "entityId": "lock_chip:Sl",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Sl.webp",
+      "url": "/img/9c33a5288d6f7376.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Sl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Ec:main",
       "entityType": "part",
       "entityId": "main_blade:Ec",
-      "url": "https://img.beybladehub.app/blades-cx/main-Ec.webp",
+      "url": "/img/791804d84e804135.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Ec.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:D:main",
       "entityType": "part",
       "entityId": "assist_blade:D",
-      "url": "https://img.beybladehub.app/blades-cx/assist-D.webp",
+      "url": "/img/45084d9e65704422.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-D.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:TK:main",
       "entityType": "part",
       "entityId": "bit:TK",
-      "url": "https://img.beybladehub.app/bits/TK.webp",
+      "url": "/img/82e129d4c2d371e3.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/TK.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Wl:main",
       "entityType": "part",
       "entityId": "lock_chip:Wl",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Wl.webp",
+      "url": "/img/3e8c96a07adc1e39.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Wl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Hn:main",
       "entityType": "part",
       "entityId": "main_blade:Hn",
-      "url": "https://img.beybladehub.app/blades-cx/main-Hn.webp",
+      "url": "/img/dda11180509d6922.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Hn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:F:main",
       "entityType": "part",
       "entityId": "assist_blade:F",
-      "url": "https://img.beybladehub.app/blades-cx/assist-F.webp",
+      "url": "/img/6e90faa3b16c53ef.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-F.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:0-60:main",
       "entityType": "part",
       "entityId": "ratchet:0-60",
-      "url": "https://img.beybladehub.app/ratchets/0-60.webp",
+      "url": "/img/861d98966441fe26.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/0-60.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:メテオドラグーン:main",
       "entityType": "part",
       "entityId": "blade:メテオドラグーン",
-      "url": "https://img.beybladehub.app/blades-db/MtDg.webp",
+      "url": "/img/08dd2058016836e9.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/MtDg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:J:main",
       "entityType": "part",
       "entityId": "bit:J",
-      "url": "https://img.beybladehub.app/bits/J.webp",
+      "url": "/img/c34fce3a1493c86a.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/J.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドラグーンストーム:main",
       "entityType": "part",
       "entityId": "blade:ドラグーンストーム",
-      "url": "https://img.beybladehub.app/blades-db/DgSt.webp",
+      "url": "/img/f1455067655c9b7a.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DgSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Ph:main",
       "entityType": "part",
       "entityId": "lock_chip:Ph",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Ph.webp",
+      "url": "/img/61202ff98add8527.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Ph.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Fr:main",
       "entityType": "part",
       "entityId": "main_blade:Fr",
-      "url": "https://img.beybladehub.app/blades-cx/main-Fr.webp",
+      "url": "/img/641f3c3e460ce667.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Fr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:Z:main",
       "entityType": "part",
       "entityId": "assist_blade:Z",
-      "url": "https://img.beybladehub.app/blades-cx/assist-Z.webp",
+      "url": "/img/bce991675193e8a6.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-Z.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:WW:main",
       "entityType": "part",
       "entityId": "bit:WW",
-      "url": "https://img.beybladehub.app/bits/WW.webp",
+      "url": "/img/2935a452e76cbca3.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/WW.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:9-80:main",
       "entityType": "part",
       "entityId": "ratchet:9-80",
-      "url": "https://img.beybladehub.app/ratchets/9-80.webp",
+      "url": "/img/fc0dd3e5fc16e72a.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/9-80.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:エアロペガサス:main",
       "entityType": "part",
       "entityId": "blade:エアロペガサス",
-      "url": "https://img.beybladehub.app/blades-db/ArPg.webp",
+      "url": "/img/837d87760af207bf.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ArPg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Bh:main",
       "entityType": "part",
       "entityId": "lock_chip:Bh",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Bh.webp",
+      "url": "/img/397c4e66eeee333c.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Bh.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:metal-Bl:main",
       "entityType": "part",
       "entityId": "main_blade:metal-Bl",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "url": "/img/f90fce038d0d5c2b.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Bl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:over_blade:B:main",
       "entityType": "part",
       "entityId": "over_blade:B",
-      "url": "https://img.beybladehub.app/blades-cx/over-B.webp",
+      "url": "/img/04c8b60b51c7bec4.webp",
       "sourceUrl": "https://beybladehub.app/parts/over_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/over-B.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:K:main",
       "entityType": "part",
       "entityId": "assist_blade:K",
-      "url": "https://img.beybladehub.app/blades-cx/assist-K.webp",
+      "url": "/img/b0e733961bfb3508.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-K.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:I:main",
       "entityType": "part",
       "entityId": "bit:I",
-      "url": "https://img.beybladehub.app/bits/I.webp",
+      "url": "/img/5f7abc04b78239b8.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/I.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:1-50:main",
       "entityType": "part",
       "entityId": "ratchet:1-50",
-      "url": "https://img.beybladehub.app/ratchets/1-50.webp",
+      "url": "/img/e003d06646257358.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/1-50.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Kn:main",
       "entityType": "part",
       "entityId": "lock_chip:Kn",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Kn.webp",
+      "url": "/img/27d1028d1abef502.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Kn.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:metal-Fr:main",
       "entityType": "part",
       "entityId": "main_blade:metal-Fr",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Fr.webp",
+      "url": "/img/25f2618587fb5f51.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Fr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:over_blade:G:main",
       "entityType": "part",
       "entityId": "over_blade:G",
-      "url": "https://img.beybladehub.app/blades-cx/over-G.webp",
+      "url": "/img/87468cb06c94bb9f.webp",
       "sourceUrl": "https://beybladehub.app/parts/over_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/over-G.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:V:main",
       "entityType": "part",
       "entityId": "assist_blade:V",
-      "url": "https://img.beybladehub.app/blades-cx/assist-V.webp",
+      "url": "/img/16f72d8e7618af70.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-V.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:8-70:main",
       "entityType": "part",
       "entityId": "ratchet:8-70",
-      "url": "https://img.beybladehub.app/ratchets/8-70.webp",
+      "url": "/img/e03ae97d7c228637.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/8-70.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Rg:main",
       "entityType": "part",
       "entityId": "lock_chip:Rg",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Rg.webp",
+      "url": "/img/9173efd5d7c88e33.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Rg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:metal-Rg:main",
       "entityType": "part",
       "entityId": "main_blade:metal-Rg",
-      "url": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "url": "/img/63185e620550b2e0.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Rg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:over_blade:F:main",
       "entityType": "part",
       "entityId": "over_blade:F",
-      "url": "https://img.beybladehub.app/blades-cx/over-F.webp",
+      "url": "/img/840ca98ed85302f7.webp",
       "sourceUrl": "https://beybladehub.app/parts/over_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/over-F.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:E:main",
       "entityType": "part",
       "entityId": "assist_blade:E",
-      "url": "https://img.beybladehub.app/blades-cx/assist-E.webp",
+      "url": "/img/967e52df54f9dc86.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-E.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:Y:main",
       "entityType": "part",
       "entityId": "bit:Y",
-      "url": "https://img.beybladehub.app/bits/Y.webp",
+      "url": "/img/cdd4970558eb47b4.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Y.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ストームスプリガン:main",
       "entityType": "part",
       "entityId": "blade:ストームスプリガン",
-      "url": "https://img.beybladehub.app/blades-db/S2.webp",
+      "url": "/img/b9458256e3aadc66.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/S2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ドランストライク:main",
       "entityType": "part",
       "entityId": "blade:ドランストライク",
-      "url": "https://img.beybladehub.app/blades-db/DrSt.webp",
+      "url": "/img/9214eace73247ccd.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/DrSt.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:FF:main",
       "entityType": "part",
       "entityId": "bit:FF",
-      "url": "https://img.beybladehub.app/bits/FF.webp",
+      "url": "/img/e7d89dc03c0dfa76.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/FF.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:K:main",
       "entityType": "part",
       "entityId": "bit:K",
-      "url": "https://img.beybladehub.app/bits/K.webp",
+      "url": "/img/c2a3857a6c2317fe.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/K.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:O:main",
       "entityType": "part",
       "entityId": "bit:O",
-      "url": "https://img.beybladehub.app/bits/O.webp",
+      "url": "/img/7ff406a0caf2a6a8.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/O.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:G:main",
       "entityType": "part",
       "entityId": "assist_blade:G",
-      "url": "https://img.beybladehub.app/blades-cx/assist-G-v2.webp",
+      "url": "/img/96be268c411d5ff4.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-G-v2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ストームペガシス:main",
       "entityType": "part",
       "entityId": "blade:ストームペガシス",
-      "url": "https://img.beybladehub.app/blades-db/StPg.webp",
+      "url": "/img/1496163000901999.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/StPg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Tg:main",
       "entityType": "part",
       "entityId": "lock_chip:Tg",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Tg.webp",
+      "url": "/img/771a83a038129bcb.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Tg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:T:main",
       "entityType": "part",
       "entityId": "assist_blade:T",
-      "url": "https://img.beybladehub.app/blades-cx/assist-T.webp",
+      "url": "/img/c632d216e2d1af73.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-T.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ラスタードラグーン:main",
       "entityType": "part",
       "entityId": "blade:ラスタードラグーン",
-      "url": "https://img.beybladehub.app/blades-db/LuDr.webp",
+      "url": "/img/fb92fe4639918b09.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/LuDr.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:LC:main",
       "entityType": "part",
       "entityId": "bit:LC",
-      "url": "https://img.beybladehub.app/bits/LC_z5m.webp",
+      "url": "/img/cb53f0f8341a0a73.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/LC_z5m.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ゴートタックル:main",
       "entityType": "part",
       "entityId": "blade:ゴートタックル",
-      "url": "https://img.beybladehub.app/blades-db/GtTc.webp",
+      "url": "/img/c1429c2e24b30587.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/GtTc.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:魔導幻箭 2.0:main",
       "entityType": "part",
       "entityId": "blade:魔導幻箭 2.0",
-      "url": "https://img.beybladehub.app/blades-db/WzAr2.webp",
+      "url": "/img/448e6532d5f7f44b.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WzAr2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:騎士重盾 2.0:main",
       "entityType": "part",
       "entityId": "blade:騎士重盾 2.0",
-      "url": "https://img.beybladehub.app/blades-db/KnSh2.webp",
+      "url": "/img/8c822f2b06a2a1cc.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/KnSh2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Em:main",
       "entityType": "part",
       "entityId": "lock_chip:Em",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Em.webp",
+      "url": "/img/180a37959888325c.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Em.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Mg:main",
       "entityType": "part",
       "entityId": "main_blade:Mg",
-      "url": "https://img.beybladehub.app/blades-cx/main-Mg.webp",
+      "url": "/img/8a6f50cab7d610f7.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Mg.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:assist_blade:H:main",
       "entityType": "part",
       "entityId": "assist_blade:H",
-      "url": "https://img.beybladehub.app/blades-cx/assist-H.webp",
+      "url": "/img/850258c7a832f4d4.webp",
       "sourceUrl": "https://beybladehub.app/parts/assist_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-H.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:Op:main",
       "entityType": "part",
       "entityId": "bit:Op",
-      "url": "https://img.beybladehub.app/bits/Op.webp",
+      "url": "/img/acc95ee184e14bfe.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Op.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:シャークギル:main",
       "entityType": "part",
       "entityId": "blade:シャークギル",
-      "url": "https://img.beybladehub.app/blades-db/ShGl.webp",
+      "url": "/img/7cf9230a4282ea29.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShGl.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:integrated_blade:ヘルズネザー:main",
       "entityType": "part",
       "entityId": "integrated_blade:ヘルズネザー",
-      "url": "https://img.beybladehub.app/blades-db/HlNt_official.webp",
+      "url": "/img/73a01e09d6f4eba7.webp",
       "sourceUrl": "https://beybladehub.app/parts/integrated_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HlNt_official.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ワイバーンホバー:main",
       "entityType": "part",
       "entityId": "blade:ワイバーンホバー",
-      "url": "https://img.beybladehub.app/blades-db/WyHv.webp",
+      "url": "/img/6a8e0fb502f1c534.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WyHv.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:ratchet:8-80:main",
       "entityType": "part",
       "entityId": "ratchet:8-80",
-      "url": "https://img.beybladehub.app/ratchets/8-80-v2.webp",
+      "url": "/img/927bade17deaa36d.webp",
       "sourceUrl": "https://beybladehub.app/parts/ratchets",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/8-80-v2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Eva01:main",
       "entityType": "part",
       "entityId": "lock_chip:Eva01",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Ev-02.webp",
+      "url": "/img/71e9bd44a92ba8b2.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Ev-02.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Eva00:main",
       "entityType": "part",
       "entityId": "lock_chip:Eva00",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Ev-01.webp",
+      "url": "/img/c4c9a577b98a0584.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Ev-01.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:lock_chip:Eva02:main",
       "entityType": "part",
       "entityId": "lock_chip:Eva02",
-      "url": "https://img.beybladehub.app/blades-cx/chip-Eva02.webp",
+      "url": "/img/57559e94dfa04a34.webp",
       "sourceUrl": "https://beybladehub.app/parts/lock_chips",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Eva02.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:main_blade:Bs:main",
       "entityType": "part",
       "entityId": "main_blade:Bs",
-      "url": "https://img.beybladehub.app/blades-cx/main-Bs.webp",
+      "url": "/img/bd3e808b0a1605d3.webp",
       "sourceUrl": "https://beybladehub.app/parts/main_blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Bs.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ビクトリーヴァルキリー:main",
       "entityType": "part",
       "entityId": "blade:ビクトリーヴァルキリー",
-      "url": "https://img.beybladehub.app/blades-db/V2.webp",
+      "url": "/img/a4cea122faced863.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/V2.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:暴龍:main",
       "entityType": "part",
       "entityId": "blade:暴龍",
-      "url": "https://img.beybladehub.app/blades-db/Trex.webp",
+      "url": "/img/25201dd267e65015.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Trex.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:bit:GB:main",
       "entityType": "part",
       "entityId": "bit:GB",
-      "url": "https://img.beybladehub.app/bits/GB.webp",
+      "url": "/img/95edfa69e0f39c1b.webp",
       "sourceUrl": "https://beybladehub.app/parts/bits",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GB.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:モササウルス:main",
       "entityType": "part",
       "entityId": "blade:モササウルス",
-      "url": "https://img.beybladehub.app/blades-db/Mosa.webp",
+      "url": "/img/33e296443c5857cc.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Mosa.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:スピノサウルス:main",
       "entityType": "part",
       "entityId": "blade:スピノサウルス",
-      "url": "https://img.beybladehub.app/blades-db/Spno.webp",
+      "url": "/img/f327a7ad9fdbfd35.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Spno.webp",
+      "isLocalMirror": true
     },
     {
       "id": "part:blade:ケツァルコアトルス:main",
       "entityType": "part",
       "entityId": "blade:ケツァルコアトルス",
-      "url": "https://img.beybladehub.app/blades-db/Qtzl.webp",
+      "url": "/img/8458a7f840b942cc.webp",
       "sourceUrl": "https://beybladehub.app/parts/blades",
-      "sourceName": "BeybladeHub 零件去背圖（外部連結）",
-      "usageStatus": "link_only"
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/Qtzl.webp",
+      "isLocalMirror": true
     }
   ],
   "tournamentEvents": [

@@ -26,6 +26,8 @@ export interface CatalogAudit {
   randomContentsByDesign: { id: string; nameJa: string; reason: string }[]
   /** 發射器、對戰盤等本來就不含可配裝零件的商品（第 4 節）。 */
   noPartsProducts: { id: string; nameJa: string; category: string }[]
+  /** 圖片本機副本統計。 */
+  localImages: { mirrored: number; stillRemote: number }
   curatedSets: {
     source: string
     fetchedAt: string

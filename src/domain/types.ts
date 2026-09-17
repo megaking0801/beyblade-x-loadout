@@ -49,6 +49,13 @@ export interface ImageAsset {
   sourceName: string
   copyrightOwner?: string
   usageStatus: 'link_only' | 'permission_granted' | 'user_uploaded' | 'unknown'
+  /**
+   * 原始網址。圖片改成本機鏡像之後，url 是本機路徑，這裡保留原本抓到的位置，
+   * 前台才有辦法把來源交代清楚（第 25 節）。
+   */
+  remoteUrl?: string
+  /** true 表示這張是下載下來的本機副本，不是外部連結。 */
+  isLocalMirror?: boolean
 }
 
 /* ---------------------------------------------------------------------- 零件 */

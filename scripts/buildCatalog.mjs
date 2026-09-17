@@ -28,6 +28,7 @@ const HUB_STATS_FILE = resolve(root, 'src/catalog/sources/beybladehub-stats.json
 const HUB_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-sets.json')
 const HUB_STRUCTURE_FILE = resolve(root, 'src/catalog/sources/beybladehub-structure.json')
 const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-curated-sets.json')
+const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
@@ -382,6 +383,45 @@ function applyHubStats(parts, hubStats, audit, cxHubKeyByPartId = new Map()) {
  * 只覆蓋原本就是空的商品，並把商品的驗證狀態降為 community_only，
  * 讓前台知道這一筆不是官方公布的內容。
  */
+/**
+ * 把圖片換成本機副本。
+ *
+ * 規格對照：第 25 節。原本全部是外部連結，對方改路徑或擋掉就整批破圖，
+ * 專案擁有者決定自存一份（`npm run fetch:images`）。
+ *
+ * 誠實界線：鏡像不等於取得授權，所以 usageStatus 從 link_only 改成 unknown
+ * （授權狀態未確認），並保留原始網址與來源名稱，前台照樣把來源交代清楚。
+ */
+function applyLocalImageMirror(catalog, audit) {
+  let localMap = {}
+  try {
+    localMap = JSON.parse(readFileSync(LOCAL_IMAGES_FILE, 'utf8')).byUrl ?? {}
+  } catch {
+    localMap = {}
+  }
+  if (Object.keys(localMap).length === 0) {
+    audit.localImages = { mirrored: 0, stillRemote: catalog.images.length }
+    console.log('沒有本機圖片對應表，圖片維持外部連結')
+    return
+  }
+
+  let mirrored = 0
+  for (const image of catalog.images) {
+    const local = localMap[image.url]
+    if (!local) continue
+    image.remoteUrl = image.url
+    image.url = local
+    image.isLocalMirror = true
+    image.usageStatus = 'unknown'
+    // 名稱要講「圖片來自哪裡」，取得方式改由 isLocalMirror 表示。
+    image.sourceName = image.sourceName.replace(/（外部(?:圖片)?連結）/u, '')
+    mirrored += 1
+  }
+  const stillRemote = catalog.images.length - mirrored
+  audit.localImages = { mirrored, stillRemote }
+  console.log(`圖片改用本機副本 ${mirrored} 張，仍為外部連結 ${stillRemote} 張`)
+}
+
 function applyHubSetContents(products, hubSets, audit) {
   const byId = new Map(products.map((product) => [product.id, product]))
   let applied = 0
@@ -599,6 +639,7 @@ function main() {
       'CX 上蓋的鎖定紋章與主刃名稱官方未公布，依 BeybladeHub 零件頁拆成兩顆零件；該站未收錄的 4 顆維持合併並標記 cxFused。',
       '「哪些零件是固鎖一體型」官方商品名不會標，依 BeybladeHub 零件頁記錄，屬社群來源。',
       '中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。',
+      '圖片為本機副本（自存一份避免來源改路徑就破圖），不代表已取得授權：usageStatus 標 unknown，原始位置與來源名稱都保留在資料裡。',
     ],
   }
 
@@ -1105,6 +1146,7 @@ function main() {
   audit.unparsedBeyProducts = audit.unparsedBeyProducts.filter(stillEmpty)
 
   addHubImages(catalog, hubStats, audit, cxHubKeyByPartId)
+  applyLocalImageMirror(catalog, audit)
   audit.partCount = catalog.parts.length
   audit.tournamentEventCount = tournamentEvents.length
   audit.tournamentDeckCount = tournamentDecks.length

@@ -212,6 +212,17 @@ export function Row({ children, gap = 8 }: { children: ReactNode; gap?: number }
 /**
  * 第 25 節：官方圖片只以 link_only 方式顯示，不下載或重散布；讀取失敗時退回型號佔位圖。
  */
+/**
+ * 本機圖片路徑要補上 BASE_URL。
+ * GitHub Pages 部署在 /beyblade-x-loadout/ 子路徑，直接用 /img/... 會 404。
+ */
+export function assetUrl(path: string | undefined): string | undefined {
+  if (!path) return undefined
+  if (/^https?:\/\//.test(path)) return path
+  const base = import.meta.env.BASE_URL ?? '/'
+  return `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`
+}
+
 export function PartThumb({
   code,
   nameZhTW,
@@ -241,11 +252,12 @@ export function PartThumb({
     overflow: 'hidden',
   } as const
 
-  if (imageUrl && !failed) {
+  const resolved = assetUrl(imageUrl)
+  if (resolved && !failed) {
     return (
       <div style={frame}>
         <img
-          src={imageUrl}
+          src={resolved}
           alt=""
           loading="lazy"
           referrerPolicy="no-referrer"

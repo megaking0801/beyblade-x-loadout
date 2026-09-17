@@ -393,3 +393,78 @@ textarea {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/*
+ * 工作頁（配裝器、3on3、比較）的桌機版面。
+ * 這幾頁原本是一長條卡片疊下來，桌機上右邊一片空白、結果要滑很久才看到。
+ * 桌機分兩欄：左邊操作、右邊結果；手機仍然是單欄由上往下。
+ */
+.work-split {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .work-split {
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  }
+
+  /* 右欄結果在桌機上跟著捲動時固定在視窗內，方便一邊換零件一邊看分數。 */
+  .work-split > .work-result {
+    position: sticky;
+    top: 12px;
+  }
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* 比較表：兩欄數值對齊，勝出那側加底色，手機也讀得懂。 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.compare-table th,
+.compare-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.compare-table th {
+  font-size: 13px;
+  color: var(--ink-dim);
+  font-weight: 600;
+}
+
+.compare-table td.win {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  font-weight: 700;
+}
+
+.compare-table td.delta {
+  color: var(--ink-dim);
+  font-size: 13px;
+}
+
+/* 3on3 隊員列：角色標籤 + 配裝名 + 理由，桌機不要擠成一團。 */
+.deck-member {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 8px;
+}
