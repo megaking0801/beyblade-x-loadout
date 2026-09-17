@@ -26,6 +26,14 @@ export interface CatalogAudit {
   randomContentsByDesign: { id: string; nameJa: string; reason: string }[]
   /** 發射器、對戰盤等本來就不含可配裝零件的商品（第 4 節）。 */
   noPartsProducts: { id: string; nameJa: string; category: string }[]
+  curatedSets: {
+    source: string
+    fetchedAt: string
+    applied: { productId: string; sku?: string; beys: number }[]
+    failed: { productId: string; reason: string }[]
+  }
+  cxSplitBlades: { fusedId: string; nameJa: string; nameZhTW: string; lockChipId: string; mainBladeId: string }[]
+  cxUnsplitBlades: { fusedId: string; nameJa: string; nameZhTW: string; reason: string }[]
   untranslatedNames: unknown[]
   knownGaps: string[]
 }
@@ -132,6 +140,8 @@ export const catalog: CatalogBundle = {
   images: parsed.images,
   tournamentEvents: parsed.tournamentEvents ?? [],
   tournamentDecks: parsed.tournamentDecks ?? [],
+  // 零件 id 搬遷表：圖鑑結構改變時，用它把裝置上的舊資料搬到新 id。
+  partIdMigrations: parsed.partIdMigrations ?? {},
 }
 
 export const catalogMeta: CatalogMeta = {

@@ -448,3 +448,79 @@ describe('CX 四件式超越拆組（第 17、18 節）', () => {
     expect(r.errors.map((e) => e.messageZhTW)).toContain('超越戰刃槽不能放入輔助戰刃')
   })
 })
+
+describe('固鎖一體型零件（第 17、18 節）', () => {
+  /**
+   * UX 的「擴張上蓋」與 Op／Tr 這類軸心已經把固鎖做在自己身上，
+   * 這種配裝沒有獨立固鎖，硬要求固鎖會讓這些商品永遠組不起來。
+   */
+  const expandBlade: Part = {
+    id: 'blade-expand',
+    family: 'integrated_blade',
+    system: 'UX',
+    code: 'バレットグリフォン',
+    naming: { primaryZhTW: '子彈獅鷲' },
+    spinDirection: 'right',
+    integratedRatchet: true,
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const fusedBit: Part = {
+    id: 'bit-fused',
+    family: 'bit',
+    system: 'BX',
+    code: 'Tr',
+    naming: { primaryZhTW: 'Tr' },
+    spinDirection: 'dual',
+    integratedRatchet: true,
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const pool = [...parts, expandBlade, fusedBit]
+
+  it('一體式上蓋 + 軸心就算完整，不需要固鎖', () => {
+    const r = checkCompatibility({
+      slots: { bladeId: expandBlade.id, bitId: 'bit-r' },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(true)
+    expect(r.errors).toEqual([])
+  })
+
+  it('一體式上蓋再選固鎖會被擋下', () => {
+    const r = checkCompatibility({
+      slots: { bladeId: expandBlade.id, ratchetId: 'ratchet-r', bitId: 'bit-r' },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((issue) => issue.messageZhTW.includes('不使用固鎖'))).toBe(true)
+  })
+
+  it('固鎖一體型軸心也不需要固鎖', () => {
+    const r = checkCompatibility({
+      slots: { bladeId: 'blade-r', bitId: fusedBit.id },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(true)
+  })
+
+  it('還沒選到一體型零件時，固鎖照常是必填', () => {
+    const r = checkCompatibility({
+      slots: { bladeId: 'blade-r', bitId: 'bit-r' },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(false)
+    expect(r.errors.map((issue) => issue.messageZhTW)).toContain('尚未選擇固鎖')
+  })
+
+  it('槽位表在選到一體型零件後不再有固鎖欄位', () => {
+    expect(
+      getSlotSchemaForSlots({ bladeId: expandBlade.id }, pool).map((slot) => slot.key),
+    ).toEqual(['bladeId', 'bitId'])
+    expect(
+      getSlotSchemaForSlots({ bladeId: 'blade-r' }, pool).map((slot) => slot.key),
+    ).toEqual(['bladeId', 'ratchetId', 'bitId'])
+  })
+})

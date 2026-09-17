@@ -145,6 +145,13 @@ export interface Part {
    * 是四件式這件事來自 BeybladeHub 的商品頁，因此拆出來的零件標社群來源。
    */
   cxOverBlade?: boolean
+  /**
+   * 這個零件已經把固鎖做在自己身上，所以配裝不需要獨立固鎖。
+   *
+   * 兩種情況：UX 的「擴張上蓋」（固鎖一體型上蓋）與 Op／Tr 這類固鎖一體型軸心。
+   * 官方商品名不會標出來（名稱裡直接少了固鎖代號），這件事來自 BeybladeHub 的零件頁。
+   */
+  integratedRatchet?: boolean
   /** 白話用途說明，給新手模式用（第 26、38 節）。 */
   plainDescriptionZhTW?: string
   notes?: string

@@ -4,8 +4,8 @@
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-17",
   "productCount": 149,
-  "partCount": 165,
-  "imageCount": 280,
+  "partCount": 201,
+  "imageCount": 340,
   "tournamentEventCount": 10,
   "tournamentDeckCount": 14,
   "rejectedTournamentDecks": [],
@@ -27,95 +27,8 @@
       "sku": "CX-00"
     }
   ],
-  "unparsedBeyProducts": [
-    {
-      "id": "bxa02",
-      "nameJa": "アジアチャンピオンシップ開催記念 ドランデッキスターター",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "cx07",
-      "nameJa": "ペガサスブラストATr",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "bx00-jtm",
-      "nameJa": "ジュラシック・ワールド T-レックス/モササウルス",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "bx00-jsq",
-      "nameJa": "ジュラシック・ワールド スピノサウルス/ケツァルコアトルス",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "cx00-pb",
-      "nameJa": "ペガサスブラストATr メタルコート:レッド",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "ux19",
-      "nameJa": "バレットグリフォンH",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "ux20",
-      "nameJa": "グローリーワルキューレLF",
-      "reason": "商品名不符合可解析的零件命名規則"
-    },
-    {
-      "id": "ux00-gv",
-      "nameJa": "グローリーワルキューレLF メタルコート:ブルー",
-      "reason": "商品名不符合可解析的零件命名規則"
-    }
-  ],
-  "contentsUnknownProducts": [
-    {
-      "id": "ux00-hs_bc",
-      "nameJa": "ベイキックオフセット FCバルセロナVer.",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "bx00-25set",
-      "nameJa": "ベイブレード25周年記念セット",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "cx04",
-      "nameJa": "バトルエントリーセットC",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "bx46",
-      "nameJa": "バトルエントリーセット∞",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "cx11",
-      "nameJa": "エンペラーマイトデッキセット",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "cx16",
-      "nameJa": "スタートダッシュセットC",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "ux21",
-      "nameJa": "ヘルズネザーデッキセット",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "cx00-eva",
-      "nameJa": "エヴァンゲリオンデッキセット",
-      "reason": "套裝內容未在官方一覽頁公布"
-    },
-    {
-      "id": "bx53",
-      "nameJa": "オールインワンセット",
-      "reason": "套裝內容未在官方一覽頁公布"
-    }
-  ],
+  "unparsedBeyProducts": [],
+  "contentsUnknownProducts": [],
   "randomContentsByDesign": [
     {
       "id": "bx14",
@@ -221,6 +134,118 @@
       "id": "cx19",
       "nameJa": "ランダムブースター クロコトレッドセレクト",
       "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
+    }
+  ],
+  "cxSplitBlades": [
+    {
+      "fusedId": "main_blade:ドランブレイブ",
+      "nameJa": "ドランブレイブ",
+      "nameZhTW": "蒼龍勇氣",
+      "lockChipId": "lock_chip:Dr",
+      "mainBladeId": "main_blade:Br"
+    },
+    {
+      "fusedId": "main_blade:ウィザードアーク",
+      "nameJa": "ウィザードアーク",
+      "nameZhTW": "魔導至尊",
+      "lockChipId": "lock_chip:Wz",
+      "mainBladeId": "main_blade:Ar"
+    },
+    {
+      "fusedId": "main_blade:ペルセウスダーク",
+      "nameJa": "ペルセウスダーク",
+      "nameZhTW": "英仙幽冥",
+      "lockChipId": "lock_chip:Pr",
+      "mainBladeId": "main_blade:Dr"
+    },
+    {
+      "fusedId": "main_blade:ペガサスブラスト",
+      "nameJa": "ペガサスブラスト",
+      "nameZhTW": "天馬爆擊",
+      "lockChipId": "lock_chip:Pg",
+      "mainBladeId": "main_blade:Bl"
+    },
+    {
+      "fusedId": "main_blade:ヘルズブレイブ",
+      "nameJa": "ヘルズブレイブ",
+      "nameZhTW": "惡魔勇氣",
+      "lockChipId": "lock_chip:Hl",
+      "mainBladeId": "main_blade:Br"
+    },
+    {
+      "fusedId": "main_blade:ソルエクリプス",
+      "nameJa": "ソルエクリプス",
+      "nameZhTW": "焰神滅世",
+      "lockChipId": "lock_chip:Sl",
+      "mainBladeId": "main_blade:Ec"
+    },
+    {
+      "fusedId": "main_blade:ウルフハント",
+      "nameJa": "ウルフハント",
+      "nameZhTW": "銀狼狩獵",
+      "lockChipId": "lock_chip:Wl",
+      "mainBladeId": "main_blade:Hn"
+    },
+    {
+      "fusedId": "main_blade:フェニックスフレア",
+      "nameJa": "フェニックスフレア",
+      "nameZhTW": "鳳凰閃焰",
+      "lockChipId": "lock_chip:Ph",
+      "mainBladeId": "main_blade:Fr"
+    },
+    {
+      "fusedId": "main_blade:バハムートブリッツ",
+      "nameJa": "バハムートブリッツ",
+      "nameZhTW": "龍王閃擊",
+      "lockChipId": "lock_chip:Bh",
+      "mainBladeId": "main_blade:metal-Bl"
+    },
+    {
+      "fusedId": "main_blade:ナイトフォートレス",
+      "nameJa": "ナイトフォートレス",
+      "nameZhTW": "騎士堡壘",
+      "lockChipId": "lock_chip:Kn",
+      "mainBladeId": "main_blade:metal-Fr"
+    },
+    {
+      "fusedId": "main_blade:ラグナレイジ",
+      "nameJa": "ラグナレイジ",
+      "nameZhTW": "邪神狂怒",
+      "lockChipId": "lock_chip:Rg",
+      "mainBladeId": "main_blade:metal-Rg"
+    },
+    {
+      "fusedId": "main_blade:ティガレイジ",
+      "nameJa": "ティガレイジ",
+      "nameZhTW": "迪卡狂怒",
+      "lockChipId": "lock_chip:Tg",
+      "mainBladeId": "main_blade:metal-Rg"
+    }
+  ],
+  "cxUnsplitBlades": [
+    {
+      "fusedId": "main_blade:バックスアントラーズ",
+      "nameJa": "バックスアントラーズ",
+      "nameZhTW": "雄鹿之角",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:クラーケンリグル",
+      "nameJa": "クラーケンリグル",
+      "nameZhTW": "海怪扭動",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ホーネットフォート",
+      "nameJa": "ホーネットフォート",
+      "nameZhTW": "大黃蜂堡",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ドレイクブレイブ",
+      "nameJa": "ドレイクブレイブ",
+      "nameZhTW": "龍神勇氣",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
     }
   ],
   "noPartsProducts": [
@@ -343,72 +368,63 @@
     "CX 上蓋在商品上為「鎖定紋章 + 主刃」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。",
     "中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。"
   ],
-  "hubStats": {
+  "cxSplitCount": 12,
+  "curatedSets": {
     "source": "BeybladeHub",
-    "fetchedAt": "2026-09-16",
-    "matchedParts": 135,
-    "partsWithoutStats": [
+    "fetchedAt": "2026-09-17",
+    "applied": [
       {
-        "id": "main_blade:ドランブレイブ",
-        "name": "蒼龍勇氣"
+        "productId": "bx46",
+        "sku": "BX-46",
+        "beys": 2
       },
       {
-        "id": "main_blade:ウィザードアーク",
-        "name": "魔導至尊"
+        "productId": "bx53",
+        "sku": "BX-53",
+        "beys": 3
       },
       {
-        "id": "main_blade:ペルセウスダーク",
-        "name": "英仙幽冥"
+        "productId": "cx11",
+        "sku": "CX-11",
+        "beys": 3
       },
       {
-        "id": "main_blade:ヘルズブレイブ",
-        "name": "惡魔勇氣"
+        "productId": "ux21",
+        "sku": "UX-21",
+        "beys": 3
       },
       {
-        "id": "main_blade:ソルエクリプス",
-        "name": "焰神滅世"
+        "productId": "cx00-eva",
+        "sku": "CX-00",
+        "beys": 3
       },
       {
-        "id": "main_blade:ウルフハント",
-        "name": "銀狼狩獵"
+        "productId": "bx00-25set",
+        "sku": "BX-00",
+        "beys": 4
       },
       {
-        "id": "main_blade:フェニックスフレア",
-        "name": "鳳凰閃焰"
+        "productId": "ux00-hs_bc",
+        "sku": "UX-00",
+        "beys": 1
       },
       {
-        "id": "main_blade:バハムートブリッツ",
-        "name": "龍王閃擊"
+        "productId": "bx00-jtm",
+        "sku": "BX-00",
+        "beys": 2
       },
       {
-        "id": "main_blade:ナイトフォートレス",
-        "name": "騎士堡壘"
+        "productId": "bx00-jsq",
+        "sku": "BX-00",
+        "beys": 2
       },
       {
-        "id": "main_blade:ラグナレイジ",
-        "name": "邪神狂怒"
-      },
-      {
-        "id": "main_blade:バックスアントラーズ",
-        "name": "雄鹿之角"
-      },
-      {
-        "id": "main_blade:クラーケンリグル",
-        "name": "海怪扭動"
-      },
-      {
-        "id": "main_blade:ホーネットフォート",
-        "name": "大黃蜂堡"
-      },
-      {
-        "id": "main_blade:ドレイクブレイブ",
-        "name": "龍神勇氣"
-      },
-      {
-        "id": "main_blade:ティガレイジ",
-        "name": "迪卡狂怒"
+        "productId": "bxa02",
+        "sku": "UX-00",
+        "beys": 3
       }
-    ]
+    ],
+    "failed": []
   },
   "hubSetContents": {
     "source": "BeybladeHub",
@@ -492,8 +508,31 @@
       }
     ]
   },
+  "hubStats": {
+    "source": "BeybladeHub",
+    "fetchedAt": "2026-09-16",
+    "matchedParts": 195,
+    "partsWithoutStats": [
+      {
+        "id": "main_blade:バックスアントラーズ",
+        "name": "雄鹿之角"
+      },
+      {
+        "id": "main_blade:クラーケンリグル",
+        "name": "海怪扭動"
+      },
+      {
+        "id": "main_blade:ホーネットフォート",
+        "name": "大黃蜂堡"
+      },
+      {
+        "id": "main_blade:ドレイクブレイブ",
+        "name": "龍神勇氣"
+      }
+    ]
+  },
   "hubImages": {
-    "partImages": 135,
-    "productImagesReplaced": 57
+    "partImages": 195,
+    "productImagesReplaced": 73
   }
 }

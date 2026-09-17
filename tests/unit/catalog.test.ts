@@ -170,8 +170,24 @@ describe('不得編造內容（第 1.5 節）', () => {
     )
     expect(withStats.length).toBeGreaterThan(0)
     for (const part of withStats) {
-      // 零件身分仍然是官方來源，數值則獨立標社群實測，兩者不混為一談。
-      expect(part.provenance.verificationStatus).toBe('official_verified')
+      /*
+       * 零件身分與數值的來源分開記。
+       * 官方商品名有列的零件，身分是官方來源；
+       * CX 的紋章／主刃／超越戰刃連名稱都只有社群站有，身分本身就是社群來源。
+       */
+      /*
+       * 身分的驗證狀態必須跟來源網域一致，這條比「一律官方」更能真的擋住亂標：
+       *  - official_verified：名稱來自官方商品名（官方一覽頁）
+       *  - community_only：只有社群站有（CX 的紋章／主刃／超越、只出現在套裝內的上蓋）
+       */
+      const status = part.provenance.verificationStatus
+      expect(['official_verified', 'community_only']).toContain(status)
+      const urls = part.provenance.sourceUrls.join(' ')
+      if (status === 'official_verified') {
+        expect(urls, `${part.id} 標官方卻沒有官方來源`).toContain('takaratomy.co.jp')
+      } else {
+        expect(urls, `${part.id} 標社群卻沒有社群來源`).toContain('beybladehub.app')
+      }
       expect(part.statsProvenance?.verificationStatus).toBe('community_only')
       expect(part.statsProvenance?.sourceUrls.length).toBeGreaterThan(0)
     }
@@ -202,7 +218,8 @@ describe('官方說明書補齊的套裝內容（第 14、24、41 節）', () =>
     ['ux04', 6],
     ['ux07', 9],
     ['ux10', 13],
-    ['ux15', 10],
+    // UX-15 含一顆 CX：上蓋拆成鎖定紋章＋主刃之後零件數多一個。
+    ['ux15', 11],
   ])('%s 的可玩零件內容來自官方說明書', (id, expectedPartCount) => {
     const product = catalog.products.find((row) => row.id === id)
     expect(product?.contents.filter((content) => content.partId)).toHaveLength(expectedPartCount)
@@ -237,10 +254,13 @@ describe('實際 Catalog 可以組出合法配裝（第 17、18 節）', () => {
     expect(result.system).toBe('BX')
   })
 
-  it('CX 未拆分上蓋可以通過相容性檢查', () => {
+  it('仍未拆分的 CX 上蓋可以通過相容性檢查（不需要鎖定紋章）', () => {
+    // 社群站還沒收錄紋章／主刃的那幾顆維持合併，這時鎖定紋章槽不該出現。
+    const fused = catalog.parts.find((part) => part.cxFused)
+    expect(fused).toBeDefined()
     const result = checkCompatibility({
       slots: {
-        mainBladeId: 'main_blade:ドランブレイブ',
+        mainBladeId: fused!.id,
         assistBladeId: 'assist_blade:S',
         ratchetId: 'ratchet:6-60',
         bitId: 'bit:V',
@@ -367,9 +387,10 @@ describe('CX 四件式超越拆組（第 9、17 節）', () => {
     expect(four.length).toBeGreaterThan(0)
     for (const part of four) {
       expect(part.family).toBe('main_blade')
-      expect(part.cxFused).toBe(true)
+      // 拆開後的金屬主刃是獨立零件（id 帶 metal- 前綴避免與普通主刃撞號）。
+      expect(part.id.startsWith('main_blade:metal-') || part.cxFused === true).toBe(true)
     }
-    const three = catalog.parts.find((part) => part.id === 'main_blade:ドランブレイブ')
+    const three = catalog.parts.find((part) => part.id === 'main_blade:Br')
     expect(three?.cxOverBlade).toBeUndefined()
   })
 
@@ -379,15 +400,24 @@ describe('CX 四件式超越拆組（第 9、17 節）', () => {
     const families = product!.contents
       .map((content) => catalog.parts.find((part) => part.id === content.partId)?.family)
       .filter(Boolean)
-    expect(families).toEqual(['main_blade', 'over_blade', 'assist_blade', 'ratchet', 'bit'])
+    expect(families).toEqual([
+      'lock_chip',
+      'main_blade',
+      'over_blade',
+      'assist_blade',
+      'ratchet',
+      'bit',
+    ])
   })
 
   it('四件式配裝可以通過相容性檢查', () => {
     const main = catalog.parts.find((part) => part.cxOverBlade)!
+    const chip = catalog.parts.find((part) => part.family === 'lock_chip')!
     const over = catalog.parts.find((part) => part.family === 'over_blade')!
     const assist = catalog.parts.find((part) => part.family === 'assist_blade')!
     const result = checkCompatibility({
       slots: {
+        lockChipId: chip.id,
         mainBladeId: main.id,
         overBladeId: over.id,
         assistBladeId: assist.id,
@@ -403,9 +433,11 @@ describe('CX 四件式超越拆組（第 9、17 節）', () => {
 
   it('四件式主刃少了超越戰刃會被擋下', () => {
     const main = catalog.parts.find((part) => part.cxOverBlade)!
+    const chip = catalog.parts.find((part) => part.family === 'lock_chip')!
     const assist = catalog.parts.find((part) => part.family === 'assist_blade')!
     const result = checkCompatibility({
       slots: {
+        lockChipId: chip.id,
         mainBladeId: main.id,
         assistBladeId: assist.id,
         ratchetId: 'ratchet:3-60',
@@ -453,5 +485,177 @@ describe('稽核要把「刻意不填」與「真的缺」分開（第 13、42 �
         product?.category,
       )
     }
+  })
+})
+
+describe('CX 紋章與主刃拆開（第 9、17 節）', () => {
+  /**
+   * 官方只公布合併後的上蓋名稱，個別的鎖定紋章與主刃名稱只有 BeybladeHub 有。
+   * 拆開的重點是「同一顆紋章可以換不同主刃」，這是 CX 系統的賣點。
+   * 社群站還沒收錄的那幾顆維持合併，不硬拆。
+   */
+  it('拆出來的紋章與主刃都是獨立零件，且標社群來源', () => {
+    const chips = catalog.parts.filter((part) => part.family === 'lock_chip')
+    expect(chips.length).toBeGreaterThan(5)
+    for (const chip of chips) {
+      expect(chip.provenance.verificationStatus).toBe('community_only')
+      expect(chip.provenance.sourceUrls.some((url) => url.includes('beybladehub.app'))).toBe(true)
+      expect(chip.naming.primaryZhTW).not.toMatch(/[぀-ヿ]/)
+    }
+  })
+
+  it('金屬主刃與同代號的普通主刃不會撞號', () => {
+    const metal = catalog.parts.find((part) => part.id === 'main_blade:metal-Fr')
+    const plain = catalog.parts.find((part) => part.id === 'main_blade:Fr')
+    expect(metal).toBeDefined()
+    expect(plain).toBeDefined()
+    expect(metal!.naming.primaryZhTW).not.toBe(plain!.naming.primaryZhTW)
+    expect(metal!.cxOverBlade).toBe(true)
+    expect(plain!.cxOverBlade).toBeUndefined()
+  })
+
+  it('搬遷表把每顆被拆開的合併件指到紋章 + 主刃', () => {
+    const migrations = catalog.partIdMigrations ?? {}
+    expect(Object.keys(migrations).length).toBe(catalogAudit.cxSplitBlades.length)
+    for (const [oldId, newIds] of Object.entries(migrations)) {
+      expect(oldId.startsWith('main_blade:')).toBe(true)
+      // 舊 id 必須真的已經不在圖鑑裡，否則搬遷不會被觸發
+      expect(catalog.parts.some((part) => part.id === oldId)).toBe(false)
+      expect(newIds).toHaveLength(2)
+      const families = newIds.map(
+        (id) => catalog.parts.find((part) => part.id === id)?.family,
+      )
+      expect(families).toEqual(['lock_chip', 'main_blade'])
+    }
+  })
+
+  it('可以把不同商品的紋章與主刃混搭成合法配裝', () => {
+    // 蒼龍（CX-01）的紋章配上幽冥（CX-03）的主刃，官方沒有這樣賣，但實體可以這樣組。
+    const result = checkCompatibility({
+      slots: {
+        lockChipId: 'lock_chip:Dr',
+        mainBladeId: 'main_blade:Dr',
+        assistBladeId: 'assist_blade:R',
+        ratchetId: 'ratchet:3-60',
+        bitId: 'bit:F',
+      },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(result.ok).toBe(true)
+    expect(result.system).toBe('CX')
+  })
+
+  it('社群站沒收錄的那幾顆維持合併，並記在稽核報告', () => {
+    expect(catalogAudit.cxUnsplitBlades.length).toBeGreaterThan(0)
+    for (const row of catalogAudit.cxUnsplitBlades) {
+      const part = catalog.parts.find((item) => item.id === row.fusedId)
+      expect(part?.cxFused).toBe(true)
+    }
+  })
+})
+
+describe('固鎖一體型商品（第 17 節）', () => {
+  /**
+   * 這些商品的官方名稱裡沒有固鎖代號（例：バレットグリフォンH），
+   * 以前一律判成「解析不出零件組成」，內容整筆空白。
+   * 「哪些零件是固鎖一體型」官方沒公布，來源是 BeybladeHub 的零件頁。
+   */
+  it('UX 擴張上蓋歸在特殊一體式並標記固鎖一體型', () => {
+    const blade = catalog.parts.find((part) => part.id === 'integrated_blade:バレットグリフォン')
+    expect(blade).toBeDefined()
+    expect(blade!.family).toBe('integrated_blade')
+    expect(blade!.integratedRatchet).toBe(true)
+    expect(blade!.provenance.verificationStatus).toBe('community_only')
+  })
+
+  it('固鎖一體型軸心也有標記', () => {
+    const bit = catalog.parts.find((part) => part.id === 'bit:Tr')
+    expect(bit?.integratedRatchet).toBe(true)
+  })
+
+  it('UX-19 的內容是上蓋 + 軸心，沒有固鎖', () => {
+    const product = catalog.products.find((row) => row.sku === 'UX-19')
+    const families = product!.contents
+      .map((content) => catalog.parts.find((part) => part.id === content.partId)?.family)
+      .filter(Boolean)
+    expect(families).toEqual(['integrated_blade', 'bit'])
+  })
+
+  it('CX-07 的內容是紋章 + 主刃 + 輔助 + 一體型軸心，沒有固鎖', () => {
+    const product = catalog.products.find((row) => row.id === 'cx07')
+    const families = product!.contents
+      .map((content) => catalog.parts.find((part) => part.id === content.partId)?.family)
+      .filter(Boolean)
+    expect(families).toEqual(['lock_chip', 'main_blade', 'assist_blade', 'bit'])
+  })
+
+  it('這些商品可以通過相容性檢查', () => {
+    const ux19 = checkCompatibility({
+      slots: { bladeId: 'integrated_blade:バレットグリフォン', bitId: 'bit:H' },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(ux19.ok).toBe(true)
+
+    const cx07 = checkCompatibility({
+      slots: {
+        lockChipId: 'lock_chip:Pg',
+        mainBladeId: 'main_blade:Bl',
+        assistBladeId: 'assist_blade:A',
+        bitId: 'bit:Tr',
+      },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(cx07.ok).toBe(true)
+    expect(cx07.system).toBe('CX')
+  })
+})
+
+describe('套裝內容已全部補齊（第 14、24、41 節）', () => {
+  /**
+   * 官方一覽頁不列套裝內含哪幾顆，以前這些商品內容全空、登記一盒也不會進任何零件。
+   * 現在改成逐筆讀 BeybladeHub 商品頁彙整，每筆都附網址與原文引述。
+   */
+  it('除了隨機商品與配件，每個商品都有內容', () => {
+    const empty = catalog.products.filter(
+      (product) =>
+        product.contents.length === 0 &&
+        !product.isRandom &&
+        !['tool', 'accessory'].includes(product.category),
+    )
+    expect(empty.map((product) => product.id)).toEqual([])
+  })
+
+  it('稽核的兩個缺漏欄位都清空了', () => {
+    expect(catalogAudit.contentsUnknownProducts).toEqual([])
+    expect(catalogAudit.unparsedBeyProducts).toEqual([])
+  })
+
+  it('人工彙整的套裝都標社群來源，並附商品頁網址', () => {
+    expect(catalogAudit.curatedSets.applied.length).toBeGreaterThan(5)
+    expect(catalogAudit.curatedSets.failed).toEqual([])
+    for (const row of catalogAudit.curatedSets.applied) {
+      const product = catalog.products.find((item) => item.id === row.productId)
+      expect(product?.provenance.verificationStatus).toBe('community_only')
+      expect(product?.provenance.sourceUrls.some((url) => url.includes('beybladehub.app'))).toBe(
+        true,
+      )
+    }
+  })
+
+  it('多顆套裝的內容數量對得上顆數', () => {
+    // BX-46 兩顆三件式 = 6 件；CX-11 一顆 CX（含紋章／主刃／輔助／一體型軸心）+ 兩顆三件式 = 10 件
+    expect(catalog.products.find((row) => row.id === 'bx46')?.contents).toHaveLength(6)
+    expect(catalog.products.find((row) => row.id === 'cx11')?.contents).toHaveLength(10)
+    expect(catalog.products.find((row) => row.id === 'bx00-25set')?.contents).toHaveLength(12)
+  })
+
+  it('只出現在套裝內的上蓋標社群來源，且名稱是中文', () => {
+    const setOnly = catalog.parts.find((part) => part.id === 'blade:ゴートタックル')
+    expect(setOnly).toBeDefined()
+    expect(setOnly!.provenance.verificationStatus).toBe('community_only')
+    expect(setOnly!.naming.primaryZhTW).toBe('戰羊阻截')
   })
 })

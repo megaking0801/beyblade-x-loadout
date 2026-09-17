@@ -67,8 +67,25 @@ export function getSlotSchema(system: AssemblySystem): SlotDef[] {
  */
 export function getSlotSchemaForSlots(slots: ComboSlots, parts: Part[]): SlotDef[] {
   const system = deriveSystem(slots, parts)
-  if (system !== 'CX') return STANDARD_SCHEMA
-  return getCxSlotSchema(slots, parts)
+  const schema = system === 'CX' ? getCxSlotSchema(slots, parts) : STANDARD_SCHEMA
+  return dropRatchetIfIntegrated(schema, slots, parts)
+}
+
+/**
+ * 有些零件把固鎖做在自己身上（UX 擴張上蓋、Op／Tr 軸心），這時配裝沒有獨立固鎖。
+ * 還沒選到那種零件之前，固鎖欄位照常顯示。
+ */
+function dropRatchetIfIntegrated(
+  schema: SlotDef[],
+  slots: ComboSlots,
+  parts: Part[],
+): SlotDef[] {
+  const selected = [slots.bladeId, slots.mainBladeId, slots.bitId]
+    .filter((id): id is string => Boolean(id))
+    .map((id) => parts.find((part) => part.id === id))
+  const integrated = selected.some((part) => part?.integratedRatchet === true)
+  if (!integrated) return schema
+  return schema.filter((slot) => slot.key !== 'ratchetId')
 }
 
 /**

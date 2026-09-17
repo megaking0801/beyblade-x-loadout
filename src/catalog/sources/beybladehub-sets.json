@@ -8,8 +8,10 @@
       "sku": "CX-04",
       "sourceUrl": "https://beybladehub.app/parts/combos/CX-04",
       "partIds": [
-        "main_blade:ドランブレイブ",
-        "main_blade:ペルセウスダーク",
+        "lock_chip:Dr",
+        "lock_chip:Pr",
+        "main_blade:Br",
+        "main_blade:Dr",
         "assist_blade:S",
         "assist_blade:B",
         "ratchet:6-60",
@@ -23,7 +25,8 @@
       "sku": "CX-16",
       "sourceUrl": "https://beybladehub.app/parts/combos/CX-16",
       "partIds": [
-        "main_blade:バハムートブリッツ",
+        "lock_chip:Bh",
+        "main_blade:metal-Bl",
         "over_blade:B",
         "assist_blade:K",
         "ratchet:1-50",

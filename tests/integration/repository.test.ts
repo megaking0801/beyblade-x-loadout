@@ -2,6 +2,7 @@ import 'fake-indexeddb/auto'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createDb, type BeybladeDb } from '../../src/data/db.ts'
 import { createRepository, type Repository } from '../../src/data/repository.ts'
+import type { Part } from '../../src/domain/types.ts'
 import {
   deckSetProduct,
   fixedProduct,
@@ -586,5 +587,158 @@ describe('沒有官方款式清單時的開封登記（第 13 節）', () => {
     await repo.deleteOwnedProduct(id)
     expect((await repo.getPartStockMap()).size).toBe(0)
     expect(await repo.getAllLots()).toEqual([])
+  })
+})
+
+describe('零件 id 搬遷（第 3 節：圖鑑更新不得弄丟個人資料）', () => {
+  /**
+   * 情境：CX 上蓋原本是「紋章＋主刃」合併成一顆零件，後來拆成兩顆。
+   * 舊 id 會從圖鑑消失，但使用者裝置上的批次、配裝與收藏還指向它。
+   */
+  const fusedPart: Part = {
+    id: 'main_blade:合併件',
+    family: 'main_blade',
+    system: 'CX',
+    code: '合併件',
+    naming: { primaryZhTW: '合併件' },
+    cxFused: true,
+    spinDirection: 'right',
+    provenance: { sourceUrls: [], verificationStatus: 'needs_review' },
+  }
+  const chipPart: Part = {
+    id: 'lock_chip:Ch',
+    family: 'lock_chip',
+    system: 'CX',
+    code: 'Ch',
+    naming: { primaryZhTW: '紋章' },
+    spinDirection: 'right',
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const mainPart: Part = {
+    id: 'main_blade:Mn',
+    family: 'main_blade',
+    system: 'CX',
+    code: 'Mn',
+    naming: { primaryZhTW: '主刃' },
+    spinDirection: 'right',
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const assistPart: Part = {
+    id: 'assist_blade:S',
+    family: 'assist_blade',
+    system: 'CX',
+    code: 'S',
+    naming: { primaryZhTW: 'S' },
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+
+  const oldCatalog = {
+    ...catalog,
+    version: 'cx-fused',
+    parts: [...testParts, fusedPart, assistPart],
+    partIdMigrations: {},
+  }
+  const newCatalog = {
+    ...catalog,
+    version: 'cx-split',
+    parts: [...testParts, chipPart, mainPart, assistPart],
+    partIdMigrations: { 'main_blade:合併件': ['lock_chip:Ch', 'main_blade:Mn'] },
+  }
+
+  it('單獨新增的批次會拆成兩筆，數量與狀態不變', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({ partId: fusedPart.id, quantity: 3, status: 'available' })
+
+    await repo.loadCatalog(newCatalog)
+
+    const stock = await repo.getPartStockMap()
+    expect(stock.get('main_blade:合併件')).toBeUndefined()
+    expect(stock.get('lock_chip:Ch')?.available).toBe(3)
+    expect(stock.get('main_blade:Mn')?.available).toBe(3)
+  })
+
+  it('非可用狀態與備註也一起搬過去', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({
+      partId: fusedPart.id,
+      quantity: 2,
+      status: 'ordered',
+      notes: '預購',
+    })
+
+    await repo.loadCatalog(newCatalog)
+
+    const lots = (await repo.getAllLots()).filter((lot) => lot.partId.startsWith('lock_chip'))
+    expect(lots).toHaveLength(1)
+    expect(lots[0]).toMatchObject({ quantity: 2, status: 'ordered', notes: '預購' })
+  })
+
+  it('已儲存的配裝會把主刃槽拆成鎖定紋章 + 主刃', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({ partId: fusedPart.id, quantity: 1, status: 'available' })
+    await repo.addStandalonePart({ partId: assistPart.id, quantity: 1, status: 'available' })
+    await repo.addStandalonePart({ partId: 'test-ratchet-a', quantity: 1, status: 'available' })
+    await repo.addStandalonePart({ partId: 'test-bit-a', quantity: 1, status: 'available' })
+    const comboId = await repo.saveCombo({
+      nameZhTW: '我的 CX',
+      system: 'CX',
+      slots: {
+        mainBladeId: fusedPart.id,
+        assistBladeId: assistPart.id,
+        ratchetId: 'test-ratchet-a',
+        bitId: 'test-bit-a',
+      },
+      favorite: false,
+      physicallyBuilt: false,
+    })
+
+    await repo.loadCatalog(newCatalog)
+
+    const combo = (await repo.listCombos()).find((row) => row.id === comboId)
+    expect(combo?.slots.mainBladeId).toBe('main_blade:Mn')
+    expect(combo?.slots.lockChipId).toBe('lock_chip:Ch')
+    expect(combo?.nameZhTW).toBe('我的 CX')
+  })
+
+  it('重複載入同一份新圖鑑不會重複搬（不會變成四筆）', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({ partId: fusedPart.id, quantity: 1, status: 'available' })
+
+    await repo.loadCatalog(newCatalog)
+    await repo.loadCatalog(newCatalog)
+
+    const stock = await repo.getPartStockMap()
+    expect(stock.get('lock_chip:Ch')?.available).toBe(1)
+    expect(stock.get('main_blade:Mn')?.available).toBe(1)
+  })
+
+  it('新 id 不存在時不搬，避免把資料指到空零件', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({ partId: fusedPart.id, quantity: 1, status: 'available' })
+
+    await repo.loadCatalog({
+      ...catalog,
+      version: 'cx-broken',
+      parts: [...testParts, assistPart],
+      partIdMigrations: { 'main_blade:合併件': ['lock_chip:不存在', 'main_blade:也不存在'] },
+    })
+
+    const stock = await repo.getPartStockMap()
+    expect(stock.get('main_blade:合併件')?.available).toBe(1)
+    expect(stock.get('lock_chip:不存在')).toBeUndefined()
+  })
+
+  it('搬遷紀錄會寫進 meta，事後查得到動了什麼', async () => {
+    await repo.loadCatalog(oldCatalog)
+    await repo.addStandalonePart({ partId: fusedPart.id, quantity: 1, status: 'available' })
+    await repo.loadCatalog(newCatalog)
+
+    const record = await repo.getPartIdMigrationRecord()
+    expect(record?.catalogVersion).toBe('cx-split')
+    expect(record?.applied[0]).toMatchObject({
+      oldId: 'main_blade:合併件',
+      newIds: ['lock_chip:Ch', 'main_blade:Mn'],
+      lots: 1,
+    })
   })
 })

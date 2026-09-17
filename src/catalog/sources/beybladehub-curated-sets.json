@@ -1,0 +1,290 @@
+{
+  "source": "BeybladeHub",
+  "fetchedAt": "2026-09-17",
+  "note": "多顆套裝與無編號商品的內容。官方一覽頁只給商品名，內容是逐筆讀 BeybladeHub 商品頁確認的，屬社群來源；每筆都附該頁網址與原文引述，可回頭核對。自動抓取腳本不適用這些頁面：錨點混了「推薦搭配」池，而 BX-00／UX-00／CX-00 這類無編號商品也無法用型號組出網址。",
+  "sets": [
+    {
+      "productId": "bx46",
+      "sku": "BX-46",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-46",
+      "quoteZhTW": "內含「蒼穹龍神 9-60R」（攻擊型，四枚大型龍型刃，金屬塗裝：紅）與「戰羊阻截 7-70T」（均衡型，向下八枚刃擅防低位攻擊）兩顆陀螺",
+      "beys": [
+        {
+          "kind": "standard",
+          "bladeJa": "コバルトドレイク",
+          "ratchet": "9-60",
+          "bit": "R"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "GtTc",
+            "nameJa": "ゴートタックル",
+            "zhTW": "戰羊阻截"
+          },
+          "ratchet": "7-70",
+          "bit": "T"
+        }
+      ]
+    },
+    {
+      "productId": "bx53",
+      "sku": "BX-53",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-53",
+      "quoteZhTW": "內含三顆類型不同的強力陀螺、兩種發射器與一座對戰盤，「對戰」「改造」「技巧」三件事一盒全包。三顆為空力天馬 3-70A、魔導幻箭 4-80B 版本 2.0、騎士重盾 3-80N 版本 2.0",
+      "beys": [
+        {
+          "kind": "standard",
+          "bladeJa": "エアロペガサス",
+          "ratchet": "3-70",
+          "bit": "A"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "WzAr2",
+            "zhTW": "魔導幻箭 2.0"
+          },
+          "ratchet": "4-80",
+          "bit": "B"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "KnSh2",
+            "zhTW": "騎士重盾 2.0"
+          },
+          "ratchet": "3-80",
+          "bit": "N"
+        }
+      ]
+    },
+    {
+      "productId": "cx11",
+      "sku": "CX-11",
+      "sourceUrl": "https://beybladehub.app/parts/combos/CX-11",
+      "quoteZhTW": "三顆陀螺打包的改造組，可立即享受 3-on-3 對戰與多樣化改造。三顆為帝王威能 HOp（固鎖一體型軸心 Op）、魔像奇岩 M-85HN、鮫鯊撕裂 5-60FB",
+      "beys": [
+        {
+          "kind": "cx",
+          "chip": "Em",
+          "main": "Mg",
+          "assist": "H",
+          "bit": "Op"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "ゴーレムロック",
+          "ratchet": "M-85",
+          "bit": "HN"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "ShGl",
+            "nameJa": "シャークギル",
+            "zhTW": "鮫鯊撕裂"
+          },
+          "ratchet": "5-60",
+          "bit": "FB"
+        }
+      ]
+    },
+    {
+      "productId": "ux21",
+      "sku": "UX-21",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-21",
+      "quoteZhTW": "三顆陀螺：全新刃「惡魔幽冥 Z」（擴張上蓋固鎖一體型，可切換高度）、「霜輝銀狼 9-70R」（紫色版）、「飛龍颶風 8-80B」（綠色版）。對戰盤與發射器需另購。",
+      "beys": [
+        {
+          "kind": "integrated",
+          "blade": {
+            "hubKey": "HlNt",
+            "nameJa": "ヘルズネザー",
+            "zhTW": "惡魔幽冥"
+          },
+          "bit": "Z"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "シルバーウルフ",
+          "ratchet": "9-70",
+          "bit": "R"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "WyHv",
+            "nameJa": "ワイバーンホバー",
+            "zhTW": "飛龍颶風"
+          },
+          "ratchet": "8-80",
+          "bit": "B"
+        }
+      ]
+    },
+    {
+      "productId": "cx00-eva",
+      "sku": "CX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/CX-00-eva",
+      "quoteZhTW": "三顆 EVA 聯名主題陀螺各 1 顆——EVA 勇氣 A1-70V（初號機）、EVA 至尊 B0-70E（零號機）、EVA 九尾 T2-70A（2 號機）",
+      "beys": [
+        {
+          "kind": "cx",
+          "chip": "Eva01",
+          "main": "Br",
+          "assist": "A",
+          "ratchet": "1-70",
+          "bit": "V"
+        },
+        {
+          "kind": "cx",
+          "chip": "Eva00",
+          "main": "Ar",
+          "assist": "B",
+          "ratchet": "0-70",
+          "bit": "E"
+        },
+        {
+          "kind": "cx",
+          "chip": "Eva02",
+          "main": "Bs",
+          "assist": "T",
+          "ratchet": "2-70",
+          "bit": "A"
+        }
+      ]
+    },
+    {
+      "productId": "bx00-25set",
+      "sku": "BX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BXG-00",
+      "quoteZhTW": "內含四顆歷代主角機的 X 代復刻與各自專屬發射器：暴風龍騎士 4-60RA（初代）、暴風天馬 3-70RA（金屬戰魂）、勝利戰神 2-60RA（爆裂世代）、蒼龍神劍 3-60F 全息貼紙版（X 代）",
+      "beys": [
+        {
+          "kind": "standard",
+          "bladeJa": "ドラグーンストーム",
+          "ratchet": "4-60",
+          "bit": "RA"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "ストームペガシス",
+          "ratchet": "3-70",
+          "bit": "RA"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "V2",
+            "nameJa": "ビクトリーヴァルキリー",
+            "zhTW": "勝利戰神"
+          },
+          "ratchet": "2-60",
+          "bit": "RA"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "ドランソード",
+          "ratchet": "3-60",
+          "bit": "F"
+        }
+      ]
+    },
+    {
+      "productId": "ux00-hs_bc",
+      "sku": "UX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-00-bxg19",
+      "quoteZhTW": "內容為惡魔戰鎚 3-70H 金屬塗裝:紅、紅×藍拉條發射器，以及一個做成足球場造型的對戰盤",
+      "beys": [
+        {
+          "kind": "standard",
+          "bladeJa": "ヘルズハンマー",
+          "ratchet": "3-70",
+          "bit": "H"
+        }
+      ]
+    },
+    {
+      "productId": "bx00-jtm",
+      "sku": "BX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BXG-40",
+      "quoteZhTW": "內含暴龍（T-Rex）與滄龍（Mosasaurus）兩顆主題陀螺 + 2 支入門發射器；兩顆分別是暴龍 1-80GB、滄龍 9-60U",
+      "beys": [
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "Trex",
+            "zhTW": "暴龍"
+          },
+          "ratchet": "1-80",
+          "bit": "GB"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "Mosa",
+            "nameJa": "モササウルス",
+            "zhTW": "滄龍"
+          },
+          "ratchet": "9-60",
+          "bit": "U"
+        }
+      ]
+    },
+    {
+      "productId": "bx00-jsq",
+      "sku": "BX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BXG-41",
+      "quoteZhTW": "內含棘龍（Spinosaurus）與風神翼龍（Quetzalcoatlus）兩顆主題陀螺 + 2 支入門發射器；兩顆分別是棘龍 3-85A、風神翼龍 4-55D",
+      "beys": [
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "Spno",
+            "nameJa": "スピノサウルス",
+            "zhTW": "棘龍"
+          },
+          "ratchet": "3-85",
+          "bit": "A"
+        },
+        {
+          "kind": "standard",
+          "blade": {
+            "hubKey": "Qtzl",
+            "nameJa": "ケツァルコアトルス",
+            "zhTW": "風神翼龍"
+          },
+          "ratchet": "4-55",
+          "bit": "D"
+        }
+      ]
+    },
+    {
+      "productId": "bxa02",
+      "sku": "UX-00",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-00-bxa02",
+      "quoteZhTW": "三顆分別是蒼龍爆刃 3-70N、蒼龍利刃 9-60LF、蒼龍神劍 4-80DB，各自對應反擊、連打、離心三種打法",
+      "beys": [
+        {
+          "kind": "standard",
+          "bladeJa": "ドランバスター",
+          "ratchet": "3-70",
+          "bit": "N"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "ドランダガー",
+          "ratchet": "9-60",
+          "bit": "LF"
+        },
+        {
+          "kind": "standard",
+          "bladeJa": "ドランソード",
+          "ratchet": "4-80",
+          "bit": "DB"
+        }
+      ]
+    }
+  ]
+}

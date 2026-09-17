@@ -41,6 +41,13 @@ import { DB_SCHEMA_VERSION, DEFAULT_SETTINGS, type AppSettings, type BeybladeDb 
 
 export interface CatalogBundle {
   version: string
+  /**
+   * 舊零件 id → 新零件 id 陣列。
+   *
+   * 例如 CX 上蓋從「紋章＋主刃合併成一顆」改成拆開兩顆之後，
+   * 使用者裝置上已存的庫存批次與配裝還指向舊 id，載入新圖鑑時要照這張表搬過去。
+   */
+  partIdMigrations?: Record<string, string[]>
   parts: Part[]
   partVariants: PartVariant[]
   products: Product[]
@@ -49,6 +56,13 @@ export interface CatalogBundle {
   images: ImageAsset[]
   tournamentEvents?: TournamentEvent[]
   tournamentDecks?: TournamentDeck[]
+}
+
+/** 零件 id 搬遷紀錄，寫在 meta 裡供事後查核。 */
+export interface PartIdMigrationRecord {
+  catalogVersion: string
+  appliedAt: string
+  applied: { oldId: string; newIds: string[]; lots: number; combos: number }[]
 }
 
 export interface InventorySummary {
@@ -81,6 +95,8 @@ export type AddWishlistInput = Omit<WishlistItem, 'id' | 'createdAt'>
 
 const META_CATALOG_VERSION = 'catalogVersion'
 const META_SETTINGS = 'settings'
+/** 記下搬遷紀錄，方便事後追查個人資料被改了什麼。 */
+const META_PART_ID_MIGRATIONS = 'partIdMigrations'
 
 function newId(): string {
   return crypto.randomUUID()
@@ -93,6 +109,7 @@ function nowIso(): string {
 export interface Repository {
   loadCatalog(bundle: CatalogBundle): Promise<void>
   getCatalogVersion(): Promise<string | null>
+  getPartIdMigrationRecord(): Promise<PartIdMigrationRecord | null>
   listParts(): Promise<Part[]>
   listProducts(): Promise<Product[]>
   listProductVariants(): Promise<ProductVariant[]>
@@ -180,6 +197,94 @@ export function createRepository(db: BeybladeDb): Repository {
     const product = await db.products.get(productId)
     if (!product) throw new Error(`找不到商品：${productId}`)
     return product
+  }
+
+  /**
+   * 零件 id 搬遷（第 3 節：Catalog 更新不得弄丟個人資料）。
+   *
+   * 圖鑑結構改變時（例如 CX 上蓋從合併一顆改成紋章＋主刃兩顆），舊 id 會消失。
+   * 商品展開出來的批次會自己跟著新的商品內容重算，但這三種個人資料是直接記 id 的：
+   *  - inventoryLots：單獨新增與開封登記的批次，一筆要拆成多筆
+   *  - savedCombos：配裝的槽位，主刃要拆成鎖定紋章 + 主刃
+   *  - partPreferences：收藏與備註
+   *
+   * 只有「舊 id 在新圖鑑裡真的不存在」才搬，所以重複載入同一份圖鑑不會重複搬。
+   */
+  async function migratePartIds(bundle: CatalogBundle): Promise<void> {
+    const migrations = bundle.partIdMigrations
+    if (!migrations || Object.keys(migrations).length === 0) return
+
+    const partById = new Map(bundle.parts.map((part) => [part.id, part]))
+    const applicable = new Map<string, string[]>()
+    for (const [oldId, newIds] of Object.entries(migrations)) {
+      // 舊 id 還在就不動；新 id 必須都存在，否則寧可不搬也不要指到空零件。
+      if (partById.has(oldId)) continue
+      if (newIds.length === 0 || newIds.some((id) => !partById.has(id))) continue
+      applicable.set(oldId, newIds)
+    }
+    if (applicable.size === 0) return
+
+    const slotForFamily = (family: string): keyof SavedCombo['slots'] | null => {
+      if (family === 'lock_chip') return 'lockChipId'
+      if (family === 'main_blade') return 'mainBladeId'
+      if (family === 'over_blade') return 'overBladeId'
+      if (family === 'assist_blade') return 'assistBladeId'
+      return null
+    }
+
+    const applied: { oldId: string; newIds: string[]; lots: number; combos: number }[] = []
+
+    await db.transaction('rw', [db.inventoryLots, db.savedCombos, db.partPreferences, db.meta], async () => {
+      for (const [oldId, newIds] of applicable) {
+        const lots = await db.inventoryLots.where('partId').equals(oldId).toArray()
+        for (const lot of lots) {
+          await db.inventoryLots.delete(lot.id)
+          await db.inventoryLots.bulkAdd(
+            newIds.map((newId) => ({
+              ...lot,
+              id: `${lot.id}:${newId}`,
+              partId: newId,
+              notes: lot.notes ?? '圖鑑結構更新時由合併零件拆出',
+            })),
+          )
+        }
+
+        const combos = await db.savedCombos.toArray()
+        let touchedCombos = 0
+        for (const combo of combos) {
+          const usedSlots = (Object.keys(combo.slots) as (keyof SavedCombo['slots'])[]).filter(
+            (key) => combo.slots[key] === oldId,
+          )
+          if (usedSlots.length === 0) continue
+          const slots = { ...combo.slots }
+          for (const key of usedSlots) delete slots[key]
+          for (const newId of newIds) {
+            const family = partById.get(newId)?.family
+            const slotKey = family ? slotForFamily(family) : null
+            if (slotKey) slots[slotKey] = newId
+          }
+          await db.savedCombos.put({ ...combo, slots })
+          touchedCombos += 1
+        }
+
+        const preference = await db.partPreferences.get(oldId)
+        if (preference) {
+          await db.partPreferences.delete(oldId)
+          await db.partPreferences.bulkPut(
+            newIds.map((newId) => ({ ...preference, partId: newId })),
+          )
+        }
+
+        applied.push({ oldId, newIds, lots: lots.length, combos: touchedCombos })
+      }
+
+      if (applied.length > 0) {
+        await db.meta.put({
+          key: META_PART_ID_MIGRATIONS,
+          value: { catalogVersion: bundle.version, appliedAt: new Date().toISOString(), applied },
+        })
+      }
+    })
   }
 
   async function assertOwnedProductValid(ownedProduct: OwnedProduct): Promise<void> {
@@ -293,9 +398,12 @@ export function createRepository(db: BeybladeDb): Repository {
           await db.meta.put({ key: META_CATALOG_VERSION, value: bundle.version })
         },
       )
+
+      await migratePartIds(bundle)
     },
 
     getCatalogVersion: () => getMeta<string>(META_CATALOG_VERSION),
+    getPartIdMigrationRecord: () => getMeta<PartIdMigrationRecord>(META_PART_ID_MIGRATIONS),
     listParts: () => db.parts.toArray(),
     listProducts: () => db.products.toArray(),
     listProductVariants: () => db.productVariants.toArray(),

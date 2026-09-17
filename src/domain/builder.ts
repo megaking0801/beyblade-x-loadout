@@ -67,7 +67,55 @@ function usablePartIds(args: GenerateArgs): Set<string> | null {
   return usable
 }
 
-function enumerateSlots(parts: Part[]): ComboSlots[] {
+/**
+ * CX 拆成紋章＋主刃之後，圖鑑模式的組合空間會從 33 萬暴增到約 330 萬，
+ * 光是便宜評分也要 30 秒，畫面一定卡死。超過這個預算就先把各部位取前段再枚舉。
+ */
+const CX_ENUMERATION_BUDGET = 150_000
+
+/** 單一零件在指定排序軸上的相對優劣，用來決定剪枝時先留哪些。 */
+function partAxisRank(part: Part, sortBy: BuildableSortKey): number {
+  if (sortBy === 'beginner' || sortBy === 'simplest') {
+    // 新手取向：先留有資料的、操作簡單的（球狀、尖點）。
+    const difficulty = part.bitContact ? (DIFFICULTY_HINT[part.bitContact] ?? 50) : 50
+    return difficulty
+  }
+  if (!part.type) return 100
+  const base = AXIS_BASE[sortBy]
+  return -(base[part.type] ?? 0)
+}
+
+/** 剪枝用的粗略基準，數值取自 analysis 的 BASE_BY_TYPE，只用來排序不用來顯示。 */
+const AXIS_BASE: Record<'attack' | 'stamina' | 'stability' | 'evidence', Record<string, number>> = {
+  attack: { attack: 80, balance: 55, defense: 35, stamina: 30 },
+  stamina: { stamina: 85, defense: 50, balance: 55, attack: 30 },
+  stability: { defense: 70, stamina: 65, balance: 55, attack: 35 },
+  evidence: { attack: 1, defense: 1, stamina: 1, balance: 1 },
+}
+
+const DIFFICULTY_HINT: Record<string, number> = {
+  rubber: 85,
+  flat: 70,
+  needle: 45,
+  point: 40,
+  ball: 25,
+  other: 50,
+}
+
+function topBy(parts: Part[], sortBy: BuildableSortKey, keep: number): Part[] {
+  if (parts.length <= keep) return parts
+  return [...parts]
+    .sort((a, b) => partAxisRank(a, sortBy) - partAxisRank(b, sortBy) || a.code.localeCompare(b.code))
+    .slice(0, keep)
+}
+
+export interface EnumerationResult {
+  slotsList: ComboSlots[]
+  /** true 表示 CX 的組合空間太大，已經先取各部位前段再枚舉。 */
+  cxTruncated: boolean
+}
+
+function enumerateSlots(parts: Part[], sortBy: BuildableSortKey): EnumerationResult {
   const blades = parts.filter((p) => p.family === 'blade' || p.family === 'integrated_blade')
   const ratchets = parts.filter((p) => p.family === 'ratchet')
   const bits = parts.filter((p) => p.family === 'bit')
@@ -87,19 +135,59 @@ function enumerateSlots(parts: Part[]): ComboSlots[] {
 
   /*
    * CX：
-   *  - cxFused 的主刃已含鎖定紋章，所以不配鎖定紋章（圖鑑目前全是這種，
-   *    以前寫成一定要有 lock_chip 零件，等於 CX 永遠枚舉不出東西）。
+   *  - cxFused 的主刃已含鎖定紋章，所以不配鎖定紋章。
    *  - 只有四件式（cxOverBlade）的主刃才要再配一片超越戰刃。
+   *  - 組合數超過預算時，先把紋章／主刃／輔助／固鎖／軸心各取前段再枚舉，
+   *    並回報已截斷，讓前台可以說清楚這不是全部組合。
    */
-  for (const main of mainBlades) {
-    const chipOptions: (Part | undefined)[] = main.cxFused ? [undefined] : lockChips
-    const overOptions: (Part | undefined)[] = main.cxOverBlade ? overBlades : [undefined]
+  const cxSpace = (list: Part[]): number => Math.max(1, list.length)
+  let cxChips = lockChips
+  let cxMains = mainBlades
+  let cxOvers = overBlades
+  let cxAssists = assistBlades
+  let cxRatchets = ratchets
+  let cxBits = bits
+  let cxTruncated = false
+
+  const estimate = (): number =>
+    cxSpace(cxMains) *
+    cxSpace(cxChips) *
+    cxSpace(cxOvers) *
+    cxSpace(cxAssists) *
+    cxSpace(cxRatchets) *
+    cxSpace(cxBits)
+
+  if (mainBlades.length > 0 && estimate() > CX_ENUMERATION_BUDGET) {
+    cxTruncated = true
+    const shrink: [() => Part[], (next: Part[]) => void][] = [
+      [() => cxChips, (next) => (cxChips = next)],
+      [() => cxAssists, (next) => (cxAssists = next)],
+      [() => cxBits, (next) => (cxBits = next)],
+      [() => cxRatchets, (next) => (cxRatchets = next)],
+      [() => cxMains, (next) => (cxMains = next)],
+      [() => cxOvers, (next) => (cxOvers = next)],
+    ]
+    // 反覆砍最大的那個維度，直到組合數進預算內。
+    for (let guard = 0; guard < 64 && estimate() > CX_ENUMERATION_BUDGET; guard += 1) {
+      const target = shrink
+        .map(([get, set]) => ({ list: get(), set }))
+        .filter((row) => row.list.length > 1)
+        .sort((a, b) => b.list.length - a.list.length)[0]
+      if (!target) break
+      target.set(topBy(target.list, sortBy, Math.max(1, Math.floor(target.list.length / 2))))
+    }
+  }
+
+  for (const main of cxMains) {
+    const chipOptions: (Part | undefined)[] = main.cxFused ? [undefined] : cxChips
+    const overOptions: (Part | undefined)[] = main.cxOverBlade ? cxOvers : [undefined]
     for (const chip of chipOptions) {
+      if (!main.cxFused && !chip) continue
       for (const over of overOptions) {
         if (main.cxOverBlade && !over) continue
-        for (const assist of assistBlades) {
-          for (const ratchet of ratchets) {
-            for (const bit of bits) {
+        for (const assist of cxAssists) {
+          for (const ratchet of cxRatchets) {
+            for (const bit of cxBits) {
               result.push({
                 ...(chip ? { lockChipId: chip.id } : {}),
                 mainBladeId: main.id,
@@ -114,7 +202,7 @@ function enumerateSlots(parts: Part[]): ComboSlots[] {
       }
     }
   }
-  return result
+  return { slotsList: result, cxTruncated }
 }
 
 function sortValue(row: BuildableCombo, sortBy: BuildableSortKey): number {
@@ -249,8 +337,9 @@ export function generateBuildableCombos(args: GenerateArgs): BuildableCombo[] {
   const pool = usable ? parts.filter((part) => usable.has(part.id)) : parts
   const byId = new Map(parts.map((part) => [part.id, part]))
 
+  const enumeration = enumerateSlots(pool, sortBy)
   const candidates: { slots: ComboSlots; cheapValue: number; tieBreak: string }[] = []
-  for (const slots of enumerateSlots(pool)) {
+  for (const slots of enumeration.slotsList) {
     const slotParts = resolveSlotParts(slots, byId)
     if (hasSpinConflict(slotParts)) continue
     candidates.push({

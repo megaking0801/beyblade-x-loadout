@@ -1,0 +1,19 @@
+{
+  "source": "BeybladeHub",
+  "sourceUrls": [
+    "https://beybladehub.app/parts/blades",
+    "https://beybladehub.app/parts/bits"
+  ],
+  "fetchedAt": "2026-09-17",
+  "note": "官方商品名不會標出「這顆沒有獨立固鎖」，這份是從 BeybladeHub 的零件頁逐筆確認的結構資訊，屬社群來源。",
+  "integratedRatchetBlades": [
+    { "hubKey": "BlGr", "nameJa": "バレットグリフォン", "nameZhTW": "子彈獅鷲", "note": "UX 擴張上蓋，固鎖一體型" },
+    { "hubKey": "GlVl", "nameJa": "グローリーワルキューレ", "nameZhTW": "榮耀戰神", "note": "UX 擴張上蓋，固鎖一體型" },
+    { "hubKey": "HlNt", "nameJa": "ヘルズネザー", "nameZhTW": "惡魔幽冥", "note": "UX 擴張上蓋，固鎖一體型，可切換高度" },
+    { "hubKey": "BsBr", "nameJa": "バイソンバロー", "nameZhTW": "野牛", "note": "零件頁標示固鎖一體型" }
+  ],
+  "integratedRatchetBits": [
+    { "code": "Op", "nameEn": "Operate", "note": "零件頁標示 Fused：固鎖做在軸心上" },
+    { "code": "Tr", "nameEn": "Turbo", "note": "零件頁標示 Fused：固鎖做在軸心上，CX-07 沒有獨立固鎖" }
+  ]
+}

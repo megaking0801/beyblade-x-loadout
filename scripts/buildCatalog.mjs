@@ -26,6 +26,8 @@ const IMAGES_FILE = resolve(root, 'src/catalog/images.generated.json')
 const TOURNAMENT_FILE = resolve(root, 'src/catalog/sources/tournament-curated.json')
 const HUB_STATS_FILE = resolve(root, 'src/catalog/sources/beybladehub-stats.json')
 const HUB_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-sets.json')
+const HUB_STRUCTURE_FILE = resolve(root, 'src/catalog/sources/beybladehub-structure.json')
+const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-curated-sets.json')
 
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
@@ -150,6 +152,16 @@ const CX_BEY = new RegExp(
 
 const HUB_COMBO_URL = 'https://beybladehub.app/parts/combos'
 
+/*
+ * 沒有固鎖代號的商品名。
+ *
+ * UX 的「擴張上蓋」與 Op／Tr 這類軸心已經把固鎖做在自己身上，商品名裡就沒有固鎖段，
+ * 例如バレットグリフォン「H」、グローリーワルキューレ「LF」、ペガサスブラスト「A」「Tr」。
+ * 只有在零件確實是固鎖一體型時才接受這種解析，否則會把正常商品亂拆。
+ */
+const BX_BEY_NO_RATCHET = /^(?<blade>.+?)(?<bit>[A-Za-z]+)$/u
+const CX_BEY_NO_RATCHET = /^(?<blade>.+?)(?<blades>[A-Z][A-Za-z]?)(?<bit>[A-Za-z]+)$/u
+
 /** 貼紙類周邊不含任何零件，對庫存與配裝沒有意義，不收進圖鑑。 */
 const EXCLUDED_NAME_PATTERN = /ステッカー/u
 
@@ -258,6 +270,37 @@ function isConfirmedName(nameJa) {
   return false
 }
 
+/*
+ * 圖片歸屬：BeybladeHub 提供的是去背整理過的零件圖，原始商品外觀的著作權仍屬
+ * Takara Tomy，把 copyrightOwner 寫成 BeybladeHub 是錯的歸屬（第 25、1.5 節），
+ * 所以只記「圖片取自哪裡」，不宣稱誰擁有版權。
+ */
+const HUB_IMAGE_SOURCE_NAME = 'BeybladeHub 零件去背圖（外部連結）'
+const HUB_PARTS_URL = 'https://beybladehub.app/parts/blades'
+
+/**
+ * 把 BeybladeHub 的 CX 零件 key 轉成本專案的零件種類與代號。
+ *
+ * 官方只公布合併後的上蓋名稱（例：ドランブレイブ），個別的鎖定紋章與主刃名稱
+ * 只有社群站有，所以這些零件的身分來源是 community_only。
+ * 帶第二段後綴的 key（例：cx-chip-Dr-black）是顏色變體，不當成獨立零件。
+ */
+function cxKeyToPart(key) {
+  const match = /^cx-(chip|main|metal|over|assist)-(.+)$/u.exec(key)
+  if (!match) return null
+  const [, kind, code] = match
+  if (code.includes('-')) return null
+  const family =
+    kind === 'chip'
+      ? 'lock_chip'
+      : kind === 'over'
+        ? 'over_blade'
+        : kind === 'assist'
+          ? 'assist_blade'
+          : 'main_blade'
+  return { family, code, isMetalMain: kind === 'metal' }
+}
+
 const PART_FAMILY_LABEL = {
   blade: '上蓋',
   main_blade: '主刃',
@@ -274,9 +317,15 @@ const PART_FAMILY_LABEL = {
  * 都只能顯示「資料不足」。這裡補上 BeybladeHub 的玩家實測值，並且獨立記在
  * statsProvenance，標 community_only —— 零件身分仍然是官方來源，兩者不混為一談。
  */
-function applyHubStats(parts, hubStats, audit) {
+function applyHubStats(parts, hubStats, audit, cxHubKeyByPartId = new Map()) {
   const byFamilyKey = new Map()
   for (const row of hubStats.parts) {
+    // CX 的紋章／主刃／超越／輔助在本專案是獨立零件，代號就是社群站 key 的尾段。
+    const cx = cxKeyToPart(row.key)
+    if (cx) {
+      byFamilyKey.set(`${cx.family}:${cx.code}`, row)
+      continue
+    }
     // 上蓋在本專案的 code 就是日文名，所以用日文名當索引；固鎖與軸心的 key 本身就是型號。
     const lookupKey = row.family === 'blade' ? row.nameJa : row.key
     if (lookupKey) byFamilyKey.set(`${row.family}:${lookupKey}`, row)
@@ -290,9 +339,13 @@ function applyHubStats(parts, hubStats, audit) {
 
   let matched = 0
   const missing = []
+  const byHubKey = new Map(hubStats.parts.map((row) => [row.key, row]))
   for (const part of parts) {
-    const family = part.family === 'main_blade' ? 'blade' : part.family
-    const row = byFamilyKey.get(`${family}:${part.code}`)
+    const family = part.cxFused ? 'blade' : part.family
+    const hubKey = cxHubKeyByPartId.get(part.id)
+    const row = hubKey
+      ? byHubKey.get(hubKey)
+      : (byFamilyKey.get(`${part.family}:${part.code}`) ?? byFamilyKey.get(`${family}:${part.code}`))
     if (!row) {
       if (family === 'blade' || family === 'ratchet' || family === 'bit') {
         missing.push({ id: part.id, name: part.naming.primaryZhTW })
@@ -359,25 +412,31 @@ function applyHubSetContents(products, hubSets, audit) {
  * BeybladeHub 有逐件去背圖，改用它當零件縮圖；只含一顆陀螺的商品也改用該上蓋的圖，
  * 讓清單一眼認得出來。沿用第 25 節的 link_only：只連結，不下載也不重新散布。
  */
-function addHubImages(catalog, hubStats, audit) {
+function addHubImages(catalog, hubStats, audit, cxHubKeyByPartId = new Map()) {
   const imageByFamilyKey = new Map()
   for (const row of hubStats.parts) {
     if (!row.imageUrl) continue
+    const cx = cxKeyToPart(row.key)
+    if (cx) {
+      imageByFamilyKey.set(`${cx.family}:${cx.code}`, row.imageUrl)
+      continue
+    }
     const lookupKey = row.family === 'blade' ? row.nameJa : row.key
     if (lookupKey) imageByFamilyKey.set(`${row.family}:${lookupKey}`, row.imageUrl)
   }
 
-/*
- * 圖片歸屬：BeybladeHub 提供的是去背整理過的零件圖，原始商品外觀的著作權仍屬
- * Takara Tomy，把 copyrightOwner 寫成 BeybladeHub 是錯的歸屬（第 25、1.5 節），
- * 所以只記「圖片取自哪裡」，不宣稱誰擁有版權。
- */
-const HUB_IMAGE_SOURCE_NAME = 'BeybladeHub 零件去背圖（外部連結）'
-const HUB_PARTS_URL = 'https://beybladehub.app/parts/blades'
+  const imageByHubKey = new Map(
+    hubStats.parts.filter((row) => row.imageUrl).map((row) => [row.key, row.imageUrl]),
+  )
   const imageByPartId = new Map()
   for (const part of catalog.parts) {
-    const family = part.family === 'main_blade' ? 'blade' : part.family
-    const url = imageByFamilyKey.get(`${family}:${part.code}`)
+    // 合併主刃（cxFused）的 code 是日文合併名，要走 blade 索引；拆開後的主刃用自己的 family。
+    const family = part.cxFused ? 'blade' : part.family
+    const hubKey = cxHubKeyByPartId.get(part.id)
+    const url = hubKey
+      ? imageByHubKey.get(hubKey)
+      : (imageByFamilyKey.get(`${part.family}:${part.code}`) ??
+        imageByFamilyKey.get(`${family}:${part.code}`))
     if (!url) continue
     imageByPartId.set(part.id, url)
     catalog.images.push({
@@ -434,9 +493,85 @@ function main() {
   const tournamentSource = JSON.parse(readFileSync(TOURNAMENT_FILE, 'utf8'))
   const hubStats = JSON.parse(readFileSync(HUB_STATS_FILE, 'utf8'))
   const hubSets = JSON.parse(readFileSync(HUB_SETS_FILE, 'utf8'))
+  const hubStructure = JSON.parse(readFileSync(HUB_STRUCTURE_FILE, 'utf8'))
+  const curatedSets = JSON.parse(readFileSync(HUB_CURATED_SETS_FILE, 'utf8'))
+  /** 固鎖一體型的上蓋（日文名）與軸心（代號）；官方商品名不會標，來源是社群站零件頁。 */
+  const integratedBladeNames = new Set(
+    hubStructure.integratedRatchetBlades.map((row) => row.nameJa),
+  )
+  const integratedBitCodes = new Set(hubStructure.integratedRatchetBits.map((row) => row.code))
+  const structureProvenance = {
+    sourceUrls: hubStructure.sourceUrls,
+    verifiedAt: hubStructure.fetchedAt,
+    verificationStatus: 'community_only',
+  }
+
+  /*
+   * CX 上蓋拆解表。
+   *
+   * 官方只公布合併名稱（例：ドランブレイブ），個別的鎖定紋章與主刃名稱只有社群站有。
+   * 用「紋章中文名 + 主刃中文名 == 合併件中文名」比對，比對得到才拆，
+   * 比對不到的維持合併並標 cxFused（社群站尚未收錄的新款）。
+   */
+  const cxChips = []
+  const cxMains = []
+  for (const row of hubStats.parts) {
+    const cx = cxKeyToPart(row.key)
+    if (!cx || !row.zhTW) continue
+    if (cx.family === 'lock_chip') cxChips.push({ ...cx, row })
+    if (cx.family === 'main_blade') cxMains.push({ ...cx, row })
+  }
+
+  function decomposeCxBlade(zhName) {
+    const hits = []
+    for (const chip of cxChips) {
+      for (const main of cxMains) {
+        if (chip.row.zhTW + main.row.zhTW === zhName) hits.push({ chip, main })
+      }
+    }
+    return hits.length === 1 ? hits[0] : null
+  }
+
+  /**
+   * 由社群站資料建立 CX 零件；名稱與數值都來自社群站，所以身分也標社群來源。
+   *
+   * 金屬主刃要用獨立 id：普通主刃「烈焰」是 cx-main-Fr、金屬主刃「堡壘」是 cx-metal-Fr，
+   * 代號同樣是 Fr，只靠 family:code 會撞號、後者會拿到前者的資料。
+   */
+  function ensureCxPiece(piece) {
+    const id =
+      piece.isMetalMain
+        ? `${piece.family}:metal-${piece.code}`
+        : `${piece.family}:${piece.code}`
+    const created = ensurePart({
+      id,
+      family: piece.family,
+      code: piece.code,
+      system: 'CX',
+      naming: {
+        primaryZhTW: piece.row.zhTW,
+        ...(piece.row.nameEn ? { nameEn: piece.row.nameEn } : {}),
+        isProvisionalZhTW: false,
+      },
+      ...(piece.isMetalMain ? { extra: { cxOverBlade: true } } : {}),
+      provenance: {
+        sourceUrls: hubStats.sourceUrls,
+        verifiedAt: hubStats.fetchedAt,
+        verificationStatus: 'community_only',
+      },
+    })
+    cxHubKeyByPartId.set(created, piece.row.key)
+    return created
+  }
 
   const parts = new Map()
   const products = []
+  /** 舊零件 id → 新零件 id 陣列，供 repository 在載入圖鑑時遷移個人資料。 */
+  const partIdMigrations = {}
+  /** 零件 id → BeybladeHub 的 key，讓數值與圖片對得到正確那一筆。 */
+  const cxHubKeyByPartId = new Map()
+  const cxSplitSeen = new Set()
+  const cxUnsplitSeen = new Set()
   const audit = {
     catalogVersion: CATALOG_VERSION,
     sourceUrl: LINEUP_URL,
@@ -452,20 +587,40 @@ function main() {
     unparsedBeyProducts: [],
     contentsUnknownProducts: [],
     randomContentsByDesign: [],
+    cxSplitBlades: [],
+    cxUnsplitBlades: [],
     noPartsProducts: [],
     untranslatedNames: [],
     knownGaps: [
       '官方商品頁未公布零件的類型、重量、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。',
       '官方商品頁未公布隨機強化組的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。',
-      '套裝商品（套組、對戰入門組等）的內含陀螺未在官方一覽頁公布，內容留空並標 needs_review。',
-      'CX 上蓋在商品上為「鎖定紋章 + 主刃」已組合狀態，官方未公布兩者個別名稱，故以單一 main_blade 零件表示並標記 cxFused。',
+      '套裝商品的內含陀螺未在官方一覽頁公布，改以 BeybladeHub 商品頁逐筆彙整，這些商品標 community_only 並附該頁網址與原文引述。',
+      '只出現在套裝內的上蓋（官方一覽頁沒有單獨列出）身分也標 community_only。',
+      'CX 上蓋的鎖定紋章與主刃名稱官方未公布，依 BeybladeHub 零件頁拆成兩顆零件；該站未收錄的 4 顆維持合併並標記 cxFused。',
+      '「哪些零件是固鎖一體型」官方商品名不會標，依 BeybladeHub 零件頁記錄，屬社群來源。',
       '中文名稱採用 BeybladeHub（beybladehub.app）台灣社群通用名稱；該站未收錄者仍為暫譯並已標記。',
     ],
   }
 
-  function ensurePart({ family, code, system, extra, provenance }) {
-    const id = `${family}:${code}`
+  function ensurePart({ family, code, system, extra, provenance, naming: givenNaming, id: givenId }) {
+    const id = givenId ?? `${family}:${code}`
     if (parts.has(id)) return id
+    if (givenNaming) {
+      parts.set(id, {
+        id,
+        family,
+        code,
+        system,
+        naming: givenNaming,
+        ...(extra ?? {}),
+        provenance: provenance ?? {
+          sourceUrls: [LINEUP_URL],
+          verifiedAt: FETCHED_AT,
+          verificationStatus: 'official_verified',
+        },
+      })
+      return id
+    }
     const isJa = /[぀-ヿ]/.test(code)
     const label = PART_FAMILY_LABEL[family]
     let naming
@@ -501,9 +656,28 @@ function main() {
   function parseBey(beyName, line, sku) {
     if (line === 'CX') {
       const match = CX_BEY.exec(beyName)
-      if (!match?.groups) return null
-      const { blade, blades, ratchet, bit } = match.groups
-      const heightCode = Number(ratchet.split('-')[1])
+      /*
+       * CX 也有固鎖一體型軸心的款（例：ペガサスブラスト「A」「Tr」）。
+       * 尾端的英文字母要自己試切：正規表達式會把 ATr 貪心切成 AT + r，
+       * 所以依序試「輔助 1 字 + 軸心其餘」與「輔助 2 字 + 軸心其餘」，
+       * 只有軸心確實是固鎖一體型才採用。
+       */
+      let usable = match?.groups ?? null
+      if (!usable) {
+        const tail = /^(?<blade>.+?)(?<letters>[A-Za-z]+)$/u.exec(beyName)
+        const letters = tail?.groups?.letters ?? ''
+        for (const assistLength of [1, 2]) {
+          const assist = letters.slice(0, assistLength)
+          const bitCode = letters.slice(assistLength)
+          if (!bitCode || !/^[A-Z]/u.test(assist)) continue
+          if (!integratedBitCodes.has(bitCode)) continue
+          usable = { blade: tail.groups.blade, blades: assist, bit: bitCode }
+          break
+        }
+      }
+      if (!usable) return null
+      const { blade, blades, ratchet, bit } = usable
+      const heightCode = ratchet ? Number(ratchet.split('-')[1]) : undefined
 
       // 兩個字母 = 四件式：前面是超越戰刃、後面是輔助戰刃。
       const isFourPiece = blades.length === 2
@@ -515,8 +689,33 @@ function main() {
         verificationStatus: 'community_only',
       }
 
-      const contents = [
-        {
+      /*
+       * 上蓋：能對到社群站的紋章＋主刃就拆成兩顆，對不到就維持合併（cxFused）。
+       * 拆開之後同一顆紋章才能換不同主刃，這是 CX 系統的重點。
+       */
+      const { translated: bladeZhTW, untranslated } = translate(blade)
+      const decomposed = untranslated.length === 0 ? decomposeCxBlade(bladeZhTW) : null
+      const fusedId = `main_blade:${blade}`
+
+      const contents = []
+      if (decomposed) {
+        const chipId = ensureCxPiece(decomposed.chip)
+        const mainId = ensureCxPiece(decomposed.main)
+        contents.push({ partId: chipId, quantity: 1 }, { partId: mainId, quantity: 1 })
+        if (!cxSplitSeen.has(fusedId)) {
+          cxSplitSeen.add(fusedId)
+          audit.cxSplitBlades.push({
+            fusedId,
+            nameJa: blade,
+            nameZhTW: bladeZhTW,
+            lockChipId: chipId,
+            mainBladeId: mainId,
+          })
+          // 舊版把整顆上蓋存成一顆零件，使用者裝置上的庫存與配裝要照這張表遷移。
+          partIdMigrations[fusedId] = [chipId, mainId]
+        }
+      } else {
+        contents.push({
           partId: ensurePart({
             family: 'main_blade',
             code: blade,
@@ -524,8 +723,17 @@ function main() {
             extra: { cxFused: true, ...(isFourPiece ? { cxOverBlade: true } : {}) },
           }),
           quantity: 1,
-        },
-      ]
+        })
+        if (!cxUnsplitSeen.has(fusedId)) {
+          cxUnsplitSeen.add(fusedId)
+          audit.cxUnsplitBlades.push({
+            fusedId,
+            nameJa: blade,
+            nameZhTW: bladeZhTW,
+            reason: '社群站尚未收錄這顆的鎖定紋章或主刃，維持合併',
+          })
+        }
+      }
       if (overCode) {
         contents.push({
           partId: ensurePart({
@@ -547,20 +755,188 @@ function main() {
           }),
           quantity: 1,
         },
-        { partId: ensurePart({ family: 'ratchet', code: ratchet, system: 'CX', extra: { heightCode } }), quantity: 1 },
-        { partId: ensurePart({ family: 'bit', code: bit, system: 'CX' }), quantity: 1 },
+        { partId: ensureBit(bit), quantity: 1 },
       )
+      if (ratchet) {
+        contents.splice(contents.length - 1, 0, {
+          partId: ensurePart({ family: 'ratchet', code: ratchet, system: 'CX', extra: { heightCode } }),
+          quantity: 1,
+        })
+      }
       return contents
     }
     const match = BX_BEY.exec(beyName)
-    if (!match?.groups) return null
-    const { blade, ratchet, bit } = match.groups
-    const heightCode = Number(ratchet.split('-')[1])
-    return [
-      { partId: ensurePart({ family: 'blade', code: blade, system: line === 'UX' ? 'UX' : 'BX' }), quantity: 1 },
-      { partId: ensurePart({ family: 'ratchet', code: ratchet, system: 'BX', extra: { heightCode } }), quantity: 1 },
-      { partId: ensurePart({ family: 'bit', code: bit, system: 'BX' }), quantity: 1 },
-    ]
+    if (match?.groups) {
+      const { blade, ratchet, bit } = match.groups
+      const heightCode = Number(ratchet.split('-')[1])
+      return [
+        { partId: ensureBlade(blade, line), quantity: 1 },
+        { partId: ensurePart({ family: 'ratchet', code: ratchet, system: 'BX', extra: { heightCode } }), quantity: 1 },
+        { partId: ensureBit(bit), quantity: 1 },
+      ]
+    }
+
+    // 沒有固鎖段的商品名：只有上蓋或軸心確實是固鎖一體型時才這樣解析。
+    const noRatchet = BX_BEY_NO_RATCHET.exec(beyName)
+    if (noRatchet?.groups) {
+      const { blade, bit } = noRatchet.groups
+      if (integratedBladeNames.has(blade) || integratedBitCodes.has(bit)) {
+        return [
+          { partId: ensureBlade(blade, line), quantity: 1 },
+          { partId: ensureBit(bit), quantity: 1 },
+        ]
+      }
+    }
+    return null
+  }
+
+  /** 上蓋：固鎖一體型的歸到「特殊一體式」並標記，結構才會少掉固鎖欄位。 */
+  function ensureBlade(code, line) {
+    const integrated = integratedBladeNames.has(code)
+    return ensurePart({
+      family: integrated ? 'integrated_blade' : 'blade',
+      code,
+      system: line === 'UX' ? 'UX' : 'BX',
+      ...(integrated
+        ? { extra: { integratedRatchet: true }, provenance: structureProvenance }
+        : {}),
+    })
+  }
+
+  /** 軸心：Op／Tr 這類把固鎖做在軸心上的要標記。 */
+  function ensureBit(code) {
+    const integrated = integratedBitCodes.has(code)
+    return ensurePart({
+      family: 'bit',
+      code,
+      system: 'BX',
+      ...(integrated ? { extra: { integratedRatchet: true } } : {}),
+    })
+  }
+
+  /**
+   * 補上人工彙整的套裝內容。
+   *
+   * 對象是自動抓取處理不了的兩類：多顆套裝（商品頁的錨點混了「推薦搭配」池，
+   * 照抄會多列一堆不在盒內的零件）與 BX-00／UX-00／CX-00 這類無編號商品
+   * （社群站網址不是用型號組的，抓取腳本一律 404）。
+   *
+   * 每一筆都附商品頁網址與原文引述；只有盒內才有的上蓋會在這裡建立，
+   * 身分標 community_only（官方一覽頁沒有單獨列出它們）。
+   */
+  function applyCuratedSets(catalogRef, curated, auditRef) {
+    const byId = new Map(catalogRef.products.map((product) => [product.id, product]))
+    const curatedProvenanceBase = {
+      verifiedAt: curated.fetchedAt,
+      verificationStatus: 'community_only',
+    }
+    const applied = []
+    const failed = []
+
+    /** 建立只在套裝裡出現的上蓋；有日文名就沿用既有命名規則，沒有就用中文名當代號。 */
+    function ensureCuratedBlade(spec, integrated) {
+      const hubRow = spec.hubKey ? hubStats.parts.find((row) => row.key === spec.hubKey) : undefined
+      const code = spec.nameJa ?? spec.zhTW
+      const family = integrated ? 'integrated_blade' : 'blade'
+      const id = `${family}:${code}`
+      const provenance = {
+        sourceUrls: [...(hubStructure.sourceUrls ?? []), ...(hubRow ? hubStats.sourceUrls : [])],
+        ...curatedProvenanceBase,
+      }
+      const partId = ensurePart({
+        id,
+        family,
+        code,
+        system: 'UX',
+        naming: {
+          primaryZhTW: spec.zhTW,
+          ...(spec.nameJa ? { nameJa: spec.nameJa } : {}),
+          ...(hubRow?.nameEn ? { nameEn: hubRow.nameEn } : {}),
+          isProvisionalZhTW: false,
+        },
+        ...(integrated ? { extra: { integratedRatchet: true } } : {}),
+        provenance,
+      })
+      if (spec.hubKey) cxHubKeyByPartId.set(partId, spec.hubKey)
+      return partId
+    }
+
+    for (const set of curated.sets) {
+      const product = byId.get(set.productId)
+      if (!product) {
+        failed.push({ productId: set.productId, reason: '找不到這個商品 id' })
+        continue
+      }
+      if (product.contents.length > 0) continue
+
+      const contents = []
+      let ok = true
+      for (const bey of set.beys) {
+        if (bey.kind === 'cx') {
+          const chip = cxChips.find((row) => row.code === bey.chip)
+          const main = cxMains.find((row) => row.code === bey.main)
+          if (!chip || !main) {
+            failed.push({ productId: set.productId, reason: `社群站查不到 CX 零件：${bey.chip}/${bey.main}` })
+            ok = false
+            break
+          }
+          contents.push({ partId: ensureCxPiece(chip), quantity: 1 })
+          contents.push({ partId: ensureCxPiece(main), quantity: 1 })
+          contents.push({
+            partId: ensurePart({ family: 'assist_blade', code: bey.assist, system: 'CX' }),
+            quantity: 1,
+          })
+          if (bey.ratchet) {
+            contents.push({
+              partId: ensurePart({
+                family: 'ratchet',
+                code: bey.ratchet,
+                system: 'CX',
+                extra: { heightCode: Number(bey.ratchet.split('-')[1]) },
+              }),
+              quantity: 1,
+            })
+          }
+          contents.push({ partId: ensureBit(bey.bit), quantity: 1 })
+          continue
+        }
+
+        const integrated = bey.kind === 'integrated'
+        const bladeId = bey.bladeJa
+          ? ensureBlade(bey.bladeJa, 'UX')
+          : ensureCuratedBlade(bey.blade, integrated)
+        contents.push({ partId: bladeId, quantity: 1 })
+        if (bey.ratchet) {
+          contents.push({
+            partId: ensurePart({
+              family: 'ratchet',
+              code: bey.ratchet,
+              system: 'BX',
+              extra: { heightCode: Number(bey.ratchet.split('-')[1]) },
+            }),
+            quantity: 1,
+          })
+        }
+        contents.push({ partId: ensureBit(bey.bit), quantity: 1 })
+      }
+      if (!ok) continue
+
+      product.contents = contents
+      product.provenance = {
+        sourceUrls: [...product.provenance.sourceUrls, set.sourceUrl],
+        verifiedAt: curated.fetchedAt,
+        verificationStatus: 'community_only',
+      }
+      applied.push({ productId: set.productId, sku: set.sku, beys: set.beys.length })
+    }
+
+    auditRef.curatedSets = {
+      source: curated.source,
+      fetchedAt: curated.fetchedAt,
+      applied,
+      failed,
+    }
+    console.log(`人工彙整套裝內容補上 ${applied.length} 筆，失敗 ${failed.length} 筆`)
   }
 
   for (const row of rows) {
@@ -702,12 +1078,33 @@ function main() {
     images,
     tournamentEvents,
     tournamentDecks,
+    partIdMigrations,
   }
 
+  audit.cxSplitCount = audit.cxSplitBlades.length
   audit.productCount = products.length
-  applyHubStats(catalog.parts, hubStats, audit)
+
+  // 人工彙整的套裝會建立只在盒內出現的零件，所以要先補內容，再把零件清單重新取一次快照。
+  applyCuratedSets(catalog, curatedSets, audit)
   applyHubSetContents(catalog.products, hubSets, audit)
-  addHubImages(catalog, hubStats, audit)
+  catalog.parts = [...parts.values()]
+
+  // 數值與圖片要在零件清單完整之後才套，否則後面才建立的零件拿不到。
+  applyHubStats(catalog.parts, hubStats, audit, cxHubKeyByPartId)
+
+  /*
+   * 稽核是在逐筆處理商品時累加的，但社群與人工彙整的內容是之後才補上去的。
+   * 不重算的話，已經補好的商品還會留在「內容未知」名單裡，看起來像沒補。
+   */
+  const stillEmpty = (row) => {
+    const product = catalog.products.find((item) => item.id === row.id)
+    return !product || product.contents.length === 0
+  }
+  audit.contentsUnknownProducts = audit.contentsUnknownProducts.filter(stillEmpty)
+  // 商品名解析不出零件的那幾筆，若已由人工彙整補上內容，就不再算缺漏。
+  audit.unparsedBeyProducts = audit.unparsedBeyProducts.filter(stillEmpty)
+
+  addHubImages(catalog, hubStats, audit, cxHubKeyByPartId)
   audit.partCount = catalog.parts.length
   audit.tournamentEventCount = tournamentEvents.length
   audit.tournamentDeckCount = tournamentDecks.length
@@ -723,6 +1120,10 @@ function main() {
   writeFileSync(AUDIT_FILE, `${JSON.stringify(audit, null, 2)}\n`, 'utf8')
 
   console.log(`商品 ${products.length} 筆、零件 ${catalog.parts.length} 筆`)
+  console.log(
+    `CX 上蓋拆成紋章＋主刃 ${audit.cxSplitBlades.length} 顆、` +
+      `維持合併 ${audit.cxUnsplitBlades.length} 顆`,
+  )
   console.log(`零件組成未解析：${audit.unparsedBeyProducts.length} 筆`)
   console.log(
     `內容未知：${audit.contentsUnknownProducts.length} 筆、` +
