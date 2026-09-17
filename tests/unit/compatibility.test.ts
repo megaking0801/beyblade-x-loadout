@@ -3,8 +3,12 @@ import {
   ASSEMBLY_ERROR_HEADLINE,
   checkCompatibility,
   deriveSystem,
+  getSlotSchemaForStructure,
   getSlotSchema,
   getSlotSchemaForSlots,
+  inferBuilderStructure,
+  parseComboSlots,
+  pruneSlots,
 } from '../../src/domain/compatibility.ts'
 import type { CompatibilityRule, ComboSlots, Part } from '../../src/domain/types.ts'
 
@@ -522,5 +526,32 @@ describe('固鎖一體型零件（第 17、18 節）', () => {
     expect(
       getSlotSchemaForSlots({ bladeId: 'blade-r' }, pool).map((slot) => slot.key),
     ).toEqual(['bladeId', 'ratchetId', 'bitId'])
+  })
+
+  it('配裝器的標準結構同樣會收掉一體式零件的固鎖欄位', () => {
+    expect(
+      getSlotSchemaForStructure('standard', { bladeId: expandBlade.id }, pool).map((slot) => slot.key),
+    ).toEqual(['bladeId', 'bitId'])
+  })
+
+  it('換成一體式上蓋時會自動清除已選固鎖', () => {
+    const previous = { bladeId: expandBlade.id, ratchetId: 'ratchet-r', bitId: 'bit-r' }
+    const result = pruneSlots({ slots: previous, parts: pool, structure: 'standard' })
+    expect(result.slots).toEqual({ bladeId: expandBlade.id, bitId: 'bit-r' })
+    expect(result.removedKeys).toEqual(['ratchetId'])
+  })
+
+  it('不需清理時保留原 slots 物件', () => {
+    const previous = { bladeId: 'blade-r', ratchetId: 'ratchet-r', bitId: 'bit-r' }
+    const result = pruneSlots({ slots: previous, parts: pool, structure: 'standard' })
+    expect(result.changed).toBe(false)
+    expect(result.slots).toBe(previous)
+  })
+
+  it('分享連結只接受已知槽位上的字串 id，並正確推斷結構', () => {
+    expect(parseComboSlots({ bladeId: 'blade-r', injected: 'nope' })).toEqual({ bladeId: 'blade-r' })
+    expect(parseComboSlots({ bladeId: 1 })).toBeNull()
+    expect(inferBuilderStructure({ mainBladeId: 'main-cx' }, pool)).toBe('cx')
+    expect(inferBuilderStructure({ mainBladeId: 'missing' }, pool)).toBe('standard')
   })
 })

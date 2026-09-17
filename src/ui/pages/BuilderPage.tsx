@@ -10,10 +10,15 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { getComboTournamentEvidence } from '../../domain/tournament.ts'
 import {
-  getCxSlotSchema,
-  getSlotSchema,
-  getSlotSchemaForSlots,
-  type SlotKey,
+  getSlotSchemaForStructure,
+  hasIntegratedRatchet,
+  inferBuilderStructure,
+  INTEGRATED_RATCHET_NOTE_BIT_ZH,
+  INTEGRATED_RATCHET_NOTE_BLADE_ZH,
+  parseComboSlots,
+  pruneSlots,
+  type BuilderStructure,
+  type SlotDef,
 } from '../../domain/compatibility.ts'
 import { formatPartLabel } from '../../domain/naming.ts'
 import type { ComboSlots, Part } from '../../domain/types.ts'
@@ -30,23 +35,13 @@ import {
 } from '../components/ui.tsx'
 
 type BuilderMode = 'owned' | 'catalog' | 'hypothetical'
-type Structure = 'standard' | 'cx'
+type Structure = BuilderStructure
 
 const MODE_LABEL: Record<BuilderMode, string> = {
   owned: '只顯示我有的',
   catalog: '顯示全部圖鑑',
   hypothetical: '假想購買',
 }
-
-const STANDARD_KEYS: SlotKey[] = ['bladeId', 'ratchetId', 'bitId']
-const CX_KEYS: SlotKey[] = [
-  'lockChipId',
-  'mainBladeId',
-  'overBladeId',
-  'assistBladeId',
-  'ratchetId',
-  'bitId',
-]
 
 export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const parts = useAppStore((state) => state.parts)
@@ -66,48 +61,71 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const [favorite, setFavorite] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [shareMessage, setShareMessage] = useState<string | null>(null)
+  const [pruneNotice, setPruneNotice] = useState<string | null>(null)
   const route = useRoute()
+
+  /**
+   * 每一條改 slots 的路徑都從這裡走，避免畫面短暫顯示不適用的固鎖。
+   * hypothetical 保留目前已選零件，其他模式則只允許可用庫存。
+   */
+  const commitSlots = (
+    nextSlots: ComboSlots,
+    nextMode: BuilderMode = mode,
+    nextStructure: Structure = structure,
+  ) => {
+    const selectableIds = nextMode === 'catalog'
+      ? undefined
+      : new Set(
+          parts
+            .filter((part) => {
+              const free = availability.get(part.id)?.free ?? 0
+              return free > 0 || (nextMode === 'hypothetical' && Object.values(nextSlots).includes(part.id))
+            })
+            .map((part) => part.id),
+        )
+    const result = pruneSlots({ slots: nextSlots, parts, structure: nextStructure, selectableIds })
+    setSlots(result.slots)
+    setPruneNotice(result.removedKeys.length > 0 ? `已移除不適用的${result.removedKeys.length} 個零件選擇。` : null)
+  }
 
   // 第 36 節：分享連結只帶配裝內容，不含任何個人庫存。
   const sharedParam = route.query.c
   useEffect(() => {
-    if (!sharedParam) return
+    if (!sharedParam || parts.length === 0) return
     try {
-      const parsed = JSON.parse(decodeURIComponent(sharedParam)) as ComboSlots
-      setSlots(parsed)
-      setStructure(parsed.mainBladeId || parsed.lockChipId ? 'cx' : 'standard')
+      const parsed = parseComboSlots(JSON.parse(decodeURIComponent(sharedParam)))
+      if (!parsed) return
+      const inferred = inferBuilderStructure(parsed, parts)
+      setStructure(inferred)
       setMode('catalog')
+      commitSlots(parsed, 'catalog', inferred)
     } catch {
       // 連結損壞就忽略，不要讓頁面壞掉。
     }
-  }, [sharedParam])
+  }, [sharedParam, parts])
 
   useEffect(() => {
-    if (!initialComboId) return
+    if (!initialComboId || parts.length === 0) return
     const combo = combos.find((row) => row.id === initialComboId)
     if (!combo) return
-    setSlots(combo.slots)
     setName(combo.nameZhTW)
     setPhysicallyBuilt(combo.physicallyBuilt)
     setFavorite(combo.favorite)
     setEditingId(combo.id)
-    setStructure(combo.slots.mainBladeId || combo.slots.lockChipId ? 'cx' : 'standard')
+    const inferred = inferBuilderStructure(combo.slots, parts)
+    setStructure(inferred)
     setMode('catalog')
-  }, [initialComboId, combos])
+    commitSlots(combo.slots, 'catalog', inferred)
+  }, [initialComboId, combos, parts])
 
   /*
    * 槽位表要由使用者選的結構決定，不能只看 slots 推導：
    * 剛切到 CX 時 slots 還是空的，deriveSystem 會推成 BX，CX 欄位就永遠不出現。
    */
   const schema = useMemo(
-    () => (structure === 'cx' ? getCxSlotSchema(slots, parts) : getSlotSchema('BX')),
+    () => getSlotSchemaForStructure(structure, slots, parts),
     [structure, slots, parts],
   )
-  const visibleKeys = useMemo(() => {
-    const fromSchema = schema.map((slot) => slot.key)
-    const activeKeys = structure === 'cx' ? CX_KEYS : STANDARD_KEYS
-    return activeKeys.filter((key) => fromSchema.includes(key) || slots[key])
-  }, [schema, structure, slots])
 
   const selectable = useMemo(() => {
     if (mode === 'catalog') return parts
@@ -143,7 +161,10 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
               key={item}
               type="button"
               className={mode === item ? 'btn btn-primary' : 'btn'}
-              onClick={() => setMode(item)}
+              onClick={() => {
+                setMode(item)
+                commitSlots(slots, item)
+              }}
             >
               {MODE_LABEL[item]}
             </button>
@@ -183,18 +204,20 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
 
       <Section title="選擇零件">
         <div className="stack">
-          {visibleKeys.map((key) => (
+          {schema.map((def) => (
             <SlotPicker
-              key={key}
-              slotKey={key}
+              key={def.key}
+              def={def}
               slots={slots}
               parts={selectable}
-              allParts={parts}
-              onChange={(next) => setSlots((prev) => ({ ...prev, [key]: next || undefined }))}
+              selectedPart={parts.find((part) => part.id === slots[def.key])}
+              onChange={(next) => commitSlots({ ...slots, [def.key]: next || undefined })}
             />
           ))}
         </div>
       </Section>
+
+      {pruneNotice ? <NoticeCard tone="warn">{pruneNotice}</NoticeCard> : null}
 
       {analysis.compatibility.ok || !hasAnySelection ? null : (
         <NoticeCard tone="danger" testId="compat-error">
@@ -349,24 +372,25 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
 }
 
 function SlotPicker({
-  slotKey,
+  def,
   slots,
   parts,
-  allParts,
+  selectedPart,
   onChange,
 }: {
-  slotKey: SlotKey
+  def: SlotDef
   slots: ComboSlots
   parts: Part[]
-  allParts: Part[]
+  selectedPart?: Part
   onChange: (next: string) => void
 }) {
-  const def =
-    getSlotSchemaForSlots(slots, allParts).find((slot) => slot.key === slotKey) ??
-    getCxSlotSchema(slots, allParts).find((slot) => slot.key === slotKey)
-  const families = def?.families ?? []
-  const options = parts.filter((part) => families.includes(part.family))
-  const label = def?.labelZhTW ?? slotKey
+  const options = parts.filter((part) => def.families.includes(part.family))
+  const label = def.labelZhTW
+  const note = hasIntegratedRatchet(selectedPart)
+    ? def.key === 'bitId'
+      ? INTEGRATED_RATCHET_NOTE_BIT_ZH
+      : INTEGRATED_RATCHET_NOTE_BLADE_ZH
+    : undefined
 
   return (
     <label style={{ display: 'grid', gap: 4 }}>
@@ -374,7 +398,7 @@ function SlotPicker({
       <select
         className="field"
         aria-label={label}
-        value={slots[slotKey] ?? ''}
+        value={slots[def.key] ?? ''}
         onChange={(event) => onChange(event.target.value)}
       >
         <option value="">尚未選擇{label}</option>
@@ -387,6 +411,7 @@ function SlotPicker({
           )
         })}
       </select>
+      {note ? <span className="meta">{note}</span> : null}
     </label>
   )
 }

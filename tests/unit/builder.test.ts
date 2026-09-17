@@ -22,6 +22,8 @@ const ratchet80 = part({ id: 'r-80', family: 'ratchet', code: '9-80', spinDirect
 const bitFlat = part({ id: 'bit-f', family: 'bit', code: 'F', type: 'attack', spinDirection: 'dual', officialWeightG: 3, bitContact: 'flat' })
 const bitBall = part({ id: 'bit-b', family: 'bit', code: 'B', type: 'stamina', spinDirection: 'dual', officialWeightG: 3, bitContact: 'ball' })
 const bitRightOnly = part({ id: 'bit-right', family: 'bit', code: 'RO', type: 'attack', spinDirection: 'right', officialWeightG: 3, bitContact: 'point' })
+const integratedBlade = part({ id: 'b-integrated', family: 'integrated_blade', code: 'IG', spinDirection: 'right', integratedRatchet: true })
+const integratedBit = part({ id: 'bit-integrated', family: 'bit', code: 'IT', spinDirection: 'dual', integratedRatchet: true })
 
 const parts: Part[] = [bladeAttack, bladeStamina, bladeLeft, ratchet60, ratchet80, bitFlat, bitBall, bitRightOnly]
 
@@ -139,6 +141,30 @@ describe('顯示全部圖鑑與假想購買模式（第 17 節模式二、三）
       mode: 'hypothetical',
     })
     expect(r).toEqual([])
+  })
+})
+
+describe('固鎖一體型零件的可達性', () => {
+  it('一體式上蓋不用任何固鎖也能產生可安裝配置', () => {
+    const r = generateBuildableCombos({
+      parts: [integratedBlade, bitBall], rules: [], lots: [lot(integratedBlade.id), lot(bitBall.id)], combos: [], mode: 'owned',
+    })
+    expect(r).toHaveLength(1)
+    expect(r[0]!.slots).toEqual({ bladeId: integratedBlade.id, bitId: bitBall.id })
+    expect(r[0]!.analysis.compatibility.ok).toBe(true)
+  })
+
+  it('一體式軸心不用任何固鎖也能產生可安裝配置', () => {
+    const r = generateBuildableCombos({
+      parts: [bladeAttack, integratedBit], rules: [], lots: [lot(bladeAttack.id), lot(integratedBit.id)], combos: [], mode: 'owned',
+    })
+    expect(r).toHaveLength(1)
+    expect(r[0]!.slots).toEqual({ bladeId: bladeAttack.id, bitId: integratedBit.id })
+  })
+
+  it('一般三件式仍一定配有固鎖', () => {
+    const r = generateBuildableCombos({ ...baseArgs, lots: [lot(bladeAttack.id), lot(ratchet60.id), lot(bitFlat.id)], mode: 'owned' })
+    expect(r[0]!.slots.ratchetId).toBe(ratchet60.id)
   })
 })
 

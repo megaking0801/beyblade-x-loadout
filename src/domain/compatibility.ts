@@ -38,6 +38,9 @@ export interface SlotDef {
   required: boolean
 }
 
+/** 配裝器由使用者明確選擇的結構；UX 與 BX 共用三件式介面。 */
+export type BuilderStructure = 'standard' | 'cx'
+
 const STANDARD_SCHEMA: SlotDef[] = [
   { key: 'bladeId', labelZhTW: '上蓋', families: ['blade', 'integrated_blade'], required: true },
   { key: 'ratchetId', labelZhTW: '固鎖', families: ['ratchet'], required: true },
@@ -72,6 +75,29 @@ export function getSlotSchemaForSlots(slots: ComboSlots, parts: Part[]): SlotDef
 }
 
 /**
+ * 配裝器用的槽位表。
+ *
+ * 不能從 slots 推導結構：剛切到 CX 時 slots 還是空的，deriveSystem 會推成 BX。
+ * 但一體式零件的固鎖規則仍必須套用，否則畫面會顯示一個實際不使用的欄位。
+ */
+export function getSlotSchemaForStructure(
+  structure: BuilderStructure,
+  slots: ComboSlots,
+  parts: Part[],
+): SlotDef[] {
+  const schema = structure === 'cx' ? getCxSlotSchema(slots, parts) : STANDARD_SCHEMA
+  return dropRatchetIfIntegrated(schema, slots, parts)
+}
+
+/** 一體式零件已含固鎖，配裝器可據此顯示正確提示。 */
+export function hasIntegratedRatchet(part: Part | undefined): boolean {
+  return part?.integratedRatchet === true
+}
+
+export const INTEGRATED_RATCHET_NOTE_BLADE_ZH = '此上蓋已含固鎖，不需另選'
+export const INTEGRATED_RATCHET_NOTE_BIT_ZH = '此軸心已含固鎖，不需另選'
+
+/**
  * 有些零件把固鎖做在自己身上（UX 擴張上蓋、Op／Tr 軸心），這時配裝沒有獨立固鎖。
  * 還沒選到那種零件之前，固鎖欄位照常顯示。
  */
@@ -83,7 +109,7 @@ function dropRatchetIfIntegrated(
   const selected = [slots.bladeId, slots.mainBladeId, slots.bitId]
     .filter((id): id is string => Boolean(id))
     .map((id) => parts.find((part) => part.id === id))
-  const integrated = selected.some((part) => part?.integratedRatchet === true)
+  const integrated = selected.some(hasIntegratedRatchet)
   if (!integrated) return schema
   return schema.filter((slot) => slot.key !== 'ratchetId')
 }
@@ -104,7 +130,7 @@ export function getCxSlotSchema(slots: ComboSlots, parts: Part[]): SlotDef[] {
   })
 }
 
-const ALL_SLOT_KEYS: SlotKey[] = [
+export const ALL_SLOT_KEYS: SlotKey[] = [
   'bladeId',
   'lockChipId',
   'mainBladeId',
@@ -130,6 +156,91 @@ const CX_ONLY_SLOTS: SlotKey[] = [
   'overBladeId',
   'assistBladeId',
 ]
+
+export interface PruneResult {
+  slots: ComboSlots
+  removedKeys: SlotKey[]
+  changed: boolean
+}
+
+/**
+ * 在換零件、切模式、讀取分享連結或編輯既有配裝時，移除不再適用的選擇。
+ * 先確認零件本身有效，再依結構清除隱藏槽位；最多三輪處理連鎖變化。
+ */
+export function pruneSlots(args: {
+  slots: ComboSlots
+  parts: Part[]
+  structure: BuilderStructure
+  selectableIds?: ReadonlySet<string>
+}): PruneResult {
+  const { slots, parts, structure, selectableIds } = args
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  let next = slots
+  const removedKeys: SlotKey[] = []
+
+  const remove = (key: SlotKey) => {
+    if (!next[key]) return
+    if (next === slots) next = { ...slots }
+    else next = { ...next }
+    next[key] = undefined
+    removedKeys.push(key)
+  }
+
+  for (let pass = 0; pass < 3; pass += 1) {
+    let changedThisPass = false
+
+    // 第一階段：零件不存在、種類不合或不在目前模式的可選範圍，一律移除。
+    for (const key of ALL_SLOT_KEYS) {
+      const id = next[key]
+      if (!id) continue
+      const part = byId.get(id)
+      const expected = getSlotSchema(key === 'bladeId' || key === 'ratchetId' || key === 'bitId' ? 'BX' : 'CX')
+        .find((slot) => slot.key === key)
+      if (!part || !expected?.families.includes(part.family) || (selectableIds && !selectableIds.has(id))) {
+        remove(key)
+        changedThisPass = true
+      }
+    }
+
+    // 第二階段：一體式零件、CX 主刃型態與使用者選的結構會改變槽位表。
+    const schemaKeys = new Set(getSlotSchemaForStructure(structure, next, parts).map((slot) => slot.key))
+    for (const key of ALL_SLOT_KEYS) {
+      if (next[key] && !schemaKeys.has(key)) {
+        remove(key)
+        changedThisPass = true
+      }
+    }
+    if (!changedThisPass) break
+  }
+
+  return { slots: next, removedKeys, changed: removedKeys.length > 0 }
+}
+
+/** 分享連結屬於不可信輸入，只接受已知槽位上的字串 id。 */
+export function parseComboSlots(raw: unknown): ComboSlots | null {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
+  const candidate = raw as Record<string, unknown>
+  const slots: ComboSlots = {}
+  for (const key of ALL_SLOT_KEYS) {
+    const value = candidate[key]
+    if (value === undefined) continue
+    if (typeof value !== 'string') return null
+    slots[key] = value
+  }
+  return slots
+}
+
+/** 只把有效的 CX 零件視為 CX，避免損壞連結把畫面帶進錯誤結構。 */
+export function inferBuilderStructure(slots: ComboSlots, parts: Part[]): BuilderStructure {
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  return CX_ONLY_SLOTS.some((key) => {
+    const id = slots[key]
+    const part = id ? byId.get(id) : undefined
+    return part?.family === (key === 'lockChipId' ? 'lock_chip' : key === 'mainBladeId' ? 'main_blade' : key === 'overBladeId' ? 'over_blade' : 'assist_blade')
+  })
+    ? 'cx'
+    : 'standard'
+}
 
 /**
  * 由槽位內容推導組裝系統。

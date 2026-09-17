@@ -184,6 +184,20 @@ test.describe('第 45 節 驗收核心情境', () => {
   })
 })
 
+test('一體式上蓋會清除既選固鎖，且可直接搭配軸心', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+
+  // 先選固鎖再換一體式上蓋，是先前會留下矛盾欄位的回歸路徑。
+  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
+  await page.getByLabel('上蓋').selectOption('integrated_blade:バレットグリフォン')
+  await expect(page.getByLabel('固鎖')).toHaveCount(0)
+  await expect(page.getByText('此上蓋已含固鎖，不需另選')).toBeVisible()
+
+  await page.getByLabel('軸心').selectOption('bit:F')
+  await expect(page.getByTestId('compat-error')).toHaveCount(0)
+})
+
 test('驗收測試檔本身有被執行（守門測試）', async () => {
   // 防止整個檔案被誤設為 skip 而無人察覺（第 49.1 節：禁止必定通過的測試）
   expect(test.info().project.name).toMatch(/手機寬度|桌機寬度/)

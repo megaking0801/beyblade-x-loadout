@@ -126,9 +126,17 @@ function enumerateSlots(parts: Part[], sortBy: BuildableSortKey): EnumerationRes
 
   const result: ComboSlots[] = []
   for (const blade of blades) {
-    for (const ratchet of ratchets) {
-      for (const bit of bits) {
-        result.push({ bladeId: blade.id, ratchetId: ratchet.id, bitId: bit.id })
+    for (const bit of bits) {
+      // UX 一體式上蓋與 Op／Tr 軸心已含固鎖，不得再塞一顆獨立固鎖。
+      const ratchetOptions: (Part | undefined)[] = blade.integratedRatchet || bit.integratedRatchet
+        ? [undefined]
+        : ratchets
+      for (const ratchet of ratchetOptions) {
+        result.push({
+          bladeId: blade.id,
+          ...(ratchet ? { ratchetId: ratchet.id } : {}),
+          bitId: bit.id,
+        })
       }
     }
   }
@@ -186,14 +194,17 @@ function enumerateSlots(parts: Part[], sortBy: BuildableSortKey): EnumerationRes
       for (const over of overOptions) {
         if (main.cxOverBlade && !over) continue
         for (const assist of cxAssists) {
-          for (const ratchet of cxRatchets) {
-            for (const bit of cxBits) {
+          for (const bit of cxBits) {
+            const ratchetOptions: (Part | undefined)[] = main.integratedRatchet || bit.integratedRatchet
+              ? [undefined]
+              : cxRatchets
+            for (const ratchet of ratchetOptions) {
               result.push({
                 ...(chip ? { lockChipId: chip.id } : {}),
                 mainBladeId: main.id,
                 ...(over ? { overBladeId: over.id } : {}),
                 assistBladeId: assist.id,
-                ratchetId: ratchet.id,
+                ...(ratchet ? { ratchetId: ratchet.id } : {}),
                 bitId: bit.id,
               })
             }

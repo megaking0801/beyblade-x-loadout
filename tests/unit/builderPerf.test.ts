@@ -10,6 +10,7 @@ import { generateBuildableCombos } from '../../src/domain/builder.ts'
  * 單獨跑約 1.4 秒，整套並行跑時會慢幾倍，抓 5 秒會在邊界 flaky。
  */
 describe('配置產生器的規模守門', () => {
+  // 斷言守 15 秒；Vitest 預設 5 秒 timeout 必須另放寬，否則在斷言前就會中止。
   it('圖鑑模式在合理時間內完成，並回傳有效結果', () => {
     const started = performance.now()
     const rows = generateBuildableCombos({
@@ -27,5 +28,5 @@ describe('配置產生器的規模守門', () => {
     expect(rows.length).toBe(40)
     expect(rows.every((row) => row.analysis.compatibility.ok)).toBe(true)
     expect(elapsed).toBeLessThan(15_000)
-  })
+  }, 20_000)
 })
