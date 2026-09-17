@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
-import { getComboTournamentEvidence } from '../../domain/tournament.ts'
+import { getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import {
   getSlotSchemaForStructure,
   hasIntegratedRatchet,
@@ -136,13 +136,13 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     })
   }, [parts, mode, availability, slots])
 
-  const evidence = useMemo(
-    () => getComboTournamentEvidence({ slots, parts, events: tournamentEvents, decks: tournamentDecks }),
+  const evidenceReport = useMemo(
+    () => getTournamentEvidenceReport({ slots, parts, events: tournamentEvents, decks: tournamentDecks }),
     [slots, parts, tournamentEvents, tournamentDecks],
   )
   const analysis = useMemo(
-    () => analyzeCombo({ slots, parts, rules, lots, combos, evidence }),
-    [slots, parts, rules, lots, combos, evidence],
+    () => analyzeCombo({ slots, parts, rules, lots, combos, evidence: evidenceReport.exact }),
+    [slots, parts, rules, lots, combos, evidenceReport.exact],
   )
 
   // 還沒選任何零件時不要先跳紅字，等使用者動作後再提示（第 46 節：新手友善）。
@@ -262,7 +262,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       </div>
 
       <div className="work-result">
-      <ComboResult analysis={analysis} />
+      <ComboResult analysis={analysis} evidenceReport={evidenceReport} />
 
       <Section title="儲存這套配裝">
         <div className="card" style={{ display: 'grid', gap: 10 }}>
@@ -379,7 +379,13 @@ function noteForPart(def: SlotDef, part: Part | undefined): string | undefined {
   return def.key === 'bitId' ? INTEGRATED_RATCHET_NOTE_BIT_ZH : INTEGRATED_RATCHET_NOTE_BLADE_ZH
 }
 
-export function ComboResult({ analysis }: { analysis: ReturnType<typeof analyzeCombo> }) {
+export function ComboResult({
+  analysis,
+  evidenceReport,
+}: {
+  analysis: ReturnType<typeof analyzeCombo>
+  evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
+}) {
   return (
     <Section title="配裝結果">
       <div className="card" style={{ display: 'grid', gap: 10 }}>
@@ -499,12 +505,24 @@ export function ComboResult({ analysis }: { analysis: ReturnType<typeof analyzeC
         <div style={{ fontSize: 13, color: 'var(--warn)' }}>
           {analysis.evidence ? (
             <>
-              賽事出場 {analysis.evidence.appearances}/{analysis.evidence.totalDecks} 副牌組（Top 4：
+              完全相符：賽事出場 {analysis.evidence.appearances}/{analysis.evidence.totalDecks} 副完整牌組（Top 4：
               {analysis.evidence.top4}；冠軍：{analysis.evidence.championships}；社群彙整資料）。
             </>
           ) : (
             analysis.evidenceNoticeZhTW
           )}
+          {evidenceReport.partial.length > 0 ? (
+            <div style={{ marginTop: 6 }}>
+              <strong>部分相符：</strong>以下是零件曾出現的配置，不是同一套配裝的成績。
+              <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
+                {evidenceReport.partial.map((match) => (
+                  <li key={match.kind}>
+                    {match.labelZhTW} {match.appearances}/{match.totalComboSlots} 顆配置（Top 4：{match.top4}；冠軍：{match.championships}；社群彙整）
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </Section>

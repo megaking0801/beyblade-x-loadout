@@ -10,6 +10,31 @@ const TIER_RANK: Record<SourceTier, number> = {
   user_submitted: 1,
 }
 
+export type PartialMatchKind = 'blade' | 'ratchet_bit'
+
+/**
+ * 部分相符只表示零件曾在賽事配置中出現，絕不是同一套配裝的成績。
+ * 它不能餵給 analyzeCombo，避免把零件使用次數誤當完整配置證據。
+ */
+export interface PartialTournamentMatch {
+  kind: PartialMatchKind
+  labelZhTW: string
+  appearances: number
+  top4: number
+  championships: number
+  /** 以「配置顆數」為分母；不是完整牌組數。 */
+  totalComboSlots: number
+  sourceTier: SourceTier
+}
+
+export interface TournamentEvidenceReport {
+  exact?: EvidenceInput
+  partial: PartialTournamentMatch[]
+  eventCount: number
+  fullDeckCount: number
+  comboSlotCount: number
+}
+
 /**
  * 所有樣本皆計入分母；來源等級採實際命中資料中最低者，避免混合來源時虛增可信度。
  */
@@ -34,6 +59,50 @@ export function getComboTournamentEvidence(args: {
     championships: matched.filter((deck) => deck.placement === 1).length,
     totalDecks: mappedDecks.length,
     sourceTier: tiers[0]!,
+  }
+}
+
+/** 完全相符與部分相符分開回報，讓 UI 可以用不同標籤與分母呈現。 */
+export function getTournamentEvidenceReport(args: {
+  slots: ComboSlots
+  parts: Part[]
+  events: TournamentEvent[]
+  decks: TournamentDeck[]
+}): TournamentEvidenceReport {
+  const eventById = new Map(args.events.map((event) => [event.id, event]))
+  const decks = args.decks.filter((deck) => eventById.has(deck.eventId) && deck.comboKeys.length === 3)
+  const combos = decks.flatMap((deck) =>
+    (deck.comboPartIds ?? []).map((partIds) => ({ deck, partIds, event: eventById.get(deck.eventId)! })),
+  )
+  const selected = [args.slots.bladeId, args.slots.ratchetId, args.slots.bitId]
+  const [bladeId, ratchetId, bitId] = selected
+  const partial: PartialTournamentMatch[] = []
+
+  const summarize = (kind: PartialMatchKind, labelZhTW: string, matches: typeof combos) => {
+    if (matches.length === 0) return
+    const tiers = matches.map((row) => row.event.sourceTier).sort((a, b) => TIER_RANK[a] - TIER_RANK[b])
+    partial.push({
+      kind,
+      labelZhTW,
+      appearances: matches.length,
+      top4: matches.filter((row) => (row.deck.placement ?? Infinity) <= 4).length,
+      championships: matches.filter((row) => row.deck.placement === 1).length,
+      totalComboSlots: combos.length,
+      sourceTier: tiers[0]!,
+    })
+  }
+
+  if (bladeId) summarize('blade', '上蓋部分相符', combos.filter((row) => row.partIds[0] === bladeId))
+  if (ratchetId && bitId) {
+    summarize('ratchet_bit', '固鎖＋軸心部分相符', combos.filter((row) => row.partIds[1] === ratchetId && row.partIds[2] === bitId))
+  }
+
+  return {
+    ...(getComboTournamentEvidence(args) ? { exact: getComboTournamentEvidence(args) } : {}),
+    partial,
+    eventCount: new Set(decks.map((deck) => deck.eventId)).size,
+    fullDeckCount: decks.length,
+    comboSlotCount: combos.length,
   }
 }
 
