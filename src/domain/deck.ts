@@ -271,7 +271,7 @@ export const DECK_STRATEGY_ZH: Record<DeckStrategy, string> = {
   beginner: '最適合新手',
   stable: '最穩定',
   aggressive: '最暴力',
-  balanced: '平衡型',
+  balanced: '均衡型',
   evidence: '最高賽事證據',
   vs_attack: '對攻擊',
   vs_stamina: '對持久',

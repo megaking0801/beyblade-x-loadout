@@ -11,17 +11,46 @@
  * 顏色只有一個重點色（硃紅），其餘一律石墨灰階，避免整頁都在搶注意力。
  */
 :root {
-  --paper: #e9ecf1;
-  --surface: #ffffff;
-  --surface-2: #eef1f6;
-  --ink: #141a22;
-  --ink-dim: #5a6675;
-  --rule: #c9d1db;
-  --signal: #d62f1c;
-  --signal-ink: #ffffff;
-  --ok: #10714a;
-  --warn: #8a5300;
-  --danger: #b32218;
+  /*
+   * 深色為唯一主題。
+   *
+   * 不是趕流行：陀螺的去背產品照是暗色金屬件，放在白卡上會整片發灰，
+   * 主角反而被埋掉；同類型的站（BeybladeHub、Destiny Item Manager）也都是深色。
+   * 之前跟著系統偏好切淺／深兩套，等於有一半使用者看到的是照片最難看的那一套。
+   */
+  --paper: #0b0f16;
+  --surface: #121926;
+  --surface-2: #1a2332;
+  --ink: #e7ecf3;
+  --ink-dim: #8d9bb0;
+  --ink-faint: #6b7a90;
+  --rule: #25303f;
+  --rule-soft: #1d2635;
+  --signal: #ff5a41;
+  --signal-ink: #10151c;
+  --ok: #58d39b;
+  --warn: #ffb454;
+  --danger: #ff7a68;
+
+  /*
+   * 零件類型色。
+   *
+   * 這是 BeybladeHub 有而本站原本沒有的一個資訊維度：攻擊／防守／持久／均衡
+   * 各給一個顏色之後，一整頁零件掃一眼就分得出屬性，不必逐字讀標籤。
+   * 每個類型都配一組「文字／底／框」，確保在深底上對比足夠。
+   */
+  --type-attack: #ff8a72;
+  --type-attack-bg: #2e1512;
+  --type-attack-line: #5c2820;
+  --type-defense: #6ea8ff;
+  --type-defense-bg: #14203a;
+  --type-defense-line: #23406e;
+  --type-stamina: #58d39b;
+  --type-stamina-bg: #0f2620;
+  --type-stamina-line: #1f5140;
+  --type-balance: #ffb454;
+  --type-balance-bg: #2a1e0c;
+  --type-balance-line: #55411c;
 
   /* 舊變數名保留為別名：頁面內還有大量 inline style 直接引用。 */
   --bg: var(--paper);
@@ -38,23 +67,7 @@
   --z-scrim: 40;
   --z-sheet: 41;
 
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0e1218;
-    --surface: #161c25;
-    --surface-2: #1d2531;
-    --ink: #e7ecf3;
-    --ink-dim: #93a0b1;
-    --rule: #2a3441;
-    --signal: #ff5a41;
-    --signal-ink: #10151c;
-    --ok: #5fd39c;
-    --warn: #e8b551;
-    --danger: #ff7a68;
-  }
+  color-scheme: dark;
 }
 
 html,
@@ -536,4 +549,173 @@ textarea {
   opacity: 0.55;
   cursor: not-allowed;
   background: var(--surface-2);
+}
+
+/*
+ * 零件類型標籤。
+ *
+ * 類型是掃頁面時最常用的判斷依據，所以給它顏色而不是跟其他標籤一樣灰。
+ * 只有類型享有這個待遇，其餘標籤維持中性，免得整頁都在搶注意力。
+ */
+.type-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.type-attack {
+  color: var(--type-attack);
+  background: var(--type-attack-bg);
+  border-color: var(--type-attack-line);
+}
+
+.type-defense {
+  color: var(--type-defense);
+  background: var(--type-defense-bg);
+  border-color: var(--type-defense-line);
+}
+
+.type-stamina {
+  color: var(--type-stamina);
+  background: var(--type-stamina-bg);
+  border-color: var(--type-stamina-line);
+}
+
+.type-balance {
+  color: var(--type-balance);
+  background: var(--type-balance-bg);
+  border-color: var(--type-balance-line);
+}
+
+/* 篩選用的 chip：一排掃完全部選項，比下拉選單少一次點擊。 */
+.filter-chip {
+  min-height: 36px;
+  padding: 0 11px;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: var(--surface-2);
+  color: var(--ink-dim);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-chip[aria-pressed='true'] {
+  background: var(--signal);
+  border-color: transparent;
+  color: var(--signal-ink);
+}
+
+/* 型號寬體字在深底上要再亮一點才跳得出來。 */
+.code {
+  color: inherit;
+}
+
+/* 商品卡：圖片佔上半，名稱與動作在下半，掃的時候先看到陀螺長什麼樣。 */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/*
+ * 圖磚刻意用淺底。
+ *
+ * 官方商品照不是去背的，白底照片放在深色卡上會變成一塊刺眼的白方塊；
+ * 給整個圖磚一個淺色底，照片就融進去、看起來像型錄的圖框而不是破圖。
+ * 社群的去背零件圖在淺底上也讀得出來（它們是深色金屬件）。
+ */
+.product-card-art {
+  position: relative;
+  height: 120px;
+  background: #eef1f6;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  overflow: hidden;
+}
+
+/*
+ * 圖片用絕對定位，不要只靠 max-height 或百分比高度。
+ *
+ * 這一磚是 grid，列軌道會依內容撐開，圖片的 100%／max-height 都是量「撐開後」
+ * 的高度，等於沒有限制 —— 實測 120px 的磚裡塞進 218px 的圖，蓋掉下面的標題。
+ * 絕對定位把圖片抽出軌道計算，磚的高度才真的說了算。
+ */
+.product-card-art img {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  object-fit: contain;
+}
+
+.product-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px 11px;
+}
+
+/* 篩選 chip 一多就會吃掉半個螢幕，壓小一點讓清單早一點出現。 */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filter-row .filter-chip {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+/* 商品在手機也排兩欄：圖變大之後單欄一次只看得到一張，滑不完。 */
+.card-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 760px) {
+  .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 卡片裡的次要動作：44px 在兩欄卡片裡太佔位，降到 38px 仍在可點範圍。 */
+.btn-compact {
+  min-height: 38px;
+  font-size: 13px;
+}
+
+/*
+ * 商品卡裡的緊湊控制項。
+ *
+ * 44px 的觸控高度是清單頁的標準，但在半欄寬的卡片裡會把步進器、狀態下拉與
+ * 兩顆按鈕擠成三行，反而更難按。這裡降到 34px（仍在拇指可靠範圍），
+ * 換到一行放得下步進器、一行放下拉與加入。
+ */
+.qty-compact .btn {
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.qty-compact .field {
+  min-height: 34px;
+  font-size: 13px;
+}
+
+.qty-compact input.field {
+  width: 46px;
+  padding: 0 4px;
 }

@@ -94,7 +94,7 @@ export const BEY_TYPE_ZH: Record<BeyType, string> = {
   attack: '攻擊',
   defense: '防守',
   stamina: '持久',
-  balance: '平衡',
+  balance: '均衡',
 }
 
 /** 第 6 節：前台顯示用的中文零件分類名稱。 */

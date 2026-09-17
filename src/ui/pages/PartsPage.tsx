@@ -8,14 +8,9 @@ import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel } from '../../domain/naming.ts'
 import { searchParts } from '../../domain/search.ts'
-import {
-  PART_STATUS_ZH,
-  type Part,
-  type PartFamily,
-  type PartStatus,
-} from '../../domain/types.ts'
+import { PART_STATUS_ZH, SPIN_DIRECTION_ZH, type Part, type PartFamily, type PartStatus } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, useJustAdded } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, TypeTag, useJustAdded } from '../components/ui.tsx'
 
 /** 第 26 節指定的分類。 */
 const GROUPS: { key: string; label: string; families: PartFamily[] }[] = [
@@ -131,6 +126,7 @@ function MyParts() {
                     dataPartId={part.id}
                   >
                     <PartThumb
+                      size={54}
                       code={part.code}
                       nameZhTW={label.titleZhTW}
                       imageUrl={partImageUrl.get(part.id)}
@@ -139,7 +135,23 @@ function MyParts() {
                       <div style={{ fontWeight: 600, fontSize: 15 }}>
                         <CatalogTitle>{label.titleZhTW}</CatalogTitle>
                       </div>
-                      {/* 分類已經寫在區塊標題上，列裡不再重複一次。 */}
+                      {/*
+                        分類已經寫在區塊標題上，列裡改放真正有辨識度的規格：
+                        類型（有顏色）、重量、旋向。這三個才是挑零件時在比的東西。
+                      */}
+                      <div className="chip-row" style={{ gap: 5, marginTop: 3 }}>
+                        <TypeTag type={part.type} />
+                        {typeof part.officialWeightG === 'number' ? (
+                          <span className="code" style={{ fontSize: 11, color: 'var(--ink-dim)' }}>
+                            {part.officialWeightG}g
+                          </span>
+                        ) : null}
+                        {part.spinDirection ? (
+                          <span style={{ fontSize: 11, color: 'var(--ink-faint)' }}>
+                            {SPIN_DIRECTION_ZH[part.spinDirection]}
+                          </span>
+                        ) : null}
+                      </div>
                       {label.plainDescriptionZhTW ? (
                         <div className="meta clamp-2">{label.plainDescriptionZhTW}</div>
                       ) : null}

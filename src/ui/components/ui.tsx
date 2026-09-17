@@ -5,7 +5,7 @@
  * 第 38 節（新手／進階模式）。
  */
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { CONFIDENCE_ZH, type Confidence } from '../../domain/types.ts'
+import { BEY_TYPE_ZH, CONFIDENCE_ZH, type BeyType, type Confidence } from '../../domain/types.ts'
 
 export function PageHeader({
   title,
@@ -153,6 +153,25 @@ export function useJustAdded(durationMs = 1600): [boolean, () => void] {
       timer.current = window.setTimeout(() => setActive(false), durationMs)
     },
   ]
+}
+
+/**
+ * 零件類型標籤。
+ *
+ * 類型是掃清單時最常用的判斷依據，所以它是全站唯一有顏色編碼的標籤
+ * （攻擊紅／防守藍／持久綠／均衡橘）。沒有類型資料時回 null，
+ * 由呼叫端決定要不要顯示「資料不足」，不要自己編一個灰色的「未知」。
+ */
+const TYPE_CLASS: Record<BeyType, string> = {
+  attack: 'type-attack',
+  defense: 'type-defense',
+  stamina: 'type-stamina',
+  balance: 'type-balance',
+}
+
+export function TypeTag({ type }: { type?: BeyType }) {
+  if (!type) return null
+  return <span className={`type-tag ${TYPE_CLASS[type]}`}>{BEY_TYPE_ZH[type]}</span>
 }
 
 /** 第 20 節 B：模型推估的資料一律掛這個標籤。 */

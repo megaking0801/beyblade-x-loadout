@@ -16,7 +16,7 @@ import {
   type Product,
 } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, useJustAdded } from '../components/ui.tsx'
+import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, TypeTag, useJustAdded } from '../components/ui.tsx'
 import { formatPartLabel } from '../../domain/naming.ts'
 
 const STATUS_OPTIONS: OwnedProductStatus[] = ['owned', 'ordered', 'wishlist', 'sold']
@@ -360,12 +360,12 @@ function CatalogList() {
 
   return (
     <>
-      <Row gap={6}>
+      <div className="filter-row">
         {LINE_FILTERS.map((item) => (
           <button
             key={item}
             type="button"
-            className={line === item ? 'btn btn-primary' : 'btn'}
+            className="filter-chip"
             data-testid={`line-filter-${item}`}
             aria-pressed={line === item}
             onClick={() => setLine(item)}
@@ -374,7 +374,7 @@ function CatalogList() {
             {countByLine.get(item) ? `（${countByLine.get(item)}）` : ''}
           </button>
         ))}
-      </Row>
+      </div>
       <div style={{ height: 10 }} />
       <Row>
         <input
@@ -406,7 +406,7 @@ function CatalogList() {
         {filtered.length === 0 ? (
           <EmptyState title="找不到符合的商品" hint="試試型號，例如 BX-01。" />
         ) : (
-          <div className="list-grid">
+          <div className="card-grid">
             {filtered.map((row) => (
               <CatalogProductCard key={row.product.id} product={row.product} />
             ))}
@@ -425,45 +425,65 @@ function CatalogProductCard({ product }: { product: Product }) {
   const [justAdded, markAdded] = useJustAdded()
   const label = formatProductLabel(product)
   const imageUrl = images.find((image) => image.entityType === 'product' && image.entityId === product.id)?.url
+  // 商品本身沒有類型，用盒內上蓋的類型代表它；一盒多顆時不標，免得誤導。
+  const parts = useAppStore((state) => state.parts)
+  const mainBladeType = useMemo(() => {
+    const blades = product.contents
+      .map((entry) => parts.find((part) => part.id === entry.partId))
+      .filter((part) => part && ['blade', 'integrated_blade', 'main_blade'].includes(part.family))
+    return blades.length === 1 ? blades[0]?.type : undefined
+  }, [product.contents, parts])
 
   return (
-    <div className={justAdded ? 'card just-added' : 'card'} data-testid="catalog-product">
-      <Row>
-        <PartThumb code={product.sku ?? product.id} imageUrl={imageUrl} size={56} />
-        <div style={{ flex: 1, minWidth: 160 }}>
-          <div style={{ fontWeight: 600, fontSize: 15 }} data-testid="catalog-product-title">
-            <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
-            {label.isProvisional ? <Badge>暫譯</Badge> : null}
-          </div>
-          <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-            {label.categoryZhTW}
-            {product.releaseDate ? `　${product.releaseDate} 發售` : ''}
-          </div>
+    <div
+      className={justAdded ? 'product-card just-added' : 'product-card'}
+      data-testid="catalog-product"
+    >
+      {/* 圖片佔上半：挑盒子時先認得出是哪顆陀螺，名稱才是輔助。 */}
+      <div className="product-card-art">
+        {imageUrl ? (
+          <img src={imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" />
+        ) : (
+          // 圖磚是淺底，共用的深色佔位圖放上去會變成一個黑洞，這裡直接寫型號。
+          <span className="code" style={{ fontSize: 18, color: '#8d9bb0' }}>
+            {product.sku ?? '—'}
+          </span>
+        )}
+      </div>
+      <div className="product-card-body">
+        <div style={{ fontWeight: 600, fontSize: 14 }} data-testid="catalog-product-title">
+          <CatalogTitle>{label.titleZhTW}</CatalogTitle>{' '}
+          {label.isProvisional ? <Badge>暫譯</Badge> : null}
         </div>
-      </Row>
-      <div style={{ height: 8 }} />
-      <Row>
-        <Quantity
-          testId="catalog-qty"
-          label={`${label.titleZhTW} 盒數`}
-          min={1}
-          value={quantity}
-          onChange={setQuantity}
-        />
-        <select
-          className="field"
-          style={{ width: 150 }}
-          aria-label="加入狀態"
-          data-testid="catalog-status"
-          value={status}
-          onChange={(event) => setStatus(event.target.value as OwnedProductStatus)}
-        >
-          {STATUS_OPTIONS.map((item) => (
-            <option key={item} value={item}>
-              {OWNED_PRODUCT_STATUS_ZH[item]}
-            </option>
-          ))}
-        </select>
+        <div className="chip-row" style={{ gap: 5 }}>
+          <TypeTag type={mainBladeType} />
+          <span style={{ fontSize: 11, color: 'var(--ink-faint)' }}>{label.categoryZhTW}</span>
+        </div>
+        {/*
+          半欄寬塞不下原尺寸的步進器＋下拉＋兩顆按鈕（會擠成三行更難按），
+          但「一次加三盒」「標成未到貨」都是真實需求，所以留功能、縮尺寸。
+        */}
+        <div className="qty-compact" style={{ display: 'grid', gap: 6 }}>
+          <Quantity
+            testId="catalog-qty"
+            label={`${label.titleZhTW} 盒數`}
+            min={1}
+            value={quantity}
+            onChange={setQuantity}
+          />
+          <select
+            className="field"
+            aria-label="加入狀態"
+            data-testid="catalog-status"
+            value={status}
+            onChange={(event) => setStatus(event.target.value as OwnedProductStatus)}
+          >
+            {STATUS_OPTIONS.map((item) => (
+              <option key={item} value={item}>
+                {OWNED_PRODUCT_STATUS_ZH[item]}
+              </option>
+            ))}
+          </select>
         <button
           type="button"
           className="btn btn-primary"
@@ -477,12 +497,13 @@ function CatalogProductCard({ product }: { product: Product }) {
             if (ok) markAdded()
           }}
         >
-          {justAdded ? `已加入 ×${quantity}` : '加入我的商品'}
+          {justAdded ? `已加入 ×${quantity}` : '加入'}
         </button>
-        <Link to="/product" query={{ id: product.id }} className="btn">
+        </div>
+        <Link to="/product" query={{ id: product.id }} className="btn btn-compact">
           詳情
         </Link>
-      </Row>
+      </div>
     </div>
   )
 }
