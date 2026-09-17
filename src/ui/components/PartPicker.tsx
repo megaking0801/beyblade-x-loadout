@@ -15,6 +15,7 @@ export function PartPickerField({
   availability,
   images,
   noteZhTW,
+  disabledReasonZhTW,
   onChange,
 }: {
   def: SlotDef
@@ -23,6 +24,13 @@ export function PartPickerField({
   availability: Availability
   images: ImageAsset[]
   noteZhTW?: string
+  /**
+   * 這個槽位為什麼不用選。
+   *
+   * 直接讓欄位消失，使用者會以為畫面沒反應（也看不出「這顆已含固鎖」）；
+   * 保留欄位但鎖死並寫明原因，才看得出是系統判定不需要選。
+   */
+  disabledReasonZhTW?: string
   onChange: (partId: string) => void
 }) {
   const [open, setOpen] = useState(false)
@@ -52,17 +60,23 @@ export function PartPickerField({
       <span id={`slot-label-${def.key}`} style={{ fontSize: 13, color: 'var(--text-dim)' }}>{def.labelZhTW}</span>
       <button
         type="button"
-        className="field part-picker-trigger"
+        className={disabledReasonZhTW ? 'field part-picker-trigger is-locked' : 'field part-picker-trigger'}
         aria-labelledby={`slot-label-${def.key}`}
         aria-haspopup="dialog"
         aria-expanded={open}
+        disabled={Boolean(disabledReasonZhTW)}
         data-testid={`slot-trigger-${def.key}`}
         onClick={() => setOpen(true)}
       >
         {selectedPart ? <PartThumb code={selectedPart.code} nameZhTW={selectedLabel} imageUrl={imageUrlByPartId.get(selectedPart.id)} size={34} /> : null}
-        <span>{selectedLabel}</span>
-        <span aria-hidden className="meta">選擇</span>
+        <span>{disabledReasonZhTW ? '不需要選' : selectedLabel}</span>
+        <span aria-hidden className="meta">{disabledReasonZhTW ? '已鎖定' : '選擇'}</span>
       </button>
+      {disabledReasonZhTW ? (
+        <span className="meta" data-testid={`slot-locked-${def.key}`}>
+          {disabledReasonZhTW}
+        </span>
+      ) : null}
       {noteZhTW ? <span className="meta">{noteZhTW}</span> : null}
 
       <Sheet

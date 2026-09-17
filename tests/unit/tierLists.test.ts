@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../../src/catalog/index.ts'
 import {
+  auditExpertPartRatings,
   auditExpertTierLists,
+  expertPartRatingMeta,
   expertTierListMeta,
+  getExpertPartRatings,
   getExpertTierMatches,
 } from '../../src/catalog/tierLists.ts'
 
@@ -45,3 +48,43 @@ describe('高手 T 表', () => {
     expect(getExpertTierMatches({ bladeId: 'blade:ドランソード' })).toEqual([])
   })
 })
+
+describe('高手聚合評級（逐件）', () => {
+  it('每筆評級都對得到零件，共識人數在合理範圍', () => {
+    expect(auditExpertPartRatings(catalog.parts)).toEqual([])
+    expect(expertPartRatingMeta.ratingCount).toBeGreaterThanOrEqual(30)
+    expect(expertPartRatingMeta.expertCount).toBeGreaterThan(0)
+    expect(expertPartRatingMeta.sourceUrl).toContain('beybladehub.app')
+  })
+
+  it('涵蓋上蓋、固鎖與軸心三種零件，不是只有上蓋', () => {
+    const families = new Set(
+      catalog.parts
+        .filter((part) => auditedRatingPartIds().has(part.id))
+        .map((part) => part.family),
+    )
+    expect(families.has('ratchet')).toBe(true)
+    expect(families.has('bit')).toBe(true)
+  })
+
+  it('沒選零件時不回傳評級，選了才回傳並帶共識人數', () => {
+    expect(getExpertPartRatings({})).toEqual([])
+    const ratings = getExpertPartRatings({ bladeId: 'blade:シャークスケイル' })
+    expect(ratings.length).toBeGreaterThan(0)
+    for (const rating of ratings) {
+      expect(rating.agreeCount).toBeGreaterThan(0)
+      expect(rating.agreeCount).toBeLessThanOrEqual(rating.expertCount)
+    }
+  })
+})
+
+/** 測試輔助：目前有評級的零件 id。 */
+function auditedRatingPartIds(): Set<string> {
+  const ids = new Set<string>()
+  for (const part of catalog.parts) {
+    if (getExpertPartRatings({ bladeId: part.id }).length > 0) ids.add(part.id)
+    if (getExpertPartRatings({ ratchetId: part.id }).length > 0) ids.add(part.id)
+    if (getExpertPartRatings({ bitId: part.id }).length > 0) ids.add(part.id)
+  }
+  return ids
+}

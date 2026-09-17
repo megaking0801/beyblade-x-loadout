@@ -192,11 +192,32 @@ test('一體式上蓋會清除既選固鎖，且可直接搭配軸心', async ({
   // 先選固鎖再換一體式上蓋，是先前會留下矛盾欄位的回歸路徑。
   await pickSlot(page, 'ratchetId', 'ratchet:3-60')
   await pickSlot(page, 'bladeId', 'integrated_blade:バレットグリフォン')
-  await expect(page.getByLabel('固鎖')).toHaveCount(0)
-  await expect(page.getByText('此上蓋已含固鎖，不需另選')).toBeVisible()
+
+  // 欄位留著但鎖死：直接讓它消失，使用者看不出是系統判定不用選，只覺得畫面沒反應。
+  await expect(page.getByTestId('slot-ratchetId')).toBeVisible()
+  await expect(page.getByTestId('slot-trigger-ratchetId')).toBeDisabled()
+  await expect(page.getByTestId('slot-locked-ratchetId')).toHaveText('此上蓋已含固鎖，不需另選')
 
   await pickSlot(page, 'bitId', 'bit:F')
   await expect(page.getByTestId('compat-error')).toHaveCount(0)
+})
+
+test('一般上蓋的固鎖欄位可以正常選（鎖定只發生在一體式零件）', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター')
+  await expect(page.getByTestId('slot-trigger-ratchetId')).toBeEnabled()
+  await expect(page.getByTestId('slot-locked-ratchetId')).toHaveCount(0)
+})
+
+test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:シャークスケイル')
+  const ratings = page.getByTestId('expert-part-ratings')
+  await expect(ratings).toBeVisible()
+  await expect(ratings).toContainText('位高手')
+  await expect(ratings).toContainText('社群主觀意見')
 })
 
 test('零件挑選器可用日文別名搜尋，但結果只顯示中文', async ({ page }) => {

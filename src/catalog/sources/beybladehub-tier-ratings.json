@@ -1,0 +1,266 @@
+{
+  "source": "BeybladeHub",
+  "sourceUrl": "https://beybladehub.app/combos",
+  "fetchedAt": "2026-09-17",
+  "note": "台灣／日本高手 T 表的聚合評級，屬社群主觀意見，不是賽事勝率統計也不是官方資料。每筆附共識人數。",
+  "expertCount": 5,
+  "expertsZhTW": [
+    "維辰孔丘",
+    "@RENLIgames",
+    "阿土",
+    "namaste 阿土 大學生那摩斯戴",
+    "@RENLIgames"
+  ],
+  "ratings": [
+    {
+      "partId": "blade:シャークスケイル",
+      "labelZhTW": "鮫鯊狂鱗",
+      "tierLabel": "X",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:ウィザードロッド",
+      "labelZhTW": "魔導神杖",
+      "tierLabel": "X",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:メテオドラグーン",
+      "labelZhTW": "隕星龍騎士",
+      "tierLabel": "X",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "integrated_blade:バレットグリフォン",
+      "labelZhTW": "子彈獅鷲",
+      "tierLabel": "X",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:エアロペガサス",
+      "labelZhTW": "空力天馬",
+      "tierLabel": "X",
+      "agreeCount": 1,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:エアロペガサス",
+      "labelZhTW": "空力天馬",
+      "tierLabel": "X",
+      "agreeCount": 1,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:コバルトドラグーン",
+      "labelZhTW": "蒼穹龍騎士",
+      "tierLabel": "SS",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:クロックミラージュ",
+      "labelZhTW": "時鐘幻象",
+      "tierLabel": "SS",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:フェニックスウイング",
+      "labelZhTW": "鳳凰飛翼",
+      "tierLabel": "SS",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "blade:ドランストライク",
+      "labelZhTW": "蒼龍突擊",
+      "tierLabel": "SS",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:9-60",
+      "labelZhTW": "9-60",
+      "tierLabel": "X",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:7-60",
+      "labelZhTW": "7-60",
+      "tierLabel": "X",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:1-60",
+      "labelZhTW": "1-60",
+      "tierLabel": "X",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:1-50",
+      "labelZhTW": "1-50",
+      "tierLabel": "X",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:1-70",
+      "labelZhTW": "1-70",
+      "tierLabel": "X",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:3-60",
+      "labelZhTW": "3-60",
+      "tierLabel": "S",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:9-70",
+      "labelZhTW": "9-70",
+      "tierLabel": "S",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:5-60",
+      "labelZhTW": "5-60",
+      "tierLabel": "S",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:6-60",
+      "labelZhTW": "6-60",
+      "tierLabel": "S",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:4-50",
+      "labelZhTW": "4-50",
+      "tierLabel": "S",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:7-70",
+      "labelZhTW": "7-70",
+      "tierLabel": "T1",
+      "agreeCount": 3,
+      "expertCount": 5
+    },
+    {
+      "partId": "ratchet:0-60",
+      "labelZhTW": "0-60",
+      "tierLabel": "S",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:E",
+      "labelZhTW": "E",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:FB",
+      "labelZhTW": "FB",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:H",
+      "labelZhTW": "H",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:K",
+      "labelZhTW": "K",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:J",
+      "labelZhTW": "J",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:LO",
+      "labelZhTW": "LO",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:LR",
+      "labelZhTW": "LR",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:R",
+      "labelZhTW": "R",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:L",
+      "labelZhTW": "L",
+      "tierLabel": "T1",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:B",
+      "labelZhTW": "B",
+      "tierLabel": "X",
+      "agreeCount": 4,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:Nr",
+      "labelZhTW": "Nr",
+      "tierLabel": "T1",
+      "agreeCount": 2,
+      "expertCount": 5
+    },
+    {
+      "partId": "bit:O",
+      "labelZhTW": "O",
+      "tierLabel": "T2",
+      "agreeCount": 4,
+      "expertCount": 5
+    }
+  ],
+  "unresolved": [
+    {
+      "section": "上蓋 Blade",
+      "label": "天馬爆擊",
+      "tierLabel": "X"
+    },
+    {
+      "section": "上蓋 Blade",
+      "label": "古屍詛咒",
+      "tierLabel": "SS"
+    }
+  ]
+}

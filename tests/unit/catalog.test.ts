@@ -44,7 +44,26 @@ describe('Catalog 基本完整性（第 42 節）', () => {
       expect(part?.provenance.verificationStatus).toBe('community_only')
       expect(part?.provenance.sourceUrls.some((url) => url.includes('beybladehub.app'))).toBe(true)
     }
-    expect(catalog.tournamentObservations).toHaveLength(9)
+    // 觀測筆數會隨 BeybladeHub 賽事頁增加，只守「有收到而且每筆都對得到零件」。
+    const observations = catalog.tournamentObservations ?? []
+    expect(observations.length).toBeGreaterThanOrEqual(9)
+    const partIds = new Set(catalog.parts.map((part) => part.id))
+    for (const observation of observations) {
+      const ids = observation.comboPartIds ?? Object.values(observation.slots ?? {})
+      expect(ids.length).toBeGreaterThan(0)
+      for (const id of ids) expect(partIds.has(id as string)).toBe(true)
+    }
+  })
+
+  it('台灣賽事的名次觀測有收進來，且來源可追溯', () => {
+    const taiwanEvents = (catalog.tournamentEvents ?? []).filter((event) =>
+      event.sourceUrl?.includes('beybladehub.app/tournaments'),
+    )
+    expect(taiwanEvents.length).toBeGreaterThanOrEqual(10)
+    for (const event of taiwanEvents) {
+      expect(event.sourceTier).toBe('community')
+      expect(event.date).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    }
   })
 
   it('每筆商品都有官方來源網址與驗證狀態', () => {

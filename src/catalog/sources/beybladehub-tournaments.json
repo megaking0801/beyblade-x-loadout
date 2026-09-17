@@ -1,0 +1,1021 @@
+{
+  "source": "BeybladeHub",
+  "sourceUrl": "https://beybladehub.app/tournaments",
+  "fetchedAt": "2026-09-17",
+  "note": "台灣賽事的名次配置，來自社群回報整理（部分註明由選手本人提供），非主辦單位官方成績冊，一律標 community。",
+  "events": [
+    {
+      "id": "beybladehub-20260725-1",
+      "nameZhTW": "極限盃 G1 高雄站（高雄夢時代）",
+      "divisionZhTW": "成人組",
+      "date": "2026-07-25",
+      "entrants": 256,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "榮耀戰神 K",
+            "鮫鯊狂鱗 7-60 R",
+            "魔導神杖 1-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "integrated_blade:グローリーワルキューレ",
+              "bit:K"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 3-60 J",
+            "榮耀戰神 R",
+            "魔導神杖 1-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:3-60",
+              "bit:J"
+            ],
+            [
+              "integrated_blade:グローリーワルキューレ",
+              "bit:R"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 3-60 J",
+            "紅空力天馬 1-70 LR",
+            "戰神爆擊 W 9-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:3-60",
+              "bit:J"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-70",
+              "bit:LR"
+            ],
+            [
+              "lock_chip:Vl",
+              "main_blade:Bl",
+              "bit:W",
+              "ratchet:9-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260725-2",
+      "nameZhTW": "極限盃 G1 高雄站（高雄夢時代）",
+      "divisionZhTW": "通常組",
+      "date": "2026-07-25",
+      "entrants": 256,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 6-60 Nr",
+            "魔導神杖 1-60 FB",
+            "蒼穹龍騎士 9-60 E"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:6-60",
+              "bit:Nr"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ],
+            [
+              "blade:コバルトドラグーン",
+              "ratchet:9-60",
+              "bit:E"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "魔導神杖 3-60 FB",
+            "鮫鯊狂鱗 1-60 LR",
+            "時鐘幻象 4-55 LO"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ウィザードロッド",
+              "ratchet:3-60",
+              "bit:FB"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-60",
+              "bit:LR"
+            ],
+            [
+              "blade:クロックミラージュ",
+              "ratchet:4-55",
+              "bit:LO"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "戰神爆擊 W 9-60 H",
+            "鮫鯊狂鱗 1-50 Nr",
+            "魔導神杖 1-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "lock_chip:Vl",
+              "main_blade:Bl",
+              "bit:W",
+              "ratchet:9-60",
+              "bit:H"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-50",
+              "bit:Nr"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260627-3",
+      "nameZhTW": "極限盃 G1 台中站（LaLaport 台中北館）",
+      "divisionZhTW": "成人組",
+      "date": "2026-06-27",
+      "entrants": 256,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 7-60 R",
+            "戰神爆擊 W 9-70 H",
+            "魔導神杖 1-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "lock_chip:Vl",
+              "main_blade:Bl",
+              "bit:W",
+              "ratchet:9-70",
+              "bit:H"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鳳凰飛翼 7-60 R",
+            "鮫鯊狂鱗 1-60 Nr",
+            "巨鯨鞭打 FH 9-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:フェニックスウイング",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-60",
+              "bit:Nr"
+            ]
+          ],
+          "complete": false
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260610-4",
+      "nameZhTW": "月半公仔舖",
+      "divisionZhTW": "NOVA平日杯",
+      "date": "2026-06-10",
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 9-60 LO",
+            "魔導神杖 1-60 FB",
+            "紅空力天馬 1-70 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:9-60",
+              "bit:LO"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-70",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鳳凰飛翼 7-60 R",
+            "鮫鯊狂鱗 1-70 FB",
+            "魔導神杖 1-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:フェニックスウイング",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-70",
+              "bit:FB"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "蒼龍突擊 3-70 J",
+            "鮫鯊狂鱗 1-60 K",
+            "鳳凰飛翼 7-60 R"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ドランストライク",
+              "ratchet:3-70",
+              "bit:J"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-60",
+              "bit:K"
+            ],
+            [
+              "blade:フェニックスウイング",
+              "ratchet:7-60",
+              "bit:R"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260601-5",
+      "nameZhTW": "漢謚玩具社（高雄苓雅）",
+      "divisionZhTW": "攻擊軸心限定賽",
+      "date": "2026-06-01",
+      "entrants": 66,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "魔導神杖 1-60 L",
+            "空力天馬 9-60 J",
+            "蒼龍突擊 3-70 LR"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:L"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:9-60",
+              "bit:J"
+            ],
+            [
+              "blade:ドランストライク",
+              "ratchet:3-70",
+              "bit:LR"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "隕星龍騎士 7-70 L",
+            "鮫鯊狂鱗 1-60 LR",
+            "魔導神杖 9-60 R"
+          ],
+          "comboPartIds": [
+            [
+              "blade:メテオドラグーン",
+              "ratchet:7-70",
+              "bit:L"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-60",
+              "bit:LR"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:9-60",
+              "bit:R"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "隕星龍騎士 7-60 LF",
+            "龍王閃擊 FH 1-50 J",
+            "惡魔戰鎚 M-85 I"
+          ],
+          "comboPartIds": [
+            [
+              "blade:メテオドラグーン",
+              "ratchet:7-60",
+              "bit:LF"
+            ],
+            [
+              "lock_chip:Bh",
+              "main_blade:metal-Bl",
+              "over_blade:F",
+              "assist_blade:H",
+              "ratchet:1-50",
+              "bit:J"
+            ],
+            [
+              "blade:ヘルズハンマー",
+              "ratchet:M-85",
+              "bit:I"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260531-6",
+      "nameZhTW": "無限魂",
+      "date": "2026-05-31",
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 3-60 LO",
+            "紅空力天馬 7-60 R",
+            "魔導神杖 9-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:3-60",
+              "bit:LO"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:9-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 1-70 LR",
+            "空力天馬 1-50 R",
+            "魔導神杖 1-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-70",
+              "bit:LR"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-50",
+              "bit:R"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260530-7",
+      "nameZhTW": "木蘭盃（新北泰山區）",
+      "date": "2026-05-30",
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "魔導神杖 1-60 H",
+            "鮫鯊狂鱗 9-60 FB",
+            "鳳凰飛翼 7-60 R"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:9-60",
+              "bit:FB"
+            ],
+            [
+              "blade:フェニックスウイング",
+              "ratchet:7-60",
+              "bit:R"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "紅空力天馬 1-50 R",
+            "鮫鯊狂鱗 1-70 LO",
+            "魔導神杖 9-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-50",
+              "bit:R"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-70",
+              "bit:LO"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:9-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "魔導神杖 1-60 H",
+            "藍鳳凰飛翼 7-60 R",
+            "隕星龍騎士 9-60 L"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ],
+            [
+              "blade:フェニックスウイング",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:メテオドラグーン",
+              "ratchet:9-60",
+              "bit:L"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260529-8",
+      "nameZhTW": "漢謚玩具社（高雄苓雅）",
+      "divisionZhTW": "交流賽",
+      "date": "2026-05-29",
+      "entrants": 118,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "隕星龍騎士 7-70 L",
+            "空力天馬 7-60 R",
+            "蒼穹龍騎士 9-60 E"
+          ],
+          "comboPartIds": [
+            [
+              "blade:メテオドラグーン",
+              "ratchet:7-70",
+              "bit:L"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:7-60",
+              "bit:R"
+            ],
+            [
+              "blade:コバルトドラグーン",
+              "ratchet:9-60",
+              "bit:E"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鳳凰飛翼 3-70 J",
+            "隕星龍騎士 1-60 L",
+            "霜輝銀狼 9-80 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:フェニックスウイング",
+              "ratchet:3-70",
+              "bit:J"
+            ],
+            [
+              "blade:メテオドラグーン",
+              "ratchet:1-60",
+              "bit:L"
+            ],
+            [
+              "blade:シルバーウルフ",
+              "ratchet:9-80",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "騎士爆擊 K 1-60 F",
+            "龍王閃擊 FE 1-50 H",
+            "子彈獅鷲 M"
+          ],
+          "comboPartIds": [
+            [
+              "lock_chip:Kn",
+              "main_blade:Bl",
+              "bit:K",
+              "ratchet:1-60",
+              "bit:F"
+            ],
+            [
+              "lock_chip:Bh",
+              "main_blade:metal-Bl",
+              "over_blade:F",
+              "assist_blade:E",
+              "ratchet:1-50",
+              "bit:H"
+            ],
+            [
+              "integrated_blade:バレットグリフォン",
+              "bit:M"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260529-9",
+      "nameZhTW": "無限魂",
+      "date": "2026-05-29",
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "魔像奇岩 9-60 K",
+            "蒼龍突擊 9-70 LR",
+            "帝王極變 P.H 7-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ゴーレムロック",
+              "ratchet:9-60",
+              "bit:K"
+            ],
+            [
+              "blade:ドランストライク",
+              "ratchet:9-70",
+              "bit:LR"
+            ]
+          ],
+          "complete": false
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260524-10",
+      "nameZhTW": "羽智波 T2盃 戰鬥陀螺交流賽（UCHIHASPORTS）",
+      "date": "2026-05-24",
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "焰神滅世 5-70 TK",
+            "暴龍咆哮 1-70 L",
+            "子彈獅鷲 H"
+          ],
+          "comboPartIds": [
+            [
+              "lock_chip:Sl",
+              "main_blade:Ec",
+              "ratchet:5-70",
+              "bit:TK"
+            ],
+            [
+              "blade:ティラノロア",
+              "ratchet:1-70",
+              "bit:L"
+            ],
+            [
+              "integrated_blade:バレットグリフォン",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "霜輝銀狼 4-55 FB",
+            "龍王閃擊 BK 9-60 LR",
+            "子彈獅鷲 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シルバーウルフ",
+              "ratchet:4-55",
+              "bit:FB"
+            ],
+            [
+              "lock_chip:Bh",
+              "main_blade:metal-Bl",
+              "over_blade:B",
+              "assist_blade:K",
+              "ratchet:9-60",
+              "bit:LR"
+            ],
+            [
+              "integrated_blade:バレットグリフォン",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "騎士圓甲 3-60 LR",
+            "天蠍長矛 5-60 H",
+            "古屍詛咒 4-50 W"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ナイトメイル",
+              "ratchet:3-60",
+              "bit:LR"
+            ],
+            [
+              "blade:スコーピオスピア",
+              "ratchet:5-60",
+              "bit:H"
+            ]
+          ],
+          "complete": false
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260509-11",
+      "nameZhTW": "RiRiCO（台中北屯）",
+      "divisionZhTW": "全攻擊軸心限定賽",
+      "date": "2026-05-09",
+      "entrants": 32,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "魔導神杖 1-60 J",
+            "藍空力天馬 1-50 R",
+            "鮫鯊狂鱗 1-70 LR"
+          ],
+          "comboPartIds": [
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:J"
+            ],
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-50",
+              "bit:R"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-70",
+              "bit:LR"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260509-12",
+      "nameZhTW": "第三屆麥萌盃（MYMENGTOYS）",
+      "date": "2026-05-09",
+      "entrants": 32,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "藍空力天馬 1-70 R",
+            "鮫鯊狂鱗 9-60 O",
+            "魔導神杖 1-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-70",
+              "bit:R"
+            ],
+            [
+              "blade:シャークスケイル",
+              "ratchet:9-60",
+              "bit:O"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 1-60 LR"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-60",
+              "bit:LR"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "藍空力天馬 1-60 R",
+            "隕星龍騎士 7-70 L"
+          ],
+          "comboPartIds": [
+            [
+              "blade:エアロペガサス",
+              "ratchet:1-60",
+              "bit:R"
+            ],
+            [
+              "blade:メテオドラグーン",
+              "ratchet:7-70",
+              "bit:L"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "beybladehub-20260503-13",
+      "nameZhTW": "台南新天地（台南中西區）",
+      "divisionZhTW": "通常組",
+      "date": "2026-05-03",
+      "entrants": 24,
+      "sourceUrl": "https://beybladehub.app/tournaments",
+      "decks": [
+        {
+          "placement": 1,
+          "placementZhTW": "冠軍",
+          "reportedCombos": [
+            "隕星龍騎士 7-70 L",
+            "魔導神杖 9-60 FB",
+            "蒼穹龍騎士 6-60 E"
+          ],
+          "comboPartIds": [
+            [
+              "blade:メテオドラグーン",
+              "ratchet:7-70",
+              "bit:L"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:9-60",
+              "bit:FB"
+            ],
+            [
+              "blade:コバルトドラグーン",
+              "ratchet:6-60",
+              "bit:E"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 2,
+          "placementZhTW": "亞軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 1-70 K",
+            "帝王閃擊 BH 1-50 F",
+            "魔導神杖 1-60 FB"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-70",
+              "bit:K"
+            ],
+            [
+              "lock_chip:Em",
+              "main_blade:metal-Bl",
+              "over_blade:B",
+              "assist_blade:H",
+              "ratchet:1-50",
+              "bit:F"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:FB"
+            ]
+          ],
+          "complete": true
+        },
+        {
+          "placement": 3,
+          "placementZhTW": "季軍",
+          "reportedCombos": [
+            "鮫鯊狂鱗 1-50 R",
+            "子彈獅鷲 K",
+            "魔導神杖 1-60 H"
+          ],
+          "comboPartIds": [
+            [
+              "blade:シャークスケイル",
+              "ratchet:1-50",
+              "bit:R"
+            ],
+            [
+              "integrated_blade:バレットグリフォン",
+              "bit:K"
+            ],
+            [
+              "blade:ウィザードロッド",
+              "ratchet:1-60",
+              "bit:H"
+            ]
+          ],
+          "complete": true
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "event": "極限盃 G1 台中站（LaLaport 台中北館）",
+      "date": "2026/06/27",
+      "placement": "亞軍",
+      "combo": "巨鯨鞭打 FH 9-60 H"
+    },
+    {
+      "event": "無限魂",
+      "date": "2026/05/29",
+      "placement": "冠軍",
+      "combo": "帝王極變 P.H 7-60 H"
+    },
+    {
+      "event": "羽智波 T2盃 戰鬥陀螺交流賽（UCHIHASPORTS）",
+      "date": "2026/05/24",
+      "placement": "季軍",
+      "combo": "古屍詛咒 4-50 W"
+    }
+  ]
+}

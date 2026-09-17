@@ -115,6 +115,39 @@ function dropRatchetIfIntegrated(
 }
 
 /**
+ * 配裝器用的槽位表：保留一體型帶來的多餘欄位，交給前台鎖起來。
+ *
+ * 相容性檢查要的是「實際有哪些槽位」，所以那邊照常拿掉；
+ * 但畫面上讓欄位憑空消失，使用者只會覺得沒反應（見 lockedSlotReason）。
+ */
+export function getBuilderSlotSchema(
+  structure: BuilderStructure,
+  slots: ComboSlots,
+  parts: Part[],
+): SlotDef[] {
+  return structure === 'cx' ? getCxSlotSchema(slots, parts) : STANDARD_SCHEMA
+}
+
+/**
+ * 這個槽位為什麼不用選（給配裝器把欄位鎖起來用）。
+ *
+ * 直接把欄位拿掉會讓使用者以為畫面沒反應 —— 他不知道系統判定「這顆已含固鎖」，
+ * 只看到固鎖欄位有時在有時不在。回傳原因讓前台保留欄位、鎖死並寫清楚。
+ */
+export function lockedSlotReason(
+  slotKey: string,
+  slots: ComboSlots,
+  parts: Part[],
+): string | undefined {
+  if (slotKey !== 'ratchetId') return undefined
+  const blade = parts.find((part) => part.id === (slots.bladeId ?? slots.mainBladeId))
+  const bit = parts.find((part) => part.id === slots.bitId)
+  if (hasIntegratedRatchet(blade)) return INTEGRATED_RATCHET_NOTE_BLADE_ZH
+  if (hasIntegratedRatchet(bit)) return INTEGRATED_RATCHET_NOTE_BIT_ZH
+  return undefined
+}
+
+/**
  * CX 的槽位表。
  *
  * 配裝器需要在「還沒選任何零件」時就顯示 CX 欄位，

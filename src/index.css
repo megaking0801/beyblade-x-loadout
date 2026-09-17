@@ -103,7 +103,7 @@ textarea {
   margin: 0 auto;
   padding-top: env(safe-area-inset-top, 0px);
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
   padding-left: max(16px, env(safe-area-inset-left, 0px));
 }
 
@@ -279,7 +279,7 @@ textarea {
   gap: 2px;
   padding-top: 0;
   padding-right: max(4px, env(safe-area-inset-right, 0px));
-  padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
   padding-left: max(4px, env(safe-area-inset-left, 0px));
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   backdrop-filter: blur(10px);
@@ -326,13 +326,19 @@ textarea {
   .sheet { width: min(560px, 92vw); max-height: 80vh; border-radius: var(--radius); }
 }
 
+/* 一根手指在手機上大約 44px 寬，原本 12px 字配 10px padding 太難按。 */
 .tabbar a {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
   flex: 1;
   text-align: center;
-  padding: 10px 2px 8px;
-  font-size: 12px;
-  line-height: 1.3;
+  padding: 8px 2px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
   text-decoration: none;
   color: var(--ink-dim);
 }
@@ -523,4 +529,11 @@ textarea {
   border-left: 3px solid var(--accent);
   background: var(--surface-2);
   border-radius: 8px;
+}
+
+/* 一體型零件讓某個槽位不用選：欄位留著但鎖死，比整欄消失好懂。 */
+.part-picker-trigger.is-locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--surface-2);
 }

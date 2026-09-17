@@ -64,3 +64,64 @@ export function getExpertTierMatches(slots: ComboSlots): ExpertTierMatch[] {
     })),
   )
 }
+
+/* ------------------------------------------------- 高手聚合評級（逐件） */
+
+import ratingsRaw from './sources/beybladehub-tier-ratings.json'
+
+export interface ExpertPartRating {
+  partId: string
+  labelZhTW: string
+  tierLabel: string
+  /** 幾位高手把這顆評在這一級。自帶樣本數，避免把一人意見說成共識。 */
+  agreeCount: number
+  expertCount: number
+}
+
+export const expertPartRatingMeta = {
+  source: ratingsRaw.source,
+  sourceUrl: ratingsRaw.sourceUrl,
+  fetchedAt: ratingsRaw.fetchedAt,
+  expertCount: ratingsRaw.expertCount,
+  expertsZhTW: ratingsRaw.expertsZhTW,
+  noteZhTW: ratingsRaw.note,
+  ratingCount: ratingsRaw.ratings.length,
+} as const
+
+/**
+ * 逐件評級也是策展資料，來源改版後可能對不到零件，
+ * 必須由測試守住，不能讓前台安靜地少掉評級。
+ */
+export function auditExpertPartRatings(parts: readonly Pick<Part, 'id'>[]): ExpertTierListIssue[] {
+  const partIds = new Set(parts.map((part) => part.id))
+  const issues: ExpertTierListIssue[] = []
+  for (const rating of ratingsRaw.ratings) {
+    if (!partIds.has(rating.partId)) {
+      issues.push({ listId: rating.partId, messageZhTW: `找不到對應零件：${rating.partId}` })
+    }
+    if (rating.agreeCount < 1 || rating.agreeCount > rating.expertCount) {
+      issues.push({ listId: rating.partId, messageZhTW: `共識人數不合理：${rating.agreeCount}/${rating.expertCount}` })
+    }
+  }
+  return issues
+}
+
+/**
+ * 這套配裝用到的零件各自被高手評在哪一級。
+ *
+ * 與六軸評估刻意分開：六軸是本站的模型推估（講結構），這一層是人的主觀評級（講賽場）。
+ * 兩者不相加、不換算成分數，讓使用者自己對照。
+ */
+export function getExpertPartRatings(slots: ComboSlots): ExpertPartRating[] {
+  const selected = new Set(Object.values(slots).filter((id): id is string => Boolean(id)))
+  if (selected.size === 0) return []
+  const seen = new Set<string>()
+  return ratingsRaw.ratings
+    .filter((rating) => selected.has(rating.partId))
+    .filter((rating) => {
+      const key = `${rating.partId}:${rating.tierLabel}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+}

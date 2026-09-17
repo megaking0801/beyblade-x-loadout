@@ -8,11 +8,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
-import { getExpertTierMatches } from '../../catalog/tierLists.ts'
+import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import {
-  getSlotSchemaForStructure,
+  getBuilderSlotSchema,
   hasIntegratedRatchet,
+  lockedSlotReason,
   inferBuilderStructure,
   INTEGRATED_RATCHET_NOTE_BIT_ZH,
   INTEGRATED_RATCHET_NOTE_BLADE_ZH,
@@ -126,7 +127,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
    * 剛切到 CX 時 slots 還是空的，deriveSystem 會推成 BX，CX 欄位就永遠不出現。
    */
   const schema = useMemo(
-    () => getSlotSchemaForStructure(structure, slots, parts),
+    () => getBuilderSlotSchema(structure, slots, parts),
     [structure, slots, parts],
   )
 
@@ -147,6 +148,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     [slots, parts, rules, lots, combos, evidenceReport.exact],
   )
   const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
+  const expertPartRatings = useMemo(() => getExpertPartRatings(slots), [slots])
   const observedMatches = useMemo(
     () => getObservedComboMatches({ slots, events: tournamentEvents, observations: tournamentObservations }),
     [slots, tournamentEvents, tournamentObservations],
@@ -221,6 +223,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
               availability={availability}
               images={images}
               noteZhTW={noteForPart(def, parts.find((part) => part.id === slots[def.key]))}
+              disabledReasonZhTW={lockedSlotReason(def.key, slots, parts)}
               onChange={(next) => commitSlots({ ...slots, [def.key]: next || undefined })}
             />
           ))}
@@ -273,6 +276,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         analysis={analysis}
         evidenceReport={evidenceReport}
         expertTierMatches={expertTierMatches}
+        expertPartRatings={expertPartRatings}
         observedMatches={observedMatches}
       />
 
@@ -395,11 +399,13 @@ export function ComboResult({
   analysis,
   evidenceReport,
   expertTierMatches,
+  expertPartRatings,
   observedMatches,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
   expertTierMatches: ReturnType<typeof getExpertTierMatches>
+  expertPartRatings: ReturnType<typeof getExpertPartRatings>
   observedMatches: ReturnType<typeof getObservedComboMatches>
 }) {
   return (
@@ -540,6 +546,28 @@ export function ComboResult({
             </div>
           ) : null}
         </div>
+
+        {expertPartRatings.length > 0 ? (
+          <div style={{ fontSize: 13 }} data-testid="expert-part-ratings">
+            <strong>高手零件評級：</strong>
+            <div className="chip-row" style={{ marginTop: 4 }}>
+              {expertPartRatings.map((rating) => (
+                <span key={`${rating.partId}-${rating.tierLabel}`}>
+                  <Badge tone="accent">{rating.tierLabel}</Badge> {rating.labelZhTW}
+                  <span className="meta">
+                    （{rating.agreeCount}/{rating.expertCount} 位高手）
+                  </span>
+                </span>
+              ))}
+            </div>
+            <div className="meta">
+              {expertPartRatingMeta.noteZhTW}{' '}
+              <a href={expertPartRatingMeta.sourceUrl} target="_blank" rel="noreferrer">
+                來源
+              </a>
+            </div>
+          </div>
+        ) : null}
 
         {expertTierMatches.length > 0 ? (
           <div style={{ fontSize: 13 }}>

@@ -28,6 +28,7 @@ const HUB_STATS_FILE = resolve(root, 'src/catalog/sources/beybladehub-stats.json
 const HUB_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-sets.json')
 const HUB_STRUCTURE_FILE = resolve(root, 'src/catalog/sources/beybladehub-structure.json')
 const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-curated-sets.json')
+const HUB_TOURNAMENTS_FILE = resolve(root, 'src/catalog/sources/beybladehub-tournaments.json')
 const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
@@ -532,6 +533,7 @@ function main() {
   const rows = parseLines()
   const images = JSON.parse(readFileSync(IMAGES_FILE, 'utf8'))
   const tournamentSource = JSON.parse(readFileSync(TOURNAMENT_FILE, 'utf8'))
+  const hubTournaments = JSON.parse(readFileSync(HUB_TOURNAMENTS_FILE, 'utf8'))
   const hubStats = JSON.parse(readFileSync(HUB_STATS_FILE, 'utf8'))
   const hubSets = JSON.parse(readFileSync(HUB_SETS_FILE, 'utf8'))
   const hubStructure = JSON.parse(readFileSync(HUB_STRUCTURE_FILE, 'utf8'))
@@ -1141,7 +1143,10 @@ function main() {
     }
   }
 
-  for (const sourceEvent of tournamentSource.observationEvents ?? []) {
+  for (const sourceEvent of [
+    ...(tournamentSource.observationEvents ?? []),
+    ...toObservationEvents(hubTournaments, parts),
+  ]) {
     const acceptedObservations = []
     for (const sourceObservation of sourceEvent.observations) {
       const reason = validateTournamentObservation(sourceObservation, partById)
@@ -1236,6 +1241,54 @@ function main() {
   )
   console.log(`中文名稱未完全翻譯：${audit.untranslatedNames.length} 筆`)
   console.log(`賽事 ${tournamentEvents.length} 場、完整牌組 ${tournamentDecks.length} 副、來源觀測 ${tournamentObservations.length} 筆`)
+}
+
+/**
+ * 把 BeybladeHub 的台灣賽事名次轉成「來源觀測」。
+ *
+ * 不走完整牌組那條路，因為賽事頁的配置有固鎖一體型（只有兩件）與 CX（四件以上），
+ * 不符合牌組驗證要求的三顆三件式。觀測本來就是為「有原始文字、零件可部分映射」
+ * 的回報設計的，用它才不會為了塞進格式而丟掉資料或補值。
+ */
+function toObservationEvents(hubTournaments, partById) {
+  const SLOT_BY_FAMILY = {
+    blade: 'bladeId',
+    integrated_blade: 'bladeId',
+    main_blade: 'mainBladeId',
+    lock_chip: 'lockChipId',
+    over_blade: 'overBladeId',
+    assist_blade: 'assistBladeId',
+    ratchet: 'ratchetId',
+    bit: 'bitId',
+  }
+
+  return (hubTournaments.events ?? []).map((event) => ({
+    event: {
+      id: event.id,
+      name: [event.nameZhTW, event.divisionZhTW].filter(Boolean).join(' '),
+      date: event.date,
+      tier: 'community',
+      format: 'Standard 3on3',
+      sourceTier: 'community',
+      sourceUrl: event.sourceUrl,
+    },
+    observations: event.decks.flatMap((deck, deckIndex) =>
+      deck.comboPartIds.map((ids, comboIndex) => {
+        const slots = {}
+        for (const id of ids) {
+          const part = partById.get(id)
+          const slotKey = part && SLOT_BY_FAMILY[part.family]
+          if (slotKey) slots[slotKey] = id
+        }
+        return {
+          id: `${event.id}-${deckIndex + 1}-${comboIndex + 1}`,
+          placement: deck.placement,
+          slots,
+          reportedCombo: deck.reportedCombos[comboIndex] ?? '',
+        }
+      }),
+    ),
+  }))
 }
 
 function validateTournamentDeck(deck, partById) {
