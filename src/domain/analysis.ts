@@ -164,7 +164,8 @@ const DIFFICULTY_BY_CONTACT: Record<string, number> = {
 const LOW_PROFILE_MAX_CODE = 60
 const HIGH_PROFILE_MIN_CODE = 75
 
-function computeOperationDifficulty(
+/** 匯出給配置產生器做便宜評分用，公式與配裝結果完全相同。 */
+export function estimateOperationDifficulty(
   bit: Part | undefined,
   ratchet: Part | undefined,
   blade: Part | undefined,
@@ -252,7 +253,7 @@ export interface ComboAnalysis {
 const STRUCTURE_ZH: Record<AssemblySystem, string> = {
   BX: 'BX 三件式',
   UX: 'UX 三件式',
-  CX: 'CX 模組化五件式',
+  CX: 'CX 模組化',
 }
 
 /** 缺漏欄位名稱只寫一次，判斷可信度時要比對它。 */
@@ -326,7 +327,10 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
       : {}),
     ...(typeof ratchet?.heightCode === 'number' ? { heightCode: ratchet.heightCode } : {}),
     ...(spinDirectionZhTW ? { spinDirectionZhTW } : {}),
-    structureZhTW: STRUCTURE_ZH[system],
+    structureZhTW:
+      system === 'CX'
+        ? `${STRUCTURE_ZH.CX}（上蓋${blade?.cxOverBlade ? '四' : '三'}件式）`
+        : STRUCTURE_ZH[system],
     officialTypesZhTW: resolvedParts
       .map((part) => part.type)
       .filter((type): type is BeyType => Boolean(type))
@@ -338,7 +342,7 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   // 沒有官方類型就無法推估，否則會退化成一組毫無依據的平均值。
   const canEstimate = compatibility.ok && Boolean(blade?.type)
   const scores = canEstimate ? estimateScores({ blade, ratchet, bit, extras }) : undefined
-  const operationDifficulty = computeOperationDifficulty(bit, ratchet, blade)
+  const operationDifficulty = estimateOperationDifficulty(bit, ratchet, blade)
   const synergyNotesZhTW = buildSynergyNotes({ blade, ratchet, bit, scores, spinDirectionZhTW })
 
   /* --- 名稱與發射建議（第 19 節）--- */

@@ -51,10 +51,12 @@ describe('槽位結構（第 17、18 節）', () => {
     expect(getSlotSchema('UX').map((s) => s.key)).toEqual(['bladeId', 'ratchetId', 'bitId'])
   })
 
-  it('CX 為五槽：鎖定紋章、主刃、輔助戰刃、固鎖、軸心', () => {
+  it('CX 完整槽位含超越戰刃：鎖定紋章、主刃、超越戰刃、輔助戰刃、固鎖、軸心', () => {
+    // 四件式（超越拆組）是 CX 的最大結構；三件式會在 getSlotSchemaForSlots 被收掉。
     expect(getSlotSchema('CX').map((s) => s.key)).toEqual([
       'lockChipId',
       'mainBladeId',
+      'overBladeId',
       'assistBladeId',
       'ratchetId',
       'bitId',
@@ -338,5 +340,111 @@ describe('未拆分的 CX 上蓋（第 17、18 節；官方未公布鎖定紋章
       'ratchetId',
       'bitId',
     ])
+  })
+})
+
+describe('CX 四件式超越拆組（第 17、18 節）', () => {
+  /**
+   * 官方商品名把超越戰刃與輔助戰刃寫成相鄰兩個字母（例：バハムートブリッツ「BK」）。
+   * 四件式這件事來自 BeybladeHub 的商品頁，實際結構為
+   * 鎖定紋章＋金屬主刃＋超越戰刃＋輔助戰刃。
+   */
+  const fusedFour: Part = {
+    id: 'cx-four',
+    family: 'main_blade',
+    system: 'CX',
+    code: 'バハムートブリッツ',
+    naming: { primaryZhTW: '龍王閃擊' },
+    cxFused: true,
+    cxOverBlade: true,
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const fusedThree: Part = {
+    id: 'cx-three',
+    family: 'main_blade',
+    system: 'CX',
+    code: 'ドランブレイブ',
+    naming: { primaryZhTW: '蒼龍勇氣' },
+    cxFused: true,
+    provenance: { sourceUrls: [], verificationStatus: 'needs_review' },
+  }
+  const overBlade: Part = {
+    id: 'over-b',
+    family: 'over_blade',
+    system: 'CX',
+    code: 'B',
+    naming: { primaryZhTW: '超越戰刃 B' },
+    provenance: { sourceUrls: [], verificationStatus: 'community_only' },
+  }
+  const pool = [...parts, fusedFour, fusedThree, overBlade]
+
+  it('四件式要選超越戰刃才算完整', () => {
+    const missing = checkCompatibility({
+      slots: {
+        mainBladeId: fusedFour.id,
+        assistBladeId: 'assist-cx',
+        ratchetId: 'ratchet-r',
+        bitId: 'bit-r',
+      },
+      parts: pool,
+      rules: [],
+    })
+    expect(missing.ok).toBe(false)
+    expect(missing.errors.map((e) => e.messageZhTW)).toContain('尚未選擇超越戰刃')
+
+    const complete = checkCompatibility({
+      slots: {
+        mainBladeId: fusedFour.id,
+        overBladeId: overBlade.id,
+        assistBladeId: 'assist-cx',
+        ratchetId: 'ratchet-r',
+        bitId: 'bit-r',
+      },
+      parts: pool,
+      rules: [],
+    })
+    expect(complete.ok).toBe(true)
+    expect(complete.system).toBe('CX')
+  })
+
+  it('三件式不使用超越戰刃，硬塞會被擋下', () => {
+    const r = checkCompatibility({
+      slots: {
+        mainBladeId: fusedThree.id,
+        overBladeId: overBlade.id,
+        assistBladeId: 'assist-cx',
+        ratchetId: 'ratchet-r',
+        bitId: 'bit-r',
+      },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.messageZhTW.includes('不使用超越戰刃'))).toBe(true)
+  })
+
+  it('槽位表會依主刃是三件式或四件式變化', () => {
+    expect(
+      getSlotSchemaForSlots({ mainBladeId: fusedFour.id }, pool).map((s) => s.key),
+    ).toEqual(['mainBladeId', 'overBladeId', 'assistBladeId', 'ratchetId', 'bitId'])
+    expect(
+      getSlotSchemaForSlots({ mainBladeId: fusedThree.id }, pool).map((s) => s.key),
+    ).toEqual(['mainBladeId', 'assistBladeId', 'ratchetId', 'bitId'])
+  })
+
+  it('超越戰刃槽位只接受超越戰刃', () => {
+    const r = checkCompatibility({
+      slots: {
+        mainBladeId: fusedFour.id,
+        overBladeId: 'assist-cx',
+        assistBladeId: 'assist-cx',
+        ratchetId: 'ratchet-r',
+        bitId: 'bit-r',
+      },
+      parts: pool,
+      rules: [],
+    })
+    expect(r.ok).toBe(false)
+    expect(r.errors.map((e) => e.messageZhTW)).toContain('超越戰刃槽不能放入輔助戰刃')
   })
 })

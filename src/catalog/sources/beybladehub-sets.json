@@ -1,6 +1,6 @@
 {
   "source": "BeybladeHub",
-  "fetchedAt": "2026-09-16",
+  "fetchedAt": "2026-09-17",
   "note": "社群整理的套裝內容，非 Takara Tomy 官方公布；前台需標示為社群來源。",
   "sets": [
     {
@@ -16,6 +16,18 @@
         "ratchet:6-80",
         "bit:V",
         "bit:W"
+      ]
+    },
+    {
+      "id": "cx16",
+      "sku": "CX-16",
+      "sourceUrl": "https://beybladehub.app/parts/combos/CX-16",
+      "partIds": [
+        "main_blade:バハムートブリッツ",
+        "over_blade:B",
+        "assist_blade:K",
+        "ratchet:1-50",
+        "bit:I"
       ]
     }
   ],
@@ -185,19 +197,6 @@
         "bit-Q",
         "bit-LR",
         "bit-LO"
-      ]
-    },
-    {
-      "id": "cx16",
-      "sku": "CX-16",
-      "reason": "商品頁的零件連結無法完整對應到三個槽位",
-      "anchors": [
-        "blade-cx-chip-Bh",
-        "blade-cx-metal-Bl",
-        "blade-cx-over-B",
-        "blade-cx-assist-K",
-        "ratchet-1-50",
-        "bit-I"
       ]
     },
     {

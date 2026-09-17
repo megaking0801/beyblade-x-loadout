@@ -54,7 +54,11 @@ function resolveAnchor(anchor) {
   const assist = /^blade-cx-assist-(.+)$/u.exec(anchor)
   if (assist) return { slot: 'assist', id: `assist_blade:${assist[1]}` }
 
-  // CX 的鎖定紋章、金屬主刃、超越戰刃在本專案是合併成一顆 main_blade，
+  // 超越戰刃在本專案是獨立零件（四件式 CX 才有），可以直接對應。
+  const over = /^blade-cx-over-(.+)$/u.exec(anchor)
+  if (over) return { slot: 'over', id: `over_blade:${over[1]}` }
+
+  // CX 的鎖定紋章與金屬主刃在本專案是合併成一顆 main_blade，
   // 無法從單一錨點還原，交給呼叫端用商品名稱另行判斷。
   if (/^blade-cx-/u.test(anchor)) return { slot: 'cxPiece', id: undefined }
 
@@ -91,7 +95,7 @@ for (const product of targets) {
   }
 
   const anchors = [...new Set([...html.matchAll(/href="\/parts\/[a-z]+#([A-Za-z0-9_-]+)"/gu)].map((m) => m[1]))]
-  const slots = { blade: [], ratchet: [], bit: [], assist: [], cxPiece: [] }
+  const slots = { blade: [], ratchet: [], bit: [], assist: [], over: [], cxPiece: [] }
   let unknown = false
   for (const anchor of anchors) {
     const hit = resolveAnchor(anchor)
@@ -111,7 +115,8 @@ for (const product of targets) {
   // CX 商品的上蓋在本專案是合併件（鎖定紋章 + 主刃），用「紋章名 + 主刃名」去比對。
   if (slots.cxPiece.length > 0) {
     const chips = slots.cxPiece.filter((key) => key.startsWith('blade-cx-chip-'))
-    const mains = slots.cxPiece.filter((key) => /^blade-cx-(main|metal|over)-/u.test(key))
+    // 超越戰刃已經在 resolveAnchor 單獨對應，不能再算進合併主刃的組名。
+    const mains = slots.cxPiece.filter((key) => /^blade-cx-(main|metal)-/u.test(key))
     for (const chip of chips) {
       for (const main of mains) {
         const compound = `${zhOf(chip)}${zhOf(main)}`
@@ -125,16 +130,24 @@ for (const product of targets) {
 
   // 內容物是一份零件清單，不需要還原「哪顆配哪顆」，但每個槽位都要有東西，
   // 且固鎖與軸心數量要對得起來，否則表示這一頁列的不是盒內固定內容。
+  // 四件式 CX 的主刃還要再一片超越戰刃，少了就不算完整，寧可略過也不要少列零件。
+  const needsOverBlade = slots.blade.some((id) => {
+    const part = catalog.parts.find((row) => row.id === id)
+    return part?.cxOverBlade === true
+  })
   const complete =
     slots.blade.length >= 1 &&
     slots.ratchet.length >= 1 &&
     slots.ratchet.length === slots.bit.length &&
+    (!needsOverBlade || slots.over.length >= 1) &&
     !unknown
   if (!complete) {
     skipped.push({
       id: product.id,
       sku: product.sku,
-      reason: '商品頁的零件連結無法完整對應到三個槽位',
+      reason: needsOverBlade && slots.over.length === 0
+        ? '四件式 CX 的商品頁沒有列出超越戰刃'
+        : '商品頁的零件連結無法完整對應到三個槽位',
       anchors,
     })
     continue
@@ -144,9 +157,24 @@ for (const product of targets) {
     id: product.id,
     sku: product.sku,
     sourceUrl: url,
-    partIds: [...slots.blade, ...slots.assist, ...slots.ratchet, ...slots.bit],
+    partIds: [...slots.blade, ...slots.over, ...slots.assist, ...slots.ratchet, ...slots.bit],
   })
 }
+
+/*
+ * 只抓「目前內容為空」的商品，所以上一輪補齊的商品這一輪不會是 target。
+ * 如果直接覆寫輸出檔，那些成果會被自己抹掉，下次重建圖鑑就又變成內容未知。
+ * 因此與既有檔案合併：同一個 id 以這一輪的新結果為準，沒有重抓的沿用舊的。
+ */
+let previousSets = []
+try {
+  previousSets = JSON.parse(readFileSync(OUT_FILE, 'utf8')).sets ?? []
+} catch {
+  previousSets = []
+}
+const freshIds = new Set(results.map((row) => row.id))
+const carriedOver = previousSets.filter((row) => !freshIds.has(row.id))
+const mergedSets = [...results, ...carriedOver].sort((a, b) => a.id.localeCompare(b.id))
 
 writeFileSync(
   OUT_FILE,
@@ -155,7 +183,7 @@ writeFileSync(
       source: 'BeybladeHub',
       fetchedAt: new Date().toISOString().slice(0, 10),
       note: '社群整理的套裝內容，非 Takara Tomy 官方公布；前台需標示為社群來源。',
-      sets: results,
+      sets: mergedSets,
       skipped,
     },
     null,
@@ -163,4 +191,7 @@ writeFileSync(
   )}\n`,
   'utf8',
 )
-console.log(`補齊 ${results.length} 筆套裝內容，仍無法判定 ${skipped.length} 筆`)
+console.log(
+  `這一輪補齊 ${results.length} 筆、沿用既有 ${carriedOver.length} 筆，` +
+    `合計 ${mergedSets.length} 筆；仍無法判定 ${skipped.length} 筆`,
+)

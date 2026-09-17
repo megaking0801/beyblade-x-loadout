@@ -304,3 +304,83 @@ describe('社群數值在畫面上不得被講成官方數據（第 1.5、41 節
     expect(result.objective.statsSourceUrls?.[0]).toContain('beybladehub.app')
   })
 })
+
+describe('CX 四件式超越拆組（第 9、17 節）', () => {
+  /**
+   * 官方商品名把超越戰刃與輔助戰刃寫成相鄰兩個字母（バハムートブリッツ「BK」）。
+   * 拆錯的話會產生一顆不存在的「BK 輔助戰刃」，商品內容也會少一片。
+   * 四件式這件事來自 BeybladeHub 商品頁，已逐筆確認 CX-13／CX-14／CX-15。
+   */
+  it('超越戰刃是獨立零件，且標社群來源', () => {
+    const overBlades = catalog.parts.filter((part) => part.family === 'over_blade')
+    expect(overBlades.length).toBeGreaterThan(0)
+    for (const part of overBlades) {
+      expect(part.code.length).toBe(1)
+      expect(part.provenance.verificationStatus).toBe('community_only')
+      expect(part.provenance.sourceUrls.some((url) => url.includes('beybladehub.app'))).toBe(true)
+    }
+  })
+
+  it('不會再出現兩個字母的輔助戰刃', () => {
+    const twoLetter = catalog.parts.filter(
+      (part) => part.family === 'assist_blade' && part.code.length > 1,
+    )
+    expect(twoLetter.map((part) => part.code)).toEqual([])
+  })
+
+  it('四件式主刃有 cxOverBlade 標記，三件式沒有', () => {
+    const four = catalog.parts.filter((part) => part.cxOverBlade)
+    expect(four.length).toBeGreaterThan(0)
+    for (const part of four) {
+      expect(part.family).toBe('main_blade')
+      expect(part.cxFused).toBe(true)
+    }
+    const three = catalog.parts.find((part) => part.id === 'main_blade:ドランブレイブ')
+    expect(three?.cxOverBlade).toBeUndefined()
+  })
+
+  it('四件式商品的內容含主刃、超越戰刃、輔助戰刃、固鎖與軸心', () => {
+    const product = catalog.products.find((row) => row.sku === 'CX-13')
+    expect(product).toBeDefined()
+    const families = product!.contents
+      .map((content) => catalog.parts.find((part) => part.id === content.partId)?.family)
+      .filter(Boolean)
+    expect(families).toEqual(['main_blade', 'over_blade', 'assist_blade', 'ratchet', 'bit'])
+  })
+
+  it('四件式配裝可以通過相容性檢查', () => {
+    const main = catalog.parts.find((part) => part.cxOverBlade)!
+    const over = catalog.parts.find((part) => part.family === 'over_blade')!
+    const assist = catalog.parts.find((part) => part.family === 'assist_blade')!
+    const result = checkCompatibility({
+      slots: {
+        mainBladeId: main.id,
+        overBladeId: over.id,
+        assistBladeId: assist.id,
+        ratchetId: 'ratchet:3-60',
+        bitId: 'bit:F',
+      },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(result.ok).toBe(true)
+    expect(result.system).toBe('CX')
+  })
+
+  it('四件式主刃少了超越戰刃會被擋下', () => {
+    const main = catalog.parts.find((part) => part.cxOverBlade)!
+    const assist = catalog.parts.find((part) => part.family === 'assist_blade')!
+    const result = checkCompatibility({
+      slots: {
+        mainBladeId: main.id,
+        assistBladeId: assist.id,
+        ratchetId: 'ratchet:3-60',
+        bitId: 'bit:F',
+      },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+    })
+    expect(result.ok).toBe(false)
+    expect(result.errors.map((issue) => issue.messageZhTW)).toContain('尚未選擇超越戰刃')
+  })
+})

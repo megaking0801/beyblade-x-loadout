@@ -133,9 +133,22 @@ const OFFICIAL_MANUAL_OVERRIDES = {
  */
 const RATCHET = '(?:[A-Z]-\\d+|\\d+-\\d+)'
 const BX_BEY = new RegExp(`^(?<blade>.+?)(?<ratchet>${RATCHET})(?<bit>[A-Za-z]+)$`)
+/**
+ * CX 商品名的字母段落。
+ *
+ * 三件式（鎖定紋章＋金屬主刃＋輔助戰刃）只有一個字母，例如ドランブレイブ「S」。
+ * 四件式（超越拆組，再多一片超越戰刃）是相鄰兩個字母，前為超越、後為輔助，
+ * 例如バハムートブリッツ「BK」= 超越 B + 輔助 K。
+ *
+ * 「某支商品是三件式還是四件式」官方商品頁沒有寫，來源是 BeybladeHub 的商品頁
+ * （已逐筆確認 CX-01 三件式、CX-13／CX-14／CX-15 四件式），
+ * 因此四件式拆出來的兩片零件標為社群來源。
+ */
 const CX_BEY = new RegExp(
-  `^(?<blade>.+?)(?<assist>[A-Z][A-Za-z]?)(?<ratchet>${RATCHET})(?<bit>[A-Za-z]+)$`,
+  `^(?<blade>.+?)(?<blades>[A-Z][A-Za-z]?)(?<ratchet>${RATCHET})(?<bit>[A-Za-z]+)$`,
 )
+
+const HUB_COMBO_URL = 'https://beybladehub.app/parts/combos'
 
 /** 貼紙類周邊不含任何零件，對庫存與配裝沒有意義，不收進圖鑑。 */
 const EXCLUDED_NAME_PATTERN = /ステッカー/u
@@ -248,6 +261,7 @@ function isConfirmedName(nameJa) {
 const PART_FAMILY_LABEL = {
   blade: '上蓋',
   main_blade: '主刃',
+  over_blade: '超越戰刃',
   assist_blade: '輔助戰刃',
   ratchet: '固鎖',
   bit: '軸心',
@@ -440,7 +454,7 @@ function main() {
     ],
   }
 
-  function ensurePart({ family, code, system, extra }) {
+  function ensurePart({ family, code, system, extra, provenance }) {
     const id = `${family}:${code}`
     if (parts.has(id)) return id
     const isJa = /[぀-ヿ]/.test(code)
@@ -465,7 +479,7 @@ function main() {
       system,
       naming,
       ...(extra ?? {}),
-      provenance: {
+      provenance: provenance ?? {
         sourceUrls: [LINEUP_URL],
         verifiedAt: FETCHED_AT,
         verificationStatus: 'official_verified',
@@ -475,18 +489,59 @@ function main() {
   }
 
   /** 解析單顆陀螺名稱，回傳內含零件清單；解析失敗回 null。 */
-  function parseBey(beyName, line) {
+  function parseBey(beyName, line, sku) {
     if (line === 'CX') {
       const match = CX_BEY.exec(beyName)
       if (!match?.groups) return null
-      const { blade, assist, ratchet, bit } = match.groups
+      const { blade, blades, ratchet, bit } = match.groups
       const heightCode = Number(ratchet.split('-')[1])
-      return [
-        { partId: ensurePart({ family: 'main_blade', code: blade, system: 'CX', extra: { cxFused: true } }), quantity: 1 },
-        { partId: ensurePart({ family: 'assist_blade', code: assist, system: 'CX' }), quantity: 1 },
+
+      // 兩個字母 = 四件式：前面是超越戰刃、後面是輔助戰刃。
+      const isFourPiece = blades.length === 2
+      const overCode = isFourPiece ? blades[0] : null
+      const assistCode = isFourPiece ? blades[1] : blades
+      const communityProvenance = {
+        sourceUrls: [LINEUP_URL, `${HUB_COMBO_URL}/${sku}`],
+        verifiedAt: FETCHED_AT,
+        verificationStatus: 'community_only',
+      }
+
+      const contents = [
+        {
+          partId: ensurePart({
+            family: 'main_blade',
+            code: blade,
+            system: 'CX',
+            extra: { cxFused: true, ...(isFourPiece ? { cxOverBlade: true } : {}) },
+          }),
+          quantity: 1,
+        },
+      ]
+      if (overCode) {
+        contents.push({
+          partId: ensurePart({
+            family: 'over_blade',
+            code: overCode,
+            system: 'CX',
+            provenance: communityProvenance,
+          }),
+          quantity: 1,
+        })
+      }
+      contents.push(
+        {
+          partId: ensurePart({
+            family: 'assist_blade',
+            code: assistCode,
+            system: 'CX',
+            ...(isFourPiece ? { provenance: communityProvenance } : {}),
+          }),
+          quantity: 1,
+        },
         { partId: ensurePart({ family: 'ratchet', code: ratchet, system: 'CX', extra: { heightCode } }), quantity: 1 },
         { partId: ensurePart({ family: 'bit', code: bit, system: 'CX' }), quantity: 1 },
-      ]
+      )
+      return contents
     }
     const match = BX_BEY.exec(beyName)
     if (!match?.groups) return null
@@ -519,7 +574,7 @@ function main() {
     if (manualOverride) {
       const parsed = manualOverride.beys.map((entry) => {
         const bey = typeof entry === 'string' ? { name: entry, line } : entry
-        return parseBey(bey.name, bey.line)
+        return parseBey(bey.name, bey.line, row.sku)
       })
       if (parsed.every(Boolean)) {
         contents = [
@@ -549,7 +604,7 @@ function main() {
       const parsed = segments.map((segment) => {
         // 去掉聯名前綴，例如「マーベル アイアンマン4-80B」。
         const beyName = segment.includes(' ') ? segment.slice(segment.indexOf(' ') + 1) : segment
-        return parseBey(beyName, line)
+        return parseBey(beyName, line, row.sku)
       })
       if (parsed.every(Boolean)) {
         contents = parsed.flat()
@@ -557,7 +612,7 @@ function main() {
       }
     } else if (category === 'starter' || category === 'booster') {
       const { head } = splitBeyAndSuffix(row.nameJa)
-      const parsed = parseBey(head, line)
+      const parsed = parseBey(head, line, row.sku)
       if (parsed) {
         contents = parsed
         contentsKnown = true

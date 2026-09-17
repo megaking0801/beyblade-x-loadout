@@ -25,6 +25,7 @@ export type SlotKey =
   | 'bladeId'
   | 'lockChipId'
   | 'mainBladeId'
+  | 'overBladeId'
   | 'assistBladeId'
   | 'ratchetId'
   | 'bitId'
@@ -46,6 +47,7 @@ const STANDARD_SCHEMA: SlotDef[] = [
 const CX_SCHEMA: SlotDef[] = [
   { key: 'lockChipId', labelZhTW: '鎖定紋章', families: ['lock_chip'], required: true },
   { key: 'mainBladeId', labelZhTW: '主刃', families: ['main_blade'], required: true },
+  { key: 'overBladeId', labelZhTW: '超越戰刃', families: ['over_blade'], required: true },
   { key: 'assistBladeId', labelZhTW: '輔助戰刃', families: ['assist_blade'], required: true },
   { key: 'ratchetId', labelZhTW: '固鎖', families: ['ratchet'], required: true },
   { key: 'bitId', labelZhTW: '軸心', families: ['bit'], required: true },
@@ -57,23 +59,39 @@ export function getSlotSchema(system: AssemblySystem): SlotDef[] {
 }
 
 /** CX 上蓋為未拆分狀態時，鎖定紋章已含在主刃內，不再是獨立槽位。 */
-const CX_FUSED_SCHEMA: SlotDef[] = CX_SCHEMA.filter((slot) => slot.key !== 'lockChipId')
-
 /**
- * 依實際選中的零件決定槽位表。
- * 選到 cxFused 的主刃時，鎖定紋章槽位會消失（第 17 節：依實際規則顯示正確欄位）。
+ * 依實際選中的零件決定槽位表（第 17 節：依實際規則顯示正確欄位）。
+ *
+ * - cxFused 的主刃已經含鎖定紋章，所以沒有鎖定紋章槽位。
+ * - 只有四件式（cxOverBlade）的主刃才有超越戰刃槽位；三件式沒有這一片。
  */
 export function getSlotSchemaForSlots(slots: ComboSlots, parts: Part[]): SlotDef[] {
   const system = deriveSystem(slots, parts)
   if (system !== 'CX') return STANDARD_SCHEMA
+  return getCxSlotSchema(slots, parts)
+}
+
+/**
+ * CX 的槽位表。
+ *
+ * 配裝器需要在「還沒選任何零件」時就顯示 CX 欄位，
+ * 這時不能靠 deriveSystem（空的會推成 BX），所以由使用者選的結構直接呼叫這支。
+ */
+export function getCxSlotSchema(slots: ComboSlots, parts: Part[]): SlotDef[] {
   const mainBlade = parts.find((part) => part.id === slots.mainBladeId)
-  return mainBlade?.cxFused ? CX_FUSED_SCHEMA : CX_SCHEMA
+  return CX_SCHEMA.filter((slot) => {
+    if (slot.key === 'lockChipId') return !mainBlade?.cxFused
+    // 還沒選主刃時先顯示超越戰刃欄位，選到三件式主刃才收掉。
+    if (slot.key === 'overBladeId') return mainBlade ? mainBlade.cxOverBlade === true : true
+    return true
+  })
 }
 
 const ALL_SLOT_KEYS: SlotKey[] = [
   'bladeId',
   'lockChipId',
   'mainBladeId',
+  'overBladeId',
   'assistBladeId',
   'ratchetId',
   'bitId',
@@ -83,12 +101,18 @@ const SLOT_LABEL: Record<SlotKey, string> = {
   bladeId: '上蓋',
   lockChipId: '鎖定紋章',
   mainBladeId: '主刃',
+  overBladeId: '超越戰刃',
   assistBladeId: '輔助戰刃',
   ratchetId: '固鎖',
   bitId: '軸心',
 }
 
-const CX_ONLY_SLOTS: SlotKey[] = ['lockChipId', 'mainBladeId', 'assistBladeId']
+const CX_ONLY_SLOTS: SlotKey[] = [
+  'lockChipId',
+  'mainBladeId',
+  'overBladeId',
+  'assistBladeId',
+]
 
 /**
  * 由槽位內容推導組裝系統。

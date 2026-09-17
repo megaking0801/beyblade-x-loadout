@@ -9,7 +9,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { getComboTournamentEvidence } from '../../domain/tournament.ts'
-import { getSlotSchemaForSlots, type SlotKey } from '../../domain/compatibility.ts'
+import {
+  getCxSlotSchema,
+  getSlotSchema,
+  getSlotSchemaForSlots,
+  type SlotKey,
+} from '../../domain/compatibility.ts'
 import { formatPartLabel } from '../../domain/naming.ts'
 import type { ComboSlots, Part } from '../../domain/types.ts'
 import { navigate, useRoute } from '../router.tsx'
@@ -34,7 +39,14 @@ const MODE_LABEL: Record<BuilderMode, string> = {
 }
 
 const STANDARD_KEYS: SlotKey[] = ['bladeId', 'ratchetId', 'bitId']
-const CX_KEYS: SlotKey[] = ['lockChipId', 'mainBladeId', 'assistBladeId', 'ratchetId', 'bitId']
+const CX_KEYS: SlotKey[] = [
+  'lockChipId',
+  'mainBladeId',
+  'overBladeId',
+  'assistBladeId',
+  'ratchetId',
+  'bitId',
+]
 
 export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const parts = useAppStore((state) => state.parts)
@@ -83,12 +95,19 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     setMode('catalog')
   }, [initialComboId, combos])
 
-  const activeKeys = structure === 'cx' ? CX_KEYS : STANDARD_KEYS
-  const schema = useMemo(() => getSlotSchemaForSlots(slots, parts), [slots, parts])
+  /*
+   * 槽位表要由使用者選的結構決定，不能只看 slots 推導：
+   * 剛切到 CX 時 slots 還是空的，deriveSystem 會推成 BX，CX 欄位就永遠不出現。
+   */
+  const schema = useMemo(
+    () => (structure === 'cx' ? getCxSlotSchema(slots, parts) : getSlotSchema('BX')),
+    [structure, slots, parts],
+  )
   const visibleKeys = useMemo(() => {
     const fromSchema = schema.map((slot) => slot.key)
+    const activeKeys = structure === 'cx' ? CX_KEYS : STANDARD_KEYS
     return activeKeys.filter((key) => fromSchema.includes(key) || slots[key])
-  }, [schema, activeKeys, slots])
+  }, [schema, structure, slots])
 
   const selectable = useMemo(() => {
     if (mode === 'catalog') return parts
@@ -337,10 +356,9 @@ function SlotPicker({
   allParts: Part[]
   onChange: (next: string) => void
 }) {
-  const schema = getSlotSchemaForSlots(slots, allParts)
   const def =
-    schema.find((slot) => slot.key === slotKey) ??
-    getSlotSchemaForSlots({ lockChipId: 'x' }, allParts).find((slot) => slot.key === slotKey)
+    getSlotSchemaForSlots(slots, allParts).find((slot) => slot.key === slotKey) ??
+    getCxSlotSchema(slots, allParts).find((slot) => slot.key === slotKey)
   const families = def?.families ?? []
   const options = parts.filter((part) => families.includes(part.family))
   const label = def?.labelZhTW ?? slotKey

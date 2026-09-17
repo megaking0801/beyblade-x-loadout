@@ -89,6 +89,7 @@ const OCCUPYING_SLOT_KEYS = [
   'bladeId',
   'lockChipId',
   'mainBladeId',
+  'overBladeId',
   'assistBladeId',
   'ratchetId',
   'bitId',

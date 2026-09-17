@@ -59,11 +59,16 @@ export type PartFamily =
   | 'bit'
   | 'lock_chip'
   | 'main_blade'
+  | 'over_blade'
   | 'assist_blade'
   | 'integrated_blade'
   | 'other'
 
-/** 第 18 節：組裝結構。BX/UX 為三件式，CX 為模組化五件式。 */
+/**
+ * 第 18 節：組裝結構。
+ * BX／UX 為三件式；CX 的上蓋可再拆成三件式（紋章＋主刃＋輔助）或
+ * 四件式（再多一片超越戰刃）。
+ */
 export type AssemblySystem = 'BX' | 'UX' | 'CX'
 
 export type SpinDirection = 'right' | 'left' | 'dual'
@@ -92,6 +97,7 @@ export const PART_FAMILY_ZH: Record<PartFamily, string> = {
   bit: '軸心',
   lock_chip: '鎖定紋章',
   main_blade: '主刃',
+  over_blade: '超越戰刃',
   assist_blade: '輔助戰刃',
   integrated_blade: '一體式上蓋',
   other: '其他',
@@ -133,6 +139,12 @@ export interface Part {
    * 並標記 cxFused，讓相容性檢查知道此配裝不需要再選鎖定紋章（第 1.5 節：不得編造零件）。
    */
   cxFused?: boolean
+  /**
+   * 四件式（超越拆組）的主刃：除了輔助戰刃之外還要再裝一片超越戰刃。
+   * 官方商品名把兩片黏在一起寫（例：バハムートブリッツ「BK」= 超越 B + 輔助 K），
+   * 是四件式這件事來自 BeybladeHub 的商品頁，因此拆出來的零件標社群來源。
+   */
+  cxOverBlade?: boolean
   /** 白話用途說明，給新手模式用（第 26、38 節）。 */
   plainDescriptionZhTW?: string
   notes?: string
@@ -354,6 +366,8 @@ export interface ComboSlots {
   bladeId?: string
   lockChipId?: string
   mainBladeId?: string
+  /** 四件式 CX 才有的超越戰刃。 */
+  overBladeId?: string
   assistBladeId?: string
   ratchetId?: string
   bitId?: string

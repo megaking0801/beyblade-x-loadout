@@ -295,3 +295,32 @@ test('主要頁面畫面上不得出現日文假名', async ({ page }) => {
     .filter((line) => KANA.test(line))
   expect(builderHits, `配裝器出現日文：${builderHits.join(' | ')}`).toEqual([])
 })
+
+/**
+ * CX 四件式（超越拆組）的配裝器流程。
+ *
+ * 官方商品名把超越戰刃與輔助戰刃寫成相鄰兩個字母，資料層已拆成兩顆零件；
+ * 這裡守 UI 有跟著出現／收掉超越戰刃欄位，不然使用者永遠組不出四件式。
+ */
+test('CX 四件式在配裝器會出現超越戰刃欄位，三件式不會', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await page.getByRole('button', { name: 'CX 模組化' }).click()
+
+  // 三件式主刃：沒有超越戰刃欄位
+  await page.getByLabel('主刃').selectOption('main_blade:ドランブレイブ')
+  await expect(page.getByLabel('超越戰刃')).toHaveCount(0)
+
+  // 四件式主刃：欄位出現，且沒選會被擋下
+  await page.getByLabel('主刃').selectOption('main_blade:バハムートブリッツ')
+  await expect(page.getByLabel('超越戰刃')).toBeVisible()
+  await page.getByLabel('輔助戰刃').selectOption('assist_blade:S')
+  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
+  await page.getByLabel('軸心').selectOption('bit:F')
+  await expect(page.getByTestId('compat-error')).toContainText('尚未選擇超越戰刃')
+
+  // 選滿之後可以安裝，結構顯示為 CX
+  await page.getByLabel('超越戰刃').selectOption('over_blade:B')
+  await expect(page.getByTestId('compat-error')).toHaveCount(0)
+  await expect(page.getByText('CX 模組化（上蓋四件式）').first()).toBeVisible()
+})

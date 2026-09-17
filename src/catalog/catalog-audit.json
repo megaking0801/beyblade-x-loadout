@@ -2,9 +2,9 @@
   "catalogVersion": "takaratomy-lineup-2026-09-16",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
-  "generatedAt": "2026-09-16",
+  "generatedAt": "2026-09-17",
   "productCount": 149,
-  "partCount": 162,
+  "partCount": 165,
   "imageCount": 280,
   "tournamentEventCount": 10,
   "tournamentDeckCount": 14,
@@ -298,8 +298,8 @@
   },
   "hubSetContents": {
     "source": "BeybladeHub",
-    "fetchedAt": "2026-09-16",
-    "appliedProducts": 1,
+    "fetchedAt": "2026-09-17",
+    "appliedProducts": 2,
     "unresolved": [
       {
         "id": "bx09",
@@ -434,11 +434,6 @@
       {
         "id": "cx11",
         "sku": "CX-11",
-        "reason": "商品頁的零件連結無法完整對應到三個槽位"
-      },
-      {
-        "id": "cx16",
-        "sku": "CX-16",
         "reason": "商品頁的零件連結無法完整對應到三個槽位"
       },
       {

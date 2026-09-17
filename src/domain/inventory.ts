@@ -262,6 +262,7 @@ const OCCUPYING_SLOTS = [
   'bladeId',
   'lockChipId',
   'mainBladeId',
+  'overBladeId',
   'assistBladeId',
   'ratchetId',
   'bitId',

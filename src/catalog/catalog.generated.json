@@ -3930,6 +3930,7 @@
         "isProvisionalZhTW": true
       },
       "cxFused": true,
+      "cxOverBlade": true,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
@@ -3939,20 +3940,39 @@
       }
     },
     {
-      "id": "assist_blade:BK",
-      "family": "assist_blade",
-      "code": "BK",
+      "id": "over_blade:B",
+      "family": "over_blade",
+      "code": "B",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "BK",
+        "primaryZhTW": "B",
         "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-13"
         ],
         "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:K",
+      "family": "assist_blade",
+      "code": "K",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "K",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-13"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -4024,6 +4044,7 @@
         "isProvisionalZhTW": true
       },
       "cxFused": true,
+      "cxOverBlade": true,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
@@ -4033,20 +4054,39 @@
       }
     },
     {
-      "id": "assist_blade:GV",
-      "family": "assist_blade",
-      "code": "GV",
+      "id": "over_blade:G",
+      "family": "over_blade",
+      "code": "G",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "GV",
+        "primaryZhTW": "G",
         "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-14"
         ],
         "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:V",
+      "family": "assist_blade",
+      "code": "V",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "V",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-14"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -4089,6 +4129,7 @@
         "isProvisionalZhTW": true
       },
       "cxFused": true,
+      "cxOverBlade": true,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
@@ -4098,20 +4139,39 @@
       }
     },
     {
-      "id": "assist_blade:FE",
-      "family": "assist_blade",
-      "code": "FE",
+      "id": "over_blade:F",
+      "family": "over_blade",
+      "code": "F",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "FE",
+        "primaryZhTW": "F",
         "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-15"
         ],
         "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:E",
+      "family": "assist_blade",
+      "code": "E",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "E",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-15"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -4425,6 +4485,7 @@
         "isProvisionalZhTW": true
       },
       "cxFused": true,
+      "cxOverBlade": true,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
@@ -4434,20 +4495,21 @@
       }
     },
     {
-      "id": "assist_blade:FT",
+      "id": "assist_blade:T",
       "family": "assist_blade",
-      "code": "FT",
+      "code": "T",
       "system": "CX",
       "naming": {
-        "primaryZhTW": "FT",
+        "primaryZhTW": "T",
         "isProvisionalZhTW": false
       },
       "provenance": {
         "sourceUrls": [
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-00"
         ],
         "verifiedAt": "2026-09-16",
-        "verificationStatus": "official_verified"
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -7462,7 +7524,7 @@
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx04.html",
           "https://beybladehub.app/parts/combos/CX-04"
         ],
-        "verifiedAt": "2026-09-16",
+        "verifiedAt": "2026-09-17",
         "verificationStatus": "community_only"
       }
     },
@@ -8810,7 +8872,11 @@
           "quantity": 1
         },
         {
-          "partId": "assist_blade:BK",
+          "partId": "over_blade:B",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:K",
           "quantity": 1
         },
         {
@@ -8852,7 +8918,11 @@
           "quantity": 1
         },
         {
-          "partId": "assist_blade:GV",
+          "partId": "over_blade:G",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:V",
           "quantity": 1
         },
         {
@@ -8894,7 +8964,11 @@
           "quantity": 1
         },
         {
-          "partId": "assist_blade:FE",
+          "partId": "over_blade:F",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:E",
           "quantity": 1
         },
         {
@@ -8930,15 +9004,37 @@
       "region": [
         "JP"
       ],
-      "contents": [],
+      "contents": [
+        {
+          "partId": "main_blade:バハムートブリッツ",
+          "quantity": 1
+        },
+        {
+          "partId": "over_blade:B",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:K",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-50",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:I",
+          "quantity": 1
+        }
+      ],
       "isRandom": false,
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx16.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx16.html",
+          "https://beybladehub.app/parts/combos/CX-16"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-17",
+        "verificationStatus": "community_only"
       }
     },
     {
@@ -9674,7 +9770,11 @@
           "quantity": 1
         },
         {
-          "partId": "assist_blade:FT",
+          "partId": "over_blade:F",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:T",
           "quantity": 1
         },
         {

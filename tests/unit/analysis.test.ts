@@ -167,7 +167,7 @@ describe('客觀資料層（第 20 節 A）', () => {
     expect(analyzeCombo(args()).objective.structureZhTW).toBe('BX 三件式')
   })
 
-  it('CX 結構顯示為五件式', () => {
+  it('CX 結構標明上蓋是三件式還是四件式', () => {
     const cxParts = [
       part({ id: 'chip', family: 'lock_chip', system: 'CX' }),
       part({ id: 'main', family: 'main_blade', system: 'CX', type: 'attack', spinDirection: 'right', officialWeightG: 20 }),
@@ -187,7 +187,7 @@ describe('客觀資料層（第 20 節 A）', () => {
         parts: cxParts,
       }),
     )
-    expect(r.objective.structureZhTW).toBe('CX 模組化五件式')
+    expect(r.objective.structureZhTW).toBe('CX 模組化（上蓋三件式）')
   })
 
   it('列出各零件的官方類型', () => {
