@@ -1,0 +1,65 @@
+{
+  "source": "BeybladeHub",
+  "fetchedAt": "2026-09-18",
+  "note": "可切換模式的零件。官方商品名不會標，來源是 BeybladeHub 的零件頁說明，屬社群整理。逐筆附原文引述以便回查。",
+  "parts": [
+    {
+      "partId": "main_blade:Ec",
+      "nameZhTW": "滅世",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "quoteZhTW": "均衡型主刃，翻面可切換兩種模式：上撃模式（紅面，5 枚刃，擅長把對手彈飛）與重擊模式（藍面，10 枚刃，擅長把對手的攻擊打落）。搭配同樣可翻面的輔助戰刃 D，官方稱整顆的組合為雙上撃模式／雙重擊模式。",
+      "howZhTW": "翻面",
+      "modes": [
+        { "nameZhTW": "上撃模式", "sideZhTW": "紅面", "effectZhTW": "5 枚刃，擅長把對手彈飛" },
+        { "nameZhTW": "重擊模式", "sideZhTW": "藍面", "effectZhTW": "10 枚刃，擅長把對手的攻擊打落" }
+      ]
+    },
+    {
+      "partId": "assist_blade:D",
+      "nameZhTW": "D",
+      "sourceUrl": "https://beybladehub.app/parts/blades/assist",
+      "quoteZhTW": "外周的刃可翻面，切換上撃（Upper）或重擊（Smash）模式；與同樣可翻面的主刃滅世搭配，官方稱為雙上撃模式／雙重擊模式。",
+      "howZhTW": "翻面",
+      "modes": [
+        { "nameZhTW": "上撃模式", "effectZhTW": "把對手往上彈" },
+        { "nameZhTW": "重擊模式", "effectZhTW": "把對手的攻擊打落" }
+      ]
+    },
+    {
+      "partId": "integrated_blade:ヘルズネザー",
+      "nameZhTW": "惡魔幽冥",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "quoteZhTW": "UX 擴張上蓋（Expand Blade，固鎖一體型），官方均衡型，可手動切換「一般模式」（攻/防/持久 50/50/30）與「低位模式」（70/45/15）改變攻防型態。",
+      "howZhTW": "手動切換",
+      "modes": [
+        { "nameZhTW": "一般模式", "effectZhTW": "官方標示 攻 50／防 50／持久 30" },
+        { "nameZhTW": "低位模式", "effectZhTW": "官方標示 攻 70／防 45／持久 15" }
+      ]
+    },
+    {
+      "partId": "bit:Op",
+      "nameZhTW": "Op",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "quoteZhTW": "可選擇以化解性四枚刃及幼細軸端來抵耐攻擊的防禦模式、或以擁有空力構造的兩枚刃及粗大軸端來環迴的攻擊模式。",
+      "howZhTW": "切換",
+      "modes": [
+        { "nameZhTW": "防禦模式", "effectZhTW": "化解性四枚刃配幼細軸端，耐攻擊" },
+        { "nameZhTW": "攻擊模式", "effectZhTW": "空力兩枚刃配粗大軸端，繞場攻擊" }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "partId": "bit:TK",
+      "reasonZhTW": "說明寫「有高度模式轉換」，改的是高度不是攻防型態，不列入可切換型態的零件"
+    },
+    {
+      "partId": "bit:TP",
+      "reasonZhTW": "同 TK，高度模式轉換"
+    },
+    {
+      "partId": "blade:ストームスプリガン",
+      "reasonZhTW": "說明寫「攻防兩面兼備」指的是上下段刃的結構，不是可切換的模式"
+    }
+  ]
+}

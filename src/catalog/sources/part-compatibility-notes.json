@@ -1,0 +1,25 @@
+{
+  "note": "零件層級的搭配限制。官方商品頁不會寫，來源是社群整理與實測，逐筆附來源與原文。只作為提醒，不阻擋儲存配裝——來源本身就有分歧時，硬擋等於幫使用者做他沒授權的判斷。",
+  "fetchedAt": "2026-09-18",
+  "scannedZhTW": "已掃過 BeybladeHub 的 167 個商品頁與四個零件頁，只有時鐘幻象有搭配限制的描述。",
+  "parts": [
+    {
+      "partId": "blade:クロックミラージュ",
+      "nameZhTW": "時鐘幻象",
+      "kind": "ratchetAllowList",
+      "allowedRatchetCodes": ["3-85", "4-55", "7-55", "9-65", "M-85"],
+      "noteZhTW": "時鐘幻象的造型只裝得下簡易型（簡化型）固鎖。原裝是 9-65，社群常見改裝是 4-55。",
+      "disputeZhTW": "兩個來源的清單不一致：BeybladeHub 的零件說明把 3-85、4-55、7-55、9-65 標為簡化型，未標 M-85（寫成金屬加重的特殊固鎖）；WBO 與社群整理則列 3-85、4-55、M-85、9-65（7-55 較晚發售）。這裡取聯集，寧可少警告也不要誤擋。",
+      "sources": [
+        {
+          "url": "https://beybladehub.app/parts/combos/UX-16",
+          "quoteZhTW": "原裝造型較不保護固鎖輪盤、易爆，但搭配低軸（如 4-55LO）與簡易型輪盤後能大幅降低爆裂率、穩定取勝。缺點是只能安裝簡易型輪盤、限制了搭配，下身重量偏輕。"
+        },
+        {
+          "url": "https://worldbeyblade.org/Thread-Product-UX-16-Random-Booster-ClockMirage-Select-ClockMirage-9-65B",
+          "quoteZhTW": "The ClockMirage Blade is apparently only compatible with 'Simple Type' Ratchets, which upon release means it'll only work with 3-85, 4-55, M-85, and the new 9-65."
+        }
+      ]
+    }
+  ]
+}

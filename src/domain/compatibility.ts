@@ -7,6 +7,7 @@
  * 其他已知特殊限制一律由 CompatibilityRule 資料提供，並附來源。
  * 沒有資料支持的限制不得自行推測。
  */
+import { resolveDisplayName } from './naming.ts'
 import {
   SPIN_DIRECTION_ZH,
   PART_FAMILY_ZH,
@@ -377,7 +378,23 @@ export function checkCompatibility(args: CheckArgs): CompatibilityResult {
     })
   }
 
-  // 4. 資料驅動的特殊限制（第 18 節）
+  // 4. 上蓋的固鎖白名單（第 18 節）
+  //
+  // 有些上蓋的造型只裝得下特定固鎖（時鐘幻象只吃簡易型）。官方不會標，
+  // 來源是社群實測而且彼此不完全一致，所以只出警告不擋——擋下去等於幫
+  // 使用者做他沒授權的判斷，而且來源錯了他就完全沒救。
+  const ratchetPart = resolved.find((part) => part.family === 'ratchet')
+  for (const part of resolved) {
+    const allowList = part.ratchetAllowList
+    if (!allowList || !ratchetPart) continue
+    if (allowList.codes.includes(ratchetPart.code)) continue
+    warnings.push({
+      messageZhTW: `${resolveDisplayName(part.naming).titleZhTW}只裝得下 ${allowList.codes.join('、')}；${ratchetPart.code} 可能裝不上去。${allowList.noteZhTW}`,
+      sourceUrls: allowList.sources.map((source) => source.url),
+    })
+  }
+
+  // 5. 資料驅動的特殊限制（第 18 節）
   const resolvedIds = new Set(resolved.map((part) => part.id))
   const resolvedFamilies = new Set(resolved.map((part) => part.family))
   for (const rule of rules) {

@@ -29,6 +29,8 @@ const HUB_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-sets.json')
 const HUB_STRUCTURE_FILE = resolve(root, 'src/catalog/sources/beybladehub-structure.json')
 const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-curated-sets.json')
 const HUB_TOURNAMENTS_FILE = resolve(root, 'src/catalog/sources/beybladehub-tournaments.json')
+const HUB_MODES_FILE = resolve(root, 'src/catalog/sources/beybladehub-modes.json')
+const COMPAT_NOTES_FILE = resolve(root, 'src/catalog/sources/part-compatibility-notes.json')
 const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 
 const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
@@ -535,11 +537,86 @@ function addHubImages(catalog, hubStats, audit, cxHubKeyByPartId = new Map()) {
   console.log(`零件圖 ${imageByPartId.size} 張，商品圖改用單件圖 ${replaced} 筆`)
 }
 
+/**
+ * 標記可切換模式的零件。
+ *
+ * 有些零件翻面或手動切換之後攻防型態會變（CX-09 的主刃「滅世」紅面上撃、藍面重擊），
+ * 但圖鑑的 type 只記得住一個。不標的話前台會把其中一面講成唯一型態。
+ * 這份是社群整理，逐筆附原文引述，對不到零件要出聲而不是安靜略過。
+ */
+/**
+ * 套用零件層級的搭配限制（目前只有時鐘幻象的固鎖白名單）。
+ *
+ * 只標資料，不在這裡決定要警告還是擋 —— 那是 compatibility 那一層的事。
+ * 白名單裡的固鎖必須真的存在於圖鑑，不然使用者會被一條指不到東西的限制擋住。
+ */
+function applyCompatibilityNotes(parts, compatNotes, audit) {
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  const ratchetCodes = new Set(parts.filter((part) => part.family === 'ratchet').map((part) => part.code))
+  const unresolved = []
+  let applied = 0
+  for (const row of compatNotes.parts) {
+    const part = byId.get(row.partId)
+    if (!part) {
+      unresolved.push({ partId: row.partId, reason: '圖鑑找不到這顆零件' })
+      continue
+    }
+    if (row.kind !== 'ratchetAllowList') {
+      unresolved.push({ partId: row.partId, reason: `未知的限制種類：${row.kind}` })
+      continue
+    }
+    const missing = row.allowedRatchetCodes.filter((code) => !ratchetCodes.has(code))
+    if (missing.length > 0) {
+      unresolved.push({ partId: row.partId, reason: `白名單有圖鑑沒收錄的固鎖：${missing.join('、')}` })
+      continue
+    }
+    part.ratchetAllowList = {
+      codes: row.allowedRatchetCodes,
+      noteZhTW: row.noteZhTW,
+      ...(row.disputeZhTW ? { disputeZhTW: row.disputeZhTW } : {}),
+      sources: row.sources,
+    }
+    applied += 1
+  }
+  audit.compatibilityNotes = { applied, unresolved, scannedZhTW: compatNotes.scannedZhTW }
+  console.log(`零件搭配限制 ${applied} 筆，對不到 ${unresolved.length} 筆`)
+}
+
+function applySwitchableModes(parts, hubModes, audit) {
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  const unresolved = []
+  let applied = 0
+  for (const row of hubModes.parts) {
+    const part = byId.get(row.partId)
+    if (!part) {
+      unresolved.push({ partId: row.partId, nameZhTW: row.nameZhTW })
+      continue
+    }
+    part.switchableModes = {
+      howZhTW: row.howZhTW,
+      modes: row.modes,
+      sourceUrl: row.sourceUrl,
+      quoteZhTW: row.quoteZhTW,
+    }
+    applied += 1
+  }
+  audit.switchableModes = {
+    source: hubModes.source,
+    fetchedAt: hubModes.fetchedAt,
+    applied,
+    unresolved,
+    excluded: hubModes.excluded ?? [],
+  }
+  console.log(`可切換模式零件 ${applied} 筆，對不到 ${unresolved.length} 筆`)
+}
+
 function main() {
   const rows = parseLines()
   const images = JSON.parse(readFileSync(IMAGES_FILE, 'utf8'))
   const tournamentSource = JSON.parse(readFileSync(TOURNAMENT_FILE, 'utf8'))
   const hubTournaments = JSON.parse(readFileSync(HUB_TOURNAMENTS_FILE, 'utf8'))
+  const hubModes = JSON.parse(readFileSync(HUB_MODES_FILE, 'utf8'))
+  const compatNotes = JSON.parse(readFileSync(COMPAT_NOTES_FILE, 'utf8'))
   const hubStats = JSON.parse(readFileSync(HUB_STATS_FILE, 'utf8'))
   const hubSets = JSON.parse(readFileSync(HUB_SETS_FILE, 'utf8'))
   const hubStructure = JSON.parse(readFileSync(HUB_STRUCTURE_FILE, 'utf8'))
@@ -715,10 +792,19 @@ function main() {
     const cx = cxKeyToPart(hubRow.key)
     const code = spec.code ?? cx?.code ?? (hubRow.family === 'blade' ? hubRow.nameJa : hubRow.key)
     if (!code) throw new Error(`補充零件缺少代號：${spec.hubKey}`)
+    /*
+     * 固鎖的高度寫在代號後半（9-65 就是 65）。一般固鎖在解析陀螺名稱時就會帶上，
+     * 補充進來的這幾顆沒有經過那條路徑，得在這裡自己補，不然圖鑑會有沒有高度的固鎖。
+     */
+    const heightCode = spec.family === 'ratchet' ? Number(code.split('-')[1]) : undefined
+    if (spec.family === 'ratchet' && !Number.isFinite(heightCode)) {
+      throw new Error(`補充固鎖的代號解不出高度：${code}`)
+    }
     const id = ensurePart({
       family: spec.family,
       code,
       system: spec.system,
+      ...(heightCode !== undefined ? { extra: { heightCode } } : {}),
       naming: {
         primaryZhTW: hubRow.zhTW,
         ...(hubRow.nameJa ? { nameJa: hubRow.nameJa } : {}),
@@ -1218,6 +1304,8 @@ function main() {
   audit.unparsedBeyProducts = audit.unparsedBeyProducts.filter(stillEmpty)
 
   addHubImages(catalog, hubStats, audit, cxHubKeyByPartId)
+  applySwitchableModes(catalog.parts, hubModes, audit)
+  applyCompatibilityNotes(catalog.parts, compatNotes, audit)
   applyLocalImageMirror(catalog, audit)
   audit.partCount = catalog.parts.length
   audit.hubTournamentDuplicates = toObservationEvents.duplicates ?? []

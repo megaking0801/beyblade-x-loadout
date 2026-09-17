@@ -10,6 +10,7 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
+import { getBestValueProduct, getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
 import {
   buildComboVerdict,
   buildEvidenceReasons,
@@ -28,6 +29,8 @@ import {
   type BuilderStructure,
   type SlotDef,
 } from '../../domain/compatibility.ts'
+import { PART_FAMILY_ZH } from '../../domain/types.ts'
+import { resolveDisplayName } from '../../domain/naming.ts'
 import type { ComboSlots, Part } from '../../domain/types.ts'
 import { navigate, useRoute } from '../router.tsx'
 import {
@@ -155,6 +158,28 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   )
   const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
   const expertPartRatings = useMemo(() => getExpertPartRatings(slots), [slots])
+  // 配完之後使用者的下一個問題就是「那我要買哪一盒」。零件不單賣，只能反查商品。
+  const products = useAppStore((state) => state.products)
+  const selectedParts = useMemo(
+    () =>
+      Object.values(slots)
+        .filter((id): id is string => Boolean(id))
+        .map((id) => parts.find((part) => part.id === id))
+        .filter((part): part is Part => Boolean(part)),
+    [slots, parts],
+  )
+  const partSources = useMemo(
+    () =>
+      getPartSources({
+        slots,
+        parts,
+        products,
+        ownedPartIds: [...availability.entries()]
+          .filter(([, value]) => (value?.free ?? 0) > 0)
+          .map(([partId]) => partId),
+      }),
+    [slots, parts, products, availability],
+  )
   // 證據理由：把高手評級與賽事觀測翻成一句一句可回查的話。
   // 刻意不餵進六軸，模型歸模型、證據歸證據（第 20 節 D）。
   const evidenceReasons = useMemo(
@@ -297,6 +322,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         expertTierMatches={expertTierMatches}
         expertPartRatings={expertPartRatings}
         evidenceReasons={evidenceReasons}
+        partSources={partSources}
+        slotParts={selectedParts}
         hasAnySelection={hasAnySelection}
         observedMatches={observedMatches}
       />
@@ -422,6 +449,8 @@ export function ComboResult({
   expertTierMatches,
   expertPartRatings,
   evidenceReasons,
+  partSources,
+  slotParts,
   hasAnySelection,
   observedMatches,
 }: {
@@ -430,6 +459,8 @@ export function ComboResult({
   expertTierMatches: ReturnType<typeof getExpertTierMatches>
   expertPartRatings: ReturnType<typeof getExpertPartRatings>
   evidenceReasons: ReturnType<typeof buildEvidenceReasons>
+  partSources: ReturnType<typeof getPartSources>
+  slotParts: Part[]
   hasAnySelection: boolean
   observedMatches: ReturnType<typeof getObservedComboMatches>
 }) {
@@ -437,6 +468,12 @@ export function ComboResult({
   const comboReasons = evidenceReasons.filter((reason) => reason.scope === 'combo')
   const partReasons = evidenceReasons.filter((reason) => reason.scope === 'part')
   const partEvidence = summarizePartEvidence(evidenceReasons)
+  const bestValueProduct = getBestValueProduct(partSources)
+  const switchableParts = slotParts
+    .map((part) => ({ part, modes: part.switchableModes }))
+    .filter((row): row is { part: Part; modes: NonNullable<Part['switchableModes']> } =>
+      Boolean(row.modes),
+    )
   const comboVerdictZhTW = buildComboVerdict({
     scores: analysis.scores,
     typeZhTW: analysis.typeZhTW,
@@ -572,6 +609,81 @@ export function ComboResult({
             {comboReasons.length === 0 && partReasons.length === 0 ? (
               <div className="meta" style={{ marginTop: 4 }}>{NO_EVIDENCE_NOTE_ZH}</div>
             ) : null}
+          </div>
+        ) : null}
+
+        {/*
+          可切換模式的零件：圖鑑的 type 只記得住一面，六軸也只算得出那一面。
+          不講明白的話，使用者會以為紅面的分數就是這顆的全部。
+        */}
+        {switchableParts.length > 0 ? (
+          <div style={{ fontSize: 13 }} data-testid="switchable-modes">
+            <strong>這套有可切換模式的零件</strong>
+            <ul style={{ margin: '6px 0 0', paddingLeft: 18, display: 'grid', gap: 5 }}>
+              {switchableParts.map(({ part, modes }) => (
+                <li key={part.id}>
+                  {PART_FAMILY_ZH[part.family]}
+                  {resolveDisplayName(part.naming).titleZhTW}
+                  <span className="meta">（{modes.howZhTW}）</span>：
+                  {modes.modes.map((mode, index) => (
+                    <span key={mode.nameZhTW}>
+                      {index > 0 ? '、' : ''}
+                      {mode.nameZhTW}
+                      {mode.sideZhTW ? <span className="meta">（{mode.sideZhTW}）</span> : null}
+                    </span>
+                  ))}{' '}
+                  <a href={modes.sourceUrl} target="_blank" rel="noreferrer">
+                    來源
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="meta" style={{ marginTop: 4 }}>
+              上面的六軸與類型只描述其中一種模式；換到另一面攻防型態會變，圖鑑沒有分開記錄。
+            </div>
+          </div>
+        ) : null}
+
+        {/*
+          去哪裡買：零件不單賣，配完之後要能直接看出該補哪一盒。
+          缺件排在前面，同一盒能補到越多件就排越前面。
+          隨機補充包一律不列入 —— 官方沒公布固定內容，列進去等於暗示買了就會有。
+        */}
+        {partSources.length > 0 ? (
+          <div style={{ fontSize: 13 }} data-testid="part-sources">
+            <strong>去哪裡買</strong>
+            {bestValueProduct ? (
+              <div style={{ marginTop: 4 }}>
+                最划算：
+                <span className="code">{bestValueProduct.sku ?? ''}</span> {bestValueProduct.nameZhTW}
+                <span className="meta">（一盒補到 {bestValueProduct.coversPartCount} 種缺件）</span>
+              </div>
+            ) : null}
+            <ul style={{ margin: '6px 0 0', paddingLeft: 18, display: 'grid', gap: 5 }}>
+              {partSources.map((source) => (
+                <li key={source.partId}>
+                  {source.familyZhTW}
+                  {source.nameZhTW}
+                  {source.owned ? <span className="meta">（已有）</span> : null}
+                  {'：'}
+                  {source.products.length === 0 ? (
+                    <span className="meta">{NO_SOURCE_NOTE_ZH}</span>
+                  ) : (
+                    <>
+                      {source.products.slice(0, 3).map((product, index) => (
+                        <span key={product.productId}>
+                          {index > 0 ? '、' : ''}
+                          <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
+                        </span>
+                      ))}
+                      {source.products.length > 3 ? (
+                        <span className="meta">　另 {source.products.length - 3} 款</span>
+                      ) : null}
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
 

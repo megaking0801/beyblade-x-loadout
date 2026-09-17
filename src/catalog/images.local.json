@@ -1,7 +1,7 @@
 {
   "note": "外部圖片的本機副本對應表。usageStatus 仍標 unknown：這是鏡像，不是取得授權。",
   "fetchedAt": "2026-09-17",
-  "count": 264,
+  "count": 266,
   "byUrl": {
     "https://img.beybladehub.app/blades-db/DrSw.webp": "/img/5f42b0ea93aeb34a.webp",
     "https://img.beybladehub.app/blades-db/HlSc.webp": "/img/b0dde61f79138cf4.webp",
@@ -122,6 +122,7 @@
     "https://img.beybladehub.app/bits/Nr.webp": "/img/efce78266cf53551.webp",
     "https://img.beybladehub.app/blades-db/ClMr.webp": "/img/5141b45186d37c6e.webp",
     "https://img.beybladehub.app/blades-cx/chip-Vl.webp": "/img/5fd5a5178013c260.webp",
+    "https://img.beybladehub.app/blades-cx/assist-W.webp": "/img/9a861387d940a655.webp",
     "https://img.beybladehub.app/ratchets/3-60.webp": "/img/46921fc09113e509.webp",
     "https://img.beybladehub.app/bits/F.webp": "/img/71e2f71b812b1949.webp",
     "https://img.beybladehub.app/ratchets/4-60.webp": "/img/c9cac20316a54eb8.webp",
@@ -266,7 +267,8 @@
     "https://img.beybladehub.app/blades-db/Mosa.webp": "/img/33e296443c5857cc.webp",
     "https://img.beybladehub.app/blades-db/Spno.webp": "/img/f327a7ad9fdbfd35.webp",
     "https://img.beybladehub.app/blades-db/Qtzl.webp": "/img/8458a7f840b942cc.webp",
-    "https://img.beybladehub.app/blades-cx/assist-W.webp": "/img/9a861387d940a655.webp"
+    "https://img.beybladehub.app/ratchets/9-65.webp": "/img/0b6cdf0fa0ac18d0.webp",
+    "https://img.beybladehub.app/ratchets/7-55.webp": "/img/b1f8b25322f09168.webp"
   },
   "failed": []
 }

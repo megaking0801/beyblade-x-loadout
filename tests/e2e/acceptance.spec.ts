@@ -237,6 +237,21 @@ test('沒有證據的配置要說清楚為什麼，不是留白', async ({ page 
   await expect(reasons).toContainText('還沒進高手榜')
 })
 
+test('配完之後看得到每個零件要去買哪一盒', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+
+  const sources = page.getByTestId('part-sources')
+  await expect(sources).toBeVisible()
+  await expect(sources).toContainText('去哪裡買')
+  // 一般商品要排在限定品前面，不然會叫人去買買不到的東西
+  await expect(sources).toContainText('BX-01')
+  await expect(sources).toContainText('一盒補到 3 種缺件')
+})
+
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()

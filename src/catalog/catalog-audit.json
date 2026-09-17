@@ -4,8 +4,8 @@
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-17",
   "productCount": 149,
-  "partCount": 205,
-  "imageCount": 344,
+  "partCount": 207,
+  "imageCount": 346,
   "tournamentEventCount": 23,
   "tournamentDeckCount": 14,
   "tournamentObservationCount": 93,
@@ -516,7 +516,7 @@
   "hubStats": {
     "source": "BeybladeHub",
     "fetchedAt": "2026-09-16",
-    "matchedParts": 201,
+    "matchedParts": 203,
     "partsWithoutStats": [
       {
         "id": "main_blade:バックスアントラーズ",
@@ -537,11 +537,36 @@
     ]
   },
   "hubImages": {
-    "partImages": 199,
+    "partImages": 201,
     "productImagesReplaced": 73
   },
+  "switchableModes": {
+    "source": "BeybladeHub",
+    "fetchedAt": "2026-09-18",
+    "applied": 4,
+    "unresolved": [],
+    "excluded": [
+      {
+        "partId": "bit:TK",
+        "reasonZhTW": "說明寫「有高度模式轉換」，改的是高度不是攻防型態，不列入可切換型態的零件"
+      },
+      {
+        "partId": "bit:TP",
+        "reasonZhTW": "同 TK，高度模式轉換"
+      },
+      {
+        "partId": "blade:ストームスプリガン",
+        "reasonZhTW": "說明寫「攻防兩面兼備」指的是上下段刃的結構，不是可切換的模式"
+      }
+    ]
+  },
+  "compatibilityNotes": {
+    "applied": 1,
+    "unresolved": [],
+    "scannedZhTW": "已掃過 BeybladeHub 的 167 個商品頁與四個零件頁，只有時鐘幻象有搭配限制的描述。"
+  },
   "localImages": {
-    "mirrored": 344,
+    "mirrored": 346,
     "stillRemote": 0
   },
   "hubTournamentDuplicates": [

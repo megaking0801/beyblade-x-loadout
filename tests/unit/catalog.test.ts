@@ -745,3 +745,31 @@ describe('圖片本機副本（第 25 節）', () => {
     }
   })
 })
+
+describe('可切換模式的零件（第 20 節 B）', () => {
+  it('標記的零件都對得到圖鑑，且附得出來源與原文引述', () => {
+    const switchable = catalog.parts.filter((part) => part.switchableModes)
+    expect(switchable.length).toBeGreaterThanOrEqual(4)
+    for (const part of switchable) {
+      const modes = part.switchableModes!
+      expect(modes.modes.length).toBeGreaterThanOrEqual(2)
+      expect(modes.sourceUrl).toMatch(/^https:\/\/beybladehub\.app\//)
+      expect(modes.quoteZhTW.trim().length).toBeGreaterThan(10)
+      expect(modes.howZhTW.trim().length).toBeGreaterThan(0)
+    }
+  })
+
+  it('CX-09 的主刃「滅世」有紅藍兩面，且分別標了效果', () => {
+    const part = catalog.parts.find((row) => row.id === 'main_blade:Ec')
+    const names = part?.switchableModes?.modes.map((mode) => mode.nameZhTW)
+    expect(names).toEqual(['上撃模式', '重擊模式'])
+    const sides = part?.switchableModes?.modes.map((mode) => mode.sideZhTW)
+    expect(sides).toEqual(['紅面', '藍面'])
+  })
+
+  it('只改高度、不改攻防型態的零件不列入（TK、TP）', () => {
+    for (const id of ['bit:TK', 'bit:TP']) {
+      expect(catalog.parts.find((row) => row.id === id)?.switchableModes).toBeUndefined()
+    }
+  })
+})

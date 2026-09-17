@@ -122,6 +122,24 @@ export const BIT_CONTACT_ZH: Record<BitContact, string> = {
   other: '其他',
 }
 
+/** 可切換模式的說明；來源是社群整理，逐筆保留原文引述。 */
+export interface PartSwitchableModes {
+  /** 怎麼切換：翻面、手動切換。 */
+  howZhTW: string
+  modes: { nameZhTW: string; sideZhTW?: string; effectZhTW: string }[]
+  sourceUrl: string
+  quoteZhTW: string
+}
+
+/** 上蓋的固鎖搭配限制；來源與爭議都要保留，前台才講得出憑據。 */
+export interface PartRatchetAllowList {
+  codes: string[]
+  noteZhTW: string
+  /** 來源之間不一致時的說明；沒有分歧就省略。 */
+  disputeZhTW?: string
+  sources: { url: string; quoteZhTW: string }[]
+}
+
 export interface Part {
   id: string
   family: PartFamily
@@ -161,6 +179,21 @@ export interface Part {
   integratedRatchet?: boolean
   /** 白話用途說明，給新手模式用（第 26、38 節）。 */
   plainDescriptionZhTW?: string
+  /**
+   * 可切換模式的零件（第 20 節 B）。
+   *
+   * 有些零件翻面或手動切換之後攻防型態會變，例如 CX-09 的主刃「滅世」
+   * 紅面是上撃、藍面是重擊。圖鑑只記得住一個 `type`，所以這些零件的
+   * 六軸推估只描述得了其中一面，前台必須講明白，不能假裝那是唯一型態。
+   */
+  switchableModes?: PartSwitchableModes
+  /**
+   * 這顆上蓋只裝得下哪些固鎖（第 18 節）。
+   *
+   * 官方不會標，來源是社群實測，而且來源之間可能不一致，所以只作為提醒，
+   * 不阻擋儲存 —— 硬擋等於幫使用者做他沒授權的判斷。
+   */
+  ratchetAllowList?: PartRatchetAllowList
   notes?: string
   provenance: Provenance
   /**

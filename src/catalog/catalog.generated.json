@@ -67,6 +67,27 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
+      },
+      "ratchetAllowList": {
+        "codes": [
+          "3-85",
+          "4-55",
+          "7-55",
+          "9-65",
+          "M-85"
+        ],
+        "noteZhTW": "時鐘幻象的造型只裝得下簡易型（簡化型）固鎖。原裝是 9-65，社群常見改裝是 4-55。",
+        "disputeZhTW": "兩個來源的清單不一致：BeybladeHub 的零件說明把 3-85、4-55、7-55、9-65 標為簡化型，未標 M-85（寫成金屬加重的特殊固鎖）；WBO 與社群整理則列 3-85、4-55、M-85、9-65（7-55 較晚發售）。這裡取聯集，寧可少警告也不要誤擋。",
+        "sources": [
+          {
+            "url": "https://beybladehub.app/parts/combos/UX-16",
+            "quoteZhTW": "原裝造型較不保護固鎖輪盤、易爆，但搭配低軸（如 4-55LO）與簡易型輪盤後能大幅降低爆裂率、穩定取勝。缺點是只能安裝簡易型輪盤、限制了搭配，下身重量偏輕。"
+          },
+          {
+            "url": "https://worldbeyblade.org/Thread-Product-UX-16-Random-Booster-ClockMirage-Select-ClockMirage-9-65B",
+            "quoteZhTW": "The ClockMirage Blade is apparently only compatible with 'Simple Type' Ratchets, which upon release means it'll only work with 3-85, 4-55, M-85, and the new 9-65."
+          }
+        ]
       }
     },
     {
@@ -121,6 +142,68 @@
       },
       "type": "stamina",
       "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "ratchet:9-65",
+      "family": "ratchet",
+      "code": "9-65",
+      "system": "UX",
+      "naming": {
+        "primaryZhTW": "9",
+        "isProvisionalZhTW": false
+      },
+      "heightCode": 65,
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "plainDescriptionZhTW": "使用小凸點密集排列的九枚刃。65高度簡化型超輕量設計，入門套組配件。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "ratchet:7-55",
+      "family": "ratchet",
+      "code": "7-55",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "7",
+        "isProvisionalZhTW": false
+      },
+      "heightCode": 55,
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及防禦性能優秀的七枚刃。55高度簡化型輕量設計，入門套組標準配件。",
       "statsProvenance": {
         "sourceUrls": [
           "https://beybladehub.app/parts/blades",
@@ -4071,6 +4154,23 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
+      },
+      "switchableModes": {
+        "howZhTW": "翻面",
+        "modes": [
+          {
+            "nameZhTW": "上撃模式",
+            "sideZhTW": "紅面",
+            "effectZhTW": "5 枚刃，擅長把對手彈飛"
+          },
+          {
+            "nameZhTW": "重擊模式",
+            "sideZhTW": "藍面",
+            "effectZhTW": "10 枚刃，擅長把對手的攻擊打落"
+          }
+        ],
+        "sourceUrl": "https://beybladehub.app/parts/blades",
+        "quoteZhTW": "均衡型主刃，翻面可切換兩種模式：上撃模式（紅面，5 枚刃，擅長把對手彈飛）與重擊模式（藍面，10 枚刃，擅長把對手的攻擊打落）。搭配同樣可翻面的輔助戰刃 D，官方稱整顆的組合為雙上撃模式／雙重擊模式。"
       }
     },
     {
@@ -4100,6 +4200,21 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
+      },
+      "switchableModes": {
+        "howZhTW": "翻面",
+        "modes": [
+          {
+            "nameZhTW": "上撃模式",
+            "effectZhTW": "把對手往上彈"
+          },
+          {
+            "nameZhTW": "重擊模式",
+            "effectZhTW": "把對手的攻擊打落"
+          }
+        ],
+        "sourceUrl": "https://beybladehub.app/parts/blades/assist",
+        "quoteZhTW": "外周的刃可翻面，切換上撃（Upper）或重擊（Smash）模式；與同樣可翻面的主刃滅世搭配，官方稱為雙上撃模式／雙重擊模式。"
       }
     },
     {
@@ -5692,6 +5807,21 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
+      },
+      "switchableModes": {
+        "howZhTW": "切換",
+        "modes": [
+          {
+            "nameZhTW": "防禦模式",
+            "effectZhTW": "化解性四枚刃配幼細軸端，耐攻擊"
+          },
+          {
+            "nameZhTW": "攻擊模式",
+            "effectZhTW": "空力兩枚刃配粗大軸端，繞場攻擊"
+          }
+        ],
+        "sourceUrl": "https://beybladehub.app/parts/bits",
+        "quoteZhTW": "可選擇以化解性四枚刃及幼細軸端來抵耐攻擊的防禦模式、或以擁有空力構造的兩枚刃及粗大軸端來環迴的攻擊模式。"
       }
     },
     {
@@ -5764,6 +5894,21 @@
         ],
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
+      },
+      "switchableModes": {
+        "howZhTW": "手動切換",
+        "modes": [
+          {
+            "nameZhTW": "一般模式",
+            "effectZhTW": "官方標示 攻 50／防 50／持久 30"
+          },
+          {
+            "nameZhTW": "低位模式",
+            "effectZhTW": "官方標示 攻 70／防 45／持久 15"
+          }
+        ],
+        "sourceUrl": "https://beybladehub.app/parts/blades",
+        "quoteZhTW": "UX 擴張上蓋（Expand Blade，固鎖一體型），官方均衡型，可手動切換「一般模式」（攻/防/持久 50/50/30）與「低位模式」（70/45/15）改變攻防型態。"
       }
     },
     {
@@ -13667,6 +13812,28 @@
       "sourceName": "BeybladeHub 零件去背圖",
       "usageStatus": "unknown",
       "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-W.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:ratchet:9-65:main",
+      "entityType": "part",
+      "entityId": "ratchet:9-65",
+      "url": "/img/0b6cdf0fa0ac18d0.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/9-65.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:ratchet:7-55:main",
+      "entityType": "part",
+      "entityId": "ratchet:7-55",
+      "url": "/img/b1f8b25322f09168.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/7-55.webp",
       "isLocalMirror": true
     },
     {
