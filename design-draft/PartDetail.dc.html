@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Archivo', 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif; }
+    a { color: #ff6a4d; } a:hover { color: #ff8a72; }
+    .code { font-stretch: 125%; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tag { font-size: 11px; border-radius: 5px; padding: 1px 6px; }
+    .nav { flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600; }
+    .kv { display: flex; align-items: center; gap: 8px; padding: 10px 13px; border-bottom: 1px solid #1d2635; }
+  </style>
+</helmet>
+
+<div style="width: 430px; min-height: 1080px; background: #0b0f16; color: #e7ecf3; display: flex; flex-direction: column;">
+
+  <div style="padding: 16px 16px 0; display: flex; align-items: center; gap: 10px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9fb0c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+    <span style="font-size: 13px; color: #8d9bb0;">零件</span>
+  </div>
+
+  <div style="margin: 12px 16px 0; height: 190px; border-radius: 16px; background: radial-gradient(circle at 50% 45%, #26383a 0%, #101a20 74%); border: 1px solid #25303f; display: grid; place-items: center;">
+    <svg width="132" height="132" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#6fc9b0" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#6fc9b0" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#6fc9b0" stroke-width="2.5" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div style="padding: 16px 16px 0;">
+    <div style="font-size: 24px; font-weight: 700;">魔導幻箭</div>
+    <div style="display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap;">
+      <span class="tag" style="color: #58d39b; background: #0f2620; border: 1px solid #1f5140;">持久</span>
+      <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">上蓋</span>
+      <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">右旋</span>
+      <span class="tag" style="color: #6b7a90; background: #161d29; border: 1px solid #242e3d;">未進高手榜</span>
+    </div>
+  </div>
+
+  <div style="margin: 14px 16px 0; padding: 12px 14px; border-radius: 12px; border: 1px solid #25303f; background: #121926; display: flex; align-items: center; gap: 12px;">
+    <div style="flex: 1;">
+      <div style="font-size: 11px; color: #6b7a90;">我的庫存</div>
+      <div class="code" style="font-size: 26px; margin-top: 2px;">2</div>
+    </div>
+    <div style="width: 1px; align-self: stretch; background: #25303f;"></div>
+    <div style="flex: 1;">
+      <div style="font-size: 11px; color: #6b7a90;">已被配裝占用</div>
+      <div class="code" style="font-size: 26px; margin-top: 2px; color: #ffb454;">1</div>
+    </div>
+    <div style="width: 1px; align-self: stretch; background: #25303f;"></div>
+    <div style="flex: 1;">
+      <div style="font-size: 11px; color: #6b7a90;">還能用</div>
+      <div class="code" style="font-size: 26px; margin-top: 2px; color: #58d39b;">1</div>
+    </div>
+  </div>
+
+  <div style="padding: 18px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">規格</div>
+  <div style="margin: 0 16px; border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden;">
+    <div class="kv"><span style="font-size: 13px; color: #9fb0c6; flex: 1;">重量</span><span class="code" style="font-size: 14px;">32 g</span></div>
+    <div class="kv"><span style="font-size: 13px; color: #9fb0c6; flex: 1;">類型</span><span style="font-size: 14px; color: #58d39b;">持久</span></div>
+    <div class="kv"><span style="font-size: 13px; color: #9fb0c6; flex: 1;">旋向</span><span style="font-size: 14px;">右旋</span></div>
+    <div class="kv" style="border-bottom: 0;"><span style="font-size: 13px; color: #9fb0c6; flex: 1;">系統</span><span style="font-size: 14px;">BX 三件式</span></div>
+  </div>
+  <div style="margin: 8px 16px 0; font-size: 11px; color: #6b7a90;">重量與類型為社群實測（BeybladeHub），非官方公布</div>
+
+  <div style="padding: 18px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">哪些盒子有</div>
+  <div style="margin: 0 16px; display: flex; flex-wrap: wrap; gap: 7px;">
+    <span class="code" style="font-size: 12px; color: #9fb0c6; border: 1px solid #2a3446; background: #1a2332; border-radius: 8px; padding: 6px 10px;">BX-03</span>
+    <span class="code" style="font-size: 12px; color: #9fb0c6; border: 1px solid #2a3446; background: #1a2332; border-radius: 8px; padding: 6px 10px;">BX-05</span>
+    <span class="code" style="font-size: 12px; color: #9fb0c6; border: 1px solid #2a3446; background: #1a2332; border-radius: 8px; padding: 6px 10px;">BX-08</span>
+    <span class="code" style="font-size: 12px; color: #9fb0c6; border: 1px solid #2a3446; background: #1a2332; border-radius: 8px; padding: 6px 10px;">BX-21</span>
+  </div>
+
+  <div style="padding: 18px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">賽場出現過</div>
+  <div style="margin: 0 16px; border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden;">
+    <div class="kv">
+      <span class="code" style="font-size: 11px; color: #ffb454; border: 1px solid #5a441f; background: #291f0e; border-radius: 5px; padding: 2px 6px;">冠軍</span>
+      <span style="font-size: 13px; flex: 1;">極限盃 G1 高雄站</span>
+      <span class="code" style="font-size: 11px; color: #6b7a90;">07/25</span>
+    </div>
+    <div class="kv" style="border-bottom: 0;">
+      <span class="code" style="font-size: 11px; color: #9fb0c6; border: 1px solid #2a3446; background: #1a2332; border-radius: 5px; padding: 2px 6px;">亞軍</span>
+      <span style="font-size: 13px; flex: 1;">月半公仔舖 NOVA平日杯</span>
+      <span class="code" style="font-size: 11px; color: #6b7a90;">06/10</span>
+    </div>
+  </div>
+  <div style="margin: 8px 16px 0; font-size: 11px; color: #6b7a90;">社群回報的賽事紀錄，非主辦單位官方成績冊</div>
+
+  <div style="flex: 1; min-height: 20px;"></div>
+
+  <div style="display: flex; border-top: 1px solid #25303f; background: #0e141e; padding: 0 4px 8px;">
+    <div class="nav">首頁</div>
+    <div class="nav">商品</div>
+    <div class="nav" style="color: #ff5a41; font-weight: 700; position: relative;">
+      <div style="position: absolute; top: 0; left: 14px; right: 14px; height: 3px; border-radius: 0 0 3px 3px; background: #ff5a41;"></div>
+      零件
+    </div>
+    <div class="nav">配裝</div>
+    <div class="nav">3on3</div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

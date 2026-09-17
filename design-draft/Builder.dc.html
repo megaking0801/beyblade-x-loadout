@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Archivo', 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif; }
+    a { color: #ff6a4d; } a:hover { color: #ff8a72; }
+    .code { font-stretch: 125%; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .chip { font-size: 12px; font-weight: 600; border-radius: 8px; padding: 6px 11px; white-space: nowrap; }
+    .tag { font-size: 11px; border-radius: 5px; padding: 1px 6px; }
+    .slot-label { font-size: 12px; color: #8d9bb0; }
+  </style>
+</helmet>
+
+<div style="width: 430px; min-height: 1180px; background: #0b0f16; color: #e7ecf3; display: flex; flex-direction: column;">
+
+  <div style="padding: 20px 16px 10px;">
+    <div style="font-size: 26px; font-weight: 700; font-stretch: 112%;">配裝器</div>
+    <div style="font-size: 13px; color: #8d9bb0; margin-top: 3px;">上蓋 → 固鎖 → 軸心</div>
+  </div>
+
+  <div style="margin: 0 16px; display: flex; gap: 6px;">
+    <span class="chip" style="background: #ff5a41; color: #10151c;">只顯示我有的</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">全部圖鑑</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">假想購買</span>
+  </div>
+
+  <div style="margin: 14px 16px 0; display: flex; flex-direction: column; gap: 10px;">
+
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+      <span class="slot-label">上蓋</span>
+      <div style="display: flex; align-items: center; gap: 11px; background: #121926; border: 1px solid #2f3d52; border-radius: 12px; padding: 10px 12px; min-height: 60px;">
+        <div style="width: 44px; height: 44px; border-radius: 9px; background: radial-gradient(circle at 40% 35%, #26383a 0%, #16222a 70%); flex: 0 0 44px; display: grid; place-items: center;">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#6fc9b0" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#6fc9b0" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#6fc9b0" stroke-width="2.5" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+          <span style="font-size: 15px; font-weight: 700;">魔導幻箭</span>
+          <div style="display: flex; gap: 5px;">
+            <span class="tag" style="color: #58d39b; background: #0f2620; border: 1px solid #1f5140;">持久</span>
+            <span class="code" style="font-size: 11px; color: #9fb0c6;">32g</span>
+          </div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7a90" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+      <span class="slot-label">固鎖</span>
+      <div style="display: flex; align-items: center; gap: 11px; background: #121926; border: 1px solid #2f3d52; border-radius: 12px; padding: 10px 12px; min-height: 60px;">
+        <div style="width: 44px; height: 44px; border-radius: 9px; background: #1a2332; flex: 0 0 44px; display: grid; place-items: center;">
+          <span class="code" style="font-size: 13px; color: #9fb0c6;">4-80</span>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+          <span class="code" style="font-size: 17px;">4-80</span>
+          <span style="font-size: 11px; color: #6b7a90;">高度 80・四枚刃</span>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7a90" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+      <span class="slot-label">軸心</span>
+      <div style="display: flex; align-items: center; gap: 11px; background: #121926; border: 1px solid #2f3d52; border-radius: 12px; padding: 10px 12px; min-height: 60px;">
+        <div style="width: 44px; height: 44px; border-radius: 9px; background: #1a2332; flex: 0 0 44px; display: grid; place-items: center;">
+          <span class="code" style="font-size: 15px; color: #9fb0c6;">B</span>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+          <span class="code" style="font-size: 17px;">B</span>
+          <div style="display: flex; gap: 5px;">
+            <span class="tag" style="color: #58d39b; background: #0f2620; border: 1px solid #1f5140;">持久</span>
+            <span style="font-size: 11px; color: #6b7a90;">球形軸</span>
+          </div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7a90" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin: 18px 16px 0; padding: 14px; border-radius: 14px; border: 1px solid #25303f; background: linear-gradient(160deg, #16203099, #0f1724);">
+    <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+      <span style="font-size: 19px; font-weight: 700;">魔導幻箭</span>
+      <span class="code" style="font-size: 19px; color: #ff5a41;">4-80B</span>
+    </div>
+    <div style="display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap;">
+      <span class="tag" style="color: #58d39b; background: #0f2620; border: 1px solid #1f5140;">持久</span>
+      <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">BX 三件式</span>
+      <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">右旋</span>
+      <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">高度 80</span>
+    </div>
+
+    <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 9px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px;"><span style="color: #9fb0c6;">攻擊</span><span class="code">42</span></div>
+        <div style="height: 6px; border-radius: 3px; background: #1a2332; overflow: hidden;"><div style="width: 42%; height: 100%; background: #d83b2f;"></div></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px;"><span style="color: #9fb0c6;">防守</span><span class="code">48</span></div>
+        <div style="height: 6px; border-radius: 3px; background: #1a2332; overflow: hidden;"><div style="width: 48%; height: 100%; background: #2f6bd8;"></div></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px;"><span style="color: #9fb0c6;">持久</span><span class="code" style="color: #58d39b;">74</span></div>
+        <div style="height: 6px; border-radius: 3px; background: #1a2332; overflow: hidden;"><div style="width: 74%; height: 100%; background: #2c9e6b;"></div></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px;"><span style="color: #9fb0c6;">抗爆</span><span class="code">55</span></div>
+        <div style="height: 6px; border-radius: 3px; background: #1a2332; overflow: hidden;"><div style="width: 55%; height: 100%; background: #6b7a90;"></div></div>
+      </div>
+    </div>
+    <div style="margin-top: 9px; font-size: 11px; color: #6b7a90;">六軸為本站模型推估，不是官方數值</div>
+  </div>
+
+  <div style="margin: 12px 16px 0; padding: 13px 14px; border-radius: 14px; border: 1px solid #3a2a12; background: #1a1409;">
+    <div style="display: flex; align-items: center; gap: 7px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffb454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path></svg>
+      <span style="font-size: 13px; font-weight: 700; color: #ffb454;">高手零件評級</span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px;">
+      <span class="tag" style="color: #ff8a72; background: #2e1512; border: 1px solid #5c2820; font-size: 12px; padding: 3px 8px;">X　B　<span style="color: #a9704f;">4/5</span></span>
+      <span class="tag" style="color: #6b7a90; background: #161d29; border: 1px solid #242e3d; font-size: 12px; padding: 3px 8px;">魔導幻箭・4-80 未進榜</span>
+    </div>
+    <div style="margin-top: 8px; font-size: 11px; color: #8a7350;">社群主觀評級，不是賽事勝率，也不併入上面的六軸</div>
+  </div>
+
+  <div style="flex: 1; min-height: 16px;"></div>
+
+  <div style="margin: 0 16px 14px; display: flex; gap: 8px;">
+    <div style="flex: 1; min-height: 48px; border-radius: 10px; background: #ff5a41; color: #10151c; display: grid; place-items: center; font-size: 15px; font-weight: 700;">儲存配裝</div>
+    <div style="min-height: 48px; padding: 0 16px; border-radius: 10px; border: 1px solid #2f3d52; background: #121926; display: grid; place-items: center; font-size: 15px; font-weight: 600; color: #9fb0c6;">分享</div>
+  </div>
+
+  <div style="display: flex; border-top: 1px solid #25303f; background: #0e141e; padding: 0 4px 8px;">
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">首頁</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">商品</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">零件</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #ff5a41; font-size: 14px; font-weight: 700; position: relative;">
+      <div style="position: absolute; top: 0; left: 14px; right: 14px; height: 3px; border-radius: 0 0 3px 3px; background: #ff5a41;"></div>
+      配裝
+    </div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">3on3</div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Archivo', 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif; }
+    a { color: #ff6a4d; } a:hover { color: #ff8a72; }
+    .code { font-stretch: 125%; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .chip { font-size: 12px; font-weight: 600; border-radius: 8px; padding: 6px 11px; white-space: nowrap; }
+    .tag { font-size: 11px; border-radius: 5px; padding: 1px 6px; }
+    .nav { flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600; }
+  </style>
+</helmet>
+
+<div style="width: 430px; min-height: 1010px; background: #0b0f16; color: #e7ecf3; display: flex; flex-direction: column;">
+
+  <div style="padding: 20px 16px 10px;">
+    <div style="font-size: 26px; font-weight: 700; font-stretch: 112%;">商品</div>
+    <div style="font-size: 13px; color: #8d9bb0; margin-top: 3px;">登記買過的盒子，零件會自動入庫</div>
+  </div>
+
+  <div style="margin: 0 16px; display: flex; gap: 6px;">
+    <span class="chip" style="background: #ff5a41; color: #10151c;">我的商品 8</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">商品庫 149</span>
+  </div>
+
+  <div style="margin: 12px 16px 0; display: flex; align-items: center; gap: 8px; background: #121926; border: 1px solid #25303f; border-radius: 10px; padding: 0 12px; min-height: 44px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8d9bb0" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+    <span style="font-size: 14px; color: #6b7a90;">搜尋中文、型號或日文別名</span>
+  </div>
+
+  <div style="margin: 10px 16px 0; display: flex; flex-wrap: wrap; gap: 6px;">
+    <span class="chip" style="background: #ff5a41; color: #10151c;">全部 149</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">BX 91</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">UX 30</span>
+    <span class="chip" style="background: #131c2b; color: #9fb0c6; border: 1px solid #25303f;">CX 28</span>
+  </div>
+
+  <div style="padding: 18px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">入門組</div>
+
+  <div style="margin: 0 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+
+    <div style="border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 116px; background: radial-gradient(circle at 50% 42%, #33415a 0%, #141b27 72%); display: grid; place-items: center;">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#7fa4d8" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#7fa4d8" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#7fa4d8" stroke-width="2.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div style="padding: 10px 11px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap;">
+          <span class="code" style="font-size: 11px; color: #7d8ca3;">BX-01</span>
+          <span style="font-size: 14px; font-weight: 700;">蒼龍神劍</span>
+          <span class="code" style="font-size: 13px; color: #ff5a41;">3-60F</span>
+        </div>
+        <div style="display: flex; gap: 5px;">
+          <span class="tag" style="color: #ff8a72; background: #2e1512; border: 1px solid #5c2820;">攻擊</span>
+          <span class="tag" style="color: #9fb0c6; background: #1a2332; border: 1px solid #2a3446;">已有 ×2</span>
+        </div>
+        <div style="min-height: 38px; border-radius: 9px; background: #1a2332; border: 1px solid #2a3446; display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #9fb0c6;">再加一盒</div>
+      </div>
+    </div>
+
+    <div style="border-radius: 14px; border: 1px solid #5c2820; background: #121926; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 116px; background: radial-gradient(circle at 50% 42%, #3a2a33 0%, #1c151c 72%); display: grid; place-items: center;">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#d88ea0" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#d88ea0" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#d88ea0" stroke-width="2.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div style="padding: 10px 11px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap;">
+          <span class="code" style="font-size: 11px; color: #7d8ca3;">BX-02</span>
+          <span style="font-size: 14px; font-weight: 700;">惡魔紅鐮</span>
+          <span class="code" style="font-size: 13px; color: #ff5a41;">4-60T</span>
+        </div>
+        <div style="display: flex; gap: 5px;">
+          <span class="tag" style="color: #ffb454; background: #2a1e0c; border: 1px solid #55411c;">均衡</span>
+        </div>
+        <div style="min-height: 38px; border-radius: 9px; background: #ff5a41; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #10151c;">已加入 ×1</div>
+      </div>
+    </div>
+
+    <div style="border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 116px; background: radial-gradient(circle at 50% 42%, #26383a 0%, #131d24 72%); display: grid; place-items: center;">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#6fc9b0" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#6fc9b0" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#6fc9b0" stroke-width="2.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div style="padding: 10px 11px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap;">
+          <span class="code" style="font-size: 11px; color: #7d8ca3;">BX-03</span>
+          <span style="font-size: 14px; font-weight: 700;">魔導幻箭</span>
+          <span class="code" style="font-size: 13px; color: #ff5a41;">4-80B</span>
+        </div>
+        <div style="display: flex; gap: 5px;">
+          <span class="tag" style="color: #58d39b; background: #0f2620; border: 1px solid #1f5140;">持久</span>
+        </div>
+        <div style="min-height: 38px; border-radius: 9px; background: #1a2332; border: 1px solid #2a3446; display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #9fb0c6;">加入我的商品</div>
+      </div>
+    </div>
+
+    <div style="border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 116px; background: radial-gradient(circle at 50% 42%, #263049 0%, #131926 72%); display: grid; place-items: center;">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#8fa8e8" stroke-width="2.5"></circle><circle cx="24" cy="24" r="8" stroke="#8fa8e8" stroke-width="2"></circle><path d="M24 5v8M43 24h-8M24 43v-8M5 24h8" stroke="#8fa8e8" stroke-width="2.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div style="padding: 10px 11px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap;">
+          <span class="code" style="font-size: 11px; color: #7d8ca3;">BX-04</span>
+          <span style="font-size: 14px; font-weight: 700;">騎士重盾</span>
+          <span class="code" style="font-size: 13px; color: #ff5a41;">3-80N</span>
+        </div>
+        <div style="display: flex; gap: 5px;">
+          <span class="tag" style="color: #6ea8ff; background: #14203a; border: 1px solid #23406e;">防守</span>
+        </div>
+        <div style="min-height: 38px; border-radius: 9px; background: #1a2332; border: 1px solid #2a3446; display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #9fb0c6;">加入我的商品</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="flex: 1; min-height: 20px;"></div>
+
+  <div style="display: flex; border-top: 1px solid #25303f; background: #0e141e; padding: 0 4px 8px;">
+    <div class="nav">首頁</div>
+    <div class="nav" style="color: #ff5a41; font-weight: 700; position: relative;">
+      <div style="position: absolute; top: 0; left: 14px; right: 14px; height: 3px; border-radius: 0 0 3px 3px; background: #ff5a41;"></div>
+      商品
+    </div>
+    <div class="nav">零件</div>
+    <div class="nav">配裝</div>
+    <div class="nav">3on3</div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

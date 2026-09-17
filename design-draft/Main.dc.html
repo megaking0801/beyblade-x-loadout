@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Archivo','Noto Sans TC',-apple-system,'PingFang TC',sans-serif; }
+    a { color: #ff6a4d; } a:hover { color: #ff8a72; }
+    .code { font-stretch: 125%; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+  </style>
+</helmet>
+
+<div style="width: 430px; min-height: 932px; background: #0b0f16; color: #e7ecf3; display: flex; flex-direction: column;">
+
+  <div style="padding: 20px 16px 8px; display: flex; flex-direction: column; gap: 4px;">
+    <div style="font-size: 26px; font-weight: 700; font-stretch: 112%; letter-spacing: -.01em;">我的陀螺櫃</div>
+    <div style="font-size: 13px; color: #8d9bb0;">登記買過的盒子，系統算出你能組什麼</div>
+  </div>
+
+  <div style="margin: 12px 16px 0; padding: 16px 14px; border-radius: 14px; background: linear-gradient(145deg,#16203055,#0f1724); border: 1px solid #25303f; display: flex; align-items: center; gap: 10px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1;">
+      <span style="font-size: 11px; color: #8d9bb0;">上蓋</span>
+      <span class="code" style="font-size: 32px; line-height: 1;">12</span>
+    </div>
+    <span style="color: #55637a; font-size: 16px;">×</span>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1;">
+      <span style="font-size: 11px; color: #8d9bb0;">固鎖</span>
+      <span class="code" style="font-size: 32px; line-height: 1;">9</span>
+    </div>
+    <span style="color: #55637a; font-size: 16px;">×</span>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1;">
+      <span style="font-size: 11px; color: #8d9bb0;">軸心</span>
+      <span class="code" style="font-size: 32px; line-height: 1;">11</span>
+    </div>
+    <div style="width: 1px; align-self: stretch; background: #25303f; margin: 0 4px;"></div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-left: 4px;">
+      <span style="font-size: 11px; color: #8d9bb0;">可組</span>
+      <span class="code" style="font-size: 32px; line-height: 1; color: #ff5a41;">1188</span>
+    </div>
+  </div>
+
+  <div style="padding: 20px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">賽場正在用什麼</div>
+
+  <div style="margin: 0 16px; border-radius: 14px; border: 1px solid #25303f; background: #121926; overflow: hidden; display: flex; flex-direction: column;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #25303f;">
+      <span class="code" style="font-size: 12px; color: #ffb454; border: 1px solid #5a441f; background: #291f0e; border-radius: 6px; padding: 2px 6px;">冠軍</span>
+      <span style="font-size: 13px; flex: 1;">極限盃 G1 高雄站</span>
+      <span class="code" style="font-size: 12px; color: #8d9bb0;">07/25</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #2f6bd8; flex: 0 0 8px;"></span>
+        <span style="font-size: 14px; flex: 1;">榮耀戰神 <span class="code">K</span></span>
+        <span style="font-size: 11px; color: #6ea8ff; background: #14203a; border: 1px solid #23406e; border-radius: 5px; padding: 2px 6px;">防守</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #d83b2f; flex: 0 0 8px;"></span>
+        <span style="font-size: 14px; flex: 1;">鮫鯊狂鱗 <span class="code">7-60 R</span></span>
+        <span style="font-size: 11px; color: #ff8a72; background: #2e1512; border: 1px solid #5c2820; border-radius: 5px; padding: 2px 6px;">攻擊</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #2c9e6b; flex: 0 0 8px;"></span>
+        <span style="font-size: 14px; flex: 1;">魔導神杖 <span class="code">1-60 H</span></span>
+        <span style="font-size: 11px; color: #58d39b; background: #0f2620; border: 1px solid #1f5140; border-radius: 5px; padding: 2px 6px;">持久</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 20px 16px 8px; font-size: 13px; font-weight: 700; color: #8d9bb0;">快速操作</div>
+  <div style="margin: 0 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+    <div style="border-radius: 12px; border: 1px solid #25303f; background: #121926; padding: 14px; display: flex; flex-direction: column; gap: 4px; min-height: 76px;">
+      <span style="font-size: 15px; font-weight: 700;">登記新盒子</span>
+      <span style="font-size: 12px; color: #8d9bb0;">買了哪一盒</span>
+    </div>
+    <div style="border-radius: 12px; border: 1px solid #25303f; background: #121926; padding: 14px; display: flex; flex-direction: column; gap: 4px; min-height: 76px;">
+      <span style="font-size: 15px; font-weight: 700;">我能組什麼</span>
+      <span style="font-size: 12px; color: #8d9bb0;">現有零件排列</span>
+    </div>
+  </div>
+
+  <div style="flex: 1;"></div>
+
+  <div style="display: flex; border-top: 1px solid #25303f; background: #0e141e; padding: 0 4px 8px;">
+    <div style="flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #ff5a41; position: relative;">
+      <div style="position: absolute; top: 0; left: 14px; right: 14px; height: 3px; border-radius: 0 0 3px 3px; background: #ff5a41;"></div>
+      <span style="font-size: 14px; font-weight: 700;">首頁</span>
+    </div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">商品</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">零件</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">配裝</div>
+    <div style="flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; color: #8d9bb0; font-size: 14px; font-weight: 600;">3on3</div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

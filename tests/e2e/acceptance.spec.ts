@@ -210,6 +210,33 @@ test('一般上蓋的固鎖欄位可以正常選（鎖定只發生在一體式�
   await expect(page.getByTestId('slot-locked-ratchetId')).toHaveCount(0)
 })
 
+test('賽事用過的配置會給出可回查的證據理由', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  // G1 高雄站冠軍實際用過的一顆配置
+  await pickSlot(page, 'bladeId', 'blade:ウィザードロッド')
+  await pickSlot(page, 'ratchetId', 'ratchet:1-60')
+  await pickSlot(page, 'bitId', 'bit:H')
+
+  const reasons = page.getByTestId('evidence-reasons')
+  await expect(reasons).toBeVisible()
+  await expect(reasons).toContainText('整套出現在')
+  await expect(reasons).toContainText('冠軍')
+  await expect(reasons.getByRole('link', { name: '來源' }).first()).toBeVisible()
+})
+
+test('沒有證據的配置要說清楚為什麼，不是留白', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ナイトシールド')
+  await pickSlot(page, 'ratchetId', 'ratchet:4-80')
+  await pickSlot(page, 'bitId', 'bit:N')
+
+  const reasons = page.getByTestId('evidence-reasons')
+  await expect(reasons).toBeVisible()
+  await expect(reasons).toContainText('還沒進高手榜')
+})
+
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()

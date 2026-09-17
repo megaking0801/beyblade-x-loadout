@@ -1145,7 +1145,7 @@ function main() {
 
   for (const sourceEvent of [
     ...(tournamentSource.observationEvents ?? []),
-    ...toObservationEvents(hubTournaments, parts),
+    ...toObservationEvents(hubTournaments, parts, tournamentSource.observationEvents ?? []),
   ]) {
     const acceptedObservations = []
     for (const sourceObservation of sourceEvent.observations) {
@@ -1214,6 +1214,7 @@ function main() {
   addHubImages(catalog, hubStats, audit, cxHubKeyByPartId)
   applyLocalImageMirror(catalog, audit)
   audit.partCount = catalog.parts.length
+  audit.hubTournamentDuplicates = toObservationEvents.duplicates ?? []
   audit.tournamentEventCount = tournamentEvents.length
   audit.tournamentDeckCount = tournamentDecks.length
   audit.tournamentObservationCount = tournamentObservations.length
@@ -1250,7 +1251,25 @@ function main() {
  * 不符合牌組驗證要求的三顆三件式。觀測本來就是為「有原始文字、零件可部分映射」
  * 的回報設計的，用它才不會為了塞進格式而丟掉資料或補值。
  */
-function toObservationEvents(hubTournaments, partById) {
+/**
+ * 場次去重用的鍵：同一天、同一場、同一組別視為同一場比賽。
+ *
+ * 兩邊的寫法不同 —— 人工彙整寫「極限盃 G1 高雄站（通常組）」，
+ * 抓取寫「極限盃 G1 高雄站（高雄夢時代） 通常組」（場館在括號裡、組別在外）。
+ * 所以取「第一個括號之前的場名」加上從全名裡找到的組別，兩種寫法才對得起來。
+ */
+function eventDedupeKey(name, date, division) {
+  const base = String(name).split(/[（(]/u)[0].replace(/\s+/gu, '')
+  const divisionInName = /(成人組|通常組|少年組)/u.exec(String(name))?.[1]
+  return `${date}|${base}|${division ?? divisionInName ?? ''}`
+}
+
+function toObservationEvents(hubTournaments, partById, existingEvents) {
+  // 人工彙整的資料經過逐筆核對，同一場比賽以它為準，抓取的那份跳過，
+  // 否則同一場會被算兩次、來源連結也會重複列出。
+  const existingKeys = new Set(
+    existingEvents.map((entry) => eventDedupeKey(entry.event.name, entry.event.date)),
+  )
   const SLOT_BY_FAMILY = {
     blade: 'bladeId',
     integrated_blade: 'bladeId',
@@ -1262,7 +1281,16 @@ function toObservationEvents(hubTournaments, partById) {
     bit: 'bitId',
   }
 
-  return (hubTournaments.events ?? []).map((event) => ({
+  const duplicates = []
+  const kept = (hubTournaments.events ?? []).filter((event) => {
+    const key = eventDedupeKey(event.nameZhTW, event.date, event.divisionZhTW)
+    if (!existingKeys.has(key)) return true
+    duplicates.push({ id: event.id, nameZhTW: event.nameZhTW, date: event.date })
+    return false
+  })
+  toObservationEvents.duplicates = duplicates
+
+  return kept.map((event) => ({
     event: {
       id: event.id,
       name: [event.nameZhTW, event.divisionZhTW].filter(Boolean).join(' '),

@@ -6,9 +6,9 @@
   "productCount": 149,
   "partCount": 205,
   "imageCount": 344,
-  "tournamentEventCount": 24,
+  "tournamentEventCount": 23,
   "tournamentDeckCount": 14,
-  "tournamentObservationCount": 102,
+  "tournamentObservationCount": 93,
   "rejectedTournamentDecks": [],
   "rejectedTournamentObservations": [],
   "productsWithoutImages": [
@@ -543,5 +543,12 @@
   "localImages": {
     "mirrored": 344,
     "stillRemote": 0
-  }
+  },
+  "hubTournamentDuplicates": [
+    {
+      "id": "beybladehub-20260725-2",
+      "nameZhTW": "極限盃 G1 高雄站（高雄夢時代）",
+      "date": "2026-07-25"
+    }
+  ]
 }

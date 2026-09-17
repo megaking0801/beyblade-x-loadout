@@ -10,6 +10,7 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
+import { buildEvidenceReasons, NO_EVIDENCE_NOTE_ZH } from '../../domain/reasons.ts'
 import {
   getBuilderSlotSchema,
   hasIntegratedRatchet,
@@ -149,6 +150,19 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   )
   const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
   const expertPartRatings = useMemo(() => getExpertPartRatings(slots), [slots])
+  // 證據理由：把高手評級與賽事觀測翻成一句一句可回查的話。
+  // 刻意不餵進六軸，模型歸模型、證據歸證據（第 20 節 D）。
+  const evidenceReasons = useMemo(
+    () =>
+      buildEvidenceReasons({
+        slots,
+        parts,
+        ratings: expertPartRatings,
+        observations: tournamentObservations,
+        events: tournamentEvents,
+      }),
+    [slots, parts, expertPartRatings, tournamentObservations, tournamentEvents],
+  )
   const observedMatches = useMemo(
     () => getObservedComboMatches({ slots, events: tournamentEvents, observations: tournamentObservations }),
     [slots, tournamentEvents, tournamentObservations],
@@ -277,6 +291,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         evidenceReport={evidenceReport}
         expertTierMatches={expertTierMatches}
         expertPartRatings={expertPartRatings}
+        evidenceReasons={evidenceReasons}
+        hasAnySelection={hasAnySelection}
         observedMatches={observedMatches}
       />
 
@@ -400,12 +416,16 @@ export function ComboResult({
   evidenceReport,
   expertTierMatches,
   expertPartRatings,
+  evidenceReasons,
+  hasAnySelection,
   observedMatches,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
   expertTierMatches: ReturnType<typeof getExpertTierMatches>
   expertPartRatings: ReturnType<typeof getExpertPartRatings>
+  evidenceReasons: ReturnType<typeof buildEvidenceReasons>
+  hasAnySelection: boolean
   observedMatches: ReturnType<typeof getObservedComboMatches>
 }) {
   return (
@@ -476,17 +496,49 @@ export function ComboResult({
           </div>
         ) : null}
 
+        {/*
+          證據優先於模型：先講「賽場上真的有人這樣打」「幾位高手評幾級」，
+          再講模型推估的優缺點。兩段刻意分開，不合併成一個分數（第 20 節 D）。
+        */}
+        {hasAnySelection ? (
+          <div style={{ fontSize: 13 }} data-testid="evidence-reasons">
+            <strong>為什麼這樣配：</strong>
+            {evidenceReasons.length === 0 ? (
+              <div className="meta" style={{ marginTop: 4 }}>{NO_EVIDENCE_NOTE_ZH}</div>
+            ) : (
+              <ul style={{ margin: '6px 0 0', paddingLeft: 18, display: 'grid', gap: 5 }}>
+                {evidenceReasons.map((reason) => (
+                  <li key={`${reason.kind}-${reason.textZhTW}`}>
+                    <Badge tone={reason.kind === 'tournament' ? 'accent' : 'warn'}>
+                      {reason.kind === 'tournament' ? '賽事' : '高手'}
+                    </Badge>{' '}
+                    {reason.textZhTW}
+                    {reason.sourceUrl ? (
+                      <>
+                        {' '}
+                        <a href={reason.sourceUrl} target="_blank" rel="noreferrer">
+                          來源
+                        </a>
+                      </>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ) : null}
+
         {analysis.prosZhTW.length > 0 || analysis.consZhTW.length > 0 ? (
           <div style={{ display: 'grid', gap: 6, fontSize: 14 }}>
             {analysis.prosZhTW.length > 0 ? (
               <div>
-                <strong style={{ color: 'var(--ok)' }}>優點：</strong>
+                <strong style={{ color: 'var(--ok)' }}>優點（模型推估）：</strong>
                 {analysis.prosZhTW.join('；')}
               </div>
             ) : null}
             {analysis.consZhTW.length > 0 ? (
               <div>
-                <strong style={{ color: 'var(--danger)' }}>缺點：</strong>
+                <strong style={{ color: 'var(--danger)' }}>缺點（模型推估）：</strong>
                 {analysis.consZhTW.join('；')}
               </div>
             ) : null}

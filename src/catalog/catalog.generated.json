@@ -15905,15 +15905,6 @@
       "sourceUrl": "https://beybladehub.app/tournaments"
     },
     {
-      "id": "beybladehub-20260725-2",
-      "name": "極限盃 G1 高雄站（高雄夢時代） 通常組",
-      "date": "2026-07-25",
-      "tier": "community",
-      "format": "Standard 3on3",
-      "sourceTier": "community",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
       "id": "beybladehub-20260627-3",
       "name": "極限盃 G1 台中站（LaLaport 台中北館） 成人組",
       "date": "2026-06-27",
@@ -16623,115 +16614,6 @@
         "ratchetId": "ratchet:9-60"
       },
       "reportedCombo": "戰神爆擊 W 9-60 H",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-1-1",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 1,
-      "slots": {
-        "bladeId": "blade:シャークスケイル",
-        "ratchetId": "ratchet:6-60",
-        "bitId": "bit:Nr"
-      },
-      "reportedCombo": "鮫鯊狂鱗 6-60 Nr",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-1-2",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 1,
-      "slots": {
-        "bladeId": "blade:ウィザードロッド",
-        "ratchetId": "ratchet:1-60",
-        "bitId": "bit:FB"
-      },
-      "reportedCombo": "魔導神杖 1-60 FB",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-1-3",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 1,
-      "slots": {
-        "bladeId": "blade:コバルトドラグーン",
-        "ratchetId": "ratchet:9-60",
-        "bitId": "bit:E"
-      },
-      "reportedCombo": "蒼穹龍騎士 9-60 E",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-2-1",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 2,
-      "slots": {
-        "bladeId": "blade:ウィザードロッド",
-        "ratchetId": "ratchet:3-60",
-        "bitId": "bit:FB"
-      },
-      "reportedCombo": "魔導神杖 3-60 FB",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-2-2",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 2,
-      "slots": {
-        "bladeId": "blade:シャークスケイル",
-        "ratchetId": "ratchet:1-60",
-        "bitId": "bit:LR"
-      },
-      "reportedCombo": "鮫鯊狂鱗 1-60 LR",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-2-3",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 2,
-      "slots": {
-        "bladeId": "blade:クロックミラージュ",
-        "ratchetId": "ratchet:4-55",
-        "bitId": "bit:LO"
-      },
-      "reportedCombo": "時鐘幻象 4-55 LO",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-3-1",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 3,
-      "slots": {
-        "lockChipId": "lock_chip:Vl",
-        "mainBladeId": "main_blade:Bl",
-        "bitId": "bit:H",
-        "ratchetId": "ratchet:9-60"
-      },
-      "reportedCombo": "戰神爆擊 W 9-60 H",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-3-2",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 3,
-      "slots": {
-        "bladeId": "blade:シャークスケイル",
-        "ratchetId": "ratchet:1-50",
-        "bitId": "bit:Nr"
-      },
-      "reportedCombo": "鮫鯊狂鱗 1-50 Nr",
-      "sourceUrl": "https://beybladehub.app/tournaments"
-    },
-    {
-      "id": "beybladehub-20260725-2-3-3",
-      "eventId": "beybladehub-20260725-2",
-      "placement": 3,
-      "slots": {
-        "bladeId": "blade:ウィザードロッド",
-        "ratchetId": "ratchet:1-60",
-        "bitId": "bit:FB"
-      },
-      "reportedCombo": "魔導神杖 1-60 FB",
       "sourceUrl": "https://beybladehub.app/tournaments"
     },
     {
