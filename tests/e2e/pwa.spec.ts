@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { pickSlot } from './helpers.ts'
 
 /**
  * PWA 與執行期健康度。
@@ -285,9 +286,9 @@ test('主要頁面畫面上不得出現日文假名', async ({ page }) => {
 
   // 配裝器選滿零件後的結果面板也要檢查
   await openApp(page, '/builder')
-  await page.getByLabel('上蓋').selectOption('blade:ドランソード')
-  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
-  await page.getByLabel('軸心').selectOption('bit:F')
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
   await expect(page.getByText('配裝結果')).toBeVisible()
   const builderText = await page.locator('body').innerText()
   const builderHits = builderText
@@ -309,22 +310,22 @@ test('CX 四件式在配裝器會出現超越戰刃欄位，三件式不會', as
   await page.getByRole('button', { name: 'CX 模組化' }).click()
 
   // 紋章與主刃已拆成兩個槽位（社群站有收錄的那幾顆）
-  await page.getByLabel('鎖定紋章').selectOption('lock_chip:Dr')
+  await pickSlot(page, 'lockChipId', 'lock_chip:Dr')
 
   // 三件式主刃：沒有超越戰刃欄位
-  await page.getByLabel('主刃').selectOption('main_blade:Br')
+  await pickSlot(page, 'mainBladeId', 'main_blade:Br')
   await expect(page.getByLabel('超越戰刃')).toHaveCount(0)
 
   // 四件式主刃（金屬主刃）：欄位出現，且沒選會被擋下
-  await page.getByLabel('主刃').selectOption('main_blade:metal-Bl')
+  await pickSlot(page, 'mainBladeId', 'main_blade:metal-Bl')
   await expect(page.getByLabel('超越戰刃')).toBeVisible()
-  await page.getByLabel('輔助戰刃').selectOption('assist_blade:S')
-  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
-  await page.getByLabel('軸心').selectOption('bit:F')
+  await pickSlot(page, 'assistBladeId', 'assist_blade:S')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
   await expect(page.getByTestId('compat-error')).toContainText('尚未選擇超越戰刃')
 
   // 選滿之後可以安裝，結構顯示為 CX 四件式
-  await page.getByLabel('超越戰刃').selectOption('over_blade:B')
+  await pickSlot(page, 'overBladeId', 'over_blade:B')
   await expect(page.getByTestId('compat-error')).toHaveCount(0)
   await expect(page.getByText('CX 模組化（上蓋四件式）').first()).toBeVisible()
 })
@@ -338,11 +339,11 @@ test('CX 可以混搭不同商品的紋章與主刃', async ({ page }) => {
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
   await page.getByRole('button', { name: 'CX 模組化' }).click()
 
-  await page.getByLabel('鎖定紋章').selectOption('lock_chip:Dr')
-  await page.getByLabel('主刃').selectOption('main_blade:Dr')
-  await page.getByLabel('輔助戰刃').selectOption('assist_blade:R')
-  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
-  await page.getByLabel('軸心').selectOption('bit:F')
+  await pickSlot(page, 'lockChipId', 'lock_chip:Dr')
+  await pickSlot(page, 'mainBladeId', 'main_blade:Dr')
+  await pickSlot(page, 'assistBladeId', 'assist_blade:R')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
 
   await expect(page.getByTestId('compat-error')).toHaveCount(0)
   await expect(page.getByText('CX 模組化（上蓋三件式）').first()).toBeVisible()

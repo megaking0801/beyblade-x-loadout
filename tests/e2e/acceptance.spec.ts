@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { pickSlot } from './helpers.ts'
 
 /**
  * 規格第 45 節 驗收核心情境 Case 1–10。
@@ -129,9 +130,9 @@ test.describe('第 45 節 驗收核心情境', () => {
     await addProductFromCatalog(page, 'BX-01', 1)
 
     await openApp(page, '/builder')
-    await page.getByLabel('上蓋').selectOption(BX01.blade)
-    await page.getByLabel('固鎖').selectOption(BX01.ratchet)
-    await page.getByLabel('軸心').selectOption(BX01.bit)
+    await pickSlot(page, 'bladeId', BX01.blade)
+    await pickSlot(page, 'ratchetId', BX01.ratchet)
+    await pickSlot(page, 'bitId', BX01.bit)
     await expect(page.getByTestId('compat-error')).toHaveCount(0)
     await page.getByTestId('combo-name').fill('我的第一套')
     await page.getByTestId('physically-built').check()
@@ -149,7 +150,7 @@ test.describe('第 45 節 驗收核心情境', () => {
     await addProductFromCatalog(page, 'BX-01', 1)
 
     await openApp(page, '/builder')
-    await page.getByLabel('上蓋').selectOption(BX01.blade)
+    await pickSlot(page, 'bladeId', BX01.blade)
     await page.getByTestId('combo-name').fill('缺零件的配裝')
 
     const error = page.getByTestId('compat-error')
@@ -189,13 +190,23 @@ test('一體式上蓋會清除既選固鎖，且可直接搭配軸心', async ({
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
 
   // 先選固鎖再換一體式上蓋，是先前會留下矛盾欄位的回歸路徑。
-  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
-  await page.getByLabel('上蓋').selectOption('integrated_blade:バレットグリフォン')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bladeId', 'integrated_blade:バレットグリフォン')
   await expect(page.getByLabel('固鎖')).toHaveCount(0)
   await expect(page.getByText('此上蓋已含固鎖，不需另選')).toBeVisible()
 
-  await page.getByLabel('軸心').selectOption('bit:F')
+  await pickSlot(page, 'bitId', 'bit:F')
   await expect(page.getByTestId('compat-error')).toHaveCount(0)
+})
+
+test('零件挑選器可用日文別名搜尋，但結果只顯示中文', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await page.getByTestId('slot-trigger-bladeId').click()
+  const sheet = page.getByTestId('part-picker-sheet')
+  await sheet.getByTestId('picker-search').fill('ドランソード')
+  await expect(sheet.getByTestId('picker-option').first()).toContainText('蒼龍神劍')
+  expect(await sheet.innerText()).not.toMatch(/[\u3040-\u309f\u30a1-\u30fa\u30fc-\u30ff]/)
 })
 
 test('驗收測試檔本身有被執行（守門測試）', async () => {

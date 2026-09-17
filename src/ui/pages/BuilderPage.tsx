@@ -20,7 +20,6 @@ import {
   type BuilderStructure,
   type SlotDef,
 } from '../../domain/compatibility.ts'
-import { formatPartLabel } from '../../domain/naming.ts'
 import type { ComboSlots, Part } from '../../domain/types.ts'
 import { navigate, useRoute } from '../router.tsx'
 import {
@@ -33,6 +32,7 @@ import {
   ScoreBar,
   Section,
 } from '../components/ui.tsx'
+import { PartPickerField } from '../components/PartPicker.tsx'
 
 type BuilderMode = 'owned' | 'catalog' | 'hypothetical'
 type Structure = BuilderStructure
@@ -51,6 +51,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const availability = useAppStore((state) => state.availability)
+  const images = useAppStore((state) => state.images)
   const run = useAppStore((state) => state.run)
 
   const [mode, setMode] = useState<BuilderMode>('owned')
@@ -205,12 +206,14 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       <Section title="選擇零件">
         <div className="stack">
           {schema.map((def) => (
-            <SlotPicker
+            <PartPickerField
               key={def.key}
               def={def}
-              slots={slots}
-              parts={selectable}
+              options={selectable.filter((part) => def.families.includes(part.family))}
               selectedPart={parts.find((part) => part.id === slots[def.key])}
+              availability={availability}
+              images={images}
+              noteZhTW={noteForPart(def, parts.find((part) => part.id === slots[def.key]))}
               onChange={(next) => commitSlots({ ...slots, [def.key]: next || undefined })}
             />
           ))}
@@ -371,49 +374,9 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   )
 }
 
-function SlotPicker({
-  def,
-  slots,
-  parts,
-  selectedPart,
-  onChange,
-}: {
-  def: SlotDef
-  slots: ComboSlots
-  parts: Part[]
-  selectedPart?: Part
-  onChange: (next: string) => void
-}) {
-  const options = parts.filter((part) => def.families.includes(part.family))
-  const label = def.labelZhTW
-  const note = hasIntegratedRatchet(selectedPart)
-    ? def.key === 'bitId'
-      ? INTEGRATED_RATCHET_NOTE_BIT_ZH
-      : INTEGRATED_RATCHET_NOTE_BLADE_ZH
-    : undefined
-
-  return (
-    <label style={{ display: 'grid', gap: 4 }}>
-      <span style={{ fontSize: 13, color: 'var(--text-dim)' }}>{label}</span>
-      <select
-        className="field"
-        aria-label={label}
-        value={slots[def.key] ?? ''}
-        onChange={(event) => onChange(event.target.value)}
-      >
-        <option value="">尚未選擇{label}</option>
-        {options.map((part) => {
-          const partLabel = formatPartLabel(part)
-          return (
-            <option key={part.id} value={part.id}>
-              {partLabel.titleZhTW}
-            </option>
-          )
-        })}
-      </select>
-      {note ? <span className="meta">{note}</span> : null}
-    </label>
-  )
+function noteForPart(def: SlotDef, part: Part | undefined): string | undefined {
+  if (!hasIntegratedRatchet(part)) return undefined
+  return def.key === 'bitId' ? INTEGRATED_RATCHET_NOTE_BIT_ZH : INTEGRATED_RATCHET_NOTE_BLADE_ZH
 }
 
 export function ComboResult({ analysis }: { analysis: ReturnType<typeof analyzeCombo> }) {

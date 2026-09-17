@@ -34,6 +34,9 @@
   --radius: 12px;
   --radius-sm: 8px;
   --shell: 1080px;
+  --z-tabbar: 20;
+  --z-scrim: 40;
+  --z-sheet: 41;
 
   color-scheme: light dark;
 }
@@ -249,6 +252,20 @@ textarea {
   border-color: var(--signal);
 }
 
+.part-picker-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.part-picker-trigger > span:first-of-type { flex: 1; }
+.part-picker-row { width: 100%; border: 0; background: transparent; cursor: pointer; font: inherit; }
+.part-picker-row[aria-pressed='true'] { background: color-mix(in srgb, var(--signal) 10%, var(--surface)); }
+.part-picker-meta { display: block; margin-top: 3px; }
+.part-picker-list { border-width: 0; border-radius: 0; }
+
 /*
  * 底部導覽：目前頁用一條紅色軌道標示，像戰鬥盤上的齒軌。
  * 只用一個重點色，不整顆按鈕都上底色。
@@ -267,7 +284,46 @@ textarea {
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--rule);
-  z-index: 20;
+  z-index: var(--z-tabbar);
+}
+
+.sheet-scrim {
+  position: fixed;
+  z-index: var(--z-scrim);
+  inset: 0;
+  display: flex;
+  align-items: end;
+  background: color-mix(in srgb, #10151c 48%, transparent);
+}
+
+.sheet {
+  z-index: var(--z-sheet);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 88vh;
+  max-height: 88dvh;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 0 -12px 36px color-mix(in srgb, #10151c 28%, transparent);
+}
+
+.sheet-header,
+.sheet-footer {
+  flex: 0 0 auto;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sheet-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sheet-title { flex: 1; margin: 0; font-size: 18px; }
+.sheet-footer { border-top: 1px solid var(--rule); border-bottom: 0; }
+.sheet-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+@media (min-width: 760px) {
+  .sheet-scrim { align-items: center; justify-content: center; }
+  .sheet { width: min(560px, 92vw); max-height: 80vh; border-radius: var(--radius); }
 }
 
 .tabbar a {

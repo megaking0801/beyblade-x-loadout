@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { pickSlot } from './helpers.ts'
 
 const SHOTS = [
   { hash: '/', name: 'home' },
@@ -41,9 +42,9 @@ test('capture', async ({ page }, testInfo) => {
   await page.evaluate(() => {
     window.location.hash = '/builder'
   })
-  await page.getByLabel('上蓋').selectOption('blade:ドランソード')
-  await page.getByLabel('固鎖').selectOption('ratchet:3-60')
-  await page.getByLabel('軸心').selectOption('bit:F')
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
   await page.waitForTimeout(400)
   await page.screenshot({
     path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-builder.png`,
