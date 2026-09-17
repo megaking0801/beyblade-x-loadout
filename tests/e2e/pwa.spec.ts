@@ -408,6 +408,16 @@ test('零件詳情頁看得到圖片來源與授權狀態', async ({ page }) => 
   await expect(page.getByText('本機副本（未取得授權）', { exact: false })).toBeVisible()
 })
 
+test('零件詳情頁也顯示可追溯的高手 T 表評級', async ({ page }) => {
+  await openApp(page, '/part?id=blade%3A%E3%82%B7%E3%83%A3%E3%83%BC%E3%82%AF%E3%82%B9%E3%82%B1%E3%82%A4%E3%83%AB')
+  const tier = page.getByTestId('part-expert-tier')
+  await expect(tier).toContainText('T0')
+  await expect(tier).toContainText('阿土｜7月 高雄G1最強陀螺天梯表')
+  await expect(tier).toContainText('七月份T度排行')
+  await expect(tier).toContainText('不會改變賽事統計、模型分數或可信度')
+  await expect(tier.getByRole('link', { name: '來源' })).toHaveCount(2)
+})
+
 /**
  * 配裝比較的實際流程（第 34 節）。
  * 這頁版面重排過，順手守住「選兩套就會出現比較表」這條主線。

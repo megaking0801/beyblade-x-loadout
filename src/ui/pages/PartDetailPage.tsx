@@ -14,6 +14,7 @@ import {
 } from '../../domain/provenance.ts'
 import { BEY_TYPE_ZH, BIT_CONTACT_ZH, SPIN_DIRECTION_ZH } from '../../domain/types.ts'
 import { getPartTournamentDecks } from '../../domain/tournament.ts'
+import { getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
 import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
@@ -72,6 +73,10 @@ export function PartDetailPage({ partId }: { partId: string }) {
   const tournamentEventById = useMemo(
     () => new Map(tournamentEvents.map((event) => [event.id, event])),
     [tournamentEvents],
+  )
+  const expertTierMatches = useMemo(
+    () => getExpertTierMatches({ bladeId: partId }),
+    [partId],
   )
 
   if (!part) {
@@ -140,6 +145,22 @@ export function PartDetailPage({ partId }: { partId: string }) {
           ) : null}
         </div>
       </Section>
+
+      {expertTierMatches.length > 0 ? (
+        <Section title="高手 T 表評級">
+          <div className="card" style={{ display: 'grid', gap: 8, fontSize: 14 }} data-testid="part-expert-tier">
+            {expertTierMatches.map((match) => (
+              <div key={`${match.listTitleZhTW}-${match.tierLabel}`}>
+                <Badge tone="accent">{match.tierLabel}</Badge>{' '}
+                {match.listTitleZhTW}（{match.authorZhTW}，{match.updatedAt}）{' '}
+                <a href={match.sourceUrl} target="_blank" rel="noreferrer">來源</a>
+                <div className="meta">{match.noteZhTW}</div>
+              </div>
+            ))}
+            <div className="meta">這是獨立的社群評級，不會改變賽事統計、模型分數或可信度。</div>
+          </div>
+        </Section>
+      ) : null}
 
       <Section title="我有幾個">
         {row ? (
