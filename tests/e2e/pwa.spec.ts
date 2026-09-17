@@ -23,6 +23,9 @@ async function openApp(page: Page, hash = '/'): Promise<void> {
   await page.goto(`/#${hash}`)
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
+  // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
+  // 否則可能在 React 還掛著上一頁時就去點元素，事件會打到已被卸載的節點。
+  await expect(page.locator(`[data-route="${hash}"]`)).toBeVisible()
 }
 
 test('manifest 與 App icon 都存在且可取得', async ({ page, request }) => {
@@ -241,7 +244,13 @@ test('匯出備份與匯入備份可以來回', async ({ page }) => {
 
   await openApp(page, '/settings')
   await page.setInputFiles('input[aria-label="選擇備份檔"]', path as string)
-  await expect(page.getByText('已匯入備份，資料已覆蓋')).toBeVisible()
+  /*
+   * 超時放寬到 30 秒的原因（實測過，不是隨手加的）：
+   * 應用端 repo.importBackup 只花約 5 ms，慢的是 Playwright 把檔案經 CDP 交給
+   * Chromium 的那段；整檔一起跑（同時在錄 trace）時 File.text() 曾量到 12.7 秒，
+   * 單獨跑同一個測試只要 0.5 秒。這是測試通道的成本，不是產品效能問題。
+   */
+  await expect(page.getByText('已匯入備份，資料已覆蓋')).toBeVisible({ timeout: 30_000 })
   await openApp(page, '/')
   await expect(page.getByTestId('stat-products-value')).toHaveText('1')
   await expect(page.getByTestId('stat-blades-value')).toHaveText('2')

@@ -465,6 +465,20 @@ export function ComboResult({ analysis }: { analysis: ReturnType<typeof analyzeC
           )}
         </div>
 
+        {analysis.objective.statsNoticeZhTW ? (
+          <div style={{ fontSize: 13, color: 'var(--warn)' }}>
+            {analysis.objective.statsNoticeZhTW}
+            {analysis.objective.statsSourceUrls?.[0] ? (
+              <>
+                {' '}
+                <a href={analysis.objective.statsSourceUrls[0]} target="_blank" rel="noreferrer">
+                  來源
+                </a>
+              </>
+            ) : null}
+          </div>
+        ) : null}
+
         {analysis.dataCompleteness.missingFieldsZhTW.length > 0 ? (
           <div style={{ fontSize: 13, color: 'var(--warn)' }}>
             缺少官方資料：{analysis.dataCompleteness.missingFieldsZhTW.join('、')}

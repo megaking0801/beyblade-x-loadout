@@ -12,7 +12,7 @@ import { Badge, NoticeCard, PageHeader, Row, Section } from '../components/ui.ts
 export function SettingsPage() {
   const mode = useAppStore((state) => state.settings.mode)
   const setMode = useAppStore((state) => state.setMode)
-  const run = useAppStore((state) => state.run)
+  const refresh = useAppStore((state) => state.refresh)
   const catalogVersion = useAppStore((state) => state.catalogVersion)
   const summary = useAppStore((state) => state.summary)
   const [message, setMessage] = useState<string | null>(null)
@@ -86,10 +86,13 @@ export function SettingsPage() {
                 setMessage(null)
                 try {
                   const parsed = JSON.parse(await file.text())
-                  const ok = await run(() => repo.importBackup(parsed))
-                  setMessage(ok ? '已匯入備份，資料已覆蓋' : null)
-                } catch {
-                  setMessage('備份檔不是有效的 JSON')
+                  // 先完成匯入並立刻回饋，再重讀全域狀態。
+                  // refresh() 要重載整份圖鑑，等它跑完才顯示訊息會讓使用者以為沒反應。
+                  await repo.importBackup(parsed)
+                  setMessage('已匯入備份，資料已覆蓋')
+                  await refresh()
+                } catch (error) {
+                  setMessage(error instanceof Error ? error.message : '備份檔不是有效的 JSON')
                 }
                 event.target.value = ''
               }}

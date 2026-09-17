@@ -8,6 +8,7 @@
  * 沒有資料支持的限制不得自行推測。
  */
 import {
+  SPIN_DIRECTION_ZH,
   PART_FAMILY_ZH,
   type AssemblySystem,
   type CompatibilityRule,
@@ -125,11 +126,6 @@ export interface CompatibilityResult {
   warnings: CompatibilityIssue[]
 }
 
-const SPIN_ZH: Record<SpinDirection, string> = {
-  right: '右旋',
-  left: '左旋',
-  dual: '雙旋',
-}
 
 export interface CheckArgs {
   slots: ComboSlots
@@ -192,7 +188,7 @@ export function checkCompatibility(args: CheckArgs): CompatibilityResult {
   }
   if (directions.has('right') && directions.has('left')) {
     errors.push({
-      messageZhTW: `旋向衝突：${SPIN_ZH.right}零件與${SPIN_ZH.left}零件不能組在一起`,
+      messageZhTW: `旋向衝突：${SPIN_DIRECTION_ZH.right}零件與${SPIN_DIRECTION_ZH.left}零件不能組在一起`,
     })
   }
 

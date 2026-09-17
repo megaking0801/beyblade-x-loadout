@@ -7,6 +7,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../domain/naming.ts'
+import {
+  VERIFICATION_STATUS_ZH,
+  describeStatSource,
+  statFieldLabel,
+} from '../../domain/provenance.ts'
+import { BEY_TYPE_ZH, BIT_CONTACT_ZH, SPIN_DIRECTION_ZH } from '../../domain/types.ts'
 import { getPartTournamentDecks } from '../../domain/tournament.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
@@ -76,6 +82,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
   }
 
   const label = formatPartLabel(part)
+  const statSource = describeStatSource(part)
   const row = stock.get(part.id)
   const avail = availability.get(part.id)
   const preference = partPreferences.find((item) => item.partId === part.id)
@@ -99,13 +106,27 @@ export function PartDetailPage({ partId }: { partId: string }) {
             </div>
           </Row>
           <div>組裝系統：{part.system}</div>
-          <div>官方類型：{part.type ? part.type : '官方未公布'}</div>
-          <div>官方重量：{part.officialWeightG ? `${part.officialWeightG} g` : '官方未公布'}</div>
-          <div>旋向：{part.spinDirection ?? '官方未公布'}</div>
+          <div>
+            {statFieldLabel(part, '類型')}：
+            {part.type ? BEY_TYPE_ZH[part.type] : '官方未公布'}
+          </div>
+          <div>
+            {statFieldLabel(part, '重量')}：
+            {part.officialWeightG ? `${part.officialWeightG} g` : '官方未公布'}
+          </div>
+          <div>
+            {statFieldLabel(part, '旋向')}：
+            {part.spinDirection ? SPIN_DIRECTION_ZH[part.spinDirection] : '官方未公布'}
+          </div>
           {part.family === 'ratchet' ? (
             <div>高度標示：{part.heightCode ?? '官方未公布'}</div>
           ) : null}
-          {part.family === 'bit' ? <div>軸心特性：{part.bitContact ?? '官方未公布'}</div> : null}
+          {part.family === 'bit' ? (
+            <div>
+              {statFieldLabel(part, '軸心特性')}：
+              {part.bitContact ? BIT_CONTACT_ZH[part.bitContact] : '官方未公布'}
+            </div>
+          ) : null}
           {part.cxFused ? (
             <div style={{ color: 'var(--warn)' }}>
               此為 CX「鎖定紋章 + 主刃」已組合的狀態，官方尚未公布兩者個別名稱。
@@ -224,15 +245,47 @@ export function PartDetailPage({ partId }: { partId: string }) {
       </Section>
 
       <Section title="來源網址">
-        <div className="card" style={{ display: 'grid', gap: 6, fontSize: 14 }}>
-          {part.provenance.sourceUrls.map((url) => (
-            <a key={url} href={url} target="_blank" rel="noreferrer">
-              {url}
-            </a>
-          ))}
-          <div style={{ color: 'var(--text-dim)' }}>
-            核對日期：{part.provenance.verifiedAt ?? '未記錄'}
+        <div className="card" style={{ display: 'grid', gap: 10, fontSize: 14 }}>
+          <div style={{ display: 'grid', gap: 4 }}>
+            <div style={{ fontWeight: 600 }}>
+              零件身分（型號與名稱）
+              <Badge tone="ok">{VERIFICATION_STATUS_ZH[part.provenance.verificationStatus]}</Badge>
+            </div>
+            {part.provenance.sourceUrls.map((url) => (
+              <a key={url} href={url} target="_blank" rel="noreferrer">
+                {url}
+              </a>
+            ))}
+            <div style={{ color: 'var(--text-dim)' }}>
+              核對日期：{part.provenance.verifiedAt ?? '未記錄'}
+            </div>
           </div>
+
+          {statSource ? (
+            <div style={{ display: 'grid', gap: 4 }}>
+              <div style={{ fontWeight: 600 }}>
+                類型、重量與軸心特性
+                <Badge tone={statSource.isOfficial ? 'ok' : 'warn'}>{statSource.statusZhTW}</Badge>
+              </div>
+              {statSource.isOfficial ? null : (
+                <div style={{ color: 'var(--warn)' }}>
+                  官方沒有公布這些數值，這裡採用社群圖鑑的玩家實測，與官方數據不同。
+                </div>
+              )}
+              {statSource.sourceUrls.map((url) => (
+                <a key={url} href={url} target="_blank" rel="noreferrer">
+                  {url}
+                </a>
+              ))}
+              <div style={{ color: 'var(--text-dim)' }}>
+                核對日期：{statSource.verifiedAt ?? '未記錄'}
+              </div>
+            </div>
+          ) : (
+            <div style={{ color: 'var(--text-dim)' }}>
+              類型、重量與軸心特性目前沒有任何來源，因此留空。
+            </div>
+          )}
         </div>
       </Section>
     </>

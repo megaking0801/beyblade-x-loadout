@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { auditCatalog, catalog, catalogAudit, catalogMeta } from '../../src/catalog/index.ts'
 import { checkCompatibility } from '../../src/domain/compatibility.ts'
+import { analyzeCombo } from '../../src/domain/analysis.ts'
+import { statFieldLabel } from '../../src/domain/provenance.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../src/domain/naming.ts'
 
 /**
@@ -271,5 +273,34 @@ describe('相容性提示不得吐出內部 id 或日文（第 1.4 節）', () =
     }
     // 相容性訊息一律用中文的槽位與零件分類用語，不夾雜代號。
     expect(messages.map((message) => message.messageZhTW).join()).toMatch(/[一-鿿]/)
+  })
+})
+
+/**
+ * 資料層的守門在上面「類型、重量、旋向來自社群實測」那條。
+ * 這裡守的是顯示層：欄位標籤與配裝結果不能把社群數值講成官方數值。
+ */
+describe('社群數值在畫面上不得被講成官方數據（第 1.5、41 節）', () => {
+  it('社群來源的數值欄位標籤不會冠上「官方」', () => {
+    const community = catalog.parts.filter(
+      (part) => part.statsProvenance?.verificationStatus === 'community_only',
+    )
+    expect(community.length).toBeGreaterThan(0)
+    for (const part of community) {
+      expect(statFieldLabel(part, '重量')).toBe('重量（社群實測）')
+      expect(statFieldLabel(part, '重量')).not.toContain('官方')
+    }
+  })
+
+  it('配裝分析會帶出社群數值的提醒與來源', () => {
+    const result = analyzeCombo({
+      slots: { bladeId: 'blade:ドランソード', ratchetId: 'ratchet:3-60', bitId: 'bit:F' },
+      parts: catalog.parts,
+      rules: catalog.compatibilityRules,
+      lots: [],
+      combos: [],
+    })
+    expect(result.objective.statsNoticeZhTW).toContain('社群圖鑑')
+    expect(result.objective.statsSourceUrls?.[0]).toContain('beybladehub.app')
   })
 })

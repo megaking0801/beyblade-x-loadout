@@ -40,7 +40,11 @@ export function App() {
   }, [init])
 
   return (
-    <div className={mode === 'beginner' ? 'app-shell beginner-mode' : 'app-shell'}>
+    <div
+      className={mode === 'beginner' ? 'app-shell beginner-mode' : 'app-shell'}
+      // 目前路由標在外層，測試才能等到畫面真的換頁（導覽列在每一頁都存在，不能當依據）。
+      data-route={route.path}
+    >
       {errorZhTW ? <ErrorBanner message={errorZhTW} onClose={clearError} /> : null}
       {ready ? <Page path={route.path} query={route.query} /> : <LoadingView />}
       <nav className="tabbar" aria-label="主要導覽">

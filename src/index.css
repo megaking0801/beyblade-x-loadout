@@ -380,3 +380,16 @@ textarea {
   border-color: var(--signal);
   animation: just-added-flash 0.9s ease-out;
 }
+
+/*
+ * 列表裡的白話說明只顯示兩行。
+ * 社群資料有些說明是一整段（例如改版重量差異），整段塞進列表會把卡片擠爆；
+ * 完整內容在零件詳情頁看得到。
+ */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

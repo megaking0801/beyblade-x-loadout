@@ -10,17 +10,15 @@
  *  C 賽事證據：只做第 21 節允許的統計，勝率不在此層計算。
  *  D 可信度：資料缺漏或無賽事樣本時不得判為高。
  */
-import {
-  checkCompatibility,
-  deriveSystem,
-  getSlotSchemaForSlots,
-} from './compatibility.ts'
+import { checkCompatibility, deriveSystem, getSlotSchemaForSlots } from './compatibility.ts'
 import { computeAvailabilityMap } from './inventory.ts'
 import { resolveDisplayName } from './naming.ts'
+import { summarizeStatSources } from './provenance.ts'
 import { computeConfidence, computeMetaShare, computePlacementScore, type MetaShareResult } from './stats.ts'
 import {
   BEY_TYPE_ZH,
   BIT_CONTACT_ZH,
+  SPIN_DIRECTION_ZH,
   type AssemblySystem,
   type BeyType,
   type CompatibilityRule,
@@ -200,6 +198,9 @@ export interface EvidenceOutput extends EvidenceInput {
 }
 
 export interface ObjectiveData {
+  /** 第 22、41 節：數值來源不是官方時要講清楚。 */
+  statsNoticeZhTW?: string
+  statsSourceUrls?: string[]
   totalWeightG?: number
   heightCode?: number
   spinDirectionZhTW?: string
@@ -257,11 +258,6 @@ const STRUCTURE_ZH: Record<AssemblySystem, string> = {
 /** 缺漏欄位名稱只寫一次，判斷可信度時要比對它。 */
 const WEIGHT_FIELD_ZH = '官方重量'
 
-const SPIN_ZH: Record<SpinDirection, string> = {
-  right: '右旋',
-  left: '左旋',
-  dual: '雙旋',
-}
 
 const LAUNCH_BY_TYPE: Record<BeyType, string> = {
   attack: '用較強力道發射，瞄準對手側面製造撞擊',
@@ -312,12 +308,19 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   if (knownSpins.length === 0) missingFieldsZhTW.push('旋向')
   const decisiveSpin = knownSpins.find((spin) => spin !== 'dual')
   const spinDirectionZhTW = decisiveSpin
-    ? SPIN_ZH[decisiveSpin]
+    ? SPIN_DIRECTION_ZH[decisiveSpin]
     : knownSpins.length > 0
-      ? SPIN_ZH.dual
+      ? SPIN_DIRECTION_ZH.dual
       : undefined
 
+  const statsSummary = summarizeStatSources(resolvedParts)
   const objective: ObjectiveData = {
+    ...(statsSummary.hasCommunityStats
+      ? {
+          statsNoticeZhTW: statsSummary.noticeZhTW as string,
+          statsSourceUrls: statsSummary.sourceUrls,
+        }
+      : {}),
     ...(allWeightsKnown
       ? { totalWeightG: (weights as number[]).reduce((sum, w) => sum + w, 0) }
       : {}),

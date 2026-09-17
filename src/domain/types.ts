@@ -68,6 +68,13 @@ export type AssemblySystem = 'BX' | 'UX' | 'CX'
 
 export type SpinDirection = 'right' | 'left' | 'dual'
 
+/** 第 6 節：前台顯示用的旋向中文名稱。 */
+export const SPIN_DIRECTION_ZH: Record<SpinDirection, string> = {
+  right: '右旋',
+  left: '左旋',
+  dual: '雙旋',
+}
+
 export type BeyType = 'attack' | 'defense' | 'stamina' | 'balance'
 
 /** 第 6 節：前台顯示用的中文類型名稱。 */

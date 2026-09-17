@@ -141,7 +141,7 @@ function MyParts() {
                       </div>
                       {/* 分類已經寫在區塊標題上，列裡不再重複一次。 */}
                       {label.plainDescriptionZhTW ? (
-                        <div className="meta">{label.plainDescriptionZhTW}</div>
+                        <div className="meta clamp-2">{label.plainDescriptionZhTW}</div>
                       ) : null}
                       {preferenceByPartId.get(part.id)?.favorite ? (
                         <div className="meta" style={{ fontSize: 12 }}>

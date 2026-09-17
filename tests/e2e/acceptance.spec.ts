@@ -15,6 +15,9 @@ async function openApp(page: Page, hash = '/'): Promise<void> {
   await page.goto(`/#${hash}`)
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
+  // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
+  // 否則可能在 React 還掛著上一頁時就去點元素，事件會打到已被卸載的節點。
+  await expect(page.locator(`[data-route="${hash}"]`)).toBeVisible()
 }
 
 async function addProductFromCatalog(
