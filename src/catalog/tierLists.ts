@@ -15,6 +15,12 @@ export interface ExpertTierListIssue {
   messageZhTW: string
 }
 
+export const expertTierListMeta = {
+  source: raw.source,
+  fetchedAt: raw.fetchedAt,
+  listCount: raw.lists.length,
+} as const
+
 /**
  * T 表是手動策展資料，必須在測試中確認每個條目都能對到圖鑑零件，
  * 避免來源更新後前台安靜地失去評級。

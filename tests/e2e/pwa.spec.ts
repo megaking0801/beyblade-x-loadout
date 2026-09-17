@@ -389,6 +389,19 @@ test('設定頁列出所有圖片來源與只連結不散布的說明', async ({
   await expect(page.getByRole('link', { name: /Takara Tomy/ }).first()).toBeVisible()
 })
 
+test('設定頁說明官方、社群賽事與高手 T 表的資料界線', async ({ page }) => {
+  await openApp(page, '/settings')
+  const acknowledgement = page.getByTestId('source-acknowledgement')
+  await expect(acknowledgement).toContainText('Takara Tomy（官方）')
+  await expect(acknowledgement).toContainText('BeybladeHub（社群）')
+  await expect(acknowledgement).toContainText('非官方玩家資源站')
+  await expect(acknowledgement).toContainText('不會改變賽事統計、模型分數或可信度')
+  await expect(acknowledgement.getByRole('link', { name: '前往 BeybladeHub' })).toHaveAttribute(
+    'href',
+    'https://beybladehub.app',
+  )
+})
+
 test('零件詳情頁看得到圖片來源與授權狀態', async ({ page }) => {
   await openApp(page, '/part?id=blade%3A%E3%83%89%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%89')
   await expect(page.getByText('圖片來源：', { exact: false })).toBeVisible()

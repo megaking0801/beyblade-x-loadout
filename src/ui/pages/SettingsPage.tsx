@@ -7,6 +7,7 @@
 import { useRef, useState } from 'react'
 import { catalogMeta, repo, useAppStore } from '../../store/appStore.ts'
 import { auditCatalog, catalog, catalogAudit } from '../../catalog/index.ts'
+import { expertTierListMeta } from '../../catalog/tierLists.ts'
 import { Badge, NoticeCard, PageHeader, Row, Section } from '../components/ui.tsx'
 import { summarizeImageSources } from '../components/ImageSource.tsx'
 
@@ -137,6 +138,32 @@ export function SettingsPage() {
               圖鑑稽核 {issues.length === 0 ? '通過' : `${issues.length} 項問題`}
             </Badge>
           </Row>
+        </div>
+      </Section>
+
+      <Section title="資料來源與致謝">
+        <div className="card" style={{ display: 'grid', gap: 10, fontSize: 14 }} data-testid="source-acknowledgement">
+          <div>
+            <strong>Takara Tomy（官方）</strong>
+            <div className="meta">
+              商品身分、品號與官方商品一覽以官方資料為準；官方未公布的欄位會保留資料不足，不會自行補值。
+            </div>
+            <a href={catalogMeta.sourceUrl} target="_blank" rel="noreferrer">查看官方商品一覽</a>
+          </div>
+          <div>
+            <strong>BeybladeHub（社群）</strong>
+            <div className="meta">
+              感謝提供台灣慣用名稱、零件實測資料、圖片原始位置、套裝內容整理、賽事配置與高手 T 表來源。
+            </div>
+            <a href="https://beybladehub.app" target="_blank" rel="noreferrer">前往 BeybladeHub</a>
+          </div>
+          <NoticeCard tone="warn">
+            BeybladeHub 是非官方玩家資源站；社群數值、賽事配置與專家評級都會標示來源，不能視為官方公告或本站模型結論。
+          </NoticeCard>
+          <div className="meta">
+            高手 T 表目前收錄 {expertTierListMeta.listCount} 張具名公開表，資料擷取日 {expertTierListMeta.fetchedAt}。
+            T 表只作為獨立的社群觀點顯示，不會改變賽事統計、模型分數或可信度。
+          </div>
         </div>
       </Section>
 

@@ -1,10 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../../src/catalog/index.ts'
-import { auditExpertTierLists, getExpertTierMatches } from '../../src/catalog/tierLists.ts'
+import {
+  auditExpertTierLists,
+  expertTierListMeta,
+  getExpertTierMatches,
+} from '../../src/catalog/tierLists.ts'
 
 describe('高手 T 表', () => {
   it('每個策展條目都對得到既有零件，並保留可追溯來源', () => {
     expect(auditExpertTierLists(catalog.parts)).toEqual([])
+    expect(expertTierListMeta.listCount).toBe(2)
+    expect(expertTierListMeta.fetchedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/)
   })
 
   it('回傳所有選中零件的專家評級，且不遺失作者、日期與警語', () => {
