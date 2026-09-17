@@ -367,6 +367,13 @@ function addHubImages(catalog, hubStats, audit) {
     if (lookupKey) imageByFamilyKey.set(`${row.family}:${lookupKey}`, row.imageUrl)
   }
 
+/*
+ * 圖片歸屬：BeybladeHub 提供的是去背整理過的零件圖，原始商品外觀的著作權仍屬
+ * Takara Tomy，把 copyrightOwner 寫成 BeybladeHub 是錯的歸屬（第 25、1.5 節），
+ * 所以只記「圖片取自哪裡」，不宣稱誰擁有版權。
+ */
+const HUB_IMAGE_SOURCE_NAME = 'BeybladeHub 零件去背圖（外部連結）'
+const HUB_PARTS_URL = 'https://beybladehub.app/parts/blades'
   const imageByPartId = new Map()
   for (const part of catalog.parts) {
     const family = part.family === 'main_blade' ? 'blade' : part.family
@@ -379,8 +386,7 @@ function addHubImages(catalog, hubStats, audit) {
       entityId: part.id,
       url,
       sourceUrl: `https://beybladehub.app/parts/${family === 'blade' ? 'blades' : `${family}s`}`,
-      sourceName: 'BeybladeHub 零件圖鑑',
-      copyrightOwner: 'BeybladeHub',
+      sourceName: HUB_IMAGE_SOURCE_NAME,
       usageStatus: 'link_only',
     })
   }
@@ -399,8 +405,10 @@ function addHubImages(catalog, hubStats, audit) {
     )
     if (existing) {
       existing.url = url
-      existing.sourceName = 'BeybladeHub 零件圖鑑'
-      existing.copyrightOwner = 'BeybladeHub'
+      existing.sourceName = HUB_IMAGE_SOURCE_NAME
+      // 換成社群去背圖之後，原本標的官方版權人與官方頁就不再是這張圖的來源。
+      delete existing.copyrightOwner
+      existing.sourceUrl = HUB_PARTS_URL
     } else {
       catalog.images.push({
         id: `product:${product.id}:hub`,
@@ -408,8 +416,7 @@ function addHubImages(catalog, hubStats, audit) {
         entityId: product.id,
         url,
         sourceUrl: 'https://beybladehub.app/parts/blades',
-        sourceName: 'BeybladeHub 零件圖鑑',
-        copyrightOwner: 'BeybladeHub',
+        sourceName: HUB_IMAGE_SOURCE_NAME,
         usageStatus: 'link_only',
       })
     }
@@ -444,6 +451,8 @@ function main() {
     productsWithoutImages: [],
     unparsedBeyProducts: [],
     contentsUnknownProducts: [],
+    randomContentsByDesign: [],
+    noPartsProducts: [],
     untranslatedNames: [],
     knownGaps: [
       '官方商品頁未公布零件的類型、重量、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。',
@@ -590,7 +599,9 @@ function main() {
     } else if (isRandom) {
       contentsKnown = false
     } else if (category === 'tool' || category === 'accessory') {
+      // 配件類本來就不含可配裝零件，算「已知：沒有零件」，不是待查。
       contentsKnown = true
+      audit.noPartsProducts.push({ id, nameJa: row.nameJa, category })
     } else if (row.nameJa.startsWith('ビットセット')) {
       const codes = (row.nameJa.match(/([A-Z]+(?:\/[A-Z]+)+)/) ?? [])[1]
       if (codes) {
@@ -621,7 +632,12 @@ function main() {
 
     if (!contentsKnown) {
       if (isRandom) {
-        audit.contentsUnknownProducts.push({ id, nameJa: row.nameJa, reason: '隨機內容，官方未公布款式' })
+        // 隨機補充包是刻意不填，不是資料缺漏，分開記才不會看起來像 20 幾筆待補。
+        audit.randomContentsByDesign.push({
+          id,
+          nameJa: row.nameJa,
+          reason: '隨機內容，開封後由使用者自行登記實際抽到的零件',
+        })
       } else if (category === 'starter' || category === 'booster') {
         audit.unparsedBeyProducts.push({ id, nameJa: row.nameJa, reason: '商品名不符合可解析的零件命名規則' })
       } else {
@@ -708,7 +724,11 @@ function main() {
 
   console.log(`商品 ${products.length} 筆、零件 ${catalog.parts.length} 筆`)
   console.log(`零件組成未解析：${audit.unparsedBeyProducts.length} 筆`)
-  console.log(`內容未知：${audit.contentsUnknownProducts.length} 筆`)
+  console.log(
+    `內容未知：${audit.contentsUnknownProducts.length} 筆、` +
+      `隨機包刻意不填：${audit.randomContentsByDesign.length} 筆、` +
+      `無零件商品：${audit.noPartsProducts.length} 筆`,
+  )
   console.log(`中文名稱未完全翻譯：${audit.untranslatedNames.length} 筆`)
   console.log(`賽事 ${tournamentEvents.length} 場、完整牌組 ${tournamentDecks.length} 副、拒絕 ${audit.rejectedTournamentDecks.length} 副`)
 }

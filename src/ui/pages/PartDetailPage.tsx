@@ -17,9 +17,11 @@ import { getPartTournamentDecks } from '../../domain/tournament.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
 import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
+import { ImageSourceNote } from '../components/ImageSource.tsx'
 
 export function PartDetailPage({ partId }: { partId: string }) {
   const parts = useAppStore((state) => state.parts)
+  const images = useAppStore((state) => state.images)
   const products = useAppStore((state) => state.products)
   const productVariants = useAppStore((state) => state.productVariants)
   const stock = useAppStore((state) => state.stock)
@@ -83,6 +85,9 @@ export function PartDetailPage({ partId }: { partId: string }) {
 
   const label = formatPartLabel(part)
   const statSource = describeStatSource(part)
+  const partImage = images.find(
+    (image) => image.entityType === 'part' && image.entityId === part.id,
+  )
   const row = stock.get(part.id)
   const avail = availability.get(part.id)
   const preference = partPreferences.find((item) => item.partId === part.id)
@@ -98,6 +103,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
         <div className="card" style={{ display: 'grid', gap: 6, fontSize: 14 }}>
           <Row>
             <PartThumb code={part.code} nameZhTW={label.titleZhTW} size={64} />
+            <ImageSourceNote image={partImage} />
             <div style={{ flex: 1 }}>
               {label.isProvisional ? <Badge>暫譯名稱</Badge> : null}
               {label.secondaryNames.length > 0 ? (

@@ -34,14 +34,24 @@ const bladeCodeByHubKey = new Map(
 )
 const partIds = new Set(catalog.parts.map((part) => part.id))
 
+/** 第 4 節：發射器、對戰盤、握把、收納盒這些本來就不含可配裝零件。 */
+const NO_PARTS_CATEGORIES = new Set(['tool', 'accessory'])
+
 /**
  * 只補內容目前是空的商品，已經有官方說明書佐證的不覆蓋。
  *
- * 隨機補充包一定排除：商品頁上的零件連結是「可能抽到的池」，不是盒內固定內容，
- * 照抄會變成憑空宣告開到什麼（第 13、1.5 節）。
+ * 排除兩類：
+ *  - 隨機補充包：商品頁上的零件連結是「可能抽到的池」，不是盒內固定內容，
+ *    照抄會變成憑空宣告開到什麼（第 13、1.5 節）。
+ *  - 配件類：本來就不含零件，BeybladeHub 也沒有這些商品頁，
+ *    以前會白抓 29 次 404，讓 skipped 看起來像資料缺漏。
  */
 const targets = catalog.products.filter(
-  (product) => product.contents.length === 0 && product.sku && !product.isRandom,
+  (product) =>
+    product.contents.length === 0 &&
+    product.sku &&
+    !product.isRandom &&
+    !NO_PARTS_CATEGORIES.has(product.category),
 )
 
 function resolveAnchor(anchor) {

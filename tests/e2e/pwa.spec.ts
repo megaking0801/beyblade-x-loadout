@@ -25,7 +25,8 @@ async function openApp(page: Page, hash = '/'): Promise<void> {
   await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
   // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
   // 否則可能在 React 還掛著上一頁時就去點元素，事件會打到已被卸載的節點。
-  await expect(page.locator(`[data-route="${hash}"]`)).toBeVisible()
+  // data-route 只放路徑，帶查詢字串的網址要先去掉 ? 後面那段才比對得到。
+  await expect(page.locator(`[data-route="${hash.split('?')[0]}"]`)).toBeVisible()
 }
 
 test('manifest 與 App icon 都存在且可取得', async ({ page, request }) => {
@@ -323,4 +324,32 @@ test('CX 四件式在配裝器會出現超越戰刃欄位，三件式不會', as
   await page.getByLabel('超越戰刃').selectOption('over_blade:B')
   await expect(page.getByTestId('compat-error')).toHaveCount(0)
   await expect(page.getByText('CX 模組化（上蓋四件式）').first()).toBeVisible()
+})
+
+/**
+ * 第 25 節：圖片只做外部連結。
+ * 既然不重新散布，離線時就必須靠 service worker 快取；而且來源要看得到。
+ */
+test('service worker 有把外部圖片納入快取規則', async ({ request }) => {
+  const sw = await request.get('/sw.js')
+  expect(sw.ok()).toBe(true)
+  // 網域在 sw.js 裡是正規表達式，點會被轉義成 \\.，比對前先把反斜線去掉。
+  const source = (await sw.text()).replace(/\\/g, '')
+  // 零件去背圖在這個網域，佔全部圖片的多數，漏掉就等於零件頁離線全破。
+  expect(source).toContain('img.beybladehub.app')
+  expect(source).toContain('beyblade.takaratomy.co.jp')
+})
+
+test('設定頁列出所有圖片來源與只連結不散布的說明', async ({ page }) => {
+  await openApp(page, '/settings')
+  await expect(page.getByRole('heading', { name: '圖片來源' })).toBeVisible()
+  await expect(page.getByText('不下載也不重新散布', { exact: false })).toBeVisible()
+  await expect(page.getByRole('link', { name: /BeybladeHub/ }).first()).toBeVisible()
+  await expect(page.getByRole('link', { name: /Takara Tomy/ }).first()).toBeVisible()
+})
+
+test('零件詳情頁看得到圖片來源與授權狀態', async ({ page }) => {
+  await openApp(page, '/part?id=blade%3A%E3%83%89%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%89')
+  await expect(page.getByText('圖片來源：', { exact: false })).toBeVisible()
+  await expect(page.getByText('僅外部連結，未重新散布', { exact: false })).toBeVisible()
 })

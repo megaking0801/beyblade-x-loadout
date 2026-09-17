@@ -8,6 +8,7 @@ import { useRef, useState } from 'react'
 import { catalogMeta, repo, useAppStore } from '../../store/appStore.ts'
 import { auditCatalog, catalog, catalogAudit } from '../../catalog/index.ts'
 import { Badge, NoticeCard, PageHeader, Row, Section } from '../components/ui.tsx'
+import { summarizeImageSources } from '../components/ImageSource.tsx'
 
 export function SettingsPage() {
   const mode = useAppStore((state) => state.settings.mode)
@@ -17,6 +18,8 @@ export function SettingsPage() {
   const summary = useAppStore((state) => state.summary)
   const [message, setMessage] = useState<string | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
+  const images = useAppStore((state) => state.images)
+  const imageSources = summarizeImageSources(images)
 
   const issues = auditCatalog(catalog)
 
@@ -137,6 +140,26 @@ export function SettingsPage() {
         </div>
       </Section>
 
+      <Section title="圖片來源">
+        <div className="card" style={{ display: 'grid', gap: 6, fontSize: 13 }}>
+          <div style={{ color: 'var(--text-dim)' }}>
+            所有圖片都只做外部連結，不下載也不重新散布（第 25 節）。
+            看過的圖會由 service worker 快取，離線時仍看得到；來源端改路徑或擋掉時會退回型號佔位圖。
+          </div>
+          {imageSources.map((row) => (
+            <div key={row.sourceName}>
+              <a href={row.sourceUrl} target="_blank" rel="noreferrer">
+                {row.sourceName}
+              </a>
+              {` ・ ${row.count} 張`}
+            </div>
+          ))}
+          <div style={{ color: 'var(--text-dim)' }}>
+            共 {images.length} 張。可用 `npm run check:images` 重新檢查是否還取得到。
+          </div>
+        </div>
+      </Section>
+
       <Section title="已知缺漏">
         <NoticeCard tone="warn">
           <ul style={{ margin: 0, paddingLeft: 18 }}>
@@ -145,9 +168,26 @@ export function SettingsPage() {
             ))}
           </ul>
         </NoticeCard>
-        <div className="card" style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-          內容待查商品 {catalogAudit.contentsUnknownProducts.length} 筆 ・ 零件組成未解析{' '}
-          {catalogAudit.unparsedBeyProducts.length} 筆。這些商品可以登記數量，但不會自動加入零件。
+        {/*
+          「刻意不填」與「真的缺」要分開講。
+          隨機補充包永遠不會有固定內容，把它算進待查會讓缺漏看起來比實際多兩倍。
+        */}
+        <div className="card" style={{ display: 'grid', gap: 6, fontSize: 13 }}>
+          <div>
+            <strong>真的還缺：</strong>
+            套裝內容待查 {catalogAudit.contentsUnknownProducts.length} 筆 ・ 零件組成解析不出來{' '}
+            {catalogAudit.unparsedBeyProducts.length} 筆。可以登記數量，但不會自動加入零件。
+          </div>
+          <div style={{ color: 'var(--text-dim)' }}>
+            <strong>刻意不填：</strong>
+            隨機補充包 {catalogAudit.randomContentsByDesign.length} 筆。盒內是哪一款要開封才知道，
+            照抄商品頁的「可能抽到」清單等於憑空宣告，所以留給你自己登記。
+          </div>
+          <div style={{ color: 'var(--text-dim)' }}>
+            <strong>本來就沒有零件：</strong>
+            發射器、對戰盤、握把、收納盒等 {catalogAudit.noPartsProducts.length} 筆。
+            這些會進配件庫，不進配裝器。
+          </div>
         </div>
       </Section>
     </>

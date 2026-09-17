@@ -22,6 +22,10 @@ export interface CatalogAudit {
   productsWithoutImages: { id: string; sku?: string }[]
   unparsedBeyProducts: { id: string; nameJa: string; reason: string }[]
   contentsUnknownProducts: { id: string; nameJa: string; reason: string }[]
+  /** 隨機補充包：刻意不填內容，不是資料缺漏（第 13 節）。 */
+  randomContentsByDesign: { id: string; nameJa: string; reason: string }[]
+  /** 發射器、對戰盤等本來就不含可配裝零件的商品（第 4 節）。 */
+  noPartsProducts: { id: string; nameJa: string; category: string }[]
   untranslatedNames: unknown[]
   knownGaps: string[]
 }

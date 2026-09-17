@@ -10,6 +10,7 @@ import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../d
 import { OWNED_PRODUCT_STATUS_ZH } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
 import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
+import { ImageSourceNote } from '../components/ImageSource.tsx'
 
 export function ProductDetailPage({ productId }: { productId: string }) {
   const products = useAppStore((state) => state.products)
@@ -46,6 +47,7 @@ export function ProductDetailPage({ productId }: { productId: string }) {
         <div className="card" style={{ display: 'grid', gap: 8 }}>
           <Row>
             <PartThumb code={product.sku ?? product.id} size={72} imageUrl={productImage?.url} />
+            <ImageSourceNote image={productImage} />
             <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>
               {productImage ? '官方主圖以外部連結顯示；離線或讀取失敗時會改用型號佔位。' : '尚未取得官方主圖，暫以型號佔位。'}
             </div>

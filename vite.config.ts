@@ -42,13 +42,19 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
+        /*
+         * 圖片全部是外部連結（第 25 節：只連結、不重新散布），所以離線時一定會破圖，
+         * 除非看過的圖有被快取。零件去背圖在 img.beybladehub.app，
+         * 目前佔全部圖片的多數，漏掉它等於零件頁離線全破。
+         */
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/(?:beyblade\.takaratomy\.co\.jp|tshop\.r10s\.jp|m\.media-amazon\.com)\//,
+            urlPattern:
+              /^https:\/\/(?:img\.beybladehub\.app|beyblade\.takaratomy\.co\.jp|tshop\.r10s\.jp|m\.media-amazon\.com)\//,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'beyblade-product-images',
-              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheName: 'beyblade-external-images',
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

@@ -68,8 +68,42 @@ describe('Catalog 基本完整性（第 42 節）', () => {
     expect(partImages.length).toBeGreaterThan(100)
     for (const image of partImages) {
       expect(image.usageStatus).toBe('link_only')
-      expect((image.copyrightOwner ?? '').trim().length).toBeGreaterThan(0)
+      expect(image.sourceName.trim().length).toBeGreaterThan(0)
+      expect(image.sourceUrl.trim().length).toBeGreaterThan(0)
       expect(catalog.parts.some((part) => part.id === image.entityId)).toBe(true)
+    }
+  })
+
+  it('不得把社群去背圖的版權掛給社群站（第 1.5、25 節）', () => {
+    /*
+     * 去背圖是社群整理的，原始商品外觀的著作權仍屬 Takara Tomy。
+     * 以前把 copyrightOwner 寫成 BeybladeHub，那是捏造的歸屬。
+     * 不知道版權人時就留空，並讓 sourceName／sourceUrl 指向實際取圖的地方。
+     */
+    const hubImages = catalog.images.filter((image) => image.url.includes('beybladehub.app'))
+    expect(hubImages.length).toBeGreaterThan(100)
+    for (const image of hubImages) {
+      expect(image.copyrightOwner).toBeUndefined()
+      expect(image.sourceUrl).toContain('beybladehub.app')
+      expect(image.sourceName).toContain('外部連結')
+    }
+  })
+
+  it('官方商品圖仍標明版權人為 Takara Tomy', () => {
+    const official = catalog.images.filter((image) => image.url.includes('takaratomy.co.jp'))
+    expect(official.length).toBeGreaterThan(0)
+    for (const image of official) {
+      expect(image.copyrightOwner).toBe('Takara Tomy')
+    }
+  })
+
+  it('每張圖都能對應到存在的商品或零件', () => {
+    for (const image of catalog.images) {
+      const exists =
+        image.entityType === 'part'
+          ? catalog.parts.some((part) => part.id === image.entityId)
+          : catalog.products.some((product) => product.id === image.entityId)
+      expect(exists, `${image.id} 指向不存在的 ${image.entityType}`).toBe(true)
     }
   })
 
@@ -382,5 +416,42 @@ describe('CX 四件式超越拆組（第 9、17 節）', () => {
     })
     expect(result.ok).toBe(false)
     expect(result.errors.map((issue) => issue.messageZhTW)).toContain('尚未選擇超越戰刃')
+  })
+})
+
+describe('稽核要把「刻意不填」與「真的缺」分開（第 13、42 節）', () => {
+  it('隨機補充包記在刻意不填，不算待查', () => {
+    expect(catalogAudit.randomContentsByDesign.length).toBeGreaterThan(0)
+    const randomIds = new Set(catalogAudit.randomContentsByDesign.map((row) => row.id))
+    for (const product of catalog.products.filter((row) => row.isRandom)) {
+      expect(randomIds.has(product.id), `${product.id} 應列為刻意不填`).toBe(true)
+    }
+    for (const row of catalogAudit.contentsUnknownProducts) {
+      const product = catalog.products.find((item) => item.id === row.id)
+      expect(product?.isRandom).toBe(false)
+    }
+  })
+
+  it('配件類記在無零件商品，也不算待查', () => {
+    expect(catalogAudit.noPartsProducts.length).toBeGreaterThan(0)
+    for (const row of catalogAudit.noPartsProducts) {
+      expect(['tool', 'accessory']).toContain(row.category)
+    }
+    const unknownIds = new Set(catalogAudit.contentsUnknownProducts.map((row) => row.id))
+    for (const row of catalogAudit.noPartsProducts) {
+      expect(unknownIds.has(row.id)).toBe(false)
+    }
+  })
+
+  it('真正待查的只剩套裝，數量遠少於混在一起時', () => {
+    expect(catalogAudit.contentsUnknownProducts.length).toBeLessThan(
+      catalogAudit.randomContentsByDesign.length + catalogAudit.noPartsProducts.length,
+    )
+    for (const row of catalogAudit.contentsUnknownProducts) {
+      const product = catalog.products.find((item) => item.id === row.id)
+      expect(['deck_set', 'battle_set', 'entry_set', 'part_set', 'starter', 'booster']).toContain(
+        product?.category,
+      )
+    }
   })
 })

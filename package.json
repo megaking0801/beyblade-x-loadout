@@ -16,7 +16,8 @@
     "shots": "playwright test --config=playwright.shots.config.ts",
     "build:pages": "GITHUB_ACTIONS=1 npm run build",
     "deploy:pages": "node scripts/deployPages.mjs",
-    "test:live": "playwright test --config=playwright.live.config.ts"
+    "test:live": "playwright test --config=playwright.live.config.ts",
+    "check:images": "node scripts/checkImages.mjs"
   },
   "dependencies": {
     "dexie": "^4.4.6",
