@@ -15,5 +15,10 @@
   "integratedRatchetBits": [
     { "code": "Op", "nameEn": "Operate", "note": "零件頁標示 Fused：固鎖做在軸心上" },
     { "code": "Tr", "nameEn": "Turbo", "note": "零件頁標示 Fused：固鎖做在軸心上，CX-07 沒有獨立固鎖" }
+  ],
+  "supplementalCatalogParts": [
+    { "hubKey": "Nr", "family": "bit", "system": "BX", "note": "G1 通常組來源可確認使用；隨機包款式尚未有官方固定內容表" },
+    { "hubKey": "ClMr", "family": "blade", "system": "UX", "note": "UX-16 隨機強化組的已知上蓋款式；名稱與數值來自社群零件頁" },
+    { "hubKey": "cx-chip-Vl", "family": "lock_chip", "system": "CX", "note": "CX 戰神紋章；官方只公布合併上蓋名稱，個別名稱來自社群零件頁" }
   ]
 }

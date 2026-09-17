@@ -1,8 +1,105 @@
 {
-  "version": "takaratomy-lineup-2026-09-16-r2",
+  "version": "takaratomy-lineup-2026-09-16-r3",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "parts": [
+    {
+      "id": "bit:Nr",
+      "family": "bit",
+      "code": "Nr",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "Nr",
+        "nameJa": "ナロー",
+        "nameEn": "Narrow",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:クロックミラージュ",
+      "family": "blade",
+      "code": "クロックミラージュ",
+      "system": "UX",
+      "naming": {
+        "primaryZhTW": "時鐘幻象",
+        "nameJa": "クロックミラージュ",
+        "nameEn": "ClockMirage",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 37.7,
+      "plainDescriptionZhTW": "產生驚異持久力的圓盤形狀六十枚刃，特化於長時間持續迴轉。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "lock_chip:Vl",
+      "family": "lock_chip",
+      "code": "Vl",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "戰神",
+        "nameEn": "Valkyrie",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
     {
       "id": "blade:ドランソード",
       "family": "blade",
@@ -13473,6 +13570,39 @@
       "isLocalMirror": true
     },
     {
+      "id": "part:bit:Nr:main",
+      "entityType": "part",
+      "entityId": "bit:Nr",
+      "url": "/img/efce78266cf53551.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Nr.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:クロックミラージュ:main",
+      "entityType": "part",
+      "entityId": "blade:クロックミラージュ",
+      "url": "/img/5141b45186d37c6e.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ClMr.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:lock_chip:Vl:main",
+      "entityType": "part",
+      "entityId": "lock_chip:Vl",
+      "url": "/img/5fd5a5178013c260.webp",
+      "sourceUrl": "https://beybladehub.app/parts/lock_chips",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Vl.webp",
+      "isLocalMirror": true
+    },
+    {
       "id": "part:blade:ドランソード:main",
       "entityType": "part",
       "entityId": "blade:ドランソード",
@@ -16132,6 +16262,18 @@
       "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     },
     {
+      "id": "kaohsiung-g1-regular-1-shark-6-60nr",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 1,
+      "comboPartIds": [
+        "blade:シャークスケイル",
+        "ratchet:6-60",
+        "bit:Nr"
+      ],
+      "reportedCombo": "鮫鯊狂鱗6-60Nr",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
       "id": "kaohsiung-g1-regular-1-cobalt-9-60e",
       "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
       "placement": 1,
@@ -16168,6 +16310,18 @@
       "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     },
     {
+      "id": "kaohsiung-g1-regular-2-clock-4-55lo",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 2,
+      "comboPartIds": [
+        "blade:クロックミラージュ",
+        "ratchet:4-55",
+        "bit:LO"
+      ],
+      "reportedCombo": "時鐘幻象4-55LO",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
       "id": "kaohsiung-g1-regular-3-wizard-1-60fb",
       "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
       "placement": 3,
@@ -16177,6 +16331,18 @@
         "bit:FB"
       ],
       "reportedCombo": "魔導神杖1-60FB",
+      "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
+    },
+    {
+      "id": "kaohsiung-g1-regular-3-shark-1-50nr",
+      "eventId": "beybladehub-kaohsiung-g1-regular-2026-07-25",
+      "placement": 3,
+      "comboPartIds": [
+        "blade:シャークスケイル",
+        "ratchet:1-50",
+        "bit:Nr"
+      ],
+      "reportedCombo": "鮫鯊狂鱗1-50Nr",
       "sourceUrl": "https://beybladehub.app/t/pNMyo8rY"
     }
   ],

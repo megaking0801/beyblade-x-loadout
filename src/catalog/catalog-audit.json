@@ -1,14 +1,14 @@
 {
-  "catalogVersion": "takaratomy-lineup-2026-09-16-r2",
+  "catalogVersion": "takaratomy-lineup-2026-09-16-r3",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-17",
   "productCount": 149,
-  "partCount": 201,
-  "imageCount": 340,
+  "partCount": 204,
+  "imageCount": 343,
   "tournamentEventCount": 11,
   "tournamentDeckCount": 14,
-  "tournamentObservationCount": 5,
+  "tournamentObservationCount": 8,
   "rejectedTournamentDecks": [],
   "rejectedTournamentObservations": [],
   "productsWithoutImages": [
@@ -516,7 +516,7 @@
   "hubStats": {
     "source": "BeybladeHub",
     "fetchedAt": "2026-09-16",
-    "matchedParts": 195,
+    "matchedParts": 198,
     "partsWithoutStats": [
       {
         "id": "main_blade:バックスアントラーズ",
@@ -537,11 +537,11 @@
     ]
   },
   "hubImages": {
-    "partImages": 195,
+    "partImages": 198,
     "productImagesReplaced": 73
   },
   "localImages": {
-    "mirrored": 340,
+    "mirrored": 343,
     "stillRemote": 0
   }
 }

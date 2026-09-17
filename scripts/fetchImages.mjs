@@ -50,7 +50,8 @@ const EXT_BY_TYPE = {
 }
 
 const catalog = JSON.parse(readFileSync(CATALOG_FILE, 'utf8'))
-const urls = [...new Set((catalog.images ?? []).map((image) => image.url))]
+// Catalog 已套用本機鏡像後 image.url 會是 /img/...；重新抓取時仍要使用保留的原始網址。
+const urls = [...new Set((catalog.images ?? []).map((image) => image.remoteUrl ?? image.url))]
 console.log(`要抓 ${urls.length} 個網址`)
 
 mkdirSync(OUT_DIR, { recursive: true })

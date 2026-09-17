@@ -240,6 +240,12 @@
           "comboPartIds": ["blade:ウィザードロッド", "ratchet:1-60", "bit:FB"]
         },
         {
+          "id": "kaohsiung-g1-regular-1-shark-6-60nr",
+          "placement": 1,
+          "reportedCombo": "鮫鯊狂鱗6-60Nr",
+          "comboPartIds": ["blade:シャークスケイル", "ratchet:6-60", "bit:Nr"]
+        },
+        {
           "id": "kaohsiung-g1-regular-1-cobalt-9-60e",
           "placement": 1,
           "reportedCombo": "蒼穹龍騎士9-60E",
@@ -258,10 +264,22 @@
           "comboPartIds": ["blade:シャークスケイル", "ratchet:1-60", "bit:LR"]
         },
         {
+          "id": "kaohsiung-g1-regular-2-clock-4-55lo",
+          "placement": 2,
+          "reportedCombo": "時鐘幻象4-55LO",
+          "comboPartIds": ["blade:クロックミラージュ", "ratchet:4-55", "bit:LO"]
+        },
+        {
           "id": "kaohsiung-g1-regular-3-wizard-1-60fb",
           "placement": 3,
           "reportedCombo": "魔導神杖1-60FB",
           "comboPartIds": ["blade:ウィザードロッド", "ratchet:1-60", "bit:FB"]
+        },
+        {
+          "id": "kaohsiung-g1-regular-3-shark-1-50nr",
+          "placement": 3,
+          "reportedCombo": "鮫鯊狂鱗1-50Nr",
+          "comboPartIds": ["blade:シャークスケイル", "ratchet:1-50", "bit:Nr"]
         }
       ]
     }

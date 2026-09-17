@@ -34,7 +34,7 @@ const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
 const FETCHED_AT = '2026-09-16'
 // 非商品一覽的策展資料更新也必須讓既有裝置重新載入 Catalog。
-const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r2`
+const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r3`
 
 const CATEGORY_BY_JA = {
   'スターター': 'starter',
@@ -694,6 +694,36 @@ function main() {
       },
     })
     return id
+  }
+
+  /*
+   * 隨機包的已知款式與 CX 的個別紋章未必能從官方商品名直接解析，
+   * 但若 BeybladeHub 零件頁已明確列出，就可用這份受限清單建立社群來源零件。
+   * 不掃描整份社群資料，避免把沒有商品或可追溯用途的條目一併塞進圖鑑。
+   */
+  for (const spec of hubStructure.supplementalCatalogParts ?? []) {
+    const hubRow = hubStats.parts.find((row) => row.key === spec.hubKey)
+    if (!hubRow?.zhTW) throw new Error(`補充零件找不到 BeybladeHub 資料：${spec.hubKey}`)
+    const cx = cxKeyToPart(hubRow.key)
+    const code = spec.code ?? cx?.code ?? (hubRow.family === 'blade' ? hubRow.nameJa : hubRow.key)
+    if (!code) throw new Error(`補充零件缺少代號：${spec.hubKey}`)
+    const id = ensurePart({
+      family: spec.family,
+      code,
+      system: spec.system,
+      naming: {
+        primaryZhTW: hubRow.zhTW,
+        ...(hubRow.nameJa ? { nameJa: hubRow.nameJa } : {}),
+        ...(hubRow.nameEn ? { nameEn: hubRow.nameEn } : {}),
+        isProvisionalZhTW: false,
+      },
+      provenance: {
+        sourceUrls: hubStats.sourceUrls,
+        verifiedAt: hubStats.fetchedAt,
+        verificationStatus: 'community_only',
+      },
+    })
+    cxHubKeyByPartId.set(id, hubRow.key)
   }
 
   /** 解析單顆陀螺名稱，回傳內含零件清單；解析失敗回 null。 */
