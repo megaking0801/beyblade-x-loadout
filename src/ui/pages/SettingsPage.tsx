@@ -46,7 +46,7 @@ export function SettingsPage() {
           </button>
         </Row>
         <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 6 }}>
-          新手模式字體較大、只顯示必要數據並說明原因；進階模式會顯示重量、來源與缺漏清單。
+          新手模式字體較大、只顯示必要數據並說明原因；進階模式會顯示來源與缺漏清單。
         </div>
       </Section>
 

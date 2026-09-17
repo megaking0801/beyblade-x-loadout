@@ -310,7 +310,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
           {statSource ? (
             <div style={{ display: 'grid', gap: 4 }}>
               <div style={{ fontWeight: 600 }}>
-                類型、重量與軸心特性
+                類型、旋向與軸心特性
                 <Badge tone={statSource.isOfficial ? 'ok' : 'warn'}>{statSource.statusZhTW}</Badge>
               </div>
               {statSource.isOfficial ? null : (
@@ -329,7 +329,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
             </div>
           ) : (
             <div style={{ color: 'var(--text-dim)' }}>
-              類型、重量與軸心特性目前沒有任何來源，因此留空。
+              類型、旋向與軸心特性目前沒有任何來源，因此留空。
             </div>
           )}
         </div>

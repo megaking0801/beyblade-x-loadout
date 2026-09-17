@@ -173,7 +173,7 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
   const members = structurallyValid ? assignRoles(slotsList, analyses) : []
   if (members.length > 0 && members.every((member) => !member.analysis.scores)) {
     warningsZhTW.push(
-      '這幾套配裝都缺少官方類型與重量資料，角色分配只依可組性，不代表強弱',
+      '這幾套配裝都缺少官方類型與旋向資料，角色分配只依可組性，不代表強弱',
     )
   }
 
@@ -206,7 +206,7 @@ function assignRoles(slotsList: ComboSlots[], analyses: ComboAnalysis[]): DeckMe
     dutyZhTW: string,
   ): string =>
     score === undefined
-      ? `${dutyZhTW}。目前官方未公布這些零件的類型與重量，${axisZhTW}無法評分，角色只依可組性分配`
+      ? `${dutyZhTW}。目前官方未公布這些零件的類型與旋向，${axisZhTW}無法評分，角色只依可組性分配`
       : `${axisZhTW} ${score} 分為隊中最高，${dutyZhTW}（模型推估）`
 
   const members: DeckMember[] = []

@@ -6,6 +6,64 @@
 
 ---
 
+## 明天開工第一件事：工作區有沒推的改動
+
+最後一個 commit 是 `2efdf4e`（可切換模式、去哪裡買、時鐘幻象固鎖限制，已部署上線）。
+**在那之後還有一批改動只在工作區，沒有 commit、沒有推、沒有部署。**
+
+### 那批改動是什麼
+
+上一段收尾時照規則截圖自檢，發現**前台文案還在講「重量」**——重量早就整個拔掉了，
+但「資料不足」那類說明字串沒跟著改。已經改掉的字串：
+
+| 檔案 | 原本 | 改成 |
+|---|---|---|
+| `src/ui/pages/BuilderPage.tsx` | 官方尚未公布這些零件的類型與**重量** | 類型與旋向 |
+| `src/ui/pages/HomePage.tsx` | 目前零件的**重量**與類型官方尚未公布 | 類型與旋向 |
+| `src/ui/pages/PartDetailPage.tsx`（2 處） | 類型、**重量**與軸心特性 | 類型、旋向與軸心特性 |
+| `src/ui/pages/SettingsPage.tsx` | 進階模式會顯示**重量**、來源與缺漏清單 | 顯示來源與缺漏清單 |
+| `src/domain/deck.ts`（2 處） | 缺少官方類型與**重量**資料 | 類型與旋向 |
+| `src/domain/provenance.ts` | **重量**、類型與軸心特性官方未公布 | 類型、旋向與軸心特性 |
+| `scripts/buildCatalog.mjs` 的 `knownGaps` | 官方商品頁未公布零件的類型、**重量**、旋向與軸心特性 | 類型、旋向與軸心特性 |
+
+`knownGaps` 那條會直接印在設定頁上，所以改完要 `npm run build:catalog`（已經跑過，
+`catalog-audit.json` 的 diff 就是它）。
+
+程式註解裡提到重量的地方**刻意保留**（那些是在解釋為什麼拿掉），只有使用者看得到的字串要清乾淨。
+
+### 同一批還加了三條測試
+
+- `tests/e2e/acceptance.spec.ts`：時鐘幻象裝 3-60 要警告、換 9-65 就不警告、警告要附來源連結，
+  而且**不能擋儲存**（`compat-error` 必須是 0 筆）。
+- `tests/e2e/acceptance.spec.ts`：選到惡魔幽冥要列出可切換模式與來源連結。
+- `tests/e2e/pwa.spec.ts`：**巡所有頁面，畫面上不得再出現「重量」兩個字**。
+  就是這條抓到上面那批漏網字串的。
+
+前兩條做過變異驗證（把白名單加上 3-60、把「低位模式」改名，測試都會紅），第三條本來就是紅的才寫的。
+
+`src/ui/pages/BuilderPage.tsx` 另外補了 `data-testid="compat-warning"`，
+並讓每則相容性警告後面附上可回查的來源連結（規格 1.5 節）。
+
+### 接手步驟
+
+```bash
+git status                     # 應該看到上面那 10 個檔案是 M
+npm run typecheck              # 已驗過：綠
+npm test                       # 已驗過：402 過
+npm run build && npm run test:e2e        # ← 只剩這步沒跑完整套
+git add -A && git commit && git push origin main
+npm run deploy:pages && npm run test:live
+```
+
+三條新測試都個別跑綠了（含那條重量巡邏），**但全套 e2e 還沒在這批改動之後重跑過**。
+接手時先跑一次全套再推。全套約 10 分鐘。
+
+寫那條重量巡邏測試時踩過一個坑：配裝器預設是「只顯示我有的」，新的測試 context 庫存是空的，
+所以選零件前要先按「顯示全部圖鑑」，不然 picker 是空的、測試會卡在 30 秒逾時
+（看起來像測試壞掉，其實是模式問題）。
+
+---
+
 ## 一分鐘現況
 
 Beyblade X 收藏／配裝／分析的 PWA，繁體中文（台灣用語），深色單一主題，手機優先。

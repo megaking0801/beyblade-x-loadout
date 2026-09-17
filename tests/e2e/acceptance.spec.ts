@@ -276,3 +276,36 @@ test('驗收測試檔本身有被執行（守門測試）', async () => {
   // 防止整個檔案被誤設為 skip 而無人察覺（第 49.1 節：禁止必定通過的測試）
   expect(test.info().project.name).toMatch(/手機寬度|桌機寬度/)
 })
+
+test('時鐘幻象裝不相容的固鎖時會警告，但不擋儲存', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:クロックミラージュ')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+
+  const warning = page.getByTestId('compat-warning')
+  await expect(warning).toBeVisible()
+  await expect(warning).toContainText('時鐘幻象')
+  await expect(warning).toContainText('3-60')
+  // 來源本身有分歧，所以只提醒不阻擋；每則警告都要附得回查的來源
+  await expect(page.getByTestId('compat-error')).toHaveCount(0)
+  await expect(warning.getByRole('link').first()).toHaveAttribute('href', /^https:\/\//)
+
+  // 換成白名單內的固鎖就不該再警告
+  await pickSlot(page, 'ratchetId', 'ratchet:9-65')
+  await expect(page.getByTestId('compat-warning')).toHaveCount(0)
+})
+
+test('選到可切換模式的零件時列出它的模式與來源', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'integrated_blade:ヘルズネザー')
+  await pickSlot(page, 'bitId', 'bit:F')
+
+  const modes = page.getByTestId('switchable-modes')
+  await expect(modes).toBeVisible()
+  await expect(modes).toContainText('惡魔幽冥')
+  await expect(modes).toContainText('低位模式')
+  await expect(modes.getByRole('link').first()).toHaveAttribute('href', /^https:\/\//)
+})

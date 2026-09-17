@@ -495,3 +495,32 @@ test('配裝比較選兩套之後出現比較表', async ({ page }) => {
   }
   await expect(page.getByText('換掉的零件')).toBeVisible()
 })
+
+test('前台任何一頁都不得再提到重量', async ({ page }) => {
+  /*
+   * 重量已經整個拿掉：同款零件的個體差異比配裝差異還大，顯示或計分都是誤導。
+   * 但「資料不足」那類說明文案很容易把它留在字串裡（實際發生過），所以用一條巡邏測試守住。
+   */
+  for (const route of ROUTES) {
+    await openApp(page, route)
+    const hits = (await page.locator('body').innerText())
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line.includes('重量'))
+    expect(hits, `${route} 還在講重量：${hits.join(' | ')}`).toEqual([])
+  }
+
+  // 配裝結果面板的來源說明也要檢查
+  await openApp(page, '/builder')
+  // 預設是「只顯示我有的」，這個 context 的庫存是空的，要先切到全圖鑑才選得到零件
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await expect(page.getByText('配裝結果')).toBeVisible()
+  const builderHits = (await page.locator('body').innerText())
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.includes('重量'))
+  expect(builderHits, `配裝器還在講重量：${builderHits.join(' | ')}`).toEqual([])
+})

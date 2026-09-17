@@ -152,7 +152,7 @@ export function HomePage() {
             </ul>
           ) : (
             <div style={{ color: 'var(--text-dim)' }}>
-              目前零件的重量與類型官方尚未公布，強度分析會標示「資料不足」。
+              目前零件的類型與旋向官方尚未公布，強度分析會標示「資料不足」。
             </div>
           )}
         </div>

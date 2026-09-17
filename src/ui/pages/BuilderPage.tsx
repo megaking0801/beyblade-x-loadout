@@ -304,10 +304,24 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       ) : null}
 
       {analysis.compatibility.warnings.length > 0 ? (
-        <NoticeCard tone="warn">
+        <NoticeCard tone="warn" testId="compat-warning">
           <ul style={{ margin: 0, paddingLeft: 18 }}>
             {analysis.compatibility.warnings.map((warning) => (
-              <li key={warning.messageZhTW}>{warning.messageZhTW}</li>
+              <li key={warning.messageZhTW}>
+                {warning.messageZhTW}
+                {/* 警告是社群整理的，附來源才查得回去（規格第 1.5 節）。 */}
+                {warning.sourceUrls?.map((url, index) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ marginLeft: 6, fontSize: 12 }}
+                  >
+                    來源{warning.sourceUrls!.length > 1 ? ` ${index + 1}` : ''}
+                  </a>
+                ))}
+              </li>
             ))}
           </ul>
         </NoticeCard>
@@ -520,7 +534,7 @@ export function ComboResult({
           <ScoreBar label="操作難度" value={analysis.operationDifficulty} />
           {analysis.scores ? null : (
             <div style={{ fontSize: 13, color: 'var(--warn)' }}>
-              官方尚未公布這些零件的類型與重量，因此不給推估分數，避免誤導。
+              官方尚未公布這些零件的類型與旋向，因此不給推估分數，避免誤導。
             </div>
           )}
         </div>

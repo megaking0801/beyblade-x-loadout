@@ -71,7 +71,7 @@ export function summarizeStatSources(parts: Part[]): {
   const sourceUrls = [...new Set(community.flatMap((source) => source.sourceUrls))]
   return {
     hasCommunityStats: true,
-    noticeZhTW: '重量、類型與軸心特性官方未公布，數值取自社群圖鑑的玩家實測',
+    noticeZhTW: '類型、旋向與軸心特性官方未公布，數值取自社群圖鑑的玩家實測',
     sourceUrls,
   }
 }
