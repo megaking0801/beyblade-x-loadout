@@ -17,6 +17,24 @@
         { "tierLabel": "T1", "partId": "blade:ワイバーンホバー" },
         { "tierLabel": "T1", "partId": "blade:コバルトドラグーン" }
       ]
+    },
+    {
+      "id": "vichen-july-tier-list",
+      "titleZhTW": "七月份T度排行",
+      "authorZhTW": "維辰孔丘",
+      "updatedAt": "2026-08-19",
+      "sourceUrl": "https://beybladehub.app/t/NAu9mbLh",
+      "noteZhTW": "社群創作者的主觀評級，不是賽事樣本也不是本站模型推估。",
+      "entries": [
+        { "tierLabel": "T0", "partId": "blade:ウィザードロッド" },
+        { "tierLabel": "T0", "partId": "blade:シャークスケイル" },
+        { "tierLabel": "T0.5", "partId": "blade:メテオドラグーン" },
+        { "tierLabel": "T0.5", "partId": "main_blade:Bl" },
+        { "tierLabel": "T0.5", "partId": "blade:エアロペガサス" },
+        { "tierLabel": "T1", "partId": "blade:フェニックスウイング" },
+        { "tierLabel": "T1", "partId": "blade:コバルトドラグーン" },
+        { "tierLabel": "T1", "partId": "blade:ドランストライク" }
+      ]
     }
   ]
 }

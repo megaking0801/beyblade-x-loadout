@@ -45,10 +45,10 @@ export function auditExpertTierLists(parts: readonly Pick<Part, 'id'>[]): Expert
 
 /** T 表只是一層獨立的專家意見，絕不餵進模型或賽事 evidence。 */
 export function getExpertTierMatches(slots: ComboSlots): ExpertTierMatch[] {
-  const bladeId = slots.bladeId
-  if (!bladeId) return []
+  const selectedPartIds = new Set(Object.values(slots).filter((partId): partId is string => Boolean(partId)))
+  if (selectedPartIds.size === 0) return []
   return raw.lists.flatMap((list) =>
-    list.entries.filter((entry) => entry.partId === bladeId).map((entry) => ({
+    list.entries.filter((entry) => selectedPartIds.has(entry.partId)).map((entry) => ({
       listTitleZhTW: list.titleZhTW,
       authorZhTW: list.authorZhTW,
       updatedAt: list.updatedAt,

@@ -307,10 +307,13 @@ test('配裝器會顯示對應上蓋的專家 T 表，且清楚標成社群意�
   await expect(result).toContainText('T0')
   await expect(result).toContainText('阿土｜7月 高雄G1最強陀螺天梯表')
   await expect(result).toContainText('社群專家的主觀評級，不是賽事樣本也不是本站模型推估。')
-  await expect(result.getByRole('link', { name: '來源' })).toHaveAttribute(
+  const sources = result.getByRole('link', { name: '來源' })
+  await expect(sources).toHaveCount(2)
+  await expect(sources.nth(0)).toHaveAttribute(
     'href',
     'https://beybladehub.app/t/d2ynkeu9',
   )
+  await expect(sources.nth(1)).toHaveAttribute('href', 'https://beybladehub.app/t/NAu9mbLh')
 })
 
 /**
