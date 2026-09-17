@@ -8,6 +8,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
+import { getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import {
   getSlotSchemaForStructure,
@@ -144,6 +145,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     () => analyzeCombo({ slots, parts, rules, lots, combos, evidence: evidenceReport.exact }),
     [slots, parts, rules, lots, combos, evidenceReport.exact],
   )
+  const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
 
   // 還沒選任何零件時不要先跳紅字，等使用者動作後再提示（第 46 節：新手友善）。
   const hasAnySelection = Object.values(slots).some(Boolean)
@@ -262,7 +264,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       </div>
 
       <div className="work-result">
-      <ComboResult analysis={analysis} evidenceReport={evidenceReport} />
+      <ComboResult analysis={analysis} evidenceReport={evidenceReport} expertTierMatches={expertTierMatches} />
 
       <Section title="儲存這套配裝">
         <div className="card" style={{ display: 'grid', gap: 10 }}>
@@ -382,9 +384,11 @@ function noteForPart(def: SlotDef, part: Part | undefined): string | undefined {
 export function ComboResult({
   analysis,
   evidenceReport,
+  expertTierMatches,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
+  expertTierMatches: ReturnType<typeof getExpertTierMatches>
 }) {
   return (
     <Section title="配裝結果">
@@ -524,6 +528,20 @@ export function ComboResult({
             </div>
           ) : null}
         </div>
+
+        {expertTierMatches.length > 0 ? (
+          <div style={{ fontSize: 13 }}>
+            <strong>專家評級：</strong>
+            {expertTierMatches.map((match) => (
+              <div key={`${match.listTitleZhTW}-${match.tierLabel}`} style={{ marginTop: 4 }}>
+                <Badge tone="accent">{match.tierLabel}</Badge>{' '}
+                {match.listTitleZhTW}（{match.authorZhTW}，{match.updatedAt}）{' '}
+                <a href={match.sourceUrl} target="_blank" rel="noreferrer">來源</a>
+                <div className="meta">{match.noteZhTW}</div>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     </Section>
   )

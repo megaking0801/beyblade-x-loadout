@@ -1,0 +1,22 @@
+{
+  "source": "BeybladeHub 高手 T 表",
+  "fetchedAt": "2026-09-17",
+  "lists": [
+    {
+      "id": "atru-kaohsiung-g1-july",
+      "titleZhTW": "阿土｜7月 高雄G1最強陀螺天梯表",
+      "authorZhTW": "阿土",
+      "updatedAt": "2026-09-14",
+      "sourceUrl": "https://beybladehub.app/t/d2ynkeu9",
+      "noteZhTW": "社群專家的主觀評級，不是賽事樣本也不是本站模型推估。",
+      "entries": [
+        { "tierLabel": "T0", "partId": "blade:シャークスケイル" },
+        { "tierLabel": "T0", "partId": "blade:ウィザードロッド" },
+        { "tierLabel": "T0.5", "partId": "blade:エアロペガサス" },
+        { "tierLabel": "T0.5", "partId": "blade:メテオドラグーン" },
+        { "tierLabel": "T1", "partId": "blade:ワイバーンホバー" },
+        { "tierLabel": "T1", "partId": "blade:コバルトドラグーン" }
+      ]
+    }
+  ]
+}
