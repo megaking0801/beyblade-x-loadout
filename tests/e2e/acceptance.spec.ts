@@ -245,9 +245,10 @@ test('配完之後看得到每個零件要去買哪一盒', async ({ page }) => 
   const sources = page.getByTestId('part-sources')
   await expect(sources).toBeVisible()
   await expect(sources).toContainText('去哪裡買')
-  // 一般商品要排在限定品前面，不然會叫人去買買不到的東西
+  // 購買來源只列舉商品，不替使用者排序推薦。
   await expect(sources).toContainText('BX-01')
-  await expect(sources).toContainText('一盒補到 3 種缺件')
+  await expect(sources).not.toContainText('最划算')
+  await expect(sources).not.toContainText('一盒補到')
 })
 
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {

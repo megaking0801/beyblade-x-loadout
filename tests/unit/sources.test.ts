@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../../src/catalog/index.ts'
-import { getBestValueProduct, getPartSources, NO_SOURCE_NOTE_ZH } from '../../src/domain/sources.ts'
+import { getPartSources, NO_SOURCE_NOTE_ZH } from '../../src/domain/sources.ts'
 import type { ComboSlots } from '../../src/domain/types.ts'
 
 const BX01: ComboSlots = {
@@ -52,23 +52,12 @@ describe('零件要去買哪一盒（第 8、14 節）', () => {
     )
   })
 
-  it('推薦一般商品而不是限定品：型號結尾 -00 的排在後面', () => {
-    // BX-01 與「BX-00 版本2.0」都含這三件，但後者是 B4 門市限定，買不到。
-    const first = sourcesFor(BX01)[0]?.products[0]
-    expect(first?.sku).toBe('BX-01')
-  })
-
-  it('最划算的一盒＝一次補到最多種缺件', () => {
-    const best = getBestValueProduct(sourcesFor(BX01))
-    expect(best?.sku).toBe('BX-01')
-    expect(best?.coversPartCount).toBe(3)
-  })
-
-  it('全部零件都已擁有時不推薦購買，不製造需求', () => {
-    const owned = ['blade:ドランソード', 'ratchet:3-60', 'bit:F']
-    const sources = sourcesFor(BX01, owned)
-    expect(sources.every((source) => source.owned)).toBe(true)
-    expect(getBestValueProduct(sources)).toBeUndefined()
+  it('固定商品完整列出，只以型號與名稱做穩定排序，不推薦其中任何一款', () => {
+    const products = sourcesFor(BX01)[0]?.products ?? []
+    const keys = products.map((product) => `${product.sku ?? ''}\u0000${product.nameZhTW}`)
+    expect(keys).toEqual([...keys].sort((a, b) => a.localeCompare(b)))
+    // BX-00 版本 2.0 是限定品；仍要列出，不能因為系統預設它較難買而隱藏。
+    expect(products.some((product) => product.sku === 'BX-00')).toBe(true)
   })
 
   it('查不到來源時有固定說明，不是留白', () => {

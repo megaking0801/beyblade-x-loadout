@@ -10,7 +10,7 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
-import { getBestValueProduct, getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
+import { getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
 import {
   buildComboVerdict,
   buildEvidenceReasons,
@@ -484,7 +484,6 @@ export function ComboResult({
   const comboReasons = evidenceReasons.filter((reason) => reason.scope === 'combo')
   const partReasons = evidenceReasons.filter((reason) => reason.scope === 'part')
   const partEvidence = summarizePartEvidence(evidenceReasons)
-  const bestValueProduct = getBestValueProduct(partSources)
   const switchableParts = slotParts
     .map((part) => ({ part, modes: part.switchableModes }))
     .filter((row): row is { part: Part; modes: NonNullable<Part['switchableModes']> } =>
@@ -666,20 +665,12 @@ export function ComboResult({
         ) : null}
 
         {/*
-          去哪裡買：零件不單賣，配完之後要能直接看出該補哪一盒。
-          缺件排在前面，同一盒能補到越多件就排越前面。
-          固定內容與隨機強化組必須分開：前者才是保證取得與「最划算」的依據。
+          哪裡買：逐顆列出所有含該零件的商品，不替使用者做「最划算」推薦。
+          固定內容與隨機強化組必須分開，避免把可能抽到誤當成保證取得。
         */}
         {partSources.length > 0 ? (
           <div style={{ fontSize: 13 }} data-testid="part-sources">
             <strong>去哪裡買</strong>
-            {bestValueProduct ? (
-              <div style={{ marginTop: 4 }}>
-                最划算：
-                <span className="code">{bestValueProduct.sku ?? ''}</span> {bestValueProduct.nameZhTW}
-                <span className="meta">（一盒補到 {bestValueProduct.coversPartCount} 種缺件）</span>
-              </div>
-            ) : null}
             <ul style={{ margin: '6px 0 0', paddingLeft: 18, display: 'grid', gap: 5 }}>
               {partSources.map((source) => (
                 <li key={source.partId}>
@@ -693,34 +684,19 @@ export function ComboResult({
                       <span className="meta">{NO_SOURCE_NOTE_ZH}</span>
                     ) : (
                       <>
-                        {source.products.slice(0, 3).map((product, index) => (
+                        {source.products.map((product, index) => (
                           <span key={product.productId}>
                             {index > 0 ? '、' : ''}
                             <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
                           </span>
                         ))}
-                        {source.products.length > 3 ? (
-                          <details style={{ marginTop: 3 }}>
-                            <summary className="meta" style={{ cursor: 'pointer' }}>
-                              查看另外 {source.products.length - 3} 款
-                            </summary>
-                            <span>
-                              {source.products.slice(3).map((product, index) => (
-                                <span key={product.productId}>
-                                  {index > 0 ? '、' : ''}
-                                  <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
-                                </span>
-                              ))}
-                            </span>
-                          </details>
-                        ) : null}
                       </>
                     )}
                   </div>
                   {source.randomProducts.length > 0 ? (
                     <div className="meta" style={{ marginTop: 3 }}>
                       可能抽到（非保證）：
-                      {source.randomProducts.slice(0, 3).map((product, index) => (
+                      {source.randomProducts.map((product, index) => (
                         <span key={product.productId}>
                           {index > 0 ? '、' : ''}
                           <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
@@ -730,25 +706,6 @@ export function ComboResult({
                           </a>
                         </span>
                       ))}
-                      {source.randomProducts.length > 3 ? (
-                        <details style={{ marginTop: 3 }}>
-                          <summary style={{ cursor: 'pointer' }}>
-                            查看另外 {source.randomProducts.length - 3} 款抽選來源
-                          </summary>
-                          <span>
-                            {source.randomProducts.slice(3).map((product, index) => (
-                              <span key={product.productId}>
-                                {index > 0 ? '、' : ''}
-                                <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
-                                （{product.matchingVariantCount}/{product.totalVariantCount} 款）{' '}
-                                <a href={product.sourceUrl} target="_blank" rel="noreferrer">
-                                  來源
-                                </a>
-                              </span>
-                            ))}
-                          </span>
-                        </details>
-                      ) : null}
                     </div>
                   ) : null}
                 </li>
