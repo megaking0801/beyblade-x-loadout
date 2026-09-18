@@ -97,7 +97,7 @@ export interface EstimateArgs {
  *
  * 公式（模型推估，固定可驗算）：
  *  1. 以各零件官方類型的基礎向量按權重混合，權重只在有類型的零件之間正規化。
- *  2. 高度修正：以 70 mm 為基準，每低 1 mm 攻擊 +0.5；每高 1 mm 穩定 +0.3、持久 +0.2。
+ *  2. 高度修正：以官方高度碼 70 為基準，每低 1 個碼攻擊 +0.5；每高 1 個碼穩定 +0.3、持久 +0.2。
  */
 export function estimateScores(args: EstimateArgs): ComboScores {
   const { blade, ratchet, bit, extras } = args

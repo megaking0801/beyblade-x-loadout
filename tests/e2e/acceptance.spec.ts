@@ -251,6 +251,35 @@ test('配完之後看得到每個零件要去買哪一盒', async ({ page }) => 
   await expect(sources).not.toContainText('一盒補到')
 })
 
+test('配裝器可一鍵清除零件，但保留目前模式與結構', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', BX01.blade)
+  await expect(page.getByTestId('clear-builder')).toBeEnabled()
+  await page.getByTestId('clear-builder').click()
+  await expect(page.getByTestId('slot-trigger-bladeId')).toContainText('選擇上蓋')
+  await expect(page.getByRole('button', { name: '顯示全部圖鑑' })).toHaveClass(/btn-primary/)
+  await expect(page.getByRole('button', { name: '三件式（BX／UX）' })).toHaveClass(/btn-primary/)
+})
+
+test('完成 A 後可直接到比較頁配 B，顯示高度對位與模型預測', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', BX01.blade)
+  await pickSlot(page, 'ratchetId', BX01.ratchet)
+  await pickSlot(page, 'bitId', BX01.bit)
+  await page.getByTestId('compare-current-combo').click()
+  await expect(page.locator('[data-route="/compare"]')).toBeVisible()
+  await pickSlot(page, 'bladeId', BX01.blade)
+  await pickSlot(page, 'ratchetId', BX01.ratchet)
+  await pickSlot(page, 'bitId', BX01.bit)
+  await expect(page.getByTestId('matchup-prediction')).toBeVisible()
+  await expect(page.getByTestId('matchup-prediction')).toContainText('勝負難分')
+  await expect(page.getByTestId('height-matchup')).toContainText('雙方同為高度碼 60')
+  await expect(page.getByRole('cell', { name: '爆發', exact: true })).toBeVisible()
+  await expect(page.getByRole('cell', { name: '抗爆', exact: true })).toBeVisible()
+})
+
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()

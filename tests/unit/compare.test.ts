@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { analyzeCombo } from '../../src/domain/analysis.ts'
-import { compareCombos } from '../../src/domain/compare.ts'
+import { compareCombos, predictMatchup } from '../../src/domain/compare.ts'
 import type { Part } from '../../src/domain/types.ts'
 
 const prov = { sourceUrls: [], verificationStatus: 'official_verified' as const }
@@ -38,6 +38,8 @@ describe('配裝 A/B 比較（第 34 節）', () => {
       '攻擊',
       '防守',
       '持久',
+      '爆發',
+      '抗爆',
       '高度',
       '穩定',
       '操作難度',
@@ -110,12 +112,20 @@ describe('配裝 A/B 比較（第 34 節）', () => {
     expect(r.rows.every((row) => row.better === 'same')).toBe(true)
   })
 
-  it('高度項目顯示毫米差距', () => {
+  it('高度項目顯示官方高度碼差距，且不判定誰較好', () => {
     const r = compareCombos({ a, b, parts })
     const row = r.rows.find((x) => x.labelZhTW === '高度')!
     expect(row.aValue).toBe(60)
     expect(row.bValue).toBe(80)
     expect(row.deltaZhTW).toBe('差 20')
+    expect(row.better).toBe('same')
+  })
+
+  it('高度對位說明高低差異，但不聲稱高剋低', () => {
+    const r = compareCombos({ a, b, parts })
+    expect(r.heightMatchupZhTW).toContain('A 較低')
+    expect(r.heightMatchupZhTW).toContain('B 較高')
+    expect(r.heightMatchupZhTW).not.toContain('剋')
   })
 
   it('沒有賽事資料時兩邊都顯示為 0 場並判平手', () => {
@@ -129,5 +139,23 @@ describe('配裝 A/B 比較（第 34 節）', () => {
   it('比較結果附帶白話總結，供新手模式顯示（第 38 節）', () => {
     const r = compareCombos({ a, b, parts })
     expect(r.summaryZhTW.length).toBeGreaterThan(0)
+  })
+
+  it('對打模型輸出雙方互補的推估機率，並明說不是真實勝率', () => {
+    const r = predictMatchup(
+      { ...a.analysis, scores: { attack: 100, defense: 100, stamina: 100, burst: 100, burstResistance: 100, stability: 100 } },
+      { ...b.analysis, scores: { attack: 0, defense: 0, stamina: 0, burst: 0, burstResistance: 0, stability: 0 } },
+    )
+    expect(r.outcome).toBe('a_advantage')
+    expect(r.aModelProbability).toBeGreaterThan(50)
+    expect(r.aModelProbability! + r.bModelProbability!).toBe(100)
+    expect(r.noticeZhTW).toContain('不是真實勝率')
+  })
+
+  it('資料不完整時不產生對打模型機率', () => {
+    const incomplete = analyzeCombo({ slots: { bladeId: blade.id }, parts, rules: [], lots: [], combos: [] })
+    const r = predictMatchup(a.analysis, incomplete)
+    expect(r.outcome).toBe('unavailable')
+    expect(r.aModelProbability).toBeUndefined()
   })
 })

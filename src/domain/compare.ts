@@ -37,6 +37,21 @@ export interface ComboComparison {
   /** 同上，但帶前後零件名稱。 */
   changedSlots: ChangedSlot[]
   summaryZhTW: string
+  heightMatchupZhTW: string
+}
+
+export type MatchupOutcome = 'a_advantage' | 'b_advantage' | 'even' | 'unavailable'
+
+/**
+ * 對打傾向只是一個可重現的模型結果，不是逐場賽果推得的真實勝率。
+ * 機率刻意限制在 25–75%，因為發射、場地、零件個體差異都能改變勝負。
+ */
+export interface MatchupPrediction {
+  outcome: MatchupOutcome
+  aModelProbability?: number
+  bModelProbability?: number
+  reasonsZhTW: string[]
+  noticeZhTW: string
 }
 
 export interface CompareSide {
@@ -81,6 +96,8 @@ export function compareCombos(args: CompareArgs): ComboComparison {
     numericRow('攻擊', a.analysis.scores?.attack ?? 0, b.analysis.scores?.attack ?? 0, 'higher'),
     numericRow('防守', a.analysis.scores?.defense ?? 0, b.analysis.scores?.defense ?? 0, 'higher'),
     numericRow('持久', a.analysis.scores?.stamina ?? 0, b.analysis.scores?.stamina ?? 0, 'higher'),
+    numericRow('爆發', a.analysis.scores?.burst ?? 0, b.analysis.scores?.burst ?? 0, 'higher'),
+    numericRow('抗爆', a.analysis.scores?.burstResistance ?? 0, b.analysis.scores?.burstResistance ?? 0, 'higher'),
     // 高度沒有絕對的好壞，只顯示差距，不判勝負。
     numericRow('高度', a.analysis.objective.heightCode ?? 0, b.analysis.objective.heightCode ?? 0, 'none'),
     numericRow('穩定', a.analysis.scores?.stability ?? 0, b.analysis.scores?.stability ?? 0, 'higher'),
@@ -107,6 +124,76 @@ export function compareCombos(args: CompareArgs): ComboComparison {
     changedSlots,
     changedSlotsZhTW,
     summaryZhTW: buildSummary(rows, changedSlotsZhTW),
+    heightMatchupZhTW: describeHeightMatchup(a.analysis.objective.heightCode, b.analysis.objective.heightCode),
+  }
+}
+
+/**
+ * 高度碼是官方型號資料，不是量測毫米；高低沒有絕對優劣。
+ * 因此只給對位時應留意的撞擊高度與重心情境，不能寫成高剋低的規則。
+ */
+export function describeHeightMatchup(a?: number, b?: number): string {
+  if (typeof a !== 'number' || typeof b !== 'number') return '其中一方缺少官方高度碼，無法判讀高度對位。'
+  if (a === b) return `雙方同為高度碼 ${a}，高度對位沒有差異。`
+  const lower = a < b ? 'A' : 'B'
+  const higher = a < b ? 'B' : 'A'
+  return `${lower} 較低（${Math.min(a, b)}），${higher} 較高（${Math.max(a, b)}），高度碼差 ${Math.abs(a - b)}。較低配置重心通常更低，較高配置的撞擊高度不同；實際優劣仍受上蓋形狀與發射角度影響。`
+}
+
+const MATCHUP_WEIGHTS = {
+  attack: 0.18,
+  defense: 0.18,
+  stamina: 0.2,
+  burst: 0.14,
+  burstResistance: 0.14,
+  stability: 0.16,
+} as const
+
+const MATCHUP_LABEL: Record<keyof typeof MATCHUP_WEIGHTS, string> = {
+  attack: '攻擊',
+  defense: '防守',
+  stamina: '持久',
+  burst: '爆發',
+  burstResistance: '抗爆',
+  stability: '穩定',
+}
+
+export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPrediction {
+  if (!a.compatibility.ok || !b.compatibility.ok || !a.scores || !b.scores) {
+    return {
+      outcome: 'unavailable',
+      reasonsZhTW: [],
+      noticeZhTW: '其中一套尚未完成、無法實際安裝或缺少類型資料，不能產生模型預測。',
+    }
+  }
+
+  const differences = (Object.keys(MATCHUP_WEIGHTS) as (keyof typeof MATCHUP_WEIGHTS)[])
+    .map((axis) => ({ axis, difference: a.scores![axis] - b.scores![axis] }))
+  const weightedDifference = differences.reduce(
+    (total, row) => total + row.difference * MATCHUP_WEIGHTS[row.axis],
+    0,
+  )
+  // 每 1 分的加權差異對應 0.25 個百分點；避免未校正模型做出過度自信的數字。
+  const aModelProbability = Math.round(Math.max(25, Math.min(75, 50 + weightedDifference * 0.25)))
+  const bModelProbability = 100 - aModelProbability
+  const outcome: MatchupOutcome =
+    Math.abs(weightedDifference) < 6 ? 'even' : weightedDifference > 0 ? 'a_advantage' : 'b_advantage'
+  const winner = weightedDifference >= 0 ? 'A' : 'B'
+  const reasonsZhTW = differences
+    .filter((row) => row.difference !== 0)
+    .sort((left, right) => Math.abs(right.difference * MATCHUP_WEIGHTS[right.axis]) - Math.abs(left.difference * MATCHUP_WEIGHTS[left.axis]))
+    .slice(0, 3)
+    .map((row) => `${row.difference > 0 ? 'A' : 'B'} 的${MATCHUP_LABEL[row.axis]}較高（差 ${Math.abs(row.difference)}）`)
+
+  return {
+    outcome,
+    aModelProbability,
+    bModelProbability,
+    reasonsZhTW,
+    noticeZhTW:
+      outcome === 'even'
+        ? '六軸加權差異接近，模型判為勝負難分。這不是實戰勝率。'
+        : `${winner} 在六軸加權模型中較佔優；此為標準 X 對戰盤、同等熟練度與正常發射下的模型推估，不是真實勝率。`,
   }
 }
 
