@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatProductLabel } from '../../domain/naming.ts'
 import { searchProducts } from '../../domain/search.ts'
+import { isLimitedSku } from '../../domain/sources.ts'
 import {
   OWNED_PRODUCT_STATUS_ZH,
   PRODUCT_CATEGORY_ZH,
@@ -322,6 +323,9 @@ function ManualOpenForm({ ownedId, sealed }: { ownedId: string; sealed: number }
 }
 
 /** 產品線是找商品時最先用的條件：多數人記得的是「CX 那條」而不是分類。 */
+/** 入門組一次只列這麼多；再多就變成第二份型錄，失去「先看這幾盒」的意義。 */
+const STARTER_LIMIT = 4
+
 const LINE_FILTERS = ['all', 'BX', 'UX', 'CX'] as const
 type LineFilter = (typeof LINE_FILTERS)[number]
 const LINE_LABEL: Record<LineFilter, string> = {
@@ -357,6 +361,25 @@ function CatalogList() {
     () => [...new Set(products.map((product) => product.category))],
     [products],
   )
+
+  /*
+   * 入門組單獨拉一區。
+   *
+   * 149 個商品裡，新手真正該先買的是入門組（一盒就有完整一顆＋發射器），
+   * 但它們散在型錄裡跟補充包混在一起。只在「沒搜尋、沒選分類」時出現，
+   * 有條件時就不顯示——否則同一張卡會在畫面上出現兩次。
+   */
+  const starters = useMemo(() => {
+    if (query.trim() || category !== 'all') return []
+    const byLine = line === 'all' ? products : products.filter((product) => product.line === line)
+    return byLine
+      .filter((product) => product.category === 'starter')
+      // 型號 -00 的是限定色、聯名與門市獨佔品，買不到的東西擺在「先買這幾盒」只會誤導。
+      .filter((product) => !isLimitedSku(product.sku))
+      // 按型號排，讓 BX-01、BX-02 這種正規編號排前面，順序也才穩定。
+      .sort((a, b) => (a.sku ?? '').localeCompare(b.sku ?? ''))
+      .slice(0, STARTER_LIMIT)
+  }, [products, query, category, line])
 
   return (
     <>
@@ -402,6 +425,15 @@ function CatalogList() {
         </select>
       </Row>
       <div style={{ height: 12 }} />
+      {starters.length > 0 ? (
+        <Section title="入門組">
+          <div className="card-grid">
+            {starters.map((product) => (
+              <CatalogProductCard key={`starter-${product.id}`} product={product} />
+            ))}
+          </div>
+        </Section>
+      ) : null}
       <Section title={`共 ${filtered.length} 筆`}>
         {filtered.length === 0 ? (
           <EmptyState title="找不到符合的商品" hint="試試型號，例如 BX-01。" />
@@ -420,6 +452,18 @@ function CatalogList() {
 function CatalogProductCard({ product }: { product: Product }) {
   const run = useAppStore((state) => state.run)
   const images = useAppStore((state) => state.images)
+  const ownedProducts = useAppStore((state) => state.ownedProducts)
+  /*
+   * 已經有幾盒。挑盒子時最常問的就是「這個我是不是買過了」——
+   * 沒有這個標示，同一盒很容易重複登記。
+   */
+  const ownedCount = useMemo(
+    () =>
+      ownedProducts
+        .filter((owned) => owned.productId === product.id)
+        .reduce((sum, owned) => sum + owned.quantity, 0),
+    [ownedProducts, product.id],
+  )
   const [quantity, setQuantity] = useState(1)
   const [status, setStatus] = useState<OwnedProductStatus>('owned')
   const [justAdded, markAdded] = useJustAdded()
@@ -458,6 +502,7 @@ function CatalogProductCard({ product }: { product: Product }) {
         </div>
         <div className="chip-row" style={{ gap: 5 }}>
           <TypeTag type={mainBladeType} />
+          {ownedCount > 0 ? <Badge tone="neutral">已有 ×{ownedCount}</Badge> : null}
           <span style={{ fontSize: 11, color: 'var(--ink-faint)' }}>{label.categoryZhTW}</span>
         </div>
         {/*
@@ -498,7 +543,7 @@ function CatalogProductCard({ product }: { product: Product }) {
             if (ok) markAdded()
           }}
         >
-          {justAdded ? `已加入 ×${quantity}` : '加入'}
+          {justAdded ? `已加入 ×${quantity}` : ownedCount > 0 ? '再加一盒' : '加入'}
         </button>
         </div>
         <Link to="/product" query={{ id: product.id }} className="btn btn-compact">

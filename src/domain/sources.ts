@@ -17,7 +17,7 @@ import { resolveDisplayName } from './naming.ts'
  * 型號結尾是 -00 的商品沒有正式編號：限定色、聯名、門市獨佔、抽選品。
  * 推薦「去買哪一盒」時要排在一般商品後面，不然會叫人去買買不到的東西。
  */
-function isLimitedSku(sku: string | undefined): boolean {
+export function isLimitedSku(sku: string | undefined): boolean {
   return !sku || /-0+$/u.test(sku)
 }
 

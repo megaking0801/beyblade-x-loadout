@@ -65,6 +65,40 @@ test('capture', async ({ page }, testInfo) => {
   }
 
   /*
+   * /products 預設停在「我的商品」，所以型錄那一半（入門組區、持有態徽章）
+   * 不會被上面那張截到。補一張。
+   */
+  await page.evaluate(() => {
+    window.location.hash = '/products'
+  })
+  await page.getByTestId('tab-catalog').click()
+  await expect(page.getByTestId('catalog-product').first()).toBeVisible()
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-products-catalog.png`,
+    fullPage: true,
+  })
+
+  /*
+   * 想買清單空的時候看不到「最划算的一盒」。加一筆再截。
+   */
+  await page.evaluate(() => {
+    window.location.hash = '/wishlist'
+  })
+  const wishSearch = page.getByLabel('搜尋想買的商品')
+  await expect(wishSearch).toBeVisible()
+  await wishSearch.fill('BX-34')
+  const addWish = page.getByRole('button', { name: '加入' }).first()
+  if (await addWish.count()) {
+    await addWish.click()
+    await page.waitForTimeout(600)
+    await page.screenshot({
+      path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-wishlist-filled.png`,
+      fullPage: true,
+    })
+  }
+
+  /*
    * 比較頁空手進去只有兩個下拉選單，看不到比較表。
    * 這裡選滿兩套再補一張，否則「勝出側底色」這種改動永遠無法用截圖驗證。
    */
