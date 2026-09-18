@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   aggregatePartStock,
+  accessoryDisplayNameZhTW,
   collectAccessories,
   computePartReservations,
   describePartSources,
@@ -407,5 +408,57 @@ describe('實體鎖定占用庫存（第 31 節、第 45 節 Case 7）', () => {
 
   it('沒有任何配裝時占用為空', () => {
     expect(computePartReservations([]).size).toBe(0)
+  })
+})
+
+describe('配件的前台顯示名稱（第 1.4 節：前台不得出現日文假名）', () => {
+  it('有中文名就用中文名', () => {
+    expect(
+      accessoryDisplayNameZhTW({
+        name: 'ワインダーランチャー レッドVer.',
+        nameZhTW: '拉條式發射器 紅色',
+        typeZhTW: '發射器',
+        quantity: 1,
+      }),
+    ).toBe('拉條式發射器 紅色')
+  })
+
+  it('沒有中文名就退回分類，**不得**退回日文原名', () => {
+    const shown = accessoryDisplayNameZhTW({
+      name: 'ワインダーランチャー レッドVer.',
+      typeZhTW: '發射器',
+      quantity: 1,
+    })
+    expect(shown).toBe('發射器')
+    expect(shown).not.toContain('ランチャー')
+  })
+
+  it('連分類都沒有時給中性字，仍然不得漏出日文', () => {
+    const shown = accessoryDisplayNameZhTW({ name: 'CXツール', quantity: 1 })
+    expect(shown).toBe('配件')
+    expect(shown).not.toContain('ツール')
+  })
+
+  it('collectAccessories 會把中文名與分類一起帶出來', () => {
+    const product = {
+      ...fixedProduct,
+      contents: [
+        {
+          accessoryName: 'ワインダーランチャー レッドVer.',
+          accessoryNameZhTW: '拉條式發射器 紅色',
+          accessoryTypeZhTW: '發射器',
+          quantity: 1,
+        },
+      ],
+    }
+    const rows = collectAccessories([{ ownedProduct: owned({ productId: product.id }), product }])
+    expect(rows).toEqual([
+      {
+        name: 'ワインダーランチャー レッドVer.',
+        nameZhTW: '拉條式發射器 紅色',
+        typeZhTW: '發射器',
+        quantity: 1,
+      },
+    ])
   })
 })

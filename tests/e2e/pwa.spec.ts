@@ -302,11 +302,21 @@ test('主要頁面畫面上不得出現日文假名', async ({ page }) => {
   // 排除 U+30FB「・」：中文排版也用它當分隔符，算進去會產生假警報。
   const KANA = /[\u3040-\u309f\u30a1-\u30fa\u30fc-\u30ff]/
 
-  // 先放一筆庫存，讓各頁面有實際內容可渲染
+  /*
+   * 先放庫存，讓各頁面有實際內容可渲染。
+   *
+   * BX-17 是刻意選的：它內含對戰盤與兩支發射器，官方名稱全是日文片假名
+   * （エクストリームスタジアム、ワインダーランチャー）。只種 BX-01 的話配件庫是空的，
+   * 那條違規就永遠不會被這個測試看到——實際上它漏了很久。
+   */
   await openApp(page, '/products')
-  await page.getByTestId('tab-catalog').click()
-  await page.getByTestId('product-search').fill('BX-01')
-  await page.getByTestId('catalog-product').first().getByTestId('add-owned').click()
+  for (const sku of ['BX-01', 'BX-17']) {
+    await page.getByTestId('tab-catalog').click()
+    await page.getByTestId('product-search').fill(sku)
+    const card = page.getByTestId('catalog-product').first()
+    await expect(card).toBeVisible()
+    await card.getByTestId('add-owned').click()
+  }
   await page.getByTestId('tab-my-products').click()
   await expect(page.getByTestId('owned-product').first()).toBeVisible()
 
@@ -319,6 +329,20 @@ test('主要頁面畫面上不得出現日文假名', async ({ page }) => {
       .filter((line) => KANA.test(line))
     expect(hits, `${route} 出現日文：${hits.join(' | ')}`).toEqual([])
   }
+
+  /*
+   * 配件庫不是 /parts 的預設分頁，上面的 ROUTES 巡檢看不到它。
+   * 配件的官方名稱是日文，這裡是唯一會抓到它的地方。
+   */
+  await openApp(page, '/parts')
+  await page.getByTestId('tab-accessories').click()
+  await expect(page.getByText('配件（不進配裝器）')).toBeVisible()
+  const accessoryText = await page.locator('body').innerText()
+  const accessoryHits = accessoryText
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => KANA.test(line))
+  expect(accessoryHits, `配件庫出現日文：${accessoryHits.join(' | ')}`).toEqual([])
 
   // 配裝器選滿零件後的結果面板也要檢查
   await openApp(page, '/builder')

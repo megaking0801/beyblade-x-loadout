@@ -6,6 +6,7 @@
  */
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
+import { accessoryDisplayNameZhTW } from '../../domain/inventory.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../domain/naming.ts'
 import { OWNED_PRODUCT_STATUS_ZH, type OwnedProduct } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
@@ -99,12 +100,23 @@ export function ProductDetailPage({ productId }: { productId: string }) {
           <div style={{ display: 'grid', gap: 8 }}>
             {product.contents.map((content, index) => {
               if (content.accessoryName) {
+                /*
+                  accessoryName 是日文官方名，前台不得渲染（第 1.4 節）。
+                  顯示走 accessoryDisplayNameZhTW：有中文名用中文名，
+                  查不到退回分類，絕不退回日文。
+                */
+                const shown = accessoryDisplayNameZhTW({
+                  name: content.accessoryName,
+                  ...(content.accessoryNameZhTW ? { nameZhTW: content.accessoryNameZhTW } : {}),
+                  ...(content.accessoryTypeZhTW ? { typeZhTW: content.accessoryTypeZhTW } : {}),
+                  quantity: content.quantity,
+                })
                 return (
                   <div className="card" key={`${content.accessoryName}-${index}`}>
                     <Row>
-                      <PartThumb code={content.accessoryName} />
-                      <span style={{ flex: 1 }}>{content.accessoryName}</span>
-                      <Badge>配件</Badge>
+                      <PartThumb code="" nameZhTW={shown} />
+                      <span style={{ flex: 1 }}>{shown}</span>
+                      <Badge>{content.accessoryTypeZhTW ?? '配件'}</Badge>
                       <span>×{content.quantity}</span>
                     </Row>
                   </div>
@@ -158,7 +170,20 @@ export function ProductDetailPage({ productId }: { productId: string }) {
                     {variant.contents
                       .map((content) => {
                         const part = content.partId ? partById.get(content.partId) : undefined
-                        return part ? resolveDisplayName(part.naming).titleZhTW : content.accessoryName
+                        if (part) return resolveDisplayName(part.naming).titleZhTW
+                        // 同樣不能漏出日文原名。
+                        return content.accessoryName
+                          ? accessoryDisplayNameZhTW({
+                              name: content.accessoryName,
+                              ...(content.accessoryNameZhTW
+                                ? { nameZhTW: content.accessoryNameZhTW }
+                                : {}),
+                              ...(content.accessoryTypeZhTW
+                                ? { typeZhTW: content.accessoryTypeZhTW }
+                                : {}),
+                              quantity: content.quantity,
+                            })
+                          : undefined
                       })
                       .filter(Boolean)
                       .join('、')}

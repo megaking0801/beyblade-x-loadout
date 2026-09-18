@@ -85,8 +85,24 @@ export function expandOwnedProductToLots(args: ExpandArgs): InventoryLot[] {
 }
 
 export interface AccessoryStock {
+  /** 官方名稱，是日文。前台不得直接渲染（第 1.4 節），用 accessoryDisplayNameZhTW。 */
   name: string
+  /** 台灣中文名，來自 `beybladehub-accessories.json`。查不到就沒有這個欄位。 */
+  nameZhTW?: string
+  /** 配件分類（發射器／握把／對戰盤／工具）。 */
+  typeZhTW?: string
   quantity: number
+}
+
+/**
+ * 配件在前台要顯示的名稱。
+ *
+ * 退回順序刻意**不含日文原名**：查不到中文名時退回分類（至少看得出那是發射器還是
+ * 對戰盤），連分類都沒有才給中性字。寧可資訊少一點，也不要違反第 1.4 節
+ * ——而且「自己翻一個看起來合理的」更糟（第 1.5 節）。
+ */
+export function accessoryDisplayNameZhTW(row: AccessoryStock): string {
+  return row.nameZhTW ?? row.typeZhTW ?? '配件'
 }
 
 /** 第 4、14 節：配件進配件庫，不進配裝器。 */
@@ -94,20 +110,31 @@ export function collectAccessories(
   entries: { ownedProduct: OwnedProduct; product: Product }[],
 ): AccessoryStock[] {
   const totals = new Map<string, number>()
+  const naming = new Map<string, { nameZhTW?: string; typeZhTW?: string }>()
   const order: string[] = []
   for (const { ownedProduct, product } of entries) {
     if (LOT_STATUS_BY_PRODUCT_STATUS[ownedProduct.status] === null) continue
     if (ownedProduct.quantity <= 0) continue
     for (const content of product.contents) {
       if (!content.accessoryName) continue
-      if (!totals.has(content.accessoryName)) order.push(content.accessoryName)
+      if (!totals.has(content.accessoryName)) {
+        order.push(content.accessoryName)
+        naming.set(content.accessoryName, {
+          ...(content.accessoryNameZhTW ? { nameZhTW: content.accessoryNameZhTW } : {}),
+          ...(content.accessoryTypeZhTW ? { typeZhTW: content.accessoryTypeZhTW } : {}),
+        })
+      }
       totals.set(
         content.accessoryName,
         (totals.get(content.accessoryName) ?? 0) + content.quantity * ownedProduct.quantity,
       )
     }
   }
-  return order.map((name) => ({ name, quantity: totals.get(name) ?? 0 }))
+  return order.map((name) => ({
+    name,
+    ...(naming.get(name) ?? {}),
+    quantity: totals.get(name) ?? 0,
+  }))
 }
 
 /* ------------------------------------------------------------------ 驗證 */

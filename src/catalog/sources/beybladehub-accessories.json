@@ -1,0 +1,87 @@
+{
+  "source": "BeybladeHub 商品頁的「附：」內容行",
+  "fetchedAt": "2026-09-18",
+  "note": "配件的台灣中文名。原本前台直接渲染日文片假名（ストリングランチャー ブルーVer. 等），違反規格第 1.4 節（前台不得出現日文假名）。這裡每一筆的 nameZhTW 都是從 BeybladeHub 商品頁的「附：」那一行逐字抄下來的，沒有自己翻譯。quoteZhTW 保留整行原文供回查。注意該站有兩種寫法：配件圖鑑頁（/parts/accessories）用正式名稱「旋風發射器／拉條發射器／發射器握把／極限對戰盤」，商品頁的內容行則寫「旋風發射器 藍色版／拉條式發射器 紅色／Extreme Stadium 透明版」。這裡採用商品頁的內容行，因為語意相同（就是「這一盒裝了什麼」），而且是逐字的。對戰盤在商品頁保留英文 Extreme Stadium —— 那是該站的寫法，不是漏翻；英文不受第 1.4 節限制（該節限制的是日文假名）。typeZhTW 供前台分組，取自配件圖鑑頁的分類。",
+  "glossary": {
+    "note": "配件圖鑑頁的正式名稱與其單售型號，供日後需要正式名稱時使用。",
+    "sourceUrl": "https://beybladehub.app/parts/accessories",
+    "items": [
+      { "nameZhTW": "旋風發射器", "nameEn": "String Launcher", "sku": "BX-18" },
+      { "nameZhTW": "拉條發射器 L", "nameEn": "Winder Launcher", "sku": "BX-40" },
+      { "nameZhTW": "發射器握把", "nameEn": "Launcher Grip", "sku": "BX-11" },
+      { "nameZhTW": "極限對戰盤", "nameEn": "Xtreme Stadium", "sku": "BX-10" }
+    ]
+  },
+  "accessories": [
+    {
+      "nameJa": "ストリングランチャー ブルーVer.",
+      "nameZhTW": "旋風發射器 藍色版",
+      "typeZhTW": "發射器",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-07",
+      "quoteZhTW": "附： Extreme Stadium 透明版 ×1、旋風發射器 藍色版 ×1、發射器握把 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "ランチャーグリップ ブルーVer.",
+      "nameZhTW": "發射器握把 藍色",
+      "typeZhTW": "握把",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-07",
+      "quoteZhTW": "附： Extreme Stadium 透明版 ×1、旋風發射器 藍色版 ×1、發射器握把 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "エクストリームスタジアム クリアVer.",
+      "nameZhTW": "Extreme Stadium 透明版",
+      "typeZhTW": "對戰盤",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-07",
+      "quoteZhTW": "附： Extreme Stadium 透明版 ×1、旋風發射器 藍色版 ×1、發射器握把 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "エクストリームスタジアム ブラックVer.",
+      "nameZhTW": "Extreme Stadium 黑色版",
+      "typeZhTW": "對戰盤",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-17",
+      "quoteZhTW": "附： Extreme Stadium 黑色版 ×1、拉條式發射器 紅色 ×1、拉條式發射器 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "ワインダーランチャー レッドVer.",
+      "nameZhTW": "拉條式發射器 紅色",
+      "typeZhTW": "發射器",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-17",
+      "quoteZhTW": "附： Extreme Stadium 黑色版 ×1、拉條式發射器 紅色 ×1、拉條式發射器 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "ワインダーランチャー ブルーVer.",
+      "nameZhTW": "拉條式發射器 藍色",
+      "typeZhTW": "發射器",
+      "sourceUrl": "https://beybladehub.app/parts/combos/BX-17",
+      "quoteZhTW": "附： Extreme Stadium 黑色版 ×1、拉條式發射器 紅色 ×1、拉條式發射器 藍色 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "エクストリームスタジアム ホワイト×オレンジ",
+      "nameZhTW": "Extreme Stadium 白×橘",
+      "typeZhTW": "對戰盤",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-04",
+      "quoteZhTW": "附： Extreme Stadium 白×橘 ×1、拉條式發射器 白×黑 ×1、拉條式發射器 黑×黃 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "ワインダーランチャー ホワイト×ブラック",
+      "nameZhTW": "拉條式發射器 白×黑",
+      "typeZhTW": "發射器",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-04",
+      "quoteZhTW": "附： Extreme Stadium 白×橘 ×1、拉條式發射器 白×黑 ×1、拉條式發射器 黑×黃 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "ワインダーランチャー ブラック×イエロー",
+      "nameZhTW": "拉條式發射器 黑×黃",
+      "typeZhTW": "發射器",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-04",
+      "quoteZhTW": "附： Extreme Stadium 白×橘 ×1、拉條式發射器 白×黑 ×1、拉條式發射器 黑×黃 ×1、取扱說明書、BeyCode 卡"
+    },
+    {
+      "nameJa": "CXツール",
+      "nameZhTW": "CX 工具",
+      "typeZhTW": "工具",
+      "sourceUrl": "https://beybladehub.app/parts/combos/UX-15",
+      "quoteZhTW": "附： 取扱說明書、BeyCode 卡、CX 工具"
+    }
+  ]
+}

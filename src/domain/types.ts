@@ -265,8 +265,17 @@ export const NON_PLAYABLE_CATEGORIES: readonly ProductCategory[] = ['tool', 'acc
 /** 商品內含物。零件用 partId；配件用 accessoryName。 */
 export interface ProductContent {
   partId?: string
-  /** Launcher／Grip／發射器等非配裝零件。 */
+  /**
+   * Launcher／Grip／對戰盤等非配裝零件。官方名稱，是日文。
+   *
+   * **前台不得直接渲染這個欄位**（第 1.4 節：前台不得出現日文假名）。
+   * 顯示時用 `accessoryNameZhTW`，沒有中文名時退回 `accessoryTypeZhTW`。
+   */
   accessoryName?: string
+  /** 台灣中文名，來自 `beybladehub-accessories.json`（逐字抄自來源頁，未自行翻譯）。 */
+  accessoryNameZhTW?: string
+  /** 配件分類（發射器／握把／對戰盤／工具）。查不到中文名時至少還能顯示這個。 */
+  accessoryTypeZhTW?: string
   quantity: number
 }
 

@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel } from '../../domain/naming.ts'
 import { searchParts } from '../../domain/search.ts'
+import { accessoryDisplayNameZhTW } from '../../domain/inventory.ts'
 import {
   BEY_TYPE_ZH,
   PART_STATUS_ZH,
@@ -64,6 +65,7 @@ export function PartsPage() {
         </button>
         <button
           type="button"
+          data-testid="tab-accessories"
           className={tab === 'accessories' ? 'btn btn-primary' : 'btn'}
           onClick={() => setTab('accessories')}
         >
@@ -478,15 +480,23 @@ function Accessories() {
   return (
     <Section title="配件（不進配裝器）">
       <div style={{ display: 'grid', gap: 8 }}>
-        {accessories.map((row) => (
-          <div className="card" key={row.name}>
-            <Row>
-              <PartThumb code={row.name} />
-              <span style={{ flex: 1 }}>{row.name}</span>
-              <span>×{row.quantity}</span>
-            </Row>
-          </div>
-        ))}
+        {/*
+          row.name 是日文官方名，前台不得渲染（第 1.4 節）。
+          顯示走 accessoryDisplayNameZhTW：查不到中文名時退回分類，絕不退回日文。
+        */}
+        {accessories.map((row) => {
+          const shown = accessoryDisplayNameZhTW(row)
+          return (
+            <div className="card" key={row.name}>
+              <Row>
+                <PartThumb code="" nameZhTW={shown} />
+                <span style={{ flex: 1 }}>{shown}</span>
+                {row.typeZhTW ? <Badge>{row.typeZhTW}</Badge> : null}
+                <span>×{row.quantity}</span>
+              </Row>
+            </div>
+          )
+        })}
       </div>
     </Section>
   )

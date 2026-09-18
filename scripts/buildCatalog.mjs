@@ -30,6 +30,7 @@ const HUB_STRUCTURE_FILE = resolve(root, 'src/catalog/sources/beybladehub-struct
 const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-curated-sets.json')
 const HUB_TOURNAMENTS_FILE = resolve(root, 'src/catalog/sources/beybladehub-tournaments.json')
 const HUB_MODES_FILE = resolve(root, 'src/catalog/sources/beybladehub-modes.json')
+const HUB_ACCESSORIES_FILE = resolve(root, 'src/catalog/sources/beybladehub-accessories.json')
 const COMPAT_NOTES_FILE = resolve(root, 'src/catalog/sources/part-compatibility-notes.json')
 const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 
@@ -616,6 +617,25 @@ function main() {
   const tournamentSource = JSON.parse(readFileSync(TOURNAMENT_FILE, 'utf8'))
   const hubTournaments = JSON.parse(readFileSync(HUB_TOURNAMENTS_FILE, 'utf8'))
   const hubModes = JSON.parse(readFileSync(HUB_MODES_FILE, 'utf8'))
+  /*
+   * 配件的台灣中文名。官方商品名是日文，前台不得直接渲染（第 1.4 節），
+   * 所以這裡把日文名對到逐字抄自 BeybladeHub 的中文名。
+   * 對不到的不自己翻，留空並記進 audit，前台會退回顯示分類。
+   */
+  const hubAccessories = JSON.parse(readFileSync(HUB_ACCESSORIES_FILE, 'utf8'))
+  const accessoryZhByJa = new Map(
+    hubAccessories.accessories.map((row) => [row.nameJa, row]),
+  )
+  const usedAccessoryNames = new Set()
+  const describeAccessory = (accessoryName) => {
+    usedAccessoryNames.add(accessoryName)
+    const row = accessoryZhByJa.get(accessoryName)
+    return {
+      accessoryName,
+      ...(row ? { accessoryNameZhTW: row.nameZhTW, accessoryTypeZhTW: row.typeZhTW } : {}),
+      quantity: 1,
+    }
+  }
   const compatNotes = JSON.parse(readFileSync(COMPAT_NOTES_FILE, 'utf8'))
   const hubStats = JSON.parse(readFileSync(HUB_STATS_FILE, 'utf8'))
   const hubSets = JSON.parse(readFileSync(HUB_SETS_FILE, 'utf8'))
@@ -718,6 +738,8 @@ function main() {
     cxSplitBlades: [],
     cxUnsplitBlades: [],
     noPartsProducts: [],
+    /** 找不到中文名的配件：前台只會顯示分類，不會顯示日文（第 1.4 節）。 */
+    accessoriesWithoutZhTW: [],
     untranslatedNames: [],
     knownGaps: [
       '官方商品頁未公布零件的類型、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。',
@@ -1136,7 +1158,7 @@ function main() {
             partId: ensurePart(part),
             quantity: 1,
           })),
-          ...manualOverride.accessories.map((accessoryName) => ({ accessoryName, quantity: 1 })),
+          ...manualOverride.accessories.map(describeAccessory),
         ]
         contentsKnown = true
       }
@@ -1318,6 +1340,27 @@ function main() {
   audit.productsWithoutImages = products
     .filter((product) => !imageProductIds.has(product.id))
     .map((product) => ({ id: product.id, sku: product.sku }))
+
+  /*
+   * 配件中文名的覆蓋率。
+   *
+   * 對不到的會讓前台只顯示分類，所以要記進 audit 讓人看得到還缺哪幾筆；
+   * 反過來，來源檔裡沒被用到的項目代表商品內容改過，留著會讓人以為還有效。
+   */
+  audit.accessoriesWithoutZhTW = [...usedAccessoryNames]
+    .filter((name) => !accessoryZhByJa.has(name))
+    .sort()
+  const staleAccessoryNames = [...accessoryZhByJa.keys()]
+    .filter((name) => !usedAccessoryNames.has(name))
+    .sort()
+  if (staleAccessoryNames.length > 0) {
+    audit.staleAccessoryMappings = staleAccessoryNames
+  }
+  if (audit.accessoriesWithoutZhTW.length > 0) {
+    audit.knownGaps.push(
+      `有 ${audit.accessoriesWithoutZhTW.length} 個配件還沒有查到台灣中文名，前台只顯示分類（不顯示日文原名）。`,
+    )
+  }
 
   mkdirSync(dirname(OUT_FILE), { recursive: true })
   writeFileSync(OUT_FILE, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8')

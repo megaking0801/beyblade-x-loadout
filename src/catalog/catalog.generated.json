@@ -6565,14 +6565,20 @@
         },
         {
           "accessoryName": "ストリングランチャー ブルーVer.",
+          "accessoryNameZhTW": "旋風發射器 藍色版",
+          "accessoryTypeZhTW": "發射器",
           "quantity": 1
         },
         {
           "accessoryName": "ランチャーグリップ ブルーVer.",
+          "accessoryNameZhTW": "發射器握把 藍色",
+          "accessoryTypeZhTW": "握把",
           "quantity": 1
         },
         {
           "accessoryName": "エクストリームスタジアム クリアVer.",
+          "accessoryNameZhTW": "Extreme Stadium 透明版",
+          "accessoryTypeZhTW": "對戰盤",
           "quantity": 1
         }
       ],
@@ -7018,14 +7024,20 @@
         },
         {
           "accessoryName": "エクストリームスタジアム ブラックVer.",
+          "accessoryNameZhTW": "Extreme Stadium 黑色版",
+          "accessoryTypeZhTW": "對戰盤",
           "quantity": 1
         },
         {
           "accessoryName": "ワインダーランチャー レッドVer.",
+          "accessoryNameZhTW": "拉條式發射器 紅色",
+          "accessoryTypeZhTW": "發射器",
           "quantity": 1
         },
         {
           "accessoryName": "ワインダーランチャー ブルーVer.",
+          "accessoryNameZhTW": "拉條式發射器 藍色",
+          "accessoryTypeZhTW": "發射器",
           "quantity": 1
         }
       ],
@@ -7724,14 +7736,20 @@
         },
         {
           "accessoryName": "エクストリームスタジアム ホワイト×オレンジ",
+          "accessoryNameZhTW": "Extreme Stadium 白×橘",
+          "accessoryTypeZhTW": "對戰盤",
           "quantity": 1
         },
         {
           "accessoryName": "ワインダーランチャー ホワイト×ブラック",
+          "accessoryNameZhTW": "拉條式發射器 白×黑",
+          "accessoryTypeZhTW": "發射器",
           "quantity": 1
         },
         {
           "accessoryName": "ワインダーランチャー ブラック×イエロー",
+          "accessoryNameZhTW": "拉條式發射器 黑×黃",
+          "accessoryTypeZhTW": "發射器",
           "quantity": 1
         }
       ],
@@ -10280,6 +10298,8 @@
         },
         {
           "accessoryName": "CXツール",
+          "accessoryNameZhTW": "CX 工具",
+          "accessoryTypeZhTW": "工具",
           "quantity": 1
         }
       ],

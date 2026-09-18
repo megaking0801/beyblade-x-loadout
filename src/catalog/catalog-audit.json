@@ -2,7 +2,7 @@
   "catalogVersion": "takaratomy-lineup-2026-09-16-r5",
   "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
   "fetchedAt": "2026-09-16",
-  "generatedAt": "2026-09-17",
+  "generatedAt": "2026-09-18",
   "productCount": 149,
   "partCount": 207,
   "imageCount": 346,
@@ -362,6 +362,7 @@
       "category": "tool"
     }
   ],
+  "accessoriesWithoutZhTW": [],
   "untranslatedNames": [],
   "knownGaps": [
     "官方商品頁未公布零件的類型、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。",
