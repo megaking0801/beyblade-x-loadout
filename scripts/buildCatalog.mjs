@@ -31,6 +31,7 @@ const HUB_CURATED_SETS_FILE = resolve(root, 'src/catalog/sources/beybladehub-cur
 const HUB_TOURNAMENTS_FILE = resolve(root, 'src/catalog/sources/beybladehub-tournaments.json')
 const HUB_MODES_FILE = resolve(root, 'src/catalog/sources/beybladehub-modes.json')
 const HUB_ACCESSORIES_FILE = resolve(root, 'src/catalog/sources/beybladehub-accessories.json')
+const RANDOM_BOOSTERS_FILE = resolve(root, 'src/catalog/sources/takaratomy-random-boosters.json')
 const COMPAT_NOTES_FILE = resolve(root, 'src/catalog/sources/part-compatibility-notes.json')
 const LOCAL_IMAGES_FILE = resolve(root, 'src/catalog/images.local.json')
 
@@ -623,6 +624,7 @@ function main() {
    * 對不到的不自己翻，留空並記進 audit，前台會退回顯示分類。
    */
   const hubAccessories = JSON.parse(readFileSync(HUB_ACCESSORIES_FILE, 'utf8'))
+  const randomBoosters = JSON.parse(readFileSync(RANDOM_BOOSTERS_FILE, 'utf8'))
   const accessoryZhByJa = new Map(
     hubAccessories.accessories.map((row) => [row.nameJa, row]),
   )
@@ -743,7 +745,7 @@ function main() {
     untranslatedNames: [],
     knownGaps: [
       '官方商品頁未公布零件的類型、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。',
-      '官方商品頁未公布隨機強化組的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。',
+      '隨機強化組的款式清單來自 Takara Tomy 官方產品說明書；官方未公布抽中機率，因此不估算機率。',
       '套裝商品的內含陀螺未在官方一覽頁公布，改以 BeybladeHub 商品頁逐筆彙整，這些商品標 community_only 並附該頁網址與原文引述。',
       '只出現在套裝內的上蓋（官方一覽頁沒有單獨列出）身分也標 community_only。',
       'CX 上蓋的鎖定紋章與主刃名稱官方未公布，依 BeybladeHub 零件頁拆成兩顆零件；該站未收錄的 4 顆維持合併並標記 cxFused。',
@@ -778,7 +780,8 @@ function main() {
     if (isJa) {
       const { translated, untranslated } = translate(code)
       naming = {
-        primaryZhTW: untranslated.length > 0 ? `${label} ${code}` : translated,
+        // 中文名尚未有可核對來源時，前台寧可顯示待確認狀態，也不能把日文原名漏出去。
+        primaryZhTW: untranslated.length > 0 ? `${label}（中文名待確認）` : translated,
         nameJa: code,
         isProvisionalZhTW: !isConfirmedName(code),
       }
@@ -1002,6 +1005,82 @@ function main() {
       system: 'BX',
       ...(integrated ? { extra: { integratedRatchet: true } } : {}),
     })
+  }
+
+  /**
+   * 官方說明書列的是「可抽到的款式」，不是買一盒必得的固定內容。
+   * 故只建立 ProductVariant，保證取得與可能取得才能在購買反查中分開。
+   */
+  function applyOfficialRandomBoosters(catalogRef, source, auditRef) {
+    const productById = new Map(catalogRef.products.map((product) => [product.id, product]))
+    const variants = []
+    const applied = []
+
+    for (const booster of source.boosters) {
+      const product = productById.get(booster.productId)
+      if (!product) throw new Error(`隨機強化組來源找不到商品：${booster.productId}`)
+      if (!product.isRandom) throw new Error(`隨機強化組來源對到非隨機商品：${booster.productId}`)
+      if (product.sku !== booster.sku) {
+        throw new Error(`隨機強化組型號不一致：${booster.productId}（${product.sku} / ${booster.sku}）`)
+      }
+      if (!Array.isArray(booster.variants) || booster.variants.length === 0) {
+        throw new Error(`隨機強化組沒有款式：${booster.productId}`)
+      }
+
+      for (const [index, spec] of booster.variants.entries()) {
+        const contents = parseBey(spec.nameJa, spec.line, product.sku)
+        if (!contents) throw new Error(`隨機強化組款式無法解析：${booster.productId} ${spec.nameJa}`)
+        const { naming, untranslated } = makeNaming(spec.nameJa, `款式 ${index + 1}`)
+        if (untranslated.length > 0) {
+          auditRef.untranslatedNames.push({
+            kind: 'productVariant',
+            id: `${booster.productId}-${index + 1}`,
+            nameJa: spec.nameJa,
+            untranslated,
+          })
+        }
+        variants.push({
+          id: `${booster.productId}-variant-${String(index + 1).padStart(2, '0')}`,
+          productId: product.id,
+          variantNameZhTW: spec.labelZhTW
+            ? `${naming.primaryZhTW}（${spec.labelZhTW}）`
+            : naming.primaryZhTW,
+          contents,
+          provenance: {
+            sourceUrls: [booster.sourceUrl],
+            verifiedAt: source.fetchedAt,
+            verificationStatus: 'official_verified',
+          },
+        })
+      }
+      product.provenance = {
+        sourceUrls: [...product.provenance.sourceUrls, booster.sourceUrl],
+        verifiedAt: source.fetchedAt,
+        verificationStatus: 'official_verified',
+      }
+      applied.push({ productId: product.id, sku: product.sku, variants: booster.variants.length })
+    }
+
+    const sourceIds = new Set(source.boosters.map((booster) => booster.productId))
+    const withoutManual = catalogRef.products
+      .filter((product) => product.isRandom && !sourceIds.has(product.id))
+      .map((product) => ({ id: product.id, sku: product.sku }))
+    if (withoutManual.length > 0) {
+      throw new Error(`下列隨機強化組缺少官方款式來源：${withoutManual.map((row) => row.id).join(', ')}`)
+    }
+    // 這些商品保留空 contents 是正確模型，不再把它們誤列成「款式未知」。
+    auditRef.randomContentsByDesign = auditRef.randomContentsByDesign.filter(
+      (row) => !sourceIds.has(row.id),
+    )
+    catalogRef.productVariants = variants
+    auditRef.randomBoosterVariants = {
+      source: source.source,
+      fetchedAt: source.fetchedAt,
+      applied,
+      withoutManual,
+      note: source.note,
+    }
+    console.log(`官方隨機強化組款式補上 ${variants.length} 筆，涵蓋 ${applied.length} 款商品`)
   }
 
   /**
@@ -1308,6 +1387,7 @@ function main() {
   // 人工彙整的套裝會建立只在盒內出現的零件，所以要先補內容，再把零件清單重新取一次快照。
   applyCuratedSets(catalog, curatedSets, audit)
   applyHubSetContents(catalog.products, hubSets, audit)
+  applyOfficialRandomBoosters(catalog, randomBoosters, audit)
   catalog.parts = [...parts.values()]
 
   // 數值與圖片要在零件清單完整之後才套，否則後面才建立的零件拿不到。

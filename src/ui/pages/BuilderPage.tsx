@@ -160,6 +160,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const expertPartRatings = useMemo(() => getExpertPartRatings(slots), [slots])
   // 配完之後使用者的下一個問題就是「那我要買哪一盒」。零件不單賣，只能反查商品。
   const products = useAppStore((state) => state.products)
+  const productVariants = useAppStore((state) => state.productVariants)
   const selectedParts = useMemo(
     () =>
       Object.values(slots)
@@ -174,11 +175,12 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         slots,
         parts,
         products,
+        productVariants,
         ownedPartIds: [...availability.entries()]
           .filter(([, value]) => (value?.free ?? 0) > 0)
           .map(([partId]) => partId),
       }),
-    [slots, parts, products, availability],
+    [slots, parts, products, productVariants, availability],
   )
   // 證據理由：把高手評級與賽事觀測翻成一句一句可回查的話。
   // 刻意不餵進六軸，模型歸模型、證據歸證據（第 20 節 D）。
@@ -666,7 +668,7 @@ export function ComboResult({
         {/*
           去哪裡買：零件不單賣，配完之後要能直接看出該補哪一盒。
           缺件排在前面，同一盒能補到越多件就排越前面。
-          隨機補充包一律不列入 —— 官方沒公布固定內容，列進去等於暗示買了就會有。
+          固定內容與隨機強化組必須分開：前者才是保證取得與「最划算」的依據。
         */}
         {partSources.length > 0 ? (
           <div style={{ fontSize: 13 }} data-testid="part-sources">
@@ -685,21 +687,70 @@ export function ComboResult({
                   {source.nameZhTW}
                   {source.owned ? <span className="meta">（已有）</span> : null}
                   {'：'}
-                  {source.products.length === 0 ? (
-                    <span className="meta">{NO_SOURCE_NOTE_ZH}</span>
-                  ) : (
-                    <>
-                      {source.products.slice(0, 3).map((product, index) => (
+                  <div style={{ display: 'inline' }}>
+                    保證取得：
+                    {source.products.length === 0 ? (
+                      <span className="meta">{NO_SOURCE_NOTE_ZH}</span>
+                    ) : (
+                      <>
+                        {source.products.slice(0, 3).map((product, index) => (
+                          <span key={product.productId}>
+                            {index > 0 ? '、' : ''}
+                            <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
+                          </span>
+                        ))}
+                        {source.products.length > 3 ? (
+                          <details style={{ marginTop: 3 }}>
+                            <summary className="meta" style={{ cursor: 'pointer' }}>
+                              查看另外 {source.products.length - 3} 款
+                            </summary>
+                            <span>
+                              {source.products.slice(3).map((product, index) => (
+                                <span key={product.productId}>
+                                  {index > 0 ? '、' : ''}
+                                  <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
+                                </span>
+                              ))}
+                            </span>
+                          </details>
+                        ) : null}
+                      </>
+                    )}
+                  </div>
+                  {source.randomProducts.length > 0 ? (
+                    <div className="meta" style={{ marginTop: 3 }}>
+                      可能抽到（非保證）：
+                      {source.randomProducts.slice(0, 3).map((product, index) => (
                         <span key={product.productId}>
                           {index > 0 ? '、' : ''}
                           <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
+                          （{product.matchingVariantCount}/{product.totalVariantCount} 款）{' '}
+                          <a href={product.sourceUrl} target="_blank" rel="noreferrer">
+                            來源
+                          </a>
                         </span>
                       ))}
-                      {source.products.length > 3 ? (
-                        <span className="meta">　另 {source.products.length - 3} 款</span>
+                      {source.randomProducts.length > 3 ? (
+                        <details style={{ marginTop: 3 }}>
+                          <summary style={{ cursor: 'pointer' }}>
+                            查看另外 {source.randomProducts.length - 3} 款抽選來源
+                          </summary>
+                          <span>
+                            {source.randomProducts.slice(3).map((product, index) => (
+                              <span key={product.productId}>
+                                {index > 0 ? '、' : ''}
+                                <span className="code">{product.sku ?? ''}</span> {product.nameZhTW}
+                                （{product.matchingVariantCount}/{product.totalVariantCount} 款）{' '}
+                                <a href={product.sourceUrl} target="_blank" rel="noreferrer">
+                                  來源
+                                </a>
+                              </span>
+                            ))}
+                          </span>
+                        </details>
                       ) : null}
-                    </>
-                  )}
+                    </div>
+                  ) : null}
                 </li>
               ))}
             </ul>

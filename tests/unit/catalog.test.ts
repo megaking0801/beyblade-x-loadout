@@ -192,19 +192,28 @@ describe('前台名稱規則（第 1.4、5 節）', () => {
 })
 
 describe('不得編造內容（第 1.5 節）', () => {
-  it('隨機補充包沒有預設內容，也沒有假造款式', () => {
+  it('隨機補充包沒有預設內容，款式只採用官方說明書資料', () => {
     const randoms = catalog.products.filter((product) => product.isRandom)
     expect(randoms.length).toBeGreaterThan(0)
     for (const product of randoms) {
       expect(product.contents).toEqual([])
     }
-    expect(catalog.productVariants).toEqual([])
+    expect(catalog.productVariants.length).toBeGreaterThan(0)
+    for (const product of randoms) {
+      expect(catalog.productVariants.some((variant) => variant.productId === product.id)).toBe(true)
+    }
+    for (const variant of catalog.productVariants) {
+      expect(randoms.some((product) => product.id === variant.productId)).toBe(true)
+      expect(variant.contents.length).toBeGreaterThan(0)
+      expect(variant.probability).toBeUndefined()
+      expect(variant.provenance.verificationStatus).toBe('official_verified')
+    }
   })
 
   it('內容未知的商品一律標記為待查', () => {
     for (const product of catalog.products) {
       const expectsContents = !['tool', 'accessory'].includes(product.category)
-      if (expectsContents && product.contents.length === 0) {
+      if (expectsContents && product.contents.length === 0 && !product.isRandom) {
         expect(product.provenance.verificationStatus).toBe('needs_review')
       }
     }
@@ -498,11 +507,11 @@ describe('CX 四件式超越拆組（第 9、17 節）', () => {
 })
 
 describe('稽核要把「刻意不填」與「真的缺」分開（第 13、42 節）', () => {
-  it('隨機補充包記在刻意不填，不算待查', () => {
-    expect(catalogAudit.randomContentsByDesign.length).toBeGreaterThan(0)
-    const randomIds = new Set(catalogAudit.randomContentsByDesign.map((row) => row.id))
+  it('隨機補充包的固定內容刻意留空，款式改記在官方款式清單', () => {
+    expect(catalogAudit.randomContentsByDesign).toEqual([])
+    const randomIds = new Set(catalogAudit.randomBoosterVariants.applied.map((row) => row.productId))
     for (const product of catalog.products.filter((row) => row.isRandom)) {
-      expect(randomIds.has(product.id), `${product.id} 應列為刻意不填`).toBe(true)
+      expect(randomIds.has(product.id), `${product.id} 應有官方款式`).toBe(true)
     }
     for (const row of catalogAudit.contentsUnknownProducts) {
       const product = catalog.products.find((item) => item.id === row.id)

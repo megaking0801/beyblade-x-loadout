@@ -113,13 +113,11 @@ test.describe('第 45 節 驗收核心情境', () => {
     await expect(page.getByText('我的零件：0')).toBeVisible()
   })
 
-  test('Case 6：Random Booster 開封並登記實際內容後才加入零件', async ({ page }) => {
+  test('Case 6：Random Booster 選官方款式開封後才加入零件', async ({ page }) => {
     await addProductFromCatalog(page, 'BX-14', 1)
 
-    const form = page.getByTestId('manual-open-form')
-    await expect(form).toBeVisible()
-    await form.getByTestId('manual-open-part').first().selectOption(BX01.blade)
-    await form.getByTestId('manual-open-submit').click()
+    await page.getByLabel('抽到的款式').selectOption('bx14-variant-03')
+    await page.getByRole('button', { name: '登記開封' }).click()
     await expect(page.getByText('未拆封 0 盒 ・ 已拆封 1 盒')).toBeVisible()
 
     await openApp(page, '/parts')

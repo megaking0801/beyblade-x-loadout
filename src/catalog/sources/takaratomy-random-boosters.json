@@ -1,0 +1,70 @@
+{
+  "source": "Takara Tomy 官方產品說明書",
+  "fetchedAt": "2026-09-18",
+  "note": "每筆為官方說明書列出的可能款式；隨機商品每盒只會取得其中一款。官方未公布各款抽中機率，資料不推估機率，也不將款式寫入商品固定內容。",
+  "boosters": [
+    { "productId": "bx14", "sku": "BX-14", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf", "variants": [
+      { "nameJa": "シャークエッジ3-60LF", "line": "BX" }, { "nameJa": "シャークエッジ4-80N", "line": "BX" }, { "nameJa": "ドランソード3-80B", "line": "BX" }, { "nameJa": "ヘルズサイズ4-80LF", "line": "BX" }, { "nameJa": "ナイトシールド4-60LF", "line": "BX" }, { "nameJa": "ウィザードアロー3-60T", "line": "BX" }
+    ] },
+    { "productId": "bx16", "sku": "BX-16", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-16_manual.pdf", "variants": [
+      { "nameJa": "ヴァイパーテイル5-80O", "line": "BX" }, { "nameJa": "ヴァイパーテイル4-60F", "line": "BX" }, { "nameJa": "ヴァイパーテイル3-80HN", "line": "BX" }
+    ] },
+    { "productId": "bx24", "sku": "BX-24", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf", "variants": [
+      { "nameJa": "ワイバーンゲイル5-80GB", "line": "BX" }, { "nameJa": "ワイバーンゲイル3-60T", "line": "BX" }, { "nameJa": "ナイトランス4-60GB", "line": "BX" }, { "nameJa": "ヴァイパーテイル5-60F", "line": "BX" }, { "nameJa": "レオンクロー3-80HN", "line": "BX" }, { "nameJa": "ウィザードアロー4-80GB", "line": "BX" }
+    ] },
+    { "productId": "bx27", "sku": "BX-27", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-27_manual.pdf", "variants": [
+      { "nameJa": "スフィンクスカウル9-80GN", "line": "BX" }, { "nameJa": "スフィンクスカウル4-80HT", "line": "BX" }, { "nameJa": "スフィンクスカウル5-60O", "line": "BX" }
+    ] },
+    { "productId": "bx31", "sku": "BX-31", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf", "variants": [
+      { "nameJa": "ティラノビート4-70Q", "line": "BX" }, { "nameJa": "ティラノビート3-60S", "line": "BX" }, { "nameJa": "ヘルズチェイン9-80O", "line": "BX" }, { "nameJa": "ドランダガー4-70P", "line": "BX" }, { "nameJa": "シャークエッジ1-60Q", "line": "BX" }, { "nameJa": "ライノホーン5-80Q", "line": "BX" }
+    ] },
+    { "productId": "ux05", "sku": "UX-05", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-05_manual.pdf", "variants": [
+      { "nameJa": "シノビシャドウ1-80MN", "line": "UX" }, { "nameJa": "シノビシャドウ9-60LF", "line": "UX" }, { "nameJa": "シノビシャドウ3-70GP", "line": "UX" }
+    ] },
+    { "productId": "bx35", "sku": "BX-35", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf", "variants": [
+      { "nameJa": "ブラックシェル4-60D", "line": "BX" }, { "nameJa": "ブラックシェル9-80B", "line": "BX" }, { "nameJa": "ユニコーンスティング3-70D", "line": "BX" }, { "nameJa": "ウィザードロッド1-60R", "line": "UX" }, { "nameJa": "フェニックスウイング9-80H", "line": "BX" }, { "nameJa": "ヴァイパーテイル5-70D", "line": "BX" }
+    ] },
+    { "productId": "bx00-ld", "sku": "BX-00", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BXG-07_manual.pdf", "variants": [
+      { "nameJa": "ライトニングエルドラゴ1-60F", "line": "BX", "labelZhTW": "上攻型" }, { "nameJa": "ライトニングエルドラゴ1-60F", "line": "BX", "labelZhTW": "連擊型" }
+    ] },
+    { "productId": "bx36", "sku": "BX-36", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-36_manual.pdf", "variants": [
+      { "nameJa": "ホエールウェーブ5-80E", "line": "BX" }, { "nameJa": "ホエールウェーブ4-70HN", "line": "BX" }, { "nameJa": "ホエールウェーブ3-80GB", "line": "BX" }
+    ] },
+    { "productId": "ux12", "sku": "UX-12", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf", "variants": [
+      { "nameJa": "ゴーストサークル0-80GB", "line": "UX" }, { "nameJa": "ゴーストサークル4-60H", "line": "UX" }, { "nameJa": "シノビシャドウ3-80F", "line": "UX" }, { "nameJa": "レオンクロー0-80E", "line": "BX" }, { "nameJa": "フェニックスフェザー2-60N", "line": "BX" }, { "nameJa": "ワイバーンゲイル0-80C", "line": "BX" }
+    ] },
+    { "productId": "bx39", "sku": "BX-39", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-39_manual.pdf", "variants": [
+      { "nameJa": "シェルタードレイク7-80GP", "line": "BX" }, { "nameJa": "シェルタードレイク5-70O", "line": "BX" }, { "nameJa": "シェルタードレイク3-60D", "line": "BX" }
+    ] },
+    { "productId": "cx05", "sku": "CX-05", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf", "variants": [
+      { "nameJa": "ヘルズリーパーT4-70K", "line": "CX" }, { "nameJa": "ライノリーパーC4-55D", "line": "CX" }, { "nameJa": "ヘルズアークT3-85O", "line": "CX" }, { "nameJa": "レオンクレスト9-80K", "line": "UX" }, { "nameJa": "フェニックスラダー4-70LF", "line": "BX" }, { "nameJa": "ホエールウェーブ7-60K", "line": "BX" }
+    ] },
+    { "productId": "cx06", "sku": "CX-06", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-06_manual.pdf", "variants": [
+      { "nameJa": "フォックスブラッシュJ9-70GR", "line": "CX" }, { "nameJa": "フォックスブラッシュJ0-80DB", "line": "CX" }, { "nameJa": "フォックスブラッシュJ2-60U", "line": "CX" }
+    ] },
+    { "productId": "cx08", "sku": "CX-08", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf", "variants": [
+      { "nameJa": "ケルベロスフレイムW5-80WB", "line": "CX" }, { "nameJa": "ホエールループM3-85HT", "line": "CX" }, { "nameJa": "ケルベロスダークW1-60F", "line": "CX" }, { "nameJa": "ドランバスター5-80MN", "line": "UX" }, { "nameJa": "ブラックシェル7-70WB", "line": "BX" }, { "nameJa": "コバルトドラグーン4-55WB", "line": "BX" }
+    ] },
+    { "productId": "ux16", "sku": "UX-16", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-16_manual.pdf", "variants": [
+      { "nameJa": "クロックミラージュ9-65B", "line": "UX", "labelZhTW": "綠色" }, { "nameJa": "クロックミラージュ9-65B", "line": "UX", "labelZhTW": "黑銀" }, { "nameJa": "クロックミラージュ9-65B", "line": "UX", "labelZhTW": "粉紅" }
+    ] },
+    { "productId": "ux18", "sku": "UX-18", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf", "variants": [
+      { "nameJa": "マンモスカース7-55W", "line": "UX" }, { "nameJa": "マンモスカース4-60C", "line": "UX" }, { "nameJa": "ペガサスブラッシュM3-85W", "line": "CX" }, { "nameJa": "ソルブレイズC9-70TP", "line": "CX" }, { "nameJa": "ドランダガー7-55G", "line": "BX" }, { "nameJa": "ヴァイスタイガー4-80LR", "line": "BX" }
+    ] },
+    { "productId": "bx48", "sku": "BX-48", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf", "variants": [
+      { "nameJa": "コバルトドラグーン9-80F", "line": "BX" }, { "nameJa": "シャークエッジ4-70E", "line": "BX" }, { "nameJa": "マンモスタスク7-60S", "line": "BX" }, { "nameJa": "ヘルズサイズ3-85GB", "line": "BX" }, { "nameJa": "ドランバスター2-80Q", "line": "UX" }
+    ] },
+    { "productId": "cx17", "sku": "CX-17", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf", "variants": [
+      { "nameJa": "ユニコーンスティングP0-60U", "line": "CX" }, { "nameJa": "ユニコーンスティングP0-80GR", "line": "CX" }, { "nameJa": "サムライセイバー9-65LO", "line": "UX" }, { "nameJa": "ヘルズハンマー3-85GU", "line": "UX" }, { "nameJa": "ティラノビート3-60N", "line": "BX" }, { "nameJa": "クリムゾンガルーダ7-80GU", "line": "BX" }
+    ] },
+    { "productId": "cx18", "sku": "CX-18", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-18_manual.pdf", "variants": [
+      { "nameJa": "ブラキオウィップ0W5-70Nr", "line": "CX", "labelZhTW": "紫色" }, { "nameJa": "ブラキオウィップ0W5-70Nr", "line": "CX", "labelZhTW": "金色" }, { "nameJa": "ブラキオウィップ0W5-70Nr", "line": "CX", "labelZhTW": "黑色" }
+    ] },
+    { "productId": "bx50", "sku": "BX-50", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf", "variants": [
+      { "nameJa": "ヘブンズリング6-80DS", "line": "BX" }, { "nameJa": "ヘブンズリング6-60TP", "line": "BX" }, { "nameJa": "インパクトドレイク7-55FB", "line": "UX" }, { "nameJa": "ゴーストサークルM-85DS", "line": "UX" }, { "nameJa": "ウルフフレイム4D9-65L", "line": "CX" }, { "nameJa": "ケルベロスリーパーB0-80WB", "line": "CX" }
+    ] },
+    { "productId": "cx19", "sku": "CX-19", "sourceUrl": "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-19_manual.pdf", "variants": [
+      { "nameJa": "クロコトレッドTQ5-50GN", "line": "CX", "labelZhTW": "綠色" }, { "nameJa": "クロコトレッドTQ5-50GN", "line": "CX", "labelZhTW": "紅色" }, { "nameJa": "クロコトレッドTQ5-50GN", "line": "CX", "labelZhTW": "黑紅" }
+    ] }
+  ]
+}

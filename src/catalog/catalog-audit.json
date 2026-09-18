@@ -4,8 +4,8 @@
   "fetchedAt": "2026-09-16",
   "generatedAt": "2026-09-18",
   "productCount": 149,
-  "partCount": 207,
-  "imageCount": 346,
+  "partCount": 242,
+  "imageCount": 374,
   "tournamentEventCount": 23,
   "tournamentDeckCount": 14,
   "tournamentObservationCount": 93,
@@ -31,113 +31,7 @@
   ],
   "unparsedBeyProducts": [],
   "contentsUnknownProducts": [],
-  "randomContentsByDesign": [
-    {
-      "id": "bx14",
-      "nameJa": "ランダムブースターVol.1",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx16",
-      "nameJa": "ランダムブースター ヴァイパーテイルセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx24",
-      "nameJa": "ランダムブースターVol.2",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx27",
-      "nameJa": "ランダムブースター スフィンクスカウルセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx31",
-      "nameJa": "ランダムブースターVol.3",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "ux05",
-      "nameJa": "ランダムブースター シノビシャドウセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx35",
-      "nameJa": "ランダムブースターVol.4",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx00-ld",
-      "nameJa": "ランダムブースター ライトニングエルドラゴ1-60F",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx36",
-      "nameJa": "ランダムブースター ホエールウェーブセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "ux12",
-      "nameJa": "ランダムブースターVol.5",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx39",
-      "nameJa": "ランダムブースター シェルタードレイクセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx05",
-      "nameJa": "ランダムブースターVol.6",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx06",
-      "nameJa": "ランダムブースター フォックスブラッシュセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx08",
-      "nameJa": "ランダムブースターVol.7",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "ux16",
-      "nameJa": "ランダムブースター クロックミラージュセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "ux18",
-      "nameJa": "ランダムブースターVol.8",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx48",
-      "nameJa": "ランダムブースターVol.9",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx17",
-      "nameJa": "ランダムブースターVol.10",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx18",
-      "nameJa": "ランダムブースター ブラキオウィップセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "bx50",
-      "nameJa": "ランダムブースターVol.11",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    },
-    {
-      "id": "cx19",
-      "nameJa": "ランダムブースター クロコトレッドセレクト",
-      "reason": "隨機內容，開封後由使用者自行登記實際抽到的零件"
-    }
-  ],
+  "randomContentsByDesign": [],
   "cxSplitBlades": [
     {
       "fusedId": "main_blade:ドランブレイブ",
@@ -222,6 +116,69 @@
       "nameZhTW": "迪卡狂怒",
       "lockChipId": "lock_chip:Tg",
       "mainBladeId": "main_blade:metal-Rg"
+    },
+    {
+      "fusedId": "main_blade:ヘルズリーパー",
+      "nameJa": "ヘルズリーパー",
+      "nameZhTW": "惡魔獵魂",
+      "lockChipId": "lock_chip:Hl",
+      "mainBladeId": "main_blade:Rp"
+    },
+    {
+      "fusedId": "main_blade:ライノリーパー",
+      "nameJa": "ライノリーパー",
+      "nameZhTW": "戰犀獵魂",
+      "lockChipId": "lock_chip:Rh",
+      "mainBladeId": "main_blade:Rp"
+    },
+    {
+      "fusedId": "main_blade:ヘルズアーク",
+      "nameJa": "ヘルズアーク",
+      "nameZhTW": "惡魔至尊",
+      "lockChipId": "lock_chip:Hl",
+      "mainBladeId": "main_blade:Ar"
+    },
+    {
+      "fusedId": "main_blade:フォックスブラッシュ",
+      "nameJa": "フォックスブラッシュ",
+      "nameZhTW": "極狐九尾",
+      "lockChipId": "lock_chip:Fx",
+      "mainBladeId": "main_blade:Bs"
+    },
+    {
+      "fusedId": "main_blade:ケルベロスフレイム",
+      "nameJa": "ケルベロスフレイム",
+      "nameZhTW": "魔犬烈焰",
+      "lockChipId": "lock_chip:Cr",
+      "mainBladeId": "main_blade:Fl"
+    },
+    {
+      "fusedId": "main_blade:ケルベロスダーク",
+      "nameJa": "ケルベロスダーク",
+      "nameZhTW": "魔犬幽冥",
+      "lockChipId": "lock_chip:Cr",
+      "mainBladeId": "main_blade:Dr"
+    },
+    {
+      "fusedId": "main_blade:ペガサスブラッシュ",
+      "nameJa": "ペガサスブラッシュ",
+      "nameZhTW": "天馬九尾",
+      "lockChipId": "lock_chip:Pg",
+      "mainBladeId": "main_blade:Bs"
+    },
+    {
+      "fusedId": "main_blade:ケルベロスリーパー",
+      "nameJa": "ケルベロスリーパー",
+      "nameZhTW": "魔犬獵魂",
+      "lockChipId": "lock_chip:Cr",
+      "mainBladeId": "main_blade:Rp"
+    },
+    {
+      "fusedId": "main_blade:クロコトレッド",
+      "nameJa": "クロコトレッド",
+      "nameZhTW": "巨鱷碾壓",
+      "lockChipId": "lock_chip:Co",
+      "mainBladeId": "main_blade:metal-Tr"
     }
   ],
   "cxUnsplitBlades": [
@@ -247,6 +204,36 @@
       "fusedId": "main_blade:ドレイクブレイブ",
       "nameJa": "ドレイクブレイブ",
       "nameZhTW": "龍神勇氣",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ホエールループ",
+      "nameJa": "ホエールループ",
+      "nameZhTW": "巨鯨ループ",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ソルブレイズ",
+      "nameJa": "ソルブレイズ",
+      "nameZhTW": "焰神ブレイズ",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ユニコーンスティング",
+      "nameJa": "ユニコーンスティング",
+      "nameZhTW": "獨角刺心",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ブラキオウィップ0",
+      "nameJa": "ブラキオウィップ0",
+      "nameZhTW": "腕龍鞭打0",
+      "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
+    },
+    {
+      "fusedId": "main_blade:ウルフフレイム4",
+      "nameJa": "ウルフフレイム4",
+      "nameZhTW": "銀狼烈焰4",
       "reason": "社群站尚未收錄這顆的鎖定紋章或主刃，維持合併"
     }
   ],
@@ -363,10 +350,50 @@
     }
   ],
   "accessoriesWithoutZhTW": [],
-  "untranslatedNames": [],
+  "untranslatedNames": [
+    {
+      "kind": "part",
+      "code": "ホエールループ",
+      "untranslated": "ループ"
+    },
+    {
+      "kind": "productVariant",
+      "id": "cx08-2",
+      "nameJa": "ホエールループM3-85HT",
+      "untranslated": "ループ"
+    },
+    {
+      "kind": "part",
+      "code": "マンモスカース",
+      "untranslated": "マンモスカース"
+    },
+    {
+      "kind": "productVariant",
+      "id": "ux18-1",
+      "nameJa": "マンモスカース7-55W",
+      "untranslated": "マンモスカース"
+    },
+    {
+      "kind": "productVariant",
+      "id": "ux18-2",
+      "nameJa": "マンモスカース4-60C",
+      "untranslated": "マンモスカース"
+    },
+    {
+      "kind": "part",
+      "code": "ソルブレイズ",
+      "untranslated": "ブレイズ"
+    },
+    {
+      "kind": "productVariant",
+      "id": "ux18-4",
+      "nameJa": "ソルブレイズC9-70TP",
+      "untranslated": "ブレイズ"
+    }
+  ],
   "knownGaps": [
     "官方商品頁未公布零件的類型、旋向與軸心特性，因此這些欄位一律留空，強度分析會顯示資料不足。",
-    "官方商品頁未公布隨機強化組的款式內容，因此款式清單為空；使用者開封後可自行登記實際內容。",
+    "隨機強化組的款式清單來自 Takara Tomy 官方產品說明書；官方未公布抽中機率，因此不估算機率。",
     "套裝商品的內含陀螺未在官方一覽頁公布，改以 BeybladeHub 商品頁逐筆彙整，這些商品標 community_only 並附該頁網址與原文引述。",
     "只出現在套裝內的上蓋（官方一覽頁沒有單獨列出）身分也標 community_only。",
     "CX 上蓋的鎖定紋章與主刃名稱官方未公布，依 BeybladeHub 零件頁拆成兩顆零件；該站未收錄的 4 顆維持合併並標記 cxFused。",
@@ -514,10 +541,123 @@
       }
     ]
   },
+  "randomBoosterVariants": {
+    "source": "Takara Tomy 官方產品說明書",
+    "fetchedAt": "2026-09-18",
+    "applied": [
+      {
+        "productId": "bx14",
+        "sku": "BX-14",
+        "variants": 6
+      },
+      {
+        "productId": "bx16",
+        "sku": "BX-16",
+        "variants": 3
+      },
+      {
+        "productId": "bx24",
+        "sku": "BX-24",
+        "variants": 6
+      },
+      {
+        "productId": "bx27",
+        "sku": "BX-27",
+        "variants": 3
+      },
+      {
+        "productId": "bx31",
+        "sku": "BX-31",
+        "variants": 6
+      },
+      {
+        "productId": "ux05",
+        "sku": "UX-05",
+        "variants": 3
+      },
+      {
+        "productId": "bx35",
+        "sku": "BX-35",
+        "variants": 6
+      },
+      {
+        "productId": "bx00-ld",
+        "sku": "BX-00",
+        "variants": 2
+      },
+      {
+        "productId": "bx36",
+        "sku": "BX-36",
+        "variants": 3
+      },
+      {
+        "productId": "ux12",
+        "sku": "UX-12",
+        "variants": 6
+      },
+      {
+        "productId": "bx39",
+        "sku": "BX-39",
+        "variants": 3
+      },
+      {
+        "productId": "cx05",
+        "sku": "CX-05",
+        "variants": 6
+      },
+      {
+        "productId": "cx06",
+        "sku": "CX-06",
+        "variants": 3
+      },
+      {
+        "productId": "cx08",
+        "sku": "CX-08",
+        "variants": 6
+      },
+      {
+        "productId": "ux16",
+        "sku": "UX-16",
+        "variants": 3
+      },
+      {
+        "productId": "ux18",
+        "sku": "UX-18",
+        "variants": 6
+      },
+      {
+        "productId": "bx48",
+        "sku": "BX-48",
+        "variants": 5
+      },
+      {
+        "productId": "cx17",
+        "sku": "CX-17",
+        "variants": 6
+      },
+      {
+        "productId": "cx18",
+        "sku": "CX-18",
+        "variants": 3
+      },
+      {
+        "productId": "bx50",
+        "sku": "BX-50",
+        "variants": 6
+      },
+      {
+        "productId": "cx19",
+        "sku": "CX-19",
+        "variants": 3
+      }
+    ],
+    "withoutManual": [],
+    "note": "每筆為官方說明書列出的可能款式；隨機商品每盒只會取得其中一款。官方未公布各款抽中機率，資料不推估機率，也不將款式寫入商品固定內容。"
+  },
   "hubStats": {
     "source": "BeybladeHub",
     "fetchedAt": "2026-09-16",
-    "matchedParts": 203,
+    "matchedParts": 231,
     "partsWithoutStats": [
       {
         "id": "main_blade:バックスアントラーズ",
@@ -534,11 +674,35 @@
       {
         "id": "main_blade:ドレイクブレイブ",
         "name": "龍神勇氣"
+      },
+      {
+        "id": "blade:ライトニングエルドラゴ",
+        "name": "雷霆天龍"
+      },
+      {
+        "id": "main_blade:ホエールループ",
+        "name": "主刃（中文名待確認）"
+      },
+      {
+        "id": "blade:マンモスカース",
+        "name": "上蓋（中文名待確認）"
+      },
+      {
+        "id": "main_blade:ソルブレイズ",
+        "name": "主刃（中文名待確認）"
+      },
+      {
+        "id": "main_blade:ブラキオウィップ0",
+        "name": "腕龍鞭打0"
+      },
+      {
+        "id": "main_blade:ウルフフレイム4",
+        "name": "銀狼烈焰4"
       }
     ]
   },
   "hubImages": {
-    "partImages": 201,
+    "partImages": 229,
     "productImagesReplaced": 73
   },
   "switchableModes": {
@@ -567,7 +731,7 @@
     "scannedZhTW": "已掃過 BeybladeHub 的 167 個商品頁與四個零件頁，只有時鐘幻象有搭配限制的描述。"
   },
   "localImages": {
-    "mirrored": 346,
+    "mirrored": 374,
     "stillRemote": 0
   },
   "hubTournamentDuplicates": [

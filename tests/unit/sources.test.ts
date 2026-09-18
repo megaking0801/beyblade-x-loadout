@@ -14,6 +14,7 @@ function sourcesFor(slots: ComboSlots, ownedPartIds?: string[]) {
     slots,
     parts: catalog.parts,
     products: catalog.products,
+    productVariants: catalog.productVariants,
     ...(ownedPartIds ? { ownedPartIds } : {}),
   })
 }
@@ -35,7 +36,7 @@ describe('零件要去買哪一盒（第 8、14 節）', () => {
     }
   })
 
-  it('隨機補充包不列入：官方沒公布固定內容，列進去等於暗示買了就會有', () => {
+  it('隨機強化組不列入保證取得，但會獨立列出官方確認的可能款式', () => {
     const randomIds = new Set(
       catalog.products.filter((product) => product.isRandom).map((product) => product.id),
     )
@@ -45,6 +46,10 @@ describe('零件要去買哪一盒（第 8、14 節）', () => {
         expect(randomIds.has(product.productId)).toBe(false)
       }
     }
+    const dranSword = sourcesFor(BX01).find((source) => source.partId === BX01.bladeId)
+    expect(dranSword?.randomProducts).toContainEqual(
+      expect.objectContaining({ sku: 'BX-14', matchingVariantCount: 1, totalVariantCount: 6 }),
+    )
   })
 
   it('推薦一般商品而不是限定品：型號結尾 -00 的排在後面', () => {
@@ -67,6 +72,6 @@ describe('零件要去買哪一盒（第 8、14 節）', () => {
   })
 
   it('查不到來源時有固定說明，不是留白', () => {
-    expect(NO_SOURCE_NOTE_ZH).toContain('隨機補充包')
+    expect(NO_SOURCE_NOTE_ZH).toContain('抽選池')
   })
 })

@@ -6,10 +6,10 @@
  * 為什麼需要：配裝器算得出一套配置，但使用者下一個問題一定是「那我要買什麼」。
  * 零件不單賣，只能透過商品取得，這一層就是把零件反查回商品。
  *
- * 只回報圖鑑裡確實記載內容的商品。隨機補充包即使可能開出這顆也不列入 ——
- * 官方沒有公布固定內容，列進去等於暗示買了就會有（第 1.5、13 節）。
+ * 固定內容與隨機強化組分開回報：前者可保證取得，後者只顯示官方確認的可能款式，
+ * 不得混進「最划算」或保證購買來源（第 1.5、13 節）。
  */
-import type { ComboSlots, Part, Product } from './types.ts'
+import type { ComboSlots, Part, Product, ProductVariant } from './types.ts'
 import { PART_FAMILY_ZH } from './types.ts'
 import { resolveDisplayName } from './naming.ts'
 
@@ -33,13 +33,27 @@ export interface PartSourceProduct {
   totalPartCount: number
 }
 
+/** 隨機強化組的「可抽到」來源；不保證一盒會拿到，故獨立於 products。 */
+export interface PartRandomSourceProduct {
+  productId: string
+  sku?: string
+  nameZhTW: string
+  /** 此零件出現在該商品官方列出的幾個可能款式中。 */
+  matchingVariantCount: number
+  totalVariantCount: number
+  sourceUrl: string
+}
+
 export interface PartSource {
   partId: string
   familyZhTW: string
   nameZhTW: string
   /** 使用者目前庫存是否已經有這顆；缺的才需要買。 */
   owned: boolean
+  /** 固定內容，買到即取得；唯一會納入「最划算」計算的來源。 */
   products: PartSourceProduct[]
+  /** 官方列出的可能款式，僅供辨識抽選來源，不保證取得。 */
+  randomProducts: PartRandomSourceProduct[]
 }
 
 /**
@@ -57,6 +71,7 @@ export function getPartSources(args: {
   slots: ComboSlots
   parts: Part[]
   products: Product[]
+  productVariants?: ProductVariant[]
   /** 目前庫存已經有的零件 id；沒傳就一律當成缺件。 */
   ownedPartIds?: Iterable<string>
 }): PartSource[] {
@@ -109,12 +124,38 @@ export function getPartSources(args: {
         (a.sku ?? '').localeCompare(b.sku ?? ''),
     )
 
+    const randomProducts = args.products
+      .filter((product) => product.isRandom)
+      .map((product) => {
+        const variants = (args.productVariants ?? []).filter((variant) => variant.productId === product.id)
+        const matchingVariantCount = variants.filter((variant) =>
+          variant.contents.some((entry) => entry.partId === partId),
+        ).length
+        if (matchingVariantCount === 0) return undefined
+        return {
+          productId: product.id,
+          ...(product.sku ? { sku: product.sku } : {}),
+          nameZhTW: resolveDisplayName(product.naming).titleZhTW,
+          matchingVariantCount,
+          totalVariantCount: variants.length,
+          sourceUrl: variants[0]?.provenance.sourceUrls[0] ?? product.provenance.sourceUrls[0] ?? '',
+        }
+      })
+      .filter((product): product is PartRandomSourceProduct => Boolean(product))
+      .sort(
+        (a, b) =>
+          Number(isLimitedSku(a.sku)) - Number(isLimitedSku(b.sku)) ||
+          b.matchingVariantCount - a.matchingVariantCount ||
+          (a.sku ?? '').localeCompare(b.sku ?? ''),
+      )
+
     sources.push({
       partId,
       familyZhTW: PART_FAMILY_ZH[part.family],
       nameZhTW: resolveDisplayName(part.naming).titleZhTW,
       owned: owned.has(partId),
       products,
+      randomProducts,
     })
   }
   return sources
@@ -156,4 +197,4 @@ export function getBestValueProduct(sources: PartSource[]): PartSourceProduct | 
 
 /** 沒有任何商品收錄這顆零件時的說明，不要只留空白。 */
 export const NO_SOURCE_NOTE_ZH =
-  '圖鑑裡沒有記載固定內容的商品含這顆零件；它可能只出現在隨機補充包，或還沒收錄。'
+  '圖鑑沒有記載固定內容或已確認抽選池含這顆零件。'

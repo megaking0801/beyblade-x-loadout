@@ -6304,6 +6304,983 @@
         "verifiedAt": "2026-09-16",
         "verificationStatus": "community_only"
       }
+    },
+    {
+      "id": "blade:ヴァイパーテイル",
+      "family": "blade",
+      "code": "ヴァイパーテイル",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "王蛇鞭尾",
+        "nameJa": "ヴァイパーテイル",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 34.6,
+      "plainDescriptionZhTW": "向下尖鋭的六枚刃擅於從上方削去對手的持久力。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "bit:Q",
+      "family": "bit",
+      "code": "Q",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "Q",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "斜向切割形狀的軸端，四處跳躍地暴走，産生不規則的動態。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:シノビシャドウ",
+      "family": "blade",
+      "code": "シノビシャドウ",
+      "system": "UX",
+      "naming": {
+        "primaryZhTW": "忍者闇影",
+        "nameJa": "シノビシャドウ",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 28.1,
+      "plainDescriptionZhTW": "圓滑三枚刃形狀特化於把對手攻擊卸走。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:ブラックシェル",
+      "family": "blade",
+      "code": "ブラックシェル",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "玄冥戰甲",
+        "nameJa": "ブラックシェル",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "officialWeightG": 32.4,
+      "plainDescriptionZhTW": "設於外周並向下傾斜的八枚防禦刃，抵禦從低位置而來的攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:ライトニングエルドラゴ",
+      "family": "blade",
+      "code": "ライトニングエルドラゴ",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "雷霆天龍",
+        "nameJa": "ライトニングエルドラゴ",
+        "isProvisionalZhTW": true
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "blade:ホエールウェーブ",
+      "family": "blade",
+      "code": "ホエールウェーブ",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "巨鯨怒濤",
+        "nameJa": "ホエールウェーブ",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 38,
+      "plainDescriptionZhTW": "大徑幅且具離心力的Smash五枚刃，如籠罩對手地連打。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:ゴーストサークル",
+      "family": "blade",
+      "code": "ゴーストサークル",
+      "system": "UX",
+      "naming": {
+        "primaryZhTW": "幽靈元魂",
+        "nameJa": "ゴーストサークル",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "officialWeightG": 26.6,
+      "plainDescriptionZhTW": "小徑零枚刃受對手攻擊時減輕持久損失。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "ratchet:0-80",
+      "family": "ratchet",
+      "code": "0-80",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "0-80",
+        "isProvisionalZhTW": false
+      },
+      "heightCode": 80,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用容易抵受由水平方向而來之攻擊的零枚刃。80高度為防守系最高規格，重量也相對較重。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:フェニックスフェザー",
+      "family": "blade",
+      "code": "フェニックスフェザー",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "鳳凰翔羽",
+        "nameJa": "フェニックスフェザー",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "officialWeightG": 33,
+      "plainDescriptionZhTW": "三枚輕量Upper刃産生高速攻擊。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:シェルタードレイク",
+      "family": "blade",
+      "code": "シェルタードレイク",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "護城龍神",
+        "nameJa": "シェルタードレイク",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 32.6,
+      "plainDescriptionZhTW": "高剛性圓形的兩枚刃既有離心力持久亦有卸走性防禦。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "ratchet:7-80",
+      "family": "ratchet",
+      "code": "7-80",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "7-80",
+        "isProvisionalZhTW": false
+      },
+      "heightCode": 80,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚及防禦性能優秀的垂直七枚刃。80高度是最重防守固鎖之一，重量壓制效果顯著。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:Rp",
+      "family": "main_blade",
+      "code": "Rp",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "獵魂",
+        "nameEn": "Reaper",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "均衡型主刃",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "lock_chip:Rh",
+      "family": "lock_chip",
+      "code": "Rh",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "戰犀",
+        "nameEn": "Rhino",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:C",
+      "family": "assist_blade",
+      "code": "C",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "C",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "lock_chip:Fx",
+      "family": "lock_chip",
+      "code": "Fx",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "極狐",
+        "nameEn": "Fox",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "bit:GR",
+      "family": "bit",
+      "code": "GR",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "GR",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "attack",
+      "bitContact": "flat",
+      "plainDescriptionZhTW": "提升勾住X Line的容易度。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "lock_chip:Cr",
+      "family": "lock_chip",
+      "code": "Cr",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "魔犬",
+        "nameEn": "Cerberus",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "attack",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:Fl",
+      "family": "main_blade",
+      "code": "Fl",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "烈焰",
+        "nameEn": "Flame",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "stamina",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "持久型主刃",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "bit:WB",
+      "family": "bit",
+      "code": "WB",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "WB",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "stamina",
+      "bitContact": "ball",
+      "plainDescriptionZhTW": "軸端被筒狀壁包圍的〔B〕Bit，減低陀螺傾斜。球軸較小。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:ホエールループ",
+      "family": "main_blade",
+      "code": "ホエールループ",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "主刃（中文名待確認）",
+        "nameJa": "ホエールループ",
+        "isProvisionalZhTW": true
+      },
+      "cxFused": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "assist_blade:M",
+      "family": "assist_blade",
+      "code": "M",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "M",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "blade:マンモスカース",
+      "family": "blade",
+      "code": "マンモスカース",
+      "system": "UX",
+      "naming": {
+        "primaryZhTW": "上蓋（中文名待確認）",
+        "nameJa": "マンモスカース",
+        "isProvisionalZhTW": true
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "main_blade:ソルブレイズ",
+      "family": "main_blade",
+      "code": "ソルブレイズ",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "主刃（中文名待確認）",
+        "nameJa": "ソルブレイズ",
+        "isProvisionalZhTW": true
+      },
+      "cxFused": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "main_blade:ユニコーンスティング",
+      "family": "main_blade",
+      "code": "ユニコーンスティング",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "獨角刺心",
+        "nameJa": "ユニコーンスティング",
+        "isProvisionalZhTW": false
+      },
+      "cxFused": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "spinDirection": "right",
+      "officialWeightG": 33.2,
+      "plainDescriptionZhTW": "左右的刃形狀有巨大差異，一併持有攻擊及防禦構造。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:P",
+      "family": "assist_blade",
+      "code": "P",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "P",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bit:GU",
+      "family": "bit",
+      "code": "GU",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "GU",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "balance",
+      "bitContact": "ball",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:ブラキオウィップ0",
+      "family": "main_blade",
+      "code": "ブラキオウィップ0",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "腕龍鞭打0",
+        "nameJa": "ブラキオウィップ0",
+        "isProvisionalZhTW": true
+      },
+      "cxFused": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "blade:ヘブンズリング",
+      "family": "blade",
+      "code": "ヘブンズリング",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "天界之環",
+        "nameJa": "ヘブンズリング",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "BX 基礎線擴張上蓋，圓形刃提升剛性與穩定性，中央定位的防守型配置。BX-50 隨機強化組 Vol.11（2026/7/11）稀有款。媒體與玩家社群亦稱「天堂環」；7-ELEVEN 限定通路版整組名為「天堂日輪隨機強化組」。台灣官方中文名以代理商麗嬰國際／FUNBOX 上架公布為準。克重待官方公布、迴轉方向待出貨確認。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "bit:DS",
+      "family": "bit",
+      "code": "DS",
+      "system": "BX",
+      "naming": {
+        "primaryZhTW": "DS",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "bitContact": "other",
+      "plainDescriptionZhTW": "防禦性能高的尖軸端結合圓盤狀配重，以犧牲 Burst（爆裂脫離）耐性換取更佳的姿勢控制（穩定）性能。日版 BX-50 隨機強化組 Vol.11（天界之環）收錄。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:ウルフフレイム4",
+      "family": "main_blade",
+      "code": "ウルフフレイム4",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "銀狼烈焰4",
+        "nameJa": "ウルフフレイム4",
+        "isProvisionalZhTW": true
+      },
+      "cxFused": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "lock_chip:Co",
+      "family": "lock_chip",
+      "code": "Co",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "巨鱷",
+        "nameEn": "Croco",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "以鱷魚為主題、用來固定 CX 上蓋的鎖定紋章。CX-19 巨鱷碾壓隨機強化組初出。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "main_blade:metal-Tr",
+      "family": "main_blade",
+      "code": "Tr",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "碾壓",
+        "nameEn": "Tread",
+        "isProvisionalZhTW": false
+      },
+      "cxOverBlade": true,
+      "provenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "採用圓潤連續的七枚刃形，能承受並化解來自各方向的攻擊。CX-19 巨鱷碾壓隨機強化組初出。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "over_blade:T",
+      "family": "over_blade",
+      "code": "T",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "T",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-19"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "內側採用厚實的七枚連打刃形，兼顧重心穩定與分散衝擊。CX-19 巨鱷碾壓隨機強化組初出。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "assist_blade:Q",
+      "family": "assist_blade",
+      "code": "Q",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "Q",
+        "isProvisionalZhTW": false
+      },
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
+          "https://beybladehub.app/parts/combos/CX-19"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      },
+      "type": "defense",
+      "spinDirection": "right",
+      "plainDescriptionZhTW": "採用低高度、裝甲般的七枚刃，擅長承受由下往上的攻擊。CX-19 巨鱷碾壓隨機強化組初出。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
+    },
+    {
+      "id": "ratchet:5-50",
+      "family": "ratchet",
+      "code": "5-50",
+      "system": "CX",
+      "naming": {
+        "primaryZhTW": "5-50",
+        "isProvisionalZhTW": false
+      },
+      "heightCode": 50,
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "official_verified"
+      },
+      "type": "defense",
+      "plainDescriptionZhTW": "採用厚實且離心力優秀的五枚刃，50 的低高度可降低整體重心。官方性能值為攻擊 10／防禦 9／持久 11。CX-19 巨鱷碾壓隨機強化組初出。",
+      "statsProvenance": {
+        "sourceUrls": [
+          "https://beybladehub.app/parts/blades",
+          "https://beybladehub.app/parts/ratchets",
+          "https://beybladehub.app/parts/bits"
+        ],
+        "verifiedAt": "2026-09-16",
+        "verificationStatus": "community_only"
+      }
     }
   ],
   "partVariants": [],
@@ -6876,10 +7853,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx14.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx14.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -6977,10 +7955,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx16.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx16.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-16_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -7336,10 +8315,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx24.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx24.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -7424,10 +8404,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx27.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx27.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-27_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -7821,10 +8802,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx31.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx31.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -7884,10 +8866,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux05.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux05.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-05_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -8035,10 +9018,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx35.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx35.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -8317,10 +9301,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ld.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx00-ld.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BXG-07_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -8342,10 +9327,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx36.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx36.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-36_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -8800,10 +9786,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux12.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux12.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -8978,10 +9965,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx39.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx39.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-39_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -9459,10 +10447,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx05.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx05.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -9822,10 +10811,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx06.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx06.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-06_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -9965,10 +10955,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx08.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx08.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -10455,10 +11446,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux16.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux16.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-16_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -10673,10 +11665,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux18.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/ux18.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -10782,10 +11775,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx48.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx48.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -11257,10 +12251,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx17.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx17.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -11429,10 +12424,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx18.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx18.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-18_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -11660,10 +12656,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx50.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/bx50.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -12012,10 +13009,11 @@
       "provenance": {
         "sourceUrls": [
           "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/",
-          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx19.html"
+          "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/cx19.html",
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-19_manual.pdf"
         ],
-        "verifiedAt": "2026-09-16",
-        "verificationStatus": "needs_review"
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
       }
     },
     {
@@ -12145,7 +13143,2600 @@
       }
     }
   ],
-  "productVariants": [],
+  "productVariants": [
+    {
+      "id": "bx14-variant-01",
+      "productId": "bx14",
+      "variantNameZhTW": "鮫鯊鋒鰭3-60LF",
+      "contents": [
+        {
+          "partId": "blade:シャークエッジ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LF",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx14-variant-02",
+      "productId": "bx14",
+      "variantNameZhTW": "鮫鯊鋒鰭4-80N",
+      "contents": [
+        {
+          "partId": "blade:シャークエッジ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:N",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx14-variant-03",
+      "productId": "bx14",
+      "variantNameZhTW": "蒼龍神劍3-80B",
+      "contents": [
+        {
+          "partId": "blade:ドランソード",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:B",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx14-variant-04",
+      "productId": "bx14",
+      "variantNameZhTW": "惡魔紅鐮4-80LF",
+      "contents": [
+        {
+          "partId": "blade:ヘルズサイズ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LF",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx14-variant-05",
+      "productId": "bx14",
+      "variantNameZhTW": "騎士重盾4-60LF",
+      "contents": [
+        {
+          "partId": "blade:ナイトシールド",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LF",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx14-variant-06",
+      "productId": "bx14",
+      "variantNameZhTW": "魔導幻箭3-60T",
+      "contents": [
+        {
+          "partId": "blade:ウィザードアロー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:T",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-14_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx16-variant-01",
+      "productId": "bx16",
+      "variantNameZhTW": "王蛇鞭尾5-80O",
+      "contents": [
+        {
+          "partId": "blade:ヴァイパーテイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:O",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx16-variant-02",
+      "productId": "bx16",
+      "variantNameZhTW": "王蛇鞭尾4-60F",
+      "contents": [
+        {
+          "partId": "blade:ヴァイパーテイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx16-variant-03",
+      "productId": "bx16",
+      "variantNameZhTW": "王蛇鞭尾3-80HN",
+      "contents": [
+        {
+          "partId": "blade:ヴァイパーテイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:HN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-01",
+      "productId": "bx24",
+      "variantNameZhTW": "飛龍旋翼5-80GB",
+      "contents": [
+        {
+          "partId": "blade:ワイバーンゲイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-02",
+      "productId": "bx24",
+      "variantNameZhTW": "飛龍旋翼3-60T",
+      "contents": [
+        {
+          "partId": "blade:ワイバーンゲイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:T",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-03",
+      "productId": "bx24",
+      "variantNameZhTW": "騎士長槍4-60GB",
+      "contents": [
+        {
+          "partId": "blade:ナイトランス",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-04",
+      "productId": "bx24",
+      "variantNameZhTW": "王蛇鞭尾5-60F",
+      "contents": [
+        {
+          "partId": "blade:ヴァイパーテイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-05",
+      "productId": "bx24",
+      "variantNameZhTW": "雄獅獵爪3-80HN",
+      "contents": [
+        {
+          "partId": "blade:レオンクロー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:HN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx24-variant-06",
+      "productId": "bx24",
+      "variantNameZhTW": "魔導幻箭4-80GB",
+      "contents": [
+        {
+          "partId": "blade:ウィザードアロー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-24_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx27-variant-01",
+      "productId": "bx27",
+      "variantNameZhTW": "幻神護甲9-80GN",
+      "contents": [
+        {
+          "partId": "blade:スフィンクスカウル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-27_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx27-variant-02",
+      "productId": "bx27",
+      "variantNameZhTW": "幻神護甲4-80HT",
+      "contents": [
+        {
+          "partId": "blade:スフィンクスカウル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:HT",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-27_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx27-variant-03",
+      "productId": "bx27",
+      "variantNameZhTW": "幻神護甲5-60O",
+      "contents": [
+        {
+          "partId": "blade:スフィンクスカウル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:O",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-27_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-01",
+      "productId": "bx31",
+      "variantNameZhTW": "暴龍霸擊4-70Q",
+      "contents": [
+        {
+          "partId": "blade:ティラノビート",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Q",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-02",
+      "productId": "bx31",
+      "variantNameZhTW": "暴龍霸擊3-60S",
+      "contents": [
+        {
+          "partId": "blade:ティラノビート",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:S",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-03",
+      "productId": "bx31",
+      "variantNameZhTW": "惡魔鎖鏈9-80O",
+      "contents": [
+        {
+          "partId": "blade:ヘルズチェイン",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:O",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-04",
+      "productId": "bx31",
+      "variantNameZhTW": "蒼龍利刃4-70P",
+      "contents": [
+        {
+          "partId": "blade:ドランダガー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:P",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-05",
+      "productId": "bx31",
+      "variantNameZhTW": "鮫鯊鋒鰭1-60Q",
+      "contents": [
+        {
+          "partId": "blade:シャークエッジ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Q",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx31-variant-06",
+      "productId": "bx31",
+      "variantNameZhTW": "戰犀號角5-80Q",
+      "contents": [
+        {
+          "partId": "blade:ライノホーン",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Q",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-31_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux05-variant-01",
+      "productId": "ux05",
+      "variantNameZhTW": "忍者闇影1-80MN",
+      "contents": [
+        {
+          "partId": "blade:シノビシャドウ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:MN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux05-variant-02",
+      "productId": "ux05",
+      "variantNameZhTW": "忍者闇影9-60LF",
+      "contents": [
+        {
+          "partId": "blade:シノビシャドウ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LF",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux05-variant-03",
+      "productId": "ux05",
+      "variantNameZhTW": "忍者闇影3-70GP",
+      "contents": [
+        {
+          "partId": "blade:シノビシャドウ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GP",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-01",
+      "productId": "bx35",
+      "variantNameZhTW": "玄冥戰甲4-60D",
+      "contents": [
+        {
+          "partId": "blade:ブラックシェル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:D",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-02",
+      "productId": "bx35",
+      "variantNameZhTW": "玄冥戰甲9-80B",
+      "contents": [
+        {
+          "partId": "blade:ブラックシェル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:B",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-03",
+      "productId": "bx35",
+      "variantNameZhTW": "獨角刺心3-70D",
+      "contents": [
+        {
+          "partId": "blade:ユニコーンスティング",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:D",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-04",
+      "productId": "bx35",
+      "variantNameZhTW": "魔導神杖1-60R",
+      "contents": [
+        {
+          "partId": "blade:ウィザードロッド",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:R",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-05",
+      "productId": "bx35",
+      "variantNameZhTW": "鳳凰飛翼9-80H",
+      "contents": [
+        {
+          "partId": "blade:フェニックスウイング",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:H",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx35-variant-06",
+      "productId": "bx35",
+      "variantNameZhTW": "王蛇鞭尾5-70D",
+      "contents": [
+        {
+          "partId": "blade:ヴァイパーテイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:D",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-35_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx00-ld-variant-01",
+      "productId": "bx00-ld",
+      "variantNameZhTW": "雷霆天龍1-60F（上攻型）",
+      "contents": [
+        {
+          "partId": "blade:ライトニングエルドラゴ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BXG-07_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx00-ld-variant-02",
+      "productId": "bx00-ld",
+      "variantNameZhTW": "雷霆天龍1-60F（連擊型）",
+      "contents": [
+        {
+          "partId": "blade:ライトニングエルドラゴ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BXG-07_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx36-variant-01",
+      "productId": "bx36",
+      "variantNameZhTW": "巨鯨怒濤5-80E",
+      "contents": [
+        {
+          "partId": "blade:ホエールウェーブ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:E",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-36_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx36-variant-02",
+      "productId": "bx36",
+      "variantNameZhTW": "巨鯨怒濤4-70HN",
+      "contents": [
+        {
+          "partId": "blade:ホエールウェーブ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:HN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-36_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx36-variant-03",
+      "productId": "bx36",
+      "variantNameZhTW": "巨鯨怒濤3-80GB",
+      "contents": [
+        {
+          "partId": "blade:ホエールウェーブ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-36_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-01",
+      "productId": "ux12",
+      "variantNameZhTW": "幽靈元魂0-80GB",
+      "contents": [
+        {
+          "partId": "blade:ゴーストサークル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-02",
+      "productId": "ux12",
+      "variantNameZhTW": "幽靈元魂4-60H",
+      "contents": [
+        {
+          "partId": "blade:ゴーストサークル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:H",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-03",
+      "productId": "ux12",
+      "variantNameZhTW": "忍者闇影3-80F",
+      "contents": [
+        {
+          "partId": "blade:シノビシャドウ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-04",
+      "productId": "ux12",
+      "variantNameZhTW": "雄獅獵爪0-80E",
+      "contents": [
+        {
+          "partId": "blade:レオンクロー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:E",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-05",
+      "productId": "ux12",
+      "variantNameZhTW": "鳳凰翔羽2-60N",
+      "contents": [
+        {
+          "partId": "blade:フェニックスフェザー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:2-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:N",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux12-variant-06",
+      "productId": "ux12",
+      "variantNameZhTW": "飛龍旋翼0-80C",
+      "contents": [
+        {
+          "partId": "blade:ワイバーンゲイル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:C",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-12_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx39-variant-01",
+      "productId": "bx39",
+      "variantNameZhTW": "護城龍神7-80GP",
+      "contents": [
+        {
+          "partId": "blade:シェルタードレイク",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GP",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-39_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx39-variant-02",
+      "productId": "bx39",
+      "variantNameZhTW": "護城龍神5-70O",
+      "contents": [
+        {
+          "partId": "blade:シェルタードレイク",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:O",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-39_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx39-variant-03",
+      "productId": "bx39",
+      "variantNameZhTW": "護城龍神3-60D",
+      "contents": [
+        {
+          "partId": "blade:シェルタードレイク",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:D",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-39_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-01",
+      "productId": "cx05",
+      "variantNameZhTW": "惡魔獵魂T4-70K",
+      "contents": [
+        {
+          "partId": "lock_chip:Hl",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Rp",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:T",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:K",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-02",
+      "productId": "cx05",
+      "variantNameZhTW": "戰犀獵魂C4-55D",
+      "contents": [
+        {
+          "partId": "lock_chip:Rh",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Rp",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:C",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-55",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:D",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-03",
+      "productId": "cx05",
+      "variantNameZhTW": "惡魔至尊T3-85O",
+      "contents": [
+        {
+          "partId": "lock_chip:Hl",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Ar",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:T",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:O",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-04",
+      "productId": "cx05",
+      "variantNameZhTW": "雄獅巔峰9-80K",
+      "contents": [
+        {
+          "partId": "blade:レオンクレスト",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:K",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-05",
+      "productId": "cx05",
+      "variantNameZhTW": "鳳凰尾翼4-70LF",
+      "contents": [
+        {
+          "partId": "blade:フェニックスラダー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LF",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx05-variant-06",
+      "productId": "cx05",
+      "variantNameZhTW": "巨鯨怒濤7-60K",
+      "contents": [
+        {
+          "partId": "blade:ホエールウェーブ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:K",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-05_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx06-variant-01",
+      "productId": "cx06",
+      "variantNameZhTW": "極狐九尾J9-70GR",
+      "contents": [
+        {
+          "partId": "lock_chip:Fx",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Bs",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:J",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GR",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-06_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx06-variant-02",
+      "productId": "cx06",
+      "variantNameZhTW": "極狐九尾J0-80DB",
+      "contents": [
+        {
+          "partId": "lock_chip:Fx",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Bs",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:J",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:DB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-06_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx06-variant-03",
+      "productId": "cx06",
+      "variantNameZhTW": "極狐九尾J2-60U",
+      "contents": [
+        {
+          "partId": "lock_chip:Fx",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Bs",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:J",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:2-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:U",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-06_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-01",
+      "productId": "cx08",
+      "variantNameZhTW": "魔犬烈焰W5-80WB",
+      "contents": [
+        {
+          "partId": "lock_chip:Cr",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Fl",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:W",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:WB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-02",
+      "productId": "cx08",
+      "variantNameZhTW": "款式 2",
+      "contents": [
+        {
+          "partId": "main_blade:ホエールループ",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:M",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:HT",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-03",
+      "productId": "cx08",
+      "variantNameZhTW": "魔犬幽冥W1-60F",
+      "contents": [
+        {
+          "partId": "lock_chip:Cr",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Dr",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:W",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:1-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-04",
+      "productId": "cx08",
+      "variantNameZhTW": "蒼龍爆刃5-80MN",
+      "contents": [
+        {
+          "partId": "blade:ドランバスター",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:MN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-05",
+      "productId": "cx08",
+      "variantNameZhTW": "玄冥戰甲7-70WB",
+      "contents": [
+        {
+          "partId": "blade:ブラックシェル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:WB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx08-variant-06",
+      "productId": "cx08",
+      "variantNameZhTW": "蒼穹龍騎士4-55WB",
+      "contents": [
+        {
+          "partId": "blade:コバルトドラグーン",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-55",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:WB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-08_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux16-variant-01",
+      "productId": "ux16",
+      "variantNameZhTW": "時鐘幻象9-65B（綠色）",
+      "contents": [
+        {
+          "partId": "blade:クロックミラージュ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-65",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:B",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux16-variant-02",
+      "productId": "ux16",
+      "variantNameZhTW": "時鐘幻象9-65B（黑銀）",
+      "contents": [
+        {
+          "partId": "blade:クロックミラージュ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-65",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:B",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux16-variant-03",
+      "productId": "ux16",
+      "variantNameZhTW": "時鐘幻象9-65B（粉紅）",
+      "contents": [
+        {
+          "partId": "blade:クロックミラージュ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-65",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:B",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-16_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-01",
+      "productId": "ux18",
+      "variantNameZhTW": "款式 1",
+      "contents": [
+        {
+          "partId": "blade:マンモスカース",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-55",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:W",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-02",
+      "productId": "ux18",
+      "variantNameZhTW": "款式 2",
+      "contents": [
+        {
+          "partId": "blade:マンモスカース",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:C",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-03",
+      "productId": "ux18",
+      "variantNameZhTW": "天馬九尾M3-85W",
+      "contents": [
+        {
+          "partId": "lock_chip:Pg",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Bs",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:M",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:W",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-04",
+      "productId": "ux18",
+      "variantNameZhTW": "款式 4",
+      "contents": [
+        {
+          "partId": "main_blade:ソルブレイズ",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:C",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:TP",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-05",
+      "productId": "ux18",
+      "variantNameZhTW": "蒼龍利刃7-55G",
+      "contents": [
+        {
+          "partId": "blade:ドランダガー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-55",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:G",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "ux18-variant-06",
+      "productId": "ux18",
+      "variantNameZhTW": "皓戰猛虎4-80LR",
+      "contents": [
+        {
+          "partId": "blade:ヴァイスタイガー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LR",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/UX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx48-variant-01",
+      "productId": "bx48",
+      "variantNameZhTW": "蒼穹龍騎士9-80F",
+      "contents": [
+        {
+          "partId": "blade:コバルトドラグーン",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:F",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx48-variant-02",
+      "productId": "bx48",
+      "variantNameZhTW": "鮫鯊鋒鰭4-70E",
+      "contents": [
+        {
+          "partId": "blade:シャークエッジ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:4-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:E",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx48-variant-03",
+      "productId": "bx48",
+      "variantNameZhTW": "猛獁獠牙7-60S",
+      "contents": [
+        {
+          "partId": "blade:マンモスタスク",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:S",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx48-variant-04",
+      "productId": "bx48",
+      "variantNameZhTW": "惡魔紅鐮3-85GB",
+      "contents": [
+        {
+          "partId": "blade:ヘルズサイズ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx48-variant-05",
+      "productId": "bx48",
+      "variantNameZhTW": "蒼龍爆刃2-80Q",
+      "contents": [
+        {
+          "partId": "blade:ドランバスター",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:2-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Q",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-48_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-01",
+      "productId": "cx17",
+      "variantNameZhTW": "獨角刺心P0-60U",
+      "contents": [
+        {
+          "partId": "main_blade:ユニコーンスティング",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:P",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:U",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-02",
+      "productId": "cx17",
+      "variantNameZhTW": "獨角刺心P0-80GR",
+      "contents": [
+        {
+          "partId": "main_blade:ユニコーンスティング",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:P",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GR",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-03",
+      "productId": "cx17",
+      "variantNameZhTW": "武士星劍9-65LO",
+      "contents": [
+        {
+          "partId": "blade:サムライセイバー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-65",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:LO",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-04",
+      "productId": "cx17",
+      "variantNameZhTW": "惡魔戰鎚3-85GU",
+      "contents": [
+        {
+          "partId": "blade:ヘルズハンマー",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GU",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-05",
+      "productId": "cx17",
+      "variantNameZhTW": "暴龍霸擊3-60N",
+      "contents": [
+        {
+          "partId": "blade:ティラノビート",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:3-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:N",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx17-variant-06",
+      "productId": "cx17",
+      "variantNameZhTW": "赫燃天鳳7-80GU",
+      "contents": [
+        {
+          "partId": "blade:クリムゾンガルーダ",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GU",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-17_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx18-variant-01",
+      "productId": "cx18",
+      "variantNameZhTW": "腕龍鞭打0W5-70Nr（紫色）",
+      "contents": [
+        {
+          "partId": "main_blade:ブラキオウィップ0",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:W",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Nr",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx18-variant-02",
+      "productId": "cx18",
+      "variantNameZhTW": "腕龍鞭打0W5-70Nr（金色）",
+      "contents": [
+        {
+          "partId": "main_blade:ブラキオウィップ0",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:W",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Nr",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx18-variant-03",
+      "productId": "cx18",
+      "variantNameZhTW": "腕龍鞭打0W5-70Nr（黑色）",
+      "contents": [
+        {
+          "partId": "main_blade:ブラキオウィップ0",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:W",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-70",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:Nr",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-18_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-01",
+      "productId": "bx50",
+      "variantNameZhTW": "天界之環6-80DS",
+      "contents": [
+        {
+          "partId": "blade:ヘブンズリング",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:6-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:DS",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-02",
+      "productId": "bx50",
+      "variantNameZhTW": "天界之環6-60TP",
+      "contents": [
+        {
+          "partId": "blade:ヘブンズリング",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:6-60",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:TP",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-03",
+      "productId": "bx50",
+      "variantNameZhTW": "衝擊龍神7-55FB",
+      "contents": [
+        {
+          "partId": "blade:インパクトドレイク",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:7-55",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:FB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-04",
+      "productId": "bx50",
+      "variantNameZhTW": "幽靈元魂M-85DS",
+      "contents": [
+        {
+          "partId": "blade:ゴーストサークル",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:M-85",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:DS",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-05",
+      "productId": "bx50",
+      "variantNameZhTW": "銀狼烈焰4D9-65L",
+      "contents": [
+        {
+          "partId": "main_blade:ウルフフレイム4",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:D",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:9-65",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:L",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "bx50-variant-06",
+      "productId": "bx50",
+      "variantNameZhTW": "魔犬獵魂B0-80WB",
+      "contents": [
+        {
+          "partId": "lock_chip:Cr",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:Rp",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:B",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:0-80",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:WB",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/BX-50_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx19-variant-01",
+      "productId": "cx19",
+      "variantNameZhTW": "巨鱷碾壓TQ5-50GN（綠色）",
+      "contents": [
+        {
+          "partId": "lock_chip:Co",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:metal-Tr",
+          "quantity": 1
+        },
+        {
+          "partId": "over_blade:T",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:Q",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-50",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-19_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx19-variant-02",
+      "productId": "cx19",
+      "variantNameZhTW": "巨鱷碾壓TQ5-50GN（紅色）",
+      "contents": [
+        {
+          "partId": "lock_chip:Co",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:metal-Tr",
+          "quantity": 1
+        },
+        {
+          "partId": "over_blade:T",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:Q",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-50",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-19_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    },
+    {
+      "id": "cx19-variant-03",
+      "productId": "cx19",
+      "variantNameZhTW": "巨鱷碾壓TQ5-50GN（黑紅）",
+      "contents": [
+        {
+          "partId": "lock_chip:Co",
+          "quantity": 1
+        },
+        {
+          "partId": "main_blade:metal-Tr",
+          "quantity": 1
+        },
+        {
+          "partId": "over_blade:T",
+          "quantity": 1
+        },
+        {
+          "partId": "assist_blade:Q",
+          "quantity": 1
+        },
+        {
+          "partId": "ratchet:5-50",
+          "quantity": 1
+        },
+        {
+          "partId": "bit:GN",
+          "quantity": 1
+        }
+      ],
+      "provenance": {
+        "sourceUrls": [
+          "https://beyblade.takaratomy.co.jp/beyblade-x/manual/CX-19_manual.pdf"
+        ],
+        "verifiedAt": "2026-09-18",
+        "verificationStatus": "official_verified"
+      }
+    }
+  ],
   "compatibilityRules": [],
   "images": [
     {
@@ -16000,6 +19591,314 @@
       "usageStatus": "unknown",
       "remoteUrl": "https://img.beybladehub.app/blades-db/Qtzl.webp",
       "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:ヴァイパーテイル:main",
+      "entityType": "part",
+      "entityId": "blade:ヴァイパーテイル",
+      "url": "/img/5258af1c29e9c87b.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/VpTl.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:bit:Q:main",
+      "entityType": "part",
+      "entityId": "bit:Q",
+      "url": "/img/e49866f481316c73.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/Q.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:シノビシャドウ:main",
+      "entityType": "part",
+      "entityId": "blade:シノビシャドウ",
+      "url": "/img/a6dd06acbdc7928c.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShSh.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:ブラックシェル:main",
+      "entityType": "part",
+      "entityId": "blade:ブラックシェル",
+      "url": "/img/4ebeb56bbf46bff9.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/BlSh.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:ホエールウェーブ:main",
+      "entityType": "part",
+      "entityId": "blade:ホエールウェーブ",
+      "url": "/img/8111618acbe27bd4.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/WhWv.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:ゴーストサークル:main",
+      "entityType": "part",
+      "entityId": "blade:ゴーストサークル",
+      "url": "/img/6f196ba1272ad332.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/GhCr.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:ratchet:0-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:0-80",
+      "url": "/img/7b202afe4e4b232f.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/0-80.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:フェニックスフェザー:main",
+      "entityType": "part",
+      "entityId": "blade:フェニックスフェザー",
+      "url": "/img/86eff6ea0c03ea21.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/PhFt.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:シェルタードレイク:main",
+      "entityType": "part",
+      "entityId": "blade:シェルタードレイク",
+      "url": "/img/1c0d5279cab892d8.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/ShDr.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:ratchet:7-80:main",
+      "entityType": "part",
+      "entityId": "ratchet:7-80",
+      "url": "/img/28ef0e5d49ca151d.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/7-80.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:main_blade:Rp:main",
+      "entityType": "part",
+      "entityId": "main_blade:Rp",
+      "url": "/img/c3df7e56b097554e.webp",
+      "sourceUrl": "https://beybladehub.app/parts/main_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Rp.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:lock_chip:Rh:main",
+      "entityType": "part",
+      "entityId": "lock_chip:Rh",
+      "url": "/img/a9205e086e5d278d.webp",
+      "sourceUrl": "https://beybladehub.app/parts/lock_chips",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Rh.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:assist_blade:C:main",
+      "entityType": "part",
+      "entityId": "assist_blade:C",
+      "url": "/img/1d4d7840684eab9a.webp",
+      "sourceUrl": "https://beybladehub.app/parts/assist_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-C.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:lock_chip:Fx:main",
+      "entityType": "part",
+      "entityId": "lock_chip:Fx",
+      "url": "/img/10e920c58ed587bc.webp",
+      "sourceUrl": "https://beybladehub.app/parts/lock_chips",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Fx.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:bit:GR:main",
+      "entityType": "part",
+      "entityId": "bit:GR",
+      "url": "/img/6c9f0665e15844ce.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GR.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:lock_chip:Cr:main",
+      "entityType": "part",
+      "entityId": "lock_chip:Cr",
+      "url": "/img/2c67d22872b5eeb0.webp",
+      "sourceUrl": "https://beybladehub.app/parts/lock_chips",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Cr.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:main_blade:Fl:main",
+      "entityType": "part",
+      "entityId": "main_blade:Fl",
+      "url": "/img/0a996b159b06772c.webp",
+      "sourceUrl": "https://beybladehub.app/parts/main_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/main-Fl.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:bit:WB:main",
+      "entityType": "part",
+      "entityId": "bit:WB",
+      "url": "/img/2acb93d8eea300e1.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/WB.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:assist_blade:M:main",
+      "entityType": "part",
+      "entityId": "assist_blade:M",
+      "url": "/img/37c41e7a711e5379.webp",
+      "sourceUrl": "https://beybladehub.app/parts/assist_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-M.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:main_blade:ユニコーンスティング:main",
+      "entityType": "part",
+      "entityId": "main_blade:ユニコーンスティング",
+      "url": "/img/75ad075550a2b660.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/UnSt.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:bit:GU:main",
+      "entityType": "part",
+      "entityId": "bit:GU",
+      "url": "/img/888a45bb2bb2e324.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/GU.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:blade:ヘブンズリング:main",
+      "entityType": "part",
+      "entityId": "blade:ヘブンズリング",
+      "url": "/img/afdbbbd2ed13afaa.webp",
+      "sourceUrl": "https://beybladehub.app/parts/blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-db/HvRg.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:bit:DS:main",
+      "entityType": "part",
+      "entityId": "bit:DS",
+      "url": "/img/054b13587b3fe5a4.webp",
+      "sourceUrl": "https://beybladehub.app/parts/bits",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/bits/DS.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:lock_chip:Co:main",
+      "entityType": "part",
+      "entityId": "lock_chip:Co",
+      "url": "/img/1eb439edf11af50a.webp",
+      "sourceUrl": "https://beybladehub.app/parts/lock_chips",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/chip-Co.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:main_blade:metal-Tr:main",
+      "entityType": "part",
+      "entityId": "main_blade:metal-Tr",
+      "url": "/img/c436a5c981ead924.webp",
+      "sourceUrl": "https://beybladehub.app/parts/main_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/metal-Tr-v2.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:over_blade:T:main",
+      "entityType": "part",
+      "entityId": "over_blade:T",
+      "url": "/img/5678faa105ee5ad1.webp",
+      "sourceUrl": "https://beybladehub.app/parts/over_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/over-T.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:assist_blade:Q:main",
+      "entityType": "part",
+      "entityId": "assist_blade:Q",
+      "url": "/img/4ef4780b0de05e5c.webp",
+      "sourceUrl": "https://beybladehub.app/parts/assist_blades",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/blades-cx/assist-Q.webp",
+      "isLocalMirror": true
+    },
+    {
+      "id": "part:ratchet:5-50:main",
+      "entityType": "part",
+      "entityId": "ratchet:5-50",
+      "url": "/img/68dde5122e079dc6.webp",
+      "sourceUrl": "https://beybladehub.app/parts/ratchets",
+      "sourceName": "BeybladeHub 零件去背圖",
+      "usageStatus": "unknown",
+      "remoteUrl": "https://img.beybladehub.app/ratchets/5-50.webp",
+      "isLocalMirror": true
     }
   ],
   "tournamentEvents": [
@@ -17785,6 +21684,42 @@
     "main_blade:ティガレイジ": [
       "lock_chip:Tg",
       "main_blade:metal-Rg"
+    ],
+    "main_blade:ヘルズリーパー": [
+      "lock_chip:Hl",
+      "main_blade:Rp"
+    ],
+    "main_blade:ライノリーパー": [
+      "lock_chip:Rh",
+      "main_blade:Rp"
+    ],
+    "main_blade:ヘルズアーク": [
+      "lock_chip:Hl",
+      "main_blade:Ar"
+    ],
+    "main_blade:フォックスブラッシュ": [
+      "lock_chip:Fx",
+      "main_blade:Bs"
+    ],
+    "main_blade:ケルベロスフレイム": [
+      "lock_chip:Cr",
+      "main_blade:Fl"
+    ],
+    "main_blade:ケルベロスダーク": [
+      "lock_chip:Cr",
+      "main_blade:Dr"
+    ],
+    "main_blade:ペガサスブラッシュ": [
+      "lock_chip:Pg",
+      "main_blade:Bs"
+    ],
+    "main_blade:ケルベロスリーパー": [
+      "lock_chip:Cr",
+      "main_blade:Rp"
+    ],
+    "main_blade:クロコトレッド": [
+      "lock_chip:Co",
+      "main_blade:metal-Tr"
     ]
   }
 }

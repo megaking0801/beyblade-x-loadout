@@ -24,6 +24,14 @@ export interface CatalogAudit {
   contentsUnknownProducts: { id: string; nameJa: string; reason: string }[]
   /** 隨機補充包：刻意不填內容，不是資料缺漏（第 13 節）。 */
   randomContentsByDesign: { id: string; nameJa: string; reason: string }[]
+  /** 官方說明書列出的隨機強化組可能款式；不代表每盒保證取得。 */
+  randomBoosterVariants: {
+    source: string
+    fetchedAt: string
+    applied: { productId: string; sku?: string; variants: number }[]
+    withoutManual: { id: string; sku?: string }[]
+    note: string
+  }
   /** 發射器、對戰盤等本來就不含可配裝零件的商品（第 4 節）。 */
   noPartsProducts: { id: string; nameJa: string; category: string }[]
   /** 圖片本機副本統計。 */
