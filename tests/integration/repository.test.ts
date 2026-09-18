@@ -102,8 +102,9 @@ describe('第一次開啟時個人資料完全空白（第 1 節、第 45 節 Ca
 })
 
 describe('Catalog 更新不得覆蓋個人庫存（第 3 節）', () => {
-  it('重新載入 Catalog 後個人商品與配裝都還在', async () => {
-    await repo.loadCatalog(catalog)
+  it('Catalog 升版會載入新的隨機款式，個人商品與配裝都還在', async () => {
+    // 模擬既有裝置的舊圖鑑沒有隨機強化組款式；版本升級後必須重載公開資料。
+    await repo.loadCatalog({ ...catalog, version: 'test-r5', productVariants: [] })
     await repo.addOwnedProduct({ productId: fixedProduct.id, quantity: 2, status: 'owned' })
     await repo.saveCombo({
       nameZhTW: '我的配裝',
@@ -113,9 +114,10 @@ describe('Catalog 更新不得覆蓋個人庫存（第 3 節）', () => {
       physicallyBuilt: false,
     })
 
-    await repo.loadCatalog({ ...catalog, version: 'test-2' })
+    await repo.loadCatalog({ ...catalog, version: 'test-r6' })
 
-    expect(await repo.getCatalogVersion()).toBe('test-2')
+    expect(await repo.getCatalogVersion()).toBe('test-r6')
+    expect(await repo.listProductVariants()).toEqual(randomVariants)
     expect((await repo.listOwnedProducts()).length).toBe(1)
     expect((await repo.listCombos()).length).toBe(1)
   })

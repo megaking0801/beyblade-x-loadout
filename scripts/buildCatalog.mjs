@@ -39,7 +39,8 @@ const LINEUP_URL = 'https://beyblade.takaratomy.co.jp/beyblade-x/lineup/'
 const SITE_ORIGIN = 'https://beyblade.takaratomy.co.jp'
 const FETCHED_AT = '2026-09-16'
 // 非商品一覽的策展資料更新也必須讓既有裝置重新載入 Catalog。
-const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r5`
+// r6：補入隨機強化組款式後必須升版，否則既有 IndexedDB 會保留沒有款式的 r5 Catalog。
+const CATALOG_VERSION = `takaratomy-lineup-${FETCHED_AT}-r6`
 
 const CATEGORY_BY_JA = {
   'スターター': 'starter',
