@@ -1,24 +1,24 @@
 # 交接筆記
 
-最後更新：2026-09-18 18:24 UTC+08:00
-交接原因：隨機強化組官方款式與配裝器購買來源已補齊，待提交發布。
+最後更新：2026-09-18 23:10 UTC+08:00
+交接原因：修正既有裝置未重載隨機強化組款式的 Catalog 版本問題，已部署。
 
 ## 目前目標
 
-配裝器現在會將「保證取得」和「可能抽到（非保證）」分開。下一個優先項回到補 3 筆無法映射的賽事配置。
+配裝器現在會將「保證取得」和「可能抽到（非保證）」完整分開列出；Catalog r6 會強制既有 r5 裝置重載公開款式資料。下一個優先項回到補 3 筆無法映射的賽事配置。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 程式發布 commit | `9a2b845`（本次變更尚未提交） |
-| `origin/main` | `9a2b845`；本次尚未 push |
-| 線上 Pages | `9a2b845`；本次尚未部署 |
+| 程式發布 commit | `4649c39` |
+| `origin/main` | `4649c39`；已 push |
+| 線上 Pages | `36594fa`；已部署 |
 
 ## 已驗證與未驗證
 
-- 已驗證（本次）：官方 21 款隨機強化組說明書逐份核對；`build:catalog` 產生 94 個款式；typecheck、單元 427、完整 e2e 84、production build、圖片鏡像補齊；Case 6 開封流程在手機與桌機各 1 次通過。
-- 待跑：push 後仍需 deploy Pages 與 `test:live`。
+- 已驗證（本次）：`build:catalog`、typecheck、單元／整合 427、production build；全圖鑑 242 個零件的固定／隨機商品來源稽核；E 軸線上版與手機版驗證；線上手機／桌機健康檢查。
+- 待跑：下次有可部署的功能批次，再跑完整 e2e 與截圖。
 
 ## 阻塞
 
@@ -26,11 +26,12 @@
 
 ## 下一個具體動作
 
-提交、push、deploy Pages、跑 `npm run test:live`。再處理 3 筆賽事配置（巨鯨鞭打、帝王極變、古屍詛咒）。
+再處理 3 筆賽事配置（巨鯨鞭打、帝王極變、古屍詛咒）。
 
 ## 怎麼跑（package.json 看不出來的那幾條）
 
 - 改了 `src/catalog/sources/` 底下任何檔案 → 一定要跑 `npm run build:catalog`，否則 `catalog.generated.json` 不會更新，畫面看起來像沒改到。
+- **任何 Catalog 公開資料有變動（含隨機款式、圖片、相容性、賽事、中文名），都必須遞增 `scripts/buildCatalog.mjs` 的 `CATALOG_VERSION`，再跑 `npm run build:catalog`。** App 只在版本不同時重載 Catalog；忘記升版會讓既有裝置持續使用 IndexedDB 的舊公開資料，即使已清 Service Worker／瀏覽器快取。
 - 跑 e2e 前先 `lsof -ti:4173 | xargs kill -9`。設定是 `workers: 4`；若資源競爭造成 timeout，先降到 2，不要加 retries。
 - `npm run test:e2e` **前面不要自己加 `npm run build`**，webServer 自己會 build。
 - 順序固定：**測試 → 截圖 → 看圖**（`playwright test` 開跑會清掉 `test-results/`）。
@@ -50,6 +51,7 @@
 - **Windows 的 `deployPages.mjs`**：環境變數在腳本裡設，`shell: true` 只給 npm 用；git 用 shell 會把 commit 訊息照空白切開。
 
 **產品決策（不要「修」回去）**
+- **Catalog 資料更新一定要升版**：曾補入 21 款隨機強化組的 94 個款式卻保留 r5，導致新裝置正常、既有裝置的 E 軸只顯示固定商品，沒有抽選來源。根因是 `appStore.init()` 以 Catalog 版本決定是否覆寫公共資料，而「重新載入最新版」只會清 Service Worker 與 Cache Storage，不會刪使用者的 IndexedDB。修正方式是 r5 → r6；另有整合測試守住「新款式載入、個人庫存與配裝仍保留」。
 - **重量整個拔掉了**：同款零件個體差異比配裝差異大，顯示或計分都是誤導。資料還在 `beybladehub-stats.json`，只是不顯示、不進模型，而且有一條 e2e 巡邏守住「畫面上不得出現『重量』兩個字」。
 - **一體式上蓋的固鎖欄位是鎖死變灰、不是消失**（`getBuilderSlotSchema()` + `lockedSlotReason()`）。直接消失會讓人以為畫面沒反應。
 - **`heightCode` 不能接 `statFieldLabel`**：那讀的是 `statsProvenance`（社群實測），而 `heightCode` 是官方商品名裡的數字。接上去等於把官方資料標成社群。
