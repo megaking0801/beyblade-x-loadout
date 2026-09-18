@@ -525,12 +525,17 @@ export function ComboResult({
             <EstimateBadge />
           </Row>
           <div style={{ height: 6 }} />
-          <ScoreBar label="攻擊" value={analysis.scores?.attack} />
-          <ScoreBar label="防守" value={analysis.scores?.defense} />
-          <ScoreBar label="持久" value={analysis.scores?.stamina} />
+          {/*
+            每軸自己的顏色，對齊零件類型色：攻＝紅、防＝藍、久＝綠。
+            爆發／抗爆／穩定／操作難度不屬於任何類型，用中性色，
+            免得七條都上色反而看不出重點。
+          */}
+          <ScoreBar label="攻擊" value={analysis.scores?.attack} color="var(--type-attack)" />
+          <ScoreBar label="防守" value={analysis.scores?.defense} color="var(--type-defense)" />
+          <ScoreBar label="持久" value={analysis.scores?.stamina} color="var(--type-stamina)" />
           <ScoreBar label="爆發" value={analysis.scores?.burst} />
           <ScoreBar label="抗爆" value={analysis.scores?.burstResistance} />
-          <ScoreBar label="穩定" value={analysis.scores?.stability} />
+          <ScoreBar label="穩定" value={analysis.scores?.stability} color="var(--type-balance)" />
           <ScoreBar label="操作難度" value={analysis.operationDifficulty} />
           {analysis.scores ? null : (
             <div style={{ fontSize: 13, color: 'var(--warn)' }}>

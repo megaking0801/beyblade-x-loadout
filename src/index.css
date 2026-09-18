@@ -894,3 +894,74 @@ ul {
 .mode-card[aria-pressed='true'] .mode-card-title {
   color: var(--signal);
 }
+
+/*
+ * 三欄統計條。
+ *
+ * 零件詳情要回答的是「有幾個、被佔用幾個、還能用幾個」。
+ * 三個數字並排比直排清單好比對，尤其「占用」與「還能用」是一組對照。
+ */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.stat-strip-item {
+  display: grid;
+  gap: 2px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.stat-strip-item .code {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+/*
+ * 庫存主數值：數字在上、標籤在下（設計稿的樣子）。
+ *
+ * 用 column-reverse 而不是把 JSX 順序反過來，是因為 e2e 用
+ * toHaveText('可用 ×3') 精確比對這個節點的 textContent，
+ * DOM 順序與那個字面空白都不能動。
+ */
+.stock-figure > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  line-height: 1.15;
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.stock-figure .code {
+  font-size: 18px;
+  color: var(--ink);
+}
+
+/* 其餘庫存狀態：非 0 才出現的小標，不要每種都固定佔一行。 */
+.stock-tag {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--rule);
+  background: var(--surface-2);
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.stock-tag.is-warn {
+  color: var(--warn);
+  border-color: color-mix(in srgb, var(--warn) 40%, transparent);
+}
+
+/* 隊伍覆蓋為 0 的類型要看得出是缺口，不是單純的灰標。 */
+.stock-tag.is-zero {
+  color: var(--ink-faint);
+  border-style: dashed;
+  background: transparent;
+}

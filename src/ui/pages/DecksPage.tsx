@@ -15,6 +15,7 @@ import {
   type DeckStrategy,
 } from '../../domain/deck.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
+import { BEY_TYPE_ZH } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
 import {
   Badge,
@@ -25,6 +26,19 @@ import {
   Row,
   Section,
 } from '../components/ui.tsx'
+
+/**
+ * 一副隊伍的類型分佈。
+ *
+ * 四個類型都列出來（包含 0），因為「這隊沒有防守」跟「這隊有兩顆攻擊」
+ * 一樣重要——只列有的會讓缺口消失。
+ */
+function countTypes(typeNames: string[]): { labelZhTW: string; count: number }[] {
+  return Object.values(BEY_TYPE_ZH).map((labelZhTW) => ({
+    labelZhTW,
+    count: typeNames.filter((name) => name === labelZhTW).length,
+  }))
+}
 
 export function DecksPage() {
   const parts = useAppStore((state) => state.parts)
@@ -94,35 +108,48 @@ export function DecksPage() {
         description="用現有可用零件排出三顆一組，會檢查庫存、相容性與重複零件限制。"
       />
 
-      <NoticeCard tone={DEFAULT_DECK_RULES.provenance.verificationStatus === 'official_verified' ? 'accent' : 'warn'}>
-        {DEFAULT_DECK_RULES.summaryZhTW}
-        {DEFAULT_DECK_RULES.provenance.sourceUrls[0] ? (
-          <>
-            {' '}
-            <a href={DEFAULT_DECK_RULES.provenance.sourceUrls[0]} target="_blank" rel="noreferrer">
-              官方規章
-            </a>
-          </>
-        ) : null}
-      </NoticeCard>
-
       <div className="work-split">
       <div className="stack">
       <Section title="推薦模式">
-        <select
-          className="field"
-          aria-label="推薦模式"
-          value={strategy}
-          onChange={(event) => setStrategy(event.target.value as DeckStrategy)}
-        >
+        {/* 只有三個選項，做成分段控制比下拉少一次點擊。 */}
+        <div className="chip-row">
           {(Object.keys(DECK_STRATEGY_ZH) as DeckStrategy[]).map((key) => (
-            <option key={key} value={key}>
+            <button
+              key={key}
+              type="button"
+              className="filter-chip"
+              aria-pressed={strategy === key}
+              onClick={() => setStrategy(key)}
+            >
               {DECK_STRATEGY_ZH[key]}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       </Section>
 
+      {/*
+        官方規則搬進左欄。桌機時左欄原本只有一個下拉選單、下面一大片留白，
+        規則說明放在這裡剛好填滿，而且它就是組隊時要一直對照的東西。
+      */}
+      <Section title="官方規則">
+        <NoticeCard
+          tone={
+            DEFAULT_DECK_RULES.provenance.verificationStatus === 'official_verified'
+              ? 'accent'
+              : 'warn'
+          }
+        >
+          {DEFAULT_DECK_RULES.summaryZhTW}
+          {DEFAULT_DECK_RULES.provenance.sourceUrls[0] ? (
+            <>
+              {' '}
+              <a href={DEFAULT_DECK_RULES.provenance.sourceUrls[0]} target="_blank" rel="noreferrer">
+                官方規章
+              </a>
+            </>
+          ) : null}
+        </NoticeCard>
+      </Section>
       </div>
 
       <div className="work-result">
@@ -162,6 +189,23 @@ export function DecksPage() {
                       <div className="meta">{member.reasonZhTW}</div>
                     </div>
                   ))}
+                </div>
+                {/*
+                  隊伍覆蓋：3on3 的勝負很大一部分是「有沒有被某個類型剋死」。
+                  逐顆讀類型才能拼出來，不如直接把四個類型的數量列出來。
+                */}
+                <div className="chip-row" style={{ gap: 5, marginTop: 8 }}>
+                  <span className="meta">隊伍覆蓋</span>
+                  {countTypes(suggestion.validation.members.map((member) => member.analysis.typeZhTW)).map(
+                    ({ labelZhTW, count }) => (
+                      <span
+                        key={labelZhTW}
+                        className={count > 0 ? 'stock-tag' : 'stock-tag is-zero'}
+                      >
+                        {labelZhTW} {count}
+                      </span>
+                    ),
+                  )}
                 </div>
                 {suggestion.validation.warningsZhTW.length > 0 ? (
                   <ul

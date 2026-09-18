@@ -4,12 +4,21 @@
  * 規格對照：第 28 節（商品反查必備欄位）、第 8 節（Random Booster 款式）、
  * 第 25 節（圖片 fallback）、第 41 節（來源網址）。
  */
-import { useMemo } from 'react'
-import { useAppStore } from '../../store/appStore.ts'
+import { useEffect, useMemo, useState } from 'react'
+import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../domain/naming.ts'
-import { OWNED_PRODUCT_STATUS_ZH } from '../../domain/types.ts'
+import { OWNED_PRODUCT_STATUS_ZH, type OwnedProduct } from '../../domain/types.ts'
 import { Link } from '../router.tsx'
-import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
+import {
+  Badge,
+  CatalogTitle,
+  EmptyState,
+  PageHeader,
+  PartThumb,
+  Quantity,
+  Row,
+  Section,
+} from '../components/ui.tsx'
 import { ImageSourceNote } from '../components/ImageSource.tsx'
 
 export function ProductDetailPage({ productId }: { productId: string }) {
@@ -25,7 +34,7 @@ export function ProductDetailPage({ productId }: { productId: string }) {
   if (!product) {
     return (
       <>
-        <PageHeader title="商品詳情" />
+        <PageHeader title="商品詳情" backTo="/products" backLabelZhTW="商品" />
         <EmptyState title="找不到這個商品" hint="可能圖鑑已更新。" />
       </>
     )
@@ -41,7 +50,12 @@ export function ProductDetailPage({ productId }: { productId: string }) {
 
   return (
     <>
-      <PageHeader title={label.titleZhTW} description={label.categoryZhTW} />
+      <PageHeader
+        title={label.titleZhTW}
+        description={label.categoryZhTW}
+        backTo="/products"
+        backLabelZhTW="商品"
+      />
 
       <Section title="基本資料">
         <div className="card" style={{ display: 'grid', gap: 8 }}>
@@ -156,22 +170,26 @@ export function ProductDetailPage({ productId }: { productId: string }) {
         </Section>
       ) : null}
 
+      {/*
+        我的數量原本只是唯讀清單，要改盒數得先回商品頁再找到那張卡。
+        既然已經站在這個商品的頁面上，就在這裡直接改。
+      */}
       <Section title="我的數量">
         {mine.length === 0 ? (
-          <EmptyState title="還沒有登記這個商品" />
+          <EmptyState
+            title="還沒有登記這個商品"
+            hint="到「商品」的商品庫找到它，按「加入」就會出現在這裡。"
+            action={
+              <Link to="/products" className="btn btn-primary">
+                去登記
+              </Link>
+            }
+          />
         ) : (
-          <div className="card" style={{ display: 'grid', gap: 6 }}>
+          <div className="card" style={{ display: 'grid', gap: 10 }}>
             <Field name="總盒數">{totalQuantity}</Field>
             {mine.map((owned) => (
-              <div key={owned.id} style={{ fontSize: 14 }}>
-                {OWNED_PRODUCT_STATUS_ZH[owned.status]} ×{owned.quantity}
-                {product.isRandom
-                  ? `（未拆封 ${owned.sealedQuantity ?? 0}，已拆封 ${
-                      (owned.openedVariants ?? []).reduce((sum, row) => sum + row.quantity, 0) +
-                      (owned.manualOpenedQuantity ?? 0)
-                    }）`
-                  : ''}
-              </div>
+              <OwnedRow key={owned.id} owned={owned} isRandom={product.isRandom} />
             ))}
           </div>
         )}
@@ -190,6 +208,59 @@ export function ProductDetailPage({ productId }: { productId: string }) {
         </div>
       </Section>
     </>
+  )
+}
+
+/**
+ * 單一筆持有紀錄，可以直接改盒數與備註。
+ *
+ * 備註用 onBlur 才寫入，不要每打一個字就寫 IndexedDB。
+ */
+function OwnedRow({ owned, isRandom }: { owned: OwnedProduct; isRandom: boolean }) {
+  const run = useAppStore((state) => state.run)
+  const [notes, setNotes] = useState(owned.notes ?? '')
+  // 別的頁面改了備註時要跟上，否則這裡會一直顯示進入頁面那一刻的舊值。
+  useEffect(() => setNotes(owned.notes ?? ''), [owned.notes])
+
+  const openedTotal =
+    (owned.openedVariants ?? []).reduce((sum, row) => sum + row.quantity, 0) +
+    (owned.manualOpenedQuantity ?? 0)
+
+  return (
+    <div style={{ display: 'grid', gap: 6 }}>
+      <Row>
+        <span style={{ flex: 1, fontSize: 14 }}>{OWNED_PRODUCT_STATUS_ZH[owned.status]}</span>
+        <Quantity
+          testId="detail-owned-qty"
+          label={`${OWNED_PRODUCT_STATUS_ZH[owned.status]} 盒數`}
+          value={owned.quantity}
+          onChange={(next) => void run(() => repo.updateOwnedProduct(owned.id, { quantity: next }))}
+        />
+      </Row>
+      {isRandom ? (
+        <div className="meta">
+          未拆封 {owned.sealedQuantity ?? 0} 盒 ・ 已拆封 {openedTotal} 盒
+        </div>
+      ) : null}
+      <details open={Boolean(owned.notes)}>
+        <summary style={{ cursor: 'pointer', fontSize: 13, color: 'var(--ink-dim)' }}>
+          備註{owned.notes ? '' : '（空白）'}
+        </summary>
+        <textarea
+          className="field"
+          style={{ marginTop: 8 }}
+          aria-label="這筆持有紀錄的備註"
+          placeholder="例如購買日期、來源或預計到貨日"
+          rows={2}
+          value={notes}
+          onChange={(event) => setNotes(event.target.value)}
+          onBlur={() => {
+            if (notes === (owned.notes ?? '')) return
+            void run(() => repo.updateOwnedProduct(owned.id, { notes: notes.trim() || undefined }))
+          }}
+        />
+      </details>
+    </div>
   )
 }
 

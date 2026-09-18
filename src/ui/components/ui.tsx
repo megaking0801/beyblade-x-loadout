@@ -6,18 +6,34 @@
  */
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { BEY_TYPE_ZH, CONFIDENCE_ZH, type BeyType, type Confidence } from '../../domain/types.ts'
+import { Link } from '../router.tsx'
 
 export function PageHeader({
   title,
   description,
   action,
+  backTo,
+  backLabelZhTW,
 }: {
   title: string
   description?: string
   action?: ReactNode
+  /**
+   * 返回上一層的路徑。
+   *
+   * 詳情頁（/part、/product）不在底部導覽裡，沒有這個連結就只能靠瀏覽器上一頁，
+   * 或是被導覽列丟到別的分頁去。
+   */
+  backTo?: string
+  backLabelZhTW?: string
 }) {
   return (
     <header style={{ padding: '22px 0 14px' }}>
+      {backTo ? (
+        <Link to={backTo} className="btn btn-compact" testId="page-back">
+          ← {backLabelZhTW ?? '返回'}
+        </Link>
+      ) : null}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
         <h1 className="page-title" style={{ flex: 1 }}>
           {title}
@@ -59,10 +75,18 @@ export function EmptyState({
   title,
   hint,
   testId,
+  action,
 }: {
   title: string
   hint?: string
   testId?: string
+  /**
+   * 空狀態的出口。
+   *
+   * 提示文字寫「到『商品』登記你買的盒子」但不能點，等於叫人自己去找。
+   * 有下一步就放一顆按鈕。
+   */
+  action?: ReactNode
 }) {
   return (
     <div
@@ -72,6 +96,7 @@ export function EmptyState({
     >
       <p style={{ margin: 0, fontWeight: 600 }}>{title}</p>
       {hint ? <p style={{ margin: '6px 0 0', fontSize: 14 }}>{hint}</p> : null}
+      {action ? <div style={{ marginTop: 12 }}>{action}</div> : null}
     </div>
   )
 }
@@ -307,12 +332,26 @@ export function PartThumb({
   )
 }
 
-export function ScoreBar({ label, value }: { label: string; value?: number }) {
+/**
+ * 六軸的分數條。
+ *
+ * `color` 讓每一軸用自己的顏色（攻紅、防藍、久綠）。七條都同一個紅色時，
+ * 要知道「這套強在哪」得逐條讀標籤；上了色掃一眼就看得出形狀。
+ */
+export function ScoreBar({
+  label,
+  value,
+  color,
+}: {
+  label: string
+  value?: number
+  color?: string
+}) {
   return (
     <div style={{ marginBottom: 6 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
         <span>{label}</span>
-        <span style={{ color: 'var(--text-dim)' }}>{value === undefined ? '資料不足' : value}</span>
+        <span style={{ color: 'var(--ink-dim)' }}>{value === undefined ? '資料不足' : value}</span>
       </div>
       <div
         style={{
@@ -320,14 +359,15 @@ export function ScoreBar({ label, value }: { label: string; value?: number }) {
           borderRadius: 999,
           background: 'var(--surface-2)',
           overflow: 'hidden',
-          border: '1px solid var(--border)',
+          // 資料不足時留虛線空軌，不要畫一條 0 寬的假條。
+          border: value === undefined ? '1px dashed var(--rule)' : '1px solid var(--rule)',
         }}
       >
         <div
           style={{
             width: `${value ?? 0}%`,
             height: '100%',
-            background: value === undefined ? 'transparent' : 'var(--accent)',
+            background: value === undefined ? 'transparent' : (color ?? 'var(--signal)'),
           }}
         />
       </div>

@@ -8,7 +8,14 @@ import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { formatPartLabel } from '../../domain/naming.ts'
 import { searchParts } from '../../domain/search.ts'
-import { PART_STATUS_ZH, SPIN_DIRECTION_ZH, type Part, type PartFamily, type PartStatus } from '../../domain/types.ts'
+import {
+  BEY_TYPE_ZH,
+  PART_STATUS_ZH,
+  SPIN_DIRECTION_ZH,
+  type Part,
+  type PartFamily,
+  type PartStatus,
+} from '../../domain/types.ts'
 import { Link } from '../router.tsx'
 import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Quantity, Row, Section, TypeTag, useJustAdded } from '../components/ui.tsx'
 
@@ -69,6 +76,22 @@ export function PartsPage() {
   )
 }
 
+/** 系列快篩。設計稿的第一排 chips。 */
+const SYSTEMS = ['all', 'BX', 'UX', 'CX'] as const
+type SystemFilter = (typeof SYSTEMS)[number]
+
+/** 類型快篩。設計稿的第二排 chips，用類型色標示。 */
+const TYPES = ['all', 'attack', 'defense', 'stamina', 'balance'] as const
+type TypeFilter = (typeof TYPES)[number]
+
+const TYPE_FILTER_LABEL: Record<TypeFilter, string> = {
+  all: '全部類型',
+  attack: BEY_TYPE_ZH.attack,
+  defense: BEY_TYPE_ZH.defense,
+  stamina: BEY_TYPE_ZH.stamina,
+  balance: BEY_TYPE_ZH.balance,
+}
+
 function MyParts() {
   const stock = useAppStore((state) => state.stock)
   const availability = useAppStore((state) => state.availability)
@@ -89,20 +112,83 @@ function MyParts() {
     () => new Map(partPreferences.map((preference) => [preference.partId, preference])),
     [partPreferences],
   )
+  const [query, setQuery] = useState('')
+  const [system, setSystem] = useState<SystemFilter>('all')
+  const [type, setType] = useState<TypeFilter>('all')
+
+  /*
+   * 我的零件原本連搜尋框都沒有，只能靠五個分類區塊往下捲。
+   * 庫存一多（本站圖鑑 207 顆）就很難找到特定那一顆。
+   */
+  const visibleIds = useMemo(() => {
+    const owned = [...stock.values()].flatMap((row) => {
+      const part = partById.get(row.partId)
+      return part ? [part] : []
+    })
+    const bySystem = system === 'all' ? owned : owned.filter((part) => part.system === system)
+    const byType = type === 'all' ? bySystem : bySystem.filter((part) => part.type === type)
+    return new Set(searchParts(byType, query).map(({ part }) => part.id))
+  }, [stock, partById, system, type, query])
 
   if (stock.size === 0) {
     return (
       <EmptyState
         title="我的零件：0"
         hint="到「商品」登記你買的盒子，或切到「零件庫」單獨新增零件。"
+        action={
+          <Link to="/products" className="btn btn-primary">
+            去登記商品
+          </Link>
+        }
       />
     )
   }
 
   return (
     <>
+      <input
+        className="field"
+        placeholder="搜尋名稱或型號"
+        aria-label="搜尋我的零件"
+        data-testid="my-part-search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <div style={{ height: 8 }} />
+      <div className="chip-row">
+        {SYSTEMS.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className="filter-chip"
+            aria-pressed={system === item}
+            onClick={() => setSystem(item)}
+          >
+            {item === 'all' ? '全部系列' : item}
+          </button>
+        ))}
+      </div>
+      <div style={{ height: 6 }} />
+      <div className="chip-row">
+        {TYPES.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className="filter-chip"
+            aria-pressed={type === item}
+            onClick={() => setType(item)}
+          >
+            {TYPE_FILTER_LABEL[item]}
+          </button>
+        ))}
+      </div>
+      <div style={{ height: 14 }} />
+      {visibleIds.size === 0 ? (
+        <EmptyState title="沒有符合條件的零件" hint="換個關鍵字，或把篩選切回「全部」。" />
+      ) : null}
       {GROUPS.map((group) => {
         const rows = [...stock.values()].filter((row) => {
+          if (!visibleIds.has(row.partId)) return false
           const part = partById.get(row.partId)
           return part ? group.families.includes(part.family) : false
         })
@@ -151,32 +237,46 @@ function MyParts() {
                       {label.plainDescriptionZhTW ? (
                         <div className="meta clamp-2">{label.plainDescriptionZhTW}</div>
                       ) : null}
+                      <div className="chip-row" style={{ gap: 5, marginTop: 3 }}>
+                        {reserved > 0 ? (
+                          <span className="stock-tag is-warn" data-testid="part-reserved">
+                            已組裝占用 ×{reserved}
+                          </span>
+                        ) : null}
+                        {reserved > 0 ? (
+                          <span className="stock-tag" data-testid="part-free">
+                            還能用 ×{free}
+                          </span>
+                        ) : null}
+                        {row.ordered > 0 ? (
+                          <span className="stock-tag is-warn" data-testid="part-ordered">
+                            未到貨 ×{row.ordered}
+                          </span>
+                        ) : null}
+                        {row.loanedOut > 0 ? <span className="stock-tag">借出 ×{row.loanedOut}</span> : null}
+                        {row.worn > 0 ? <span className="stock-tag">磨耗 ×{row.worn}</span> : null}
+                        {row.damaged > 0 ? <span className="stock-tag">損壞 ×{row.damaged}</span> : null}
+                        {row.lost > 0 ? <span className="stock-tag">遺失 ×{row.lost}</span> : null}
+                        {row.sold > 0 ? <span className="stock-tag">已出售 ×{row.sold}</span> : null}
+                      </div>
                       {preferenceByPartId.get(part.id)?.favorite ? (
                         <div className="meta" style={{ fontSize: 12 }}>
                           已收藏
                         </div>
                       ) : null}
                     </div>
-                    <div className="spec-figure" style={{ fontSize: 13 }}>
-                        <div data-testid="part-available">
-                          可用 <span className="code">×{row.available}</span>
-                        </div>
-                        {reserved > 0 ? (
-                          <div style={{ color: 'var(--warn)' }} data-testid="part-reserved">
-                            已組裝占用 ×{reserved}
-                          </div>
-                        ) : null}
-                        {reserved > 0 ? <div data-testid="part-free">還能用 ×{free}</div> : null}
-                        {row.ordered > 0 ? (
-                          <div style={{ color: 'var(--warn)' }} data-testid="part-ordered">
-                            未到貨 ×{row.ordered}
-                          </div>
-                        ) : null}
-                        {row.loanedOut > 0 ? <div>借出 ×{row.loanedOut}</div> : null}
-                        {row.worn > 0 ? <div>磨耗 ×{row.worn}</div> : null}
-                        {row.damaged > 0 ? <div>損壞 ×{row.damaged}</div> : null}
-                        {row.lost > 0 ? <div>遺失 ×{row.lost}</div> : null}
-                      {row.sold > 0 ? <div>已出售 ×{row.sold}</div> : null}
+                    {/*
+                      右側原本會堆到 9 行，320px 下把標題壓扁。
+                      現在只留「可用」當主數值，其餘狀態移到標題下方，非 0 才出現。
+                      注意：part-available 這個節點的文字是 `可用 ×N`（中間一個字面空白），
+                      e2e 用 toHaveText 精確比對，拆成兩個節點會讓空白消失而變紅。
+                      外層用 column-reverse 讓數字顯示在標籤上方（設計稿的樣子），
+                      DOM 順序與 textContent 不變。
+                    */}
+                    <div className="spec-figure stock-figure">
+                      <div data-testid="part-available">
+                        可用 <span className="code">×{row.available}</span>
+                      </div>
                     </div>
                   </Link>
                 )

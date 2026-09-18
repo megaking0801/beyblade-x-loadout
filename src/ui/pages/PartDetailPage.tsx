@@ -15,10 +15,25 @@ import {
 import { BEY_TYPE_ZH, BIT_CONTACT_ZH, SPIN_DIRECTION_ZH } from '../../domain/types.ts'
 import { getPartTournamentDecks, getPartTournamentObservations } from '../../domain/tournament.ts'
 import { getExpertTierMatches } from '../../catalog/tierLists.ts'
+import type { PartStock } from '../../domain/inventory.ts'
 import { PART_STATUS_ZH, type PartSourceEntryLike } from './partDetailTypes.ts'
 import { Link } from '../router.tsx'
 import { Badge, CatalogTitle, EmptyState, PageHeader, PartThumb, Row, Section } from '../components/ui.tsx'
 import { ImageSourceNote } from '../components/ImageSource.tsx'
+
+/**
+ * 除了「可用／占用／還能用」以外的庫存狀態。
+ *
+ * 這七種多半是 0，所以只在非 0 時以小徽章出現，不要每一種都固定佔一行。
+ */
+const OTHER_STOCK_STATES: { labelZhTW: string; pick: (row: PartStock) => number }[] = [
+  { labelZhTW: '未到貨', pick: (row) => row.ordered },
+  { labelZhTW: '借出', pick: (row) => row.loanedOut },
+  { labelZhTW: '磨耗', pick: (row) => row.worn },
+  { labelZhTW: '損壞', pick: (row) => row.damaged },
+  { labelZhTW: '遺失', pick: (row) => row.lost },
+  { labelZhTW: '已出售', pick: (row) => row.sold },
+]
 
 export function PartDetailPage({ partId }: { partId: string }) {
   const parts = useAppStore((state) => state.parts)
@@ -87,7 +102,7 @@ export function PartDetailPage({ partId }: { partId: string }) {
   if (!part) {
     return (
       <>
-        <PageHeader title="零件詳情" />
+        <PageHeader title="零件詳情" backTo="/parts" backLabelZhTW="零件" />
         <EmptyState title="找不到這個零件" />
       </>
     )
@@ -107,6 +122,8 @@ export function PartDetailPage({ partId }: { partId: string }) {
       <PageHeader
         title={label.titleZhTW}
         description={label.familyZhTW}
+        backTo="/parts"
+        backLabelZhTW="零件"
       />
 
       <Section title="基本資料">
@@ -163,24 +180,48 @@ export function PartDetailPage({ partId }: { partId: string }) {
         </Section>
       ) : null}
 
+      {/*
+        三個數字才是真正會被問的：有幾個、被占用幾個、還能用幾個。
+        其餘七種狀態（未到貨、借出、磨耗、損壞、遺失、已出售）多半是 0，
+        原本每一種各佔一行會把卡片拉長，改成只在非 0 時出現的小徽章。
+      */}
       <Section title="我有幾個">
         {row ? (
-          <div className="card" style={{ display: 'grid', gap: 4, fontSize: 14 }}>
-            <div>可用 ×{row.available}</div>
-            {avail && avail.reserved > 0 ? (
-              <div style={{ color: 'var(--warn)' }}>
-                已被實際組裝占用 ×{avail.reserved}，還能用 ×{avail.free}
+          <div className="card" style={{ display: 'grid', gap: 10 }}>
+            <div className="stat-strip">
+              <div className="stat-strip-item">
+                <span className="meta">可用</span>
+                <span className="code">×{row.available}</span>
+              </div>
+              <div className="stat-strip-item">
+                <span className="meta">已被配裝占用</span>
+                <span className="code">×{avail?.reserved ?? 0}</span>
+              </div>
+              <div className="stat-strip-item">
+                <span className="meta">還能用</span>
+                <span className="code">×{avail?.free ?? row.available}</span>
+              </div>
+            </div>
+            {OTHER_STOCK_STATES.some(({ pick }) => pick(row) > 0) ? (
+              <div className="chip-row">
+                {OTHER_STOCK_STATES.filter(({ pick }) => pick(row) > 0).map(({ labelZhTW, pick }) => (
+                  <Badge key={labelZhTW} tone="neutral">
+                    {labelZhTW} ×{pick(row)}
+                  </Badge>
+                ))}
               </div>
             ) : null}
-            {row.ordered > 0 ? <div>未到貨 ×{row.ordered}</div> : null}
-            {row.loanedOut > 0 ? <div>借出 ×{row.loanedOut}</div> : null}
-            {row.worn > 0 ? <div>磨耗 ×{row.worn}</div> : null}
-            {row.damaged > 0 ? <div>損壞 ×{row.damaged}</div> : null}
-            {row.lost > 0 ? <div>遺失 ×{row.lost}</div> : null}
-            {row.sold > 0 ? <div>已出售 ×{row.sold}</div> : null}
           </div>
         ) : (
-          <EmptyState title="目前沒有這個零件" />
+          <EmptyState
+            title="目前沒有這個零件"
+            hint="登記含有它的商品，或到「零件」單獨新增。"
+            action={
+              <Link to="/parts" className="btn btn-primary">
+                去登記
+              </Link>
+            }
+          />
         )}
       </Section>
 

@@ -65,6 +65,35 @@ test('capture', async ({ page }, testInfo) => {
   }
 
   /*
+   * 兩個詳情頁不在 SHOTS 的 hash 清單裡（它們需要 ?id=），但版面改動最多的
+   * 就是這兩頁，一定要截到。
+   */
+  await page.evaluate(() => {
+    window.location.hash = '/parts'
+  })
+  await page.getByTestId('tab-part-catalog').click()
+  const firstPart = page.getByTestId('catalog-part').first()
+  await expect(firstPart).toBeVisible()
+  await firstPart.getByTestId('catalog-part-title').click().catch(() => undefined)
+  await page.evaluate(() => {
+    window.location.hash = '/part?id=blade:ドランソード'
+  })
+  await page.waitForTimeout(500)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-part-detail.png`,
+    fullPage: true,
+  })
+
+  await page.evaluate(() => {
+    window.location.hash = '/product?id=bx01'
+  })
+  await page.waitForTimeout(500)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-product-detail.png`,
+    fullPage: true,
+  })
+
+  /*
    * /products 預設停在「我的商品」，所以型錄那一半（入門組區、持有態徽章）
    * 不會被上面那張截到。補一張。
    */
