@@ -140,24 +140,6 @@ export function describeHeightMatchup(a?: number, b?: number): string {
   return `${lower} 較低（${Math.min(a, b)}），${higher} 較高（${Math.max(a, b)}），高度碼差 ${Math.abs(a - b)}。較低配置重心通常更低，較高配置的撞擊高度不同；實際優劣仍受上蓋形狀與發射角度影響。`
 }
 
-const MATCHUP_WEIGHTS = {
-  attack: 0.18,
-  defense: 0.18,
-  stamina: 0.2,
-  burst: 0.14,
-  burstResistance: 0.14,
-  stability: 0.16,
-} as const
-
-const MATCHUP_LABEL: Record<keyof typeof MATCHUP_WEIGHTS, string> = {
-  attack: '攻擊',
-  defense: '防守',
-  stamina: '持久',
-  burst: '爆發',
-  burstResistance: '抗爆',
-  stability: '穩定',
-}
-
 export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPrediction {
   if (!a.compatibility.ok || !b.compatibility.ok || !a.scores || !b.scores) {
     return {
@@ -167,23 +149,38 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
     }
   }
 
-  const differences = (Object.keys(MATCHUP_WEIGHTS) as (keyof typeof MATCHUP_WEIGHTS)[])
-    .map((axis) => ({ axis, difference: a.scores![axis] - b.scores![axis] }))
-  const weightedDifference = differences.reduce(
-    (total, row) => total + row.difference * MATCHUP_WEIGHTS[row.axis],
-    0,
-  )
-  // 每 1 分的加權差異對應 0.25 個百分點；避免未校正模型做出過度自信的數字。
-  const aModelProbability = Math.round(Math.max(25, Math.min(75, 50 + weightedDifference * 0.25)))
+  /*
+   * 不直接平均六軸。那會讓「A 有很強的擊出壓力、B 有很強的持久」互相抵銷，
+   * 最後只剩沒有用的 50/50。改用兩條能說明贏法的對戰路線：
+   *
+   * - 擊出路線：攻擊、爆發，對上對手的防守、抗爆與穩定。
+   * - 拖時間路線：持久為主，搭配穩定、防守與抗爆；同時扣掉對手的擊出壓力。
+   *
+   * 全部仍是模型推估，不能當真實賽果或官方剋制表。
+   */
+  const koPressureA = a.scores.attack * 0.6 + a.scores.burst * 0.4
+  const koPressureB = b.scores.attack * 0.6 + b.scores.burst * 0.4
+  const koResistanceA = a.scores.defense * 0.35 + a.scores.burstResistance * 0.4 + a.scores.stability * 0.25
+  const koResistanceB = b.scores.defense * 0.35 + b.scores.burstResistance * 0.4 + b.scores.stability * 0.25
+  const koDifference = (koPressureA - koResistanceB) - (koPressureB - koResistanceA)
+
+  const survivalA = a.scores.stamina * 0.65 + a.scores.stability * 0.2 + a.scores.defense * 0.1 + a.scores.burstResistance * 0.05
+  const survivalB = b.scores.stamina * 0.65 + b.scores.stability * 0.2 + b.scores.defense * 0.1 + b.scores.burstResistance * 0.05
+  const survivalDifference = (survivalA - koPressureB * 0.2) - (survivalB - koPressureA * 0.2)
+
+  // 標準 X 對戰盤先以擊出路線 65%、拖時間 35% 合成：X Dash 與爆發是
+  // 對局提早結束的主要變數，不能再與拖時間路線等權抵銷成沒有判別力的 50/50。
+  const matchupDifference = koDifference * 0.65 + survivalDifference * 0.35
+  // 機率是未校正模型，只能表示相對傾向；仍限制在 20–80%，避免過度自信。
+  const aModelProbability = Math.round(Math.max(20, Math.min(80, 50 + matchupDifference * 1.25)))
   const bModelProbability = 100 - aModelProbability
   const outcome: MatchupOutcome =
-    Math.abs(weightedDifference) < 6 ? 'even' : weightedDifference > 0 ? 'a_advantage' : 'b_advantage'
-  const winner = weightedDifference >= 0 ? 'A' : 'B'
-  const reasonsZhTW = differences
-    .filter((row) => row.difference !== 0)
-    .sort((left, right) => Math.abs(right.difference * MATCHUP_WEIGHTS[right.axis]) - Math.abs(left.difference * MATCHUP_WEIGHTS[left.axis]))
-    .slice(0, 3)
-    .map((row) => `${row.difference > 0 ? 'A' : 'B'} 的${MATCHUP_LABEL[row.axis]}較高（差 ${Math.abs(row.difference)}）`)
+    Math.abs(matchupDifference) < 3 ? 'even' : matchupDifference > 0 ? 'a_advantage' : 'b_advantage'
+  const winner = matchupDifference >= 0 ? 'A' : 'B'
+  const reasonsZhTW = [
+    `${koDifference >= 0 ? 'A' : 'B'} 的擊出路線較有利（攻擊／爆發對防守／抗爆／穩定）`,
+    `${survivalDifference >= 0 ? 'A' : 'B'} 的拖時間路線較有利（持久／穩定對對手的擊出壓力）`,
+  ]
 
   return {
     outcome,
@@ -192,8 +189,8 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
     reasonsZhTW,
     noticeZhTW:
       outcome === 'even'
-        ? '六軸加權差異接近，模型判為勝負難分。這不是實戰勝率。'
-        : `${winner} 在六軸加權模型中較佔優；此為標準 X 對戰盤、同等熟練度與正常發射下的模型推估，不是真實勝率。`,
+        ? '兩條對戰路線互有優勢，模型判為勝負難分。這不是實戰勝率。'
+        : `${winner} 的整體對戰路線較佔優；此為標準 X 對戰盤、同等熟練度與正常發射下的模型推估，不是真實勝率。`,
   }
 }
 

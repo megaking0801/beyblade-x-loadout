@@ -152,6 +152,16 @@ describe('配裝 A/B 比較（第 34 節）', () => {
     expect(r.noticeZhTW).toContain('不是真實勝率')
   })
 
+  it('標準 X 對戰盤下，擊出路線不會被拖時間路線完全抵銷成無意義的 50/50', () => {
+    const r = predictMatchup(a.analysis, b.analysis)
+    expect(r.outcome).toBe('a_advantage')
+    expect(r.aModelProbability).toBeGreaterThan(50)
+    expect(r.reasonsZhTW).toEqual([
+      expect.stringContaining('A 的擊出路線較有利'),
+      expect.stringContaining('B 的拖時間路線較有利'),
+    ])
+  })
+
   it('資料不完整時不產生對打模型機率', () => {
     const incomplete = analyzeCombo({ slots: { bladeId: blade.id }, parts, rules: [], lots: [], combos: [] })
     const r = predictMatchup(a.analysis, incomplete)
