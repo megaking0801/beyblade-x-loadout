@@ -4,13 +4,23 @@
  * 規格對照：第 39 節（我的庫存、快速操作、最近使用）、第 24 節（賽事資料建置中）、
  * 第 38 節（新手模式說明為什麼）、第 46 節（主流程引導）。
  */
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { catalogMeta, useAppStore } from '../../store/appStore.ts'
 import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
 import { Link, navigate } from '../router.tsx'
-import { Badge, EmptyState, NoticeCard, PageHeader, Row, Section, StatTile, TypeTag } from '../components/ui.tsx'
+import {
+  Badge,
+  EmptyState,
+  NoticeCard,
+  PageHeader,
+  ReloadLatestButton,
+  Row,
+  Section,
+  StatTile,
+  TypeTag,
+} from '../components/ui.tsx'
 
 const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
   { label: '新增商品', path: '/products', hint: '登記你買了哪一盒' },
@@ -223,46 +233,6 @@ export function HomePage() {
         </div>
       </Section>
     </>
-  )
-}
-
-/**
- * 手動抓最新版。
- *
- * 舊的 Service Worker 有時仍在服務舊的預快取，畫面就會停在上一版。
- * 這裡只清掉程式檔的快取並重新註冊，庫存資料存在 IndexedDB，完全不動。
- */
-function ReloadLatestButton() {
-  const [busy, setBusy] = useState(false)
-
-  async function reloadLatest() {
-    setBusy(true)
-    try {
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations()
-        await Promise.all(registrations.map((registration) => registration.unregister()))
-      }
-      if ('caches' in globalThis) {
-        const keys = await caches.keys()
-        await Promise.all(keys.map((key) => caches.delete(key)))
-      }
-    } catch {
-      // 清不掉就直接重新載入，至少還有機會拿到新版。
-    } finally {
-      window.location.reload()
-    }
-  }
-
-  return (
-    <button
-      type="button"
-      className="btn"
-      data-testid="reload-latest"
-      disabled={busy}
-      onClick={() => void reloadLatest()}
-    >
-      {busy ? '重新載入中…' : '重新載入最新版'}
-    </button>
   )
 }
 

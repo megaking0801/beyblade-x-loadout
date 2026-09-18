@@ -420,3 +420,45 @@ export function Quantity({
     </Row>
   )
 }
+
+/**
+ * 手動抓最新版。
+ *
+ * 舊的 Service Worker 有時仍在服務舊的預快取，畫面就會停在上一版。
+ * 這裡只清掉程式檔的快取並重新註冊，庫存資料存在 IndexedDB，完全不動。
+ *
+ * 首頁與設定頁都放一份：使用者發現「看到的不是最新版」時，這兩個地方都會去找。
+ */
+export function ReloadLatestButton() {
+  const [busy, setBusy] = useState(false)
+
+  async function reloadLatest() {
+    setBusy(true)
+    try {
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations()
+        await Promise.all(registrations.map((registration) => registration.unregister()))
+      }
+      if ('caches' in globalThis) {
+        const keys = await caches.keys()
+        await Promise.all(keys.map((key) => caches.delete(key)))
+      }
+    } catch {
+      // 清不掉就直接重新載入，至少還有機會拿到新版。
+    } finally {
+      window.location.reload()
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      className="btn"
+      data-testid="reload-latest"
+      disabled={busy}
+      onClick={() => void reloadLatest()}
+    >
+      {busy ? '重新載入中…' : '重新載入最新版'}
+    </button>
+  )
+}

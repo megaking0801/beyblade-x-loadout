@@ -854,3 +854,43 @@ a:not([class]):hover {
 ul {
   list-style: disc;
 }
+
+/*
+ * 顯示模式的兩張大卡。
+ *
+ * 這是整個 App 少數會改變資訊密度的開關，值得比一般 chip 更大的面積，
+ * 副標要放得進去。選中態不用主色紅底——紅色留給真正的主動作。
+ */
+.mode-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+}
+
+.mode-card[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--surface-2);
+}
+
+.mode-card-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mode-card[aria-pressed='true'] .mode-card-title {
+  color: var(--signal);
+}

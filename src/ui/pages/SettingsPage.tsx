@@ -8,8 +8,78 @@ import { useRef, useState } from 'react'
 import { catalogMeta, repo, useAppStore } from '../../store/appStore.ts'
 import { auditCatalog, catalog, catalogAudit } from '../../catalog/index.ts'
 import { expertTierListMeta } from '../../catalog/tierLists.ts'
-import { Badge, NoticeCard, PageHeader, Row, Section } from '../components/ui.tsx'
+import {
+  Badge,
+  NoticeCard,
+  PageHeader,
+  ReloadLatestButton,
+  Row,
+  Section,
+  type BadgeTone,
+} from '../components/ui.tsx'
 import { summarizeImageSources } from '../components/ImageSource.tsx'
+
+/**
+ * 每一類資料是誰給的。
+ *
+ * 這是編譯期已知的對照，不是從資料算出來的——但每一列的數量會帶當前值，
+ * 免得寫死的數字跟實際收錄量對不上（規格第 47.2 節）。
+ *
+ * 刻意不寫「重量」：重量已經整個拔掉（同款零件個體差異比配裝差異大，
+ * 顯示或計分都是誤導），前台也有一條巡邏測試在守這兩個字。
+ */
+const SOURCE_CATEGORIES: {
+  labelZhTW: string
+  detailZhTW: (counts: {
+    deckEventCount: number
+    deckCount: number
+    observationEventCount: number
+    observationCount: number
+    imageCount: number
+  }) => string
+  tierZhTW: string
+  tone: BadgeTone
+}[] = [
+  {
+    labelZhTW: '商品、品號與型號',
+    detailZhTW: () => 'Takara Tomy 官方商品一覽',
+    tierZhTW: '官方',
+    tone: 'ok',
+  },
+  {
+    // 固鎖與軸心的名稱就是官方型號（3-60、F），沒有經過翻譯字典，
+    // 所以這一列只能講「戰刃譯名」，不能籠統寫成「台灣中文名」。
+    labelZhTW: '戰刃中文譯名、類型、旋向、軸心特性',
+    detailZhTW: () => 'BeybladeHub 社群圖鑑（非官方玩家資源站）',
+    tierZhTW: '社群',
+    tone: 'warn',
+  },
+  {
+    labelZhTW: '賽事名次與配置',
+    /*
+     * 兩種資料的口徑不同，不能混成一個數字：
+     * 完整 3on3 牌組才進賽事統計，單顆名次只能當「來源觀測」顯示（第 23 節）。
+     * 寫成「23 場、93 筆」會讓人以為 93 筆涵蓋全部 23 場，其實只涵蓋 13 場。
+     */
+    detailZhTW: ({ deckEventCount, deckCount, observationEventCount, observationCount }) =>
+      `社群玩家整理的賽果：${deckEventCount} 場完整 3on3 牌組（${deckCount} 副）、` +
+      `${observationEventCount} 場單顆名次觀測（${observationCount} 筆）`,
+    tierZhTW: '社群',
+    tone: 'warn',
+  },
+  {
+    labelZhTW: '高手 T 表評級',
+    detailZhTW: () => '具名玩家的主觀評級，不會改變賽事統計或模型分數',
+    tierZhTW: '社群',
+    tone: 'warn',
+  },
+  {
+    labelZhTW: '零件與商品圖片',
+    detailZhTW: ({ imageCount }) => `${imageCount} 張本機副本，保留原始位置，尚未取得授權`,
+    tierZhTW: '未確認',
+    tone: 'neutral',
+  },
+]
 
 export function SettingsPage() {
   const mode = useAppStore((state) => state.settings.mode)
@@ -21,6 +91,13 @@ export function SettingsPage() {
   const fileRef = useRef<HTMLInputElement>(null)
   const images = useAppStore((state) => state.images)
   const imageSources = summarizeImageSources(images)
+  const tournamentDecks = useAppStore((state) => state.tournamentDecks)
+  const tournamentObservations = useAppStore((state) => state.tournamentObservations)
+  // 一場賽事只會有完整牌組或單顆觀測其中一種，所以分開數才講得清楚涵蓋範圍。
+  const eventCounts = {
+    withDecks: new Set(tournamentDecks.map((deck) => deck.eventId)).size,
+    withObservations: new Set(tournamentObservations.map((row) => row.eventId)).size,
+  }
 
   const issues = auditCatalog(catalog)
 
@@ -28,25 +105,30 @@ export function SettingsPage() {
     <>
       <PageHeader title="設定" description="模式、備份與資料來源。" />
 
+      {/*
+        兩張大卡而不是兩顆小按鈕：這是整個 App 少數會改變資訊密度的開關，
+        副標直接寫「差別是什麼」，不要讓人選完才發現。
+      */}
       <Section title="顯示模式">
-        <Row gap={6}>
+        <div className="mode-grid">
           <button
             type="button"
-            className={mode === 'beginner' ? 'btn btn-primary' : 'btn'}
+            className="mode-card"
+            aria-pressed={mode === 'beginner'}
             onClick={() => void setMode('beginner')}
           >
-            新手模式
+            <span className="mode-card-title">新手模式</span>
+            <span className="meta">字體較大，只顯示必要數據並說明原因</span>
           </button>
           <button
             type="button"
-            className={mode === 'advanced' ? 'btn btn-primary' : 'btn'}
+            className="mode-card"
+            aria-pressed={mode === 'advanced'}
             onClick={() => void setMode('advanced')}
           >
-            進階模式
+            <span className="mode-card-title">進階模式</span>
+            <span className="meta">額外顯示資料來源與已知缺漏清單</span>
           </button>
-        </Row>
-        <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 6 }}>
-          新手模式字體較大、只顯示必要數據並說明原因；進階模式會顯示來源與缺漏清單。
         </div>
       </Section>
 
@@ -138,6 +220,51 @@ export function SettingsPage() {
               圖鑑稽核 {issues.length === 0 ? '通過' : `${issues.length} 項問題`}
             </Badge>
           </Row>
+          {/*
+            「看到的不是最新版？」首頁也有一顆同樣的按鈕。刻意兩邊都放：
+            使用者發現版本不對時，這兩個地方都會去找。
+          */}
+          <Row>
+            <span style={{ flex: 1, color: 'var(--ink-dim)', fontSize: 13 }}>
+              看到的不是最新版？
+            </span>
+            <ReloadLatestButton />
+          </Row>
+        </div>
+      </Section>
+
+      {/*
+        資料來源分類表。
+        同樣的事實原本散在「資料來源與致謝」的兩段散文與「圖片來源」裡，
+        使用者要判斷「這個數字能不能信」時得自己拼湊。這裡一列一項講清楚
+        哪些是官方、哪些是社群整理、哪些連授權都還沒確認（第 41 節）。
+      */}
+      {/*
+        標題刻意不叫「資料來源」：那會是既有「資料來源與致謝」的字首子字串，
+        而 Playwright 的 getByRole('heading', { name }) 預設是子字串比對，
+        未來任何人寫沒加 exact 的斷言都會同時命中兩個 h2。
+      */}
+      <Section title="資料來源分類">
+        <div className="spec-list" data-testid="source-categories">
+          {SOURCE_CATEGORIES.map((row) => (
+            <div className="spec-row" key={row.labelZhTW}>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ fontSize: 13 }}>{row.labelZhTW}</span>
+                <span className="meta" style={{ display: 'block' }}>
+                  {row.detailZhTW({
+                    deckEventCount: eventCounts.withDecks,
+                    deckCount: tournamentDecks.length,
+                    observationEventCount: eventCounts.withObservations,
+                    observationCount: tournamentObservations.length,
+                    imageCount: images.length,
+                  })}
+                </span>
+              </span>
+              <span className="spec-figure">
+                <Badge tone={row.tone}>{row.tierZhTW}</Badge>
+              </span>
+            </div>
+          ))}
         </div>
       </Section>
 
