@@ -77,8 +77,12 @@
    串行跑要 4.6 分鐘，是每次上線前最大一段等待。已確認可平行：沒有 `describe.serial`、
    沒有 `beforeAll`、沒有模組層級可變狀態，`setOffline` 掛在 context 上，IndexedDB 與
    service worker 註冊都是 per-BrowserContext 隔離。
-   改 `fullyParallel: true` + `workers: 4`，**連跑 3 次全套都綠才算過**；
-   flaky 就降到 2、再不行退回 1 並在這裡記原因。**絕對不要加 `retries`** 去蓋掉。
+   改 `fullyParallel: true` + `workers: 4`，**跑一次綠就算過**。
+   不用刻意連跑幾次刷保險：真正的風險不是邏輯共用（context 隔離是 Playwright 的設計
+   保證，重跑不會改變結論），是 8 核上同時開 4 個瀏覽器加一個 preview 的資源競爭，
+   那種失敗長得像 timeout，一看就知道。之後每次上線前的全套本來就在持續取樣，
+   紅了再降到 `workers: 2`、再不行退回 1 並在這裡記原因。
+   **絕對不要加 `retries`** 去蓋掉。
 2. **缺口 A 配件中文名**（唯一已知違規）。修完可以把「`/parts` 多點一次配件庫分頁」
    加進假名巡邏，但**不要**把 `/part?id=` 整頁加進去（理由見上面踩過的坑）。
 3. **缺口 D 補 3 顆缺件**。補完賽事證據更完整，首頁「賽場正在用什麼」才有機會顯示真正的
