@@ -27,6 +27,7 @@ export type BuilderMode = 'owned' | 'catalog' | 'hypothetical'
 /** 第 29 節：排序方式。 */
 export type BuildableSortKey =
   | 'beginner'
+  | 'strength'
   | 'attack'
   | 'stamina'
   | 'stability'
@@ -81,6 +82,9 @@ function partAxisRank(part: Part, sortBy: BuildableSortKey): number {
     return difficulty
   }
   if (!part.type) return 100
+  if (sortBy === 'strength') {
+    return -(STRENGTH_BASE[part.type] ?? 0)
+  }
   const base = AXIS_BASE[sortBy]
   return -(base[part.type] ?? 0)
 }
@@ -91,6 +95,14 @@ const AXIS_BASE: Record<'attack' | 'stamina' | 'stability' | 'evidence', Record<
   stamina: { stamina: 85, defense: 50, balance: 55, attack: 30 },
   stability: { defense: 70, stamina: 65, balance: 55, attack: 35 },
   evidence: { attack: 1, defense: 1, stamina: 1, balance: 1 },
+}
+
+/** A neutral pre-sort used for recommendation simulations. */
+const STRENGTH_BASE: Record<string, number> = {
+  attack: 55,
+  defense: 58,
+  stamina: 58,
+  balance: 60,
 }
 
 const DIFFICULTY_HINT: Record<string, number> = {
@@ -219,6 +231,8 @@ function enumerateSlots(parts: Part[], sortBy: BuildableSortKey): EnumerationRes
 function sortValue(row: BuildableCombo, sortBy: BuildableSortKey): number {
   const { analysis } = row
   switch (sortBy) {
+    case 'strength':
+      return -overallStrength(analysis.scores)
     case 'attack':
       return -(analysis.scores?.attack ?? -1)
     case 'stamina':
@@ -232,6 +246,16 @@ function sortValue(row: BuildableCombo, sortBy: BuildableSortKey): number {
       // 沒有操作難度資料的配置排最後，不假裝它簡單。
       return analysis.operationDifficulty ?? Number.POSITIVE_INFINITY
   }
+}
+
+function overallStrength(scores: { attack: number; defense: number; stamina: number; burst: number; burstResistance: number; stability: number } | undefined): number {
+  if (!scores) return -1
+  return scores.attack * 0.2
+    + scores.defense * 0.15
+    + scores.stamina * 0.2
+    + scores.burst * 0.15
+    + scores.burstResistance * 0.15
+    + scores.stability * 0.15
 }
 
 /**
@@ -318,6 +342,8 @@ function cheapSortValue(
     extras: slotParts.extras,
   })
   switch (sortBy) {
+    case 'strength':
+      return -overallStrength(scores)
     case 'attack':
       return -scores.attack
     case 'stamina':

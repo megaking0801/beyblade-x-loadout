@@ -9,6 +9,7 @@ import { catalogMeta, useAppStore } from '../../store/appStore.ts'
 import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
+import { recommendNextProducts } from '../../domain/recommendations.ts'
 import { Link, navigate } from '../router.tsx'
 import {
   Badge,
@@ -23,6 +24,7 @@ import {
 } from '../components/ui.tsx'
 
 const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
+  { label: '下一包推薦', path: '/recommendations', hint: '依目前庫存模擬下一盒的配裝提升' },
   { label: '新增商品', path: '/products', hint: '登記你買了哪一盒' },
   { label: '新增零件', path: '/parts', hint: '單獨買的零件也能登記' },
   { label: '配裝器', path: '/builder', hint: '自己挑上蓋、固鎖、軸心' },
@@ -56,6 +58,11 @@ export function HomePage() {
   const mode = useAppStore((state) => state.settings.mode)
   const catalogVersion = useAppStore((state) => state.catalogVersion)
   const parts = useAppStore((state) => state.parts)
+  const products = useAppStore((state) => state.products)
+  const productVariants = useAppStore((state) => state.productVariants)
+  const ownedProducts = useAppStore((state) => state.ownedProducts)
+  const rules = useAppStore((state) => state.rules)
+  const lots = useAppStore((state) => state.lots)
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
 
@@ -73,6 +80,19 @@ export function HomePage() {
       }),
     [tournamentEvents, tournamentDecks, parts],
   )
+  const nextRecommendation = useMemo(() => {
+    if (isEmpty) return undefined
+    return recommendNextProducts({
+      products,
+      variants: productVariants,
+      ownedProducts,
+      parts,
+      rules,
+      lots,
+      combos,
+      limit: 1,
+    }).recommendations[0]
+  }, [combos, isEmpty, lots, ownedProducts, parts, productVariants, products, rules])
 
   return (
     <>
@@ -231,6 +251,17 @@ export function HomePage() {
             </div>
           )}
         </div>
+      </Section>
+      <Section title="下一包推薦">
+        {nextRecommendation ? (
+          <div className="card stack" data-testid="home-purchase-recommendation">
+            <div style={{ fontWeight: 700 }}>第 1 名：{nextRecommendation.product.sku ?? ''} {nextRecommendation.product.naming.primaryZhTW}</div>
+            <div>{nextRecommendation.reasonsZhTW[0]}</div>
+            <Link to="/recommendations" className="btn btn-primary">查看前五名與原因</Link>
+          </div>
+        ) : (
+          <EmptyState title="尚無可確認的下一包建議" hint="新增更多已持有商品後，會依可用零件產生推薦。" action={<Link to="/recommendations" className="btn">查看推薦頁</Link>} />
+        )}
       </Section>
     </>
   )

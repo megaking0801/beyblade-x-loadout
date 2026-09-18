@@ -16,6 +16,7 @@ import { BuilderPage } from './ui/pages/BuilderPage.tsx'
 import { BuildablePage } from './ui/pages/BuildablePage.tsx'
 import { DecksPage } from './ui/pages/DecksPage.tsx'
 import { ComparePage } from './ui/pages/ComparePage.tsx'
+import { RecommendationsPage } from './ui/pages/RecommendationsPage.tsx'
 import { WishlistPage } from './ui/pages/WishlistPage.tsx'
 import { SettingsPage } from './ui/pages/SettingsPage.tsx'
 
@@ -25,6 +26,7 @@ const TABS: { path: string; label: string }[] = [
   { path: '/parts', label: '零件' },
   { path: '/builder', label: '配裝' },
   { path: '/decks', label: '3on3' },
+  { path: '/compare', label: '比較' },
 ]
 
 export function App() {
@@ -91,6 +93,8 @@ function Page({ path, query }: { path: string; query: Record<string, string> }) 
       return <DecksPage />
     case '/compare':
       return <ComparePage />
+    case '/recommendations':
+      return <RecommendationsPage />
     case '/wishlist':
       return <WishlistPage />
     case '/settings':

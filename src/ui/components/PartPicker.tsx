@@ -16,6 +16,7 @@ export function PartPickerField({
   images,
   noteZhTW,
   disabledReasonZhTW,
+  idPrefix,
   onChange,
 }: {
   def: SlotDef
@@ -31,6 +32,8 @@ export function PartPickerField({
    * 保留欄位但鎖死並寫明原因，才看得出是系統判定不需要選。
    */
   disabledReasonZhTW?: string
+  /** Prefix slot ids when two builders share a page. */
+  idPrefix?: string
   onChange: (partId: string) => void
 }) {
   const [open, setOpen] = useState(false)
@@ -53,19 +56,20 @@ export function PartPickerField({
     setQuery('')
     setType('all')
   }
+  const fieldId = idPrefix ? `${idPrefix}-${def.key}` : def.key
   const selectedLabel = selectedPart ? formatPartLabel(selectedPart).titleZhTW : `選擇${def.labelZhTW}`
 
   return (
-    <div data-testid={`slot-${def.key}`} style={{ display: 'grid', gap: 4 }}>
-      <span id={`slot-label-${def.key}`} style={{ fontSize: 13, color: 'var(--text-dim)' }}>{def.labelZhTW}</span>
+    <div data-testid={`slot-${fieldId}`} style={{ display: 'grid', gap: 4 }}>
+      <span id={`slot-label-${fieldId}`} style={{ fontSize: 13, color: 'var(--text-dim)' }}>{def.labelZhTW}</span>
       <button
         type="button"
         className={disabledReasonZhTW ? 'field part-picker-trigger is-locked' : 'field part-picker-trigger'}
-        aria-labelledby={`slot-label-${def.key}`}
+        aria-labelledby={`slot-label-${fieldId}`}
         aria-haspopup="dialog"
         aria-expanded={open}
         disabled={Boolean(disabledReasonZhTW)}
-        data-testid={`slot-trigger-${def.key}`}
+        data-testid={`slot-trigger-${fieldId}`}
         onClick={() => setOpen(true)}
       >
         {selectedPart ? <PartThumb code={selectedPart.code} nameZhTW={selectedLabel} imageUrl={imageUrlByPartId.get(selectedPart.id)} size={34} /> : null}
@@ -73,7 +77,7 @@ export function PartPickerField({
         <span aria-hidden className="meta">{disabledReasonZhTW ? '已鎖定' : '選擇'}</span>
       </button>
       {disabledReasonZhTW ? (
-        <span className="meta" data-testid={`slot-locked-${def.key}`}>
+        <span className="meta" data-testid={`slot-locked-${fieldId}`}>
           {disabledReasonZhTW}
         </span>
       ) : null}
