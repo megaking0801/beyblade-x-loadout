@@ -46,6 +46,31 @@ describe('配裝 A/B 比較（第 34 節）', () => {
     ])
   })
 
+  it('換掉的槽位要帶前後零件名稱，讓前台能寫成「固鎖 A → B」', () => {
+    const r = compareCombos({ a, b, parts })
+    // 用中文顯示名，不是 part.code —— 上蓋的 code 是日文假名，前台不得出現（第 1.4 節）。
+    expect(r.changedSlots).toEqual([
+      { slotZhTW: '固鎖', fromZhTW: '中文-r-60', toZhTW: '中文-r-80' },
+      { slotZhTW: '軸心', fromZhTW: '中文-bit-f', toZhTW: '中文-bit-b' },
+    ])
+  })
+
+  it('沒選零件的槽位要寫「未選」，不能顯示 undefined', () => {
+    const empty = {
+      slots: { bladeId: blade.id, ratchetId: r60.id },
+      analysis: analyzeCombo({
+        slots: { bladeId: blade.id, ratchetId: r60.id },
+        parts,
+        rules: [],
+        lots: [],
+        combos: [],
+      }),
+    }
+    const r = compareCombos({ a, b: empty, parts })
+    const bit = r.changedSlots.find((row) => row.slotZhTW === '軸心')
+    expect(bit).toEqual({ slotZhTW: '軸心', fromZhTW: '中文-bit-f', toZhTW: '未選' })
+  })
+
   it('標出只換了哪些零件，方便新手理解差異', () => {
     const r = compareCombos({ a, b, parts })
     expect(r.changedSlotsZhTW).toEqual(['固鎖', '軸心'])

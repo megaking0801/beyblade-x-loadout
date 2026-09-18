@@ -4,12 +4,13 @@
  * 規格對照：第 39 節（我的庫存、快速操作、最近使用）、第 24 節（賽事資料建置中）、
  * 第 38 節（新手模式說明為什麼）、第 46 節（主流程引導）。
  */
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { catalogMeta, useAppStore } from '../../store/appStore.ts'
 import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
+import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
 import { Link, navigate } from '../router.tsx'
-import { EmptyState, NoticeCard, PageHeader, Row, Section, StatTile } from '../components/ui.tsx'
+import { Badge, EmptyState, NoticeCard, PageHeader, Row, Section, StatTile, TypeTag } from '../components/ui.tsx'
 
 const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
   { label: '新增商品', path: '/products', hint: '登記你買了哪一盒' },
@@ -22,18 +23,46 @@ const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
   { label: '設定與備份', path: '/settings', hint: '匯出、匯入、切換模式' },
 ]
 
+/** 名次的講法：前三名用冠亞季軍，其餘寫第 N 名。沒有名次就不標。 */
+function placementZhTW(placement: number | undefined): string | undefined {
+  if (placement === undefined) return undefined
+  if (placement === 1) return '冠軍'
+  if (placement === 2) return '亞軍'
+  if (placement === 3) return '季軍'
+  return `第 ${placement} 名`
+}
+
+const TYPE_DOT_CLASS: Record<string, string> = {
+  attack: 'type-attack',
+  defense: 'type-defense',
+  stamina: 'type-stamina',
+  balance: 'type-balance',
+}
+
 export function HomePage() {
   const summary = useAppStore((state) => state.summary)
   const combos = useAppStore((state) => state.combos)
   const decks = useAppStore((state) => state.decks)
   const mode = useAppStore((state) => state.settings.mode)
   const catalogVersion = useAppStore((state) => state.catalogVersion)
+  const parts = useAppStore((state) => state.parts)
+  const tournamentEvents = useAppStore((state) => state.tournamentEvents)
+  const tournamentDecks = useAppStore((state) => state.tournamentDecks)
 
   const recentCombos = [...combos].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
   const recentDecks = [...decks].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
   const isEmpty = summary.ownedProductCount === 0 && summary.bladeCount === 0
   // 三種零件各自可用數相乘＝理論上排得出來的配裝數（不代表全都合法，實際要看「我能組什麼」）。
   const comboSpace = summary.bladeCount * summary.ratchetCount * summary.bitCount
+  const featured = useMemo(
+    () =>
+      getFeaturedTournamentDeck({
+        events: tournamentEvents,
+        decks: tournamentDecks,
+        parts,
+      }),
+    [tournamentEvents, tournamentDecks, parts],
+  )
 
   return (
     <>
@@ -73,6 +102,48 @@ export function HomePage() {
         </div>
       </Section>
 
+      {/*
+        賽場正在用什麼：拿一副已完整映射的實際牌組當首頁的第二個焦點。
+        映射不完整的牌組屬於「來源觀測」，不在這裡出現（第 23 節）。
+      */}
+      {featured ? (
+        <Section title="賽場正在用什麼">
+          <div className="spec-list">
+            <div className="spec-row">
+              {placementZhTW(featured.placement) ? (
+                <Badge tone="warn">{placementZhTW(featured.placement)}</Badge>
+              ) : null}
+              <span style={{ flex: 1, minWidth: 0, fontSize: 13 }}>{featured.eventNameZhTW}</span>
+              {featured.tier && featured.tier !== 'community' && featured.tier !== 'other' ? (
+                <Badge>{featured.tier}</Badge>
+              ) : null}
+              <span className="code meta">{featured.date.slice(5).replace('-', '/')}</span>
+            </div>
+            {featured.members.map((member) => (
+              <div className="spec-row" key={member.nameZhTW}>
+                <span
+                  aria-hidden
+                  className={
+                    member.type
+                      ? `type-dot ${TYPE_DOT_CLASS[member.type]}`
+                      : 'type-dot is-unknown'
+                  }
+                />
+                <span style={{ flex: 1, minWidth: 0, fontSize: 14 }}>{member.nameZhTW}</span>
+                <TypeTag type={member.type} />
+              </div>
+            ))}
+          </div>
+          <div style={{ height: 8 }} />
+          <p className="meta" style={{ margin: 0 }}>
+            這是社群玩家整理的賽果，不是官方公布的配裝。
+            <a href={featured.sourceUrl} target="_blank" rel="noreferrer noopener">
+              來源
+            </a>
+          </p>
+        </Section>
+      ) : null}
+
       <Section title="我的紀錄">
         <div className="stat-grid">
           <StatTile testId="stat-products" label="我的商品" value={summary.ownedProductCount} hint="盒數" />
@@ -82,16 +153,10 @@ export function HomePage() {
       </Section>
 
       <Section title="快速操作">
-        <div className="spec-list">
+        <div className="quick-grid">
           {QUICK_ACTIONS.map((action) => (
-            <button
-              key={action.path}
-              type="button"
-              className="spec-row"
-              style={{ width: '100%', textAlign: 'left', cursor: 'pointer', background: 'none', border: 0 }}
-              onClick={() => navigate(action.path)}
-            >
-              <span style={{ fontWeight: 600, minWidth: 96 }}>{action.label}</span>
+            <button key={action.path} type="button" onClick={() => navigate(action.path)}>
+              <span style={{ fontWeight: 700, fontSize: 15 }}>{action.label}</span>
               <span className="meta">{action.hint}</span>
             </button>
           ))}

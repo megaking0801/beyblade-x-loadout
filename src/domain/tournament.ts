@@ -1,6 +1,8 @@
 /** 已匯入賽事資料的反查與統計。只處理完整、已映射到 Catalog 的牌組。 */
 import { comboFullCode, type EvidenceInput } from './analysis.ts'
+import { resolveDisplayName } from './naming.ts'
 import type {
+  BeyType,
   ComboSlots,
   Part,
   SourceTier,
@@ -167,4 +169,102 @@ export function getPartTournamentObservations(
     (observation) =>
       observation.comboPartIds?.includes(partId) || Object.values(observation.slots ?? {}).includes(partId),
   )
+}
+
+/**
+ * 首頁「賽場正在用什麼」要顯示的一副代表性牌組。
+ *
+ * 只挑已經完整映射到圖鑑的牌組——映射不完整的那幾副屬於「來源觀測」，
+ * 不能拿來當成完整牌組呈現（第 23 節）。挑選順序：賽事等級 → 日期 → 名次。
+ */
+export interface FeaturedDeckMember {
+  nameZhTW: string
+  /** 官方沒公布類型時就是 undefined，前台不要硬給顏色（第 1.5 節）。 */
+  type?: BeyType
+}
+
+export interface FeaturedTournamentDeck {
+  eventNameZhTW: string
+  date: string
+  tier?: TournamentEvent['tier']
+  placement?: number
+  sourceUrl: string
+  members: FeaturedDeckMember[]
+}
+
+/** 賽事等級的高低。官方等級制度：G1 最高，社群賽事與未標示的排最後。 */
+const EVENT_TIER_RANK: Record<NonNullable<TournamentEvent['tier']>, number> = {
+  G1: 6,
+  G2: 5,
+  G3: 4,
+  S1: 3,
+  community: 2,
+  other: 1,
+}
+
+export function getFeaturedTournamentDeck(args: {
+  events: TournamentEvent[]
+  decks: TournamentDeck[]
+  parts: Part[]
+}): FeaturedTournamentDeck | undefined {
+  const { events, decks, parts } = args
+  const eventById = new Map(events.map((event) => [event.id, event]))
+  const partById = new Map(parts.map((part) => [part.id, part]))
+
+  type Candidate = { deck: TournamentDeck; event: TournamentEvent; members: FeaturedDeckMember[] }
+  const candidates: Candidate[] = []
+
+  for (const deck of decks) {
+    const event = eventById.get(deck.eventId)
+    if (!event) continue
+    const combos = deck.comboPartIds
+    if (!combos || combos.length === 0) continue
+
+    const members: FeaturedDeckMember[] = []
+    let allMapped = true
+    for (const combo of combos) {
+      const resolved = combo.map((partId) => partById.get(partId))
+      // 一顆對不到圖鑑就整副不用——半副牌組顯示出去會讓人以為那就是完整配置。
+      if (resolved.some((part) => part === undefined)) {
+        allMapped = false
+        break
+      }
+      const memberParts = resolved as Part[]
+      members.push({
+        nameZhTW: memberParts
+          .map((part) => resolveDisplayName(part.naming).titleZhTW)
+          .filter(Boolean)
+          .join(' '),
+        // 類型看上蓋（第一顆），那是這套配裝的打法來源。
+        ...(memberParts[0]?.type ? { type: memberParts[0].type } : {}),
+      })
+    }
+    if (!allMapped || members.length === 0) continue
+    candidates.push({ deck, event, members })
+  }
+
+  if (candidates.length === 0) return undefined
+
+  const rank = (event: TournamentEvent): number => (event.tier ? EVENT_TIER_RANK[event.tier] : 0)
+  candidates.sort((a, b) => {
+    const byTier = rank(b.event) - rank(a.event)
+    if (byTier !== 0) return byTier
+    const byDate = b.event.date.localeCompare(a.event.date)
+    if (byDate !== 0) return byDate
+    // 沒有名次的排在有名次的後面，不要讓它擠掉冠軍。
+    const aPlace = a.deck.placement ?? Number.MAX_SAFE_INTEGER
+    const bPlace = b.deck.placement ?? Number.MAX_SAFE_INTEGER
+    if (aPlace !== bPlace) return aPlace - bPlace
+    return a.deck.id.localeCompare(b.deck.id)
+  })
+
+  const best = candidates[0]!
+  return {
+    eventNameZhTW: best.event.name,
+    date: best.event.date,
+    ...(best.event.tier ? { tier: best.event.tier } : {}),
+    ...(best.deck.placement === undefined ? {} : { placement: best.deck.placement }),
+    sourceUrl: best.deck.sourceUrl || best.event.sourceUrl,
+    members: best.members,
+  }
 }

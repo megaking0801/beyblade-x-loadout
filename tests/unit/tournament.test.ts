@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   getComboTournamentEvidence,
+  getFeaturedTournamentDeck,
   getObservedComboMatches,
   getPartTournamentDecks,
   getPartTournamentObservations,
@@ -145,5 +146,112 @@ describe('賽事資料反查', () => {
     ])
     expect(getObservedComboMatches({ slots: { ...slots, bitId: 'test-bit-a' }, events, observations })).toEqual([])
     expect(getPartTournamentObservations('test-blade-c', observations)).toHaveLength(1)
+  })
+})
+
+describe('首頁的代表性賽事牌組', () => {
+  const g1 = {
+    id: 'event-g1',
+    name: '極限盃 G1 高雄站',
+    date: '2026-07-25',
+    tier: 'G1' as const,
+    sourceTier: 'community' as const,
+    sourceUrl: 'https://example.test/g1',
+  }
+  const laterCommunity = {
+    id: 'event-later',
+    name: '社群賽',
+    date: '2026-09-01',
+    tier: 'community' as const,
+    sourceTier: 'community' as const,
+    sourceUrl: 'https://example.test/later',
+  }
+  const olderG1 = {
+    id: 'event-old-g1',
+    name: '極限盃 G1 台北站',
+    date: '2026-03-01',
+    tier: 'G1' as const,
+    sourceTier: 'community' as const,
+    sourceUrl: 'https://example.test/old-g1',
+  }
+
+  const fullCombos = [
+    ['test-blade-a', 'test-ratchet-a', 'test-bit-a'],
+    ['test-blade-b', 'test-ratchet-b', 'test-bit-b'],
+    ['test-blade-c', 'test-ratchet-c', 'test-bit-c'],
+  ]
+  const deck = (id: string, eventId: string, placement: number) => ({
+    id,
+    eventId,
+    placement,
+    comboKeys: ['a', 'b', 'c'],
+    comboPartIds: fullCombos,
+    sourceUrl: `https://example.test/${id}`,
+  })
+
+  it('等級高的賽事優先，即使社群賽事日期更近', () => {
+    const r = getFeaturedTournamentDeck({
+      events: [g1, laterCommunity],
+      decks: [deck('d-community', laterCommunity.id, 1), deck('d-g1', g1.id, 1)],
+      parts: testParts,
+    })
+    expect(r?.eventNameZhTW).toBe('極限盃 G1 高雄站')
+  })
+
+  it('同等級時取日期較近的', () => {
+    const r = getFeaturedTournamentDeck({
+      events: [g1, olderG1],
+      decks: [deck('d-old', olderG1.id, 1), deck('d-new', g1.id, 1)],
+      parts: testParts,
+    })
+    expect(r?.date).toBe('2026-07-25')
+  })
+
+  it('同一場取名次較前的', () => {
+    const r = getFeaturedTournamentDeck({
+      events: [g1],
+      decks: [deck('d-3rd', g1.id, 3), deck('d-1st', g1.id, 1)],
+      parts: testParts,
+    })
+    expect(r?.placement).toBe(1)
+  })
+
+  it('零件名稱用中文顯示名，並在沒有官方類型時不硬給類型', () => {
+    const r = getFeaturedTournamentDeck({
+      events: [g1],
+      decks: [deck('d-1st', g1.id, 1)],
+      parts: testParts,
+    })
+    expect(r?.members).toEqual([
+      { nameZhTW: '測試BladeA 測試3-60 測試BitA' },
+      { nameZhTW: '測試BladeB 測試9-60 測試BitB' },
+      { nameZhTW: '測試BladeC 測試5-70 測試BitC' },
+    ])
+  })
+
+  it('零件對不到圖鑑的牌組不列出來', () => {
+    const broken = {
+      ...deck('d-broken', g1.id, 1),
+      comboPartIds: [['does-not-exist', 'test-ratchet-a', 'test-bit-a'], fullCombos[1]!, fullCombos[2]!],
+    }
+    expect(
+      getFeaturedTournamentDeck({ events: [g1], decks: [broken], parts: testParts }),
+    ).toBeUndefined()
+  })
+
+  it('沒有任何完整牌組時回傳 undefined，不要湊一筆出來', () => {
+    expect(
+      getFeaturedTournamentDeck({ events: [g1], decks: [], parts: testParts }),
+    ).toBeUndefined()
+  })
+
+  it('牌組對應不到賽事時不列出來', () => {
+    expect(
+      getFeaturedTournamentDeck({
+        events: [],
+        decks: [deck('d-orphan', g1.id, 1)],
+        parts: testParts,
+      }),
+    ).toBeUndefined()
   })
 })

@@ -524,8 +524,16 @@ textarea {
   font-weight: 600;
 }
 
+/*
+ * 勝出的那一格上底色。
+ *
+ * 顏色跟著該軸走（攻紅、防藍、久綠），掃一眼就知道「A 贏在哪一類」，
+ * 而不是八列都是同一個紅色、還得回頭讀項目名。
+ * 沒有對應顏色的項目（高度、賽事證據、資料可信度）退回主色。
+ */
 .compare-table td.win {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  background: color-mix(in srgb, var(--win-color, var(--signal)) 14%, transparent);
+  color: var(--win-color, var(--ink));
   font-weight: 700;
 }
 
@@ -718,4 +726,131 @@ textarea {
 .qty-compact input.field {
   width: 46px;
   padding: 0 4px;
+}
+
+/*
+ * 排名清單：序號 + 迷你分數條。
+ *
+ * 「我能組什麼」一次列 40 筆，掃的時候需要的是「第幾名」與「這一軸多高」，
+ * 不是六軸全開。所以只畫目前排序那一軸，顏色跟著該軸走（攻紅、久綠、穩藍），
+ * 讓人不用讀文字就知道在比什麼。
+ */
+.rank-num {
+  width: 22px;
+  flex: 0 0 22px;
+  color: var(--ink-dim);
+  font-size: 13px;
+  text-align: right;
+}
+
+.mini-bar {
+  display: block;
+  height: 4px;
+  width: 62px;
+  flex: 0 0 62px;
+  border-radius: 2px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.mini-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--mini-bar-color, var(--signal));
+}
+
+/* 資料不足時留空軌，不要畫一條 0 寬的假條。 */
+.mini-bar.is-empty {
+  border-style: dashed;
+}
+
+/*
+ * 類型色圓點。
+ *
+ * 賽場牌組一列只有一行字，塞一個完整的類型標籤會把名稱擠掉；
+ * 用一顆圓點帶顏色就夠分辨攻／防／久，標籤留給右側。
+ * 沒有官方類型資料時不給顏色（第 1.5 節），用中性邊框的空心點表示未知。
+ */
+.type-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--ink-dim);
+}
+
+.type-dot.type-attack {
+  background: var(--type-attack);
+}
+
+.type-dot.type-defense {
+  background: var(--type-defense);
+}
+
+.type-dot.type-stamina {
+  background: var(--type-stamina);
+}
+
+.type-dot.type-balance {
+  background: var(--type-balance);
+}
+
+.type-dot.is-unknown {
+  background: transparent;
+  border: 1px solid var(--rule);
+}
+
+/* 快速操作：手機也維持兩欄，一眼掃完八個入口，不用捲。 */
+.quick-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quick-grid > button {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 72px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+}
+
+.quick-grid > button:hover {
+  background: var(--surface-2);
+}
+
+/*
+ * 內文連結與清單符號：把 Tailwind preflight 拿掉的兩件事補回來。
+ *
+ * preflight 有 `a { color: inherit; text-decoration: inherit }` 與
+ * `ol,ul,menu { list-style: none }`。對按鈕型的連結（.btn、.card、.spec-row、
+ * 底部導覽）是好事，但它同時讓「來源」這種內文連結長得跟普通文字一樣——
+ * 規格第 22 節要求使用者看得到並查得到來源，看不出可以點就等於沒有。
+ *
+ * 只挑沒有 class 的裸 <a>：元件型連結的 class 一律掛在 Link 上，所以不會被波及。
+ */
+a:not([class]) {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a:not([class]):hover {
+  color: var(--ink);
+}
+
+/*
+ * 那 13 個說明清單沒有項目符號時，讀起來只是一堆縮排的句子。
+ * 全站的 <ul> 都是內文清單（底部導覽用的是 nav + a，不是 ul），所以直接全域補回來。
+ */
+ul {
+  list-style: disc;
 }

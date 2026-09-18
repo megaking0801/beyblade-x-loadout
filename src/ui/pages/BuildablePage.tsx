@@ -3,20 +3,21 @@
  *
  * 規格對照：第 29 節（產生可組配置與排序）、第 17 節（三種模式）、第 19 節（結果欄位）。
  */
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type CSSProperties } from 'react'
 import { useAppStore } from '../../store/appStore.ts'
 import {
   generateBuildableCombos,
   type BuildableSortKey,
   type BuilderMode,
 } from '../../domain/builder.ts'
+import { describeSortMetric, describeStockBadge } from '../../domain/buildableRows.ts'
 import { Link } from '../router.tsx'
 import {
   Badge,
   EmptyState,
   EstimateBadge,
   PageHeader,
-  Row,
+  PartThumb,
   Section,
 } from '../components/ui.tsx'
 
@@ -42,6 +43,7 @@ export function BuildablePage() {
   const rules = useAppStore((state) => state.rules)
   const lots = useAppStore((state) => state.lots)
   const combos = useAppStore((state) => state.combos)
+  const images = useAppStore((state) => state.images)
 
   const [sortBy, setSortBy] = useState<BuildableSortKey>('beginner')
   const [mode, setMode] = useState<BuilderMode>('owned')
@@ -60,6 +62,18 @@ export function BuildablePage() {
     [parts, rules, lots, combos, mode, sortBy],
   )
 
+  // 一次建圖，不要每一列都對 300 多筆圖片做線性搜尋。
+  const partById = useMemo(() => new Map(parts.map((part) => [part.id, part])), [parts])
+  const imageUrlByPartId = useMemo(
+    () =>
+      new Map(
+        images
+          .filter((image) => image.entityType === 'part')
+          .map((image) => [image.entityId, image.url]),
+      ),
+    [images],
+  )
+
   return (
     <>
       <PageHeader
@@ -68,21 +82,26 @@ export function BuildablePage() {
       />
 
       <Section title="模式">
-        <Row gap={6}>
+        <div className="chip-row">
           {(Object.keys(MODE_LABEL) as BuilderMode[]).map((item) => (
             <button
               key={item}
               type="button"
-              className={mode === item ? 'btn btn-primary' : 'btn'}
+              className="filter-chip"
+              aria-pressed={mode === item}
               onClick={() => setMode(item)}
             >
               {MODE_LABEL[item]}
             </button>
           ))}
-        </Row>
+        </div>
       </Section>
 
       <Section title="排序">
+        {/*
+          排序有 6 個選項，做成 chip 在 320px 會擠成三行，
+          所以維持原生下拉——選項少的時候原生控制項體驗更好。
+        */}
         <select
           className="field"
           aria-label="排序方式"
@@ -97,43 +116,79 @@ export function BuildablePage() {
         </select>
       </Section>
 
-      <Section title={`結果（最多顯示 ${LIMIT} 筆）`} action={<EstimateBadge />}>
+      <Section title="結果" action={<EstimateBadge />}>
         {rows.length === 0 ? (
           <EmptyState
             title="目前組不出任何完整配置"
             hint="至少需要一個上蓋、一個固鎖與一個軸心，而且都要是可用狀態。"
           />
         ) : (
-          <div style={{ display: 'grid', gap: 8 }}>
-            {rows.map((row) => (
-              <Link
-                key={row.analysis.fullCode}
-                to="/builder"
-                query={{ c: encodeURIComponent(JSON.stringify(row.slots)) }}
-                className="card"
-              >
-                <Row>
-                  <div style={{ flex: 1, minWidth: 160 }}>
-                    <div style={{ fontWeight: 600 }}>{row.analysis.fullNameZhTW}</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>
-                      {/* fullCode 含官方日文上蓋代號，前台不顯示（第 1.4 節），只當內部鍵值。 */}
-                      {row.analysis.objective.structureZhTW}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right', fontSize: 13 }}>
-                    <div>攻 {row.analysis.scores?.attack ?? '—'}</div>
-                    <div>久 {row.analysis.scores?.stamina ?? '—'}</div>
-                    <div>穩 {row.analysis.scores?.stability ?? '—'}</div>
-                  </div>
-                  {row.analysis.stock.sufficient ? (
-                    <Badge tone="ok">庫存足夠</Badge>
-                  ) : (
-                    <Badge tone="warn">庫存不足</Badge>
-                  )}
-                </Row>
-              </Link>
-            ))}
-          </div>
+          <>
+            <div className="card" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span className="code" style={{ fontSize: 18, color: 'var(--signal)' }}>
+                {rows.length}
+              </span>
+              <span style={{ fontSize: 13, color: 'var(--ink-dim)' }}>筆結果</span>
+              <span style={{ flex: 1 }} />
+              <span className="meta">
+                {/* 枚舉本來就在 LIMIT 截斷，所以列滿時要講「還有更多」，不要讓人以為只有這些。 */}
+                {rows.length === LIMIT ? `最多顯示 ${LIMIT} 筆` : '已全部列出'}
+              </span>
+            </div>
+            <div style={{ height: 12 }} />
+            <div className="spec-list">
+              {rows.map((row, index) => {
+                const metric = describeSortMetric(row.analysis, sortBy)
+                const stock = describeStockBadge(row.analysis)
+                const bladeId = row.slots.bladeId ?? row.slots.mainBladeId
+                const blade = bladeId ? partById.get(bladeId) : undefined
+                return (
+                  <Link
+                    key={row.analysis.fullCode}
+                    to="/builder"
+                    query={{ c: encodeURIComponent(JSON.stringify(row.slots)) }}
+                    className="spec-row"
+                  >
+                    <span className="code rank-num">{index + 1}</span>
+                    <PartThumb
+                      code={blade?.code ?? ''}
+                      nameZhTW={row.analysis.fullNameZhTW}
+                      imageUrl={bladeId ? imageUrlByPartId.get(bladeId) : undefined}
+                      size={46}
+                    />
+                    <span style={{ flex: 1, minWidth: 0, display: 'grid', gap: 4 }}>
+                      <span style={{ fontSize: 14, fontWeight: 700 }}>
+                        {row.analysis.fullNameZhTW}
+                      </span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {metric.percent === undefined ? (
+                          <span className="mini-bar is-empty" aria-hidden />
+                        ) : (
+                          <span
+                            className="mini-bar"
+                            aria-hidden
+                            style={{ '--mini-bar-color': metric.color } as CSSProperties}
+                          >
+                            <span style={{ width: `${metric.percent}%` }} />
+                          </span>
+                        )}
+                        <span className="code" style={{ fontSize: 11, color: 'var(--ink-dim)' }}>
+                          {metric.labelZhTW} {metric.valueZhTW}
+                        </span>
+                      </span>
+                    </span>
+                    <span className="spec-figure">
+                      <Badge tone={stock.toneOk ? 'ok' : 'warn'}>{stock.textZhTW}</Badge>
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
+            <div style={{ height: 8 }} />
+            <p className="meta" style={{ margin: 0 }}>
+              分數為本站模型推估；「差 1 件」表示少一個零件就能組。
+            </p>
+          </>
         )}
       </Section>
     </>

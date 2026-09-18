@@ -190,6 +190,42 @@ test('各種手機寬度下畫面都不會橫向超出', async ({ page }) => {
   }
 })
 
+/*
+ * 上面那條只在預設的「只用我有的」模式下巡頁。那個模式下庫存幾乎都夠，
+ * 徽章永遠是兩個字的「可組」，所以最寬的那種列（「差 N 件」徽章 + 圖鑑裡最長的配裝名）
+ * 從來沒被量到。這條專門切到「全部圖鑑」再量一次。
+ */
+test('我能組什麼切到全部圖鑑後，最窄手機寬度仍然不會橫向超出', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 })
+  await openApp(page, '/buildable')
+  await page.getByRole('button', { name: '全部圖鑑' }).click()
+
+  // 圖鑑模式一定會出現庫存不足的列，否則這條測試量不到它要量的東西。
+  await expect(page.getByText(/差 \d+ 件/).first()).toBeVisible()
+
+  const offenders = await page.evaluate(() => {
+    const out: string[] = []
+    for (const element of document.querySelectorAll('body *')) {
+      const box = element.getBoundingClientRect()
+      if (box.width === 0 && box.height === 0) continue
+      if (box.right > 320 + 1 || box.left < -1) {
+        out.push(
+          `${element.tagName.toLowerCase()}.${String(element.className).slice(0, 30)} ` +
+            `[${Math.round(box.left)}, ${Math.round(box.right)}] ` +
+            `${(element.textContent ?? '').trim().slice(0, 20)}`,
+        )
+      }
+    }
+    return out.slice(0, 5)
+  })
+  expect(offenders, '全部圖鑑模式在 320px 有元素超出畫面').toEqual([])
+
+  const documentOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  )
+  expect(documentOverflow, '全部圖鑑模式在 320px 出現橫向捲動').toBeLessThanOrEqual(0)
+})
+
 test('所有主要頁面都沒有執行期錯誤', async ({ page }) => {
   const problems: string[] = []
   page.on('console', (message) => {

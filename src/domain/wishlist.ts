@@ -123,3 +123,62 @@ export function analyzeWishlistProduct(args: WishlistArgs): WishlistImpact {
     })),
   }
 }
+
+export interface WishlistItemInput {
+  itemId: string
+  product: Product
+  quantity: number
+}
+
+export interface BestValueWishlistItem {
+  itemId: string
+  product: Product
+  quantity: number
+  impact: WishlistImpact
+}
+
+/**
+ * 想買清單裡最划算的一盒。
+ *
+ * 「划算」在這裡只有一個定義：解鎖最多新配裝。刻意不看價格——
+ * 官方沒有統一的台灣售價來源，自己填價格就是編造（第 1.5 節）。
+ *
+ * 隨機補充包一律排除：內容不確定，講「買這盒最划算」等於暗示買了就會有（第 13 節）。
+ * 全部都解鎖不了時回傳 undefined，不要硬推一盒。
+ */
+export function pickBestValueWishlistItem(args: {
+  items: WishlistItemInput[]
+  variants: ProductVariant[]
+  parts: Part[]
+  rules: CompatibilityRule[]
+  lots: InventoryLot[]
+  combos: SavedCombo[]
+}): BestValueWishlistItem | undefined {
+  const { items, variants, parts, rules, lots, combos } = args
+  let best: BestValueWishlistItem | undefined
+
+  for (const item of items) {
+    if (item.product.isRandom) continue
+    const impact = analyzeWishlistProduct({
+      product: item.product,
+      variants,
+      parts,
+      rules,
+      lots,
+      combos,
+      quantity: item.quantity,
+    })
+    if (impact.unlockedComboCount <= 0) continue
+    if (
+      !best ||
+      impact.unlockedComboCount > best.impact.unlockedComboCount ||
+      // 解鎖數相同時，補得比較少件的那盒更划算。
+      (impact.unlockedComboCount === best.impact.unlockedComboCount &&
+        impact.addedParts.length < best.impact.addedParts.length)
+    ) {
+      best = { itemId: item.itemId, product: item.product, quantity: item.quantity, impact }
+    }
+  }
+
+  return best
+}

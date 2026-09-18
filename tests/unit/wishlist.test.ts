@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { analyzeWishlistProduct } from '../../src/domain/wishlist.ts'
+import { analyzeWishlistProduct, pickBestValueWishlistItem } from '../../src/domain/wishlist.ts'
 import type { InventoryLot, Part, Product, ProductVariant } from '../../src/domain/types.ts'
 
 const prov = { sourceUrls: [], verificationStatus: 'official_verified' as const }
@@ -173,5 +173,49 @@ describe('想買清單影響分析（第 35 節）', () => {
     const r = analyzeWishlistProduct({ ...base, product: fixedProduct, lots: [], quantity: 0 })
     expect(r.addedParts).toEqual([])
     expect(r.unlockedComboCount).toBe(0)
+  })
+})
+
+describe('最划算的一盒（第 35 節）', () => {
+  // 只有軸心的那盒能補齊缺件解鎖 1 套；只有上蓋的那盒完全解鎖不了。
+  const bitOnly: Product = { ...fixedProduct, id: 'prod-bit', contents: [{ partId: bit.id, quantity: 1 }] }
+  const bladeOnly: Product = { ...fixedProduct, id: 'prod-blade', contents: [{ partId: blade.id, quantity: 1 }] }
+  const ownedBladeAndRatchet = [lot(blade.id), lot(ratchet.id)]
+
+  it('挑解鎖最多的那一盒', () => {
+    const r = pickBestValueWishlistItem({
+      items: [
+        { itemId: 'w-blade', product: bladeOnly, quantity: 1 },
+        { itemId: 'w-bit', product: bitOnly, quantity: 1 },
+      ],
+      ...base,
+      lots: ownedBladeAndRatchet,
+    })
+    expect(r?.itemId).toBe('w-bit')
+    expect(r?.impact.unlockedComboCount).toBe(1)
+  })
+
+  it('全部都解鎖不了任何配裝時回傳 undefined，不要硬推一盒', () => {
+    const r = pickBestValueWishlistItem({
+      items: [{ itemId: 'w-blade', product: bladeOnly, quantity: 1 }],
+      ...base,
+      lots: ownedBladeAndRatchet,
+    })
+    expect(r).toBeUndefined()
+  })
+
+  it('清單為空時回傳 undefined', () => {
+    expect(
+      pickBestValueWishlistItem({ items: [], ...base, lots: ownedBladeAndRatchet }),
+    ).toBeUndefined()
+  })
+
+  it('內容不確定的隨機包不能當最划算的一盒', () => {
+    const r = pickBestValueWishlistItem({
+      items: [{ itemId: 'w-random', product: randomProduct, quantity: 1 }],
+      ...base,
+      lots: ownedBladeAndRatchet,
+    })
+    expect(r).toBeUndefined()
   })
 })
