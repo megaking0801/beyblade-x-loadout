@@ -1,6 +1,7 @@
 import { generateBuildableCombos, type BuildableCombo } from './builder.ts'
 import { DEFAULT_DECK_RULES, suggestDecks } from './deck.ts'
 import { resolveDisplayName } from './naming.ts'
+import type { EvidenceInput } from './analysis.ts'
 import type { CompatibilityRule, InventoryLot, OwnedProduct, Part, Product, ProductVariant, SavedCombo } from './types.ts'
 
 const CANDIDATE_LIMIT = 42
@@ -12,6 +13,8 @@ export interface PurchaseRecommendation {
   unlockedExamplesZhTW: string[]
   reasonsZhTW: string[]
   deckScoreGain: number
+  /** 買後可組出的最佳平衡 3on3，其完整配置合計有多少筆賽事出現。 */
+  competitiveEvidenceGain: number
   overallStrengthGain: number
   axisGains: { attack: number; stamina: number; stability: number }
   isAdditionalCopy: boolean
@@ -35,6 +38,7 @@ interface StrengthProfile {
   stability: number
   overall: number
   deckScore: number
+  competitiveEvidence: number
 }
 
 function score(row: BuildableCombo): number {
@@ -43,13 +47,13 @@ function score(row: BuildableCombo): number {
   return Math.round(value.attack * 0.2 + value.defense * 0.15 + value.stamina * 0.2 + value.burst * 0.15 + value.burstResistance * 0.15 + value.stability * 0.15)
 }
 
-function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: InventoryLot[]; combos: SavedCombo[] }): StrengthProfile {
-  const candidates = generateBuildableCombos({
-    ...args,
-    mode: 'owned',
-    sortBy: 'strength',
-    limit: CANDIDATE_LIMIT,
-  })
+function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: InventoryLot[]; combos: SavedCombo[]; evidenceByCode?: Record<string, EvidenceInput> }): StrengthProfile {
+  const base = { ...args, mode: 'owned' as const, limit: CANDIDATE_LIMIT }
+  // 競技優先：完整配置的證據候選先進池，再以強度候選補足尚未被賽事收錄的新組合。
+  const candidates = [
+    ...generateBuildableCombos({ ...base, sortBy: 'evidence' }),
+    ...generateBuildableCombos({ ...base, sortBy: 'strength' }),
+  ].filter((row, index, rows) => rows.findIndex((candidate) => candidate.analysis.fullCode === row.analysis.fullCode) === index)
   const maximum = (axis: 'attack' | 'stamina' | 'stability') => Math.max(0, ...candidates.map((row) => row.analysis.scores?.[axis] ?? 0))
   const deck = suggestDecks({
     candidates,
@@ -69,6 +73,7 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     stability: maximum('stability'),
     overall: Math.max(0, ...candidates.map(score)),
     deckScore: deck?.score ?? 0,
+    competitiveEvidence: deck?.validation.members.reduce((sum, member) => sum + (member.analysis.evidence?.appearances ?? 0), 0) ?? 0,
   }
 }
 
@@ -97,10 +102,12 @@ export function recommendNextProducts(args: {
   rules: CompatibilityRule[]
   lots: InventoryLot[]
   combos: SavedCombo[]
+  /** 台灣完整牌組優先、全球完整配置補樣本的證據索引。 */
+  evidenceByCode?: Record<string, EvidenceInput>
   limit?: number
 }): PurchaseRecommendationResult {
-  const { products, variants, ownedProducts, parts, rules, lots, combos, limit = 5 } = args
-  const baseline = profile({ parts, rules, lots, combos })
+  const { products, variants, ownedProducts, parts, rules, lots, combos, evidenceByCode, limit = 5 } = args
+  const baseline = profile({ parts, rules, lots, combos, evidenceByCode })
   const partById = new Map(parts.map((part) => [part.id, part]))
   const ownedIds = new Set(ownedProducts.filter((row) => row.status !== 'sold').map((row) => row.productId))
   const recommendations: PurchaseRecommendation[] = []
@@ -109,7 +116,7 @@ export function recommendNextProducts(args: {
     if (product.isRandom) continue
     const addedLots = syntheticLots(product)
     if (addedLots.length === 0) continue
-    const after = profile({ parts, rules, lots: [...lots, ...addedLots], combos })
+    const after = profile({ parts, rules, lots: [...lots, ...addedLots], combos, evidenceByCode })
     const axisGains = {
       attack: Math.max(0, after.attack - baseline.attack),
       stamina: Math.max(0, after.stamina - baseline.stamina),
@@ -117,13 +124,17 @@ export function recommendNextProducts(args: {
     }
     const overallStrengthGain = Math.max(0, after.overall - baseline.overall)
     const deckScoreGain = Math.max(0, after.deckScore - baseline.deckScore)
+    const competitiveEvidenceGain = Math.max(0, after.competitiveEvidence - baseline.competitiveEvidence)
     const unlocked = after.candidates.filter((row) => !baseline.codes.has(row.analysis.fullCode))
     // Additional copies are useful only when they measurably improve a usable
     // profile (for example a valid 3on3 deck), not merely because the SKU exists.
-    if (unlocked.length === 0 && overallStrengthGain === 0 && deckScoreGain === 0) continue
+    // 「下一包」必須形成更好的競技隊伍或新增完整配置候選；單純多一個
+    // 六軸峰值但沒有隊伍改善，不該被稱為比賽向購買推薦。
+    if (deckScoreGain === 0 && competitiveEvidenceGain === 0) continue
     const addedPartNamesZhTW = [...new Set(addedLots.map((lot) => partById.get(lot.partId)).filter((part): part is Part => Boolean(part)).map((part) => resolveDisplayName(part.naming).titleZhTW))]
     const reasonsZhTW: string[] = []
     if (deckScoreGain > 0) reasonsZhTW.push(`平衡 3on3 組合分數可提升 ${deckScoreGain}。`)
+    if (competitiveEvidenceGain > 0) reasonsZhTW.push(`新隊伍的完整配置賽事出現數 +${competitiveEvidenceGain}。`)
     const roleGains = [
       axisGains.attack > 0 ? `攻擊峰值 +${axisGains.attack}` : '',
       axisGains.stamina > 0 ? `持久峰值 +${axisGains.stamina}` : '',
@@ -140,6 +151,7 @@ export function recommendNextProducts(args: {
       unlockedExamplesZhTW: unlocked.slice(0, 3).map((row) => row.analysis.fullNameZhTW),
       reasonsZhTW,
       deckScoreGain,
+      competitiveEvidenceGain,
       overallStrengthGain,
       axisGains,
       isAdditionalCopy: ownedIds.has(product.id),
@@ -147,7 +159,8 @@ export function recommendNextProducts(args: {
   }
 
   recommendations.sort((a, b) =>
-    b.deckScoreGain - a.deckScoreGain
+    b.competitiveEvidenceGain - a.competitiveEvidenceGain
+    || b.deckScoreGain - a.deckScoreGain
     || b.overallStrengthGain - a.overallStrengthGain
     || (b.axisGains.attack + b.axisGains.stamina + b.axisGains.stability) - (a.axisGains.attack + a.axisGains.stamina + a.axisGains.stability)
     || b.unlockedExamplesZhTW.length - a.unlockedExamplesZhTW.length

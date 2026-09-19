@@ -7,6 +7,7 @@
 import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { generateBuildableCombos } from '../../domain/builder.ts'
+import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
 import {
   DECK_STRATEGY_ZH,
   DEFAULT_DECK_RULES,
@@ -45,26 +46,29 @@ export function DecksPage() {
   const rules = useAppStore((state) => state.rules)
   const lots = useAppStore((state) => state.lots)
   const combos = useAppStore((state) => state.combos)
+  const tournamentEvents = useAppStore((state) => state.tournamentEvents)
+  const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const decks = useAppStore((state) => state.decks)
   const run = useAppStore((state) => state.run)
 
   const [strategy, setStrategy] = useState<DeckStrategy>('balanced')
   const [deckName, setDeckName] = useState('')
 
-  const candidates = useMemo(
-    () =>
-      generateBuildableCombos({
-        parts,
-        rules,
-        lots,
-        combos,
-        mode: 'owned',
-        sortBy: 'beginner',
-        // 官方規則要求三套之間零件完全不重複，候選太少會排不出隊伍。
-        limit: 60,
-      }),
-    [parts, rules, lots, combos],
+  const evidenceByCode = useMemo(
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    [tournamentEvents, tournamentDecks],
   )
+
+  const candidates = useMemo(() => {
+    const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }
+    // 不再以「新手」當唯一候選池。實戰證據候選與模型強度候選聯集，
+    // 保留沒有資料的新零件，卻不會把已驗證配置先截斷在池外。
+    const evidence = generateBuildableCombos({ ...base, sortBy: 'evidence' })
+    const strength = generateBuildableCombos({ ...base, sortBy: 'strength' })
+    return [...evidence, ...strength].filter((row, index, rows) =>
+      rows.findIndex((candidate) => candidate.analysis.fullCode === row.analysis.fullCode) === index,
+    )
+  }, [parts, rules, lots, combos, evidenceByCode])
 
   const suggestions = useMemo(
     () =>
@@ -76,6 +80,7 @@ export function DecksPage() {
         ruleSet: DEFAULT_DECK_RULES,
         strategy,
         limit: 3,
+        candidateCap: 120,
       }),
     [candidates, parts, lots, combos, strategy],
   )
@@ -105,7 +110,7 @@ export function DecksPage() {
     <>
       <PageHeader
         title="3on3 組隊"
-        description="用現有可用零件排出三顆一組，會檢查庫存、相容性與重複零件限制。"
+        description="以台灣賽場資料優先、全球完整配置補樣本；會檢查庫存、相容性與重複零件限制。"
       />
 
       <div className="work-split">
@@ -154,6 +159,9 @@ export function DecksPage() {
 
       <div className="work-result">
       <Section title="建議隊伍" action={<EstimateBadge />}>
+        <p className="meta" style={{ marginTop: 0 }}>
+          競技快照更新：{competitiveMetaSnapshot.updatedAt}。完整配置命中台灣賽果時優先採用；沒有實戰資料的新配置會保留並標為模型推估。
+        </p>
         {candidates.length < DEFAULT_DECK_RULES.teamSize ? (
           <EmptyState
             testId="deck-not-enough-candidates"
@@ -187,6 +195,11 @@ export function DecksPage() {
                         {member.analysis.fullNameZhTW}
                       </div>
                       <div className="meta">{member.reasonZhTW}</div>
+                      {member.analysis.evidence ? (
+                        <div className="meta">完整配置賽事證據：出現 {member.analysis.evidence.appearances} 次</div>
+                      ) : (
+                        <div className="meta">尚無此完整配置的賽事證據，請視為模型候選並先實測。</div>
+                      )}
                     </div>
                   ))}
                 </div>

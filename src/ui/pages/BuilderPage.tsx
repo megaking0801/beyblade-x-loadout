@@ -7,7 +7,8 @@
  */
 import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
-import { analyzeCombo } from '../../domain/analysis.ts'
+import { analyzeCombo, comboFullCode } from '../../domain/analysis.ts'
+import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot, type CompetitiveEvidence } from '../../domain/competitiveMeta.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import { getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
@@ -152,9 +153,17 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     () => getTournamentEvidenceReport({ slots, parts, events: tournamentEvents, decks: tournamentDecks }),
     [slots, parts, tournamentEvents, tournamentDecks],
   )
+  const competitiveEvidenceByCode = useMemo(
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    [tournamentEvents, tournamentDecks],
+  )
+  const competitiveEvidence = useMemo(
+    () => competitiveEvidenceByCode[comboFullCode(slots, parts)],
+    [competitiveEvidenceByCode, parts, slots],
+  )
   const analysis = useMemo(
-    () => analyzeCombo({ slots, parts, rules, lots, combos, evidence: evidenceReport.exact }),
-    [slots, parts, rules, lots, combos, evidenceReport.exact],
+    () => analyzeCombo({ slots, parts, rules, lots, combos, evidence: competitiveEvidence }),
+    [slots, parts, rules, lots, combos, competitiveEvidence],
   )
   const expertTierMatches = useMemo(() => getExpertTierMatches(slots), [slots])
   const expertPartRatings = useMemo(() => getExpertPartRatings(slots), [slots])
@@ -356,6 +365,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
       <ComboResult
         analysis={analysis}
         evidenceReport={evidenceReport}
+        competitiveEvidence={competitiveEvidence}
         expertTierMatches={expertTierMatches}
         expertPartRatings={expertPartRatings}
         evidenceReasons={evidenceReasons}
@@ -490,6 +500,7 @@ function noteForPart(def: SlotDef, part: Part | undefined): string | undefined {
 export function ComboResult({
   analysis,
   evidenceReport,
+  competitiveEvidence,
   expertTierMatches,
   expertPartRatings,
   evidenceReasons,
@@ -501,6 +512,7 @@ export function ComboResult({
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
+  competitiveEvidence: CompetitiveEvidence | undefined
   expertTierMatches: ReturnType<typeof getExpertTierMatches>
   expertPartRatings: ReturnType<typeof getExpertPartRatings>
   evidenceReasons: ReturnType<typeof buildEvidenceReasons>
@@ -808,13 +820,14 @@ export function ComboResult({
         ) : null}
 
         <div style={{ fontSize: 13, color: 'var(--warn)' }}>
-          {analysis.evidence ? (
+          {competitiveEvidence ? (
             <>
-              完全相符：賽事出場 {analysis.evidence.appearances}/{analysis.evidence.totalDecks} 副完整牌組（Top 4：
-              {analysis.evidence.top4}；冠軍：{analysis.evidence.championships}；社群彙整資料）。
+              完全相符：{competitiveEvidence.region === 'taiwan' ? '台灣賽場優先資料' : '全球 Top Cut 補樣本'}，完整配置出現 {competitiveEvidence.appearances} 次（快照 {competitiveMetaSnapshot.updatedAt}）。
+              {' '}
+              {competitiveEvidence.sourceUrls[0] ? <a href={competitiveEvidence.sourceUrls[0]} target="_blank" rel="noreferrer">來源</a> : null}
             </>
           ) : (
-            analysis.evidenceNoticeZhTW
+            '尚無此完整配置的賽事證據；六軸僅為結構模型推估，建議先實測。'
           )}
           {evidenceReport.partial.length > 0 ? (
             <div style={{ marginTop: 6 }}>

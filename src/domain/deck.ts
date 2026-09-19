@@ -315,6 +315,10 @@ function scoreDeck(strategy: DeckStrategy, members: DeckMember[]): number {
   const scores = members.map((m) => m.analysis.scores)
   const axis = (key: 'attack' | 'defense' | 'stamina' | 'stability' | 'burst' | 'burstResistance') =>
     scores.map((s) => s?.[key] ?? 0)
+  // 完整配置的實戰出現次數。只在完整三件套命中時才有值；零件部分相符不算，
+  // 避免把「大家都用 1-60」誤當成某個隨意拼出的配置有戰績。
+  const evidence = members.map((member) => Math.log2(1 + (member.analysis.evidence?.appearances ?? 0)))
+  const competitiveEvidence = evidence.reduce((sum, value) => sum + value, 0) * 7
 
   switch (strategy) {
     case 'aggressive':
@@ -324,16 +328,17 @@ function scoreDeck(strategy: DeckStrategy, members: DeckMember[]): number {
     case 'beginner':
       return -average(members.map((m) => m.analysis.operationDifficulty ?? 100))
     case 'balanced':
-      // 三個面向各取隊中最高值相加，鼓勵角色互補。
+      // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據則作為
+      // 次要加分，不能用零件類型分數蓋過賽場已驗證的組合。
       return (
-        Math.max(...axis('attack')) + Math.max(...axis('stamina')) + Math.max(...axis('stability'))
+        Math.max(...axis('attack')) + Math.max(...axis('stamina')) + Math.max(...axis('stability')) + competitiveEvidence
       )
     case 'evidence':
-      return members.reduce((sum, m) => sum + (m.analysis.evidence?.appearances ?? 0), 0)
+      return members.reduce((sum, m) => sum + (m.analysis.evidence?.appearances ?? 0), 0) * 10
     case 'vs_attack':
-      return average(axis('defense')) + average(axis('burstResistance'))
+      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidence * 0.35
     case 'vs_stamina':
-      return average(axis('attack')) + average(axis('burst'))
+      return average(axis('attack')) + average(axis('burst')) + competitiveEvidence * 0.35
   }
 }
 

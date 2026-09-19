@@ -10,6 +10,7 @@ import { catalogAudit } from '../../catalog/index.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
 import { recommendNextProducts } from '../../domain/recommendations.ts'
+import { createCompetitiveEvidenceByCode } from '../../domain/competitiveMeta.ts'
 import { Link, navigate } from '../router.tsx'
 import {
   Badge,
@@ -65,6 +66,10 @@ export function HomePage() {
   const lots = useAppStore((state) => state.lots)
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
+  const competitiveEvidence = useMemo(
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    [tournamentEvents, tournamentDecks],
+  )
 
   const recentCombos = [...combos].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
   const recentDecks = [...decks].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3)
@@ -90,9 +95,10 @@ export function HomePage() {
       rules,
       lots,
       combos,
+      evidenceByCode: competitiveEvidence,
       limit: 1,
     }).recommendations[0]
-  }, [combos, isEmpty, lots, ownedProducts, parts, productVariants, products, rules])
+  }, [combos, competitiveEvidence, isEmpty, lots, ownedProducts, parts, productVariants, products, rules])
 
   return (
     <>
