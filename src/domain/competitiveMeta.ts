@@ -98,7 +98,10 @@ export function createCompetitiveEvidenceByCode(args: {
       appearances: entry.appearances,
       top4: entry.top4,
       championships: entry.championships,
-      totalDecks: entry.totalDecks,
+      // BEYWATCH 此快照公開的是該完整配置的 Top Cut 出現次數，沒有可安全
+      // 對應到本 App「完整牌組數」的分母。用配置樣本數作為最小安全分母，
+      // 讓分析層不會將未知值當成 0 而觸發統計錯誤；前台不顯示 meta share。
+      totalDecks: Math.max(entry.totalDecks, entry.appearances),
       sourceTier: 'verified_community',
       region: 'global',
       updatedAt: competitiveMetaSnapshot.updatedAt,

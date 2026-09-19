@@ -5,6 +5,8 @@ import type { EvidenceInput } from './analysis.ts'
 import type { CompatibilityRule, InventoryLot, OwnedProduct, Part, Product, ProductVariant, SavedCombo } from './types.ts'
 
 const CANDIDATE_LIMIT = 42
+const PROFILE_CACHE_LIMIT = 240
+const profileCache = new Map<string, StrengthProfile>()
 
 export interface PurchaseRecommendation {
   product: Product
@@ -41,6 +43,20 @@ interface StrengthProfile {
   competitiveEvidence: number
 }
 
+function profileCacheKey(args: {
+  lots: InventoryLot[]
+  combos: SavedCombo[]
+  evidenceByCode?: Record<string, EvidenceInput>
+}): string {
+  const lots = args.lots
+    .map((lot) => `${lot.partId}:${lot.quantity}:${lot.status}`)
+    .sort()
+    .join('|')
+  const combos = args.combos.map((combo) => combo.id).sort().join('|')
+  const evidence = Object.keys(args.evidenceByCode ?? {}).sort().join('|')
+  return `${lots}#${combos}#${evidence}`
+}
+
 function score(row: BuildableCombo): number {
   const value = row.analysis.scores
   if (!value) return 0
@@ -48,6 +64,9 @@ function score(row: BuildableCombo): number {
 }
 
 function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: InventoryLot[]; combos: SavedCombo[]; evidenceByCode?: Record<string, EvidenceInput> }): StrengthProfile {
+  const cacheKey = profileCacheKey(args)
+  const cached = profileCache.get(cacheKey)
+  if (cached) return cached
   const base = { ...args, mode: 'owned' as const, limit: CANDIDATE_LIMIT }
   // 競技優先：完整配置的證據候選先進池，再以強度候選補足尚未被賽事收錄的新組合。
   const candidates = [
@@ -65,7 +84,7 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     limit: 1,
     candidateCap: CANDIDATE_LIMIT,
   })[0]
-  return {
+  const result = {
     candidates,
     codes: new Set(candidates.map((row) => row.analysis.fullCode)),
     attack: maximum('attack'),
@@ -75,6 +94,29 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     deckScore: deck?.score ?? 0,
     competitiveEvidence: deck?.validation.members.reduce((sum, member) => sum + (member.analysis.evidence?.appearances ?? 0), 0) ?? 0,
   }
+  if (profileCache.size >= PROFILE_CACHE_LIMIT) profileCache.clear()
+  profileCache.set(cacheKey, result)
+  return result
+}
+
+/**
+ * 賽事優先的購買推薦不能每次都把所有商品做昂貴的 3on3 枚舉。
+ * 先保留「能補進已知完整競技配置」的固定商品；這不是依價格或零件數排序，
+ * 而是用完整配置的可追溯證據縮小模擬集合。沒有證據的新品仍可在配裝器／3on3
+ * 的結構候選中出現，只是不會被首頁硬推成下一包。
+ */
+function isCompetitionRelevantProduct(
+  product: Product,
+  parts: Part[],
+  evidenceByCode: Record<string, EvidenceInput> | undefined,
+): boolean {
+  if (!evidenceByCode || Object.keys(evidenceByCode).length === 0) return false
+  const relevantCodes = Object.keys(evidenceByCode)
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  return product.contents.some((content) => {
+    const code = content.partId ? byId.get(content.partId)?.code : undefined
+    return Boolean(code && relevantCodes.some((comboCode) => comboCode.includes(code)))
+  })
 }
 
 function syntheticLots(product: Product): InventoryLot[] {
@@ -112,8 +154,10 @@ export function recommendNextProducts(args: {
   const ownedIds = new Set(ownedProducts.filter((row) => row.status !== 'sold').map((row) => row.productId))
   const recommendations: PurchaseRecommendation[] = []
 
-  for (const product of products) {
-    if (product.isRandom) continue
+  const evaluableProducts = products.filter(
+    (product) => !product.isRandom && isCompetitionRelevantProduct(product, parts, evidenceByCode),
+  )
+  for (const product of evaluableProducts) {
     const addedLots = syntheticLots(product)
     if (addedLots.length === 0) continue
     const after = profile({ parts, rules, lots: [...lots, ...addedLots], combos, evidenceByCode })

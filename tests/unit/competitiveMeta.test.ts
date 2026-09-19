@@ -34,6 +34,7 @@ describe('競技 Meta 快照', () => {
     const result = createCompetitiveEvidenceByCode({ events: [], decks: [] })
     const global = result[code]!
     expect(global.region).toBe('global')
+    expect(global.totalDecks).toBeGreaterThanOrEqual(global.appearances)
     expect(competitiveEvidenceScore({ ...global, appearances: 1, totalDecks: 10 })).toBeLessThan(
       competitiveEvidenceScore({ ...global, region: 'taiwan', appearances: 1, totalDecks: 10 }),
     )

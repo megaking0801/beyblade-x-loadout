@@ -7,7 +7,7 @@
 
 等待使用者指定下一個功能。不要自行改動既有商品／零件資料管線或推薦模型的產品決策；先確認需求是否改變範圍。
 
-> 2026-09-20 續作：已改為台灣競技向推薦。`src/domain/competitiveMeta.ts` 將台灣 Catalog 的完整 3on3 賽果與版本化全球 Top Cut 快照合併，3on3 候選不再只取「新手」排序，下一包推薦只在能改善合法競技 3on3 時入榜，配裝器會揭露台灣優先／全球補樣本、日期與來源。程式 commit `6e71163` 已 push；Pages commit `740a0de` 已部署。驗證為 435 Vitest passed、typecheck、build passed；線上 smoke 已確認手機開站／新增商品與 Service Worker，執行器的其餘 case 因本機 30 秒工具中斷未取得完整結果。後續若更新 Meta，禁止從零件 T 表推導完整配置戰績；未有來源的分母、Top 4、冠軍數必須維持 0。
+> 2026-09-20 續作：已改為台灣競技向推薦。`src/domain/competitiveMeta.ts` 將台灣 Catalog 的完整 3on3 賽果與版本化全球 Top Cut 快照合併，3on3 候選不再只取「新手」排序，下一包推薦只在能改善合法競技 3on3 時入榜，配裝器會揭露台灣優先／全球補樣本、日期與來源。程式 commit `6e71163` 已 push；Pages commit `740a0de` 已部署。驗證為 435 Vitest passed、typecheck、build passed；線上 smoke 已確認手機開站／新增商品與 Service Worker，執行器的其餘 case 因本機 30 秒工具中斷未取得完整結果。後續若更新 Meta，禁止從零件 T 表推導完整配置戰績；未有來源的 Top 4／冠軍數必須維持 0，未知完整牌組分母由匯入層以出現次數作安全下限，前台不可顯示 meta share。
 
 ## 發布狀態
 

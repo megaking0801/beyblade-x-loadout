@@ -118,7 +118,7 @@ npm run build          # base 為 /
 
 修改 `src/catalog/sources/` 下任何來源檔後，必須執行 `npm run build:catalog`。若改動任何公開 Catalog 資料（例如隨機款式、圖片、相容性、賽事或中文名），還必須先遞增 `scripts/buildCatalog.mjs` 的 `CATALOG_VERSION`；否則既有裝置會繼續使用 IndexedDB 中的舊 Catalog。
 
-競技 Meta 快照位於 `src/domain/competitiveMeta.ts`，不屬於 Catalog／IndexedDB。更新時必須保留完整配置、地區、觀測日期、出現次數與來源網址；若來源沒給分母、Top 4 或冠軍數，欄位維持 `0`，不可自行換算或補值。
+競技 Meta 快照位於 `src/domain/competitiveMeta.ts`，不屬於 Catalog／IndexedDB。更新時必須保留完整配置、地區、觀測日期、出現次數與來源網址；若來源沒給 Top 4 或冠軍數，欄位維持 `0`。若來源沒給可對應到完整牌組數的分母，保留原始未知值，並由匯入層以出現次數作最小安全分母，前台不可顯示其 meta share。
 
 ## 開發規則
 

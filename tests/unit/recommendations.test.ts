@@ -43,6 +43,10 @@ describe('下一包推薦', () => {
       rules: [],
       lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id)],
       combos: [],
+      evidenceByCode: {
+        'blade-a 1-60R': { appearances: 8, top4: 0, championships: 0, totalDecks: 8, sourceTier: 'community' },
+        'blade-c 9-60FB': { appearances: 10, top4: 0, championships: 0, totalDecks: 10, sourceTier: 'community' },
+      },
     })
     expect(result.recommendations).toHaveLength(1)
     expect(result.recommendations[0]?.product.id).toBe(fixed.id)
