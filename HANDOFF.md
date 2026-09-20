@@ -164,3 +164,10 @@
 - 逐局 W–L 的門檻及空資料仍保留。研究已找到 Yi HSY 的「鳳凰飛翼 7-60Nr 實測 9 顆賽場配置」影片，描述中有子彈獅鷲 H 的時間點，但尚未取得可辨識全部回合配置與勝負的逐局片段，因此沒有不誠實地灌入 `MatchupObservation`。
 - 本次驗證：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 441 tests）、`npm.cmd run build`、Playwright 桌機寬度 44/44。手機完整套件因執行工具 30 秒上限中斷，不能標為完整通過。
 - 下一步：依既有使用者授權直接 `git add`／commit／`git push origin main`／`npm.cmd run deploy:pages`；部署後不要宣稱已新增逐局影片 W–L，除非人工完成影片逐回合摘錄。
+
+### 2026-09-20 Compare 高度 0 修正（待 commit／push／deploy）
+
+- 使用者貼出比較表後發現：子彈獅鷲這類一體式上蓋在舊表中被顯示為高度 `0`、差 `60`。這不是資料值，而是 `compare.ts` 將缺少 `heightCode` 用 `?? 0` 代入靜態表格的錯誤。
+- 已從 `compareCombos()` 的數字表移除「高度」列及舊 `heightMatchupZhTW`；前台標題改為「六軸與資料比較」。高度只保留 `practice.ts` 的完整 A/B 高度互動時間線，整合式結構會明說沒有獨立固鎖高度碼、不可與 60／70／80 作假數字比較。
+- 同時移除了 `estimateOperationDifficulty()` 依 60／75 高度碼固定加減的隱性規則，和配裝協同文字中「低位不容易被打飛／高位較穩」的靜態斷言。現在只顯示原始高度碼，並說明需配合對手、盤型與實戰判讀。
+- 驗證：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 438 tests）、`npm.cmd run build`、Playwright 桌機寬度 44/44。接著直接 commit、push、deploy。

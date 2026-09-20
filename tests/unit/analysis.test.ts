@@ -240,24 +240,16 @@ describe('配裝協同性層必須標示模型推估（第 20 節 B）', () => {
     }
   })
 
-  it('低位固鎖搭配平面軸心會提示刮地風險', () => {
+  it('高度碼只保留為對位資料，不把低位固鎖換算成靜態優勢', () => {
     const r = analyzeCombo(args())
-    expect(r.synergyNotesZhTW.some((n) => n.includes('刮地'))).toBe(true)
+    expect(r.synergyNotesZhTW).toContain('高度碼 60：需在對手完整配置與盤型中判讀，不單獨換算成強度。')
   })
 
-  it('高位固鎖搭配球狀軸心不提示刮地風險', () => {
-    const r = analyzeCombo(
-      args({ slots: { bladeId: staminaBlade.id, ratchetId: ratchetHigh.id, bitId: bitBall.id } }),
-    )
-    expect(r.synergyNotesZhTW.some((n) => n.includes('刮地'))).toBe(false)
-  })
-
-  it('提示低位或高位', () => {
-    expect(analyzeCombo(args()).synergyNotesZhTW.some((n) => n.includes('低位'))).toBe(true)
+  it('不同高度碼只顯示其原始值，不寫成高低剋制', () => {
     const high = analyzeCombo(
       args({ slots: { bladeId: staminaBlade.id, ratchetId: ratchetHigh.id, bitId: bitBall.id } }),
     )
-    expect(high.synergyNotesZhTW.some((n) => n.includes('高位'))).toBe(true)
+    expect(high.synergyNotesZhTW).toContain('高度碼 80：需在對手完整配置與盤型中判讀，不單獨換算成強度。')
   })
 
   it('橡膠軸心的操作難度高於球狀軸心', () => {

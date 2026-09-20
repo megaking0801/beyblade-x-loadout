@@ -40,7 +40,6 @@ describe('配裝 A/B 比較（第 34 節）', () => {
       '持久',
       '爆發',
       '抗爆',
-      '高度',
       '穩定',
       '操作難度',
       '賽事證據',
@@ -110,22 +109,6 @@ describe('配裝 A/B 比較（第 34 節）', () => {
   it('數值相同時判為平手', () => {
     const r = compareCombos({ a, b: analyze(r60.id, bitF.id), parts })
     expect(r.rows.every((row) => row.better === 'same')).toBe(true)
-  })
-
-  it('高度項目顯示官方高度碼差距，且不判定誰較好', () => {
-    const r = compareCombos({ a, b, parts })
-    const row = r.rows.find((x) => x.labelZhTW === '高度')!
-    expect(row.aValue).toBe(60)
-    expect(row.bValue).toBe(80)
-    expect(row.deltaZhTW).toBe('差 20')
-    expect(row.better).toBe('same')
-  })
-
-  it('高度對位說明高低差異，但不聲稱高剋低', () => {
-    const r = compareCombos({ a, b, parts })
-    expect(r.heightMatchupZhTW).toContain('A 較低')
-    expect(r.heightMatchupZhTW).toContain('B 較高')
-    expect(r.heightMatchupZhTW).not.toContain('剋')
   })
 
   it('沒有賽事資料時兩邊都顯示為 0 場並判平手', () => {

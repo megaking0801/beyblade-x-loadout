@@ -177,7 +177,7 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
       <div style={{ fontSize: 13, fontWeight: 700, color: comparison.changedSlots.length === 1 ? 'var(--ok)' : 'var(--ink-dim)' }}>{comparison.changedSlots.length === 1 ? '只有一個零件不同' : `共有 ${comparison.changedSlots.length} 個零件不同`}</div>
       {comparison.changedSlots.length > 0 ? comparison.changedSlots.map((slot) => <div key={slot.slotZhTW} style={{ fontSize: 13, color: 'var(--ink-dim)' }}>{slot.slotZhTW} <span className="code">{slot.fromZhTW}</span> → <span className="code">{slot.toZhTW}</span></div>) : <div className="meta">兩邊使用相同零件；可改其中一個零件，查看賽場替代與模型差異。</div>}
     </div></Section>
-    <Section title="六軸與高度比較" action={<EstimateBadge />}><div className="card stack"><p style={{ margin: 0 }}>{comparison.summaryZhTW}</p><div style={{ overflowX: 'auto' }}><table className="compare-table"><thead><tr><th>指標</th><th>A</th><th>B</th><th>差異</th></tr></thead><tbody>
+    <Section title="六軸與資料比較" action={<EstimateBadge />}><div className="card stack"><p style={{ margin: 0 }}>{comparison.summaryZhTW}</p><div style={{ overflowX: 'auto' }}><table className="compare-table"><thead><tr><th>指標</th><th>A</th><th>B</th><th>差異</th></tr></thead><tbody>
       {comparison.rows.map((row) => {
         const axisColor = AXIS_COLOR[row.labelZhTW]
         const winStyle = axisColor ? ({ ['--win-color' as string]: axisColor } as CSSProperties) : undefined

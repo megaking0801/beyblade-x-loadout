@@ -37,7 +37,6 @@ export interface ComboComparison {
   /** 同上，但帶前後零件名稱。 */
   changedSlots: ChangedSlot[]
   summaryZhTW: string
-  heightMatchupZhTW: string
 }
 
 export type MatchupOutcome = 'a_advantage' | 'b_advantage' | 'even' | 'unavailable'
@@ -98,8 +97,6 @@ export function compareCombos(args: CompareArgs): ComboComparison {
     numericRow('持久', a.analysis.scores?.stamina ?? 0, b.analysis.scores?.stamina ?? 0, 'higher'),
     numericRow('爆發', a.analysis.scores?.burst ?? 0, b.analysis.scores?.burst ?? 0, 'higher'),
     numericRow('抗爆', a.analysis.scores?.burstResistance ?? 0, b.analysis.scores?.burstResistance ?? 0, 'higher'),
-    // 高度沒有絕對的好壞，只顯示差距，不判勝負。
-    numericRow('高度', a.analysis.objective.heightCode ?? 0, b.analysis.objective.heightCode ?? 0, 'none'),
     numericRow('穩定', a.analysis.scores?.stability ?? 0, b.analysis.scores?.stability ?? 0, 'higher'),
     numericRow(
       '操作難度',
@@ -124,20 +121,7 @@ export function compareCombos(args: CompareArgs): ComboComparison {
     changedSlots,
     changedSlotsZhTW,
     summaryZhTW: buildSummary(rows, changedSlotsZhTW),
-    heightMatchupZhTW: describeHeightMatchup(a.analysis.objective.heightCode, b.analysis.objective.heightCode),
   }
-}
-
-/**
- * 高度碼是官方型號資料，不是量測毫米；高低沒有絕對優劣。
- * 因此只給對位時應留意的撞擊高度與重心情境，不能寫成高剋低的規則。
- */
-export function describeHeightMatchup(a?: number, b?: number): string {
-  if (typeof a !== 'number' || typeof b !== 'number') return '其中一方缺少官方高度碼，無法判讀高度對位。'
-  if (a === b) return `雙方同為高度碼 ${a}，高度對位沒有差異。`
-  const lower = a < b ? 'A' : 'B'
-  const higher = a < b ? 'B' : 'A'
-  return `${lower} 較低（${Math.min(a, b)}），${higher} 較高（${Math.max(a, b)}），高度碼差 ${Math.abs(a - b)}。較低配置重心通常更低，較高配置的撞擊高度不同；實際優劣仍受上蓋形狀與發射角度影響。`
 }
 
 export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPrediction {

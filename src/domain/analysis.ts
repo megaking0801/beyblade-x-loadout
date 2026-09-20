@@ -89,11 +89,13 @@ export interface EstimateArgs {
 }
 
 /**
- * 依官方類型、官方重量與高度推估六軸分數。
+ * 依零件官方類型推估六軸分數。
  *
  * 公式（模型推估，固定可驗算）：
  *  1. 以各零件官方類型的基礎向量按權重混合，權重只在有類型的零件之間正規化。
- *  2. 高度修正：以官方高度碼 70 為基準，每低 1 個碼攻擊 +0.5；每高 1 個碼穩定 +0.3、持久 +0.2。
+ *
+ * 高度、重量與單一零件的靜態數值都不進分數；它們必須在完整對位與實戰
+ * 證據中判讀，不能讓缺少高度碼的一體式結構被算成 0。
  */
 export function estimateScores(args: EstimateArgs): ComboScores {
   const { blade, ratchet, bit, extras } = args
@@ -149,22 +151,14 @@ const DIFFICULTY_BY_CONTACT: Record<string, number> = {
   other: 50,
 }
 
-const LOW_PROFILE_MAX_CODE = 60
-const HIGH_PROFILE_MIN_CODE = 75
-
 /** 匯出給配置產生器做便宜評分用，公式與配裝結果完全相同。 */
 export function estimateOperationDifficulty(
   bit: Part | undefined,
-  ratchet: Part | undefined,
+  _ratchet: Part | undefined,
   blade: Part | undefined,
 ): number | undefined {
   if (!bit?.bitContact) return undefined
   let value = DIFFICULTY_BY_CONTACT[bit.bitContact] ?? 50
-  const heightCode = ratchet?.heightCode
-  if (typeof heightCode === 'number') {
-    if (heightCode <= LOW_PROFILE_MAX_CODE) value += 10
-    else if (heightCode >= HIGH_PROFILE_MIN_CODE) value -= 5
-  }
   if (blade?.type === 'attack') value += 5
   return clampScore(value)
 }
@@ -398,22 +392,12 @@ function buildSynergyNotes(args: {
   scores?: ComboScores
   spinDirectionZhTW?: string
 }): string[] {
-  const { blade, ratchet, bit, scores, spinDirectionZhTW } = args
+  const { blade, ratchet, scores, spinDirectionZhTW } = args
   const notes: string[] = []
   const heightCode = ratchet?.heightCode
 
   if (typeof heightCode === 'number') {
-    if (heightCode <= LOW_PROFILE_MAX_CODE) {
-      notes.push(`低位配置（高度 ${heightCode}），重心低、比較不容易被打飛`)
-    } else if (heightCode >= HIGH_PROFILE_MIN_CODE) {
-      notes.push(`高位配置（高度 ${heightCode}），比較好維持軸心穩定`)
-    } else {
-      notes.push(`中位配置（高度 ${heightCode}）`)
-    }
-
-    if (heightCode <= LOW_PROFILE_MAX_CODE && (bit?.bitContact === 'flat' || bit?.bitContact === 'rubber')) {
-      notes.push('低位加上大面積接地，刮地風險較高，發射角度要壓穩')
-    }
+    notes.push(`高度碼 ${heightCode}：需在對手完整配置與盤型中判讀，不單獨換算成強度。`)
   }
 
   if (blade?.type === 'attack') notes.push('攻擊角度偏斜向撞擊，適合主動找對手')
