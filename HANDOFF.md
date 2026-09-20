@@ -251,5 +251,5 @@
 - IndexedDB schema 已升到 v4，新增 `battleRounds` 個人資料表；Catalog 更新不會清除它，完整備份／匯入也已包含逐局紀錄。
 - Compare 只顯示與當前完整 A/B 相符的影片紀錄；不再固定列出阿土、維辰或 T 表。賽事前四名配置仍獨立列出，明示不是 A 對 B 戰績。
 - 新增匿名逐局 JSON 匯出；刻意排除本機 id、建立時間、自由文字備註及玩家／裝置識別，保留人工審核需要的配置與事實欄位。
-- 驗證：typecheck、24 files / 436 Vitest、build 通過。完整 Playwright 兩 worker 執行時有 81 passed、1 skipped，6 個手機冷啟動案例因舊 helper 的就緒競態失敗；App 加入明確 `data-app-ready` 後，這 6 個案例已定向重跑全過，Compare 手機／桌機定向 2/2 通過。
+- 驗證：typecheck、24 files / 436 Vitest、build 通過。完整 Playwright 兩 worker 執行時有 81 passed、1 skipped，6 個手機冷啟動案例因舊 helper 的就緒競態失敗；App 加入明確 `data-app-ready` 後，這 6 個案例已定向重跑全過，Compare 手機／桌機定向 2/2 通過。Pages 已部署，線上 phone／desktop smoke 6/6 通過（開站、IndexedDB 寫入、Service Worker、圖片子路徑）。
 - 下一階段：建立 repo 內的版本化人工審核資料集與匯入驗證器，再做分組訓練／評估管線。模型未通過熱門配置與只看上蓋基準、log loss／Brier／校準及跨來源檢查前，不得重新顯示預測。

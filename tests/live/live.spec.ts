@@ -1,16 +1,21 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 /** 由 playwright.live.config.ts 的 baseURL 提供，可用 LIVE_BASE_URL 覆寫。 */
 const BASE = './'
 
+async function waitForAppReady(page: Page): Promise<void> {
+  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
+  await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 30_000 })
+}
+
 test('線上版可開啟、初次進入個人資料為 0、可加入商品', async ({ page }) => {
   await page.goto(BASE)
-  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
-  await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 30_000 })
+  await waitForAppReady(page)
   await expect(page.getByTestId('stat-products-value')).toHaveText('0')
   await expect(page.getByTestId('stat-blades-value')).toHaveText('0')
 
   await page.goto(`${BASE}#/products`)
+  await waitForAppReady(page)
   await page.getByTestId('tab-catalog').click()
   await page.getByTestId('product-search').fill('BX-01')
   const card = page.getByTestId('catalog-product').first()
@@ -21,6 +26,7 @@ test('線上版可開啟、初次進入個人資料為 0、可加入商品', asy
   await expect(page.getByTestId('owned-product').first()).toBeVisible()
 
   await page.goto(`${BASE}#/parts`)
+  await waitForAppReady(page)
   await expect(
     page.locator('[data-testid="part-stock"][data-part-id="blade:ドランソード"]').getByTestId('part-available'),
   ).toHaveText('可用 ×2')
@@ -28,7 +34,7 @@ test('線上版可開啟、初次進入個人資料為 0、可加入商品', asy
 
 test('線上版有註冊 service worker', async ({ page }) => {
   await page.goto(BASE)
-  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
+  await waitForAppReady(page)
   const scriptUrl = await page.evaluate(async () => {
     const registration = await navigator.serviceWorker.ready
     return registration.active?.scriptURL ?? null
@@ -57,9 +63,9 @@ test('線上版的圖片都載得到，沒有漏掉部署子路徑', async ({ pa
     ['#/parts', 'tab-part-catalog'],
   ] as const) {
     await page.goto(`${BASE}${route}`)
-    await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
+    await waitForAppReady(page)
     await page.getByTestId(tab).click()
-    await page.waitForTimeout(2500)
+    await expect(page.locator('img').first()).toBeVisible({ timeout: 30_000 })
 
     const images = await page.locator('img').count()
     expect(images, `${route} 應該要有圖片可檢查`).toBeGreaterThan(0)
