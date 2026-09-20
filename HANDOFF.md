@@ -127,3 +127,28 @@
 13 場單顆名次觀測共 93 筆）。
 
 隨機強化組不寫入固定內容、不納入「最划算」；官方已確認的款式只顯示在「可能抽到（非保證）」。
+
+## 2026-09-20 Compare 實戰改造：暫停點
+
+使用者要求明天續作；**目前不要提交、推送或部署**。工作樹刻意保留 3 個未提交檔案：
+
+- `src/domain/analysis.ts`：移除「高度固定換成攻擊／穩定／持久分數」；高度必須在兩組完整配置互動時判讀。
+- `src/domain/practice.ts`：新增全目錄零件的實戰檔案層。它會為每個已選零件建立來源、限制與 CX 結構注意事項；來源目前有阿土、維辰孔丘、台灣天梯情報站與 BeybladeHub。它嚴格區分 T 表／賽事名次／逐局對戰，現階段沒有足夠可核對的 A 對 B 逐局影片，故回傳 `insufficient`，不會造假 W–L。
+- `src/ui/pages/ComparePage.tsx`：已接入實戰結論、高度時間線、A/B 的全部已選零件實戰檔案、可展開來源。剛補上 `PracticeProfiles`，下一步必須先跑 typecheck／tests/build。
+
+明天建議順序：
+
+1. 跑 `npm.cmd run typecheck`、`npm.cmd test -- --run`、`npm.cmd run build`，先修所有編譯或既有測試落差（高度靜態分數移除可能影響 `compare.test.ts` 的預期）。
+2. 擴充 `practice.ts` 的人工審核資料：只將可辨識雙方完整配置、賽制／盤型、勝者與時間戳的影片加入 `MatchupObservation`；須至少 5 局、2 個獨立原始影片後才升級為實戰 W–L。不可把 BeybladeHub 賽事名次當成對戰戰績。
+3. 為阿土、維辰、RENLIgames 與台灣賽事補逐條零件／完整配置觀察；轉貼與彙整站要指向原始來源，不能增加獨立樣本。全 242 個零件都保留檔案，資料不足則顯示資料有限。
+4. 加 `tests/unit/practice.test.ts`，測全零件 profile、A/B ratings 不互相覆蓋、相同／相近／大高度差、缺高度、CX、資料不足不輸出勝率；再補 Compare UI 測試。
+5. 完成後依使用者既有指示直接 commit、push、`npm.cmd run deploy:pages`，再做快取繞過的 Pages smoke check。
+
+### 2026-09-20 續作完成
+
+- 上述暫停工作已完成，這段以下的結果取代「目前不要提交、推送或部署」：可直接提交、推送與部署。
+- `analysis.ts` 已移除高度的固定攻擊／穩定／持久加分；高度判讀改在 `practice.ts` 以 A/B 完整配裝輸出開局／中段／低轉速三段文字，差距一級時一律標為相近高度、不宣稱低方必然有效。
+- `practice.ts` 已為任何 Catalog 的已選零件建立檔案，支援標準三件式、CX 紋章／主刃／Over Blade／輔助刃、一體式零件。每檔案都保留 Catalog 來源、高手聚合評級與可回查 T 表；未命中評級的冷門零件明示資料有限，不借用熱門零件的結論。
+- 新增 `MatchupObservation` 的人工逐局資料規格與門檻：完整相同的 A/B 配置，至少 5 局、2 個獨立原始影片來源才顯示 W–L。現有 `matchupObservations` 刻意是空的，因為已研究影片未能可靠辨識每局雙方完整配裝；賽事名次、T 表與影片標題絕不偽造為對戰勝負。
+- Compare UI 新增：實戰證據結論、高度互動時間線、A/B 所有已選零件實戰檔案、阿土／維辰孔丘／台灣天梯／BeybladeHub 可展開來源，以及每個命中零件的高手／T 表連結。
+- 驗證完成：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 440 tests）、`npm.cmd run build`；單一桌機 Compare Playwright 驗收通過。整組 E2E 曾因執行工具硬性 30 秒中斷，不能標為完整通過。

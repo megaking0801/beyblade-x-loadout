@@ -58,10 +58,6 @@ const BASE_BY_TYPE: Record<BeyType, ComboScores> = {
 /** 各槽位在類型混合時的權重。 */
 const TYPE_WEIGHT = { blade: 0.5, bit: 0.3, ratchet: 0.2 } as const
 
-/** 重量與高度的基準值，用於計算相對修正量。 */
-/** 高度標示的基準值，取常見的 70。 */
-export const HEIGHT_BASELINE_CODE = 70
-
 const SCORE_AXES: (keyof ComboScores)[] = [
   'attack',
   'defense',
@@ -128,12 +124,9 @@ export function estimateScores(args: EstimateArgs): ComboScores {
    * 還會讓使用者以為那是官方規格。寧可少一個修正項（第 1.5 節）。
    */
 
-  const heightCode = ratchet?.heightCode
-  if (typeof heightCode === 'number') {
-    scores.attack += (HEIGHT_BASELINE_CODE - heightCode) * 0.5
-    scores.stability += (heightCode - HEIGHT_BASELINE_CODE) * 0.3
-    scores.stamina += (heightCode - HEIGHT_BASELINE_CODE) * 0.2
-  }
+  // 高度不是獨立的能力值：同一高度會因上蓋接觸面、固鎖凸點、軸心與
+  // 對手配置而產生相反結果。實戰比較在 practice.ts 以完整雙方配置處理，
+  // 這裡不能先偷偷把「低＝攻擊、高＝持久」塞進靜態分數。
 
   return {
     attack: clampScore(scores.attack),

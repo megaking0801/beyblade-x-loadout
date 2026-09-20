@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo } from '../../domain/analysis.ts'
 import { compareCombos, predictMatchup, type MatchupPrediction } from '../../domain/compare.ts'
+import { buildPracticalComparison, type PracticalComparison } from '../../domain/practice.ts'
 import { generateBuildableCombos, type BuilderMode } from '../../domain/builder.ts'
 import { getBuilderSlotSchema, inferBuilderStructure, lockedSlotReason, parseComboSlots, pruneSlots, type BuilderStructure } from '../../domain/compatibility.ts'
 import type { ComboSlots, ImageAsset, Part } from '../../domain/types.ts'
@@ -78,6 +79,10 @@ export function ComparePage() {
   const bComplete = bAnalysis.compatibility.ok
   const comparison = useMemo(() => aComplete && bComplete ? compareCombos({ a: { slots: aBuild.slots, analysis: aAnalysis }, b: { slots: bBuild.slots, analysis: bAnalysis }, parts }) : null, [aAnalysis, aBuild.slots, aComplete, bAnalysis, bBuild.slots, bComplete, parts])
   const prediction = useMemo(() => aComplete && bComplete ? predictMatchup(aAnalysis, bAnalysis) : null, [aAnalysis, aComplete, bAnalysis, bComplete])
+  const practical = useMemo(
+    () => aComplete && bComplete ? buildPracticalComparison({ a: aBuild.slots, b: bBuild.slots, parts }) : null,
+    [aBuild.slots, aComplete, bBuild.slots, bComplete, parts],
+  )
 
   return <>
     <PageHeader title="陀螺比較" description="A、B 各自選擇來源、結構與零件；調整任何一邊後，結果會立即更新。" />
@@ -87,7 +92,7 @@ export function ComparePage() {
     </div>
     <div className="compare-results">
       {!aComplete || !bComplete ? <EmptyState title="還沒選滿兩套可用配裝" hint="請分別完成 A 與 B 的零件選擇，並確認相容性後再比較。" />
-        : comparison && prediction ? <Section title="比較結果"><ComparisonResult comparison={comparison} prediction={prediction} /></Section> : null}
+        : comparison && prediction && practical ? <Section title="比較結果"><ComparisonResult comparison={comparison} prediction={prediction} practical={practical} /></Section> : null}
     </div>
   </>
 }
@@ -126,9 +131,28 @@ function BuildEditor({ side, title, build, options, parts, availability, images,
   </div></Section>
 }
 
-function ComparisonResult({ comparison, prediction }: { comparison: NonNullable<ReturnType<typeof compareCombos>>; prediction: MatchupPrediction }) {
+function ComparisonResult({ comparison, prediction, practical }: { comparison: NonNullable<ReturnType<typeof compareCombos>>; prediction: MatchupPrediction; practical: PracticalComparison }) {
   const outcome = prediction.outcome === 'a_advantage' ? 'A 較有利' : prediction.outcome === 'b_advantage' ? 'B 較有利' : prediction.outcome === 'even' ? '勝負難分' : '資料不足'
   return <div className="stack">
+    <Section title="實戰證據結論"><div className="card stack" data-testid="practical-matchup">
+      <strong style={{ fontSize: 18 }}>{practical.titleZhTW}</strong>
+      <div>{practical.noticeZhTW}</div>
+      {practical.status === 'observed' ? <div><span className="code">A {practical.observedAWins} 勝</span>　vs　<span className="code">B {practical.observedBWins} 勝</span></div> : null}
+      <div className="meta">只有可辨識雙方完整配置、盤型／賽制與勝負的逐局影片，才會顯示為實戰 W–L；目前來源不會被冒充為勝率。</div>
+    </div></Section>
+    <Section title="高度互動時間線"><div className="card stack" data-testid="height-timeline">
+      <div><strong>開局接觸：</strong>{practical.heightTimelineZhTW.opening}</div>
+      <div><strong>對局中段：</strong>{practical.heightTimelineZhTW.midgame}</div>
+      <div><strong>低轉速／後期：</strong>{practical.heightTimelineZhTW.endgame}</div>
+    </div></Section>
+    <Section title="全零件實戰檔案"><div className="card stack" data-testid="part-practice-profiles">
+      <PracticeProfiles title="A" profiles={practical.profilesA} />
+      <PracticeProfiles title="B" profiles={practical.profilesB} />
+    </div></Section>
+    <Section title="社群與影片來源"><div className="card stack" data-testid="practice-sources">
+      {practical.sources.map((source) => <details key={source.id}><summary>{source.nameZhTW}・{source.kindZhTW}・{source.independence === 'primary' ? '原始來源' : '彙整來源'}</summary><div className="stack" style={{ marginTop: 8 }}><div>{source.noteZhTW}</div><a href={source.sourceUrl} target="_blank" rel="noreferrer">{source.sourceUrl}</a><div className="meta">資料日期：{source.updatedAt}</div></div></details>)}
+      {practical.expertEvidence.length > 0 ? <div className="meta">目前已選零件命中 {practical.expertEvidence.length} 筆高手 T 表來源；它們僅作社群觀察，不列為對局戰績。</div> : <div className="meta">已選零件尚未命中現有高手 T 表；不以其他零件的評級代替。</div>}
+    </div></Section>
     <Section title="對打推估" action={<EstimateBadge />}><div className="card stack" data-testid="matchup-prediction">
       <strong style={{ fontSize: 18 }}>{outcome}</strong>
       {prediction.aModelProbability !== undefined ? <div><span className="code">A {prediction.aModelProbability}%</span>　vs　<span className="code">B {prediction.bModelProbability}%</span></div> : null}
@@ -148,6 +172,22 @@ function ComparisonResult({ comparison, prediction }: { comparison: NonNullable<
         return <tr key={row.labelZhTW}><td>{row.labelZhTW}</td><td className={row.better === 'a' ? 'win' : undefined} style={row.better === 'a' ? winStyle : undefined}>{row.aValue}{row.better === 'a' ? ' ↑' : ''}</td><td className={row.better === 'b' ? 'win' : undefined} style={row.better === 'b' ? winStyle : undefined}>{row.bValue}{row.better === 'b' ? ' ↑' : ''}</td><td className="delta">{row.deltaZhTW}</td></tr>
       })}
     </tbody></table></div></div></Section>
+  </div>
+}
+
+function PracticeProfiles({ title, profiles }: { title: string; profiles: PracticalComparison['profilesA'] }) {
+  return <div className="stack" style={{ gap: 8 }}>
+    <strong>{title} 的已選零件</strong>
+    {profiles.map((profile) => <details key={profile.partId}>
+      <summary>{profile.familyZhTW}・{profile.partNameZhTW}・{profile.status === 'covered' ? '有社群覆蓋' : '資料有限'}</summary>
+      <div className="stack" style={{ marginTop: 8 }}>
+        <div>{profile.summaryZhTW}</div>
+        {profile.expertRating ? <div className="meta">高手聚合評級：{profile.expertRating.tierLabel}（{profile.expertRating.agreeCount}/{profile.expertRating.expertCount} 位來源同意；不代表勝率）</div> : null}
+        <ul style={{ margin: 0, paddingLeft: 18 }}>{profile.cautionsZhTW.map((caution) => <li key={caution}>{caution}</li>)}</ul>
+        {profile.expertSources.map((source) => <a key={`${source.partId}-${source.sourceUrl}`} href={source.sourceUrl} target="_blank" rel="noreferrer">{source.authorZhTW}・{source.listTitleZhTW}・{source.tierLabel}</a>)}
+        {profile.sourceUrls.map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">零件資料來源</a>)}
+      </div>
+    </details>)}
   </div>
 }
 

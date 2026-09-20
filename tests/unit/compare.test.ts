@@ -152,10 +152,11 @@ describe('配裝 A/B 比較（第 34 節）', () => {
     expect(r.noticeZhTW).toContain('不是真實勝率')
   })
 
-  it('標準 X 對戰盤下，擊出路線不會被拖時間路線完全抵銷成無意義的 50/50', () => {
+  it('移除固定高度加分後，不會把 60 對 80 自動判為低方有利', () => {
     const r = predictMatchup(a.analysis, b.analysis)
-    expect(r.outcome).toBe('a_advantage')
-    expect(r.aModelProbability).toBeGreaterThan(50)
+    expect(r.outcome).toBe('even')
+    // 軸心類型仍可造成極小模型差異；重點是不會因高度固定加分跨過勝負門檻。
+    expect(r.aModelProbability).toBeLessThanOrEqual(55)
     expect(r.reasonsZhTW).toEqual([
       expect.stringContaining('A 的擊出路線較有利'),
       expect.stringContaining('B 的拖時間路線較有利'),

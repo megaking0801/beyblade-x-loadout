@@ -2,6 +2,7 @@ import raw from './sources/beybladehub-tier-lists.json'
 import type { ComboSlots, Part } from '../domain/types.ts'
 
 export interface ExpertTierMatch {
+  partId: string
   listTitleZhTW: string
   authorZhTW: string
   updatedAt: string
@@ -55,6 +56,7 @@ export function getExpertTierMatches(slots: ComboSlots): ExpertTierMatch[] {
   if (selectedPartIds.size === 0) return []
   return raw.lists.flatMap((list) =>
     list.entries.filter((entry) => selectedPartIds.has(entry.partId)).map((entry) => ({
+      partId: entry.partId,
       listTitleZhTW: list.titleZhTW,
       authorZhTW: list.authorZhTW,
       updatedAt: list.updatedAt,
