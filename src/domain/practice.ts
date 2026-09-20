@@ -40,6 +40,7 @@ export interface PracticeSource {
   id: string
   nameZhTW: string
   kindZhTW: string
+  linkLabelZhTW: string
   sourceUrl: string
   updatedAt: string
   independence: 'primary' | 'curated'
@@ -102,6 +103,7 @@ export const practiceSources: PracticeSource[] = [
     id: 'atu-2026-guide',
     nameZhTW: 'Namaste 阿土',
     kindZhTW: '配置／實測影片',
+    linkLabelZhTW: '開啟阿土的 YouTube 影片',
     sourceUrl: 'https://www.youtube.com/watch?v=s_hTcLMUstA',
     updatedAt: '2026-01-02',
     independence: 'primary',
@@ -111,6 +113,7 @@ export const practiceSources: PracticeSource[] = [
     id: 'weichen-battle',
     nameZhTW: '維辰孔丘',
     kindZhTW: '實戰影片',
+    linkLabelZhTW: '開啟維辰孔丘的 YouTube 影片',
     sourceUrl: 'https://www.youtube.com/watch?v=1Rl0dEh3Xkg',
     updatedAt: '2024-12-07',
     independence: 'primary',
@@ -120,6 +123,7 @@ export const practiceSources: PracticeSource[] = [
     id: 'tw-tier',
     nameZhTW: '台灣天梯情報站',
     kindZhTW: '社群彙整',
+    linkLabelZhTW: '開啟台灣天梯情報站',
     sourceUrl: 'https://stan-yao.github.io/beyblade_x_tier/',
     updatedAt: '2026-09-15',
     independence: 'curated',
@@ -129,6 +133,7 @@ export const practiceSources: PracticeSource[] = [
     id: 'hub-tournaments',
     nameZhTW: 'BeybladeHub 台灣賽事資料',
     kindZhTW: '賽果／配置彙整',
+    linkLabelZhTW: '開啟 BeybladeHub 賽事資料',
     sourceUrl: 'https://beybladehub.app/tournaments',
     updatedAt: '2026-09-20',
     independence: 'curated',
@@ -160,25 +165,26 @@ function profileFor(
   const sourceUrls = [...new Set(part.provenance.sourceUrls)]
   const rating = ratingsByPartId.get(part.id)
   const covered = rating !== undefined
-  const height = typeof part.heightCode === 'number' ? `高度碼 ${part.heightCode}` : undefined
-  const summaryByFamily: Partial<Record<Part['family'], string>> = {
-    ratchet: `${height ?? '高度資料不足'}；固鎖的判讀必須同時看凸點暴露、鎖定、配重與搭配的上蓋／軸心。`,
-    bit: `軸心會改變開局移動與後期姿態；不可只用官方類型替代實戰對局。`,
-    blade: `上蓋的接觸面、旋向、重量與版本都會改變配裝效果；不以單一 T 表決定剋制。`,
-    main_blade: `CX 主刃僅能連同鎖定紋章、Over Blade／輔助刃與其他零件判讀。`,
-    lock_chip: `CX 鎖定紋章的結論需以完整結構與實際相容組合為準。`,
-    over_blade: `CX Over Blade 的效果依主刃與輔助刃而變，沒有完整結構不得外推。`,
-    assist_blade: `CX 輔助刃的效果依主刃與 Over Blade 而變，沒有完整結構不得外推。`,
-    integrated_blade: `一體式結構以完整組合判讀，不能套用標準三件式固鎖規則。`,
-  }
+  const specs = [
+    part.type ? `類型 ${part.type === 'attack' ? '攻擊' : part.type === 'defense' ? '防守' : part.type === 'stamina' ? '持久' : '平衡'}` : undefined,
+    typeof part.heightCode === 'number' ? `高度碼 ${part.heightCode}` : undefined,
+    part.bitContact ? `接觸形狀 ${part.bitContact}` : undefined,
+    typeof part.officialWeightG === 'number' ? `官方重量 ${part.officialWeightG}g` : undefined,
+    part.integratedRatchet ? '固鎖一體式結構' : undefined,
+  ].filter((value): value is string => Boolean(value))
   return {
     partId: part.id,
     partNameZhTW: name,
     familyZhTW: FAMILY_ZH[part.family],
     status: covered ? 'covered' : 'limited',
-    summaryZhTW: summaryByFamily[part.family] ?? '此零件已納入實戰檔案；目前沒有足夠的可核對對局可單獨歸因。',
+    summaryZhTW: specs.length > 0
+      ? `可核對規格：${specs.join('；')}。`
+      : '目前只有零件身分與來源可核對，沒有可單獨歸因的實戰數據。',
     cautionsZhTW: [
-      ...(covered ? ['已有台灣／日本高手評級來源；評級是觀察，不是對戰勝率。'] : ['尚缺可歸因的社群實測；不會借用熱門零件的結論。']),
+      ...(covered ? ['已有高手評級來源；這是選手／社群觀察，不是此零件對任何對手的勝率。'] : ['尚缺可歸因的高手評級；不會借用同類型熱門零件的結論。']),
+      ...(part.family === 'ratchet' ? ['固鎖高度碼只描述結構高度；還要看凸點暴露、上蓋接觸面與軸心路線。'] : []),
+      ...(part.family === 'bit' ? ['軸心效果強烈受發射與盤型影響；沒有完整對局影片時不歸因成固定剋制。'] : []),
+      ...(part.integratedRatchet ? ['一體式結構沒有獨立固鎖高度碼，不能硬換算成 60／70／80。'] : []),
       ...(sourceUrls.length === 0 ? ['Catalog 來源不足，不能產生實戰結論。'] : []),
     ],
     sourceUrls,
@@ -215,18 +221,18 @@ function heightTimeline(a: ComboSlots, b: ComboSlots, parts: Part[]): PracticalC
   if (aIntegrated || bIntegrated) {
     const integratedSide = aIntegrated && bIntegrated ? 'A、B' : aIntegrated ? 'A' : 'B'
     return {
-      opening: `${integratedSide} 是固鎖一體式結構，沒有獨立固鎖高度碼；不能把它當成「資料缺漏」，也不能直接和另一方的 60／70／80 高度碼對比。`,
-      midgame: '改看一體式上蓋的接觸面、分離機構與雙方軸心的移動；只有同盤型逐局影片才能判定實際對位。',
-      endgame: '一體式結構不以「沒有高度碼」補償成持久或穩定；後期仍以實測姿態與軸心狀態為準。',
+      opening: `可確認：${integratedSide} 是固鎖一體式結構，沒有獨立固鎖高度碼。不能把它寫成「高度 0」，也不能直接和另一方的 60／70／80 對位。`,
+      midgame: '不能確認：中段接觸高低仍需要同一盤型影片。一體式上蓋的接觸面、分離機構與軸心移動，不能由名稱代替。',
+      endgame: '不能推論：一體式不等於後期一定更穩或更持久；沒有完整對局時不替任何一方加分。',
     }
   }
   const ah = ar?.heightCode
   const bh = br?.heightCode
   if (typeof ah !== 'number' || typeof bh !== 'number') {
     return {
-      opening: '固鎖高度資料不足；不對開局接觸作推論。',
-      midgame: '需補齊完整零件資料與實戰來源後才可判讀。',
-      endgame: '沒有高度資料時，不以持久或穩定作補償性假設。',
+      opening: '可確認：其中一方沒有可用的固鎖高度碼，因此不對開局接觸高度下結論。',
+      midgame: '不能確認：需有完整配置、盤型與影片，才能判讀接觸軌跡。',
+      endgame: '不能推論：不會以持久或穩定替高度資料做補償性猜測。',
     }
   }
   const difference = Math.abs(ah - bh)
@@ -235,19 +241,19 @@ function heightTimeline(a: ComboSlots, b: ComboSlots, parts: Part[]): PracticalC
   const bladeContext = `${ab?.type ?? '未知'} 上蓋／${bb?.type ?? '未知'} 上蓋`
   const bitContext = `${abit?.bitContact ?? '未知'} 軸心／${bbit?.bitContact ?? '未知'} 軸心`
   if (difference === 0) return {
-    opening: `同高度（${ah}）：不因高度偏向任一方，改看 ${bladeContext} 的接觸面與發射。`,
-    midgame: `中段主要看 ${bitContext} 的移動、反作用與固鎖暴露。`,
-    endgame: '後期以實際姿態、軸心與旋向為準；高度相同不代表續航相同。',
+    opening: `可確認：雙方同高度（${ah}）；不因高度偏向任何一方。接觸由 ${bladeContext} 的形狀與發射路徑決定。`,
+    midgame: `不能確認：中段要看 ${bitContext} 的移動、反作用與固鎖暴露；同高度不等於同表現。`,
+    endgame: '不能推論：同高度不等於持久或穩定相同，必須以實際低轉速片段驗證。',
   }
   if (difference <= 10) return {
-    opening: `${lower} 較低，但差距僅 ${difference}；屬相近高度，不宣稱低打高必然有效。`,
-    midgame: `接觸能否成立取決於 ${bladeContext}、固鎖外形與 ${bitContext}。`,
-    endgame: `${higher} 較高不自動等於後期較強；需有對局或實測證據才可下結論。`,
+    opening: `可確認：${lower} 較低 ${difference}（${ah} 對 ${bh}），但屬相近高度。像 70 對 80，不宣稱低打高必然有效。`,
+    midgame: `不能確認：接觸線是否改變，要看 ${bladeContext}、固鎖外形與 ${bitContext}；高度碼差 10 本身不足以判勝負。`,
+    endgame: `不能推論：${higher} 較高不等於後期必然更穩或更持久；沒有同盤型對局時不加續航分。`,
   }
   return {
-    opening: `${lower} 較低、差距 ${difference}，可能較容易從下方建立接觸；這只是待驗證的開局假設。`,
-    midgame: `中段需同時檢查 ${bladeContext} 與 ${bitContext}，避免把高度差誤當成固定剋制。`,
-    endgame: `${higher} 的接觸位置與姿態可能改變低轉速互動，但不以高度直接給持久加分。`,
+    opening: `可確認：${lower} 較低 ${difference}（${ah} 對 ${bh}），開局接觸線可能不同；但只有打得到對方下緣才有意義，不能宣稱固定剋制。`,
+    midgame: `不能確認：中段仍需以 ${bladeContext} 與 ${bitContext} 的實際接觸驗證；上蓋形狀與軸心路線可能蓋過高度差。`,
+    endgame: `不能推論：${higher} 較高可能改變低轉速姿態，但沒有對局影片時不把它自動換算成持久／穩定優勢。`,
   }
 }
 

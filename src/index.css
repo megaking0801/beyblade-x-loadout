@@ -491,6 +491,40 @@ textarea {
   margin-top: 16px;
 }
 
+.matchup-route-grid,
+.model-breakdown {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.matchup-route,
+.model-breakdown > div,
+.difference-record,
+.source-record {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border: 1px solid var(--rule);
+  border-radius: calc(var(--radius) - 4px);
+  background: var(--surface-2);
+}
+
+.matchup-route strong,
+.model-breakdown strong {
+  color: var(--ink);
+}
+
+.model-breakdown span,
+.model-breakdown small {
+  color: var(--ink-dim);
+  font-size: 12px;
+}
+
+.source-open {
+  justify-self: start;
+}
+
 @media (min-width: 900px) {
   .compare-builders {
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -51,6 +51,18 @@ export interface MatchupPrediction {
   bModelProbability?: number
   reasonsZhTW: string[]
   noticeZhTW: string
+  /** 六軸之上的條件式結論；絕不當作實戰戰績。 */
+  conclusionZhTW: string
+  aWinRouteZhTW: string
+  bWinRouteZhTW: string
+  modelBreakdown?: {
+    aKoPressure: number
+    bKoPressure: number
+    aSurvival: number
+    bSurvival: number
+    aOperationDifficulty: number
+    bOperationDifficulty: number
+  }
 }
 
 export interface CompareSide {
@@ -121,6 +133,9 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
       outcome: 'unavailable',
       reasonsZhTW: [],
       noticeZhTW: '其中一套尚未完成、無法實際安裝或缺少類型資料，不能產生模型預測。',
+      conclusionZhTW: '尚未選滿雙方零件，不能做任何對戰結論。',
+      aWinRouteZhTW: '尚無完整配置。',
+      bWinRouteZhTW: '尚無完整配置。',
     }
   }
 
@@ -156,6 +171,13 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
     `${koDifference >= 0 ? 'A' : 'B'} 的擊出路線較有利（攻擊／爆發對防守／抗爆／穩定）`,
     `${survivalDifference >= 0 ? 'A' : 'B'} 的拖時間路線較有利（持久／穩定對對手的擊出壓力）`,
   ]
+  const aWinRouteZhTW = `A 要把優勢兌現，關鍵是前段用擊出壓力（${Math.round(koPressureA)}）迫使 B 出界或爆裂；若開局接觸不足，這條路線會快速失去價值。`
+  const bWinRouteZhTW = `B 要把對局帶進低轉速與續航交換；其拖時間能力為 ${Math.round(survivalB)}，同時必須先承受 A 的前段擊出壓力。`
+  const conclusionZhTW = outcome === 'even'
+    ? '模型沒有足夠差距支持盲選任何一方：A 的前段擊出與 B 的後段續航互相抵銷。能穩定打出攻擊角度時選 A 爭取快速結束；要保守打長局時選 B。'
+    : outcome === 'a_advantage'
+      ? '模型暫時傾向 A：A 對 B 的擊出差距大於 B 的拖時間回應。這只代表 A 較容易走到自己的贏法，不是實戰勝率或保證。'
+      : '模型暫時傾向 B：B 的防守／續航回應比 A 的擊出壓力更完整。這只代表 B 較容易把對局拖到自己的贏法，不是實戰勝率或保證。'
 
   return {
     outcome,
@@ -166,6 +188,17 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
       outcome === 'even'
         ? '兩條對戰路線互有優勢，模型判為勝負難分。這不是實戰勝率。'
         : `${winner} 的整體對戰路線較佔優；此為標準 X 對戰盤、同等熟練度與正常發射下的模型推估，不是真實勝率。`,
+    conclusionZhTW,
+    aWinRouteZhTW,
+    bWinRouteZhTW,
+    modelBreakdown: {
+      aKoPressure: Math.round(koPressureA),
+      bKoPressure: Math.round(koPressureB),
+      aSurvival: Math.round(survivalA),
+      bSurvival: Math.round(survivalB),
+      aOperationDifficulty: a.operationDifficulty ?? 0,
+      bOperationDifficulty: b.operationDifficulty ?? 0,
+    },
   }
 }
 

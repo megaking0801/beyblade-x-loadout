@@ -140,44 +140,53 @@ function BuildEditor({ side, title, build, options, parts, availability, images,
 }
 
 function ComparisonResult({ comparison, prediction, practical }: { comparison: NonNullable<ReturnType<typeof compareCombos>>; prediction: MatchupPrediction; practical: PracticalComparison }) {
-  const outcome = prediction.outcome === 'a_advantage' ? 'A 較有利' : prediction.outcome === 'b_advantage' ? 'B 較有利' : prediction.outcome === 'even' ? '勝負難分' : '資料不足'
+  const outcome = prediction.outcome === 'a_advantage' ? '模型暫時傾向 A' : prediction.outcome === 'b_advantage' ? '模型暫時傾向 B' : prediction.outcome === 'even' ? '模型沒有足夠差距，避免盲選' : '資料不足'
   return <div className="stack">
-    <Section title="實戰證據結論"><div className="card stack" data-testid="practical-matchup">
+    <Section title="可驗證的實戰證據"><div className="card stack" data-testid="practical-matchup">
       <strong style={{ fontSize: 18 }}>{practical.titleZhTW}</strong>
       <div>{practical.noticeZhTW}</div>
       {practical.status === 'observed' ? <div><span className="code">A {practical.observedAWins} 勝</span>　vs　<span className="code">B {practical.observedBWins} 勝</span></div> : null}
-      <div className="meta">只有可辨識雙方完整配置、盤型／賽制與勝負的逐局影片，才會顯示為實戰 W–L；目前來源不會被冒充為勝率。</div>
+      <div className="meta">只有可辨識雙方完整配置、盤型／賽制與勝負的逐局影片，才會顯示為實戰 W–L。沒有時，下方會給「模型路線」，但不把它冒充成勝率。</div>
+    </div></Section>
+    <Section title="對戰統整：怎麼選" action={<EstimateBadge />}><div className="card stack" data-testid="matchup-conclusion">
+      <strong style={{ fontSize: 18 }}>{outcome}</strong>
+      {prediction.aModelProbability !== undefined ? <div><span className="code">模型傾向 A {prediction.aModelProbability}%</span>　vs　<span className="code">B {prediction.bModelProbability}%</span></div> : null}
+      <div>{prediction.conclusionZhTW}</div>
+      <div className="matchup-route-grid">
+        <div className="matchup-route"><strong>A 的贏法</strong><span>{prediction.aWinRouteZhTW}</span></div>
+        <div className="matchup-route"><strong>B 的贏法</strong><span>{prediction.bWinRouteZhTW}</span></div>
+      </div>
+      <div className="meta">這是把六軸合成「擊出」與「拖時間」兩條路線後的條件式建議；高度沒有固定加分，發射品質、盤型與零件個體差異仍會改變結果。</div>
     </div></Section>
     <Section title="賽場上位替代（實際選手配置）"><div className="card stack" data-testid="tournament-practice-evidence">
       <TournamentEvidence title="A" evidence={practical.tournamentA} />
       <TournamentEvidence title="B" evidence={practical.tournamentB} />
       <div className="meta">這裡只列前四名選手實際交出的配置。相同上蓋但固鎖／軸心不同時，會列為「替代」，不能當成目前配裝的成績或 A 對 B 勝率。</div>
     </div></Section>
-    <Section title="高度互動時間線"><div className="card stack" data-testid="height-timeline">
+    <Section title="高度／接觸位：可判讀範圍"><div className="card stack" data-testid="height-timeline">
       <div><strong>開局接觸：</strong>{practical.heightTimelineZhTW.opening}</div>
       <div><strong>對局中段：</strong>{practical.heightTimelineZhTW.midgame}</div>
       <div><strong>低轉速／後期：</strong>{practical.heightTimelineZhTW.endgame}</div>
     </div></Section>
-    <Section title="全零件實戰檔案"><div className="card stack" data-testid="part-practice-profiles">
+    <Section title="已選零件：可核對資料與限制"><div className="card stack" data-testid="part-practice-profiles">
       <PracticeProfiles title="A" profiles={practical.profilesA} />
       <PracticeProfiles title="B" profiles={practical.profilesB} />
     </div></Section>
-    <Section title="社群與影片來源"><div className="card stack" data-testid="practice-sources">
-      {practical.sources.map((source) => <details key={source.id}><summary>{source.nameZhTW}・{source.kindZhTW}・{source.independence === 'primary' ? '原始來源' : '彙整來源'}</summary><div className="stack" style={{ marginTop: 8 }}><div>{source.noteZhTW}</div><a href={source.sourceUrl} target="_blank" rel="noreferrer">{source.sourceUrl}</a><div className="meta">資料日期：{source.updatedAt}</div></div></details>)}
+    <Section title="影片與社群來源（可直接開啟）"><div className="card stack" data-testid="practice-sources">
+      {practical.sources.map((source) => <div key={source.id} className="source-record"><div><strong>{source.nameZhTW}</strong><span className="meta">・{source.kindZhTW}・{source.independence === 'primary' ? '原始來源' : '彙整來源'}・{source.updatedAt}</span></div><div>{source.noteZhTW}</div><a className="btn source-open" href={source.sourceUrl} target="_blank" rel="noreferrer">{source.linkLabelZhTW} ↗</a></div>)}
       {practical.expertEvidence.length > 0 ? <div className="meta">目前已選零件命中 {practical.expertEvidence.length} 筆高手 T 表來源；它們僅作社群觀察，不列為對局戰績。</div> : <div className="meta">已選零件尚未命中現有高手 T 表；不以其他零件的評級代替。</div>}
     </div></Section>
-    <Section title="補充模型（非實戰）" action={<EstimateBadge />}><details className="card" data-testid="matchup-prediction"><summary>展開查看模型推估（不作為實戰結論）</summary><div className="stack" style={{ marginTop: 10 }}>
-      <strong style={{ fontSize: 18 }}>{outcome}</strong>
-      {prediction.aModelProbability !== undefined ? <div><span className="code">A {prediction.aModelProbability}%</span>　vs　<span className="code">B {prediction.bModelProbability}%</span></div> : null}
+    <Section title="模型拆解（非實戰）" action={<EstimateBadge />}><div className="card stack" data-testid="matchup-prediction">
       <div>{prediction.noticeZhTW}</div>
       {prediction.reasonsZhTW.length > 0 ? <ul style={{ margin: 0, paddingLeft: 18 }}>{prediction.reasonsZhTW.map((reason) => <li key={reason}>{reason}</li>)}</ul> : null}
-      <div className="meta">這是依零件特性建立的模型推估，不是實戰勝率保證。</div>
-    </div></details></Section>
-    <Section title="換掉的零件／差異"><div className="card stack">
-      <div style={{ fontSize: 13, fontWeight: 700, color: comparison.changedSlots.length === 1 ? 'var(--ok)' : 'var(--ink-dim)' }}>{comparison.changedSlots.length === 1 ? '只有一個零件不同' : `共有 ${comparison.changedSlots.length} 個零件不同`}</div>
-      {comparison.changedSlots.length > 0 ? comparison.changedSlots.map((slot) => <div key={slot.slotZhTW} style={{ fontSize: 13, color: 'var(--ink-dim)' }}>{slot.slotZhTW} <span className="code">{slot.fromZhTW}</span> → <span className="code">{slot.toZhTW}</span></div>) : <div className="meta">兩邊使用相同零件；可改其中一個零件，查看賽場替代與模型差異。</div>}
+      {prediction.modelBreakdown ? <div className="model-breakdown"><div><span>擊出壓力</span><strong>A {prediction.modelBreakdown.aKoPressure}／B {prediction.modelBreakdown.bKoPressure}</strong><small>攻擊 × 0.6 + 爆發 × 0.4</small></div><div><span>拖時間能力</span><strong>A {prediction.modelBreakdown.aSurvival}／B {prediction.modelBreakdown.bSurvival}</strong><small>持久為主，加入穩定／防守／抗爆並扣除對手擊出</small></div><div><span>操作難度</span><strong>A {prediction.modelBreakdown.aOperationDifficulty}／B {prediction.modelBreakdown.bOperationDifficulty}</strong><small>數值較低較容易；只影響操作門檻，不直接計入勝率</small></div></div> : null}
+      <div className="meta">公式的目的不是偽造精準勝率，而是避免六軸各自「A 贏一點、B 贏一點」後沒有結論。高度、賽事名次與 T 表均不會被混進公式。</div>
     </div></Section>
-    <Section title="六軸與資料比較" action={<EstimateBadge />}><div className="card stack"><p style={{ margin: 0 }}>{comparison.summaryZhTW}</p><div style={{ overflowX: 'auto' }}><table className="compare-table"><thead><tr><th>指標</th><th>A</th><th>B</th><th>差異</th></tr></thead><tbody>
+    <Section title="關鍵變因：這些差異會改什麼"><div className="card stack">
+      <div className="meta">這不是單純列出不同零件，而是告訴你下一步該優先測哪一個變因；仍要搭配上方的賽場替代與影片。</div>
+      {comparison.changedSlots.length > 0 ? comparison.changedSlots.map((slot) => <DifferenceRecord key={slot.slotZhTW} slot={slot} />) : <div className="meta">兩邊使用相同零件；若要測試差異，請一次只換一個零件，才能判讀替換效果。</div>}
+    </div></Section>
+    <Section title="六軸原始資料（不單獨決定勝負）" action={<EstimateBadge />}><div className="card stack"><p style={{ margin: 0 }}>{comparison.summaryZhTW}</p><div style={{ overflowX: 'auto' }}><table className="compare-table"><thead><tr><th>指標</th><th>A</th><th>B</th><th>差異</th></tr></thead><tbody>
       {comparison.rows.map((row) => {
         const axisColor = AXIS_COLOR[row.labelZhTW]
         const winStyle = axisColor ? ({ ['--win-color' as string]: axisColor } as CSSProperties) : undefined
@@ -186,6 +195,17 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
       })}
     </tbody></table></div></div></Section>
   </div>
+}
+
+function DifferenceRecord({ slot }: { slot: NonNullable<ReturnType<typeof compareCombos>>['changedSlots'][number] }) {
+  const purpose = slot.slotZhTW === '上蓋' || slot.slotZhTW === '主刃'
+    ? '優先驗證接觸面與擊出路線：這是最可能改變開局碰撞的變因。'
+    : slot.slotZhTW === '固鎖'
+      ? '優先驗證凸點暴露與接觸高度：不要只看高度碼，需在同一上蓋／軸心下對打。'
+      : slot.slotZhTW === '軸心'
+        ? '優先驗證開局軌跡與低轉速姿態：請固定發射方式與盤型，避免把操作差異誤認成零件差異。'
+        : '這是結構上的可變因；應固定其餘零件與盤型後，再用影片驗證影響。'
+  return <div className="difference-record"><div><strong>{slot.slotZhTW}</strong> <span className="code">{slot.fromZhTW}</span> → <span className="code">{slot.toZhTW}</span></div><div className="meta">{purpose}</div></div>
 }
 
 function TournamentEvidence({ title, evidence }: { title: string; evidence: PracticalComparison['tournamentA'] }) {

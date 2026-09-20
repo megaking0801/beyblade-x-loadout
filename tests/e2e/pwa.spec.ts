@@ -553,7 +553,7 @@ test('配裝比較選兩套之後出現比較表', async ({ page }) => {
   for (const label of ['攻擊', '防守', '持久', '穩定', '操作難度']) {
     await expect(page.getByRole('cell', { name: label, exact: true })).toBeVisible()
   }
-  await expect(page.getByText('換掉的零件')).toBeVisible()
+  await expect(page.getByText('關鍵變因：這些差異會改什麼')).toBeVisible()
 })
 
 test('前台任何一頁都不得再提到重量', async ({ page }) => {
