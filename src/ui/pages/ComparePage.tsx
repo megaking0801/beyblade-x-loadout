@@ -181,7 +181,8 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
       {comparison.rows.map((row) => {
         const axisColor = AXIS_COLOR[row.labelZhTW]
         const winStyle = axisColor ? ({ ['--win-color' as string]: axisColor } as CSSProperties) : undefined
-        return <tr key={row.labelZhTW}><td>{row.labelZhTW}</td><td className={row.better === 'a' ? 'win' : undefined} style={row.better === 'a' ? winStyle : undefined}>{row.aValue}{row.better === 'a' ? ' ↑' : ''}</td><td className={row.better === 'b' ? 'win' : undefined} style={row.better === 'b' ? winStyle : undefined}>{row.bValue}{row.better === 'b' ? ' ↑' : ''}</td><td className="delta">{row.deltaZhTW}</td></tr>
+        const winnerLabel = row.labelZhTW === '操作難度' ? ' 較易' : ' ↑'
+        return <tr key={row.labelZhTW}><td>{row.labelZhTW}</td><td className={row.better === 'a' ? 'win' : undefined} style={row.better === 'a' ? winStyle : undefined}>{row.aValue}{row.better === 'a' ? winnerLabel : ''}</td><td className={row.better === 'b' ? 'win' : undefined} style={row.better === 'b' ? winStyle : undefined}>{row.bValue}{row.better === 'b' ? winnerLabel : ''}</td><td className="delta">{row.deltaZhTW}</td></tr>
       })}
     </tbody></table></div></div></Section>
   </div>

@@ -171,3 +171,9 @@
 - 已從 `compareCombos()` 的數字表移除「高度」列及舊 `heightMatchupZhTW`；前台標題改為「六軸與資料比較」。高度只保留 `practice.ts` 的完整 A/B 高度互動時間線，整合式結構會明說沒有獨立固鎖高度碼、不可與 60／70／80 作假數字比較。
 - 同時移除了 `estimateOperationDifficulty()` 依 60／75 高度碼固定加減的隱性規則，和配裝協同文字中「低位不容易被打飛／高位較穩」的靜態斷言。現在只顯示原始高度碼，並說明需配合對手、盤型與實戰判讀。
 - 驗證：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 438 tests）、`npm.cmd run build`、Playwright 桌機寬度 44/44。接著直接 commit、push、deploy。
+
+### 2026-09-20 Compare 操作難度箭頭修正（待 commit／push／deploy）
+
+- 使用者接著指出「操作難度 65 ↑」的箭頭語意也錯：操作難度是數字越低越容易，沿用其他欄位的上箭頭會暗示高分較好。
+- `ComparePage` 現在在勝出的操作難度格顯示「較易」，其他高分較優的模型欄才保留 `↑`。
+- 驗證：typecheck、438 tests、build、Playwright 桌機 44/44；依既有授權直接發布。
