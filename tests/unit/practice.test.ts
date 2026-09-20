@@ -34,7 +34,7 @@ describe('實戰比較資料層', () => {
     expect(result.profilesA.map((profile) => profile.partId)).toEqual(['blade-a', 'ratchet-60', 'bit-f'])
     expect(result.profilesB.map((profile) => profile.partId)).toEqual(['blade-b', 'ratchet-80', 'bit-b'])
     expect(result.status).toBe('insufficient')
-    expect(result.noticeZhTW).toContain('不會被誤算')
+    expect(result.noticeZhTW).toContain('不會被換算成勝率')
   })
 
   it('相近高度不把低方直接寫成剋制，高度相同也保持中立', () => {
@@ -101,12 +101,13 @@ describe('實戰比較資料層', () => {
   it('只有五局與兩個獨立原始來源才升級為實戰 W–L，反向記錄也會正確換算', () => {
     const a = { bladeId: 'blade-a', ratchetId: 'ratchet-60', bitId: 'bit-f' }
     const b = { bladeId: 'blade-b', ratchetId: 'ratchet-80', bitId: 'bit-b' }
+    const base = { source: 'public_video' as const, evidenceLevel: 'reviewed' as const, createdAt: '2026-01-03T00:00:00Z', format: 'Standard 3on3', stadium: 'X Stadium' }
     const observations = [
-      { id: '1', a, b, winner: 'a' as const, finish: 'xtreme' as const, sourceId: 'video-1', sourceUrl: 'https://example.test/1', timestampSeconds: 10, recordedAt: '2026-01-01', format: 'Standard 3on3', stadium: 'X Stadium' },
-      { id: '2', a, b, winner: 'b' as const, finish: 'spin' as const, sourceId: 'video-1', sourceUrl: 'https://example.test/1', timestampSeconds: 20, recordedAt: '2026-01-01', format: 'Standard 3on3', stadium: 'X Stadium' },
-      { id: '3', a, b, winner: 'a' as const, finish: 'over' as const, sourceId: 'video-2', sourceUrl: 'https://example.test/2', timestampSeconds: 30, recordedAt: '2026-01-02', format: 'Standard 3on3', stadium: 'X Stadium' },
-      { id: '4', a: b, b: a, winner: 'b' as const, finish: 'burst' as const, sourceId: 'video-2', sourceUrl: 'https://example.test/2', timestampSeconds: 40, recordedAt: '2026-01-02', format: 'Standard 3on3', stadium: 'X Stadium' },
-      { id: '5', a, b, winner: 'a' as const, finish: 'spin' as const, sourceId: 'video-2', sourceUrl: 'https://example.test/2', timestampSeconds: 50, recordedAt: '2026-01-02', format: 'Standard 3on3', stadium: 'X Stadium' },
+      { ...base, id: '1', a, b, result: 'a' as const, finish: 'xtreme' as const, sourceUrl: 'https://example.test/1', timestampSeconds: 10, playedAt: '2026-01-01' },
+      { ...base, id: '2', a, b, result: 'b' as const, finish: 'spin' as const, sourceUrl: 'https://example.test/1', timestampSeconds: 20, playedAt: '2026-01-01' },
+      { ...base, id: '3', a, b, result: 'a' as const, finish: 'over' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 30, playedAt: '2026-01-02' },
+      { ...base, id: '4', a: b, b: a, result: 'b' as const, finish: 'burst' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 40, playedAt: '2026-01-02' },
+      { ...base, id: '5', a, b, result: 'a' as const, finish: 'spin' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 50, playedAt: '2026-01-02' },
     ]
     const result = buildPracticalComparison({ a, b, parts: standardParts, observations })
     expect(result.status).toBe('observed')
@@ -114,5 +115,6 @@ describe('實戰比較資料層', () => {
     expect(result.observedSourceCount).toBe(2)
     expect(result.observedAWins).toBe(4)
     expect(result.observedBWins).toBe(1)
+    expect(result.titleZhTW).toBe('樣本不足，暫不預測')
   })
 })

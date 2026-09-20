@@ -6,35 +6,15 @@
  * 完整對局時，清楚地回報「待驗證」。
  */
 import { getExpertPartRatings, getExpertTierMatches } from '../catalog/tierLists.ts'
+import { summarizeBattlePair } from './battleRecords.ts'
 import { getSlotSchemaForSlots } from './compatibility.ts'
 import { resolveDisplayName } from './naming.ts'
-import type { ComboSlots, Part, TournamentEvent, TournamentObservation } from './types.ts'
+import type { BattleRoundRecord, ComboSlots, Part, TournamentEvent, TournamentObservation } from './types.ts'
 
 export type PracticeVerdictStatus = 'observed' | 'pending' | 'insufficient'
 
-/**
- * 人工逐局紀錄的最小欄位。來源必須能回看雙方完整配置與結果；沒有這些欄位的
- * 開箱、T 表、賽事名次都不允許寫進來。
- */
-export interface MatchupObservation {
-  id: string
-  a: ComboSlots
-  b: ComboSlots
-  winner: 'a' | 'b'
-  finish: 'xtreme' | 'over' | 'burst' | 'spin'
-  sourceId: string
-  sourceUrl: string
-  timestampSeconds: number
-  recordedAt: string
-  format: string
-  stadium: string
-}
-
-/**
- * 目前研究到的影片多為配裝／實測介紹，尚不能可靠辨識每一局雙方完整配置，
- * 所以刻意留空。寧可顯示 0 筆，也不把賽事名次或影片標題偽造成交手紀錄。
- */
-export const matchupObservations: readonly MatchupObservation[] = []
+/** 人工審核後才可隨版本發布的逐局資料；目前刻意留空。 */
+export const reviewedBattleRounds: readonly BattleRoundRecord[] = []
 
 export interface PracticeSource {
   id: string
@@ -95,6 +75,11 @@ export interface PracticalComparison {
   observedSourceCount: number
   observedAWins: number
   observedBWins: number
+  observedTies: number
+  invalidRounds: number
+  localRounds: number
+  videoAttachedRounds: number
+  reviewedRounds: number
 }
 
 /** 可直接回查的台灣優先來源；彙整站只作索引，不能增加獨立樣本數。 */
@@ -257,17 +242,6 @@ function heightTimeline(a: ComboSlots, b: ComboSlots, parts: Part[]): PracticalC
   }
 }
 
-function sameSlots(a: ComboSlots, b: ComboSlots): boolean {
-  const keys = new Set([...Object.keys(a), ...Object.keys(b)])
-  return [...keys].every((key) => a[key as keyof ComboSlots] === b[key as keyof ComboSlots])
-}
-
-function observedFor(a: ComboSlots, b: ComboSlots, observations: readonly MatchupObservation[]): MatchupObservation[] {
-  return observations.filter((row) =>
-    (sameSlots(row.a, a) && sameSlots(row.b, b)) || (sameSlots(row.a, b) && sameSlots(row.b, a)),
-  )
-}
-
 function definedEntries(slots: ComboSlots): [string, string][] {
   return Object.entries(slots).filter((entry): entry is [string, string] => typeof entry[1] === 'string' && entry[1].length > 0)
 }
@@ -338,7 +312,7 @@ export function buildPracticalComparison(args: {
   a: ComboSlots
   b: ComboSlots
   parts: Part[]
-  observations?: readonly MatchupObservation[]
+  observations?: readonly BattleRoundRecord[]
   tournamentEvents?: readonly TournamentEvent[]
   tournamentObservations?: readonly TournamentObservation[]
 }): PracticalComparison {
@@ -353,21 +327,18 @@ export function buildPracticalComparison(args: {
   }
   const profilesA = selectedParts(args.a, args.parts).map((part) => profileFor(part, ratingsByPartId, tierSourcesByPartId))
   const profilesB = selectedParts(args.b, args.parts).map((part) => profileFor(part, ratingsByPartId, tierSourcesByPartId))
-  const observed = observedFor(args.a, args.b, args.observations ?? matchupObservations)
-  const observedSourceCount = new Set(observed.map((row) => row.sourceId)).size
-  const observedAWins = observed.filter((row) => {
-    const directOrder = sameSlots(row.a, args.a)
-    return directOrder ? row.winner === 'a' : row.winner === 'b'
-  }).length
-  const observedBWins = observed.length - observedAWins
-  const enoughObserved = observed.length >= 5 && observedSourceCount >= 2
+  const observed = summarizeBattlePair(args.observations ?? reviewedBattleRounds, args.a, args.b)
+  const reviewedSourceCount = new Set(observed.records
+    .filter((row) => row.evidenceLevel === 'reviewed' && row.sourceUrl)
+    .map((row) => row.sourceUrl!)).size
+  const enoughReviewed = observed.reviewedRounds >= 5 && reviewedSourceCount >= 2
   const tournamentArgs = { events: args.tournamentEvents ?? [], observations: args.tournamentObservations ?? [] }
   return {
-    status: enoughObserved ? 'observed' : observed.length > 0 ? 'pending' : 'insufficient',
-    titleZhTW: enoughObserved ? '已取得足夠完整對局，顯示實戰傾向' : '尚無足夠完整對局，不能宣稱實戰勝率',
-    noticeZhTW: enoughObserved
-      ? `已取得 ${observed.length} 局、${observedSourceCount} 個獨立原始來源；仍請展開來源確認賽制與盤型。`
-      : `已列出全部已選零件的實戰檔案與社群來源。目前僅有 ${observed.length} 局、${observedSourceCount} 個獨立原始來源；現有賽事名次及 T 表不會被誤算成 A 對 B 的勝負。`,
+    status: enoughReviewed ? 'observed' : observed.records.length > 0 ? 'pending' : 'insufficient',
+    titleZhTW: '樣本不足，暫不預測',
+    noticeZhTW: enoughReviewed
+      ? `已有 ${observed.reviewedRounds} 局人工審核事實與 ${reviewedSourceCount} 個原始影片來源；預測模型尚未完成跨來源驗證，因此仍不顯示勝率。`
+      : `目前符合此完整 A/B 的紀錄共 ${observed.records.length} 局，其中人工審核 ${observed.reviewedRounds} 局；賽事名次、T 表與本機未驗證紀錄都不會被換算成勝率。`,
     heightTimelineZhTW: heightTimeline(args.a, args.b, args.parts),
     profilesA,
     profilesB,
@@ -375,9 +346,14 @@ export function buildPracticalComparison(args: {
     tournamentB: tournamentEvidenceFor({ slots: args.b, ...tournamentArgs }),
     expertEvidence,
     sources: practiceSources,
-    observedRounds: observed.length,
-    observedSourceCount,
-    observedAWins,
-    observedBWins,
+    observedRounds: observed.validRounds,
+    observedSourceCount: reviewedSourceCount,
+    observedAWins: observed.aWins,
+    observedBWins: observed.bWins,
+    observedTies: observed.ties,
+    invalidRounds: observed.invalidRounds,
+    localRounds: observed.localRounds,
+    videoAttachedRounds: observed.videoAttachedRounds,
+    reviewedRounds: observed.reviewedRounds,
   }
 }

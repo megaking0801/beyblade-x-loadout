@@ -455,6 +455,49 @@ describe('我的零件標記（第 10 節）', () => {
   })
 })
 
+describe('逐局實戰紀錄', () => {
+  beforeEach(async () => {
+    await repo.loadCatalog(catalog)
+  })
+
+  it('會保存完整 A/B、結果與證據等級，Catalog 更新不會清除', async () => {
+    await repo.saveBattleRound({
+      a: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
+      b: { bladeId: 'test-blade-b', ratchetId: 'test-ratchet-b', bitId: 'test-bit-b' },
+      result: 'a',
+      finish: 'xtreme',
+      stadium: 'Xtreme Stadium',
+      format: '單顆對戰',
+      playedAt: '2026-09-21',
+      source: 'player_test',
+    })
+    expect(await repo.listBattleRounds()).toEqual([
+      expect.objectContaining({ result: 'a', evidenceLevel: 'local', playedAt: '2026-09-21' }),
+    ])
+
+    await repo.loadCatalog({ ...catalog, version: 'test-2' })
+    expect(await repo.listBattleRounds()).toHaveLength(1)
+  })
+
+  it('附影片仍標為未審核，且可刪除', async () => {
+    const id = await repo.saveBattleRound({
+      a: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
+      b: { bladeId: 'test-blade-b', ratchetId: 'test-ratchet-b', bitId: 'test-bit-b' },
+      result: 'b',
+      finish: 'spin',
+      stadium: 'Xtreme Stadium',
+      format: '單顆對戰',
+      playedAt: '2026-09-21',
+      source: 'public_video',
+      sourceUrl: 'https://example.test/video',
+      timestampSeconds: 42,
+    })
+    expect((await repo.listBattleRounds())[0]?.evidenceLevel).toBe('video_attached')
+    await repo.deleteBattleRound(id)
+    expect(await repo.listBattleRounds()).toEqual([])
+  })
+})
+
 describe('匯出與匯入（第 37 節）', () => {
   beforeEach(async () => {
     await repo.loadCatalog(catalog)
@@ -466,6 +509,7 @@ describe('匯出與匯入（第 37 節）', () => {
     expect(Object.keys(backup).sort()).toEqual(
       [
         'catalogVersion',
+        'battleRounds',
         'decks',
         'inventoryLots',
         'ownedProducts',

@@ -15,7 +15,7 @@ const BX01 = { blade: 'blade:ドランソード', ratchet: 'ratchet:3-60', bit: 
 async function openApp(page: Page, hash = '/'): Promise<void> {
   await page.goto(`/#${hash}`)
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
-  await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
+  await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 20_000 })
   // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
   // 否則可能在 React 還掛著上一頁時就去點元素，事件會打到已被卸載的節點。
   // data-route 只放路徑，帶查詢字串的網址要先去掉 ? 後面那段才比對得到。
@@ -262,7 +262,7 @@ test('配裝器可一鍵清除零件，但保留目前模式與結構', async ({
   await expect(page.getByRole('button', { name: '三件式（BX／UX）' })).toHaveClass(/btn-primary/)
 })
 
-test('完成 A 後可直接到比較頁配 B，顯示高度對位與模型預測', async ({ page }) => {
+test('完成 A 後可直接到比較頁配 B；資料不足時拒絕預測並可記錄逐局', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
   await pickSlot(page, 'bladeId', BX01.blade)
@@ -274,14 +274,15 @@ test('完成 A 後可直接到比較頁配 B，顯示高度對位與模型預測
   await pickSlot(page, 'ratchetId', BX01.ratchet, 'b')
   await pickSlot(page, 'bitId', BX01.bit, 'b')
   await expect(page.getByTestId('matchup-prediction')).toBeVisible()
-  await expect(page.getByTestId('matchup-prediction')).toContainText('勝負難分')
-  await expect(page.getByTestId('practical-matchup')).toContainText('尚無足夠完整對局')
-  await expect(page.getByTestId('height-timeline')).toContainText('同高度')
+  await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
+  await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
+  await expect(page.getByTestId('practical-matchup')).toContainText('目前沒有完整命中')
   await expect(page.getByTestId('tournament-practice-evidence')).toBeVisible()
-  await expect(page.getByTestId('part-practice-profiles')).toContainText('A 的已選零件')
-  await expect(page.getByTestId('practice-sources')).toContainText('Namaste 阿土')
-  await expect(page.getByRole('cell', { name: '爆發', exact: true })).toBeVisible()
-  await expect(page.getByRole('cell', { name: '抗爆', exact: true })).toBeVisible()
+  await expect(page.getByTestId('practice-sources')).toContainText('沒有附影片')
+  await expect(page.getByTestId('battle-round-form')).toBeVisible()
+  await page.getByTestId('battle-round-form').getByRole('button', { name: '儲存這一局' }).click()
+  await expect(page.getByTestId('practical-matchup')).toContainText('A 勝 1')
+  await expect(page.getByRole('button', { name: '匯出匿名逐局 JSON' })).toBeEnabled()
 })
 
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {

@@ -23,7 +23,7 @@ const ROUTES = [
 async function openApp(page: Page, hash = '/'): Promise<void> {
   await page.goto(`/#${hash}`)
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
-  await expect(page.getByText('資料載入中…')).toHaveCount(0, { timeout: 20_000 })
+  await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 20_000 })
   // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
   // 否則可能在 React 還掛著上一頁時就去點元素，事件會打到已被卸載的節點。
   // data-route 只放路徑，帶查詢字串的網址要先去掉 ? 後面那段才比對得到。
@@ -522,9 +522,9 @@ test('零件詳情把未完整映射牌組標示為來源觀測', async ({ page 
 
 /**
  * 配裝比較的實際流程（第 34 節）。
- * 這頁版面重排過，順手守住「選兩套就會出現比較表」這條主線。
+ * 舊六軸比較已停用；守住「選兩套後拒絕假預測，並能開始記錄逐局」這條主線。
  */
-test('配裝比較選兩套之後出現比較表', async ({ page }) => {
+test('配裝比較選兩套之後拒絕假預測並可記錄逐局', async ({ page }) => {
   for (const sku of ['BX-01', 'BX-02']) {
     await openApp(page, '/products')
     await page.getByTestId('tab-catalog').click()
@@ -549,11 +549,9 @@ test('配裝比較選兩套之後出現比較表', async ({ page }) => {
   await page.getByLabel('配裝 B').selectOption(values[1]!)
 
   await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
-  // 第 34 節要求的八個比較項目
-  for (const label of ['攻擊', '防守', '持久', '穩定', '操作難度']) {
-    await expect(page.getByRole('cell', { name: label, exact: true })).toBeVisible()
-  }
-  await expect(page.getByText('關鍵變因：這些差異會改什麼')).toBeVisible()
+  await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
+  await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
+  await expect(page.getByTestId('battle-round-form')).toBeVisible()
 })
 
 test('前台任何一頁都不得再提到重量', async ({ page }) => {
