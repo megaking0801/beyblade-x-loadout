@@ -42,8 +42,6 @@ describe('配裝 A/B 比較（第 34 節）', () => {
       '抗爆',
       '穩定',
       '操作難度',
-      '賽事證據',
-      '資料可信度',
     ])
   })
 
@@ -109,14 +107,6 @@ describe('配裝 A/B 比較（第 34 節）', () => {
   it('數值相同時判為平手', () => {
     const r = compareCombos({ a, b: analyze(r60.id, bitF.id), parts })
     expect(r.rows.every((row) => row.better === 'same')).toBe(true)
-  })
-
-  it('沒有賽事資料時兩邊都顯示為 0 場並判平手', () => {
-    const r = compareCombos({ a, b, parts })
-    const row = r.rows.find((x) => x.labelZhTW === '賽事證據')!
-    expect(row.aValue).toBe(0)
-    expect(row.bValue).toBe(0)
-    expect(row.better).toBe('same')
   })
 
   it('比較結果附帶白話總結，供新手模式顯示（第 38 節）', () => {

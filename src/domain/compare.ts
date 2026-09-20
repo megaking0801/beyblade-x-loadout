@@ -6,7 +6,7 @@
 import { getSlotSchema } from './compatibility.ts'
 import { resolveDisplayName } from './naming.ts'
 import type { ComboAnalysis } from './analysis.ts'
-import { CONFIDENCE_ZH, type ComboSlots, type Confidence, type Part } from './types.ts'
+import type { ComboSlots, Part } from './types.ts'
 
 export type ComparisonWinner = 'a' | 'b' | 'same'
 
@@ -64,8 +64,6 @@ export interface CompareArgs {
   parts: Part[]
 }
 
-const CONFIDENCE_RANK: Record<Confidence, number> = { low: 0, medium: 1, high: 2 }
-
 type Direction = 'higher' | 'lower' | 'none'
 
 function numericRow(
@@ -104,13 +102,6 @@ export function compareCombos(args: CompareArgs): ComboComparison {
       b.analysis.operationDifficulty ?? 0,
       'lower',
     ),
-    numericRow(
-      '賽事證據',
-      a.analysis.evidence?.appearances ?? 0,
-      b.analysis.evidence?.appearances ?? 0,
-      'higher',
-    ),
-    confidenceRow(a.analysis.confidence, b.analysis.confidence),
   ]
 
   const changedSlots = diffSlots(a, b, parts)
@@ -175,18 +166,6 @@ export function predictMatchup(a: ComboAnalysis, b: ComboAnalysis): MatchupPredi
       outcome === 'even'
         ? '兩條對戰路線互有優勢，模型判為勝負難分。這不是實戰勝率。'
         : `${winner} 的整體對戰路線較佔優；此為標準 X 對戰盤、同等熟練度與正常發射下的模型推估，不是真實勝率。`,
-  }
-}
-
-function confidenceRow(a: Confidence, b: Confidence): ComparisonRow {
-  const rankA = CONFIDENCE_RANK[a]
-  const rankB = CONFIDENCE_RANK[b]
-  return {
-    labelZhTW: '資料可信度',
-    aValue: CONFIDENCE_ZH[a],
-    bValue: CONFIDENCE_ZH[b],
-    deltaZhTW: a === b ? '相同' : `A ${CONFIDENCE_ZH[a]} / B ${CONFIDENCE_ZH[b]}`,
-    better: rankA === rankB ? 'same' : rankA > rankB ? 'a' : 'b',
   }
 }
 

@@ -550,7 +550,7 @@ test('配裝比較選兩套之後出現比較表', async ({ page }) => {
 
   await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
   // 第 34 節要求的八個比較項目
-  for (const label of ['攻擊', '防守', '持久', '穩定', '操作難度', '賽事證據', '資料可信度']) {
+  for (const label of ['攻擊', '防守', '持久', '穩定', '操作難度']) {
     await expect(page.getByRole('cell', { name: label, exact: true })).toBeVisible()
   }
   await expect(page.getByText('換掉的零件')).toBeVisible()
