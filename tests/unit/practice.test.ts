@@ -55,6 +55,24 @@ describe('實戰比較資料層', () => {
     expect(equal.heightTimelineZhTW.opening).toContain('不因高度偏向')
   })
 
+  it('一體式上蓋不是高度資料缺漏，並分開列出同上蓋的實戰替代', () => {
+    const integrated = part({ id: 'bullet', family: 'integrated_blade', integratedRatchet: true, type: 'balance' })
+    const result = buildPracticalComparison({
+      a: { bladeId: 'blade-a', ratchetId: 'ratchet-60', bitId: 'bit-f' },
+      b: { bladeId: 'bullet', bitId: 'bit-b' },
+      parts: [...standardParts, integrated],
+      tournamentEvents: [{ id: 'event', name: '測試賽', date: '2026-05-24', participantCount: 64, sourceTier: 'verified_community', sourceUrl: 'https://example.test/event' }],
+      tournamentObservations: [
+        { id: 'exact-b', eventId: 'event', placement: 1, slots: { bladeId: 'bullet', bitId: 'bit-b' }, reportedCombo: '整合上蓋 B', sourceUrl: 'https://example.test/exact' },
+        { id: 'alternative-b', eventId: 'event', placement: 2, slots: { bladeId: 'bullet', bitId: 'bit-f' }, reportedCombo: '整合上蓋 F', sourceUrl: 'https://example.test/alt' },
+      ],
+    })
+    expect(result.heightTimelineZhTW.opening).toContain('一體式結構')
+    expect(result.heightTimelineZhTW.opening).not.toContain('資料不足')
+    expect(result.tournamentB.exact.map((row) => row.reportedCombo)).toEqual(['整合上蓋 B'])
+    expect(result.tournamentB.sameBladeAlternatives.map((row) => row.reportedCombo)).toEqual(['整合上蓋 F'])
+  })
+
   it('CX 的每個已選結構件都保留在實戰檔案中', () => {
     const cxParts = [
       part({ id: 'chip', family: 'lock_chip', system: 'CX' }),

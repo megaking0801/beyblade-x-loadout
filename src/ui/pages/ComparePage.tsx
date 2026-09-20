@@ -27,6 +27,8 @@ export function ComparePage() {
   const combos = useAppStore((state) => state.combos)
   const availability = useAppStore((state) => state.availability)
   const images = useAppStore((state) => state.images)
+  const tournamentEvents = useAppStore((state) => state.tournamentEvents)
+  const tournamentObservations = useAppStore((state) => state.tournamentObservations)
   const [aBuild, setABuild] = useState<BuildState>(EMPTY_BUILD)
   const [bBuild, setBBuild] = useState<BuildState>(EMPTY_BUILD)
 
@@ -80,8 +82,14 @@ export function ComparePage() {
   const comparison = useMemo(() => aComplete && bComplete ? compareCombos({ a: { slots: aBuild.slots, analysis: aAnalysis }, b: { slots: bBuild.slots, analysis: bAnalysis }, parts }) : null, [aAnalysis, aBuild.slots, aComplete, bAnalysis, bBuild.slots, bComplete, parts])
   const prediction = useMemo(() => aComplete && bComplete ? predictMatchup(aAnalysis, bAnalysis) : null, [aAnalysis, aComplete, bAnalysis, bComplete])
   const practical = useMemo(
-    () => aComplete && bComplete ? buildPracticalComparison({ a: aBuild.slots, b: bBuild.slots, parts }) : null,
-    [aBuild.slots, aComplete, bBuild.slots, bComplete, parts],
+    () => aComplete && bComplete ? buildPracticalComparison({
+      a: aBuild.slots,
+      b: bBuild.slots,
+      parts,
+      tournamentEvents,
+      tournamentObservations,
+    }) : null,
+    [aBuild.slots, aComplete, bBuild.slots, bComplete, parts, tournamentEvents, tournamentObservations],
   )
 
   return <>
@@ -140,6 +148,11 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
       {practical.status === 'observed' ? <div><span className="code">A {practical.observedAWins} 勝</span>　vs　<span className="code">B {practical.observedBWins} 勝</span></div> : null}
       <div className="meta">只有可辨識雙方完整配置、盤型／賽制與勝負的逐局影片，才會顯示為實戰 W–L；目前來源不會被冒充為勝率。</div>
     </div></Section>
+    <Section title="賽場上位替代（實際選手配置）"><div className="card stack" data-testid="tournament-practice-evidence">
+      <TournamentEvidence title="A" evidence={practical.tournamentA} />
+      <TournamentEvidence title="B" evidence={practical.tournamentB} />
+      <div className="meta">這裡只列前四名選手實際交出的配置。相同上蓋但固鎖／軸心不同時，會列為「替代」，不能當成目前配裝的成績或 A 對 B 勝率。</div>
+    </div></Section>
     <Section title="高度互動時間線"><div className="card stack" data-testid="height-timeline">
       <div><strong>開局接觸：</strong>{practical.heightTimelineZhTW.opening}</div>
       <div><strong>對局中段：</strong>{practical.heightTimelineZhTW.midgame}</div>
@@ -153,18 +166,17 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
       {practical.sources.map((source) => <details key={source.id}><summary>{source.nameZhTW}・{source.kindZhTW}・{source.independence === 'primary' ? '原始來源' : '彙整來源'}</summary><div className="stack" style={{ marginTop: 8 }}><div>{source.noteZhTW}</div><a href={source.sourceUrl} target="_blank" rel="noreferrer">{source.sourceUrl}</a><div className="meta">資料日期：{source.updatedAt}</div></div></details>)}
       {practical.expertEvidence.length > 0 ? <div className="meta">目前已選零件命中 {practical.expertEvidence.length} 筆高手 T 表來源；它們僅作社群觀察，不列為對局戰績。</div> : <div className="meta">已選零件尚未命中現有高手 T 表；不以其他零件的評級代替。</div>}
     </div></Section>
-    <Section title="對打推估" action={<EstimateBadge />}><div className="card stack" data-testid="matchup-prediction">
+    <Section title="補充模型（非實戰）" action={<EstimateBadge />}><details className="card" data-testid="matchup-prediction"><summary>展開查看模型推估（不作為實戰結論）</summary><div className="stack" style={{ marginTop: 10 }}>
       <strong style={{ fontSize: 18 }}>{outcome}</strong>
       {prediction.aModelProbability !== undefined ? <div><span className="code">A {prediction.aModelProbability}%</span>　vs　<span className="code">B {prediction.bModelProbability}%</span></div> : null}
       <div>{prediction.noticeZhTW}</div>
       {prediction.reasonsZhTW.length > 0 ? <ul style={{ margin: 0, paddingLeft: 18 }}>{prediction.reasonsZhTW.map((reason) => <li key={reason}>{reason}</li>)}</ul> : null}
       <div className="meta">這是依零件特性建立的模型推估，不是實戰勝率保證。</div>
-    </div></Section>
-    <Section title="高度互動"><div className="card" data-testid="height-matchup">{comparison.heightMatchupZhTW}</div></Section>
-    {comparison.changedSlots.length > 0 ? <Section title="零件差異"><div className="card stack">
+    </div></details></Section>
+    <Section title="換掉的零件／差異"><div className="card stack">
       <div style={{ fontSize: 13, fontWeight: 700, color: comparison.changedSlots.length === 1 ? 'var(--ok)' : 'var(--ink-dim)' }}>{comparison.changedSlots.length === 1 ? '只有一個零件不同' : `共有 ${comparison.changedSlots.length} 個零件不同`}</div>
-      {comparison.changedSlots.map((slot) => <div key={slot.slotZhTW} style={{ fontSize: 13, color: 'var(--ink-dim)' }}>{slot.slotZhTW} <span className="code">{slot.fromZhTW}</span> → <span className="code">{slot.toZhTW}</span></div>)}
-    </div></Section> : null}
+      {comparison.changedSlots.length > 0 ? comparison.changedSlots.map((slot) => <div key={slot.slotZhTW} style={{ fontSize: 13, color: 'var(--ink-dim)' }}>{slot.slotZhTW} <span className="code">{slot.fromZhTW}</span> → <span className="code">{slot.toZhTW}</span></div>) : <div className="meta">兩邊使用相同零件；可改其中一個零件，查看賽場替代與模型差異。</div>}
+    </div></Section>
     <Section title="六軸與高度比較" action={<EstimateBadge />}><div className="card stack"><p style={{ margin: 0 }}>{comparison.summaryZhTW}</p><div style={{ overflowX: 'auto' }}><table className="compare-table"><thead><tr><th>指標</th><th>A</th><th>B</th><th>差異</th></tr></thead><tbody>
       {comparison.rows.map((row) => {
         const axisColor = AXIS_COLOR[row.labelZhTW]
@@ -172,6 +184,28 @@ function ComparisonResult({ comparison, prediction, practical }: { comparison: N
         return <tr key={row.labelZhTW}><td>{row.labelZhTW}</td><td className={row.better === 'a' ? 'win' : undefined} style={row.better === 'a' ? winStyle : undefined}>{row.aValue}{row.better === 'a' ? ' ↑' : ''}</td><td className={row.better === 'b' ? 'win' : undefined} style={row.better === 'b' ? winStyle : undefined}>{row.bValue}{row.better === 'b' ? ' ↑' : ''}</td><td className="delta">{row.deltaZhTW}</td></tr>
       })}
     </tbody></table></div></div></Section>
+  </div>
+}
+
+function TournamentEvidence({ title, evidence }: { title: string; evidence: PracticalComparison['tournamentA'] }) {
+  return <div className="stack" style={{ gap: 8 }}>
+    <strong>{title} 的賽場紀錄</strong>
+    {evidence.exact.length > 0 ? <div className="stack" style={{ gap: 6 }}>
+      <div className="meta">完整配置相同（可作為此配裝的賽場紀錄）</div>
+      {evidence.exact.map((row) => <TournamentRecord key={row.id} row={row} />)}
+    </div> : <div className="meta">目前沒有相同完整配置的前四名紀錄。</div>}
+    {evidence.sameBladeAlternatives.length > 0 ? <div className="stack" style={{ gap: 6 }}>
+      <div className="meta">同上蓋的上位替代（固鎖或軸心已不同）</div>
+      {evidence.sameBladeAlternatives.map((row) => <TournamentRecord key={row.id} row={row} />)}
+    </div> : <div className="meta">目前沒有同上蓋的可回查上位替代。</div>}
+  </div>
+}
+
+function TournamentRecord({ row }: { row: PracticalComparison['tournamentA']['exact'][number] }) {
+  const placement = row.placement === 1 ? '冠軍' : row.placement === 2 ? '亞軍' : row.placement === 3 ? '季軍' : row.placement === 4 ? '殿軍' : '上位'
+  return <div className="stack" style={{ gap: 2 }}>
+    <a href={row.sourceUrl} target="_blank" rel="noreferrer">{row.reportedCombo}・{placement}</a>
+    <div className="meta">{row.eventNameZhTW}・{row.eventDate}{row.participantCount ? `・${row.participantCount} 人` : ''}</div>
   </div>
 }
 

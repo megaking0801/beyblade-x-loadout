@@ -153,3 +153,14 @@
 - Compare UI 新增：實戰證據結論、高度互動時間線、A/B 所有已選零件實戰檔案、阿土／維辰孔丘／台灣天梯／BeybladeHub 可展開來源，以及每個命中零件的高手／T 表連結。
 - 驗證完成：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 440 tests）、`npm.cmd run build`；單一桌機 Compare Playwright 驗收通過。整組 E2E 曾因執行工具硬性 30 秒中斷，不能標為完整通過。
 - 已部署 Pages commit `05d575b`。部署工具確認 gh-pages 推送成功；本機公開站 smoke request 因 Windows TLS 憑證錯誤失敗，尚未能獨立確認 CDN 已換新 bundle。
+
+### 2026-09-20 Compare 實戰資料第二次修正（待 commit／push／deploy）
+
+- 使用者正確指出：只顯示「0 局」和泛用來源不是可用的比較功能。現在 Compare 會直接吃 Catalog 的台灣賽事「單顆前四名配置觀測」，而非只列一堆來源名稱。
+- `src/domain/practice.ts` 新增 `TournamentPracticeEvidence`：每一側先查「完整配置相同」的賽場紀錄，再查「同上蓋、但固鎖或軸心已更換」的上位替代；兩種紀錄絕對分開，後者不能被當成使用者當前配置的成績，也不能當 A 對 B 勝率。這同時支援標準、CX 與固鎖一體式結構。
+- `src/ui/pages/ComparePage.tsx` 將排序改為：實戰證據結論 → 賽場上位替代（帶賽事、日期、名次、原始頁連結）→ 高度時間線 → 零件檔案／來源 → 收合的補充模型。模型 49/51 不再搶走實戰資訊。
+- 子彈獅鷲這類固鎖一體式上蓋不再被誤報「固鎖高度資料不足」：它本來就沒有獨立固鎖／高度碼，畫面改為說明不可把它與對方的 60／70／80 直接對比，並改以接觸面、分離機構與軸心作待驗證對位。
+- 已驗證的真實資料例子（只作配置／名次證據）：漢謚 118 人交流賽的鳳凰飛翼 3-70J 亞軍、子彈獅鷲 M 季軍；羽智波 T2 盃的子彈獅鷲 H 冠軍與亞軍。它們會在選到相同上蓋時出現在「同上蓋替代」，不被說成鳳凰 9-60H 或子彈 GF 的戰績。
+- 逐局 W–L 的門檻及空資料仍保留。研究已找到 Yi HSY 的「鳳凰飛翼 7-60Nr 實測 9 顆賽場配置」影片，描述中有子彈獅鷲 H 的時間點，但尚未取得可辨識全部回合配置與勝負的逐局片段，因此沒有不誠實地灌入 `MatchupObservation`。
+- 本次驗證：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 441 tests）、`npm.cmd run build`、Playwright 桌機寬度 44/44。手機完整套件因執行工具 30 秒上限中斷，不能標為完整通過。
+- 下一步：依既有使用者授權直接 `git add`／commit／`git push origin main`／`npm.cmd run deploy:pages`；部署後不要宣稱已新增逐局影片 W–L，除非人工完成影片逐回合摘錄。

@@ -8,7 +8,7 @@
 import { getExpertPartRatings, getExpertTierMatches } from '../catalog/tierLists.ts'
 import { getSlotSchemaForSlots } from './compatibility.ts'
 import { resolveDisplayName } from './naming.ts'
-import type { ComboSlots, Part } from './types.ts'
+import type { ComboSlots, Part, TournamentEvent, TournamentObservation } from './types.ts'
 
 export type PracticeVerdictStatus = 'observed' | 'pending' | 'insufficient'
 
@@ -58,6 +58,27 @@ export interface PartPracticeProfile {
   expertSources: ReturnType<typeof getExpertTierMatches>
 }
 
+/**
+ * 賽事「配置觀測」：這是選手在前四名牌組裡實際使用的配置，不是逐局勝率。
+ * exact 只會在三件式／整合式的完整槽位都相同時出現；同上蓋替代則明確標示為
+ * alternative，避免把換了固鎖或軸心的成績偷套回目前配置。
+ */
+export interface TournamentPracticeRecord {
+  id: string
+  relation: 'exact' | 'same_blade'
+  reportedCombo: string
+  placement?: number
+  eventNameZhTW: string
+  eventDate: string
+  participantCount?: number
+  sourceUrl: string
+}
+
+export interface TournamentPracticeEvidence {
+  exact: TournamentPracticeRecord[]
+  sameBladeAlternatives: TournamentPracticeRecord[]
+}
+
 export interface PracticalComparison {
   status: PracticeVerdictStatus
   titleZhTW: string
@@ -65,6 +86,8 @@ export interface PracticalComparison {
   heightTimelineZhTW: { opening: string; midgame: string; endgame: string }
   profilesA: PartPracticeProfile[]
   profilesB: PartPracticeProfile[]
+  tournamentA: TournamentPracticeEvidence
+  tournamentB: TournamentPracticeEvidence
   expertEvidence: ReturnType<typeof getExpertTierMatches>
   sources: PracticeSource[]
   observedRounds: number
@@ -176,6 +199,10 @@ function resolveBit(slots: ComboSlots, parts: Part[]): Part | undefined {
   return parts.find((part) => part.id === slots.bitId)
 }
 
+function hasIntegratedRatchet(slots: ComboSlots, parts: Part[]): boolean {
+  return Boolean(resolveBlade(slots, parts)?.integratedRatchet || resolveBit(slots, parts)?.integratedRatchet)
+}
+
 function heightTimeline(a: ComboSlots, b: ComboSlots, parts: Part[]): PracticalComparison['heightTimelineZhTW'] {
   const ar = resolveRatchet(a, parts)
   const br = resolveRatchet(b, parts)
@@ -183,6 +210,16 @@ function heightTimeline(a: ComboSlots, b: ComboSlots, parts: Part[]): PracticalC
   const bb = resolveBlade(b, parts)
   const abit = resolveBit(a, parts)
   const bbit = resolveBit(b, parts)
+  const aIntegrated = hasIntegratedRatchet(a, parts)
+  const bIntegrated = hasIntegratedRatchet(b, parts)
+  if (aIntegrated || bIntegrated) {
+    const integratedSide = aIntegrated && bIntegrated ? 'A、B' : aIntegrated ? 'A' : 'B'
+    return {
+      opening: `${integratedSide} 是固鎖一體式結構，沒有獨立固鎖高度碼；不能把它當成「資料缺漏」，也不能直接和另一方的 60／70／80 高度碼對比。`,
+      midgame: '改看一體式上蓋的接觸面、分離機構與雙方軸心的移動；只有同盤型逐局影片才能判定實際對位。',
+      endgame: '一體式結構不以「沒有高度碼」補償成持久或穩定；後期仍以實測姿態與軸心狀態為準。',
+    }
+  }
   const ah = ar?.heightCode
   const bh = br?.heightCode
   if (typeof ah !== 'number' || typeof bh !== 'number') {
@@ -225,11 +262,79 @@ function observedFor(a: ComboSlots, b: ComboSlots, observations: readonly Matchu
   )
 }
 
+function definedEntries(slots: ComboSlots): [string, string][] {
+  return Object.entries(slots).filter((entry): entry is [string, string] => typeof entry[1] === 'string' && entry[1].length > 0)
+}
+
+function observationMatchesSlots(observation: TournamentObservation, slots: ComboSlots): boolean {
+  const selected = definedEntries(slots)
+  if (observation.slots) {
+    const recorded = definedEntries(observation.slots)
+    return recorded.length === selected.length && selected.every(([key, partId]) => observation.slots?.[key as keyof ComboSlots] === partId)
+  }
+  const standard = [slots.bladeId, slots.ratchetId, slots.bitId]
+  return standard.every((partId): partId is string => Boolean(partId))
+    && observation.comboPartIds?.length === standard.length
+    && observation.comboPartIds.every((partId, index) => partId === standard[index]) === true
+}
+
+function bladeIdFor(slots: ComboSlots): string | undefined {
+  return slots.bladeId ?? slots.mainBladeId
+}
+
+function observationUsesBlade(observation: TournamentObservation, bladeId: string): boolean {
+  return observation.slots?.bladeId === bladeId || observation.slots?.mainBladeId === bladeId || observation.comboPartIds?.[0] === bladeId
+}
+
+function toTournamentRecord(observation: TournamentObservation, event: TournamentEvent, relation: TournamentPracticeRecord['relation']): TournamentPracticeRecord {
+  return {
+    id: observation.id,
+    relation,
+    reportedCombo: observation.reportedCombo,
+    ...(observation.placement === undefined ? {} : { placement: observation.placement }),
+    eventNameZhTW: event.name,
+    eventDate: event.date,
+    ...(event.participantCount === undefined ? {} : { participantCount: event.participantCount }),
+    sourceUrl: observation.sourceUrl || event.sourceUrl,
+  }
+}
+
+function newestFirst(a: TournamentPracticeRecord, b: TournamentPracticeRecord): number {
+  const byDate = b.eventDate.localeCompare(a.eventDate)
+  if (byDate !== 0) return byDate
+  return (a.placement ?? Number.MAX_SAFE_INTEGER) - (b.placement ?? Number.MAX_SAFE_INTEGER)
+}
+
+function tournamentEvidenceFor(args: {
+  slots: ComboSlots
+  events: readonly TournamentEvent[]
+  observations: readonly TournamentObservation[]
+}): TournamentPracticeEvidence {
+  const eventById = new Map(args.events.map((event) => [event.id, event]))
+  const rows = args.observations.flatMap((observation) => {
+    const event = eventById.get(observation.eventId)
+    return event ? [{ observation, event }] : []
+  })
+  const exact = rows
+    .filter(({ observation }) => observationMatchesSlots(observation, args.slots))
+    .map(({ observation, event }) => toTournamentRecord(observation, event, 'exact'))
+    .sort(newestFirst)
+  const bladeId = bladeIdFor(args.slots)
+  const sameBladeAlternatives = bladeId === undefined ? [] : rows
+    .filter(({ observation }) => observationUsesBlade(observation, bladeId) && !observationMatchesSlots(observation, args.slots))
+    .map(({ observation, event }) => toTournamentRecord(observation, event, 'same_blade'))
+    .sort(newestFirst)
+    .slice(0, 6)
+  return { exact, sameBladeAlternatives }
+}
+
 export function buildPracticalComparison(args: {
   a: ComboSlots
   b: ComboSlots
   parts: Part[]
   observations?: readonly MatchupObservation[]
+  tournamentEvents?: readonly TournamentEvent[]
+  tournamentObservations?: readonly TournamentObservation[]
 }): PracticalComparison {
   const ratings = [...getExpertPartRatings(args.a), ...getExpertPartRatings(args.b)]
   const ratingsByPartId = new Map(ratings.map((rating) => [rating.partId, rating]))
@@ -250,6 +355,7 @@ export function buildPracticalComparison(args: {
   }).length
   const observedBWins = observed.length - observedAWins
   const enoughObserved = observed.length >= 5 && observedSourceCount >= 2
+  const tournamentArgs = { events: args.tournamentEvents ?? [], observations: args.tournamentObservations ?? [] }
   return {
     status: enoughObserved ? 'observed' : observed.length > 0 ? 'pending' : 'insufficient',
     titleZhTW: enoughObserved ? '已取得足夠完整對局，顯示實戰傾向' : '尚無足夠完整對局，不能宣稱實戰勝率',
@@ -259,6 +365,8 @@ export function buildPracticalComparison(args: {
     heightTimelineZhTW: heightTimeline(args.a, args.b, args.parts),
     profilesA,
     profilesB,
+    tournamentA: tournamentEvidenceFor({ slots: args.a, ...tournamentArgs }),
+    tournamentB: tournamentEvidenceFor({ slots: args.b, ...tournamentArgs }),
     expertEvidence,
     sources: practiceSources,
     observedRounds: observed.length,
