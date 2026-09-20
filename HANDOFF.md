@@ -183,3 +183,10 @@
 - 使用者繼續貼出的 `賽事證據 0 / 0` 是舊靜態表只看「完全相同配置」的結果，無法反映上方已新增的同上蓋賽場替代，會錯誤暗示整頁沒有實戰資料。
 - 已從六軸模型表移除「賽事證據」與「資料可信度」。實戰資料只在上方的「賽場上位替代」卡中呈現完整相同／同上蓋替代、名次、日期與來源連結；不再用兩個 0 與實際資料互相矛盾。
 - 驗證：typecheck、437 tests、build、Playwright 桌機 44/44；依既有授權直接發布。
+
+### 2026-09-20 PWA 舊比較頁快取防護（待 commit／push／deploy）
+
+- 使用者貼出的整頁內容仍是部署前 bundle：缺「賽場上位替代」，卻有已刪除的高度 0、舊高度互動與靜態賽事 0。直接以 `curl` 查 Pages，遠端 `index.html` 已正確指向當前 bundle，因此根因是使用者端舊 Service Worker 的 navigation cache。
+- 不再讓外掛自動產生簡化的 SW 註冊碼。`vite.config.ts` 改 `injectRegister: false`，`src/main.tsx` 手動以 `updateViaCache: 'none'` 註冊並呼叫 `registration.update()`；SW controller 改變時只 reload 一次。這讓未來更新不受 GitHub Pages HTTP 快取影響，且不會動 IndexedDB 庫存。
+- 本次使用者仍須在首頁或設定頁按一次「重新載入最新版」來清掉**舊** SW；按鈕只刪程式快取與 SW，不刪庫存／已存配裝。
+- 驗證：typecheck、437 tests、build、Playwright 桌機 44/44；依既有授權直接發布。

@@ -17,6 +17,9 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // 改由 src/main.tsx 註冊，才能指定 updateViaCache: 'none'，避免 GitHub
+      // Pages 的舊 Service Worker 把舊 index.html 與 bundle 留在用戶端。
+      injectRegister: false,
       includeAssets: ['favicon.svg'],
       manifest: {
         name: 'BEYBLADE X 配裝分析',
