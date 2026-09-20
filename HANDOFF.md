@@ -152,3 +152,4 @@
 - 新增 `MatchupObservation` 的人工逐局資料規格與門檻：完整相同的 A/B 配置，至少 5 局、2 個獨立原始影片來源才顯示 W–L。現有 `matchupObservations` 刻意是空的，因為已研究影片未能可靠辨識每局雙方完整配裝；賽事名次、T 表與影片標題絕不偽造為對戰勝負。
 - Compare UI 新增：實戰證據結論、高度互動時間線、A/B 所有已選零件實戰檔案、阿土／維辰孔丘／台灣天梯／BeybladeHub 可展開來源，以及每個命中零件的高手／T 表連結。
 - 驗證完成：`npm.cmd run typecheck`、`npm.cmd test -- --run`（23 files / 440 tests）、`npm.cmd run build`；單一桌機 Compare Playwright 驗收通過。整組 E2E 曾因執行工具硬性 30 秒中斷，不能標為完整通過。
+- 已部署 Pages commit `05d575b`。部署工具確認 gh-pages 推送成功；本機公開站 smoke request 因 Windows TLS 憑證錯誤失敗，尚未能獨立確認 CDN 已換新 bundle。
