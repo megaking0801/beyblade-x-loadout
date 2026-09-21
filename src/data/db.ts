@@ -8,7 +8,6 @@
 import Dexie, { type EntityTable } from 'dexie'
 import type {
   CompatibilityRule,
-  BattleRoundRecord,
   Deck,
   ImageAsset,
   InventoryLot,
@@ -26,7 +25,7 @@ import type {
 } from '../domain/types.ts'
 
 export const DB_NAME = 'beyblade-x-loadout'
-export const DB_SCHEMA_VERSION = 4
+export const DB_SCHEMA_VERSION = 5
 
 /** 第 38 節：新手模式／進階模式。 */
 export interface AppSettings {
@@ -57,8 +56,6 @@ export interface BeybladeDb extends Dexie {
   savedCombos: EntityTable<SavedCombo, 'id'>
   decks: EntityTable<Deck, 'id'>
   wishlist: EntityTable<WishlistItem, 'id'>
-  /** 使用者自己的逐局紀錄；與公共賽事資料分表，Catalog 更新不得清除。 */
-  battleRounds: EntityTable<BattleRoundRecord, 'id'>
   // E. Tournament Data
   tournamentEvents: EntityTable<TournamentEvent, 'id'>
   tournamentDecks: EntityTable<TournamentDeck, 'id'>
@@ -122,6 +119,10 @@ export function createDb(name: string = DB_NAME): BeybladeDb {
     tournamentDecks: 'id, eventId',
     tournamentObservations: 'id, eventId',
     meta: 'key',
+  })
+  db.version(5).stores({
+    // 人工逐局紀錄已停止使用；升級只刪除此表，其他 v4 store 沿用原 schema。
+    battleRounds: null,
   })
   return db
 }

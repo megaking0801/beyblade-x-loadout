@@ -98,23 +98,14 @@ describe('實戰比較資料層', () => {
     expect(practiceSources.every((source) => source.sourceUrl.startsWith('https://'))).toBe(true)
   })
 
-  it('只有五局與兩個獨立原始來源才升級為實戰 W–L，反向記錄也會正確換算', () => {
-    const a = { bladeId: 'blade-a', ratchetId: 'ratchet-60', bitId: 'bit-f' }
-    const b = { bladeId: 'blade-b', ratchetId: 'ratchet-80', bitId: 'bit-b' }
-    const base = { source: 'public_video' as const, evidenceLevel: 'reviewed' as const, createdAt: '2026-01-03T00:00:00Z', format: 'Standard 3on3', stadium: 'X Stadium' }
-    const observations = [
-      { ...base, id: '1', a, b, result: 'a' as const, finish: 'xtreme' as const, sourceUrl: 'https://example.test/1', timestampSeconds: 10, playedAt: '2026-01-01' },
-      { ...base, id: '2', a, b, result: 'b' as const, finish: 'spin' as const, sourceUrl: 'https://example.test/1', timestampSeconds: 20, playedAt: '2026-01-01' },
-      { ...base, id: '3', a, b, result: 'a' as const, finish: 'over' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 30, playedAt: '2026-01-02' },
-      { ...base, id: '4', a: b, b: a, result: 'b' as const, finish: 'burst' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 40, playedAt: '2026-01-02' },
-      { ...base, id: '5', a, b, result: 'a' as const, finish: 'spin' as const, sourceUrl: 'https://example.test/2', timestampSeconds: 50, playedAt: '2026-01-02' },
-    ]
-    const result = buildPracticalComparison({ a, b, parts: standardParts, observations })
-    expect(result.status).toBe('observed')
-    expect(result.observedRounds).toBe(5)
-    expect(result.observedSourceCount).toBe(2)
-    expect(result.observedAWins).toBe(4)
-    expect(result.observedBWins).toBe(1)
+  it('沒有已發布影片模型時固定誠實降級，不從賽事或 T 表產生勝率', () => {
+    const result = buildPracticalComparison({
+      a: { bladeId: 'blade-a', ratchetId: 'ratchet-60', bitId: 'bit-f' },
+      b: { bladeId: 'blade-b', ratchetId: 'ratchet-80', bitId: 'bit-b' },
+      parts: standardParts,
+    })
+    expect(result.status).toBe('insufficient')
     expect(result.titleZhTW).toBe('樣本不足，暫不預測')
+    expect(result.noticeZhTW).toContain('尚未發布')
   })
 })

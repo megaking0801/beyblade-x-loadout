@@ -16,16 +16,16 @@ export default defineConfig({
    *
    * 串行跑 42 個測試 × 2 個 project 要 4.6 分鐘，是每次上線前最大的一段等待。
    *
-   * workers 實測：1 → 4.6 分（84 全過）、4 → 3.6 分（84 全過）、8 → 4.1 分且 8 條失敗。
-   * 8 更慢又更不穩，因為測試多半在等頁面載入而不是在算（CPU 只到 140%），
-   * 開太多瀏覽器只是互搶資源。所以停在 4，不要再往上加。
+   * 2026-09-21 再驗證：4 workers 出現 9 條無功能斷言的操作逾時，2 workers 仍有 1 條，
+   * 1 worker 則 87 passed / 1 個既有 skip。頁面 DOM 已存在但互動卡住，屬瀏覽器資源競爭，
+   * 所以固定為 1，先換取可重現的發布門檻。
    *
    * 刻意不設 retries：重試會把 flaky 蓋掉，看起來綠其實不穩（第 48.6 節）。
    * 若之後真的出現 flaky，把 workers 降到 2、再不行退回 1，
    * 並在 HANDOFF 記下原因——不要改成靠重試。
    */
   fullyParallel: true,
-  workers: 4,
+  workers: 1,
   // 只跑 *.spec.ts；截圖工具是 screenshot.shots.ts，用 npm run shots 手動觸發。
   testMatch: /.*\.spec\.ts$/,
   // 線上煙霧測試另有設定檔（npm run test:live），不要混進本機驗收。

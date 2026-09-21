@@ -13,11 +13,14 @@ const SHOTS = [
 ]
 
 async function seed(page: Page): Promise<void> {
+  await page.goto('/#/products')
+  await expect(page.getByTestId('tab-catalog')).toBeVisible()
+  await page.getByTestId('tab-catalog').click()
+  const productSearch = page.getByTestId('product-search')
+  await expect(productSearch).toBeVisible()
+
   for (const [query, qty] of [['BX-01', '1'], ['BX-02', '1'], ['BX-03', '1'], ['BX-15', '1']] as const) {
-    await page.goto('/#/products')
-    await expect(page.getByTestId('tab-catalog')).toBeVisible()
-    await page.getByTestId('tab-catalog').click()
-    await page.getByTestId('product-search').fill(query)
+    await productSearch.fill(query)
     const card = page.getByTestId('catalog-product').first()
     await expect(card).toBeVisible()
     await card.getByTestId('catalog-qty').fill(qty)
@@ -28,11 +31,13 @@ async function seed(page: Page): Promise<void> {
 /**
  * 截圖工具（不是驗收測試）。
  * 預設不會執行，用 `npm run shots` 手動跑，用來實際檢查手機與桌機寬度的版面。
+ * 一次會建立 12 張全頁截圖；在手機瀏覽器不應套用 Playwright 預設 30 秒上限。
  */
+test.setTimeout(120_000)
+
 test('capture', async ({ page }, testInfo) => {
-  await page.goto('/#/')
-  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   await seed(page)
+  await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   // 加入商品後 UI 會自己導回 /products，先等它走完，否則第一張截圖會被這個導覽蓋掉。
   await page.getByTestId('tab-my-products').click()
   await expect(page.getByTestId('owned-product').first()).toBeVisible()

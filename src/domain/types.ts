@@ -429,36 +429,6 @@ export interface ComboSlots {
   bitId?: string
 }
 
-/* ---------------------------------------------------------- 逐局實戰紀錄 */
-
-export type BattleRoundResult = 'a' | 'b' | 'tie' | 'invalid'
-export type BattleFinish = 'xtreme' | 'over' | 'burst' | 'spin' | 'none'
-export type BattleRecordSource = 'player_test' | 'public_video'
-export type BattleEvidenceLevel = 'local' | 'video_attached' | 'reviewed'
-
-/**
- * 一局可回查的 A/B 實戰事實。
- *
- * 本機手動紀錄、附影片紀錄與人工審核資料必須保留不同等級；前台可顯示本機
- * 統計，但模型訓練不得把三者當成同權樣本。
- */
-export interface BattleRoundRecord {
-  id: string
-  a: ComboSlots
-  b: ComboSlots
-  result: BattleRoundResult
-  finish: BattleFinish
-  stadium: string
-  format: string
-  playedAt: string
-  source: BattleRecordSource
-  evidenceLevel: BattleEvidenceLevel
-  sourceUrl?: string
-  timestampSeconds?: number
-  notes?: string
-  createdAt: string
-}
-
 export interface SavedCombo {
   id: string
   nameZhTW: string

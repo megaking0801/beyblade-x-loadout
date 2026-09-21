@@ -1,4 +1,5 @@
 import 'fake-indexeddb/auto'
+import Dexie from 'dexie'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createDb, type BeybladeDb } from '../../src/data/db.ts'
 import { createRepository, type Repository } from '../../src/data/repository.ts'
@@ -455,49 +456,6 @@ describe('我的零件標記（第 10 節）', () => {
   })
 })
 
-describe('逐局實戰紀錄', () => {
-  beforeEach(async () => {
-    await repo.loadCatalog(catalog)
-  })
-
-  it('會保存完整 A/B、結果與證據等級，Catalog 更新不會清除', async () => {
-    await repo.saveBattleRound({
-      a: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
-      b: { bladeId: 'test-blade-b', ratchetId: 'test-ratchet-b', bitId: 'test-bit-b' },
-      result: 'a',
-      finish: 'xtreme',
-      stadium: 'Xtreme Stadium',
-      format: '單顆對戰',
-      playedAt: '2026-09-21',
-      source: 'player_test',
-    })
-    expect(await repo.listBattleRounds()).toEqual([
-      expect.objectContaining({ result: 'a', evidenceLevel: 'local', playedAt: '2026-09-21' }),
-    ])
-
-    await repo.loadCatalog({ ...catalog, version: 'test-2' })
-    expect(await repo.listBattleRounds()).toHaveLength(1)
-  })
-
-  it('附影片仍標為未審核，且可刪除', async () => {
-    const id = await repo.saveBattleRound({
-      a: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
-      b: { bladeId: 'test-blade-b', ratchetId: 'test-ratchet-b', bitId: 'test-bit-b' },
-      result: 'b',
-      finish: 'spin',
-      stadium: 'Xtreme Stadium',
-      format: '單顆對戰',
-      playedAt: '2026-09-21',
-      source: 'public_video',
-      sourceUrl: 'https://example.test/video',
-      timestampSeconds: 42,
-    })
-    expect((await repo.listBattleRounds())[0]?.evidenceLevel).toBe('video_attached')
-    await repo.deleteBattleRound(id)
-    expect(await repo.listBattleRounds()).toEqual([])
-  })
-})
-
 describe('匯出與匯入（第 37 節）', () => {
   beforeEach(async () => {
     await repo.loadCatalog(catalog)
@@ -509,7 +467,6 @@ describe('匯出與匯入（第 37 節）', () => {
     expect(Object.keys(backup).sort()).toEqual(
       [
         'catalogVersion',
-        'battleRounds',
         'decks',
         'inventoryLots',
         'ownedProducts',
@@ -553,6 +510,34 @@ describe('匯出與匯入（第 37 節）', () => {
     expect(owned[0]!.productId).toBe(fixedProduct.id)
   })
 
+  it('匯入 v4 舊備份時忽略逐局欄位，其他個人資料仍完整回復', async () => {
+    await repo.addOwnedProduct({ productId: fixedProduct.id, quantity: 2, status: 'owned' })
+    await repo.saveCombo({
+      nameZhTW: '保留的配裝',
+      system: 'BX',
+      slots: { bladeId: 'test-blade-a', ratchetId: 'test-ratchet-a', bitId: 'test-bit-a' },
+      favorite: true,
+      physicallyBuilt: false,
+    })
+    const backup = await repo.exportBackup()
+    const legacyBackup = {
+      ...backup,
+      schemaVersion: 4,
+      battleRounds: [{ id: 'legacy-round', notes: '應忽略且不驗證' }],
+    }
+
+    const otherDb = createDb('beyblade-test-import-v4')
+    const otherRepo = createRepository(otherDb)
+    await otherDb.open()
+    await otherRepo.loadCatalog(catalog)
+    await otherRepo.importBackup(legacyBackup)
+
+    expect(await otherRepo.listOwnedProducts()).toHaveLength(1)
+    expect((await otherRepo.listCombos()).map((combo) => combo.nameZhTW)).toEqual(['保留的配裝'])
+    expect(otherDb.tables.map((table) => table.name)).not.toContain('battleRounds')
+    await otherDb.delete()
+  })
+
   it('格式錯誤的備份會被拒絕', async () => {
     await expect(repo.importBackup({ 亂資料: true } as never)).rejects.toThrow('備份格式不正確')
   })
@@ -562,6 +547,41 @@ describe('匯出與匯入（第 37 節）', () => {
     await expect(repo.importBackup({ ...backup, schemaVersion: 999 })).rejects.toThrow(
       '備份版本過新',
     )
+  })
+})
+
+describe('IndexedDB v5 migration', () => {
+  it('只刪除 v4 battleRounds，保留庫存與已存配裝', async () => {
+    const name = 'beyblade-test-v4-to-v5'
+    const legacy = new Dexie(name)
+    legacy.version(4).stores({
+      ownedProducts: 'id, productId, status',
+      inventoryLots: 'id, partId, status, sourceType',
+      savedCombos: 'id, favorite, physicallyBuilt',
+      battleRounds: 'id, playedAt, source, evidenceLevel',
+    })
+    await legacy.open()
+    await legacy.table('ownedProducts').add({
+      id: 'owned-1', productId: 'product-1', quantity: 1, status: 'owned', createdAt: '2026-09-21T00:00:00Z',
+    })
+    await legacy.table('inventoryLots').add({
+      id: 'lot-1', partId: 'bit-1', quantity: 2, status: 'available', sourceType: 'standalone', createdAt: '2026-09-21T00:00:00Z',
+    })
+    await legacy.table('savedCombos').add({
+      id: 'combo-1', nameZhTW: '舊配裝', system: 'BX', slots: { bladeId: 'blade-1' },
+      favorite: false, physicallyBuilt: false, createdAt: '2026-09-21T00:00:00Z',
+    })
+    await legacy.table('battleRounds').add({ id: 'round-1', playedAt: '2026-09-21' })
+    legacy.close()
+
+    const migrated = createDb(name)
+    await migrated.open()
+    expect(migrated.verno).toBe(5)
+    expect(await migrated.ownedProducts.get('owned-1')).toMatchObject({ productId: 'product-1' })
+    expect(await migrated.inventoryLots.get('lot-1')).toMatchObject({ partId: 'bit-1', quantity: 2 })
+    expect(await migrated.savedCombos.get('combo-1')).toMatchObject({ nameZhTW: '舊配裝' })
+    expect(migrated.tables.map((table) => table.name)).not.toContain('battleRounds')
+    await migrated.delete()
   })
 })
 
