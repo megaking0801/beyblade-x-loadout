@@ -21,7 +21,16 @@ const ROUTES = [
 ]
 
 async function openApp(page: Page, hash = '/'): Promise<void> {
-  await page.goto(`/#${hash}`)
+  // 同一個 test 內只在初次開啟時做整頁導覽；之後改 hash 就足夠觸發路由。
+  // WebKit 在快速重複載入 PWA 時會偶發 sw.js load failed，也不是使用者點導覽的實際流程。
+  if (await page.locator('[data-app-ready="true"]').count()) {
+    await page.evaluate((nextHash) => {
+      window.location.hash = nextHash
+    }, hash)
+  } else {
+    await page.goto(`/#${hash}`)
+    await page.evaluate(async () => navigator.serviceWorker.ready)
+  }
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 20_000 })
   // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
@@ -522,9 +531,9 @@ test('零件詳情把未完整映射牌組標示為來源觀測', async ({ page 
 
 /**
  * 配裝比較的實際流程（第 34 節）。
- * 舊六軸比較已停用；守住「選兩套後拒絕假預測，並能開始記錄逐局」這條主線。
+ * 舊六軸與人工逐局流程已停用；守住「選兩套後拒絕假預測」這條主線。
  */
-test('配裝比較選兩套之後拒絕假預測並可記錄逐局', async ({ page }) => {
+test('配裝比較選兩套之後拒絕假預測且不提供人工逐局控制', async ({ page }) => {
   for (const sku of ['BX-01', 'BX-02']) {
     await openApp(page, '/products')
     await page.getByTestId('tab-catalog').click()
@@ -551,7 +560,8 @@ test('配裝比較選兩套之後拒絕假預測並可記錄逐局', async ({ pa
   await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
   await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
   await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
-  await expect(page.getByTestId('battle-round-form')).toBeVisible()
+  await expect(page.getByTestId('battle-round-form')).toHaveCount(0)
+  await expect(page.getByText('匿名資料匯出')).toHaveCount(0)
 })
 
 test('前台任何一頁都不得再提到重量', async ({ page }) => {

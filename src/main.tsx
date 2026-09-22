@@ -21,6 +21,9 @@ if ('serviceWorker' in navigator) {
     void navigator.serviceWorker
       .register(swUrl, { scope, updateViaCache: 'none' })
       .then((registration) => registration.update())
+      // controllerchange 會立即 reload；WebKit 會把同時進行的 update 請求標成取消。
+      // PWA 更新失敗不應讓主程式出現未處理 rejection，下次載入會再次嘗試。
+      .catch(() => undefined)
   })
 }
 

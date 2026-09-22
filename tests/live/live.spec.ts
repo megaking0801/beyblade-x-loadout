@@ -6,6 +6,10 @@ const BASE = './'
 async function waitForAppReady(page: Page): Promise<void> {
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible({ timeout: 30_000 })
   await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 30_000 })
+  // 新版 SW 接手會讓 main.tsx 重載一次；確認短暫的 controllerchange 已結束，
+  // 再點分頁，避免 smoke 在可見但即將被替換的 React tree 上操作。
+  await page.waitForTimeout(1_000)
+  await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 30_000 })
 }
 
 test('線上版可開啟、初次進入個人資料為 0、可加入商品', async ({ page }) => {

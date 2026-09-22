@@ -6,15 +6,11 @@
  * 完整對局時，清楚地回報「待驗證」。
  */
 import { getExpertPartRatings, getExpertTierMatches } from '../catalog/tierLists.ts'
-import { summarizeBattlePair } from './battleRecords.ts'
 import { getSlotSchemaForSlots } from './compatibility.ts'
 import { resolveDisplayName } from './naming.ts'
-import type { BattleRoundRecord, ComboSlots, Part, TournamentEvent, TournamentObservation } from './types.ts'
+import type { ComboSlots, Part, TournamentEvent, TournamentObservation } from './types.ts'
 
 export type PracticeVerdictStatus = 'observed' | 'pending' | 'insufficient'
-
-/** 人工審核後才可隨版本發布的逐局資料；目前刻意留空。 */
-export const reviewedBattleRounds: readonly BattleRoundRecord[] = []
 
 export interface PracticeSource {
   id: string
@@ -71,15 +67,6 @@ export interface PracticalComparison {
   tournamentB: TournamentPracticeEvidence
   expertEvidence: ReturnType<typeof getExpertTierMatches>
   sources: PracticeSource[]
-  observedRounds: number
-  observedSourceCount: number
-  observedAWins: number
-  observedBWins: number
-  observedTies: number
-  invalidRounds: number
-  localRounds: number
-  videoAttachedRounds: number
-  reviewedRounds: number
 }
 
 /** 可直接回查的台灣優先來源；彙整站只作索引，不能增加獨立樣本數。 */
@@ -312,7 +299,6 @@ export function buildPracticalComparison(args: {
   a: ComboSlots
   b: ComboSlots
   parts: Part[]
-  observations?: readonly BattleRoundRecord[]
   tournamentEvents?: readonly TournamentEvent[]
   tournamentObservations?: readonly TournamentObservation[]
 }): PracticalComparison {
@@ -327,18 +313,11 @@ export function buildPracticalComparison(args: {
   }
   const profilesA = selectedParts(args.a, args.parts).map((part) => profileFor(part, ratingsByPartId, tierSourcesByPartId))
   const profilesB = selectedParts(args.b, args.parts).map((part) => profileFor(part, ratingsByPartId, tierSourcesByPartId))
-  const observed = summarizeBattlePair(args.observations ?? reviewedBattleRounds, args.a, args.b)
-  const reviewedSourceCount = new Set(observed.records
-    .filter((row) => row.evidenceLevel === 'reviewed' && row.sourceUrl)
-    .map((row) => row.sourceUrl!)).size
-  const enoughReviewed = observed.reviewedRounds >= 5 && reviewedSourceCount >= 2
   const tournamentArgs = { events: args.tournamentEvents ?? [], observations: args.tournamentObservations ?? [] }
   return {
-    status: enoughReviewed ? 'observed' : observed.records.length > 0 ? 'pending' : 'insufficient',
+    status: 'insufficient',
     titleZhTW: '樣本不足，暫不預測',
-    noticeZhTW: enoughReviewed
-      ? `已有 ${observed.reviewedRounds} 局人工審核事實與 ${reviewedSourceCount} 個原始影片來源；預測模型尚未完成跨來源驗證，因此仍不顯示勝率。`
-      : `目前符合此完整 A/B 的紀錄共 ${observed.records.length} 局，其中人工審核 ${observed.reviewedRounds} 局；賽事名次、T 表與本機未驗證紀錄都不會被換算成勝率。`,
+    noticeZhTW: '目前尚未發布通過品質門檻的影片逐局資料與預測模型；賽事名次與 T 表不會被換算成勝率。',
     heightTimelineZhTW: heightTimeline(args.a, args.b, args.parts),
     profilesA,
     profilesB,
@@ -346,14 +325,5 @@ export function buildPracticalComparison(args: {
     tournamentB: tournamentEvidenceFor({ slots: args.b, ...tournamentArgs }),
     expertEvidence,
     sources: practiceSources,
-    observedRounds: observed.validRounds,
-    observedSourceCount: reviewedSourceCount,
-    observedAWins: observed.aWins,
-    observedBWins: observed.bWins,
-    observedTies: observed.ties,
-    invalidRounds: observed.invalidRounds,
-    localRounds: observed.localRounds,
-    videoAttachedRounds: observed.videoAttachedRounds,
-    reviewedRounds: observed.reviewedRounds,
   }
 }

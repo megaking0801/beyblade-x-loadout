@@ -13,7 +13,14 @@ import { pickSlot } from './helpers.ts'
 const BX01 = { blade: 'blade:ドランソード', ratchet: 'ratchet:3-60', bit: 'bit:F' }
 
 async function openApp(page: Page, hash = '/'): Promise<void> {
-  await page.goto(`/#${hash}`)
+  if (await page.locator('[data-app-ready="true"]').count()) {
+    await page.evaluate((nextHash) => {
+      window.location.hash = nextHash
+    }, hash)
+  } else {
+    await page.goto(`/#${hash}`)
+    await page.evaluate(async () => navigator.serviceWorker.ready)
+  }
   await expect(page.getByRole('navigation', { name: '主要導覽' })).toBeVisible()
   await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 20_000 })
   // 導覽列每一頁都有，不能當換頁依據；要等外層的 data-route 真的變成目標路由，
@@ -262,7 +269,7 @@ test('配裝器可一鍵清除零件，但保留目前模式與結構', async ({
   await expect(page.getByRole('button', { name: '三件式（BX／UX）' })).toHaveClass(/btn-primary/)
 })
 
-test('完成 A 後可直接到比較頁配 B；資料不足時拒絕預測並可記錄逐局', async ({ page }) => {
+test('完成 A 後可直接到比較頁配 B；資料不足時拒絕預測且沒有人工逐局流程', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
   await pickSlot(page, 'bladeId', BX01.blade)
@@ -276,13 +283,11 @@ test('完成 A 後可直接到比較頁配 B；資料不足時拒絕預測並可
   await expect(page.getByTestId('matchup-prediction')).toBeVisible()
   await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
   await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
-  await expect(page.getByTestId('practical-matchup')).toContainText('目前沒有完整命中')
   await expect(page.getByTestId('tournament-practice-evidence')).toBeVisible()
-  await expect(page.getByTestId('practice-sources')).toContainText('沒有附影片')
-  await expect(page.getByTestId('battle-round-form')).toBeVisible()
-  await page.getByTestId('battle-round-form').getByRole('button', { name: '儲存這一局' }).click()
-  await expect(page.getByTestId('practical-matchup')).toContainText('A 勝 1')
-  await expect(page.getByRole('button', { name: '匯出匿名逐局 JSON' })).toBeEnabled()
+  await expect(page.getByTestId('battle-round-form')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '儲存這一局' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '刪除此局' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '匯出匿名逐局 JSON' })).toHaveCount(0)
 })
 
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {

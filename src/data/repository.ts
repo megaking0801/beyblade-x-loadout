@@ -7,7 +7,6 @@
  * 第 38 節（新手／進階模式）、第 39 節（首頁統計）。
  */
 import { checkCompatibility } from '../domain/compatibility.ts'
-import { evidenceLevelFor, validateBattleRoundInput, type SaveBattleRoundInput } from '../domain/battleRecords.ts'
 import { DEFAULT_DECK_RULES, validateDeck } from '../domain/deck.ts'
 import {
   aggregatePartStock,
@@ -24,7 +23,6 @@ import {
 import { resolveDisplayName } from '../domain/naming.ts'
 import type {
   CompatibilityRule,
-  BattleRoundRecord,
   Deck,
   ImageAsset,
   InventoryLot,
@@ -87,7 +85,6 @@ export interface BackupPayload {
   savedCombos: SavedCombo[]
   decks: Deck[]
   wishlist: WishlistItem[]
-  battleRounds: BattleRoundRecord[]
   settings: AppSettings
 }
 
@@ -161,10 +158,6 @@ export interface Repository {
   listWishlist(): Promise<WishlistItem[]>
   addWishlistItem(input: AddWishlistInput): Promise<string>
   deleteWishlistItem(id: string): Promise<void>
-
-  listBattleRounds(): Promise<BattleRoundRecord[]>
-  saveBattleRound(input: SaveBattleRoundInput): Promise<string>
-  deleteBattleRound(id: string): Promise<void>
 
   getSettings(): Promise<AppSettings>
   updateSettings(patch: Partial<AppSettings>): Promise<void>
@@ -728,33 +721,6 @@ export function createRepository(db: BeybladeDb): Repository {
       await db.wishlist.delete(id)
     },
 
-    /* ------------------------------------------------------- 逐局實戰紀錄 */
-
-    listBattleRounds: () => db.battleRounds.orderBy('playedAt').reverse().toArray(),
-
-    async saveBattleRound(input) {
-      const valid = validateBattleRoundInput(input)
-      const [parts, rules] = await Promise.all([db.parts.toArray(), db.compatibilityRules.toArray()])
-      for (const [label, slots] of [['A', valid.a], ['B', valid.b]] as const) {
-        const compatibility = checkCompatibility({ slots, parts, rules })
-        if (!compatibility.ok) {
-          throw new Error(`${label} 配置無法記錄：${compatibility.errors.map((error) => error.messageZhTW).join('；')}`)
-        }
-      }
-      const record: BattleRoundRecord = {
-        id: newId(),
-        createdAt: nowIso(),
-        ...valid,
-        evidenceLevel: evidenceLevelFor(valid),
-      }
-      await db.battleRounds.add(record)
-      return record.id
-    },
-
-    async deleteBattleRound(id) {
-      await db.battleRounds.delete(id)
-    },
-
     /* ------------------------------------------------------------- 設定 */
 
     async getSettings() {
@@ -776,7 +742,6 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
-        battleRounds,
         settings,
         catalogVersion,
       ] =
@@ -787,7 +752,6 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos.toArray(),
           db.decks.toArray(),
           db.wishlist.toArray(),
-          db.battleRounds.toArray(),
           (async () => (await getMeta<AppSettings>(META_SETTINGS)) ?? DEFAULT_SETTINGS)(),
           getMeta<string>(META_CATALOG_VERSION),
         ])
@@ -800,7 +764,6 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
-        battleRounds,
         settings,
       }
     },
@@ -820,8 +783,6 @@ export function createRepository(db: BeybladeDb): Repository {
         ['savedCombos', payload.savedCombos],
         ['decks', payload.decks],
         ['wishlist', payload.wishlist],
-        // schema v3 及更舊的備份沒有逐局紀錄。
-        ['battleRounds', payload.battleRounds ?? []],
       ]
       for (const [name, value] of arrays) {
         if (!Array.isArray(value)) throw new Error(`備份格式不正確：${name} 不是陣列`)
@@ -836,7 +797,6 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos,
           db.decks,
           db.wishlist,
-          db.battleRounds,
           db.meta,
         ],
         async () => {
@@ -847,7 +807,6 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.clear(),
             db.decks.clear(),
             db.wishlist.clear(),
-            db.battleRounds.clear(),
           ])
           await Promise.all([
             db.ownedProducts.bulkAdd(payload.ownedProducts),
@@ -856,7 +815,6 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.bulkAdd(payload.savedCombos),
             db.decks.bulkAdd(payload.decks),
             db.wishlist.bulkAdd(payload.wishlist),
-            db.battleRounds.bulkAdd(payload.battleRounds ?? []),
           ])
           if (payload.settings) {
             await db.meta.put({ key: META_SETTINGS, value: payload.settings })
