@@ -21,8 +21,10 @@ describe('可信影片來源 registry', () => {
     expect(Object.isFrozen(approved)).toBe(true)
   })
 
-  it('正式 registry 預設為空，不預先宣稱任何真實頻道可信', () => {
-    expect(validateTrustedVideoSourceRegistry(trustedVideoSourceRegistry).sources).toEqual([])
+  it('正式 registry 的候選來源在人工核准前都不可信', () => {
+    const registry = validateTrustedVideoSourceRegistry(trustedVideoSourceRegistry)
+    expect(registry.sources.every((source) => source.approval.status === 'candidate')).toBe(true)
+    expect(listApprovedVideoSources(registry)).toEqual([])
   })
 
   it('拒絕把沒有人工決策的候選直接標為已核准', () => {

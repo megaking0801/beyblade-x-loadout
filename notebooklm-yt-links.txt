@@ -1,0 +1,44 @@
+=== 複製下面這段貼進 NotebookLM 的「新增來源→URL」欄位（一行一個連結，NotebookLM 會自動拆成多個獨立來源）===
+
+https://www.youtube.com/watch?v=7fbeMy90mow
+https://www.youtube.com/watch?v=8wfCvJSbpzo
+https://www.youtube.com/watch?v=C__6njjUmK4
+https://www.youtube.com/watch?v=Oluh5JV-1DM
+https://www.youtube.com/playlist?list=PLfX0BhjZoHNm5iwOeg0KHWtpa7bhjpi2g
+https://www.youtube.com/watch?v=qw9u91SD9rA
+https://www.youtube.com/watch?v=037w61PRNYA
+https://www.youtube.com/watch?v=7nCjrK9ezFQ
+https://www.youtube.com/watch?v=XzpJ5hBcIgA
+https://www.youtube.com/watch?v=v8nMbJqRac8
+
+=== 以上區塊結束 ===
+
+## 每條連結對照說明
+
+| # | 連結 | 內容 | 狀態 |
+|---|---|---|---|
+| 1 | watch?v=7fbeMy90mow | BEYBLADE X WORLD CHAMPIONSHIP 2025 DAY1 預賽全程直播（英語官方頻道） | registry candidate（beyblade-english-official） |
+| 2 | watch?v=8wfCvJSbpzo | 同上 DAY2 決賽輪全程直播（英語） | registry candidate |
+| 3 | watch?v=C__6njjUmK4 | 同一場世界大賽 DAY1 日語轉播版 | 未列入 registry，同事件不同語言版本 |
+| 4 | watch?v=Oluh5JV-1DM | 同一場世界大賽 DAY2 日語轉播版 | 未列入 registry，同事件不同語言版本 |
+| 5 | playlist?list=PLfX0BhjZoHNm5iwOeg0KHWtpa7bhjpi2g | 世界大賽 2025 官方播放清單（可能含更多分段影片） | 未列入 registry，播放清單 |
+| 6 | watch?v=qw9u91SD9rA | 【D100】香港 G2 爭霸戰總決賽直播 | registry candidate（d100-radio-hk） |
+| 7 | watch?v=037w61PRNYA | 【D100】香港 G1 爭霸戰總決賽直播 | registry candidate |
+| 8 | watch?v=7nCjrK9ezFQ | 阿土「S1花蓮金發射器256人大賽」第一視角回放 | registry candidate（atulolz-atu） |
+| 9 | watch?v=XzpJ5hBcIgA | 台灣「2026 第一屆萊爾富戰鬥陀螺交流賽」現場直播 | 未列入 registry，轉播單位（疑似愛爾達體育）channelId 未查到 |
+| 10 | watch?v=v8nMbJqRac8 | 馬來西亞大型戰鬥陀螺X比賽（個人創作者視角） | 未列入 registry，非官方/主辦方全場轉播 |
+
+## 沒有具體影片連結、只有頻道首頁的候選（NotebookLM 原生不吃純頻道首頁網址，只吃單支影片或播放清單，所以沒放進上面清單）
+
+- TakaraTomyBeyblade：https://www.youtube.com/channel/UCydxSsnKp10hAIjdGce2MQg
+- World Beyblade Organization：https://www.youtube.com/channel/UCGX1vmquOg8VcNCqnH1c3GA
+- BEYBLADE Thailand：https://www.youtube.com/channel/UC3vIYjsBYuwi0obAFy_EWgQ
+- BEYBLADE Malaysia：https://www.youtube.com/channel/UCDN1FYCY8V5d-8XNxSFCoCw
+
+要餵這幾個頻道給 NotebookLM，得先自己去頻道裡挑幾支具體影片的網址，或用第三方擴充功能（如 "YouTube to NotebookLM"）批次匯入整個頻道；NotebookLM 官方介面本身不支援直接貼頻道首頁網址。
+
+## NotebookLM 機制備忘（供參考）
+
+- 只吃「有字幕（含自動字幕）」的公開 YouTube 影片；沒字幕的影片會失敗。
+- 一次貼多個網址時用換行或空白分隔即可，會自動拆成多個獨立來源。
+- 每支影片算一個來源；免費版上限 50 個來源／筆記本（Plus 100、Pro 300、Ultra 500~600）。
