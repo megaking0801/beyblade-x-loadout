@@ -2,6 +2,31 @@
 
 給在這個 repo 工作的 AI 代理（以及未來的自己）。專案現況、已知缺漏與下一步請讀 `HANDOFF.md`。
 
+## 語言
+
+與使用者溝通一律使用繁體中文。程式碼、指令、檔案路徑、API、函式、變數、模型名稱與必要技術
+識別字可保留英文。不需要每次重新確認語言偏好。
+
+## 回答前檢查
+
+每次輸出最終回答前，先做一次輕量 internal consistency check：有沒有明顯事實錯誤、明顯邏輯
+矛盾、遺漏使用者明確要求或限制、與目前已知資訊明顯衝突。發現具體問題先修正再回答。
+
+這項檢查本身**不得**自動觸發：repository 全面重掃、大量重讀 unchanged files、subagent、
+模型升級、第二輪完整分析、full red-team。只有出現具體 evidence 時才擴大驗證。
+
+## Repository 探索順序
+
+預設由窄到寬：
+
+1. 已知直接相關檔案
+2. targeted grep / glob
+3. direct dependencies / affected call path
+4. 只有出現具體 evidence 時才 broader repository exploration
+
+避免：routine task 就掃整個 repository、無理由重讀 unchanged files、verification 階段
+重新探索同一區域、沒有 evidence 就持續往相鄰 module 擴張。
+
 ## 開工前（先辨識現況，不覆寫在飛工作）
 
 每次開始實作或規劃前，先依序執行：
@@ -113,6 +138,11 @@ diff，並更新 HANDOFF 的「未推的在飛工作」。若接下來要跑全�
 
 ## 模型與子代理分工
 
+Sonnet 是一般開發預設主模型：一般 feature、bug fix、debug、測試、一般效能分析、普通
+verification 都由 Sonnet 直接處理。普通自檢或回答前 consistency check 不因此自動升級模型；
+只有真正困難問題，或使用者明確要求 `full red-team`，才升級到較高成本 escalation。簡單任務
+不要為了「分工」而自動啟動 subagent。
+
 Claude Code 的主 session 模型由使用者以 `/model` 或啟動參數選定；規則不能讓主 session
 自行換模型。要做模型分工，使用 `.claude/agents/*.md` 的 custom subagent，並在 frontmatter
 固定 `model`，不可依賴 `inherit`。
@@ -143,8 +173,10 @@ Claude Code 的主 session 模型由使用者以 `/model` 或啟動參數選定�
 工作區不乾淨時，必須列出在飛變更範圍、最後完成步驟與下一個具體動作，不能寫「乾淨」或
 「已上線」。
 
-正式交接、服務發出 context／usage 警示，或完成可移交里程碑時：先更新 `HANDOFF.md`，再複製為
-`handoffs/YYYYMMDD-HHMM.md` 歷史快照，確認兩份都沒有憑證、個資或真實使用者資料，才可停止。
+一般交接（含正式交接、usage 警示、一般「可移交」狀態）直接覆寫 `HANDOFF.md`，**不**自動
+建立 `handoffs/YYYYMMDD-HHMM.md`。只有以下情況才額外複製一份歷史快照：major milestone、
+release、architecture freeze、postmortem／重大事故，或使用者明確要求保留 snapshot。
+要建立 snapshot 時，確認兩份都沒有憑證、個資或真實使用者資料，才可停止。
 交接觸發後不得開始新的大型工作。
 
 ```
@@ -168,3 +200,11 @@ Claude Code 的主 session 模型由使用者以 `/model` 或啟動參數選定�
 例如「4173 殘留 preview 會造成假綠假紅」、「`toHaveText('可用 ×3')` 的空白是 JSX
 字面空白，改成 flex 兩節點就會紅」、「fullPage 截圖會把 fixed 導覽列畫在畫面中段
 並遮住文字，那是假象不是 bug」。不是「這一輪我修了什麼」。
+
+## `/clear` 後接手
+
+長 session 需要 `/clear` 時，新 session 優先順序：讀這份 `CLAUDE.md` → 讀 `HANDOFF.md` →
+`git status` → `git diff` → 只讀 `HANDOFF.md` 下一步列出的直接相關檔案。
+
+不要因為是新 session 就：重新掃整個 repository、重新研究 `HANDOFF.md` 已記錄完成的決策、
+自動讀全部舊 `handoffs/`、建立新的 summary、建立新的 timestamp handoff。
