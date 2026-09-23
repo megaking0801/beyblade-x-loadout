@@ -78,19 +78,30 @@ function computePercentiles(appearancesByCode: Map<string, number>): Map<string,
 }
 
 /**
- * 把 Catalog 的台灣完整 3on3 賽果、社群站台逐場紀錄，與版本化全球快照合併為
- * 「完整配置」證據。優先序：台灣本地 > 社群站台（`communityRecords`，見
- * `catalog/communityRecords.ts`）> 全球快照——沿用既有「台灣資料優先」原則，
- * 每個 comboCode 只採一個來源的證據，不同來源不混在同一筆裡加總。
+ * 把 Catalog 的台灣完整 3on3 賽果、社群站台聚合摘要，與版本化全球快照合併為
+ * 「完整配置」證據。優先序：台灣本地 > 社群站台（`community`，見
+ * `catalog/communityRecords.ts` 的 `getCommunityEvidenceSource()`）> 全球快照
+ * ——沿用既有「台灣資料優先」原則，每個 comboCode 只採一個來源的證據，
+ * 不同來源不混在同一筆裡加總。
  */
 export function createCompetitiveEvidenceByCode(args: {
   events: TournamentEvent[]
   decks: TournamentDeck[]
-  /** 見 `catalog/communityRecords.ts`：`getCommunityRecords()` + `communityRecordsMeta`。 */
-  community?: { records: { comboCode: string; rank?: number }[]; updatedAt: string; sourceUrl: string }
+  /**
+   * 見 `catalog/communityRecords.ts` 的 `getCommunityEvidenceSource()`。
+   * 這裡吃的是已經依 comboCode 聚合過的摘要，不是逐場原始紀錄——原始紀錄檔
+   * 近 4MB，直接在這層展開會鼓勵呼叫端 import 到那份大檔案，見
+   * `communityRecords.ts` 開頭的教訓。
+   */
+  community?: {
+    combos: { comboCode: string; appearances: number; top4: number; championships: number }[]
+    totalRecords: number
+    updatedAt: string
+    sourceUrl: string
+  }
 }): Record<string, CompetitiveEvidence> {
   const { events, decks, community } = args
-  const communityRecords = community?.records ?? []
+  const communityCombos = community?.combos ?? []
   const localDecks = decks.filter((deck) => deck.comboKeys.length === 3 && events.some((event) => event.id === deck.eventId))
   const localTotal = localDecks.length
   const localByCode = new Map<string, { appearances: number; top4: number; championships: number; tiers: SourceTier[]; urls: Set<string> }>()
@@ -107,18 +118,10 @@ export function createCompetitiveEvidenceByCode(args: {
   }
   const taiwanPercentiles = computePercentiles(new Map([...localByCode].map(([code, row]) => [code, row.appearances])))
 
-  const communityByCode = new Map<string, { appearances: number; top4: number; championships: number }>()
-  for (const record of communityRecords) {
-    const row = communityByCode.get(record.comboCode) ?? { appearances: 0, top4: 0, championships: 0 }
-    row.appearances += 1
-    // 站方資料只細分到 1st/2nd/3rd，沒有第 4 名，top4 這裡實際是 top3 的近似值，
-    // 比沒有名次資訊可用好，但不假裝跟本地資料的 top4 定義完全一樣。
-    if (record.rank !== undefined && record.rank <= 3) row.top4 += 1
-    if (record.rank === 1) row.championships += 1
-    communityByCode.set(record.comboCode, row)
-  }
-  const communityTotal = communityRecords.length
-  const communityPercentiles = computePercentiles(new Map([...communityByCode].map(([code, row]) => [code, row.appearances])))
+  const communityTotal = community?.totalRecords ?? 0
+  const communityPercentiles = computePercentiles(
+    new Map(communityCombos.map((row) => [row.comboCode, row.appearances])),
+  )
 
   const globalPercentiles = computePercentiles(
     new Map(competitiveMetaSnapshot.entries.map((entry) => [entry.comboCode, entry.appearances])),
@@ -139,16 +142,16 @@ export function createCompetitiveEvidenceByCode(args: {
     }
   }
 
-  for (const [code, row] of communityByCode) {
-    if (result[code]) continue
-    result[code] = {
+  for (const row of communityCombos) {
+    if (result[row.comboCode]) continue
+    result[row.comboCode] = {
       appearances: row.appearances,
       top4: row.top4,
       championships: row.championships,
       totalDecks: communityTotal,
       sourceTier: 'verified_community',
       region: 'community',
-      percentileScore: communityPercentiles.get(code),
+      percentileScore: communityPercentiles.get(row.comboCode),
       updatedAt: community?.updatedAt ?? competitiveMetaSnapshot.updatedAt,
       sourceUrls: community?.sourceUrl ? [community.sourceUrl] : [],
     }

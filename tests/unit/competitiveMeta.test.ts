@@ -49,7 +49,7 @@ describe('競技 Meta 快照', () => {
     const code = 'ウィザードロッド 1-60H'
     const events = [{ id: 'tw-g3', name: '台灣測試賽', date: '2026-09-01', sourceTier: 'community' as const, sourceUrl: 'https://example.test/tw' }]
     const decks = [{ id: 'tw-deck', eventId: 'tw-g3', placement: 1, comboKeys: [code, '甲 1-60R', '乙 9-60FB'], sourceUrl: 'https://example.test/tw' }]
-    const community = { records: [{ comboCode: code, rank: 1 }, { comboCode: code, rank: 2 }], updatedAt: '2026-09-23', sourceUrl: 'https://example.test/community' }
+    const community = { combos: [{ comboCode: code, appearances: 2, top4: 2, championships: 1 }], totalRecords: 2, updatedAt: '2026-09-23', sourceUrl: 'https://example.test/community' }
 
     const withTaiwan = createCompetitiveEvidenceByCode({ events, decks, community })
     expect(withTaiwan[code]?.region).toBe('taiwan')
@@ -74,11 +74,15 @@ describe('競技 Meta 快照', () => {
     ]
     const dominantCommunityCode = 'ウィザードロッド 1-60H'
     const rareCommunityCode = 'エアロペガサス 1-60R'
-    const communityRecords = [
-      ...Array.from({ length: 999 }, () => ({ comboCode: dominantCommunityCode })),
-      { comboCode: rareCommunityCode },
-    ]
-    const community = { records: communityRecords, updatedAt: '2026-09-23', sourceUrl: 'https://example.test/community' }
+    const community = {
+      combos: [
+        { comboCode: dominantCommunityCode, appearances: 999, top4: 0, championships: 0 },
+        { comboCode: rareCommunityCode, appearances: 1, top4: 0, championships: 0 },
+      ],
+      totalRecords: 1000,
+      updatedAt: '2026-09-23',
+      sourceUrl: 'https://example.test/community',
+    }
 
     const result = createCompetitiveEvidenceByCode({ events, decks, community })
     // 台灣樣本裡最強的配置（3 次出場，本地樣本裡最高）要拿到滿分百分位。

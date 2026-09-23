@@ -1,6 +1,11 @@
 /**
- * 從 stan-yao 的「台灣天梯情報站」抓逐筆賽事名次紀錄，
- * 輸出 src/catalog/sources/stanyao-raw-records.json。
+ * 從 stan-yao 的「台灣天梯情報站」抓逐筆賽事名次紀錄，輸出兩份檔案：
+ * - `stanyao-raw-records.json`：逐筆原始紀錄，當稽核用的來源真相，**不得**被
+ *   app 程式碼直接 import（1.5 萬筆，檔案將近 4MB，直接 import 會被打包進
+ *   瀏覽器程式碼，實測會讓 PWA service worker 的 precache 超過 2MB 上限，
+ *   整個 build 直接失敗——這是這輪真的踩過的坑）。
+ * - `stanyao-combo-summary.json`：依 comboCode 聚合後的摘要（2,503 個不重複
+ *   配置，遠小於原始檔），`src/catalog/communityRecords.ts` 只 import 這份。
  *
  * 規格對照：第 21 節（賽事統計與樣本限制）、第 41 節（來源與驗證）、第 1.5 節（不得編造）。
  *
@@ -26,6 +31,7 @@ const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, '..')
 const CATALOG_FILE = resolve(root, 'src/catalog/catalog.generated.json')
 const OUT_FILE = resolve(root, 'src/catalog/sources/stanyao-raw-records.json')
+const SUMMARY_OUT_FILE = resolve(root, 'src/catalog/sources/stanyao-combo-summary.json')
 
 const SITE_URL = 'https://stan-yao.github.io/beyblade_x_tier/'
 const SHEET_URL =
@@ -166,8 +172,39 @@ writeFileSync(
   'utf8',
 )
 
+const summaryByCode = new Map()
+for (const record of records) {
+  const row = summaryByCode.get(record.comboCode) ?? { appearances: 0, top4: 0, championships: 0 }
+  row.appearances += 1
+  if (record.rank !== undefined && record.rank <= 3) row.top4 += 1
+  if (record.rank === 1) row.championships += 1
+  summaryByCode.set(record.comboCode, row)
+}
+const comboSummary = [...summaryByCode].map(([comboCode, row]) => ({ comboCode, ...row }))
+
+writeFileSync(
+  SUMMARY_OUT_FILE,
+  `${JSON.stringify(
+    {
+      source: 'stan-yao/beyblade_x_tier',
+      sourceUrl: SITE_URL,
+      fetchedAt: new Date().toISOString().slice(0, 10),
+      note:
+        `由 stanyao-raw-records.json 的 ${records.length} 筆逐場紀錄依 comboCode 聚合而成` +
+        '（同一個 comboCode 的 appearances/top4/championships 加總），供 app 執行期直接使用，' +
+        '不含逐場日期明細——要查逐場紀錄請看 stanyao-raw-records.json。',
+      totalRecords: records.length,
+      combos: comboSummary,
+    },
+    null,
+    2,
+  )}\n`,
+  'utf8',
+)
+
 const strippedCount = records.filter((record) => record.bladeMatchMethod === 'stripped_trailing_annotation').length
 console.log(
   `Raw Records 共 ${rows.length} 筆，比對成功 ${records.length} 筆` +
-    `（其中 ${strippedCount} 筆靠剝括號註記救回），比對不到 ${unresolved.length} 筆`,
+    `（其中 ${strippedCount} 筆靠剝括號註記救回），比對不到 ${unresolved.length} 筆，` +
+    `聚合成 ${comboSummary.length} 個不重複配置`,
 )
