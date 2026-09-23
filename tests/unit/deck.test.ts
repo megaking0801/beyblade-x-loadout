@@ -427,6 +427,23 @@ describe('estimateComboPartStrength（零件層級強度 fallback，第 50 節�
     const result = estimateComboPartStrength(threeDistinct[0]!, index)
     expect(result).toBe(90)
   })
+
+  it('CX 系統用到的 lockChipId/mainBladeId/overBladeId/assistBladeId 時也正確平均', () => {
+    const cxSlots: ComboSlots = {
+      lockChipId: 'chip-cx',
+      mainBladeId: 'main-cx',
+      overBladeId: 'over-cx',
+      assistBladeId: 'assist-cx',
+    }
+    const index = new Map([
+      ['chip-cx', { podiumAppearances: 8, percentileScore: 50 }],
+      ['main-cx', { podiumAppearances: 12, percentileScore: 70 }],
+      ['over-cx', { podiumAppearances: 10, percentileScore: 60 }],
+      ['assist-cx', { podiumAppearances: 6, percentileScore: 40 }],
+    ])
+    const result = estimateComboPartStrength(cxSlots, index)
+    expect(result).toBe(55) // (50 + 70 + 60 + 40) / 4
+  })
 })
 
 describe('規則說明必須全中文（第 1.4 節）', () => {
