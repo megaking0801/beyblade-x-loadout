@@ -49,6 +49,21 @@
       "sourceUrl": "https://bbxhub.net/meta/phoenix-wing"
     },
     {
+      "partId": "blade:コバルトドラグーン",
+      "nameEn": "CobaltDragoon",
+      "metaRank": 4,
+      "tier": "S",
+      "type": "Attack",
+      "tournamentWins": 912,
+      "placements": {
+        "first": 912,
+        "second": 847,
+        "third": 868,
+        "fourthPlus": 106
+      },
+      "sourceUrl": "https://bbxhub.net/meta/cobalt-dragoon"
+    },
+    {
       "partId": "blade:エアロペガサス",
       "nameEn": "AeroPegasus",
       "metaRank": 5,
@@ -62,6 +77,21 @@
         "fourthPlus": 57
       },
       "sourceUrl": "https://bbxhub.net/meta/aero-pegasus"
+    },
+    {
+      "partId": "blade:ワイバーンゲイル",
+      "nameEn": "WyvernHover",
+      "metaRank": 6,
+      "tier": "A",
+      "type": "Defense",
+      "tournamentWins": 637,
+      "placements": {
+        "first": 637,
+        "second": 650,
+        "third": 605,
+        "fourthPlus": 54
+      },
+      "sourceUrl": "https://bbxhub.net/meta/wyvern-hover"
     },
     {
       "partId": "blade:シルバーウルフ",
@@ -92,6 +122,20 @@
         "fourthPlus": 64
       },
       "sourceUrl": "https://bbxhub.net/meta/tyranno-beat"
+    },
+    {
+      "partId": "blade:メテオドラグーン",
+      "nameEn": "MeteorDragoon",
+      "metaRank": 9,
+      "tier": "A",
+      "tournamentWins": 247,
+      "placements": {
+        "first": 247,
+        "second": 227,
+        "third": 245,
+        "fourthPlus": 12
+      },
+      "sourceUrl": "https://bbxhub.net/meta/meteor-dragoon"
     },
     {
       "partId": "blade:ゴーレムロック",
@@ -137,6 +181,21 @@
         "fourthPlus": 46
       },
       "sourceUrl": "https://bbxhub.net/meta/dran-buster"
+    },
+    {
+      "partId": "blade:シャークエッジ",
+      "nameEn": "SharkEdge",
+      "metaRank": 13,
+      "tier": "B",
+      "type": "Attack",
+      "tournamentWins": 168,
+      "placements": {
+        "first": 168,
+        "second": 189,
+        "third": 178,
+        "fourthPlus": 40
+      },
+      "sourceUrl": "https://bbxhub.net/meta/shark-edge"
     },
     {
       "partId": "blade:ヘルズサイズ",
@@ -210,6 +269,21 @@
         "fourthPlus": 4
       },
       "sourceUrl": "https://bbxhub.net/meta/dran-strike"
+    },
+    {
+      "partId": "blade:ホエールウェーブ",
+      "nameEn": "WhaleWave",
+      "metaRank": 20,
+      "tier": "B",
+      "type": "Balance",
+      "tournamentWins": 89,
+      "placements": {
+        "first": 89,
+        "second": 96,
+        "third": 105,
+        "fourthPlus": 20
+      },
+      "sourceUrl": "https://bbxhub.net/meta/whale-wave"
     },
     {
       "partId": "blade:クロックミラージュ",
@@ -421,6 +495,21 @@
       "sourceUrl": "https://bbxhub.net/meta/weiss-tiger"
     },
     {
+      "partId": "blade:ライトニングエルドラゴ",
+      "nameEn": "Lightning L-Drago",
+      "metaRank": 44,
+      "tier": "C",
+      "type": "Attack",
+      "tournamentWins": 20,
+      "placements": {
+        "first": 20,
+        "second": 14,
+        "third": 14,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/lightning-l-drago"
+    },
+    {
       "partId": "blade:トリケラプレス",
       "nameEn": "TriceraPress",
       "metaRank": 47,
@@ -436,6 +525,35 @@
       "sourceUrl": "https://bbxhub.net/meta/tricera-press"
     },
     {
+      "partId": "blade:ゴーストサークル",
+      "nameEn": "GhostCircle",
+      "metaRank": 52,
+      "tier": "C",
+      "type": "Stamina",
+      "tournamentWins": 9,
+      "placements": {
+        "first": 9,
+        "second": 14,
+        "third": 14,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/ghost-circle"
+    },
+    {
+      "partId": "blade:フェニックスフェザー",
+      "nameEn": "PhoenixFeather",
+      "metaRank": 59,
+      "tier": "C",
+      "tournamentWins": 6,
+      "placements": {
+        "first": 6,
+        "second": 11,
+        "third": 12,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/phoenix-feather"
+    },
+    {
       "partId": "blade:レオンクロー",
       "nameEn": "LeonClaw",
       "metaRank": 60,
@@ -449,6 +567,66 @@
         "fourthPlus": 1
       },
       "sourceUrl": "https://bbxhub.net/meta/leon-claw"
+    },
+    {
+      "partId": "blade:シノビシャドウ",
+      "nameEn": "ShinobiShadow",
+      "metaRank": 62,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 4,
+      "placements": {
+        "first": 4,
+        "second": 12,
+        "third": 13,
+        "fourthPlus": 1
+      },
+      "sourceUrl": "https://bbxhub.net/meta/shinobi-shadow"
+    },
+    {
+      "partId": "blade:ワイバーンゲイル",
+      "nameEn": "WyvernGale",
+      "metaRank": 63,
+      "tier": "C",
+      "type": "Stamina",
+      "tournamentWins": 8,
+      "placements": {
+        "first": 8,
+        "second": 6,
+        "third": 13,
+        "fourthPlus": 1
+      },
+      "sourceUrl": "https://bbxhub.net/meta/wyvern-gale"
+    },
+    {
+      "partId": "blade:シェルタードレイク",
+      "nameEn": "ShelterDrake",
+      "metaRank": 65,
+      "tier": "C",
+      "type": "Balance",
+      "tournamentWins": 5,
+      "placements": {
+        "first": 5,
+        "second": 13,
+        "third": 7,
+        "fourthPlus": 3
+      },
+      "sourceUrl": "https://bbxhub.net/meta/shelter-drake"
+    },
+    {
+      "partId": "blade:ブラックシェル",
+      "nameEn": "BlackShell",
+      "metaRank": 66,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 10,
+      "placements": {
+        "first": 10,
+        "second": 8,
+        "third": 3,
+        "fourthPlus": 5
+      },
+      "sourceUrl": "https://bbxhub.net/meta/black-shell"
     },
     {
       "partId": "blade:ゼノエクスカリバー",
@@ -478,37 +656,25 @@
         "fourthPlus": 0
       },
       "sourceUrl": "https://bbxhub.net/meta/goat-tackle"
+    },
+    {
+      "partId": "blade:ホエールウェーブ",
+      "nameEn": "Tide Whale",
+      "metaRank": 167,
+      "tier": "C",
+      "placements": {
+        "first": 0,
+        "second": 1,
+        "third": 2,
+        "fourthPlus": 0
+      },
+      "sourceUrl": "https://bbxhub.net/meta/tide-whale"
     }
   ],
   "unresolved": [
     {
-      "nameEn": "CobaltDragoon",
-      "zhNameFromBridge": "蒼穹龍騎士(左)",
-      "reason": "blade_not_found"
-    },
-    {
-      "nameEn": "WyvernHover",
-      "zhNameFromBridge": "飛龍旋翼(綠)",
-      "reason": "blade_not_found"
-    },
-    {
-      "nameEn": "MeteorDragoon",
-      "zhNameFromBridge": "隕星龍騎士(左)",
-      "reason": "blade_not_found"
-    },
-    {
-      "nameEn": "SharkEdge",
-      "zhNameFromBridge": "鮫鯊鋒鰭(紫)",
-      "reason": "blade_not_found"
-    },
-    {
       "nameEn": "EmperorBlast Heavy",
       "reason": "no_bridge_entry"
-    },
-    {
-      "nameEn": "WhaleWave",
-      "zhNameFromBridge": "巨鯨怒濤(綠)",
-      "reason": "blade_not_found"
     },
     {
       "nameEn": "UnicornSting",
@@ -550,11 +716,6 @@
       "reason": "no_bridge_entry"
     },
     {
-      "nameEn": "Lightning L-Drago",
-      "zhNameFromBridge": "雷霆天龍(上升攻擊型)",
-      "reason": "blade_not_found"
-    },
-    {
       "nameEn": "OrochiCluster",
       "zhNameFromBridge": "八岐大蛇",
       "reason": "blade_not_found"
@@ -578,11 +739,6 @@
     {
       "nameEn": "SolBlast Heavy",
       "reason": "no_bridge_entry"
-    },
-    {
-      "nameEn": "GhostCircle",
-      "zhNameFromBridge": "幽靈元魂(綠)",
-      "reason": "blade_not_found"
     },
     {
       "nameEn": "BiteCroc",
@@ -612,37 +768,12 @@
       "reason": "no_bridge_entry"
     },
     {
-      "nameEn": "PhoenixFeather",
-      "zhNameFromBridge": "鳳凰翔羽(黑)",
-      "reason": "blade_not_found"
-    },
-    {
       "nameEn": "EmperorDelta PeakHeavy",
       "reason": "no_bridge_entry"
     },
     {
-      "nameEn": "ShinobiShadow",
-      "zhNameFromBridge": "忍者闇影(紫)",
-      "reason": "blade_not_found"
-    },
-    {
-      "nameEn": "WyvernGale",
-      "zhNameFromBridge": "飛龍旋翼(綠)",
-      "reason": "blade_not_found"
-    },
-    {
       "nameEn": "BahamutBlitz BreakHeavy",
       "reason": "no_bridge_entry"
-    },
-    {
-      "nameEn": "ShelterDrake",
-      "zhNameFromBridge": "護城龍神(紅)",
-      "reason": "blade_not_found"
-    },
-    {
-      "nameEn": "BlackShell",
-      "zhNameFromBridge": "玄冥戰甲(綠)",
-      "reason": "blade_not_found"
     },
     {
       "nameEn": "Quetzalcoatlus",
@@ -1043,11 +1174,6 @@
     {
       "nameEn": "EmperorMight Bumper",
       "reason": "no_bridge_entry"
-    },
-    {
-      "nameEn": "Tide Whale",
-      "zhNameFromBridge": "巨鯨怒濤(綠)",
-      "reason": "blade_not_found"
     }
   ]
 }

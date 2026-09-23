@@ -16,7 +16,10 @@
  * （`naming.nameEn`）目前只填了少數零件，直接比對成功率很低；改用
  * `stanyao-raw-records.json` 的來源 Google Sheet 裡已經驗證過、零衝突的
  * 「英文名→中文名」對照（101 筆），再查中文名對回圖鑑——不是憑空編對照表，
- * 是重用已經驗證過的既有比對結果。
+ * 是重用已經驗證過的既有比對結果。橋接出來的中文名一樣可能帶旋向／顏色／型態
+ * 括號註記，比對失敗時剝掉結尾括號再試一次（跟 `fetchStanYaoRecords.mjs`
+ * 同一個既有慣例）。目前 167 個追蹤零件裡約 45 個能比對成功，其餘大多是
+ * 橋接表（只有 101 筆）本身沒收錄的冷門／新品零件，不是比對邏輯的問題。
  *
  * 用法：node scripts/fetchBbxhubMeta.mjs
  */
@@ -119,6 +122,17 @@ const bladeByZhName = new Map(
     .map((part) => [part.naming.primaryZhTW, part.id]),
 )
 
+/**
+ * 橋接表裡的中文名可能帶旋向／顏色／型態括號註記（例如「蒼穹龍騎士(左)」），
+ * 跟 `fetchStanYaoRecords.mjs` 同一個既有慣例：剝掉結尾括號再試一次。
+ */
+function resolveBladeId(zhName) {
+  const exact = bladeByZhName.get(zhName)
+  if (exact) return exact
+  const stripped = zhName.replace(/[（(][^）)]*[）)]$/u, '').trim()
+  return stripped !== zhName ? bladeByZhName.get(stripped) : undefined
+}
+
 const enToZh = await buildEnToZhBridge()
 
 const listResponse = await fetch(TIER_LIST_URL)
@@ -133,7 +147,7 @@ const unresolved = []
 
 for (const entry of entries) {
   const zhName = enToZh.get(entry.nameEn)
-  const partId = zhName ? bladeByZhName.get(zhName) : undefined
+  const partId = zhName ? resolveBladeId(zhName) : undefined
   if (!partId) {
     unresolved.push({ nameEn: entry.nameEn, zhNameFromBridge: zhName, reason: zhName ? 'blade_not_found' : 'no_bridge_entry' })
     continue
