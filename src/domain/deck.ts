@@ -328,6 +328,8 @@ export interface SuggestDecksArgs {
   evidenceByCode?: Record<string, EvidenceInput>
   /** BeybladeHub 高手零件評級（X/SS/S），partId 索引，見 `catalog/tierLists.ts` 的 `getExpertPartRatingIndex()`。 */
   expertPartRatingIndex?: Map<string, ExpertPartRatingRank>
+  /** 零件層級賽果聲量聚合，見 `catalog/partStrength.ts` 的 `getPartStrengthIndex()`；第 50 節。 */
+  partStrengthIndex?: Map<string, PartStrengthEntry>
 }
 
 const DEFAULT_CANDIDATE_CAP = 60
@@ -345,10 +347,14 @@ function average(values: number[]): number {
 /** X=3／SS=2／S=1 每一級的加分權重，跟 `recommendations.ts` 的 `expertTierGain` 同一套換算，見 `tierLists.ts`。 */
 const EXPERT_TIER_WEIGHT = 5
 
+/** 第 50.3 節：零件拼湊推估的權重必須明確低於完整配置證據，初始值待第 50.6 節回測校準。 */
+const PART_STRENGTH_FALLBACK_WEIGHT = 0.3
+
 export function scoreDeck(
   strategy: DeckStrategy,
   members: DeckMember[],
   expertPartRatingIndex?: Map<string, ExpertPartRatingRank>,
+  partStrengthIndex?: Map<string, PartStrengthEntry>,
 ): number {
   const scores = members.map((m) => m.analysis.scores)
   const axis = (key: 'attack' | 'defense' | 'stamina' | 'stability' | 'burst' | 'burstResistance') =>
@@ -358,6 +364,15 @@ export function scoreDeck(
   // 大量社群出場數的配置系統性蓋過真正在本地賽事拿過名次的配置，跟
   // `competitiveMeta.ts` 的 `computePercentiles()` 是同一套修正。
   const competitiveEvidence = members.reduce((sum, member) => sum + (member.analysis.evidence?.percentileScore ?? 0), 0)
+  // evidence 缺席時的低權重 fallback（第 50 節）：`evidence` 策略刻意不吃這個，
+  // 理由跟它不吃 expertTierGain 一樣——策略名稱承諾「最高賽事證據」，混進零件
+  // 拼湊推估會誤導。權重是保守初始值，正式校準見規格第 50.6 節的回測腳本。
+  const competitiveEvidenceWithFallback = members.reduce((sum, member) => {
+    const real = member.analysis.evidence?.percentileScore
+    if (real !== undefined) return sum + real
+    const fallback = partStrengthIndex ? estimateComboPartStrength(member.slots, partStrengthIndex) : undefined
+    return sum + (fallback ?? 0) * PART_STRENGTH_FALLBACK_WEIGHT
+  }, 0)
   // BBXHub 高手零件評級加總（X/SS/S），跟 `recommendations.ts` 的
   // `expertTierGain` 同一份索引；這是社群主觀意見，不是賽事證據，`evidence`
   // 策略刻意不吃這項，避免跟策略名稱承諾的「最高賽事證據」互相混淆。
@@ -382,21 +397,22 @@ export function scoreDeck(
     case 'beginner':
       return -average(members.map((m) => m.analysis.operationDifficulty ?? 100))
     case 'balanced':
-      // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據與高手評級則作為
-      // 次要加分，不能用零件類型分數蓋過賽場已驗證的組合。
+      // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據（含零件強度
+      // fallback）與高手評級則作為次要加分，不能用零件類型分數蓋過賽場已驗證
+      // 的組合。
       return (
         Math.max(...axis('attack')) +
         Math.max(...axis('stamina')) +
         Math.max(...axis('stability')) +
-        competitiveEvidence +
+        competitiveEvidenceWithFallback +
         expertTierGain * EXPERT_TIER_WEIGHT
       )
     case 'evidence':
       return competitiveEvidence
     case 'vs_attack':
-      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidence * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
     case 'vs_stamina':
-      return average(axis('attack')) + average(axis('burst')) + competitiveEvidence * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      return average(axis('attack')) + average(axis('burst')) + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
   }
 }
 
@@ -412,6 +428,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
     candidateCap = DEFAULT_CANDIDATE_CAP,
     evidenceByCode,
     expertPartRatingIndex,
+    partStrengthIndex,
   } = args
 
   if (candidates.length < ruleSet.teamSize) return []
@@ -460,7 +477,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
           roleZhTW: '',
           reasonZhTW: '',
         }))
-        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members, expertPartRatingIndex) })
+        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members, expertPartRatingIndex, partStrengthIndex) })
       }
     }
   }
@@ -478,7 +495,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
       strategyZhTW: DECK_STRATEGY_ZH[strategy],
       slotsList,
       validation,
-      score: scoreDeck(strategy, validation.members, expertPartRatingIndex),
+      score: scoreDeck(strategy, validation.members, expertPartRatingIndex, partStrengthIndex),
       alternativesZhTW: buildAlternatives(pool, slotsList),
     })
     if (suggestions.length >= limit) break

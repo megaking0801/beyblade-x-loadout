@@ -404,6 +404,48 @@ describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () 
     ])
     expect(scoreDeck('evidence', members, expertIndex)).toBe(scoreDeck('evidence', members))
   })
+
+  it('balanced 策略：沒有真實 evidence 時，用零件強度 fallback 補分（權重低於真實證據）', () => {
+    const membersNoEvidence = threeDistinct.map((slots) => memberFor(slots))
+    const partStrengthIndex = new Map([
+      ['b-atk', { podiumAppearances: 50, percentileScore: 100 }],
+      ['r-60', { podiumAppearances: 50, percentileScore: 100 }],
+      ['bit-f', { podiumAppearances: 50, percentileScore: 100 }],
+    ])
+    const withFallback = scoreDeck('balanced', membersNoEvidence, undefined, partStrengthIndex)
+    const withoutFallback = scoreDeck('balanced', membersNoEvidence)
+    expect(withFallback).toBeGreaterThan(withoutFallback)
+  })
+
+  it('balanced 策略：fallback 權重低於真實證據，滿分零件推估也贏不過真實證據', () => {
+    const maxFallback = threeDistinct.map((slots) => memberFor(slots))
+    const partStrengthIndex = new Map(
+      ['b-atk', 'b-sta', 'b-def', 'r-60', 'r-80', 'r-70', 'bit-f', 'bit-b', 'bit-p'].map((id) => [
+        id,
+        { podiumAppearances: 999, percentileScore: 100 },
+      ]),
+    )
+    const withMaxFallback = scoreDeck('balanced', maxFallback, undefined, partStrengthIndex)
+
+    const realEvidence: EvidenceInput = {
+      appearances: 1,
+      top4: 0,
+      championships: 0,
+      totalDecks: 10,
+      sourceTier: 'community',
+      percentileScore: 100,
+    }
+    const withRealEvidence = threeDistinct.map((slots) => memberFor(slots, realEvidence))
+    const withRealEvidenceScore = scoreDeck('balanced', withRealEvidence)
+
+    expect(withMaxFallback).toBeLessThan(withRealEvidenceScore)
+  })
+
+  it('evidence 策略不吃零件強度 fallback，維持「最高賽事證據」策略名稱的承諾', () => {
+    const members = threeDistinct.map((slots) => memberFor(slots))
+    const partStrengthIndex = new Map([['b-atk', { podiumAppearances: 50, percentileScore: 100 }]])
+    expect(scoreDeck('evidence', members, undefined, partStrengthIndex)).toBe(scoreDeck('evidence', members))
+  })
 })
 
 describe('estimateComboPartStrength（零件層級強度 fallback，第 50 節）', () => {
