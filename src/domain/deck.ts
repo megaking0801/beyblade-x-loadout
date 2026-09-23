@@ -11,6 +11,7 @@ import { computeAvailabilityMap } from './inventory.ts'
 import { resolveDisplayName } from './naming.ts'
 import type { BuildableCombo } from './builder.ts'
 import type { ExpertPartRatingRank } from '../catalog/tierLists.ts'
+import type { PartStrengthEntry } from '../catalog/partStrength.ts'
 import {
   PART_FAMILY_ZH,
   type CompatibilityRule,
@@ -101,6 +102,24 @@ const OCCUPYING_SLOT_KEYS = [
   'ratchetId',
   'bitId',
 ] as const
+
+/**
+ * evidence 缺席時的低權重替代訊號：這套配置用到的零件，各自在賽果紀錄裡的
+ * 「進前三次數」百分位平均——不是這套配置本身被驗證過，只是零件拼湊推估
+ * （第 50 節）。任何一個零件都查不到資料時回傳 undefined，不能當 0 分處理：
+ * 0 分代表「查得到、但排名最後」，undefined 代表「完全沒樣本」，語意不同。
+ */
+export function estimateComboPartStrength(
+  slots: ComboSlots,
+  partStrengthIndex: Map<string, PartStrengthEntry>,
+): number | undefined {
+  const matched = OCCUPYING_SLOT_KEYS.map((key) => slots[key])
+    .filter((partId): partId is string => Boolean(partId))
+    .map((partId) => partStrengthIndex.get(partId))
+    .filter((entry): entry is PartStrengthEntry => Boolean(entry))
+  if (matched.length === 0) return undefined
+  return matched.reduce((sum, entry) => sum + entry.percentileScore, 0) / matched.length
+}
 
 function partName(part: Part): string {
   return resolveDisplayName(part.naming).titleZhTW

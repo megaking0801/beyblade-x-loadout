@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   DEFAULT_DECK_RULES,
+  estimateComboPartStrength,
   scoreDeck,
   suggestDecks,
   validateDeck,
@@ -402,6 +403,29 @@ describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () 
       ['b-atk', { tierLabel: 'X', rank: 3, agreeCount: 5, expertCount: 5 }],
     ])
     expect(scoreDeck('evidence', members, expertIndex)).toBe(scoreDeck('evidence', members))
+  })
+})
+
+describe('estimateComboPartStrength（零件層級強度 fallback，第 50 節）', () => {
+  it('三個零件都有資料時回傳平均百分位', () => {
+    const index = new Map([
+      ['b-atk', { podiumAppearances: 10, percentileScore: 80 }],
+      ['r-60', { podiumAppearances: 5, percentileScore: 40 }],
+      ['bit-f', { podiumAppearances: 20, percentileScore: 60 }],
+    ])
+    const result = estimateComboPartStrength(threeDistinct[0]!, index)
+    expect(result).toBe(60) // (80 + 40 + 60) / 3
+  })
+
+  it('完全沒有任何零件的資料時回傳 undefined，不能當 0 分', () => {
+    const result = estimateComboPartStrength(threeDistinct[0]!, new Map())
+    expect(result).toBeUndefined()
+  })
+
+  it('部分零件有資料時只平均查得到的那幾個', () => {
+    const index = new Map([['b-atk', { podiumAppearances: 10, percentileScore: 90 }]])
+    const result = estimateComboPartStrength(threeDistinct[0]!, index)
+    expect(result).toBe(90)
   })
 })
 
