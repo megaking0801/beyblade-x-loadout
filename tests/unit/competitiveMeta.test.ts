@@ -29,14 +29,19 @@ describe('競技 Meta 快照', () => {
     expect(result[code]?.sourceUrls).toContain('https://beywatch.gg/combos')
   })
 
-  it('沒有台灣完整牌組時才使用全球快照，且台灣同樣樣本獲得較高排序權重', () => {
+  it('沒有台灣完整牌組時才使用全球快照，但全球樣本不進排序分數（只做補充揭露）', () => {
     const code = competitiveMetaSnapshot.entries[0]!.comboCode
     const result = createCompetitiveEvidenceByCode({ events: [], decks: [] })
     const global = result[code]!
     expect(global.region).toBe('global')
     expect(global.totalDecks).toBeGreaterThanOrEqual(global.appearances)
-    expect(competitiveEvidenceScore({ ...global, appearances: 1, totalDecks: 10 })).toBeLessThan(
-      competitiveEvidenceScore({ ...global, region: 'taiwan', appearances: 1, totalDecks: 10 }),
-    )
+    // 全球快照的 appearances 是爬蟲累計全域出場數（可能成百上千），跟台灣樣本內的
+    // 實際筆數不同量級；就算全球出場數遠大於台灣，分數也必須是 0，不能贏過任何
+    // 有真實台灣賽果的配置。
+    expect(competitiveEvidenceScore(global)).toBe(0)
+    expect(competitiveEvidenceScore({ ...global, appearances: 999_999 })).toBe(0)
+    expect(
+      competitiveEvidenceScore({ ...global, region: 'taiwan', appearances: 1, top4: 0, championships: 0, totalDecks: 10 }),
+    ).toBeGreaterThan(0)
   })
 })

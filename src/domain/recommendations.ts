@@ -1,6 +1,7 @@
 import { generateBuildableCombos, type BuildableCombo } from './builder.ts'
 import { DEFAULT_DECK_RULES, suggestDecks } from './deck.ts'
 import { resolveDisplayName } from './naming.ts'
+import type { ExpertPartRatingRank } from '../catalog/tierLists.ts'
 import type { EvidenceInput } from './analysis.ts'
 import type { CompatibilityRule, InventoryLot, OwnedProduct, Part, Product, ProductVariant, SavedCombo } from './types.ts'
 
@@ -17,6 +18,12 @@ export interface PurchaseRecommendation {
   deckScoreGain: number
   /** 買後可組出的最佳平衡 3on3，其完整配置合計有多少筆賽事出現。 */
   competitiveEvidenceGain: number
+  /**
+   * 這次購買新增零件的高手評級加總（X=3／SS=2／S=1，只算 BeybladeHub「高手零件
+   * 評級」X/SS/S 三級，不含另一套 T 表系統）。這是社群主觀意見，不是賽事證據，
+   * 排序上刻意排在 `competitiveEvidenceGain` 之後、`deckScoreGain` 之前。
+   */
+  expertTierGain: number
   overallStrengthGain: number
   axisGains: { attack: number; stamina: number; stability: number }
   isAdditionalCopy: boolean
@@ -146,9 +153,11 @@ export function recommendNextProducts(args: {
   combos: SavedCombo[]
   /** 台灣完整牌組優先、全球完整配置補樣本的證據索引。 */
   evidenceByCode?: Record<string, EvidenceInput>
+  /** BeybladeHub 高手零件評級（X/SS/S），partId 索引，見 `catalog/tierLists.ts`。 */
+  expertTierByPartId?: Map<string, ExpertPartRatingRank>
   limit?: number
 }): PurchaseRecommendationResult {
-  const { products, variants, ownedProducts, parts, rules, lots, combos, evidenceByCode, limit = 5 } = args
+  const { products, variants, ownedProducts, parts, rules, lots, combos, evidenceByCode, expertTierByPartId, limit = 5 } = args
   const baseline = profile({ parts, rules, lots, combos, evidenceByCode })
   const partById = new Map(parts.map((part) => [part.id, part]))
   const ownedIds = new Set(ownedProducts.filter((row) => row.status !== 'sold').map((row) => row.productId))
@@ -170,15 +179,27 @@ export function recommendNextProducts(args: {
     const deckScoreGain = Math.max(0, after.deckScore - baseline.deckScore)
     const competitiveEvidenceGain = Math.max(0, after.competitiveEvidence - baseline.competitiveEvidence)
     const unlocked = after.candidates.filter((row) => !baseline.codes.has(row.analysis.fullCode))
-    // Additional copies are useful only when they measurably improve a usable
-    // profile (for example a valid 3on3 deck), not merely because the SKU exists.
-    // 「下一包」必須形成更好的競技隊伍或新增完整配置候選；單純多一個
-    // 六軸峰值但沒有隊伍改善，不該被稱為比賽向購買推薦。
-    if (deckScoreGain === 0 && competitiveEvidenceGain === 0) continue
+    const addedPartIds = [...new Set(addedLots.map((lot) => lot.partId))]
+    const ratedAddedParts = addedPartIds
+      .map((partId) => ({ part: partById.get(partId), rating: expertTierByPartId?.get(partId) }))
+      .filter((row): row is { part: Part; rating: ExpertPartRatingRank } => Boolean(row.part) && Boolean(row.rating))
+    const expertTierGain = ratedAddedParts.reduce((sum, row) => sum + row.rating.rank, 0)
+    // 「下一包」原則上要形成更好的競技隊伍、新增賽事出場數或高手評級零件；
+    // 三者都沒有時，退回「廣度」：這次購買有沒有解鎖目前湊不出來的合法配置。
+    // 收藏夠豐富後前三個訊號會自然枯竭（deckScoreGain 很難再被單一新商品拉動），
+    // 只靠前三者當唯一判斷標準會讓工具整批沉默；四個訊號都是 0 才真的丟掉。
+    const isPureBreadth = deckScoreGain === 0 && competitiveEvidenceGain === 0 && expertTierGain === 0 && unlocked.length > 0
+    if (deckScoreGain === 0 && competitiveEvidenceGain === 0 && expertTierGain === 0 && unlocked.length === 0) continue
     const addedPartNamesZhTW = [...new Set(addedLots.map((lot) => partById.get(lot.partId)).filter((part): part is Part => Boolean(part)).map((part) => resolveDisplayName(part.naming).titleZhTW))]
     const reasonsZhTW: string[] = []
     if (deckScoreGain > 0) reasonsZhTW.push(`平衡 3on3 組合分數可提升 ${deckScoreGain}。`)
     if (competitiveEvidenceGain > 0) reasonsZhTW.push(`新隊伍的完整配置賽事出現數 +${competitiveEvidenceGain}。`)
+    if (ratedAddedParts.length > 0) {
+      const detail = ratedAddedParts
+        .map((row) => `${resolveDisplayName(row.part.naming).titleZhTW}（${row.rating.tierLabel} 級，${row.rating.expertCount} 位中 ${row.rating.agreeCount} 位認同）`)
+        .join('、')
+      reasonsZhTW.push(`高手評級（社群意見，非賽事戰績）：${detail}。`)
+    }
     const roleGains = [
       axisGains.attack > 0 ? `攻擊峰值 +${axisGains.attack}` : '',
       axisGains.stamina > 0 ? `持久峰值 +${axisGains.stamina}` : '',
@@ -187,6 +208,12 @@ export function recommendNextProducts(args: {
     if (roleGains.length > 0) reasonsZhTW.push(`補強角色：${roleGains.join('、')}。`)
     if (overallStrengthGain > 0) reasonsZhTW.push(`可用配裝的整體強度峰值 +${overallStrengthGain}。`)
     if (unlocked.length > 0) reasonsZhTW.push(`新增主力候選：${unlocked.slice(0, 2).map((row) => row.analysis.fullNameZhTW).join('、')}。`)
+    if (isPureBreadth) {
+      reasonsZhTW.push(
+        `不會拉高目前最強隊伍分數，但新增 ${unlocked.length} 種目前湊不出來的合法配置，` +
+          '供擴大配裝廣度參考（尚未有賽事出場或高手評級佐證）。',
+      )
+    }
     if (ownedIds.has(product.id)) reasonsZhTW.push('你已擁有此商品；本次建議只因模擬後可提升可用配置或 3on3。')
     recommendations.push({
       product,
@@ -196,6 +223,7 @@ export function recommendNextProducts(args: {
       reasonsZhTW,
       deckScoreGain,
       competitiveEvidenceGain,
+      expertTierGain,
       overallStrengthGain,
       axisGains,
       isAdditionalCopy: ownedIds.has(product.id),
@@ -204,6 +232,7 @@ export function recommendNextProducts(args: {
 
   recommendations.sort((a, b) =>
     b.competitiveEvidenceGain - a.competitiveEvidenceGain
+    || b.expertTierGain - a.expertTierGain
     || b.deckScoreGain - a.deckScoreGain
     || b.overallStrengthGain - a.overallStrengthGain
     || (b.axisGains.attack + b.axisGains.stamina + b.axisGains.stability) - (a.axisGains.attack + a.axisGains.stamina + a.axisGains.stability)

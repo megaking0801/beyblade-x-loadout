@@ -112,12 +112,14 @@ export function createCompetitiveEvidenceByCode(args: {
 }
 
 /**
- * 完整配置的競技排序值。台灣結果給優先係數，接著才比較 Top4／冠軍；
- * 沒有完整證據時回 0，讓呼叫端用結構推估當次順位而非假裝它是實戰強勢。
+ * 完整配置的競技排序值。只採台灣賽果進分數；全球快照沒有名次欄位，
+ * 且 appearances 是爬蟲累計的全域出場次數（動輒成百上千），跟台灣樣本內的
+ * 實際筆數（個位數）不同量級，混進同一個分數會讓「查得到全球出場數但完全
+ * 沒有名次」的配置贏過真正拿過冠軍的台灣配置。全球資料改由呼叫端直接讀
+ * `CompetitiveEvidence.appearances`／`sourceUrls` 做補充揭露，不進這個分數。
  */
 export function competitiveEvidenceScore(evidence: CompetitiveEvidence | undefined): number {
-  if (!evidence) return 0
-  const regionWeight = evidence.region === 'taiwan' ? 1.6 : 1
+  if (!evidence || evidence.region !== 'taiwan') return 0
   const rate = evidence.totalDecks > 0 ? evidence.appearances / evidence.totalDecks : 0
-  return regionWeight * (evidence.appearances * 2 + evidence.top4 * 4 + evidence.championships * 6 + rate * 100)
+  return evidence.appearances * 2 + evidence.top4 * 4 + evidence.championships * 6 + rate * 100
 }

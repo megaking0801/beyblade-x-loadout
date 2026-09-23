@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { recommendNextProducts } from '../../domain/recommendations.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
+import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import { formatProductLabel } from '../../domain/naming.ts'
 import { useAppStore } from '../../store/appStore.ts'
 import { Link } from '../router.tsx'
@@ -20,6 +21,7 @@ export function RecommendationsPage() {
     () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
     [tournamentEvents, tournamentDecks],
   )
+  const expertTierByPartId = useMemo(() => getExpertPartRatingIndex(), [])
   const result = useMemo(() => recommendNextProducts({
     products,
     variants: productVariants,
@@ -29,8 +31,9 @@ export function RecommendationsPage() {
     lots,
     combos,
     evidenceByCode,
+    expertTierByPartId,
     limit: 5,
-  }), [combos, evidenceByCode, lots, ownedProducts, parts, productVariants, products, rules])
+  }), [combos, evidenceByCode, expertTierByPartId, lots, ownedProducts, parts, productVariants, products, rules])
 
   return <>
     <PageHeader title="下一包推薦" description="以台灣賽場優先的完整配置證據，模擬多買一盒固定內容商品後能否組出更好的合法 3on3。" action={<EstimateBadge />} />

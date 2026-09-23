@@ -5,6 +5,7 @@ import {
   auditExpertTierLists,
   expertPartRatingMeta,
   expertTierListMeta,
+  getExpertPartRatingIndex,
   getExpertPartRatings,
   getExpertTierMatches,
 } from '../../src/catalog/tierLists.ts'
@@ -75,6 +76,27 @@ describe('高手聚合評級（逐件）', () => {
       expect(rating.agreeCount).toBeGreaterThan(0)
       expect(rating.agreeCount).toBeLessThanOrEqual(rating.expertCount)
     }
+  })
+})
+
+describe('高手評級數值化索引（購買推薦用）', () => {
+  it('只收 X/SS/S，來源資料裡混入的 T1/T2（另一套獨立評級系統）不進索引', () => {
+    const index = getExpertPartRatingIndex()
+    // bit:R 在來源資料裡只有 T1 標籤（沒有 X/SS/S），必須被排除，
+    // 不能假設 T1 跟 X/SS/S 的強度換算關係。
+    expect(index.has('bit:R')).toBe(false)
+    for (const rating of index.values()) {
+      expect(['X', 'SS', 'S']).toContain(rating.tierLabel)
+      expect(rating.rank).toBeGreaterThan(0)
+    }
+  })
+
+  it('X 級零件的 rank 高於 SS 高於 S', () => {
+    const index = getExpertPartRatingIndex()
+    const byLabel = new Map<string, number>()
+    for (const rating of index.values()) byLabel.set(rating.tierLabel, rating.rank)
+    expect(byLabel.get('X')).toBeGreaterThan(byLabel.get('SS') ?? 0)
+    expect(byLabel.get('SS')).toBeGreaterThan(byLabel.get('S') ?? 0)
   })
 })
 

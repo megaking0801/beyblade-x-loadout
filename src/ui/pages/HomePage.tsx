@@ -11,6 +11,7 @@ import { resolveDisplayName } from '../../domain/naming.ts'
 import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
 import { recommendNextProducts } from '../../domain/recommendations.ts'
 import { createCompetitiveEvidenceByCode } from '../../domain/competitiveMeta.ts'
+import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import { Link, navigate } from '../router.tsx'
 import {
   Badge,
@@ -85,6 +86,7 @@ export function HomePage() {
       }),
     [tournamentEvents, tournamentDecks, parts],
   )
+  const expertTierByPartId = useMemo(() => getExpertPartRatingIndex(), [])
   const nextRecommendation = useMemo(() => {
     if (isEmpty) return undefined
     return recommendNextProducts({
@@ -96,9 +98,10 @@ export function HomePage() {
       lots,
       combos,
       evidenceByCode: competitiveEvidence,
+      expertTierByPartId,
       limit: 1,
     }).recommendations[0]
-  }, [combos, competitiveEvidence, isEmpty, lots, ownedProducts, parts, productVariants, products, rules])
+  }, [combos, competitiveEvidence, expertTierByPartId, isEmpty, lots, ownedProducts, parts, productVariants, products, rules])
 
   return (
     <>

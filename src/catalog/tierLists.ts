@@ -112,7 +112,9 @@ export function auditExpertPartRatings(parts: readonly Pick<Part, 'id'>[]): Expe
  * 這套配裝用到的零件各自被高手評在哪一級。
  *
  * 與六軸評估刻意分開：六軸是本站的模型推估（講結構），這一層是人的主觀評級（講賽場）。
- * 兩者不相加、不換算成分數，讓使用者自己對照。
+ * 兩者不相加、不換算成分數，讓使用者自己對照——這是配裝器畫面的顯示邏輯。
+ * 購買推薦排序（`recommendations.ts`）是另一條使用者已核准的例外路徑，
+ * 見下面 `getExpertPartRatingIndex()`。
  */
 export function getExpertPartRatings(slots: ComboSlots): ExpertPartRating[] {
   const selected = new Set(Object.values(slots).filter((id): id is string => Boolean(id)))
@@ -126,4 +128,43 @@ export function getExpertPartRatings(slots: ComboSlots): ExpertPartRating[] {
       seen.add(key)
       return true
     })
+}
+
+/* ------------------------------------------------- 購買推薦用的數值化評級索引 */
+
+/**
+ * 只有這三級：來源頁面「高手零件評級」用 X／SS／S。
+ *
+ * `beybladehub-tier-ratings.json` 裡還混了 T1／T2（來源頁面另一套獨立的 T 表
+ * 排行，跟 X/SS/S 不是同一套系統，強度換算關係未知），抓取時誤觸混進同一個
+ * 陣列——這裡明確排除，不猜兩套系統的換算關係。
+ */
+const EXPERT_TIER_RANK: Record<string, number> = { X: 3, SS: 2, S: 1 }
+
+export interface ExpertPartRatingRank {
+  tierLabel: 'X' | 'SS' | 'S'
+  rank: number
+  agreeCount: number
+  expertCount: number
+}
+
+/**
+ * partId → 數值化高手評級，只收 X/SS/S。供購買推薦排序使用；
+ * 一個零件在來源資料裡若有多筆評級，取分數最高的一筆。
+ */
+export function getExpertPartRatingIndex(): Map<string, ExpertPartRatingRank> {
+  const index = new Map<string, ExpertPartRatingRank>()
+  for (const rating of ratingsRaw.ratings) {
+    const rank = EXPERT_TIER_RANK[rating.tierLabel]
+    if (rank === undefined) continue
+    const existing = index.get(rating.partId)
+    if (existing && existing.rank >= rank) continue
+    index.set(rating.partId, {
+      tierLabel: rating.tierLabel as ExpertPartRatingRank['tierLabel'],
+      rank,
+      agreeCount: rating.agreeCount,
+      expertCount: rating.expertCount,
+    })
+  }
+  return index
 }

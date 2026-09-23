@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { recommendNextProducts } from '../../src/domain/recommendations.ts'
+import type { ExpertPartRatingRank } from '../../src/catalog/tierLists.ts'
 import type { InventoryLot, Part, Product, ProductVariant } from '../../src/domain/types.ts'
 
 const provenance = { sourceUrls: [], verificationStatus: 'official_verified' as const }
@@ -53,5 +54,86 @@ describe('下一包推薦', () => {
     expect(result.recommendations[0]?.rank).toBe(1)
     expect(result.recommendations[0]?.deckScoreGain).toBeGreaterThan(0)
     expect(result.randomProducts).toEqual([{ product: random, possiblePartNamesZhTW: [bitC.id] }])
+  })
+
+  it('結構上完全等效的兩個商品，含高手評級零件的那個排名較高，且分數只算 X/SS/S', () => {
+    // bitD 跟 bitA 的 type／bitContact 完全一樣，買哪一顆對合法 3on3 分數的影響
+    // 應該相同——唯一差別是 bitA 有高手評級、bitD 沒有，用來獨立驗證
+    // expertTierGain 在排序鏈裡的效力，不跟 deckScoreGain 的差異混在一起看。
+    const bitD = { ...part('bit-d', 'bit', 'attack'), code: 'Rd', bitContact: 'flat' as const }
+    // id 刻意讓字母序跟預期名次相反（'z-' 排最後、'a-' 排最前）：如果
+    // expertTierGain 沒有真的接進排序鏈，會退回最後一個 tie-break（sku／id
+    // 字母序），'a-without-rating' 會贏，剛好測出「假通過」。
+    const productWithRatedBit: Product = {
+      id: 'z-with-rating', line: 'BX', category: 'starter', naming: { primaryZhTW: '有評級固定包' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bitA.id, quantity: 1 }], provenance,
+    }
+    const productWithoutRating: Product = {
+      id: 'a-without-rating', line: 'BX', category: 'starter', naming: { primaryZhTW: '無評級固定包' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bitD.id, quantity: 1 }], provenance,
+    }
+    const expertTierByPartId = new Map<string, ExpertPartRatingRank>([
+      [bitA.id, { tierLabel: 'X', rank: 3, agreeCount: 2, expertCount: 5 }],
+    ])
+    const result = recommendNextProducts({
+      products: [productWithRatedBit, productWithoutRating],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC, bitD],
+      rules: [],
+      // 已擁有 bitB／bitC（缺攻擊型的第三顆軸心，剛好呼應上一個測試的擁有狀態），
+      // 買 bitA 或結構相同的 bitD 才能補滿第三顆，形成合法 3on3。
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      // 只是為了通過 isCompetitionRelevantProduct 的相關性篩選，appearances 故意
+      // 設 0，不讓它貢獻 competitiveEvidenceGain，才能單獨看 expertTierGain 的效力。
+      evidenceByCode: {
+        'blade-a 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+        'blade-a 1-60Rd': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+      expertTierByPartId,
+    })
+    expect(result.recommendations).toHaveLength(2)
+    const rated = result.recommendations.find((row) => row.product.id === productWithRatedBit.id)
+    const unrated = result.recommendations.find((row) => row.product.id === productWithoutRating.id)
+    expect(rated?.deckScoreGain).toBe(unrated?.deckScoreGain)
+    expect(rated?.expertTierGain).toBe(3)
+    expect(unrated?.expertTierGain).toBe(0)
+    expect(rated?.rank).toBe(1)
+    expect(rated?.reasonsZhTW.some((line) => line.includes('高手評級') && line.includes('X 級') && line.includes('2 位認同'))).toBe(true)
+    expect(unrated?.reasonsZhTW.some((line) => line.includes('高手評級'))).toBe(false)
+  })
+
+  it('強度／賽事證據／高手評級都沒有時，只要解鎖新合法配置仍要推薦，並用廣度話術而非強度話術', () => {
+    // bladeE 跟 bladeC 同型（defense），已擁有完整 3x3x3（bladeA/B/C × ratchetA/B/C ×
+    // bitA/B/C）已經是最佳隊伍；買 bladeE 只會新增跟 bladeC 同分的候選，不會贏過
+    // 既有最強隊伍，deckScoreGain 應該是 0，但 unlocked 一定 > 0（bladeE 的 9 種
+    // 全新組合此前都不存在）。
+    const bladeE = part('blade-e', 'blade', 'defense')
+    const productE: Product = {
+      id: 'product-e', line: 'BX', category: 'starter', naming: { primaryZhTW: '備用防禦組' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bladeE.id, quantity: 1 }], provenance,
+    }
+    const result = recommendNextProducts({
+      products: [productE],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, bladeE, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC],
+      rules: [],
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      // 只是為了通過 isCompetitionRelevantProduct 的相關性篩選。
+      evidenceByCode: {
+        'blade-e 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+    })
+    expect(result.recommendations).toHaveLength(1)
+    const rec = result.recommendations[0]!
+    expect(rec.deckScoreGain).toBe(0)
+    expect(rec.competitiveEvidenceGain).toBe(0)
+    expect(rec.expertTierGain).toBe(0)
+    expect(rec.unlockedExamplesZhTW.length).toBeGreaterThan(0)
+    expect(rec.reasonsZhTW.some((line) => line.includes('供擴大配裝廣度參考'))).toBe(true)
+    expect(rec.reasonsZhTW.some((line) => line.includes('組合分數可提升'))).toBe(false)
   })
 })
