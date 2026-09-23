@@ -5,85 +5,93 @@
 
 ## 目前目標
 
-找出真正可靠的「A vs B 對戰結果」資料來源，供之後模型訓練用。本輪確認 NotebookLM 抽取整條路
-放棄（見「踩過的坑」），改成人工用 `claude-video-vision` 逐支影片核對；但業餘手機側拍賽事影片
-的終局勝負判定抓不到乾淨畫面，下一步要換官方轉播「單場精華片段」（短版，非整場直播）實測。
+原本規劃訓練「A-vs-B 勝率模型」，這輪確認資料撐不起來、放棄，改成用結構化社群天梯站
+資料強化既有「下一包推薦」與「3on3 組隊」的評分邏輯——**不是新功能，是既有評分公式的
+資料來源擴充與 bug 修正**，畫面沒有變化。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 有未推變更（見下）；推送前 HEAD `a45e20a` |
-| `origin/main` | `a45e20a` |
-| 線上 Pages | 未變動，本輪無需部署——新增的 candidate 資料完全沒有被任何 app 進入點 import
-（僅測試檔引用），不影響 production bundle |
-
-未推變更：`src/data/trustedVideoSources.ts`（新增 7 個 candidate 來源）、
-`tests/unit/trustedVideoSources.test.ts`（更新一條過期斷言）、3 份根目錄研究文件
-（`video-evidence-candidates.md`、`notebooklm-yt-links.txt`、`notebooklm-extraction-prompt.txt`）。
+| 工作區 | 乾淨 |
+| 本機 HEAD | `68be9fc`（push 前） |
+| `origin/main` | `3d17d7c`（落後 6 個 commit，即將 push） |
+| 線上 Pages | 尚未部署本輪改動——`src/domain/`／`src/ui/pages/` 有正式程式碼變更，
+  依規則 push 後要接 `deploy:pages` + `test:live`，這份 HANDOFF 寫完後會立刻執行並回來更新 |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過。
-- `npm test`：25 files / 443 tests 通過。
-- 未跑 `test:e2e`／`shots`／`test:live`（純資料＋文件變更，不影響前台，依規則不需要）。
+- `npm test`：25 files / 450 tests 通過。
+- `test:e2e`／`shots`／`test:live`：**尚未跑**，即將執行——部署結果會在跑完後另外更新這份
+  HANDOFF，現在寫的內容不代表線上已經是新版。
 
 ## 阻塞
 
-- `YOUTUBE_API_KEY` 仍未取得（使用者正在申請）。
-- env 裡的 `GEMINI_API_KEY` 歸屬未確認是否可用於本專案，尚未寫入 `.env`，不得動用。
-- 7 個 candidate 頻道全部待人工核准，一個都不能進訓練。
+無。原本的 `YOUTUBE_API_KEY` 阻塞已解除（使用者提供並用過）；影片查核方向這輪降到最低
+優先，不再視為阻塞項。
 
 ## 下一個具體動作
 
-去找 1-2 支「官方轉播單場精華片段」（幾十秒到幾分鐘的短版，不是整場直播 VOD），用
-`claude-video-vision` 實測能不能抓到乾淨的終局判定（勝方＋完場方式），驗證人工抽取這條路能否
-規模化。長片直播 VOD 在本機下載會失敗，先別再試整場直播。
+跑完整上線流程：`npm run test:e2e` → `npm run shots` → `git push` → `npm run deploy:pages`
+→ `npm run test:live`，確認線上版本反映這輪修正，回來把結果寫回這份 HANDOFF。
 
 ## 怎麼跑（非顯而易見的）
 
-- `claude-video-vision` 這個 session 內建工具可以直接傳 YouTube 網址給 `video_info`／
-  `video_analyze`／`video_watch`／`video_detail`，不需要影片本身有字幕。
-- 流程規定先 `video_info` 再 `video_analyze`（>30 秒影片必做）才能 `video_watch`；
-  長片建議先用短片驗證流程再處理長片。
-- 本機 whisper.cpp 未安裝，轉錄退回某個 Gemini 後端，會噴 503／不確定花誰的額度——純看畫面
-  （`skip_audio: true`）可以完全避開這個問題。
+- 這台機器沒裝 node/npm，要用 nvm（已裝在 `~/.nvm`）：每個新 shell 都要先
+  `export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"` 才有 `node`／`npm`。
+- `@playwright/test` 釘在 `1.57.0`（macOS 13 相容，Chromium 在 1.62.0、WebKit 在 1.58.0
+  拿掉 macOS 13 支援），不要隨手升版，除非先查證新版何時恢復支援或機器已升級 macOS。
+- `npm run fetch:stanyao-records`／`npm run fetch:bbxhub-meta` 各自獨立可重跑，會覆寫
+  `src/catalog/sources/` 底下對應的 json。
 
 ## 踩過的坑
 
-- **NotebookLM 貼 YouTube 連結會幻覺**：對戰畫面靠語音聽不出配置名稱時，它會編出不存在的名字
-  （本輪實測出現「陀螺破壞者J」「萌甲暴刃」這類根本不存在的選手/配置名），千萬不要把它的輸出
-  直接當訓練資料，只能當「這條路值不值得投資」的探路測試。
-- **NotebookLM 只吃有字幕的 YouTube 影片**，貼頻道首頁網址無效，只認單支影片或播放清單。
-- **業餘手機側拍賽事影片的計分板是機械翻牌動畫**：翻牌瞬間畫面會糊成疊字（例如糊出
-  「3001」），那是動畫殘影不是真實比分，千萬別直接讀出來當比分。
-- **同一顆刃在不同輪次的畫面代號會換**（例如「UX-15 鮫鯊狂鱗」在 16 強用 `3-60FB`、8 強用
-  `9-60Nr`），不能建一個全域代號→零件對照表，一定要搭配該輪最近一張圖鑑卡才能解碼。
-- **`claude-video-vision` 對長片（直播 VOD）在這台 Windows 機器上載會失敗**（yt-dlp 分段檔案
-  重新命名出錯，`Unable to rename file`），跟影片內容/可信度無關，純本機技術限制；已知一支
-  9 分 26 秒的短片下載成功，長片（1 小時以上直播）目前兩次都失敗。
-- **改 `src/data/trustedVideoSources.ts` 這種還沒被 app 引用的資料檔，不用觸發部署**——先用
-  `grep -rl "from '.*data/trustedVideoSources'" src` 確認沒有 import 才敢下這個結論，不要用猜的。
+- **`validateDeck()` 曾經完全沒把 `evidenceByCode` 傳給 `analyzeCombo`**，導致每個隊員的
+  `analysis.evidence` 永遠是 `undefined`——這個 bug 存在很久（不是這輪引入的），這輪才
+  修掉並補測試。以後改 `deck.ts`／`suggestDecks` 相關邏輯，記得證據要傳全程，不能只顧
+  `generateBuildableCombos` 那一段。
+- **不同證據來源的 `appearances` 量級差異極大**（台灣本地個位數 vs 社群站台上萬筆），
+  直接加總或比較會讓大站台系統性蓋過小樣本真實賽果——這是這個 codebase 第二次犯同一類
+  bug（第一次在已棄用的 `competitiveEvidenceScore()`）。任何新證據來源要接進評分前，先
+  問「量級跟既有資料差多少」，答案是「差很多」就要走百分位歸一化，不能直接加總。
+- **`fetchStanYaoRecords.mjs` 的 `comboCode` 曾經誤用站方中文原文**而不是圖鑑的日文
+  `part.code`，導致資料完全對不上系統內部查表用的 key，卡了好一陣子才用端到端真實資料
+  測試抓到（單元測試用合成 fixture 測不出這種格式錯誤，要拿真實資料跑一次才會現形）。
+- 這個 sandbox 環境的 Bash 工具一開始找不到 `node`，但裝好 nvm 之後其實可以自己
+  `source` 來用，不用每次都請使用者用 `!` 轉發指令。
+- stan-yao／BBXHub 都是公開 Google Sheet／SSR 網頁，不需要 `claude-video-vision` 或任何
+  轉錄工具就能拿到結構化資料——這次環境沒有 `claude-video-vision`，一度以為影片查核整條
+  路卡死，後來才發現根本不需要碰影片，改找結構化網站更快更可靠。
 
 ## 已知缺口
 
-- 亞洲「對戰組合純文字資料」來源（如日文部落格 おくろぐ、BeybladeHub）形狀跟現有
-  `VideoEvidence` schema（綁死影片＋時間戳）對不上，需要另一個 schema 才能收，這輪按使用者
-  指示先不做，等影片這條路測完再決定要不要開。
-- 人工抽取 SOP（一支影片要抽多少局、怎麼進 `VideoEvidence` 格式、誰核對）還沒有結論，取決於
-  官方精華片段的測試結果。
-- 其餘既有缺口（前台未接、Catalog 映射閘門、自動發現/白名單流程、模型訓練）維持不變，見
-  `src/domain/videoEvidence.ts` 與 `trustedVideoSources.ts` 內的驗證邊界。
+- BBXHub 只比對到 45/167 個零件（橋接表只有 101 筆常見零件英中對照，來自 stan-yao 資料），
+  冷門／新品零件目前沒有來源可以補英文↔中文對照。
+- BBXHub 的逐配置固鎖／軸心明細沒接（頁面用全名如「Hexa」標軸心，跟圖鑑代號「H」的對照
+  未查證），這輪只收了零件層級的 Tier。
+- stan-yao／BBXHub 交叉驗證抓到具體分歧案例（例如 XenoXcalibur 排名 31 vs 113），目前
+  沒有機制標記「來源分歧、信心較低」，只有人工記錄，沒有寫進資料結構。
+- 「3on3 組隊強度定義要不要納入社群意見」——使用者已表態要做，但要求先有資料再設計，
+  這輪資料才剛接上，`deck.ts` 的角色分配／`scoreDeck` 本身邏輯還沒動。
+- 六軸評估系統（`analysis.ts` 的 `BASE_BY_TYPE`）已確認是 4 類、24 個憑感覺編的常數，
+  跟實戰無關，存廢待決；使用者要求排在「組隊強度重新定義」之後處理。
 
 ## 下一步（排序）
 
-1. 官方轉播精華片段實測終局判定可讀性——排最前面是因為手動抽取的規模化可行性完全取決於這步。
-2. 若可行，定人工抽取 SOP 並開始小批量核對現有 7 個 candidate 頻道，決定哪些能核准。
-3. 若不可行或太貴，回頭評估「文字賽事結果」新 schema 這條路（見上「已知缺口」）。
+1. 跑完上線流程（見上「下一個具體動作」）——程式碼已經改了，不上線等於使用者看不到
+   任何改善，排最前面。
+2. 組隊推薦「強度」定義重新設計——使用者已要求，且資料現在才剛備齊，是下一個大工作。
+3. 六軸評估系統存廢——需要第 2 項先有結論才知道六軸還剩多少必要性。
+4. BBXHub 比對率／逐配置明細補強（低優先，非阻塞，隨時可以做）。
+5. 影片查核（阿土等人的推薦影片）——排最後，結構化網站資料量已遠超原本目標，暫時
+   沒有急迫性，除非之後發現資料缺口是社群站台補不上的。
 
 ## 資料管線表
 
-`可信頻道 registry → 官方轉播精華片段（人工 + claude-video-vision 核對）→ VideoEvidence
-validator → Catalog 映射與信心閘門 → 高／低信心 JSON → 高信心訓練集 → 模型／品質報告 →
-Compare／3on3`（原規劃的「YouTube Data API + Gemini 自動抽取」仍是長期目標，但短期先用人工
-核對驗證資料形狀與品質）
+`BeybladeHub（賽事＋高手評級）／beywatch.gg（全球快照）／stan-yao（15,131 筆逐場名次，
+公開 Google Sheet）／BBXHub（167 零件 WBO Tier，45 個已比對）` → `createCompetitiveEvidenceByCode()`
+（各來源各自算百分位排名，taiwan > community > global 優先序，見 `competitiveMeta.ts`）→
+`recommendations.ts` 的 `competitiveEvidenceGain`／`expertTierGain`／廣度備援 → 下一包推薦
+排序；同一份 `evidenceByCode` 現在也正確傳進 `suggestDecks`／`validateDeck` → 3on3 組隊
+`scoreDeck` 的 balanced 策略。
