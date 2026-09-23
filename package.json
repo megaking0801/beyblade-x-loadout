@@ -18,7 +18,8 @@
     "deploy:pages": "node scripts/deployPages.mjs",
     "test:live": "playwright test --config=playwright.live.config.ts",
     "check:images": "node scripts/checkImages.mjs",
-    "fetch:images": "node scripts/fetchImages.mjs"
+    "fetch:images": "node scripts/fetchImages.mjs",
+    "fetch:video-links": "node scripts/fetchVideoLinks.mjs"
   },
   "dependencies": {
     "dexie": "^4.4.6",
@@ -27,7 +28,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "1.57.0",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
