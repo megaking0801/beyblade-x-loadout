@@ -1,0 +1,988 @@
+{
+  "note": "這份清單只是連結收集結果，內容未經人工或 claude-video-vision 核對，不得直接當 VideoEvidence 使用；下一步是逐支核對終局判定可讀性。",
+  "fetchedAt": "2026-09-23T07:49:10.819Z",
+  "channels": [
+    {
+      "id": "takara-tomy-beyblade",
+      "channelId": "UCydxSsnKp10hAIjdGce2MQg",
+      "displayName": "TakaraTomyBeyblade",
+      "sourceType": "official",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "aJ2H1Cw-tYs",
+          "url": "https://www.youtube.com/watch?v=aJ2H1Cw-tYs",
+          "title": "UNBOXING: Dark Knight Dragooon Limited Gold Dragon Model",
+          "publishedAt": "2013-03-28T00:46:21Z"
+        },
+        {
+          "videoId": "6ze7fZq_Sq4",
+          "url": "https://www.youtube.com/watch?v=6ze7fZq_Sq4",
+          "title": "UNBOXING: BBG-27 Gladiator Bahamdia SP230GF",
+          "publishedAt": "2013-03-27T11:45:55Z"
+        },
+        {
+          "videoId": "8XRvIGD2V-0",
+          "url": "https://www.youtube.com/watch?v=8XRvIGD2V-0",
+          "title": "REVIEW: Big Bang Pegasis F:D WBO Version",
+          "publishedAt": "2013-02-12T10:48:16Z"
+        },
+        {
+          "videoId": "n_a2H1vGkIE",
+          "url": "https://www.youtube.com/watch?v=n_a2H1vGkIE",
+          "title": "UNBOXING &amp; REVIEW: Wing Pegasis S130RB Memorial Ver.",
+          "publishedAt": "2013-01-31T10:13:44Z"
+        },
+        {
+          "videoId": "S8Cay1OD01Q",
+          "url": "https://www.youtube.com/watch?v=S8Cay1OD01Q",
+          "title": "EPIC BATTLE: Dark Knight Dragooon LW160BSF (Chrome Up) VS Dark Knight Dragooon LW160BSF (Crystal Up)",
+          "publishedAt": "2013-01-26T06:32:48Z"
+        },
+        {
+          "videoId": "mIAx2O2o1mg",
+          "url": "https://www.youtube.com/watch?v=mIAx2O2o1mg",
+          "title": "[WBO][Jakarta, Indonesia] Bey Bash (Killer Instinct vs Sammy Lie)",
+          "publishedAt": "2012-10-26T11:47:49Z"
+        },
+        {
+          "videoId": "Z0KBVmVSTn0",
+          "url": "https://www.youtube.com/watch?v=Z0KBVmVSTn0",
+          "title": "BBG-15 Metal Stone Face Custom ver Ocean Blue +MSF-M D.K.Dragooon v MSF-L Berserker Begirados",
+          "publishedAt": "2012-10-26T03:29:44Z"
+        },
+        {
+          "videoId": "uQelOgf2OsU",
+          "url": "https://www.youtube.com/watch?v=uQelOgf2OsU",
+          "title": "UNBOXING: BBG-22 Berserker Begirados SR200BWD +Quick Battle vs Dark Knight Dragooon !!",
+          "publishedAt": "2012-10-26T01:15:37Z"
+        },
+        {
+          "videoId": "RrPQ7XRvjv8",
+          "url": "https://www.youtube.com/watch?v=RrPQ7XRvjv8",
+          "title": "UNBOXING &amp; REVIEW: BBG-16 Dark Knight Dragooon LW160BSF [METAL FIGHT BEYBLADE ZERO-G SERIES]",
+          "publishedAt": "2012-08-19T12:51:39Z"
+        },
+        {
+          "videoId": "kFdjN07FtF4",
+          "url": "https://www.youtube.com/watch?v=kFdjN07FtF4",
+          "title": "Beyblade Battle: Flash Sagittario 230WD vs Screw Capricorne 90MF [EPIC]",
+          "publishedAt": "2012-06-27T06:58:45Z"
+        },
+        {
+          "videoId": "VHjHtpCGkoI",
+          "url": "https://www.youtube.com/watch?v=VHjHtpCGkoI",
+          "title": "BEYBLADE EPIC FAIL: FLASH SAGITTARIO DIVING ARROW!? [4D]",
+          "publishedAt": "2012-04-21T07:49:44Z"
+        },
+        {
+          "videoId": "XWEXj9OAyyU",
+          "url": "https://www.youtube.com/watch?v=XWEXj9OAyyU",
+          "title": "EPIC BEYBLADE BATTLE: Duo Uranus 230WD VS Flash Sagittario 230WD [4D]",
+          "publishedAt": "2012-04-21T07:00:25Z"
+        },
+        {
+          "videoId": "p6WysiJXe9g",
+          "url": "https://www.youtube.com/watch?v=p6WysiJXe9g",
+          "title": "Beyblade Defense &amp; Stamina test : Duo Metal Wheel",
+          "publishedAt": "2012-03-12T09:29:49Z"
+        },
+        {
+          "videoId": "YHGgDZg4_Ig",
+          "url": "https://www.youtube.com/watch?v=YHGgDZg4_Ig",
+          "title": "UNBOXING : Gold Storm Pegasis 100HF Inferno Version",
+          "publishedAt": "2012-01-31T12:00:27Z"
+        },
+        {
+          "videoId": "RGdFSaPfv5A",
+          "url": "https://www.youtube.com/watch?v=RGdFSaPfv5A",
+          "title": "UNBOXING : Omega Dragonis 85XF (CoroCoro Strongest Dragonis 4D GuideBook Exclusive)",
+          "publishedAt": "2012-01-28T12:37:47Z"
+        },
+        {
+          "videoId": "dsscqwzvDQ8",
+          "url": "https://www.youtube.com/watch?v=dsscqwzvDQ8",
+          "title": "Beyblade Battle : BB-104 Basalt Horogium 145WD VS BB-28 Storm Pegasis 105RF (REQUEST)",
+          "publishedAt": "2012-01-23T05:24:00Z"
+        },
+        {
+          "videoId": "Q7e_492ruC0",
+          "url": "https://www.youtube.com/watch?v=Q7e_492ruC0",
+          "title": "Beyblade Battle : BB-99 Hell Kerbecs BD145DS VS BB-28 Storm Pegasis 105RF (REQUEST)",
+          "publishedAt": "2012-01-23T04:37:53Z"
+        },
+        {
+          "videoId": "RzP4mc2qF4k",
+          "url": "https://www.youtube.com/watch?v=RzP4mc2qF4k",
+          "title": "Beyblade Battle : MF-H Basalt Kerbecs 230CS VS MF-H Hell Kerbecs R145RF (REQUEST)",
+          "publishedAt": "2012-01-23T04:07:23Z"
+        },
+        {
+          "videoId": "Q1rdDVkWnvU",
+          "url": "https://www.youtube.com/watch?v=Q1rdDVkWnvU",
+          "title": "Beyblade Metal Explosion Battle : BB-99 Hell Kerbecs BD145DS VS BB-102 Screw Capricorne 90MF",
+          "publishedAt": "2012-01-23T03:35:19Z"
+        },
+        {
+          "videoId": "f9NesoUk5oQ",
+          "url": "https://www.youtube.com/watch?v=f9NesoUk5oQ",
+          "title": "UNBOXING : Ice Blue Burn Phoenix 105F (RARE) Blizzard Ver.",
+          "publishedAt": "2012-01-21T00:58:07Z"
+        },
+        {
+          "videoId": "9ePjI3fXET8",
+          "url": "https://www.youtube.com/watch?v=9ePjI3fXET8",
+          "title": "Beyblade Battle : MF Screw Byxis 85R2F VS MF-H Basalt Kerbecs BD145CS [REQUEST]",
+          "publishedAt": "2012-01-21T00:19:50Z"
+        },
+        {
+          "videoId": "ia1Lv99dHWk",
+          "url": "https://www.youtube.com/watch?v=ia1Lv99dHWk",
+          "title": "Beyblade Battle : MF-H Diablo Kerbecs BD145MB (Heaviest Bey) VS MF Blitz Kerbecs CH120R2F",
+          "publishedAt": "2012-01-20T11:09:54Z"
+        },
+        {
+          "videoId": "oD1X-igmprg",
+          "url": "https://www.youtube.com/watch?v=oD1X-igmprg",
+          "title": "Beyblade Metal Fight 4D / Fury Battle : BB-122 Diablo Nemesis X:D VS BB-109 Beat Lynx TH170WD",
+          "publishedAt": "2012-01-20T09:07:44Z"
+        },
+        {
+          "videoId": "dkPa8ar3DSc",
+          "url": "https://www.youtube.com/watch?v=dkPa8ar3DSc",
+          "title": "MF-H Diablo Kerbecs BD145RS - ULTIMATE DEFENSE TEST MARATHON (VS Blitz, Beat, &amp; VariAres)",
+          "publishedAt": "2012-01-17T12:39:21Z"
+        },
+        {
+          "videoId": "VnhreFODdnA",
+          "url": "https://www.youtube.com/watch?v=VnhreFODdnA",
+          "title": "Metal Fight Beyblade Battle : MF-L Phantom Orion B:D (Bearing Drive) VS MF-H Screw Byxis 85R2F",
+          "publishedAt": "2012-01-17T11:02:27Z"
+        }
+      ]
+    },
+    {
+      "id": "world-beyblade-organization",
+      "channelId": "UCGX1vmquOg8VcNCqnH1c3GA",
+      "displayName": "World Beyblade Organization",
+      "sourceType": "tournament_organizer",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "6fxH3ZfOJwA",
+          "url": "https://www.youtube.com/watch?v=6fxH3ZfOJwA",
+          "title": "Beyblade X Tournament - BEYBLADE NORTH @ Anime North 2025, Toronto, Canada (ベイブレードXト大会)",
+          "publishedAt": "2025-08-29T22:30:06Z"
+        },
+        {
+          "videoId": "EkZYIhcvFr8",
+          "url": "https://www.youtube.com/watch?v=EkZYIhcvFr8",
+          "title": "Toronto Beyblade Burst Classic Tournament - HIGH PARK THROWDOWN 11 (ベイブレードバースト大会)",
+          "publishedAt": "2019-07-21T20:36:32Z"
+        },
+        {
+          "videoId": "hbsGhjHcp6g",
+          "url": "https://www.youtube.com/watch?v=hbsGhjHcp6g",
+          "title": "Toronto Beyblade Burst Tournament - Revival of the Phoenix (ベイブレードバースト大会)",
+          "publishedAt": "2018-12-26T18:15:11Z"
+        },
+        {
+          "videoId": "OHCAtgzrOa4",
+          "url": "https://www.youtube.com/watch?v=OHCAtgzrOa4",
+          "title": "Metal Fight Limited Beyblade Tournament - BEYBLADE NORTH @ Anime North 2018, Toronto, ON (ベイブレード大会)",
+          "publishedAt": "2018-06-17T14:37:10Z"
+        },
+        {
+          "videoId": "O0pEq13xDUM",
+          "url": "https://www.youtube.com/watch?v=O0pEq13xDUM",
+          "title": "Beyblade Burst Tournament - BEYBLADE NORTH @ Anime North 2018, Toronto, Canada (ベイブレードバースト大会)",
+          "publishedAt": "2018-06-17T14:37:18Z"
+        },
+        {
+          "videoId": "OlQXgiAY438",
+          "url": "https://www.youtube.com/watch?v=OlQXgiAY438",
+          "title": "Beyblade Review - B-98 God Customize Set [Beyblade Burst God/Evolution]",
+          "publishedAt": "2018-02-04T22:11:33Z"
+        },
+        {
+          "videoId": "ilU7fjNtbj8",
+          "url": "https://www.youtube.com/watch?v=ilU7fjNtbj8",
+          "title": "Beyblade Review - B-92 Starter Sieg Xcalibur.1.Ir [Beyblade Burst God/Evolution]",
+          "publishedAt": "2018-01-01T17:44:18Z"
+        },
+        {
+          "videoId": "YYr71mb1N_E",
+          "url": "https://www.youtube.com/watch?v=YYr71mb1N_E",
+          "title": "Beyblade Review - B-89 Booster Blast Jinnius.5G.Gr [Beyblade Burst God/Evolution]",
+          "publishedAt": "2017-10-27T17:22:41Z"
+        },
+        {
+          "videoId": "foIg6aS5SQs",
+          "url": "https://www.youtube.com/watch?v=foIg6aS5SQs",
+          "title": "New York Beyblade Tournament - Kei vs. The World: NYC @ Kings Games (ベイブレードバースト大会)",
+          "publishedAt": "2017-10-15T22:13:59Z"
+        },
+        {
+          "videoId": "G3kllS-GNiY",
+          "url": "https://www.youtube.com/watch?v=G3kllS-GNiY",
+          "title": "Beyblade Review - B-82 Booster Alter Chronos.6M.T [Beyblade Burst God/Evolution]",
+          "publishedAt": "2017-09-24T21:44:37Z"
+        },
+        {
+          "videoId": "PUIH7PXc_I4",
+          "url": "https://www.youtube.com/watch?v=PUIH7PXc_I4",
+          "title": "Beyblade Review - B-87 Maximum Garuda.8F.Fl - Random Booster Vol.7 [Beyblade Burst God/Evolution]",
+          "publishedAt": "2017-09-07T23:45:14Z"
+        },
+        {
+          "videoId": "VwLUSbWZ9Js",
+          "url": "https://www.youtube.com/watch?v=VwLUSbWZ9Js",
+          "title": "Los Angeles Beyblade Tournament - Night of the Spinning Dead II @ Weller Court (ベイブレード大会)",
+          "publishedAt": "2017-08-30T23:53:21Z"
+        },
+        {
+          "videoId": "wfdt9PnnWm0",
+          "url": "https://www.youtube.com/watch?v=wfdt9PnnWm0",
+          "title": "Beyblade Burst Tournament - Revolution of Generation @ Sanjay Gandhi National Park, Mumbai, India",
+          "publishedAt": "2017-08-23T01:18:52Z"
+        },
+        {
+          "videoId": "mARiN-nbW38",
+          "url": "https://www.youtube.com/watch?v=mARiN-nbW38",
+          "title": "Beyblade Review - B-86 Starter Legend Spriggan.7.Mr  [Beyblade Burst God/Evolution]",
+          "publishedAt": "2017-08-18T03:15:43Z"
+        },
+        {
+          "videoId": "hbx0D_fMUe4",
+          "url": "https://www.youtube.com/watch?v=hbx0D_fMUe4",
+          "title": "Toronto Beyblade Tournament - BEYBLADE NORTH (Team Burst) @ Anime North 2017, Canada (ベイブレードバースト大会)",
+          "publishedAt": "2017-06-26T23:21:09Z"
+        },
+        {
+          "videoId": "I9l1d3w-BQ4",
+          "url": "https://www.youtube.com/watch?v=I9l1d3w-BQ4",
+          "title": "Los Angeles Beyblade Tournament - Beauty and the Beast Behemoth @ Weller Court (ベイブレードバースト大会)",
+          "publishedAt": "2017-06-21T23:37:59Z"
+        },
+        {
+          "videoId": "4BlZQP-RYTU",
+          "url": "https://www.youtube.com/watch?v=4BlZQP-RYTU",
+          "title": "Beyblade Burst Tournament - BEYBLADE NORTH @ Anime North 2017, Toronto, Canada (ベイブレードバースト大会)",
+          "publishedAt": "2017-06-01T00:01:12Z"
+        },
+        {
+          "videoId": "DtxVimBoZaE",
+          "url": "https://www.youtube.com/watch?v=DtxVimBoZaE",
+          "title": "Toronto Beyblade Burst Tournament - Hasbro Bursts RARELY Onto the Scene (ベイブレードバースト大会)",
+          "publishedAt": "2017-05-10T18:09:23Z"
+        },
+        {
+          "videoId": "BgYBl7biWLs",
+          "url": "https://www.youtube.com/watch?v=BgYBl7biWLs",
+          "title": "Los Angeles Beyblade Tournament - Return of the White Tiger @ Weller Court (ベイブレードバースト大会)",
+          "publishedAt": "2017-01-10T01:14:52Z"
+        },
+        {
+          "videoId": "-C02xz8pWLc",
+          "url": "https://www.youtube.com/watch?v=-C02xz8pWLc",
+          "title": "Toronto Beyblade Burst Tournament - WELCOME TO A&amp;C GAMES (ベイブレードバースト大会)",
+          "publishedAt": "2017-01-04T19:34:51Z"
+        },
+        {
+          "videoId": "UtaZXwOSL9I",
+          "url": "https://www.youtube.com/watch?v=UtaZXwOSL9I",
+          "title": "Metal Fight Beyblade Tournament - Miami is Ignited Once Again! @ Miami, Florida (ベイブレード大会)",
+          "publishedAt": "2016-12-26T17:30:49Z"
+        },
+        {
+          "videoId": "okTYY5m-MIk",
+          "url": "https://www.youtube.com/watch?v=okTYY5m-MIk",
+          "title": "Beyblade Burst Tournament - SERIOUSLY TILTED @ High Park, Toronto, Canada (ベイブレードバースト大会)",
+          "publishedAt": "2016-10-07T18:36:13Z"
+        },
+        {
+          "videoId": "SAzDkOJLSdA",
+          "url": "https://www.youtube.com/watch?v=SAzDkOJLSdA",
+          "title": "Beyblade Burst Tournament - Deck Rotation Format Test Run @ Dufferin Grove Park, Toronto, Canada",
+          "publishedAt": "2016-09-03T11:30:00Z"
+        },
+        {
+          "videoId": "B1vYWdxytME",
+          "url": "https://www.youtube.com/watch?v=B1vYWdxytME",
+          "title": "Metal Fight Beyblade Tournament - HIGH PARK THROWOWN 8 @ High Park, Toronto, Canada (ベイブレード大会)",
+          "publishedAt": "2016-08-28T17:43:30Z"
+        },
+        {
+          "videoId": "ZnGpf7AGpMY",
+          "url": "https://www.youtube.com/watch?v=ZnGpf7AGpMY",
+          "title": "Beyblade Tournament - BEYBLADE NORTH Limited Format @ Anime North 2016, Toronto, Canada (ベイブレード大会)",
+          "publishedAt": "2016-08-09T16:14:07Z"
+        }
+      ]
+    },
+    {
+      "id": "atulolz-atu",
+      "channelId": "UCEsTbpDqp0VntO1T42WbI2g",
+      "displayName": "Atulolz阿土",
+      "sourceType": "competitive_community",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "PBs1wdq3J98",
+          "url": "https://www.youtube.com/watch?v=PBs1wdq3J98",
+          "title": "全新的《戰意：三國》場面好亂好亂！30v30的廝殺場面太爽啦！跟蔣西南百夫長一起殺進敵陣！【阿土Atu】",
+          "publishedAt": "2026-08-08T10:00:23Z"
+        },
+        {
+          "videoId": "18MiKZ8ysC8",
+          "url": "https://www.youtube.com/watch?v=18MiKZ8ysC8",
+          "title": "《RO仙境傳說：愛如初見Classic》實測養成降壓，不課金也能輕鬆玩！競技打本全憑實力！搶奪百萬美金，戰神盃賽事報名中！【阿土Atu】",
+          "publishedAt": "2026-04-13T09:00:05Z"
+        },
+        {
+          "videoId": "Y1a78lXyXxM",
+          "url": "https://www.youtube.com/watch?v=Y1a78lXyXxM",
+          "title": "《RO仙境傳說：愛如初見Classic》月卡之前人人平等！再也不怕課長輾壓！養成優化簡單回歸初見感動！【阿土Atu】",
+          "publishedAt": "2026-03-16T10:01:00Z"
+        },
+        {
+          "videoId": "hw8ljoDJfl8",
+          "url": "https://www.youtube.com/watch?v=hw8ljoDJfl8",
+          "title": "阿土Atu 2/28 太陽神 32騎 繼續農衝暈 農到就薛丁特的錢~",
+          "publishedAt": "2026-02-28T05:14:29Z"
+        },
+        {
+          "videoId": "nmRMbasMSHU",
+          "url": "https://www.youtube.com/watch?v=nmRMbasMSHU",
+          "title": "阿土Atu 2/26 太陽神 32騎 繼續農衝暈 農到就薛丁特的錢~",
+          "publishedAt": "2026-02-26T14:07:19Z"
+        },
+        {
+          "videoId": "Ka76vMWeR8U",
+          "url": "https://www.youtube.com/watch?v=Ka76vMWeR8U",
+          "title": "阿土Atu 2/21 伺服器太陽神 妖精已鼠 有事燒紙",
+          "publishedAt": "2026-02-21T02:39:02Z"
+        },
+        {
+          "videoId": "Kv6evwQGgdY",
+          "url": "https://www.youtube.com/watch?v=Kv6evwQGgdY",
+          "title": "【阿土Atu】敵人開車沒在客氣 直接把我當減速帶  #絕地日常日記 #pubg",
+          "publishedAt": "2026-02-07T09:20:55Z"
+        },
+        {
+          "videoId": "pMvsjtaEoAc",
+          "url": "https://www.youtube.com/watch?v=pMvsjtaEoAc",
+          "title": "【阿土Atu】去年有Nice Kr1s 今年有我Nice Atu #絕地日常日記 #pubg",
+          "publishedAt": "2026-01-29T09:26:21Z"
+        },
+        {
+          "videoId": "-jWAUIg7YSs",
+          "url": "https://www.youtube.com/watch?v=-jWAUIg7YSs",
+          "title": "【阿土Atu】《火炬之光：無限》真的沒有極限 全新SS11賽季「渴血症」全面進化太誇張啦！",
+          "publishedAt": "2026-01-15T05:15:03Z"
+        },
+        {
+          "videoId": "7wmMcn8MuT4",
+          "url": "https://www.youtube.com/watch?v=7wmMcn8MuT4",
+          "title": "【阿土Atu】沒想到PUBG也能有特技表演的 #絕地日常日記 #pubg",
+          "publishedAt": "2026-01-05T10:04:28Z"
+        },
+        {
+          "videoId": "2w1Nu-BS1LQ",
+          "url": "https://www.youtube.com/watch?v=2w1Nu-BS1LQ",
+          "title": "【阿土Atu】大混亂！ 暗號靈感菇唱起來 #絕地日常日記 #pubg",
+          "publishedAt": "2026-01-03T09:30:06Z"
+        },
+        {
+          "videoId": "qyTRQKPZHL8",
+          "url": "https://www.youtube.com/watch?v=qyTRQKPZHL8",
+          "title": "【阿土Atu】這次換我當賽狗啦 #絕地日常日記 #pubg",
+          "publishedAt": "2025-12-30T09:01:19Z"
+        },
+        {
+          "videoId": "dfuQvJVPH-s",
+          "url": "https://www.youtube.com/watch?v=dfuQvJVPH-s",
+          "title": "《閃電十一人 英雄們的勝利之路》童年出來了！ 絕招卻射不出來！聊天室差點中風【阿土Atu】",
+          "publishedAt": "2025-12-09T10:01:06Z"
+        },
+        {
+          "videoId": "EbUY8jMyGdU",
+          "url": "https://www.youtube.com/watch?v=EbUY8jMyGdU",
+          "title": "【阿土Atu】以為抽到大獎 但終究還是受傷了 #絕地日常日記 #pubg",
+          "publishedAt": "2025-12-06T05:15:00Z"
+        },
+        {
+          "videoId": "jV4q3Z3EZDo",
+          "url": "https://www.youtube.com/watch?v=jV4q3Z3EZDo",
+          "title": "【阿土Atu】封測結束前的最後一戰，打下二條御所啦《信長之野望 真戰》",
+          "publishedAt": "2025-10-11T04:01:00Z"
+        },
+        {
+          "videoId": "81mTVjaWLPA",
+          "url": "https://www.youtube.com/watch?v=81mTVjaWLPA",
+          "title": "【阿土Atu】那個長得很像頭阿！ #絕地日常日記 #pubg",
+          "publishedAt": "2025-10-05T09:00:21Z"
+        },
+        {
+          "videoId": "IaTsglJPyA8",
+          "url": "https://www.youtube.com/watch?v=IaTsglJPyA8",
+          "title": "【阿土Atu】進攻長島城！激戰到一半才發現有人忘了加點《信長之野望 真戰》",
+          "publishedAt": "2025-09-24T09:00:23Z"
+        },
+        {
+          "videoId": "uVzIt5oWWUM",
+          "url": "https://www.youtube.com/watch?v=uVzIt5oWWUM",
+          "title": "【阿土Atu】開心不到五秒就... #絕地日常日記 #pubg",
+          "publishedAt": "2025-09-09T04:01:05Z"
+        },
+        {
+          "videoId": "Ml9c4JAioFo",
+          "url": "https://www.youtube.com/watch?v=Ml9c4JAioFo",
+          "title": "阿土Atu 8/20 RO樂園 排行第一鐵匠 代敲武器請私 萬物之上",
+          "publishedAt": "2025-08-21T04:06:47Z"
+        },
+        {
+          "videoId": "9c9wkvMYD5s",
+          "url": "https://www.youtube.com/watch?v=9c9wkvMYD5s",
+          "title": "阿土Atu 8/20 RO樂園 排行第一鐵匠 代敲武器請私 萬物之上",
+          "publishedAt": "2025-08-20T20:18:51Z"
+        },
+        {
+          "videoId": "fySRYTscQy8",
+          "url": "https://www.youtube.com/watch?v=fySRYTscQy8",
+          "title": "阿土Atu 8/18 RO樂園 排行第一鐵匠 代敲武器請私 萬物之上",
+          "publishedAt": "2025-08-18T07:59:59Z"
+        },
+        {
+          "videoId": "RBE8wheukQE",
+          "url": "https://www.youtube.com/watch?v=RBE8wheukQE",
+          "title": "阿土Atu 8/17 RO樂園 排行第一鐵匠 代敲武器請私 萬物之上",
+          "publishedAt": "2025-08-17T19:39:09Z"
+        },
+        {
+          "videoId": "aVw_HjKilJ4",
+          "url": "https://www.youtube.com/watch?v=aVw_HjKilJ4",
+          "title": "【阿土Atu】刷完裝備後體驗一下PVP模式，瘋狂用TNT爆破城牆，我才是實質MVP吧   《英勇之地》",
+          "publishedAt": "2025-08-17T10:30:01Z"
+        },
+        {
+          "videoId": "ZA9cSsTptJE",
+          "url": "https://www.youtube.com/watch?v=ZA9cSsTptJE",
+          "title": "阿土Atu 8/10 RO樂園 萬物之上 鐵匠代製作武器",
+          "publishedAt": "2025-08-11T06:09:53Z"
+        },
+        {
+          "videoId": "pWseJLrZcwU",
+          "url": "https://www.youtube.com/watch?v=pWseJLrZcwU",
+          "title": "阿土Atu 8/4 RO樂園 鐵匠代敲",
+          "publishedAt": "2025-08-04T17:40:45Z"
+        }
+      ]
+    },
+    {
+      "id": "beyblade-english-official",
+      "channelId": "UCktgoAFaL39_rYfiMZiD9jw",
+      "displayName": "BEYBLADE English - Official Channel",
+      "sourceType": "official",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "4uau7xn9IVI",
+          "url": "https://www.youtube.com/watch?v=4uau7xn9IVI",
+          "title": "This is not a drill 👀 Your first look at the Funko POP! ⚡️🌪️ #BEYBLADE #BEYBLADEX #funkopop #asmr",
+          "publishedAt": "2026-09-20T22:45:33Z"
+        },
+        {
+          "videoId": "znNh9cTrBqo",
+          "url": "https://www.youtube.com/watch?v=znNh9cTrBqo",
+          "title": "BEYBLADE X | NEW EPISODE! | Ep.96 Shiroboshi, Back Then",
+          "publishedAt": "2026-09-19T22:45:24Z"
+        },
+        {
+          "videoId": "ZYHLxq3DlF0",
+          "url": "https://www.youtube.com/watch?v=ZYHLxq3DlF0",
+          "title": "TV Anime “BEYBLADE X”: TOMORROW X TOGETHER “Rise” Non-credit opening [90 sec] 🎶",
+          "publishedAt": "2026-09-19T11:00:35Z"
+        }
+      ]
+    },
+    {
+      "id": "beyblade-thailand-official",
+      "channelId": "UC3vIYjsBYuwi0obAFy_EWgQ",
+      "displayName": "BEYBLADE Thailand – Official Channel",
+      "sourceType": "official",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "m-bbOdUw8Lo",
+          "url": "https://www.youtube.com/watch?v=m-bbOdUw8Lo",
+          "title": "「BEYBLADE X」Episode64~65",
+          "publishedAt": "2026-09-22T14:30:09Z"
+        },
+        {
+          "videoId": "vuA9-N5_7-k",
+          "url": "https://www.youtube.com/watch?v=vuA9-N5_7-k",
+          "title": "「BEYBLADE X」Episode62~63",
+          "publishedAt": "2026-09-17T14:30:06Z"
+        },
+        {
+          "videoId": "A2vD3WcES6k",
+          "url": "https://www.youtube.com/watch?v=A2vD3WcES6k",
+          "title": "「BEYBLADE X」Episode54~55",
+          "publishedAt": "2026-09-03T14:30:06Z"
+        },
+        {
+          "videoId": "2mSdKoikuQA",
+          "url": "https://www.youtube.com/watch?v=2mSdKoikuQA",
+          "title": "「BEYBLADE X」Episode52~53",
+          "publishedAt": "2026-09-01T14:30:06Z"
+        },
+        {
+          "videoId": "icrgjkK7Kyk",
+          "url": "https://www.youtube.com/watch?v=icrgjkK7Kyk",
+          "title": "「BEYBLADE X」Episode66~67",
+          "publishedAt": "2026-08-19T02:51:38Z"
+        },
+        {
+          "videoId": "R_moKlfWWBI",
+          "url": "https://www.youtube.com/watch?v=R_moKlfWWBI",
+          "title": "「BEYBLADE BURST TURBO」　Episode49～51",
+          "publishedAt": "2026-07-01T14:30:06Z"
+        },
+        {
+          "videoId": "coyWqTSmBm0",
+          "url": "https://www.youtube.com/watch?v=coyWqTSmBm0",
+          "title": "「BEYBLADE BURST TURBO」　Episode47～48",
+          "publishedAt": "2026-06-29T14:30:06Z"
+        },
+        {
+          "videoId": "HjqZfiR9prk",
+          "url": "https://www.youtube.com/watch?v=HjqZfiR9prk",
+          "title": "「BEYBLADE BURST TURBO」　Episode45～46",
+          "publishedAt": "2026-06-26T14:30:06Z"
+        },
+        {
+          "videoId": "jfbghCXdeD0",
+          "url": "https://www.youtube.com/watch?v=jfbghCXdeD0",
+          "title": "「BEYBLADE BURST TURBO」　Episode41～42",
+          "publishedAt": "2026-06-22T14:30:06Z"
+        },
+        {
+          "videoId": "_iCIUPk_QNA",
+          "url": "https://www.youtube.com/watch?v=_iCIUPk_QNA",
+          "title": "「BEYBLADE BURST TURBO」　Episode37～38",
+          "publishedAt": "2026-06-17T14:30:06Z"
+        },
+        {
+          "videoId": "ycQrLsfgoX8",
+          "url": "https://www.youtube.com/watch?v=ycQrLsfgoX8",
+          "title": "「BEYBLADE BURST TURBO」　Episode33～34",
+          "publishedAt": "2026-06-12T14:30:06Z"
+        },
+        {
+          "videoId": "IYOL3OhQcbc",
+          "url": "https://www.youtube.com/watch?v=IYOL3OhQcbc",
+          "title": "「BEYBLADE BURST TURBO」　Episode31～32",
+          "publishedAt": "2026-06-10T14:30:06Z"
+        },
+        {
+          "videoId": "notKa6-79A8",
+          "url": "https://www.youtube.com/watch?v=notKa6-79A8",
+          "title": "「BEYBLADE BURST TURBO」　Episode29～30",
+          "publishedAt": "2026-06-08T14:30:05Z"
+        },
+        {
+          "videoId": "930uOVIT_Gw",
+          "url": "https://www.youtube.com/watch?v=930uOVIT_Gw",
+          "title": "「BEYBLADE BURST TURBO」　Episode25～26",
+          "publishedAt": "2026-06-03T14:30:06Z"
+        },
+        {
+          "videoId": "6chntd0v3Es",
+          "url": "https://www.youtube.com/watch?v=6chntd0v3Es",
+          "title": "「BEYBLADE BURST TURBO」　Episode21～22",
+          "publishedAt": "2026-05-29T14:30:06Z"
+        },
+        {
+          "videoId": "qlRSxf9MHaE",
+          "url": "https://www.youtube.com/watch?v=qlRSxf9MHaE",
+          "title": "「BEYBLADE BURST TURBO」　Episode15～16",
+          "publishedAt": "2026-05-22T14:30:06Z"
+        },
+        {
+          "videoId": "tBtjTkglzKU",
+          "url": "https://www.youtube.com/watch?v=tBtjTkglzKU",
+          "title": "「BEYBLADE BURST TURBO」　Episode13～14",
+          "publishedAt": "2026-05-20T14:30:06Z"
+        },
+        {
+          "videoId": "jxbgmFO3XHk",
+          "url": "https://www.youtube.com/watch?v=jxbgmFO3XHk",
+          "title": "「BEYBLADE BURST TURBO」　Episode11～12",
+          "publishedAt": "2026-05-18T14:30:06Z"
+        },
+        {
+          "videoId": "pO8-IzQfaBc",
+          "url": "https://www.youtube.com/watch?v=pO8-IzQfaBc",
+          "title": "「BEYBLADE BURST TURBO」　Episode7～8",
+          "publishedAt": "2026-05-13T14:30:06Z"
+        },
+        {
+          "videoId": "SnlzKjuouU0",
+          "url": "https://www.youtube.com/watch?v=SnlzKjuouU0",
+          "title": "「BEYBLADE BURST TURBO」　Episode5～6",
+          "publishedAt": "2026-05-11T14:30:06Z"
+        },
+        {
+          "videoId": "9O_zdFu5fOM",
+          "url": "https://www.youtube.com/watch?v=9O_zdFu5fOM",
+          "title": "「BEYBLADE X」 Episode49～51",
+          "publishedAt": "2026-05-05T14:30:06Z"
+        },
+        {
+          "videoId": "KwaAtC6jlvI",
+          "url": "https://www.youtube.com/watch?v=KwaAtC6jlvI",
+          "title": "「BEYBLADE BURST EVOLUTION 」　Episode47～48　",
+          "publishedAt": "2026-04-24T14:30:06Z"
+        },
+        {
+          "videoId": "gyHEFj5uKD8",
+          "url": "https://www.youtube.com/watch?v=gyHEFj5uKD8",
+          "title": "「BEYBLADE X」 Episode43～44",
+          "publishedAt": "2026-04-23T14:30:06Z"
+        },
+        {
+          "videoId": "CNkKE2fL_qs",
+          "url": "https://www.youtube.com/watch?v=CNkKE2fL_qs",
+          "title": "「BEYBLADE BURST EVOLUTION 」　Episode45～46　",
+          "publishedAt": "2026-04-22T14:30:06Z"
+        },
+        {
+          "videoId": "lPp9SsnOsow",
+          "url": "https://www.youtube.com/watch?v=lPp9SsnOsow",
+          "title": "「BEYBLADE X」 Episode41～42",
+          "publishedAt": "2026-04-21T14:30:06Z"
+        }
+      ]
+    },
+    {
+      "id": "beyblade-malaysia-official",
+      "channelId": "UCDN1FYCY8V5d-8XNxSFCoCw",
+      "displayName": "BEYBLADE Malaysia – Official Channel",
+      "sourceType": "official",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "nTCY129SsmQ",
+          "url": "https://www.youtube.com/watch?v=nTCY129SsmQ",
+          "title": "「BEYBLADE BURST TURBO」　Episode47～48",
+          "publishedAt": "2026-06-29T14:30:06Z"
+        },
+        {
+          "videoId": "phNAT9zAhG8",
+          "url": "https://www.youtube.com/watch?v=phNAT9zAhG8",
+          "title": "「BEYBLADE BURST TURBO」　Episode43～44",
+          "publishedAt": "2026-06-24T14:30:06Z"
+        },
+        {
+          "videoId": "NtROmmHd08o",
+          "url": "https://www.youtube.com/watch?v=NtROmmHd08o",
+          "title": "「BEYBLADE BURST TURBO」　Episode39～40",
+          "publishedAt": "2026-06-19T14:30:06Z"
+        },
+        {
+          "videoId": "ZhFHR0R5abI",
+          "url": "https://www.youtube.com/watch?v=ZhFHR0R5abI",
+          "title": "「BEYBLADE BURST TURBO」　Episode37～38",
+          "publishedAt": "2026-06-17T14:30:06Z"
+        },
+        {
+          "videoId": "Rc5c6oBJjrQ",
+          "url": "https://www.youtube.com/watch?v=Rc5c6oBJjrQ",
+          "title": "「BEYBLADE BURST TURBO」　Episode29～30",
+          "publishedAt": "2026-06-08T14:30:06Z"
+        },
+        {
+          "videoId": "XwH2bvyC7oM",
+          "url": "https://www.youtube.com/watch?v=XwH2bvyC7oM",
+          "title": "「BEYBLADE BURST TURBO」　Episode25～26",
+          "publishedAt": "2026-06-03T14:30:06Z"
+        },
+        {
+          "videoId": "WSmyYoIcdFI",
+          "url": "https://www.youtube.com/watch?v=WSmyYoIcdFI",
+          "title": "「BEYBLADE BURST TURBO」　Episode23～24",
+          "publishedAt": "2026-06-01T14:30:06Z"
+        },
+        {
+          "videoId": "tIjWQClmFfA",
+          "url": "https://www.youtube.com/watch?v=tIjWQClmFfA",
+          "title": "「BEYBLADE BURST TURBO」　Episode15～16",
+          "publishedAt": "2026-05-22T14:30:06Z"
+        },
+        {
+          "videoId": "Krdb7zQtKkk",
+          "url": "https://www.youtube.com/watch?v=Krdb7zQtKkk",
+          "title": "「BEYBLADE BURST TURBO」　Episode13～14",
+          "publishedAt": "2026-05-20T14:30:06Z"
+        },
+        {
+          "videoId": "MWX_VA9pWk4",
+          "url": "https://www.youtube.com/watch?v=MWX_VA9pWk4",
+          "title": "「BEYBLADE BURST TURBO」　Episode11～12",
+          "publishedAt": "2026-05-18T14:30:06Z"
+        },
+        {
+          "videoId": "UkDVHjMEVTg",
+          "url": "https://www.youtube.com/watch?v=UkDVHjMEVTg",
+          "title": "「BEYBLADE BURST TURBO」　Episode5～6",
+          "publishedAt": "2026-05-11T14:30:06Z"
+        },
+        {
+          "videoId": "-jdHZby76wE",
+          "url": "https://www.youtube.com/watch?v=-jdHZby76wE",
+          "title": "「BEYBLADE BURST TURBO」　Episode1～2",
+          "publishedAt": "2026-05-06T14:30:06Z"
+        },
+        {
+          "videoId": "AeRiY0O86dc",
+          "url": "https://www.youtube.com/watch?v=AeRiY0O86dc",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode51 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-29T09:00:21Z"
+        },
+        {
+          "videoId": "BTu-D_0d0tA",
+          "url": "https://www.youtube.com/watch?v=BTu-D_0d0tA",
+          "title": "「BEYBLADE BURST EVOLUTION」　Episode49～51",
+          "publishedAt": "2026-04-27T14:30:06Z"
+        },
+        {
+          "videoId": "hMzhVtNp4j8",
+          "url": "https://www.youtube.com/watch?v=hMzhVtNp4j8",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode49 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-27T09:01:02Z"
+        },
+        {
+          "videoId": "K_pUeI8v4Jg",
+          "url": "https://www.youtube.com/watch?v=K_pUeI8v4Jg",
+          "title": "「BEYBLADE BURST EVOLUTION」　Episode45～46",
+          "publishedAt": "2026-04-22T14:30:06Z"
+        },
+        {
+          "videoId": "07ciJWQtpgE",
+          "url": "https://www.youtube.com/watch?v=07ciJWQtpgE",
+          "title": "「BEYBLADE BURST EVOLUTION」　Episode43～44",
+          "publishedAt": "2026-04-20T14:30:06Z"
+        },
+        {
+          "videoId": "32WttshtpKA",
+          "url": "https://www.youtube.com/watch?v=32WttshtpKA",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode40 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-17T09:00:11Z"
+        },
+        {
+          "videoId": "ZeQt0douUOs",
+          "url": "https://www.youtube.com/watch?v=ZeQt0douUOs",
+          "title": "「BEYBLADE BURST EVOLUTION」　Episode39～40",
+          "publishedAt": "2026-04-15T14:30:06Z"
+        },
+        {
+          "videoId": "LMOcTHXLj-o",
+          "url": "https://www.youtube.com/watch?v=LMOcTHXLj-o",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode36 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-15T09:00:25Z"
+        },
+        {
+          "videoId": "kfv0dCDKBN4",
+          "url": "https://www.youtube.com/watch?v=kfv0dCDKBN4",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode32 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-13T09:01:06Z"
+        },
+        {
+          "videoId": "LN55HJkdyoU",
+          "url": "https://www.youtube.com/watch?v=LN55HJkdyoU",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode24 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-06T09:00:26Z"
+        },
+        {
+          "videoId": "JmCbWDJ8lz4",
+          "url": "https://www.youtube.com/watch?v=JmCbWDJ8lz4",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode22 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-03T09:00:31Z"
+        },
+        {
+          "videoId": "Q5IHD_a9O4M",
+          "url": "https://www.youtube.com/watch?v=Q5IHD_a9O4M",
+          "title": "「BEYBLADE BURST EVOLUTION」　Episode27～28",
+          "publishedAt": "2026-04-01T14:30:06Z"
+        },
+        {
+          "videoId": "S8H_Yyh_qT4",
+          "url": "https://www.youtube.com/watch?v=S8H_Yyh_qT4",
+          "title": "「BEYBLADE BURST EVOLUTION」Episode16 #BEYBLADE #BEYBLADEBURST #BEYBLADEBURSTEVOLUTION",
+          "publishedAt": "2026-04-01T09:00:33Z"
+        }
+      ]
+    },
+    {
+      "id": "d100-radio-hk",
+      "channelId": "UCbmZSNWyEoM2xtWhbHRPo3w",
+      "displayName": "D100 Radio",
+      "sourceType": "competitive_community",
+      "status": "candidate",
+      "videos": [
+        {
+          "videoId": "QKDf98AfpBk",
+          "url": "https://www.youtube.com/watch?v=QKDf98AfpBk",
+          "title": "眾自己友如相問，一片冰心在玉壺｜為食麻甩騷｜梁家權(權哥)、班哥",
+          "publishedAt": "2026-09-23T06:19:28Z"
+        },
+        {
+          "videoId": "_l_vqQlRSD0",
+          "url": "https://www.youtube.com/watch?v=_l_vqQlRSD0",
+          "title": "蔡蔡子京都回歸見證〈杜鵑〉影響日本，手機「響警號」？東涌公屋石屎未達標，何永賢局長以沖奶粉比喻混凝土的差異：就算幾努力搖，可能都有啲粒粒！｜瘋中三子｜主持：蔡浩樑、阿通、江少",
+          "publishedAt": "2026-09-23T06:18:15Z"
+        },
+        {
+          "videoId": "jm3OcJx8eC8",
+          "url": "https://www.youtube.com/watch?v=jm3OcJx8eC8",
+          "title": "取代職業並非AI而是用AI的人？未來最重要的競爭力反而係EQ？勞福局人力推算中期更新報告指出，長期失業人口佔比升至30%。整個產業轉型對就業市場帶來嚴重衝擊！｜D100新聞天地｜主持：李錦洪、陳珏明",
+          "publishedAt": "2026-09-23T04:06:22Z"
+        },
+        {
+          "videoId": "_vBNvFT_9TM",
+          "url": "https://www.youtube.com/watch?v=_vBNvFT_9TM",
+          "title": "【首播】再遊香港歷史博物館（2）：荔園入面有間戲院？失蹤了的香港足球先生盾牌……丨靜江思憶往日時丨主持：何靜江、Philip Lui",
+          "publishedAt": "2026-09-23T04:02:30Z"
+        },
+        {
+          "videoId": "StHJVXShoj0",
+          "url": "https://www.youtube.com/watch?v=StHJVXShoj0",
+          "title": "【首播】中秋節又到僱主外傭最關心有無得放假？另一擔心係將隱性疾病引入香港與家中？！︱傭人之道︱主持：林夏瑤女士，嘉賓主持：Kary",
+          "publishedAt": "2026-09-23T04:00:06Z"
+        },
+        {
+          "videoId": "53EBhL-9eFU",
+          "url": "https://www.youtube.com/watch?v=53EBhL-9eFU",
+          "title": "陸運會外派免費飲品疑似有針孔！12生飲完「尖叫」集體送院｜莊太量教授「擇偶經濟學」惹怒 Gen Z？｜850萬總獎金匹克球賽徵「無償攝影」！｜D100上綱上線｜黃冠斌、禮賢同學、Jack",
+          "publishedAt": "2026-09-23T03:44:03Z"
+        },
+        {
+          "videoId": "d6zDSANQrfc",
+          "url": "https://www.youtube.com/watch?v=d6zDSANQrfc",
+          "title": "【首播】無司機無方向盤！坐「無人駕駛」竟像坐過山車？Elon Musk 最新黑科技解析！｜港式茶餐廳｜潘啟迪，何亨",
+          "publishedAt": "2026-09-22T11:00:09Z"
+        },
+        {
+          "videoId": "fNcUhg2cW2w",
+          "url": "https://www.youtube.com/watch?v=fNcUhg2cW2w",
+          "title": "【首播】布偉傑一人音樂劇《阿一·點止鬼佬咁簡單2》訪問 + 綵排實錄。︱清娛幹線｜主持：瘋子江少 嘉賓：布偉傑 (Brian)、Ben Sir 宋子豪博士",
+          "publishedAt": "2026-09-22T10:00:07Z"
+        },
+        {
+          "videoId": "uriVZVV6pVA",
+          "url": "https://www.youtube.com/watch?v=uriVZVV6pVA",
+          "title": "【首播】1969年遠赴英國！79歲珍姐揭早期唐人街辛酸：由賣身放牛到立足英倫｜情迷英倫｜王德全 , 嘉賓 : 黃如榮 , 珍姐",
+          "publishedAt": "2026-09-22T09:52:26Z"
+        },
+        {
+          "videoId": "zf87rPVedv4",
+          "url": "https://www.youtube.com/watch?v=zf87rPVedv4",
+          "title": "【首播】BC省政壇大洗牌：執政新民主黨優勢銳減，中間派組黨對加拿大大選的連帶影響︱加拿大楓情︱主持：陳若虛Pius、Norman、Albert Wong",
+          "publishedAt": "2026-09-22T09:00:12Z"
+        },
+        {
+          "videoId": "Zmb1lWpJAjk",
+          "url": "https://www.youtube.com/watch?v=Zmb1lWpJAjk",
+          "title": "《Starbucks》出招嚴阻「打躉客」！限坐90分鐘再附加1條件，網民反應如何？「女子慘遭群犬咬斃案」漁護署日前捕捉的三隻狗，其中兩隻證實有晶片，但是否與案有關？｜瘋中三子｜主持：王德全、阿通、江少",
+          "publishedAt": "2026-09-22T08:16:00Z"
+        },
+        {
+          "videoId": "pAar2Aw443g",
+          "url": "https://www.youtube.com/watch?v=pAar2Aw443g",
+          "title": "話咁快就到中秋，食月餅點先算健康？ ｜為食麻甩騷｜班哥、Rachel",
+          "publishedAt": "2026-09-22T06:26:26Z"
+        },
+        {
+          "videoId": "K8lxAE0JIuY",
+          "url": "https://www.youtube.com/watch?v=K8lxAE0JIuY",
+          "title": "【首播】香港要大搞AI城市問吓叮噹應該搞？又識唔識了解香港人需要做一份《五年規劃》？｜我同AI痴咗線｜Philip , 思朗",
+          "publishedAt": "2026-09-22T04:00:06Z"
+        },
+        {
+          "videoId": "EFQD1yNDmF0",
+          "url": "https://www.youtube.com/watch?v=EFQD1yNDmF0",
+          "title": "斌仔快閃大阪大滿足！手信分發大會！｜禮賢首辦「陀螺友誼賽」！得本地玩具店大力支持！仲成誘導阿Jack入坑 ?!｜D100上綱上線｜黃冠斌、禮賢同學、Jack",
+          "publishedAt": "2026-09-22T03:43:09Z"
+        },
+        {
+          "videoId": "-Z7D6Mr7mAQ",
+          "url": "https://www.youtube.com/watch?v=-Z7D6Mr7mAQ",
+          "title": "保安局局長鄧炳強表示「國家安全有暗湧」提出四大危害國家隱患！「軟對抗」究竟是否違法？沒有紅線何謂「軟對抗」？｜D100新聞天地｜主持：李錦洪、陳珏明",
+          "publishedAt": "2026-09-22T02:44:37Z"
+        },
+        {
+          "videoId": "faCwwgLr1Zs",
+          "url": "https://www.youtube.com/watch?v=faCwwgLr1Zs",
+          "title": "《玄戰》節目兩位參賽者「黑白先知」婆婆、Jim Sir，上來 D100 要找徐加晴師傅「錫館」？︱吾三吾四︱徐加晴 Rona (吾三)，關嘉敏 Carman (吾四)  嘉賓：Jim sir、婆婆",
+          "publishedAt": "2026-09-21T14:20:05Z"
+        },
+        {
+          "videoId": "TzI7Aw4SPuM",
+          "url": "https://www.youtube.com/watch?v=TzI7Aw4SPuM",
+          "title": "【GENTLEMAN】《阿飛正傳》x offLINE 聯乘企劃 期間限定店，經典場景重現眼前，帶領大家回到香港60年代︱主持：江少，嘉賓：Kevin Chen",
+          "publishedAt": "2026-09-21T13:00:06Z"
+        },
+        {
+          "videoId": "zcGWh1eGlnU",
+          "url": "https://www.youtube.com/watch?v=zcGWh1eGlnU",
+          "title": "【精華】聽眾電話:香港請護士易左 , 每年三千落緊嚟?｜D100新聞天地｜李錦洪、梁家權、陳珏明",
+          "publishedAt": "2026-09-21T13:00:03Z"
+        },
+        {
+          "videoId": "XXR8o3FLunY",
+          "url": "https://www.youtube.com/watch?v=XXR8o3FLunY",
+          "title": "國家主席習近平對美國進行國事訪問，隨團商界與企業家代表團將成為焦點！｜晚餐新聞｜主持：陳珏明、劉銳紹（夫子）",
+          "publishedAt": "2026-09-21T12:17:10Z"
+        },
+        {
+          "videoId": "pJGo7sy6qAY",
+          "url": "https://www.youtube.com/watch?v=pJGo7sy6qAY",
+          "title": "【首播】拆解兩段悼文背後含意：「最高瞻遠矚特首 壯志未酬」、「一國兩制的成功，是您所造成的！」｜憶述回歸前與董建華的見面｜讀稿唔用間尺，改用白卡紙，效果更差？｜關公殿堂｜林旭華、何安達",
+          "publishedAt": "2026-09-21T09:00:08Z"
+        },
+        {
+          "videoId": "rCS9tmSAS4M",
+          "url": "https://www.youtube.com/watch?v=rCS9tmSAS4M",
+          "title": "香港短時間內再發生市民疑遭狗隻襲擊致死慘劇，當局對有關流浪狗問題再度引起強烈關注！轟動社會的「蔡天鳳案」今日開庭，過百人到庭旁聽，延伸庭亦一度爆滿！｜瘋中三子｜主持：阿通、江少、C朗",
+          "publishedAt": "2026-09-21T08:22:03Z"
+        },
+        {
+          "videoId": "wItsSzs3aw4",
+          "url": "https://www.youtube.com/watch?v=wItsSzs3aw4",
+          "title": "羊群心理互相比較，下一代後還有下一代嗎？ ｜為食麻甩騷｜班哥、Rachel",
+          "publishedAt": "2026-09-21T06:35:09Z"
+        },
+        {
+          "videoId": "Ye5ypPeEps4",
+          "url": "https://www.youtube.com/watch?v=Ye5ypPeEps4",
+          "title": "直擊斌仔大阪難波尋覓Locker！一千円換CHIIKAWA失敗！揾陀螺，賣晒！買Tee，無Size！｜D100上綱上線｜黃冠斌、禮賢同學、Jack",
+          "publishedAt": "2026-09-21T04:46:46Z"
+        },
+        {
+          "videoId": "cNikQEvAjPQ",
+          "url": "https://www.youtube.com/watch?v=cNikQEvAjPQ",
+          "title": "重要危機出現！沈大師同大家一齊小心駛得萬年船，部署反敗為勝！將危機轉化為賺錢機會！︱《沈大師講投資》主持︰沈大師 （沈振盈）",
+          "publishedAt": "2026-09-21T04:06:10Z"
+        },
+        {
+          "videoId": "PTaML6FjTUA",
+          "url": "https://www.youtube.com/watch?v=PTaML6FjTUA",
+          "title": "董建華喪禮採國葬規格內藏深層政治含意？從「治喪政治學」睇到中央的隱喻：強調一國兩制凝聚香港力量背靠祖國？｜D100新聞天地｜主持：李錦洪、C朗",
+          "publishedAt": "2026-09-21T03:12:14Z"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
