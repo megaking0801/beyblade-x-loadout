@@ -16,7 +16,11 @@ export interface PurchaseRecommendation {
   unlockedExamplesZhTW: string[]
   reasonsZhTW: string[]
   deckScoreGain: number
-  /** 買後可組出的最佳平衡 3on3，其完整配置合計有多少筆賽事出現。 */
+  /**
+   * 買後可組出的最佳平衡 3on3，其完整配置的賽事證據百分位加總（0~100 一筆，
+   * 不是原始出場筆數）——不同證據來源樣本量級差很多，用百分位才能安全比較，
+   * 見 `competitiveMeta.ts` 的 `computePercentiles()`。
+   */
   competitiveEvidenceGain: number
   /**
    * 這次購買新增零件的高手評級加總（X=3／SS=2／S=1，只算 BeybladeHub「高手零件
@@ -90,6 +94,7 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     strategy: 'balanced',
     limit: 1,
     candidateCap: CANDIDATE_LIMIT,
+    evidenceByCode: args.evidenceByCode,
   })[0]
   const result = {
     candidates,
@@ -98,8 +103,18 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     stamina: maximum('stamina'),
     stability: maximum('stability'),
     overall: Math.max(0, ...candidates.map(score)),
-    deckScore: deck?.score ?? 0,
-    competitiveEvidence: deck?.validation.members.reduce((sum, member) => sum + (member.analysis.evidence?.appearances ?? 0), 0) ?? 0,
+    // deck.ts 的 scoreDeck() 現在真的會把證據的 log2 加成算進去（之前這個加成
+    // 一直是 0，見 evidenceByCode 傳遞的修正），分數會帶一長串小數；這裡是
+    // 使用者看得到的「分數可提升 +N」文字用到的值，要整數化才不會把浮點數
+    // 雜訊直接顯示出來。deck.ts 內部排序用的 `.score` 本身不動，只在這裡
+    // 顯示前四捨五入。
+    deckScore: Math.round(deck?.score ?? 0),
+    // 用 percentileScore（配置在自己來源分布裡的百分位，0~100）加總，不是原始
+    // appearances 筆數——不同證據來源（台灣本地個位數 vs 社群站台上萬筆）量級
+    // 差太多，直接加總筆數會讓大站台系統性蓋過本地真實賽果，見
+    // `competitiveMeta.ts` 的 `computePercentiles()` 註解。
+    competitiveEvidence:
+      deck?.validation.members.reduce((sum, member) => sum + (member.analysis.evidence?.percentileScore ?? 0), 0) ?? 0,
   }
   if (profileCache.size >= PROFILE_CACHE_LIMIT) profileCache.clear()
   profileCache.set(cacheKey, result)
@@ -193,7 +208,7 @@ export function recommendNextProducts(args: {
     const addedPartNamesZhTW = [...new Set(addedLots.map((lot) => partById.get(lot.partId)).filter((part): part is Part => Boolean(part)).map((part) => resolveDisplayName(part.naming).titleZhTW))]
     const reasonsZhTW: string[] = []
     if (deckScoreGain > 0) reasonsZhTW.push(`平衡 3on3 組合分數可提升 ${deckScoreGain}。`)
-    if (competitiveEvidenceGain > 0) reasonsZhTW.push(`新隊伍的完整配置賽事出現數 +${competitiveEvidenceGain}。`)
+    if (competitiveEvidenceGain > 0) reasonsZhTW.push(`新隊伍的完整配置賽事證據排名提升（百分位 +${competitiveEvidenceGain}）。`)
     if (ratedAddedParts.length > 0) {
       const detail = ratedAddedParts
         .map((row) => `${resolveDisplayName(row.part.naming).titleZhTW}（${row.rating.tierLabel} 級，${row.rating.expertCount} 位中 ${row.rating.agreeCount} 位認同）`)

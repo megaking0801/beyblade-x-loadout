@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { generateBuildableCombos } from '../../domain/builder.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
+import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import {
   DECK_STRATEGY_ZH,
   DEFAULT_DECK_RULES,
@@ -55,7 +56,7 @@ export function DecksPage() {
   const [deckName, setDeckName] = useState('')
 
   const evidenceByCode = useMemo(
-    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks, community: getCommunityEvidenceSource() }),
     [tournamentEvents, tournamentDecks],
   )
 
@@ -81,8 +82,9 @@ export function DecksPage() {
         strategy,
         limit: 3,
         candidateCap: 120,
+        evidenceByCode,
       }),
-    [candidates, parts, lots, combos, strategy],
+    [candidates, parts, lots, combos, strategy, evidenceByCode],
   )
 
   const savedComboDecks = useMemo(
@@ -100,10 +102,11 @@ export function DecksPage() {
             lots,
             combos,
             ruleSet: DEFAULT_DECK_RULES,
+            evidenceByCode,
           }),
         }
       }),
-    [decks, combos, parts, rules, lots],
+    [decks, combos, parts, rules, lots, evidenceByCode],
   )
 
   return (

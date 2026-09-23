@@ -171,6 +171,14 @@ export interface EvidenceInput {
   championships: number
   totalDecks: number
   sourceTier: SourceTier
+  /**
+   * 這個配置的 `appearances` 在其資料來源自己的分布裡排第幾百分位（0～100，
+   * 100 為該來源最高）。不同來源的樣本數量級差很多（台灣本地個位數 vs
+   * 社群站台上萬筆），排序／比較用這個而不是原始筆數，見
+   * `competitiveMeta.ts` 的 `competitiveEvidenceGain` 註解。沒有值代表
+   * 這筆證據還沒算過百分位（例如舊測試資料），呼叫端要視同 0。
+   */
+  percentileScore?: number
 }
 
 export interface EvidenceOutput extends EvidenceInput {

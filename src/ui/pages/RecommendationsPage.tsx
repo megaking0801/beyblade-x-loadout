@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { recommendNextProducts } from '../../domain/recommendations.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
+import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import { formatProductLabel } from '../../domain/naming.ts'
 import { useAppStore } from '../../store/appStore.ts'
@@ -18,7 +19,7 @@ export function RecommendationsPage() {
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const evidenceByCode = useMemo(
-    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks, community: getCommunityEvidenceSource() }),
     [tournamentEvents, tournamentDecks],
   )
   const expertTierByPartId = useMemo(() => getExpertPartRatingIndex(), [])

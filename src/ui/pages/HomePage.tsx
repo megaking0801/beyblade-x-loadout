@@ -11,6 +11,7 @@ import { resolveDisplayName } from '../../domain/naming.ts'
 import { getFeaturedTournamentDeck } from '../../domain/tournament.ts'
 import { recommendNextProducts } from '../../domain/recommendations.ts'
 import { createCompetitiveEvidenceByCode } from '../../domain/competitiveMeta.ts'
+import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import { Link, navigate } from '../router.tsx'
 import {
@@ -68,7 +69,7 @@ export function HomePage() {
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const competitiveEvidence = useMemo(
-    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks, community: getCommunityEvidenceSource() }),
     [tournamentEvents, tournamentDecks],
   )
 

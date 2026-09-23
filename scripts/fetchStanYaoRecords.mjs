@@ -83,6 +83,7 @@ const bladeByZhName = new Map(
 )
 const ratchetByCode = new Map(catalog.parts.filter((part) => part.family === 'ratchet').map((part) => [part.code, part.id]))
 const bitByCode = new Map(catalog.parts.filter((part) => part.family === 'bit').map((part) => [part.code, part.id]))
+const codeById = new Map(catalog.parts.map((part) => [part.id, part.code]))
 
 /**
  * stan-yao 在零件名後面加旋向／顏色／型態註記（例如「蒼穹龍騎士(左)」
@@ -131,7 +132,11 @@ for (const row of rows) {
     // rank 只收 1st/2nd/3rd；4th 以下站方資料沒有細分名次，不強行歸類。
     ...(rank ? { rank } : {}),
     comboPartIds: [bladeId, ratchetId, bitId],
-    comboCode: `${row.site_blade_name} ${row.ratchet}${row.bit}`,
+    // 這裡必須用圖鑑的官方代號（`part.code`，通常是日文片假名），跟
+    // `src/domain/analysis.ts` 的 `comboFullCode()` 產生的字串格式一致，
+    // 不能用站方原文的中文名——之前這裡直接塞中文名，導致這個 comboCode
+    // 永遠對不上系統內部查表用的 key，社群證據實際上從沒生效過。
+    comboCode: `${codeById.get(bladeId)} ${codeById.get(ratchetId)}${codeById.get(bitId)}`,
     bladeMatchMethod: matchMethod,
   })
 }

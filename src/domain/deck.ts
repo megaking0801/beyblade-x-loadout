@@ -6,7 +6,7 @@
  *
  * 正式規則下的重複零件限制以 DeckRuleSet 資料表達，並保留官方規章網址。
  */
-import { analyzeCombo, type ComboAnalysis } from './analysis.ts'
+import { analyzeCombo, comboFullCode, type ComboAnalysis, type EvidenceInput } from './analysis.ts'
 import { computeAvailabilityMap } from './inventory.ts'
 import { resolveDisplayName } from './naming.ts'
 import type { BuildableCombo } from './builder.ts'
@@ -83,6 +83,12 @@ export interface ValidateDeckArgs {
   lots: InventoryLot[]
   combos: SavedCombo[]
   ruleSet: DeckRuleSet
+  /**
+   * 完整配置的賽事證據索引，key 是 `comboFullCode(slots, parts)`。
+   * 不傳的話每個隊員的 `analysis.evidence` 會是 undefined——曾經真的漏掉過，
+   * 導致 `competitiveEvidenceGain`／`scoreDeck` 的證據加分永遠是 0，見呼叫端。
+   */
+  evidenceByCode?: Record<string, EvidenceInput>
 }
 
 const OCCUPYING_SLOT_KEYS = [
@@ -100,7 +106,7 @@ function partName(part: Part): string {
 }
 
 export function validateDeck(args: ValidateDeckArgs): DeckValidation {
-  const { slotsList, parts, rules, lots, combos, ruleSet } = args
+  const { slotsList, parts, rules, lots, combos, ruleSet, evidenceByCode } = args
   const byId = new Map(parts.map((part) => [part.id, part]))
   const errorsZhTW: string[] = []
   const warningsZhTW: string[] = []
@@ -111,9 +117,10 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
     )
   }
 
-  const analyses = slotsList.map((slots) =>
-    analyzeCombo({ slots, parts, rules, lots, combos }),
-  )
+  const analyses = slotsList.map((slots) => {
+    const evidence = evidenceByCode?.[comboFullCode(slots, parts)]
+    return analyzeCombo({ slots, parts, rules, lots, combos, ...(evidence ? { evidence } : {}) })
+  })
 
   analyses.forEach((analysis, index) => {
     if (!analysis.compatibility.ok) {
@@ -297,6 +304,8 @@ export interface SuggestDecksArgs {
   limit?: number
   /** 候選數量上限，避免組合爆炸。 */
   candidateCap?: number
+  /** 見 `ValidateDeckArgs.evidenceByCode`；傳給最終驗證用的 `validateDeck()`。 */
+  evidenceByCode?: Record<string, EvidenceInput>
 }
 
 const DEFAULT_CANDIDATE_CAP = 60
@@ -352,6 +361,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
     strategy,
     limit = DEFAULT_SUGGESTION_LIMIT,
     candidateCap = DEFAULT_CANDIDATE_CAP,
+    evidenceByCode,
   } = args
 
   if (candidates.length < ruleSet.teamSize) return []
@@ -411,7 +421,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
   const suggestions: DeckSuggestion[] = []
   for (const row of rough.slice(0, Math.max(limit * VERIFY_MULTIPLIER, limit))) {
     const slotsList = row.indexes.map((index) => pool[index]!.slots)
-    const validation = validateDeck({ slotsList, parts, rules: [], lots, combos, ruleSet })
+    const validation = validateDeck({ slotsList, parts, rules: [], lots, combos, ruleSet, evidenceByCode })
     if (!validation.ok) continue
     suggestions.push({
       strategy,

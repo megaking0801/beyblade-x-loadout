@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { analyzeCombo, comboFullCode } from '../../domain/analysis.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot, type CompetitiveEvidence } from '../../domain/competitiveMeta.ts'
+import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import { getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
@@ -154,7 +155,7 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
     [slots, parts, tournamentEvents, tournamentDecks],
   )
   const competitiveEvidenceByCode = useMemo(
-    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks }),
+    () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks, community: getCommunityEvidenceSource() }),
     [tournamentEvents, tournamentDecks],
   )
   const competitiveEvidence = useMemo(

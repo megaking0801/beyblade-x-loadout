@@ -56,6 +56,31 @@ describe('下一包推薦', () => {
     expect(result.randomProducts).toEqual([{ product: random, possiblePartNamesZhTW: [bitC.id] }])
   })
 
+  it('competitiveEvidenceGain 吃 evidence.percentileScore，不是原始 appearances 筆數', () => {
+    // 故意設一個 appearances 天文數字但 percentileScore 很低的證據，確認
+    // gain 真的跟著百分位走，不會因為原始筆數大就衝到天上去——這是社群站台
+    // 資料規模遠超本地資料時，用來避免系統性蓋過真實賽果的修正。
+    const result = recommendNextProducts({
+      products: [random, fixed],
+      variants,
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC],
+      rules: [],
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id)],
+      combos: [],
+      // 固鎖沒設 type，三種固鎖搭配 blade-c+bitC 分數會打平，正式跑出來選哪一種
+      // 是內部 tie-break 決定的；三種都給證據，不用去猜實際選到哪一顆。
+      evidenceByCode: {
+        'blade-c 1-60FB': { appearances: 999_999, percentileScore: 7, top4: 0, championships: 0, totalDecks: 999_999, sourceTier: 'community' },
+        'blade-c 3-60FB': { appearances: 999_999, percentileScore: 7, top4: 0, championships: 0, totalDecks: 999_999, sourceTier: 'community' },
+        'blade-c 9-60FB': { appearances: 999_999, percentileScore: 7, top4: 0, championships: 0, totalDecks: 999_999, sourceTier: 'community' },
+      },
+    })
+    const gain = result.recommendations[0]?.competitiveEvidenceGain ?? -1
+    expect(gain).toBeGreaterThan(0)
+    expect(gain).toBeLessThan(100)
+  })
+
   it('結構上完全等效的兩個商品，含高手評級零件的那個排名較高，且分數只算 X/SS/S', () => {
     // bitD 跟 bitA 的 type／bitContact 完全一樣，買哪一顆對合法 3on3 分數的影響
     // 應該相同——唯一差別是 bitA 有高手評級、bitD 沒有，用來獨立驗證
