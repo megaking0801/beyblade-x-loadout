@@ -10,6 +10,7 @@ import { analyzeCombo, comboFullCode, type ComboAnalysis, type EvidenceInput } f
 import { computeAvailabilityMap } from './inventory.ts'
 import { resolveDisplayName } from './naming.ts'
 import type { BuildableCombo } from './builder.ts'
+import type { ExpertPartRatingRank } from '../catalog/tierLists.ts'
 import {
   PART_FAMILY_ZH,
   type CompatibilityRule,
@@ -306,6 +307,8 @@ export interface SuggestDecksArgs {
   candidateCap?: number
   /** 見 `ValidateDeckArgs.evidenceByCode`；傳給最終驗證用的 `validateDeck()`。 */
   evidenceByCode?: Record<string, EvidenceInput>
+  /** BeybladeHub 高手零件評級（X/SS/S），partId 索引，見 `catalog/tierLists.ts` 的 `getExpertPartRatingIndex()`。 */
+  expertPartRatingIndex?: Map<string, ExpertPartRatingRank>
 }
 
 const DEFAULT_CANDIDATE_CAP = 60
@@ -320,14 +323,37 @@ function average(values: number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length
 }
 
-function scoreDeck(strategy: DeckStrategy, members: DeckMember[]): number {
+/** X=3／SS=2／S=1 每一級的加分權重，跟 `recommendations.ts` 的 `expertTierGain` 同一套換算，見 `tierLists.ts`。 */
+const EXPERT_TIER_WEIGHT = 5
+
+export function scoreDeck(
+  strategy: DeckStrategy,
+  members: DeckMember[],
+  expertPartRatingIndex?: Map<string, ExpertPartRatingRank>,
+): number {
   const scores = members.map((m) => m.analysis.scores)
   const axis = (key: 'attack' | 'defense' | 'stamina' | 'stability' | 'burst' | 'burstResistance') =>
     scores.map((s) => s?.[key] ?? 0)
-  // 完整配置的實戰出現次數。只在完整三件套命中時才有值；零件部分相符不算，
-  // 避免把「大家都用 1-60」誤當成某個隨意拼出的配置有戰績。
-  const evidence = members.map((member) => Math.log2(1 + (member.analysis.evidence?.appearances ?? 0)))
-  const competitiveEvidence = evidence.reduce((sum, value) => sum + value, 0) * 7
+  // 完整配置在自己來源分布裡的百分位（0～100，見 evidence.percentileScore 的
+  // 註解），不是原始出場筆數——不同來源量級差很多，直接加總原始筆數會讓查得到
+  // 大量社群出場數的配置系統性蓋過真正在本地賽事拿過名次的配置，跟
+  // `competitiveMeta.ts` 的 `computePercentiles()` 是同一套修正。
+  const competitiveEvidence = members.reduce((sum, member) => sum + (member.analysis.evidence?.percentileScore ?? 0), 0)
+  // BBXHub 高手零件評級加總（X/SS/S），跟 `recommendations.ts` 的
+  // `expertTierGain` 同一份索引；這是社群主觀意見，不是賽事證據，`evidence`
+  // 策略刻意不吃這項，避免跟策略名稱承諾的「最高賽事證據」互相混淆。
+  const expertTierGain = expertPartRatingIndex
+    ? members.reduce(
+        (sum, member) =>
+          sum +
+          OCCUPYING_SLOT_KEYS.reduce((partSum, key) => {
+            const partId = member.slots[key]
+            if (!partId) return partSum
+            return partSum + (expertPartRatingIndex.get(partId)?.rank ?? 0)
+          }, 0),
+        0,
+      )
+    : 0
 
   switch (strategy) {
     case 'aggressive':
@@ -337,17 +363,21 @@ function scoreDeck(strategy: DeckStrategy, members: DeckMember[]): number {
     case 'beginner':
       return -average(members.map((m) => m.analysis.operationDifficulty ?? 100))
     case 'balanced':
-      // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據則作為
+      // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據與高手評級則作為
       // 次要加分，不能用零件類型分數蓋過賽場已驗證的組合。
       return (
-        Math.max(...axis('attack')) + Math.max(...axis('stamina')) + Math.max(...axis('stability')) + competitiveEvidence
+        Math.max(...axis('attack')) +
+        Math.max(...axis('stamina')) +
+        Math.max(...axis('stability')) +
+        competitiveEvidence +
+        expertTierGain * EXPERT_TIER_WEIGHT
       )
     case 'evidence':
-      return members.reduce((sum, m) => sum + (m.analysis.evidence?.appearances ?? 0), 0) * 10
+      return competitiveEvidence
     case 'vs_attack':
-      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidence * 0.35
+      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidence * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
     case 'vs_stamina':
-      return average(axis('attack')) + average(axis('burst')) + competitiveEvidence * 0.35
+      return average(axis('attack')) + average(axis('burst')) + competitiveEvidence * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
   }
 }
 
@@ -362,6 +392,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
     limit = DEFAULT_SUGGESTION_LIMIT,
     candidateCap = DEFAULT_CANDIDATE_CAP,
     evidenceByCode,
+    expertPartRatingIndex,
   } = args
 
   if (candidates.length < ruleSet.teamSize) return []
@@ -410,7 +441,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
           roleZhTW: '',
           reasonZhTW: '',
         }))
-        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members) })
+        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members, expertPartRatingIndex) })
       }
     }
   }
@@ -428,7 +459,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
       strategyZhTW: DECK_STRATEGY_ZH[strategy],
       slotsList,
       validation,
-      score: scoreDeck(strategy, validation.members),
+      score: scoreDeck(strategy, validation.members, expertPartRatingIndex),
       alternativesZhTW: buildAlternatives(pool, slotsList),
     })
     if (suggestions.length >= limit) break

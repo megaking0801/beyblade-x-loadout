@@ -13,7 +13,10 @@ export default defineConfig({
   outputDir: './test-results/shots-run',
   use: { baseURL: 'http://127.0.0.1:4173' },
   projects: [
-    { name: 'phone', use: { ...devices['iPhone 13'] } },
+    // deviceScaleFactor 蓋掉 iPhone 13 預設的 3x：型錄型頁面未過濾時有 149 個商品，
+    // fullPage 截圖在 3x 下輕易超過瀏覽器單張圖片 32767px 的高度上限而直接失敗。
+    // 只影響這支截圖工具產出的圖檔解析度，不影響 app 實際在手機上的畫面。
+    { name: 'phone', use: { ...devices['iPhone 13'], deviceScaleFactor: 1 } },
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: {

@@ -1,10 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import {
   DEFAULT_DECK_RULES,
+  scoreDeck,
   suggestDecks,
   validateDeck,
+  type DeckMember,
 } from '../../src/domain/deck.ts'
 import { generateBuildableCombos } from '../../src/domain/builder.ts'
+import { analyzeCombo, type EvidenceInput } from '../../src/domain/analysis.ts'
+import type { ExpertPartRatingRank } from '../../src/catalog/tierLists.ts'
 import type { ComboSlots, InventoryLot, Part } from '../../src/domain/types.ts'
 
 const prov = { sourceUrls: [], verificationStatus: 'official_verified' as const }
@@ -346,6 +350,58 @@ describe('候選很多時仍要找得到合法隊伍（回歸測試）', () => {
       const used = deck.slotsList.flatMap((slots) => Object.values(slots).filter(Boolean))
       expect(new Set(used).size).toBe(used.length)
     }
+  })
+})
+
+describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () => {
+  function memberFor(slots: ComboSlots, evidence?: EvidenceInput): DeckMember {
+    const analysis = analyzeCombo({ slots, parts, rules: [], lots: fullStock, combos: [], ...(evidence ? { evidence } : {}) })
+    return { slots, analysis, roleZhTW: '', reasonZhTW: '' }
+  }
+
+  const highPercentile: EvidenceInput = {
+    appearances: 1,
+    top4: 0,
+    championships: 0,
+    totalDecks: 10,
+    sourceTier: 'community',
+    percentileScore: 90,
+  }
+  const lowPercentileHighRawCount: EvidenceInput = {
+    appearances: 5000,
+    top4: 0,
+    championships: 0,
+    totalDecks: 6000,
+    sourceTier: 'community',
+    percentileScore: 10,
+  }
+
+  it('balanced 策略比較用百分位，不用原始出場筆數蓋過小樣本', () => {
+    const high = threeDistinct.map((slots) => memberFor(slots, highPercentile))
+    const low = threeDistinct.map((slots) => memberFor(slots, lowPercentileHighRawCount))
+    expect(scoreDeck('balanced', high)).toBeGreaterThan(scoreDeck('balanced', low))
+  })
+
+  it('evidence 策略比較用百分位，不用原始出場筆數蓋過小樣本', () => {
+    const high = threeDistinct.map((slots) => memberFor(slots, highPercentile))
+    const low = threeDistinct.map((slots) => memberFor(slots, lowPercentileHighRawCount))
+    expect(scoreDeck('evidence', high)).toBeGreaterThan(scoreDeck('evidence', low))
+  })
+
+  it('balanced 策略吃高手評級加分（BBXHub X/SS/S）', () => {
+    const members = threeDistinct.map((slots) => memberFor(slots))
+    const expertIndex = new Map<string, ExpertPartRatingRank>([
+      ['b-atk', { tierLabel: 'X', rank: 3, agreeCount: 5, expertCount: 5 }],
+    ])
+    expect(scoreDeck('balanced', members, expertIndex)).toBeGreaterThan(scoreDeck('balanced', members))
+  })
+
+  it('evidence 策略不吃高手評級，避免主觀意見混進賽事證據排序', () => {
+    const members = threeDistinct.map((slots) => memberFor(slots, highPercentile))
+    const expertIndex = new Map<string, ExpertPartRatingRank>([
+      ['b-atk', { tierLabel: 'X', rank: 3, agreeCount: 5, expertCount: 5 }],
+    ])
+    expect(scoreDeck('evidence', members, expertIndex)).toBe(scoreDeck('evidence', members))
   })
 })
 

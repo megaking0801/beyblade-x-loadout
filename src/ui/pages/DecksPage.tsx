@@ -9,6 +9,7 @@ import { repo, useAppStore } from '../../store/appStore.ts'
 import { generateBuildableCombos } from '../../domain/builder.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
 import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
+import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import {
   DECK_STRATEGY_ZH,
   DEFAULT_DECK_RULES,
@@ -59,6 +60,7 @@ export function DecksPage() {
     () => createCompetitiveEvidenceByCode({ events: tournamentEvents, decks: tournamentDecks, community: getCommunityEvidenceSource() }),
     [tournamentEvents, tournamentDecks],
   )
+  const expertPartRatingIndex = useMemo(() => getExpertPartRatingIndex(), [])
 
   const candidates = useMemo(() => {
     const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }
@@ -83,8 +85,9 @@ export function DecksPage() {
         limit: 3,
         candidateCap: 120,
         evidenceByCode,
+        expertPartRatingIndex,
       }),
-    [candidates, parts, lots, combos, strategy, evidenceByCode],
+    [candidates, parts, lots, combos, strategy, evidenceByCode, expertPartRatingIndex],
   )
 
   const savedComboDecks = useMemo(

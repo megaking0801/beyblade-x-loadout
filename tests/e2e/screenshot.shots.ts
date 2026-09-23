@@ -14,6 +14,11 @@ const SHOTS = [
 
 async function seed(page: Page): Promise<void> {
   await page.goto('/#/products')
+  // 冷 IndexedDB 第一次寫入型錄，加上 PWA 首訪 service worker 觸發的整頁 reload，
+  // 合計可能要 15~20 秒才會 ready，不能沿用預設 5 秒斷言。跟 acceptance.spec.ts
+  // 的 openApp() 用同一套等法。
+  await page.evaluate(async () => navigator.serviceWorker.ready)
+  await expect(page.locator('[data-app-ready="true"]')).toBeVisible({ timeout: 20_000 })
   await expect(page.getByTestId('tab-catalog')).toBeVisible()
   await page.getByTestId('tab-catalog').click()
   const productSearch = page.getByTestId('product-search')
