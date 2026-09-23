@@ -1,0 +1,779 @@
+{
+  "source": "stan-yao/beyblade_x_tier",
+  "sourceUrl": "https://stan-yao.github.io/beyblade_x_tier/",
+  "fetchedAt": "2026-09-23",
+  "note": "零件層級的賽果聲量聚合，不是勝率或名次預測（見規格第 50.1 節）。percentileScore 是該零件的 podiumAppearances 在所有零件分布裡的百分位排名，跟 competitiveMeta.ts 的 computePercentiles() 同一套算法。",
+  "totalRecords": 14743,
+  "parts": [
+    {
+      "partId": "ratchet:1-60",
+      "podiumAppearances": 3500,
+      "percentileScore": 100
+    },
+    {
+      "partId": "ratchet:9-60",
+      "podiumAppearances": 3260,
+      "percentileScore": 99
+    },
+    {
+      "partId": "ratchet:3-60",
+      "podiumAppearances": 2436,
+      "percentileScore": 98
+    },
+    {
+      "partId": "blade:ウィザードロッド",
+      "podiumAppearances": 2989,
+      "percentileScore": 98
+    },
+    {
+      "partId": "bit:R",
+      "podiumAppearances": 2179,
+      "percentileScore": 97
+    },
+    {
+      "partId": "bit:LR",
+      "podiumAppearances": 1946,
+      "percentileScore": 96
+    },
+    {
+      "partId": "blade:フェニックスウイング",
+      "podiumAppearances": 1920,
+      "percentileScore": 95
+    },
+    {
+      "partId": "bit:H",
+      "podiumAppearances": 1862,
+      "percentileScore": 94
+    },
+    {
+      "partId": "blade:コバルトドラグーン",
+      "podiumAppearances": 1698,
+      "percentileScore": 93
+    },
+    {
+      "partId": "ratchet:5-60",
+      "podiumAppearances": 1729,
+      "percentileScore": 93
+    },
+    {
+      "partId": "bit:E",
+      "podiumAppearances": 1514,
+      "percentileScore": 92
+    },
+    {
+      "partId": "bit:B",
+      "podiumAppearances": 1277,
+      "percentileScore": 91
+    },
+    {
+      "partId": "blade:シャークスケイル",
+      "podiumAppearances": 1147,
+      "percentileScore": 90
+    },
+    {
+      "partId": "ratchet:7-60",
+      "podiumAppearances": 1113,
+      "percentileScore": 89
+    },
+    {
+      "partId": "blade:シルバーウルフ",
+      "podiumAppearances": 1042,
+      "percentileScore": 89
+    },
+    {
+      "partId": "bit:L",
+      "podiumAppearances": 995,
+      "percentileScore": 88
+    },
+    {
+      "partId": "blade:ティラノビート",
+      "podiumAppearances": 843,
+      "percentileScore": 87
+    },
+    {
+      "partId": "bit:FB",
+      "podiumAppearances": 837,
+      "percentileScore": 86
+    },
+    {
+      "partId": "blade:エアロペガサス",
+      "podiumAppearances": 836,
+      "percentileScore": 85
+    },
+    {
+      "partId": "bit:K",
+      "podiumAppearances": 821,
+      "percentileScore": 85
+    },
+    {
+      "partId": "blade:ワイバーンゲイル",
+      "podiumAppearances": 791,
+      "percentileScore": 84
+    },
+    {
+      "partId": "bit:P",
+      "podiumAppearances": 734,
+      "percentileScore": 83
+    },
+    {
+      "partId": "ratchet:1-70",
+      "podiumAppearances": 454,
+      "percentileScore": 82
+    },
+    {
+      "partId": "blade:ナイトメイル",
+      "podiumAppearances": 411,
+      "percentileScore": 81
+    },
+    {
+      "partId": "blade:ゴーレムロック",
+      "podiumAppearances": 361,
+      "percentileScore": 80
+    },
+    {
+      "partId": "bit:LO",
+      "podiumAppearances": 342,
+      "percentileScore": 80
+    },
+    {
+      "partId": "bit:LF",
+      "podiumAppearances": 338,
+      "percentileScore": 79
+    },
+    {
+      "partId": "blade:スコーピオスピア",
+      "podiumAppearances": 333,
+      "percentileScore": 78
+    },
+    {
+      "partId": "blade:ドランバスター",
+      "podiumAppearances": 332,
+      "percentileScore": 77
+    },
+    {
+      "partId": "ratchet:9-70",
+      "podiumAppearances": 304,
+      "percentileScore": 76
+    },
+    {
+      "partId": "ratchet:7-70",
+      "podiumAppearances": 304,
+      "percentileScore": 76
+    },
+    {
+      "partId": "ratchet:6-60",
+      "podiumAppearances": 291,
+      "percentileScore": 75
+    },
+    {
+      "partId": "blade:インパクトドレイク",
+      "podiumAppearances": 271,
+      "percentileScore": 74
+    },
+    {
+      "partId": "bit:T",
+      "podiumAppearances": 249,
+      "percentileScore": 73
+    },
+    {
+      "partId": "ratchet:4-50",
+      "podiumAppearances": 247,
+      "percentileScore": 72
+    },
+    {
+      "partId": "bit:W",
+      "podiumAppearances": 243,
+      "percentileScore": 72
+    },
+    {
+      "partId": "blade:ホエールウェーブ",
+      "podiumAppearances": 230,
+      "percentileScore": 71
+    },
+    {
+      "partId": "blade:シャークエッジ",
+      "podiumAppearances": 228,
+      "percentileScore": 70
+    },
+    {
+      "partId": "bit:UN",
+      "podiumAppearances": 188,
+      "percentileScore": 69
+    },
+    {
+      "partId": "bit:F",
+      "podiumAppearances": 175,
+      "percentileScore": 68
+    },
+    {
+      "partId": "ratchet:3-70",
+      "podiumAppearances": 167,
+      "percentileScore": 67
+    },
+    {
+      "partId": "blade:サムライセイバー",
+      "podiumAppearances": 169,
+      "percentileScore": 67
+    },
+    {
+      "partId": "ratchet:4-60",
+      "podiumAppearances": 145,
+      "percentileScore": 66
+    },
+    {
+      "partId": "blade:ティラノロア",
+      "podiumAppearances": 128,
+      "percentileScore": 65
+    },
+    {
+      "partId": "ratchet:4-55",
+      "podiumAppearances": 126,
+      "percentileScore": 64
+    },
+    {
+      "partId": "bit:U",
+      "podiumAppearances": 125,
+      "percentileScore": 63
+    },
+    {
+      "partId": "blade:ヘルズサイズ",
+      "podiumAppearances": 121,
+      "percentileScore": 63
+    },
+    {
+      "partId": "ratchet:5-70",
+      "podiumAppearances": 115,
+      "percentileScore": 62
+    },
+    {
+      "partId": "blade:メテオドラグーン",
+      "podiumAppearances": 102,
+      "percentileScore": 61
+    },
+    {
+      "partId": "ratchet:9-80",
+      "podiumAppearances": 97,
+      "percentileScore": 60
+    },
+    {
+      "partId": "bit:C",
+      "podiumAppearances": 90,
+      "percentileScore": 59
+    },
+    {
+      "partId": "ratchet:1-80",
+      "podiumAppearances": 90,
+      "percentileScore": 59
+    },
+    {
+      "partId": "bit:RA",
+      "podiumAppearances": 90,
+      "percentileScore": 59
+    },
+    {
+      "partId": "bit:O",
+      "podiumAppearances": 90,
+      "percentileScore": 59
+    },
+    {
+      "partId": "bit:J",
+      "podiumAppearances": 83,
+      "percentileScore": 56
+    },
+    {
+      "partId": "blade:クロックミラージュ",
+      "podiumAppearances": 82,
+      "percentileScore": 55
+    },
+    {
+      "partId": "blade:サムライカリバー",
+      "podiumAppearances": 80,
+      "percentileScore": 54
+    },
+    {
+      "partId": "blade:ドランソード",
+      "podiumAppearances": 80,
+      "percentileScore": 54
+    },
+    {
+      "partId": "blade:コバルトドレイク",
+      "podiumAppearances": 64,
+      "percentileScore": 53
+    },
+    {
+      "partId": "ratchet:3-80",
+      "podiumAppearances": 59,
+      "percentileScore": 52
+    },
+    {
+      "partId": "ratchet:0-80",
+      "podiumAppearances": 59,
+      "percentileScore": 52
+    },
+    {
+      "partId": "blade:クリムゾンガルーダ",
+      "podiumAppearances": 52,
+      "percentileScore": 50
+    },
+    {
+      "partId": "blade:ヘルズチェイン",
+      "podiumAppearances": 52,
+      "percentileScore": 50
+    },
+    {
+      "partId": "blade:ドランダガー",
+      "podiumAppearances": 54,
+      "percentileScore": 50
+    },
+    {
+      "partId": "ratchet:5-80",
+      "podiumAppearances": 52,
+      "percentileScore": 50
+    },
+    {
+      "partId": "bit:GF",
+      "podiumAppearances": 51,
+      "percentileScore": 47
+    },
+    {
+      "partId": "bit:Z",
+      "podiumAppearances": 46,
+      "percentileScore": 46
+    },
+    {
+      "partId": "bit:GP",
+      "podiumAppearances": 42,
+      "percentileScore": 46
+    },
+    {
+      "partId": "ratchet:2-60",
+      "podiumAppearances": 35,
+      "percentileScore": 45
+    },
+    {
+      "partId": "blade:トリケラプレス",
+      "podiumAppearances": 34,
+      "percentileScore": 44
+    },
+    {
+      "partId": "bit:WB",
+      "podiumAppearances": 34,
+      "percentileScore": 44
+    },
+    {
+      "partId": "blade:ヴァイスタイガー",
+      "podiumAppearances": 34,
+      "percentileScore": 44
+    },
+    {
+      "partId": "bit:BS",
+      "podiumAppearances": 33,
+      "percentileScore": 41
+    },
+    {
+      "partId": "bit:UF",
+      "podiumAppearances": 33,
+      "percentileScore": 41
+    },
+    {
+      "partId": "bit:TP",
+      "podiumAppearances": 32,
+      "percentileScore": 40
+    },
+    {
+      "partId": "bit:HN",
+      "podiumAppearances": 32,
+      "percentileScore": 40
+    },
+    {
+      "partId": "bit:D",
+      "podiumAppearances": 30,
+      "percentileScore": 38
+    },
+    {
+      "partId": "blade:ライトニングエルドラゴ",
+      "podiumAppearances": 29,
+      "percentileScore": 37
+    },
+    {
+      "partId": "blade:ナイトシールド",
+      "podiumAppearances": 29,
+      "percentileScore": 37
+    },
+    {
+      "partId": "bit:A",
+      "podiumAppearances": 29,
+      "percentileScore": 37
+    },
+    {
+      "partId": "blade:ウィザードアロー",
+      "podiumAppearances": 29,
+      "percentileScore": 37
+    },
+    {
+      "partId": "blade:ゴーストサークル",
+      "podiumAppearances": 26,
+      "percentileScore": 34
+    },
+    {
+      "partId": "ratchet:0-70",
+      "podiumAppearances": 26,
+      "percentileScore": 34
+    },
+    {
+      "partId": "blade:レオンクレスト",
+      "podiumAppearances": 26,
+      "percentileScore": 34
+    },
+    {
+      "partId": "bit:HT",
+      "podiumAppearances": 26,
+      "percentileScore": 34
+    },
+    {
+      "partId": "bit:Q",
+      "podiumAppearances": 24,
+      "percentileScore": 31
+    },
+    {
+      "partId": "bit:TK",
+      "podiumAppearances": 21,
+      "percentileScore": 30
+    },
+    {
+      "partId": "blade:シェルタードレイク",
+      "podiumAppearances": 21,
+      "percentileScore": 30
+    },
+    {
+      "partId": "bit:V",
+      "podiumAppearances": 20,
+      "percentileScore": 28
+    },
+    {
+      "partId": "ratchet:4-80",
+      "podiumAppearances": 20,
+      "percentileScore": 28
+    },
+    {
+      "partId": "ratchet:4-70",
+      "podiumAppearances": 19,
+      "percentileScore": 27
+    },
+    {
+      "partId": "bit:DB",
+      "podiumAppearances": 19,
+      "percentileScore": 27
+    },
+    {
+      "partId": "bit:G",
+      "podiumAppearances": 18,
+      "percentileScore": 25
+    },
+    {
+      "partId": "ratchet:6-80",
+      "podiumAppearances": 16,
+      "percentileScore": 24
+    },
+    {
+      "partId": "blade:ヴァイパーテイル",
+      "podiumAppearances": 16,
+      "percentileScore": 24
+    },
+    {
+      "partId": "ratchet:7-80",
+      "podiumAppearances": 15,
+      "percentileScore": 23
+    },
+    {
+      "partId": "bit:MN",
+      "podiumAppearances": 15,
+      "percentileScore": 23
+    },
+    {
+      "partId": "ratchet:1-50",
+      "podiumAppearances": 14,
+      "percentileScore": 21
+    },
+    {
+      "partId": "bit:N",
+      "podiumAppearances": 14,
+      "percentileScore": 21
+    },
+    {
+      "partId": "blade:ブラックシェル",
+      "podiumAppearances": 14,
+      "percentileScore": 21
+    },
+    {
+      "partId": "bit:GR",
+      "podiumAppearances": 13,
+      "percentileScore": 19
+    },
+    {
+      "partId": "bit:GB",
+      "podiumAppearances": 13,
+      "percentileScore": 19
+    },
+    {
+      "partId": "blade:シノビシャドウ",
+      "podiumAppearances": 12,
+      "percentileScore": 17
+    },
+    {
+      "partId": "blade:ナイトランス",
+      "podiumAppearances": 11,
+      "percentileScore": 16
+    },
+    {
+      "partId": "blade:フェニックスフェザー",
+      "podiumAppearances": 11,
+      "percentileScore": 16
+    },
+    {
+      "partId": "ratchet:0-60",
+      "podiumAppearances": 11,
+      "percentileScore": 16
+    },
+    {
+      "partId": "ratchet:3-85",
+      "podiumAppearances": 10,
+      "percentileScore": 14
+    },
+    {
+      "partId": "blade:レオンクロー",
+      "podiumAppearances": 10,
+      "percentileScore": 14
+    },
+    {
+      "partId": "blade:ストームペガシス",
+      "podiumAppearances": 8,
+      "percentileScore": 12
+    },
+    {
+      "partId": "ratchet:2-70",
+      "podiumAppearances": 8,
+      "percentileScore": 12
+    },
+    {
+      "partId": "bit:GN",
+      "podiumAppearances": 8,
+      "percentileScore": 12
+    },
+    {
+      "partId": "bit:S",
+      "podiumAppearances": 7,
+      "percentileScore": 10
+    },
+    {
+      "partId": "ratchet:7-55",
+      "podiumAppearances": 6,
+      "percentileScore": 9
+    },
+    {
+      "partId": "ratchet:6-70",
+      "podiumAppearances": 6,
+      "percentileScore": 9
+    },
+    {
+      "partId": "blade:ゼノエクスカリバー",
+      "podiumAppearances": 5,
+      "percentileScore": 7
+    },
+    {
+      "partId": "ratchet:9-65",
+      "podiumAppearances": 5,
+      "percentileScore": 7
+    },
+    {
+      "partId": "blade:ドランザースパイラル",
+      "podiumAppearances": 5,
+      "percentileScore": 7
+    },
+    {
+      "partId": "blade:ロックレオーネ",
+      "podiumAppearances": 4,
+      "percentileScore": 5
+    },
+    {
+      "partId": "bit:M",
+      "podiumAppearances": 3,
+      "percentileScore": 4
+    },
+    {
+      "partId": "ratchet:2-80",
+      "podiumAppearances": 3,
+      "percentileScore": 4
+    },
+    {
+      "partId": "bit:I",
+      "podiumAppearances": 2,
+      "percentileScore": 2
+    },
+    {
+      "partId": "blade:ゴートタックル",
+      "podiumAppearances": 2,
+      "percentileScore": 2
+    },
+    {
+      "partId": "blade:ドランストライク",
+      "podiumAppearances": 1,
+      "percentileScore": 1
+    },
+    {
+      "partId": "ratchet:8-70",
+      "podiumAppearances": 1,
+      "percentileScore": 1
+    }
+  ],
+  "lowSampleWarnings": [
+    {
+      "partId": "blade:ロックレオーネ",
+      "podiumAppearances": 4
+    },
+    {
+      "partId": "bit:M",
+      "podiumAppearances": 3
+    },
+    {
+      "partId": "ratchet:2-80",
+      "podiumAppearances": 3
+    },
+    {
+      "partId": "bit:I",
+      "podiumAppearances": 2
+    },
+    {
+      "partId": "blade:ゴートタックル",
+      "podiumAppearances": 2
+    },
+    {
+      "partId": "blade:ドランストライク",
+      "podiumAppearances": 1
+    },
+    {
+      "partId": "ratchet:8-70",
+      "podiumAppearances": 1
+    }
+  ],
+  "unmatchedCatalogPartIds": [
+    "assist_blade:A",
+    "assist_blade:B",
+    "assist_blade:C",
+    "assist_blade:D",
+    "assist_blade:E",
+    "assist_blade:F",
+    "assist_blade:G",
+    "assist_blade:H",
+    "assist_blade:J",
+    "assist_blade:K",
+    "assist_blade:M",
+    "assist_blade:P",
+    "assist_blade:Q",
+    "assist_blade:R",
+    "assist_blade:S",
+    "assist_blade:T",
+    "assist_blade:V",
+    "assist_blade:W",
+    "assist_blade:Z",
+    "bit:DS",
+    "bit:FF",
+    "bit:GU",
+    "bit:LC",
+    "bit:Nr",
+    "bit:Op",
+    "bit:Tr",
+    "bit:WW",
+    "bit:Y",
+    "blade:アイアンマン",
+    "blade:オプティマスプライマル",
+    "blade:オプティマスプライム",
+    "blade:ケツァルコアトルス",
+    "blade:サノス",
+    "blade:シャークギル",
+    "blade:スタースクリーム",
+    "blade:ストームスプリガン",
+    "blade:スパイダーマン",
+    "blade:スピノサウルス",
+    "blade:スフィンクスカウル",
+    "blade:ダース・ベイダー",
+    "blade:ドライガースラッシュ",
+    "blade:ドラグーンストーム",
+    "blade:ドラシエルシールド",
+    "blade:ビクトリーヴァルキリー",
+    "blade:フェニックスラダー",
+    "blade:プテラスイング",
+    "blade:ヘブンズリング",
+    "blade:ヘルズハンマー",
+    "blade:マンダロリアン",
+    "blade:マンモスカース",
+    "blade:マンモスタスク",
+    "blade:メガトロン",
+    "blade:モササウルス",
+    "blade:モフ・ギデオン",
+    "blade:ユニコーンスティング",
+    "blade:ライノホーン",
+    "blade:ラスタードラグーン",
+    "blade:ルーク・スカイウォーカー",
+    "blade:ワイバーンホバー",
+    "blade:ヴェノム",
+    "blade:暴龍",
+    "blade:騎士重盾 2.0",
+    "blade:魔導幻箭 2.0",
+    "integrated_blade:グローリーワルキューレ",
+    "integrated_blade:バレットグリフォン",
+    "integrated_blade:ヘルズネザー",
+    "lock_chip:Bh",
+    "lock_chip:Co",
+    "lock_chip:Cr",
+    "lock_chip:Dr",
+    "lock_chip:Em",
+    "lock_chip:Eva00",
+    "lock_chip:Eva01",
+    "lock_chip:Eva02",
+    "lock_chip:Fx",
+    "lock_chip:Hl",
+    "lock_chip:Kn",
+    "lock_chip:Pg",
+    "lock_chip:Ph",
+    "lock_chip:Pr",
+    "lock_chip:Rg",
+    "lock_chip:Rh",
+    "lock_chip:Sl",
+    "lock_chip:Tg",
+    "lock_chip:Vl",
+    "lock_chip:Wl",
+    "lock_chip:Wz",
+    "main_blade:Ar",
+    "main_blade:Bl",
+    "main_blade:Br",
+    "main_blade:Bs",
+    "main_blade:Dr",
+    "main_blade:Ec",
+    "main_blade:Fl",
+    "main_blade:Fr",
+    "main_blade:Hn",
+    "main_blade:Mg",
+    "main_blade:Rp",
+    "main_blade:metal-Bl",
+    "main_blade:metal-Fr",
+    "main_blade:metal-Rg",
+    "main_blade:metal-Tr",
+    "main_blade:ウルフフレイム4",
+    "main_blade:クラーケンリグル",
+    "main_blade:ソルブレイズ",
+    "main_blade:ドレイクブレイブ",
+    "main_blade:バックスアントラーズ",
+    "main_blade:ブラキオウィップ0",
+    "main_blade:ホエールループ",
+    "main_blade:ホーネットフォート",
+    "main_blade:ユニコーンスティング",
+    "over_blade:B",
+    "over_blade:F",
+    "over_blade:G",
+    "over_blade:T",
+    "ratchet:5-50",
+    "ratchet:8-80",
+    "ratchet:M-85"
+  ]
+}

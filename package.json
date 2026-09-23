@@ -21,6 +21,7 @@
     "fetch:images": "node scripts/fetchImages.mjs",
     "fetch:video-links": "node scripts/fetchVideoLinks.mjs",
     "fetch:stanyao-records": "node scripts/fetchStanYaoRecords.mjs",
+    "build:part-strength": "node scripts/buildPartStrength.mjs",
     "fetch:bbxhub-meta": "node scripts/fetchBbxhubMeta.mjs"
   },
   "dependencies": {
