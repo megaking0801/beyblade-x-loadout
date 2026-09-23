@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { recommendNextProducts } from '../../src/domain/recommendations.ts'
 import type { ExpertPartRatingRank } from '../../src/catalog/tierLists.ts'
+import type { PartStrengthEntry } from '../../src/catalog/partStrength.ts'
 import type { InventoryLot, Part, Product, ProductVariant } from '../../src/domain/types.ts'
 
 const provenance = { sourceUrls: [], verificationStatus: 'official_verified' as const }
@@ -127,6 +128,43 @@ describe('下一包推薦', () => {
     expect(rated?.rank).toBe(1)
     expect(rated?.reasonsZhTW.some((line) => line.includes('高手評級') && line.includes('X 級') && line.includes('2 位認同'))).toBe(true)
     expect(unrated?.reasonsZhTW.some((line) => line.includes('高手評級'))).toBe(false)
+  })
+
+  it('結構上完全等效的兩個商品，零件強度分數較高的那個排名較高，且不影響 deckScoreGain', () => {
+    const bitE = { ...part('bit-e', 'bit', 'attack'), code: 'Re', bitContact: 'flat' as const }
+    const productWithStrongPart: Product = {
+      id: 'z-with-strength', line: 'BX', category: 'starter', naming: { primaryZhTW: '有戰績固定包' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bitA.id, quantity: 1 }], provenance,
+    }
+    const productWithoutStrength: Product = {
+      id: 'a-without-strength', line: 'BX', category: 'starter', naming: { primaryZhTW: '無戰績固定包' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bitE.id, quantity: 1 }], provenance,
+    }
+    const partStrengthIndex = new Map<string, PartStrengthEntry>([
+      [bitA.id, { podiumAppearances: 40, percentileScore: 85 }],
+    ])
+    const result = recommendNextProducts({
+      products: [productWithStrongPart, productWithoutStrength],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC, bitE],
+      rules: [],
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      evidenceByCode: {
+        'blade-a 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+        'blade-a 1-60Re': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+      partStrengthIndex,
+    })
+    expect(result.recommendations).toHaveLength(2)
+    const rated = result.recommendations.find((row) => row.product.id === productWithStrongPart.id)
+    const unrated = result.recommendations.find((row) => row.product.id === productWithoutStrength.id)
+    expect(rated?.deckScoreGain).toBe(unrated?.deckScoreGain)
+    expect(rated?.partStrengthGain).toBe(85)
+    expect(unrated?.partStrengthGain).toBe(0)
+    expect(rated?.rank).toBe(1)
+    expect(rated?.reasonsZhTW.some((line) => line.includes('零件歷史戰績推估') && line.includes('進前三 40 次'))).toBe(true)
   })
 
   it('強度／賽事證據／高手評級都沒有時，只要解鎖新合法配置仍要推薦，並用廣度話術而非強度話術', () => {
