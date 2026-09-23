@@ -10,9 +10,11 @@ import { generateBuildableCombos } from '../../domain/builder.ts'
 import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../domain/competitiveMeta.ts'
 import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
+import { getPartStrengthIndex } from '../../catalog/partStrength.ts'
 import {
   DECK_STRATEGY_ZH,
   DEFAULT_DECK_RULES,
+  estimateComboPartStrength,
   suggestDecks,
   validateDeck,
   type DeckStrategy,
@@ -61,6 +63,7 @@ export function DecksPage() {
     [tournamentEvents, tournamentDecks],
   )
   const expertPartRatingIndex = useMemo(() => getExpertPartRatingIndex(), [])
+  const partStrengthIndex = useMemo(() => getPartStrengthIndex(), [])
 
   const candidates = useMemo(() => {
     const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }
@@ -86,8 +89,9 @@ export function DecksPage() {
         candidateCap: 120,
         evidenceByCode,
         expertPartRatingIndex,
+        partStrengthIndex,
       }),
-    [candidates, parts, lots, combos, strategy, evidenceByCode, expertPartRatingIndex],
+    [candidates, parts, lots, combos, strategy, evidenceByCode, expertPartRatingIndex, partStrengthIndex],
   )
 
   const savedComboDecks = useMemo(
@@ -203,9 +207,14 @@ export function DecksPage() {
                       <div className="meta">{member.reasonZhTW}</div>
                       {member.analysis.evidence ? (
                         <div className="meta">完整配置賽事證據：出現 {member.analysis.evidence.appearances} 次</div>
-                      ) : (
-                        <div className="meta">尚無此完整配置的賽事證據，請視為模型候選並先實測。</div>
-                      )}
+                      ) : (() => {
+                        const fallback = estimateComboPartStrength(member.slots, partStrengthIndex)
+                        return fallback === undefined ? (
+                          <div className="meta">尚無此完整配置的賽事證據，請視為模型候選並先實測。</div>
+                        ) : (
+                          <div className="meta">零件歷史戰績推估（非完整配置實測）：分數 {Math.round(fallback)}</div>
+                        )
+                      })()}
                     </div>
                   ))}
                 </div>
