@@ -22,6 +22,7 @@
     "fetch:video-links": "node scripts/fetchVideoLinks.mjs",
     "fetch:stanyao-records": "node scripts/fetchStanYaoRecords.mjs",
     "build:part-strength": "node scripts/buildPartStrength.mjs",
+    "backtest:part-strength": "node scripts/backtestPartStrength.mjs",
     "fetch:bbxhub-meta": "node scripts/fetchBbxhubMeta.mjs"
   },
   "dependencies": {
