@@ -1408,17 +1408,22 @@ Random Booster 開封：
 
 ## 50.3 整合點與 fallback 規則
 
-- `analyzeCombo()` 新增一個獨立欄位（例如 `partStrengthEstimate`），跟 `evidence`
-  分開存放，不得合併進 `evidence` 物件——`evidence` 只能代表「這套完整配置真的被
-  賽事記錄過」，混進零件推估會違反第 1.5 節的來源分層原則。
-- `deck.ts` 的 `scoreDeck()`、`recommendations.ts` 的 `competitiveEvidenceGain`：
-  當 `evidence?.percentileScore` 不存在時，改用 `partStrengthEstimate` 當 fallback，
-  **權重必須明確低於完整配置證據**（不得讓零件拼湊推估贏過真正賽事驗證過的配置）。
-  具體倍率**不得憑感覺定**（第 47.2 節、避免重蹈 `EXPERT_TIER_WEIGHT` 沒校準就上路的
-  問題）：實作時先給一個保守初始值（例如 0.3），寫 plan 時排進 50.6 回測階段一起驗證——
-  拿時間切分的驗證集比較「只用 fallback 分數排序」跟「只用完整證據排序」對後續賽事
-  進前三傾向的相關性，用兩者相關性的相對強弱決定 fallback 倍率該落在哪個區間，
-  不得只憑量級對齊就定案。
+- **不進 `analyzeCombo()`／`ComboAnalysis`。** 跟 `expertTierGain` 同一個既有模式：
+  不當成 evidence 層的一部分，直接在 `deck.ts` 用 `member.slots` 查零件強度索引、
+  加總——`analysis.ts`／`builder.ts` 完全不用改，索引透過 `SuggestDecksArgs` 的新欄位
+  `partStrengthIndex?: Map<string, PartStrengthEntry>` 由呼叫端 DI 傳入。
+- `deck.ts` 新增一個匯出的純函式（例如 `estimateComboPartStrength(slots, partStrengthIndex)`），
+  給 `scoreDeck()` 內部用，也給 UI 層算顯示文字用，避免同一段「掃 OCCUPYING_SLOT_KEYS
+  查表加總」的邏輯在兩個地方各寫一次。
+- `scoreDeck()` 的 `competitiveEvidence`：`member.analysis.evidence?.percentileScore` 有值就
+  用它；沒有時才用 `estimateComboPartStrength()` 的結果 × fallback 權重。`evidence` 策略
+  維持**只吃真實 evidence，不吃這個 fallback**（跟現在 `evidence` 策略不吃 `expertTierGain`
+  是同一個理由——策略名稱承諾「最高賽事證據」，混進零件拼湊推估會誤導）。
+- `recommendations.ts` **不需要**另外接這個 fallback：`profile()` 已經會把 `partStrengthIndex`
+  轉傳給內部的 `suggestDecks()`，`deckScoreGain` 自然就會反映到；`competitiveEvidenceGain`
+  對應的文字明講「完整配置賽事證據」，維持只算真實 evidence，不得混入 fallback。
+- fallback 權重**不得憑感覺定**（第 47.2 節、避免重蹈 `EXPERT_TIER_WEIGHT` 沒校準就上路的
+  問題）：實作時先給一個保守初始值（例如 0.3），50.6 節的回測階段驗證後才能改。
 - 索引比照 `expertPartRatingIndex` 的既有 DI 模式，由呼叫端（UI 層）組好傳進來，
   `deck.ts`／`analysis.ts` 不得直接 import catalog 層。
 
