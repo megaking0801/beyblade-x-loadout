@@ -19,7 +19,9 @@
     "test:live": "playwright test --config=playwright.live.config.ts",
     "check:images": "node scripts/checkImages.mjs",
     "fetch:images": "node scripts/fetchImages.mjs",
-    "fetch:video-links": "node scripts/fetchVideoLinks.mjs"
+    "fetch:video-links": "node scripts/fetchVideoLinks.mjs",
+    "fetch:stanyao-records": "node scripts/fetchStanYaoRecords.mjs",
+    "fetch:bbxhub-meta": "node scripts/fetchBbxhubMeta.mjs"
   },
   "dependencies": {
     "dexie": "^4.4.6",

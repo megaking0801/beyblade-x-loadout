@@ -1,0 +1,1053 @@
+{
+  "source": "BBXHub",
+  "sourceUrl": "https://bbxhub.net/tier-list",
+  "fetchedAt": "2026-09-23",
+  "note": "零件層級的 WBO 全球賽事統計，站方公開方法論（名次加權排名，每週自動更新）。這輪只收零件層級（Tier／名次分布／追蹤總筆數），不含逐配置的固鎖／軸心明細（BBXHub 頁面用全名如「Hexa」標軸心，跟圖鑑代號「H」的對照尚未查證，不猜）。一律標記為社群來源（community），不宣稱官方認證。",
+  "parts": [
+    {
+      "partId": "blade:ウィザードロッド",
+      "nameEn": "WizardRod",
+      "metaRank": 1,
+      "tier": "S",
+      "type": "Stamina",
+      "tournamentWins": 2294,
+      "placements": {
+        "first": 2294,
+        "second": 2109,
+        "third": 2036,
+        "fourthPlus": 216
+      },
+      "sourceUrl": "https://bbxhub.net/meta/wizard-rod"
+    },
+    {
+      "partId": "blade:シャークスケイル",
+      "nameEn": "SharkScale",
+      "metaRank": 2,
+      "tier": "S",
+      "tournamentWins": 1622,
+      "placements": {
+        "first": 1622,
+        "second": 1418,
+        "third": 1432,
+        "fourthPlus": 80
+      },
+      "sourceUrl": "https://bbxhub.net/meta/shark-scale"
+    },
+    {
+      "partId": "blade:フェニックスウイング",
+      "nameEn": "PhoenixWing",
+      "metaRank": 3,
+      "tier": "S",
+      "type": "Attack",
+      "tournamentWins": 1053,
+      "placements": {
+        "first": 1053,
+        "second": 1063,
+        "third": 1029,
+        "fourthPlus": 142
+      },
+      "sourceUrl": "https://bbxhub.net/meta/phoenix-wing"
+    },
+    {
+      "partId": "blade:エアロペガサス",
+      "nameEn": "AeroPegasus",
+      "metaRank": 5,
+      "tier": "A",
+      "type": "Attack",
+      "tournamentWins": 765,
+      "placements": {
+        "first": 765,
+        "second": 673,
+        "third": 634,
+        "fourthPlus": 57
+      },
+      "sourceUrl": "https://bbxhub.net/meta/aero-pegasus"
+    },
+    {
+      "partId": "blade:シルバーウルフ",
+      "nameEn": "SilverWolf",
+      "metaRank": 7,
+      "tier": "A",
+      "type": "Stamina",
+      "tournamentWins": 562,
+      "placements": {
+        "first": 562,
+        "second": 584,
+        "third": 583,
+        "fourthPlus": 69
+      },
+      "sourceUrl": "https://bbxhub.net/meta/silver-wolf"
+    },
+    {
+      "partId": "blade:ティラノビート",
+      "nameEn": "TyrannoBeat",
+      "metaRank": 8,
+      "tier": "A",
+      "type": "Attack",
+      "tournamentWins": 382,
+      "placements": {
+        "first": 382,
+        "second": 385,
+        "third": 392,
+        "fourthPlus": 64
+      },
+      "sourceUrl": "https://bbxhub.net/meta/tyranno-beat"
+    },
+    {
+      "partId": "blade:ゴーレムロック",
+      "nameEn": "GolemRock",
+      "metaRank": 10,
+      "tier": "A",
+      "type": "Defense",
+      "tournamentWins": 180,
+      "placements": {
+        "first": 180,
+        "second": 217,
+        "third": 217,
+        "fourthPlus": 29
+      },
+      "sourceUrl": "https://bbxhub.net/meta/golem-rock"
+    },
+    {
+      "partId": "blade:ナイトメイル",
+      "nameEn": "KnightMail",
+      "metaRank": 11,
+      "tier": "B",
+      "type": "Defense",
+      "tournamentWins": 175,
+      "placements": {
+        "first": 175,
+        "second": 183,
+        "third": 208,
+        "fourthPlus": 24
+      },
+      "sourceUrl": "https://bbxhub.net/meta/knight-mail"
+    },
+    {
+      "partId": "blade:ドランバスター",
+      "nameEn": "DranBuster",
+      "metaRank": 12,
+      "tier": "B",
+      "type": "Attack",
+      "tournamentWins": 185,
+      "placements": {
+        "first": 185,
+        "second": 182,
+        "third": 173,
+        "fourthPlus": 46
+      },
+      "sourceUrl": "https://bbxhub.net/meta/dran-buster"
+    },
+    {
+      "partId": "blade:ヘルズサイズ",
+      "nameEn": "HellsScythe",
+      "metaRank": 14,
+      "tier": "B",
+      "type": "Balance",
+      "tournamentWins": 146,
+      "placements": {
+        "first": 146,
+        "second": 153,
+        "third": 148,
+        "fourthPlus": 22
+      },
+      "sourceUrl": "https://bbxhub.net/meta/hells-scythe"
+    },
+    {
+      "partId": "blade:スコーピオスピア",
+      "nameEn": "ScorpioSpear",
+      "metaRank": 15,
+      "tier": "B",
+      "tournamentWins": 138,
+      "placements": {
+        "first": 138,
+        "second": 134,
+        "third": 165,
+        "fourthPlus": 20
+      },
+      "sourceUrl": "https://bbxhub.net/meta/scorpio-spear"
+    },
+    {
+      "partId": "blade:インパクトドレイク",
+      "nameEn": "ImpactDrake",
+      "metaRank": 17,
+      "tier": "B",
+      "type": "Attack",
+      "tournamentWins": 103,
+      "placements": {
+        "first": 103,
+        "second": 112,
+        "third": 107,
+        "fourthPlus": 22
+      },
+      "sourceUrl": "https://bbxhub.net/meta/impact-drake"
+    },
+    {
+      "partId": "blade:ドランソード",
+      "nameEn": "DranSword",
+      "metaRank": 18,
+      "tier": "B",
+      "type": "Attack",
+      "tournamentWins": 96,
+      "placements": {
+        "first": 96,
+        "second": 98,
+        "third": 108,
+        "fourthPlus": 15
+      },
+      "sourceUrl": "https://bbxhub.net/meta/dran-sword"
+    },
+    {
+      "partId": "blade:ドランストライク",
+      "nameEn": "DranStrike",
+      "metaRank": 19,
+      "tier": "B",
+      "tournamentWins": 100,
+      "placements": {
+        "first": 100,
+        "second": 98,
+        "third": 94,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/dran-strike"
+    },
+    {
+      "partId": "blade:クロックミラージュ",
+      "nameEn": "ClockMirage",
+      "metaRank": 21,
+      "tier": "B",
+      "type": "Stamina",
+      "tournamentWins": 87,
+      "placements": {
+        "first": 87,
+        "second": 100,
+        "third": 96,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/clock-mirage"
+    },
+    {
+      "partId": "blade:ナイトシールド",
+      "nameEn": "KnightShield",
+      "metaRank": 23,
+      "tier": "B",
+      "type": "Defense",
+      "tournamentWins": 82,
+      "placements": {
+        "first": 82,
+        "second": 84,
+        "third": 63,
+        "fourthPlus": 11
+      },
+      "sourceUrl": "https://bbxhub.net/meta/knight-shield"
+    },
+    {
+      "partId": "blade:サムライセイバー",
+      "nameEn": "SamuraiSaber",
+      "metaRank": 25,
+      "tier": "B",
+      "type": "Attack",
+      "tournamentWins": 57,
+      "placements": {
+        "first": 57,
+        "second": 70,
+        "third": 89,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/samurai-saber"
+    },
+    {
+      "partId": "blade:サムライカリバー",
+      "nameEn": "SamuraiCalibur",
+      "metaRank": 26,
+      "tier": "B",
+      "tournamentWins": 55,
+      "placements": {
+        "first": 55,
+        "second": 64,
+        "third": 71,
+        "fourthPlus": 6
+      },
+      "sourceUrl": "https://bbxhub.net/meta/samurai-calibur"
+    },
+    {
+      "partId": "blade:ティラノロア",
+      "nameEn": "TyrannoRoar",
+      "metaRank": 27,
+      "tier": "C",
+      "type": "Attack",
+      "tournamentWins": 52,
+      "placements": {
+        "first": 52,
+        "second": 57,
+        "third": 68,
+        "fourthPlus": 14
+      },
+      "sourceUrl": "https://bbxhub.net/meta/tyranno-roar"
+    },
+    {
+      "partId": "blade:ヘルズチェイン",
+      "nameEn": "HellsChain",
+      "metaRank": 28,
+      "tier": "C",
+      "type": "Balance",
+      "tournamentWins": 47,
+      "placements": {
+        "first": 47,
+        "second": 55,
+        "third": 57,
+        "fourthPlus": 14
+      },
+      "sourceUrl": "https://bbxhub.net/meta/hells-chain"
+    },
+    {
+      "partId": "blade:コバルトドレイク",
+      "nameEn": "CobaltDrake",
+      "metaRank": 30,
+      "tier": "C",
+      "type": "Attack",
+      "tournamentWins": 39,
+      "placements": {
+        "first": 39,
+        "second": 50,
+        "third": 48,
+        "fourthPlus": 9
+      },
+      "sourceUrl": "https://bbxhub.net/meta/cobalt-drake"
+    },
+    {
+      "partId": "blade:ウィザードアロー",
+      "nameEn": "WizardArrow",
+      "metaRank": 31,
+      "tier": "C",
+      "type": "Stamina",
+      "tournamentWins": 34,
+      "placements": {
+        "first": 34,
+        "second": 48,
+        "third": 61,
+        "fourthPlus": 7
+      },
+      "sourceUrl": "https://bbxhub.net/meta/wizard-arrow"
+    },
+    {
+      "partId": "blade:ドランダガー",
+      "nameEn": "DranDagger",
+      "metaRank": 33,
+      "tier": "C",
+      "type": "Attack",
+      "tournamentWins": 40,
+      "placements": {
+        "first": 40,
+        "second": 32,
+        "third": 43,
+        "fourthPlus": 6
+      },
+      "sourceUrl": "https://bbxhub.net/meta/dran-dagger"
+    },
+    {
+      "partId": "blade:クリムゾンガルーダ",
+      "nameEn": "CrimsonGaruda",
+      "metaRank": 36,
+      "tier": "C",
+      "type": "Balance",
+      "tournamentWins": 26,
+      "placements": {
+        "first": 26,
+        "second": 28,
+        "third": 34,
+        "fourthPlus": 6
+      },
+      "sourceUrl": "https://bbxhub.net/meta/crimson-garuda"
+    },
+    {
+      "partId": "blade:ナイトランス",
+      "nameEn": "KnightLance",
+      "metaRank": 37,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 29,
+      "placements": {
+        "first": 29,
+        "second": 27,
+        "third": 19,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/knight-lance"
+    },
+    {
+      "partId": "blade:ヴァイパーテイル",
+      "nameEn": "ViperTail",
+      "metaRank": 38,
+      "tier": "C",
+      "type": "Stamina",
+      "tournamentWins": 18,
+      "placements": {
+        "first": 18,
+        "second": 32,
+        "third": 30,
+        "fourthPlus": 4
+      },
+      "sourceUrl": "https://bbxhub.net/meta/viper-tail"
+    },
+    {
+      "partId": "blade:レオンクレスト",
+      "nameEn": "LeonCrest",
+      "metaRank": 42,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 19,
+      "placements": {
+        "first": 19,
+        "second": 18,
+        "third": 20,
+        "fourthPlus": 5
+      },
+      "sourceUrl": "https://bbxhub.net/meta/leon-crest"
+    },
+    {
+      "partId": "blade:ヴァイスタイガー",
+      "nameEn": "WeissTiger",
+      "metaRank": 43,
+      "tier": "C",
+      "type": "Balance",
+      "tournamentWins": 13,
+      "placements": {
+        "first": 13,
+        "second": 22,
+        "third": 24,
+        "fourthPlus": 3
+      },
+      "sourceUrl": "https://bbxhub.net/meta/weiss-tiger"
+    },
+    {
+      "partId": "blade:トリケラプレス",
+      "nameEn": "TriceraPress",
+      "metaRank": 47,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 12,
+      "placements": {
+        "first": 12,
+        "second": 18,
+        "third": 17,
+        "fourthPlus": 1
+      },
+      "sourceUrl": "https://bbxhub.net/meta/tricera-press"
+    },
+    {
+      "partId": "blade:レオンクロー",
+      "nameEn": "LeonClaw",
+      "metaRank": 60,
+      "tier": "C",
+      "type": "Balance",
+      "tournamentWins": 7,
+      "placements": {
+        "first": 7,
+        "second": 11,
+        "third": 10,
+        "fourthPlus": 1
+      },
+      "sourceUrl": "https://bbxhub.net/meta/leon-claw"
+    },
+    {
+      "partId": "blade:ゼノエクスカリバー",
+      "nameEn": "XenoXcalibur",
+      "metaRank": 113,
+      "tier": "C",
+      "tournamentWins": 2,
+      "placements": {
+        "first": 2,
+        "second": 3,
+        "third": 2,
+        "fourthPlus": 1
+      },
+      "sourceUrl": "https://bbxhub.net/meta/xeno-xcalibur"
+    },
+    {
+      "partId": "blade:ゴートタックル",
+      "nameEn": "GoatTackle",
+      "metaRank": 138,
+      "tier": "C",
+      "type": "Defense",
+      "tournamentWins": 1,
+      "placements": {
+        "first": 1,
+        "second": 2,
+        "third": 2,
+        "fourthPlus": 0
+      },
+      "sourceUrl": "https://bbxhub.net/meta/goat-tackle"
+    }
+  ],
+  "unresolved": [
+    {
+      "nameEn": "CobaltDragoon",
+      "zhNameFromBridge": "蒼穹龍騎士(左)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "WyvernHover",
+      "zhNameFromBridge": "飛龍旋翼(綠)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "MeteorDragoon",
+      "zhNameFromBridge": "隕星龍騎士(左)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "SharkEdge",
+      "zhNameFromBridge": "鮫鯊鋒鰭(紫)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "EmperorBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WhaleWave",
+      "zhNameFromBridge": "巨鯨怒濤(綠)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "UnicornSting",
+      "zhNameFromBridge": "幻獸刺心",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "MummyCurse",
+      "zhNameFromBridge": "古屍詛咒",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "PegasusBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellsHammer",
+      "zhNameFromBridge": "惡魔重錘",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "PegasusBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PhoenixRudder",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "Lightning L-Drago",
+      "zhNameFromBridge": "雷霆天龍(上升攻擊型)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "OrochiCluster",
+      "zhNameFromBridge": "八岐大蛇",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "PegasusBlast Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBlast Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "Optimus Primal",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "UnicornDelta PeakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SolBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "GhostCircle",
+      "zhNameFromBridge": "幽靈元魂(綠)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "BiteCroc",
+      "zhNameFromBridge": "鱷魚粉碎",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "MammothTusk",
+      "zhNameFromBridge": "猛瑪長牙(闇黑)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "WolfBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellsBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "RhinoHorn",
+      "zhNameFromBridge": "戰犀重角",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "DranBrave Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PhoenixFeather",
+      "zhNameFromBridge": "鳳凰翔羽(黑)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "EmperorDelta PeakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ShinobiShadow",
+      "zhNameFromBridge": "忍者闇影(紫)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "WyvernGale",
+      "zhNameFromBridge": "飛龍旋翼(綠)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "BahamutBlitz BreakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ShelterDrake",
+      "zhNameFromBridge": "護城龍神(紅)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "BlackShell",
+      "zhNameFromBridge": "玄冥戰甲(綠)",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "Quetzalcoatlus",
+      "zhNameFromBridge": "翼龍",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "Red Hulk",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SolEclipse Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorBrave Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieBlast Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "FoxBrush Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "RagnaRage FlowHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PteraSwing",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorMight Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CerberusBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorBlitz BreakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "DranBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CrocCrunch",
+      "zhNameFromBridge": "鱷魚粉碎",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "FoxBrush Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorBlast Free",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellScythe",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBlast Assault",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PhoenixBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SamuraiSteel",
+      "zhNameFromBridge": "武士鋼鐵",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "TyranoBeat",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CerberusBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorEclipse Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ShinobiKnife",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PerseusDark Bumper",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SharkGill",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "BahamutBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieVolt Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorRage FlowHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PhoenixFlare Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorFlare Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WolfBlast Free",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBlast Free",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "DranBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SphinxCowl",
+      "zhNameFromBridge": "魔獸護甲",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "FoxBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SliverWolf",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorMight Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ColbaltDragoon",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "VictoryValkyrie",
+      "zhNameFromBridge": "天翼戰神",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "DranBrave Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieDelta PeakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBlast A",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardArc Round",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieBlast Free",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WolfHunt Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellsBrave Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CerberusFlame Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardArc Bumper",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "RhinoBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorBlast Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "DranBrave",
+      "zhNameFromBridge": "蒼龍勇氣",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "KrakenWriggle Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SolBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "KnightFortress GuardWheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "UnicornDelta PeakJaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "Optimus Prime",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "BahamutBlitz BreakKnuckle",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "BahamutDelta PeakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PheonixWing",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBlast Turn",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "BahamutBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PerseusBrave Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "RingAether",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "TriceraSpiky",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WolfHunt Free",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "DranBrave Round",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardArc Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "Yell Kong",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardArc Turn",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "KnightFortress GuardVertical",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SolEclipse Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieEclipse Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WolfBlast Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "BahamutBlitz BreakJaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "SolEclipse Dual",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PegasusBrave Assault",
+      "zhNameFromBridge": "天馬爆擊",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "UnicornBlast Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ShakeScale",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PhoenixFlare Wheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorFortress GuardWheel",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CerberusEclipse Massive",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieBlitz BreakHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PerseusBlast Slash",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "KnightFortress GuardHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "RhinoBlast Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CrocoCrunch",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "CobaltDragon",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "PerseusBlast Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "FoxBrave Jaggy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "ValkyrieDelta FlowHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellsArc Turn",
+      "zhNameFromBridge": "惡魔至尊",
+      "reason": "blade_not_found"
+    },
+    {
+      "nameEn": "LeonFang Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "UnicornDelta FlowHeavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "HellsBrave Turn",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "WizardArc Heavy",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "EmperorMight Bumper",
+      "reason": "no_bridge_entry"
+    },
+    {
+      "nameEn": "Tide Whale",
+      "zhNameFromBridge": "巨鯨怒濤(綠)",
+      "reason": "blade_not_found"
+    }
+  ]
+}
