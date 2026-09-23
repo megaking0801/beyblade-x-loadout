@@ -1,5 +1,6 @@
 import { generateBuildableCombos, type BuildableCombo } from './builder.ts'
 import { DEFAULT_DECK_RULES, suggestDecks } from './deck.ts'
+import { computeAvailabilityMap } from './inventory.ts'
 import { resolveDisplayName } from './naming.ts'
 import type { ExpertPartRatingRank } from '../catalog/tierLists.ts'
 import type { PartStrengthEntry } from '../catalog/partStrength.ts'
@@ -30,11 +31,14 @@ export interface PurchaseRecommendation {
    */
   expertTierGain: number
   /**
-   * 這次購買新增零件在賽果紀錄裡的歷史戰績分數合計（零件層級百分位聚合，
-   * 第 50 節）。是統計聚合不是賽事證據本身，排序上排在 `expertTierGain` 之後、
-   * `deckScoreGain` 之前——比高手主觀評級更客觀（是計數不是意見），但比
-   * `competitiveEvidenceGain` 弱得多（那是完整配置被賽事記錄過，這只是零件
-   * 拼湊推估）。
+   * 這次購買「真正讓使用者新增可用」的零件（買之前 free 數量為 0，見
+   * `computeAvailabilityMap`），在賽果紀錄裡的歷史戰績分數平均（零件層級
+   * 百分位聚合，跟 `deck.ts` 的 `estimateComboPartStrength()` 同一套平均，
+   * 不是加總——加總會讓零件數多的商品系統性贏過零件強、但只有一兩顆的商品，
+   * 也會讓「使用者已經擁有這些零件」的商品錯誤算出正分，第 50 節）。是統計
+   * 聚合不是賽事證據本身，排序上排在 `expertTierGain` 之後、`deckScoreGain`
+   * 之前——比高手主觀評級更客觀（是計數不是意見），但比 `competitiveEvidenceGain`
+   * 弱得多（那是完整配置被賽事記錄過，這只是零件拼湊推估）。
    */
   partStrengthGain: number
   overallStrengthGain: number
@@ -188,6 +192,10 @@ export function recommendNextProducts(args: {
   const partById = new Map(parts.map((part) => [part.id, part]))
   const ownedIds = new Set(ownedProducts.filter((row) => row.status !== 'sold').map((row) => row.productId))
   const recommendations: PurchaseRecommendation[] = []
+  // 買之前（不含這次要模擬購買的商品）的可用餘額，用來判斷 addedPartIds 裡
+  // 哪些零件是「買了才真的從 0 變成有」，不是「反正商品裡有，不管有沒有已經
+  // 擁有都算」——見 partStrengthGain 的 docstring。
+  const availabilityBeforePurchase = computeAvailabilityMap(lots, combos)
 
   const evaluableProducts = products.filter(
     (product) => !product.isRandom && isCompetitionRelevantProduct(product, parts, evidenceByCode),
@@ -210,10 +218,21 @@ export function recommendNextProducts(args: {
       .map((partId) => ({ part: partById.get(partId), rating: expertTierByPartId?.get(partId) }))
       .filter((row): row is { part: Part; rating: ExpertPartRatingRank } => Boolean(row.part) && Boolean(row.rating))
     const expertTierGain = ratedAddedParts.reduce((sum, row) => sum + row.rating.rank, 0)
-    const partStrengthAddedParts = addedPartIds
+    // 只算買之前 free 數量為 0 的零件——已經擁有／已可用的零件不算「這次購買
+    // 帶來的邊際貢獻」，否則幾乎任何商品都會有非零 partStrengthGain，把「沒有
+    // 任何收穫就丟掉」的篩選整個廢掉（第 50 節，最終審查 Finding 1）。
+    const newlyAvailablePartIds = addedPartIds.filter(
+      (partId) => (availabilityBeforePurchase.get(partId)?.free ?? 0) === 0,
+    )
+    const partStrengthAddedParts = newlyAvailablePartIds
       .map((partId) => ({ part: partById.get(partId), strength: partStrengthIndex?.get(partId) }))
       .filter((row): row is { part: Part; strength: PartStrengthEntry } => Boolean(row.part) && Boolean(row.strength))
-    const partStrengthGain = partStrengthAddedParts.reduce((sum, row) => sum + row.strength.percentileScore, 0)
+    // 用平均不用加總，跟 `deck.ts` 的 `estimateComboPartStrength()` 同一套聚合
+    // 方式——零件數多的商品不該只因為零件多就自動贏過零件強但數量少的商品。
+    const partStrengthGain =
+      partStrengthAddedParts.length > 0
+        ? partStrengthAddedParts.reduce((sum, row) => sum + row.strength.percentileScore, 0) / partStrengthAddedParts.length
+        : 0
     // 「下一包」原則上要形成更好的競技隊伍、新增賽事出場數或高手評級零件；
     // 三者都沒有時，退回「廣度」：這次購買有沒有解鎖目前湊不出來的合法配置。
     // 收藏夠豐富後前三個訊號會自然枯竭（deckScoreGain 很難再被單一新商品拉動），

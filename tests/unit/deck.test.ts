@@ -441,6 +441,53 @@ describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () 
     expect(withMaxFallback).toBeLessThan(withRealEvidenceScore)
   })
 
+  it('balanced 策略：就算真實 evidence 的百分位很低（台灣本地小樣本常見情況），也不會輸給滿分零件強度 fallback（最終審查 Finding 2 回歸測試）', () => {
+    const maxFallback = threeDistinct.map((slots) => memberFor(slots))
+    const partStrengthIndex = new Map(
+      ['b-atk', 'b-sta', 'b-def', 'r-60', 'r-80', 'r-70', 'bit-f', 'bit-b', 'bit-p'].map((id) => [
+        id,
+        { podiumAppearances: 999, percentileScore: 100 },
+      ]),
+    )
+    const withMaxFallback = scoreDeck('balanced', maxFallback, undefined, partStrengthIndex)
+
+    // 只有 2、3 筆本地樣本時 percentileScore 可能個位數，不是灌水後的高分。
+    const lowRealEvidence: EvidenceInput = {
+      appearances: 2,
+      top4: 0,
+      championships: 0,
+      totalDecks: 50,
+      sourceTier: 'community',
+      percentileScore: 5,
+    }
+    const withLowRealEvidence = threeDistinct.map((slots) => memberFor(slots, lowRealEvidence))
+    const withLowRealEvidenceScore = scoreDeck('balanced', withLowRealEvidence)
+
+    expect(withLowRealEvidenceScore).toBeGreaterThanOrEqual(withMaxFallback)
+  })
+
+  it('balanced 策略：真實 evidence 的樓層墊高不會抹平兩個都已經贏過樓層的真實百分位之間的差距', () => {
+    const higherReal: EvidenceInput = {
+      appearances: 40,
+      top4: 0,
+      championships: 0,
+      totalDecks: 200,
+      sourceTier: 'community',
+      percentileScore: 90,
+    }
+    const lowerRealAboveFloor: EvidenceInput = {
+      appearances: 40,
+      top4: 0,
+      championships: 0,
+      totalDecks: 200,
+      sourceTier: 'community',
+      percentileScore: 50,
+    }
+    const higherScore = scoreDeck('balanced', threeDistinct.map((slots) => memberFor(slots, higherReal)))
+    const lowerScore = scoreDeck('balanced', threeDistinct.map((slots) => memberFor(slots, lowerRealAboveFloor)))
+    expect(higherScore).toBeGreaterThan(lowerScore)
+  })
+
   it('evidence 策略不吃零件強度 fallback，維持「最高賽事證據」策略名稱的承諾', () => {
     const members = threeDistinct.map((slots) => memberFor(slots))
     const partStrengthIndex = new Map([['b-atk', { podiumAppearances: 50, percentileScore: 100 }]])
@@ -485,6 +532,35 @@ describe('estimateComboPartStrength（零件層級強度 fallback，第 50 節�
     ])
     const result = estimateComboPartStrength(cxSlots, index)
     expect(result).toBe(55) // (50 + 70 + 60 + 40) / 4
+  })
+
+  it('CX 配置的 identity 零件（主刃）在索引裡沒有資料時回傳 undefined，即使固鎖跟軸心都有資料（最終審查 Finding 3 回歸測試）', () => {
+    // stan-yao 原始賽果紀錄只收 BX/UX 三件式（blade/ratchet/bit），CX 的
+    // main_blade／lock_chip 家族零件幾乎不可能在索引裡查到——這裡故意讓
+    // ratchet 跟 bit 都查得到，只有主刃查不到，確認不會被拿 ratchet+bit
+    // 的平均冒充整套配置的推估分數。
+    const cxSlots: ComboSlots = {
+      lockChipId: 'chip-cx-unknown',
+      mainBladeId: 'main-cx-unknown',
+      ratchetId: 'r-60',
+      bitId: 'bit-f',
+    }
+    const index = new Map([
+      ['r-60', { podiumAppearances: 5, percentileScore: 40 }],
+      ['bit-f', { podiumAppearances: 20, percentileScore: 60 }],
+    ])
+    const result = estimateComboPartStrength(cxSlots, index)
+    expect(result).toBeUndefined()
+  })
+
+  it('BX/UX 配置的 identity 零件（上蓋）在索引裡沒有資料時回傳 undefined，即使固鎖跟軸心都有資料', () => {
+    const slots: ComboSlots = { bladeId: 'b-unknown', ratchetId: 'r-60', bitId: 'bit-f' }
+    const index = new Map([
+      ['r-60', { podiumAppearances: 5, percentileScore: 40 }],
+      ['bit-f', { podiumAppearances: 20, percentileScore: 60 }],
+    ])
+    const result = estimateComboPartStrength(slots, index)
+    expect(result).toBeUndefined()
   })
 })
 

@@ -104,15 +104,35 @@ const OCCUPYING_SLOT_KEYS = [
 ] as const
 
 /**
+ * 這套配置「真正決定是誰」的那顆零件：BX/UX 是上蓋（bladeId），CX 是主刃
+ * （mainBladeId，鎖定紋章 lockChipId 當備援）——跟 `analysis.ts` 的
+ * `analyzeCombo()` 判斷 blade 的順位一致（`bladeId ?? mainBladeId`）。
+ * stan-yao 原始賽果紀錄只收 BX/UX 的三件式（blade/ratchet/bit），完全沒有
+ * CX 的 lock_chip／main_blade／assist_blade／over_blade 家族零件，所以 CX
+ * 配置的 identity 零件在索引裡幾乎必然查不到——這是刻意的「沒有樣本」，
+ * 不是巧合，下面靠這顆零件把整個 fallback 擋下來。
+ */
+const IDENTITY_SLOT_KEYS = ['bladeId', 'mainBladeId', 'lockChipId'] as const
+
+/**
  * evidence 缺席時的低權重替代訊號：這套配置用到的零件，各自在賽果紀錄裡的
  * 「進前三次數」百分位平均——不是這套配置本身被驗證過，只是零件拼湊推估
  * （第 50 節）。任何一個零件都查不到資料時回傳 undefined，不能當 0 分處理：
  * 0 分代表「查得到、但排名最後」，undefined 代表「完全沒樣本」，語意不同。
+ *
+ * 光是「有幾個槽位查得到資料」還不夠：如果決定這套配置是誰的 identity 零件
+ * （上蓋／主刃／鎖定紋章）本身查不到，就算固鎖、軸心都查得到，也只是在講
+ * 「固鎖軸心很常見」，不是「這套配置有戰績」——這種情況必須回傳 undefined，
+ * 不能讓固鎖／軸心的平均分數冒充整套配置的推估分數。
  */
 export function estimateComboPartStrength(
   slots: ComboSlots,
   partStrengthIndex: Map<string, PartStrengthEntry>,
 ): number | undefined {
+  const identityPartId = IDENTITY_SLOT_KEYS.map((key) => slots[key]).find(
+    (partId): partId is string => Boolean(partId),
+  )
+  if (identityPartId && !partStrengthIndex.has(identityPartId)) return undefined
   const matched = OCCUPYING_SLOT_KEYS.map((key) => slots[key])
     .filter((partId): partId is string => Boolean(partId))
     .map((partId) => partStrengthIndex.get(partId))
@@ -350,6 +370,17 @@ const EXPERT_TIER_WEIGHT = 5
 /** 第 50.3 節：零件拼湊推估的權重必須明確低於完整配置證據，初始值待第 50.6 節回測校準。 */
 const PART_STRENGTH_FALLBACK_WEIGHT = 0.3
 
+/**
+ * fallback 分數的理論上限（percentileScore 滿分 100 乘上權重）。真實 evidence
+ * 就算原始百分位很低（台灣本地樣本數常常只有 2、3 筆，percentileScore 可能
+ * 個位數），貢獻也不能被這個上限比下去——不然「有真實賽事佐證」反而輸給
+ * 「純零件拼湊推估」，違反第 50 節「fallback 加權後不可能超過任何有真實
+ * evidence 的配置分數」的保證。只墊高「原本會輸給 fallback 上限」的那些
+ * 真實百分位，兩個都已經贏過上限的真實百分位之間仍照原始差距排序，不會被
+ * 拉平成同一個值。
+ */
+const PART_STRENGTH_FALLBACK_FLOOR = 100 * PART_STRENGTH_FALLBACK_WEIGHT
+
 export function scoreDeck(
   strategy: DeckStrategy,
   members: DeckMember[],
@@ -369,7 +400,9 @@ export function scoreDeck(
   // 拼湊推估會誤導。權重是保守初始值，正式校準見規格第 50.6 節的回測腳本。
   const competitiveEvidenceWithFallback = members.reduce((sum, member) => {
     const real = member.analysis.evidence?.percentileScore
-    if (real !== undefined) return sum + real
+    // 只墊高會輸給 fallback 上限的真實百分位，不是無條件套用固定樓層值，
+    // 這樣兩個都已經贏過上限的真實 evidence 之間仍保留相對排序。
+    if (real !== undefined) return sum + Math.max(real, PART_STRENGTH_FALLBACK_FLOOR)
     const fallback = partStrengthIndex ? estimateComboPartStrength(member.slots, partStrengthIndex) : undefined
     return sum + (fallback ?? 0) * PART_STRENGTH_FALLBACK_WEIGHT
   }, 0)

@@ -199,4 +199,42 @@ describe('下一包推薦', () => {
     expect(rec.reasonsZhTW.some((line) => line.includes('供擴大配裝廣度參考'))).toBe(true)
     expect(rec.reasonsZhTW.some((line) => line.includes('組合分數可提升'))).toBe(false)
   })
+
+  it('partStrengthGain 只能算邊際新增：使用者已經擁有商品全部零件時不會單靠 partStrengthGain 被推薦（最終審查 Finding 1 回歸測試）', () => {
+    // 已擁有 3x3x3 全滿庫存（跟第一個測試同樣的最佳隊伍組成），再買一顆已經
+    // 擁有的 bitA：deckScoreGain／competitiveEvidenceGain／expertTierGain／
+    // unlocked 全部應該是 0，且因為 bitA 買之前 free 已經是 1（不是 0），
+    // 就算 partStrengthIndex 給它很高的百分位，partStrengthGain 也必須是 0——
+    // 否則舊版「加總整包所有零件的 percentileScore」會讓這個已經擁有、完全沒
+    // 帶來任何新東西的商品被誤判成「有零件戰績佐證」而被推薦。
+    const productAlreadyOwnedPart: Product = {
+      id: 'already-owned-bit-a', line: 'BX', category: 'starter', naming: { primaryZhTW: '重複軸心包' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bitA.id, quantity: 1 }], provenance,
+    }
+    const partStrengthIndex = new Map<string, PartStrengthEntry>([
+      [bitA.id, { podiumAppearances: 40, percentileScore: 90 }],
+    ])
+    const result = recommendNextProducts({
+      products: [productAlreadyOwnedPart],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC],
+      rules: [],
+      // 已經擁有完整 3x3x3 最佳庫存，包含 bitA 本身。
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      // 只是為了通過 isCompetitionRelevantProduct 的相關性篩選。
+      evidenceByCode: {
+        'blade-a 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+      partStrengthIndex,
+    })
+    const rec = result.recommendations.find((row) => row.product.id === productAlreadyOwnedPart.id)
+    if (rec) {
+      // 如果因為其他理由出現在推薦裡，partStrengthGain 至少也必須是 0。
+      expect(rec.partStrengthGain).toBe(0)
+    } else {
+      expect(rec).toBeUndefined()
+    }
+  })
 })
