@@ -8,7 +8,7 @@ import {
   analyzeCombo,
   comboFullCode,
   estimateOperationDifficulty,
-  estimateScores,
+  estimateTypeWeight,
   type ComboAnalysis,
   type EvidenceInput,
 } from './analysis.ts'
@@ -73,24 +73,31 @@ function usablePartIds(args: GenerateArgs): Set<string> | null {
  */
 const CX_ENUMERATION_BUDGET = 150_000
 
-/** 單一零件在指定排序軸上的相對優劣，用來決定剪枝時先留哪些。 */
+/**
+ * 單一零件在指定排序軸上的相對優劣，用來決定剪枝時先留哪些。
+ *
+ * 只需要「這顆零件的類型是不是目標軸想要的類型」，不需要一組虛構的相對大小
+ * 關係——舊版 `AXIS_BASE` 手填一張「攻擊型零件對持久排序值多少分」的表，跟
+ * `BASE_BY_TYPE` 犯的是同一種錯：沒有來源。二元判斷加上零件代號當 tie-break
+ * 已經足夠決定剪枝時先留哪些。
+ */
 function partAxisRank(part: Part, sortBy: BuildableSortKey): number {
   if (sortBy === 'beginner' || sortBy === 'simplest') {
     // 新手取向：先留有資料的、操作簡單的（球狀、尖點）。
     const difficulty = part.bitContact ? (DIFFICULTY_HINT[part.bitContact] ?? 50) : 50
     return difficulty
   }
-  if (!part.type) return 100
-  const base = AXIS_BASE[sortBy]
-  return -(base[part.type] ?? 0)
+  if (!part.type) return 1
+  const wantedType = AXIS_WANTED_TYPE[sortBy]
+  if (!wantedType) return 1
+  return part.type === wantedType ? 0 : 1
 }
 
-/** 剪枝用的粗略基準，數值取自 analysis 的 BASE_BY_TYPE，只用來排序不用來顯示。 */
-const AXIS_BASE: Record<'attack' | 'stamina' | 'stability' | 'evidence', Record<string, number>> = {
-  attack: { attack: 80, balance: 55, defense: 35, stamina: 30 },
-  stamina: { stamina: 85, defense: 50, balance: 55, attack: 30 },
-  stability: { defense: 70, stamina: 65, balance: 55, attack: 35 },
-  evidence: { attack: 1, defense: 1, stamina: 1, balance: 1 },
+/** 排序軸對應「最想要的零件類型」，用於剪枝時的二元判斷。 */
+const AXIS_WANTED_TYPE: Partial<Record<BuildableSortKey, Part['type']>> = {
+  attack: 'attack',
+  stamina: 'stamina',
+  stability: 'defense',
 }
 
 const DIFFICULTY_HINT: Record<string, number> = {
@@ -220,11 +227,11 @@ function sortValue(row: BuildableCombo, sortBy: BuildableSortKey): number {
   const { analysis } = row
   switch (sortBy) {
     case 'attack':
-      return -(analysis.scores?.attack ?? -1)
+      return -(analysis.typeWeight?.attack ?? -1)
     case 'stamina':
-      return -(analysis.scores?.stamina ?? -1)
+      return -(analysis.typeWeight?.stamina ?? -1)
     case 'stability':
-      return -(analysis.scores?.stability ?? -1)
+      return -(analysis.typeWeight?.defense ?? -1)
     case 'evidence':
       return -(analysis.evidence?.appearances ?? -1)
     case 'beginner':
@@ -290,7 +297,7 @@ function standardCode(slotParts: SlotParts): string | null {
 }
 
 /**
- * 便宜的排序值，與 sortValue 使用同一組公式（estimateScores／操作難度），
+ * 便宜的排序值，與 sortValue 使用同一組公式（estimateTypeWeight／操作難度），
  * 所以先用它挑出前幾名、再對勝出者做完整分析，排序結果不會跟著跑掉。
  */
 function cheapSortValue(
@@ -311,7 +318,7 @@ function cheapSortValue(
   }
 
   if (!slotParts.blade?.type) return 1
-  const scores = estimateScores({
+  const weight = estimateTypeWeight({
     ...(slotParts.blade ? { blade: slotParts.blade } : {}),
     ...(slotParts.ratchet ? { ratchet: slotParts.ratchet } : {}),
     ...(slotParts.bit ? { bit: slotParts.bit } : {}),
@@ -319,11 +326,11 @@ function cheapSortValue(
   })
   switch (sortBy) {
     case 'attack':
-      return -scores.attack
+      return -(weight?.attack ?? 0)
     case 'stamina':
-      return -scores.stamina
+      return -(weight?.stamina ?? 0)
     case 'stability':
-      return -scores.stability
+      return -(weight?.defense ?? 0)
   }
 }
 

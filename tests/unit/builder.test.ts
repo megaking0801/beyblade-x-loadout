@@ -16,6 +16,7 @@ function part(over: Partial<Part> & Pick<Part, 'id' | 'family'>): Part {
 
 const bladeAttack = part({ id: 'b-atk', family: 'blade', type: 'attack', spinDirection: 'right', officialWeightG: 34 })
 const bladeStamina = part({ id: 'b-sta', family: 'blade', type: 'stamina', spinDirection: 'right', officialWeightG: 34 })
+const bladeDefense = part({ id: 'b-def', family: 'blade', type: 'defense', spinDirection: 'right', officialWeightG: 34 })
 const bladeLeft = part({ id: 'b-left', family: 'blade', type: 'attack', spinDirection: 'left', officialWeightG: 34 })
 const ratchet60 = part({ id: 'r-60', family: 'ratchet', code: '3-60', spinDirection: 'dual', heightCode: 60, officialWeightG: 6 })
 const ratchet80 = part({ id: 'r-80', family: 'ratchet', code: '9-80', spinDirection: 'dual', heightCode: 80, officialWeightG: 7 })
@@ -25,7 +26,7 @@ const bitRightOnly = part({ id: 'bit-right', family: 'bit', code: 'RO', type: 'a
 const integratedBlade = part({ id: 'b-integrated', family: 'integrated_blade', code: 'IG', spinDirection: 'right', integratedRatchet: true })
 const integratedBit = part({ id: 'bit-integrated', family: 'bit', code: 'IT', spinDirection: 'dual', integratedRatchet: true })
 
-const parts: Part[] = [bladeAttack, bladeStamina, bladeLeft, ratchet60, ratchet80, bitFlat, bitBall, bitRightOnly]
+const parts: Part[] = [bladeAttack, bladeStamina, bladeDefense, bladeLeft, ratchet60, ratchet80, bitFlat, bitBall, bitRightOnly]
 
 function lot(partId: string, quantity = 1, status: InventoryLot['status'] = 'available'): InventoryLot {
   return {
@@ -172,28 +173,33 @@ describe('排序方式（第 29 節）', () => {
   const lots = [
     lot(bladeAttack.id),
     lot(bladeStamina.id),
+    lot(bladeDefense.id),
     lot(ratchet60.id),
     lot(ratchet80.id),
     lot(bitFlat.id),
     lot(bitBall.id),
   ]
 
-  it('攻擊最高排序時第一名的攻擊分數最高', () => {
+  it('攻擊最高排序時第一名的攻擊比重最高', () => {
     const r = generateBuildableCombos({ ...baseArgs, lots, mode: 'owned', sortBy: 'attack' })
-    const scores = r.map((row) => row.analysis.scores?.attack ?? 0)
-    expect(scores[0]).toBe(Math.max(...scores))
+    const weights = r.map((row) => row.analysis.typeWeight?.attack ?? 0)
+    expect(weights[0]).toBe(Math.max(...weights))
   })
 
-  it('持久最高排序時第一名的持久分數最高', () => {
+  it('持久最高排序時第一名的持久比重最高', () => {
     const r = generateBuildableCombos({ ...baseArgs, lots, mode: 'owned', sortBy: 'stamina' })
-    const scores = r.map((row) => row.analysis.scores?.stamina ?? 0)
-    expect(scores[0]).toBe(Math.max(...scores))
+    const weights = r.map((row) => row.analysis.typeWeight?.stamina ?? 0)
+    expect(weights[0]).toBe(Math.max(...weights))
   })
 
-  it('最穩排序時第一名的穩定分數最高', () => {
+  it('最穩排序時第一名的防守比重最高', () => {
+    // bladeDefense 是這批 fixture 裡唯一的防守型零件，用它確認「最穩」真的是
+    // 依防守比重排序，不是巧合排第一（原本的 fixture 沒有防守型零件，會讓
+    // 這條測試不管邏輯對不對都過）。
     const r = generateBuildableCombos({ ...baseArgs, lots, mode: 'owned', sortBy: 'stability' })
-    const scores = r.map((row) => row.analysis.scores?.stability ?? 0)
-    expect(scores[0]).toBe(Math.max(...scores))
+    const weights = r.map((row) => row.analysis.typeWeight?.defense ?? 0)
+    expect(weights[0]).toBe(Math.max(...weights))
+    expect(weights[0]).toBeGreaterThan(0)
   })
 
   it('最適合新手與操作最簡單排序時第一名的操作難度最低', () => {
@@ -230,6 +236,7 @@ describe('排序方式（第 29 節）', () => {
   it('產生的每個配置都是可實際安裝的', () => {
     const r = generateBuildableCombos({ ...baseArgs, lots, mode: 'owned' })
     expect(r.every((row) => row.analysis.compatibility.ok)).toBe(true)
-    expect(r.length).toBe(8)
+    // 3 顆上蓋（攻擊／持久／防守）× 2 顆固鎖 × 2 顆軸心 = 12。
+    expect(r.length).toBe(12)
   })
 })
