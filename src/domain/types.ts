@@ -443,19 +443,26 @@ export interface SavedCombo {
   createdAt: string
 }
 
-export type BattleRoundResult = 'a' | 'b' | 'tie'
-export type BattleFinish = 'spin' | 'over' | 'burst' | 'xtreme' | 'none'
+/** 轉停 1 分、出界／爆裂各 2 分（官方同分，合併成一個選項）、極限 3 分。 */
+export type BattleFinish = 'spin' | 'over_burst' | 'xtreme'
+
+export interface BattlePoint {
+  scorer: 'a' | 'b'
+  finish: BattleFinish
+}
 
 /**
- * 使用者自己（或跟朋友）的 1v1 練習對戰紀錄。純本機資料，不同步、不宣稱
- * 官方或社群共識，見 docs/superpowers/specs/2026-09-24-personal-battle-log-design.md。
+ * 一場個別對戰（先到 4 分獲勝，見官方規則）。純本機資料，不同步、不宣稱
+ * 官方或社群共識，見 docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md。
+ * A、B 兩邊配裝全程固定，不會中途換零件——3on3 團體賽脈絡下每一場個別
+ * 對戰本來就是這樣打的，這裡只記單場，不記團體賽整場比分。
  */
-export interface BattleRound {
+export interface BattleMatch {
   id: string
   a: ComboSlots
   b: ComboSlots
-  result: BattleRoundResult
-  finish: BattleFinish
+  /** 依序記錄每一分怎麼來的，贏家由這裡算出來，不另外存。 */
+  points: BattlePoint[]
   playedAt: string
   /** 自由文字，使用者自己標記情境，不參與任何運算。 */
   notes?: string

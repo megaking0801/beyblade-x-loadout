@@ -1,16 +1,48 @@
 /**
  * 個人對戰紀錄聚合（純函式）。
  *
- * 規格對照：docs/superpowers/specs/2026-09-24-personal-battle-log-design.md 第 3 節。
+ * 規格對照：docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md。
  */
-import type { BattleRound } from './types.ts'
+import type { BattleFinish, BattleMatch, BattlePoint } from './types.ts'
 
 export const LOW_SAMPLE_THRESHOLD = 5
+
+/** 先到這個分數獲勝（官方規則：Beyblade X 個別對戰先到 4 分）。 */
+export const MATCH_WIN_SCORE = 4
+
+/** 轉停 1 分、出界／爆裂 2 分（官方同分，合併成一個選項）、極限 3 分。 */
+export const FINISH_POINTS: Record<BattleFinish, number> = {
+  spin: 1,
+  over_burst: 2,
+  xtreme: 3,
+}
+
+export function computeMatchScore(points: BattlePoint[]): { a: number; b: number } {
+  return points.reduce(
+    (score, point) => {
+      const value = FINISH_POINTS[point.finish]
+      return point.scorer === 'a' ? { a: score.a + value, b: score.b } : { a: score.a, b: score.b + value }
+    },
+    { a: 0, b: 0 },
+  )
+}
+
+/** 用「達到」不是「剛好等於」——極限終結可能讓分數一口氣超過 4。 */
+export function isMatchComplete(points: BattlePoint[]): boolean {
+  const score = computeMatchScore(points)
+  return score.a >= MATCH_WIN_SCORE || score.b >= MATCH_WIN_SCORE
+}
+
+export function matchWinner(points: BattlePoint[]): 'a' | 'b' | undefined {
+  const score = computeMatchScore(points)
+  if (score.a >= MATCH_WIN_SCORE) return 'a'
+  if (score.b >= MATCH_WIN_SCORE) return 'b'
+  return undefined
+}
 
 export interface PartWinRateEntry {
   wins: number
   losses: number
-  ties: number
   /** wins / (wins + losses)，樣本數低於 LOW_SAMPLE_THRESHOLD 時 undefined。 */
   winRate?: number
 }
@@ -25,38 +57,34 @@ const SLOT_KEYS = [
   'bitId',
 ] as const
 
-function partIdsOf(slots: BattleRound['a']): string[] {
+function partIdsOf(slots: BattleMatch['a']): string[] {
   return SLOT_KEYS.map((key) => slots[key]).filter((id): id is string => Boolean(id))
 }
 
 interface MutableCount {
   wins: number
   losses: number
-  ties: number
 }
 
 function ensure(counts: Map<string, MutableCount>, partId: string): MutableCount {
   const existing = counts.get(partId)
   if (existing) return existing
-  const fresh: MutableCount = { wins: 0, losses: 0, ties: 0 }
+  const fresh: MutableCount = { wins: 0, losses: 0 }
   counts.set(partId, fresh)
   return fresh
 }
 
-export function computePartWinRateIndex(rounds: BattleRound[]): Map<string, PartWinRateEntry> {
+export function computePartWinRateIndex(matches: BattleMatch[]): Map<string, PartWinRateEntry> {
   const counts = new Map<string, MutableCount>()
 
-  for (const round of rounds) {
-    const aParts = partIdsOf(round.a)
-    const bParts = partIdsOf(round.b)
+  for (const battleMatch of matches) {
+    const winner = matchWinner(battleMatch.points)
+    if (!winner) continue // 未完成的比賽不貢獻任何零件的輸贏。
 
-    if (round.result === 'tie') {
-      for (const partId of [...aParts, ...bParts]) ensure(counts, partId).ties += 1
-      continue
-    }
-
-    const winners = round.result === 'a' ? aParts : bParts
-    const losers = round.result === 'a' ? bParts : aParts
+    const aParts = partIdsOf(battleMatch.a)
+    const bParts = partIdsOf(battleMatch.b)
+    const winners = winner === 'a' ? aParts : bParts
+    const losers = winner === 'a' ? bParts : aParts
     for (const partId of winners) ensure(counts, partId).wins += 1
     for (const partId of losers) ensure(counts, partId).losses += 1
   }
