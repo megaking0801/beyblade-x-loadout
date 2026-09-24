@@ -269,27 +269,6 @@ test('配裝器可一鍵清除零件，但保留目前模式與結構', async ({
   await expect(page.getByRole('button', { name: '三件式（BX／UX）' })).toHaveClass(/btn-primary/)
 })
 
-test('完成 A 後可直接到比較頁配 B；資料不足時拒絕預測且沒有人工逐局流程', async ({ page }) => {
-  await openApp(page, '/builder')
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', BX01.blade)
-  await pickSlot(page, 'ratchetId', BX01.ratchet)
-  await pickSlot(page, 'bitId', BX01.bit)
-  await page.getByTestId('compare-current-combo').click()
-  await expect(page.locator('[data-route="/compare"]')).toBeVisible()
-  await pickSlot(page, 'bladeId', BX01.blade, 'b')
-  await pickSlot(page, 'ratchetId', BX01.ratchet, 'b')
-  await pickSlot(page, 'bitId', BX01.bit, 'b')
-  await expect(page.getByTestId('matchup-prediction')).toBeVisible()
-  await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
-  await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
-  await expect(page.getByTestId('tournament-practice-evidence')).toBeVisible()
-  await expect(page.getByTestId('battle-round-form')).toHaveCount(0)
-  await expect(page.getByRole('button', { name: '儲存這一局' })).toHaveCount(0)
-  await expect(page.getByRole('button', { name: '刪除此局' })).toHaveCount(0)
-  await expect(page.getByRole('button', { name: '匯出匿名逐局 JSON' })).toHaveCount(0)
-})
-
 test('選到有評級的零件時顯示高手評級與共識人數', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()

@@ -374,13 +374,6 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         slotParts={selectedParts}
         hasAnySelection={hasAnySelection}
         observedMatches={observedMatches}
-        onCompare={() => {
-          navigate('/compare', {
-            a: JSON.stringify(slots),
-            mode,
-            structure,
-          })
-        }}
       />
 
       <Section title="儲存這套配裝">
@@ -509,7 +502,6 @@ export function ComboResult({
   slotParts,
   hasAnySelection,
   observedMatches,
-  onCompare,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
@@ -521,7 +513,6 @@ export function ComboResult({
   slotParts: Part[]
   hasAnySelection: boolean
   observedMatches: ReturnType<typeof getObservedComboMatches>
-  onCompare: () => void
 }) {
   // 整套命中與單件證據分開呈現；結論句由六軸算出來，沒有分數就不硬湊。
   const comboReasons = evidenceReasons.filter((reason) => reason.scope === 'combo')
@@ -562,21 +553,6 @@ export function ComboResult({
           </Badge>
           <ConfidenceBadge confidence={analysis.confidence} />
         </Row>
-
-        <div>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-testid="compare-current-combo"
-            disabled={!analysis.compatibility.ok}
-            onClick={onCompare}
-          >
-            拿這套去比較
-          </button>
-          {!analysis.compatibility.ok ? (
-            <div className="meta" style={{ marginTop: 4 }}>配裝完成且可實際安裝後即可比較。</div>
-          ) : null}
-        </div>
 
         <div>
           <Row>

@@ -35,7 +35,6 @@ const QUICK_ACTIONS: { label: string; path: string; hint: string }[] = [
   { label: '我能組什麼', path: '/buildable', hint: '用現有零件自動列出可組配置' },
   { label: '3on3 組隊', path: '/decks', hint: '排出三顆一組的隊伍' },
   { label: '想買清單', path: '/wishlist', hint: '看買哪盒最划算' },
-  { label: '配裝比較', path: '/compare', hint: '換一個零件差在哪' },
   { label: '設定與備份', path: '/settings', hint: '匯出、匯入、切換模式' },
 ]
 

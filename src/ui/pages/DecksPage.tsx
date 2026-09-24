@@ -21,7 +21,6 @@ import {
 } from '../../domain/deck.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { BEY_TYPE_ZH } from '../../domain/types.ts'
-import { Link } from '../router.tsx'
 import {
   Badge,
   EmptyState,
@@ -323,9 +322,6 @@ export function DecksPage() {
                 ) : null}
                 <div style={{ height: 8 }} />
                 <Row>
-                  <Link to="/compare" className="btn">
-                    比較配裝
-                  </Link>
                   <button
                     type="button"
                     className="btn btn-danger"

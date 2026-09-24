@@ -7,7 +7,6 @@ const SHOTS = [
   { hash: '/parts', name: 'parts' },
   { hash: '/buildable', name: 'buildable' },
   { hash: '/decks', name: 'decks' },
-  { hash: '/compare', name: 'compare' },
   { hash: '/wishlist', name: 'wishlist' },
   { hash: '/settings', name: 'settings' },
 ]
@@ -137,26 +136,4 @@ test('capture', async ({ page }, testInfo) => {
     })
   }
 
-  /*
-   * 比較頁空手進去只有兩個下拉選單，看不到比較表。
-   * 這裡選滿兩套再補一張，否則「勝出側底色」這種改動永遠無法用截圖驗證。
-   */
-  await page.evaluate(() => {
-    window.location.hash = '/compare'
-  })
-  const optionsA = page.getByLabel('配裝 A')
-  await expect(optionsA).toBeVisible()
-  const values = await optionsA.locator('option').evaluateAll((nodes) =>
-    nodes.map((node) => (node as HTMLOptionElement).value).filter(Boolean),
-  )
-  if (values.length >= 2) {
-    await optionsA.selectOption(values[0]!)
-    await page.getByLabel('配裝 B').selectOption(values[1]!)
-    await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
-    await page.waitForTimeout(300)
-    await page.screenshot({
-      path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-compare-filled.png`,
-      fullPage: true,
-    })
-  }
 })

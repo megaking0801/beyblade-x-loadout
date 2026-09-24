@@ -15,7 +15,6 @@ const ROUTES = [
   '/builder',
   '/buildable',
   '/decks',
-  '/compare',
   '/wishlist',
   '/settings',
 ]
@@ -527,41 +526,6 @@ test('零件詳情把未完整映射牌組標示為來源觀測', async ({ page 
   await expect(observations).toContainText('尚有零件未映射')
   await expect(observations).toContainText('不納入出場率、Meta share 或可信度')
   expect(await observations.getByRole('link').count()).toBeGreaterThan(0)
-})
-
-/**
- * 配裝比較的實際流程（第 34 節）。
- * 舊六軸與人工逐局流程已停用；守住「選兩套後拒絕假預測」這條主線。
- */
-test('配裝比較選兩套之後拒絕假預測且不提供人工逐局控制', async ({ page }) => {
-  for (const sku of ['BX-01', 'BX-02']) {
-    await openApp(page, '/products')
-    await page.getByTestId('tab-catalog').click()
-    await page.getByTestId('product-search').fill(sku)
-    const addButton = page.getByTestId('catalog-product').first().getByTestId('add-owned')
-    await addButton.click()
-    // 等按鈕自己變成「已加入」再往下走：直接換頁的話，行動版 WebKit 的寫入
-    // 還沒傳回 store，比較頁會誤判成「可比較的配裝不足 2 套」。
-    await expect(addButton).toContainText('已加入')
-  }
-
-  await openApp(page, '/compare')
-  await expect(page.getByText('還沒選滿兩套')).toBeVisible()
-
-  const optionsA = page.getByLabel('配裝 A')
-  const values = await optionsA.locator('option').evaluateAll((nodes) =>
-    nodes.map((node) => (node as HTMLOptionElement).value).filter(Boolean),
-  )
-  expect(values.length).toBeGreaterThanOrEqual(2)
-
-  await optionsA.selectOption(values[0]!)
-  await page.getByLabel('配裝 B').selectOption(values[1]!)
-
-  await expect(page.getByRole('heading', { name: '比較結果' })).toBeVisible()
-  await expect(page.getByTestId('matchup-prediction')).toContainText('樣本不足，暫不預測')
-  await expect(page.getByTestId('matchup-prediction')).not.toContainText('%')
-  await expect(page.getByTestId('battle-round-form')).toHaveCount(0)
-  await expect(page.getByText('匿名資料匯出')).toHaveCount(0)
 })
 
 test('前台任何一頁都不得再提到重量', async ({ page }) => {
