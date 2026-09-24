@@ -1,7 +1,7 @@
 # 交接筆記
 
-最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（個人對戰紀錄功能已完成、驗證、上線）
+最後更新：2026-09-25 UTC+08:00
+交接原因：一般交接（個人對戰紀錄功能已完成、通過全分支審查修正、驗證、上線）
 
 ## 目前目標
 
@@ -12,27 +12,31 @@
 `docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`／
 `docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
 
-**已完整走完收尾流程（commit → push → e2e → shots → deploy → test:live）**。
-下一步是用 `superpowers:finishing-a-development-branch` 收尾這支 SDD（直接
-在 `main` 上做，不是獨立分支）。
+Task 1-6 做完後跑了全分支 review（opus），抓到 4 個 Important，全部修完：
+零件輸多贏少反而加分的反向訊號、歷史列表看不出是哪兩套配裝打的、對戰紀錄
+沒被匯出匯入、配裝器缺狀態行跟日期改成寫死 UTC（該用本地時區）。細節見
+「踩過的坑」。**已完整走完收尾流程（commit → push → e2e → shots → deploy →
+test:live）**。下一步是用 `superpowers:finishing-a-development-branch`
+收尾這支 SDD（直接在 `main` 上做，不是獨立分支）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨 |
-| 本機 HEAD | `f07e878` |
-| `origin/main` | `f07e878`（同步） |
-| 線上 Pages | 已部署，`gh-pages` commit `d815275`，`npm run test:live` 6/6 通過 |
+| 本機 HEAD | `3e7974c` |
+| `origin/main` | `3e7974c`（同步） |
+| 線上 Pages | 已部署，`gh-pages` commit `522b174`，`npm run test:live` 6/6 通過 |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：474/474 全過。
-- `npm run test:e2e`：87 passed / 1 skipped（含新增的個人對戰紀錄測試）。
+- `npm test`：477/477 全過。
+- `npm run test:e2e`：87 passed / 1 skipped（含新增與擴充的個人對戰紀錄
+  測試，涵蓋狀態行三種狀態、日期可改、歷史列表顯示配裝名稱）。
 - `npm run shots`：已跑，已用 Read 工具看過
-  `test-results/shots/desktop-battle-log.png`／`phone-battle-log.png`，
-  表單／歷史列表／零件勝率表都正常顯示，手機寬度會換行但不跑版。
+  `test-results/shots/desktop-builder.png`／`desktop-battle-log.png`，
+  配裝器狀態行、歷史列表配裝名稱、日期欄位都正常顯示。
 - `npm run test:live`：6/6 通過。
 
 ## 阻塞
@@ -57,6 +61,27 @@
 
 ## 踩過的坑（這輪新增）
 
+- **加分訊號的原始值域不含負數時，直接加總等於「有資料就加分，不管資料
+  說的是好是壞」**——`personalWinRateGain` 一開始直接加總 `winRate`
+  （0～1，恆為正），導致一套配裝只要有紀錄、就算輸多贏少也比完全沒紀錄的
+  配裝分數高，等於使用者記錄「這套很爛」反而讓系統更推薦它，是全分支
+  審查抓到的 Important finding，不是邊角案例。修法是先找出這個值域裡
+  代表「中性、沒有訊號」的那個點（這裡是 0.5，不輸不贏），加總前先減掉
+  那個基準點，讓負面資料真的能扣分。以後任何新的「零件層級加分訊號」，
+  上線前都要先問一句「這個訊號的值域裡，0 分／中性點在哪裡？」，不能預設
+  「有資料 = 加分」。
+- **新增一個會員本機資料型別（IndexedDB 新表）時，匯出／匯入備份
+  （`exportBackup`／`importBackup`）不會自動涵蓋，要自己記得補**——這次
+  `battleRounds` 表 Task 2 就建好了，但一路到全分支審查才發現備份流程完全
+  沒碰它，使用者換裝置或重置手機會整批對戰紀錄消失不見。以後只要在
+  `db.ts` 加新表，`BackupPayload`／`exportBackup`／`importBackup` 三處
+  要一起檢查，不能假設「資料存進 IndexedDB 就等於安全」。
+- **舊表被刪除後又因為完全不同的新功能重新建立、還沿用同一個表名時，
+  舊備份裡同名欄位的資料形狀可能不相容**——`battleRounds` 這個名字在
+  v4 對應的是已刪除的「人工逐局紀錄」功能（完全不同的欄位），v6 對應的是
+  這次全新的個人對戰紀錄功能。匯入舊備份時如果沒有先判斷 `schemaVersion`，
+  舊格式的資料會被當新格式硬塞進去。表名重複使用前，要先想清楚匯入路徑
+  會不會把「同名但語意不同」的舊資料誤當新資料吃進來。
 - **寫 plan 時沒有實際讀 `ui.tsx` 元件的真實 prop 名稱，直接照 spec 討論時
   的口語命名寫程式碼範例**——plan 草稿一開始用了 `titleZhTW`／`messageZhTW`
   這種不存在的 prop（真正的是 `title`／`description`／`hint`），寫 plan 的
