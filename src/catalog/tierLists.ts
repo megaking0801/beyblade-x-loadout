@@ -148,11 +148,15 @@ export interface ExpertPartRatingRank {
   expertCount: number
 }
 
+let cachedExpertPartRatingIndex: Map<string, ExpertPartRatingRank> | undefined
+
 /**
  * partId → 數值化高手評級，只收 X/SS/S。供購買推薦排序使用；
  * 一個零件在來源資料裡若有多筆評級，取分數最高的一筆。
+ * 底層 `ratingsRaw` 是靜態匯入的 JSON，整個 App 生命週期不會變，快取只建一次即可。
  */
 export function getExpertPartRatingIndex(): Map<string, ExpertPartRatingRank> {
+  if (cachedExpertPartRatingIndex) return cachedExpertPartRatingIndex
   const index = new Map<string, ExpertPartRatingRank>()
   for (const rating of ratingsRaw.ratings) {
     const rank = EXPERT_TIER_RANK[rating.tierLabel]
@@ -166,5 +170,6 @@ export function getExpertPartRatingIndex(): Map<string, ExpertPartRatingRank> {
       expertCount: rating.expertCount,
     })
   }
+  cachedExpertPartRatingIndex = index
   return index
 }

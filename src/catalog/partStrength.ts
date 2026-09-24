@@ -11,10 +11,15 @@ export interface PartStrengthEntry {
   percentileScore: number
 }
 
+let cachedIndex: Map<string, PartStrengthEntry> | undefined
+
+/** 底層 `raw.parts` 是靜態匯入的 JSON，整個 App 生命週期不會變，快取只建一次即可。 */
 export function getPartStrengthIndex(): Map<string, PartStrengthEntry> {
-  const index = new Map<string, PartStrengthEntry>()
-  for (const row of raw.parts) {
-    index.set(row.partId, { podiumAppearances: row.podiumAppearances, percentileScore: row.percentileScore })
+  if (!cachedIndex) {
+    cachedIndex = new Map()
+    for (const row of raw.parts) {
+      cachedIndex.set(row.partId, { podiumAppearances: row.podiumAppearances, percentileScore: row.percentileScore })
+    }
   }
-  return index
+  return cachedIndex
 }

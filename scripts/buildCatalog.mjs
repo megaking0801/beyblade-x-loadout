@@ -756,6 +756,16 @@ function main() {
     ],
   }
 
+  /** 幫已存在的零件補一個中文別名（去重），不覆蓋既有 naming 欄位。 */
+  function addAliasZhTW(partId, alias) {
+    if (!alias) return
+    const part = parts.get(partId)
+    if (!part) return
+    const existing = part.naming.aliasesZhTW ?? []
+    if (existing.includes(alias) || part.naming.primaryZhTW === alias) return
+    part.naming.aliasesZhTW = [...existing, alias]
+  }
+
   function ensurePart({ family, code, system, extra, provenance, naming: givenNaming, id: givenId }) {
     const id = givenId ?? `${family}:${code}`
     if (parts.has(id)) return id
@@ -895,6 +905,13 @@ function main() {
       if (decomposed) {
         const chipId = ensureCxPiece(decomposed.chip)
         const mainId = ensureCxPiece(decomposed.main)
+        // 官方／賽事紀錄／商品外盒只印合併名稱（例：焰神滅世），拆開後的紋章、
+        // 主刃各自只有短名（焰神／滅世），使用者用合併名稱搜零件庫會找不到——
+        // 補進 aliasesZhTW 讓兩顆都能被合併名稱搜到。同一顆紋章可能配不同主刃
+        // 而有多個合併名稱（例：lock_chip:Hl 同時是「惡魔勇氣」「惡魔獵魂」
+        // 「惡魔至尊」的紋章），所以是累加不是覆蓋。
+        addAliasZhTW(chipId, bladeZhTW)
+        addAliasZhTW(mainId, bladeZhTW)
         contents.push({ partId: chipId, quantity: 1 }, { partId: mainId, quantity: 1 })
         if (!cxSplitSeen.has(fusedId)) {
           cxSplitSeen.add(fusedId)

@@ -4,6 +4,7 @@ import { checkCompatibility } from '../../src/domain/compatibility.ts'
 import { analyzeCombo } from '../../src/domain/analysis.ts'
 import { statFieldLabel } from '../../src/domain/provenance.ts'
 import { formatPartLabel, formatProductLabel, resolveDisplayName } from '../../src/domain/naming.ts'
+import { searchParts } from '../../src/domain/search.ts'
 
 /**
  * 第 42 節 Catalog Audit：這些檢查是發布前的守門條件。
@@ -581,6 +582,17 @@ describe('CX 紋章與主刃拆開（第 9、17 節）', () => {
         (id) => catalog.parts.find((part) => part.id === id)?.family,
       )
       expect(families).toEqual(['lock_chip', 'main_blade'])
+    }
+  })
+
+  it('用合併名稱（外盒／賽事紀錄用的名字，例如「焰神滅世」）搜零件庫，能找到拆開後的紋章跟主刃', () => {
+    // 官方外盒、社群賽事紀錄一律只用合併名稱，拆開後的紋章／主刃各自只有短名
+    // （焰神／滅世），使用者不會知道短名，只會拿合併名稱來搜——兩顆都要搜得到。
+    expect(catalogAudit.cxSplitBlades.length).toBeGreaterThan(0)
+    for (const row of catalogAudit.cxSplitBlades) {
+      const hits = searchParts(catalog.parts, row.nameZhTW).map((r) => r.part.id)
+      expect(hits).toContain(row.lockChipId)
+      expect(hits).toContain(row.mainBladeId)
     }
   })
 

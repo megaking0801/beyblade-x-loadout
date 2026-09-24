@@ -2665,7 +2665,10 @@
       "naming": {
         "primaryZhTW": "蒼龍",
         "nameEn": "Dran",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "蒼龍勇氣"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -2696,7 +2699,11 @@
       "naming": {
         "primaryZhTW": "勇氣",
         "nameEn": "Brave",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "蒼龍勇氣",
+          "惡魔勇氣"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -2814,7 +2821,10 @@
       "naming": {
         "primaryZhTW": "魔導",
         "nameEn": "Wizard",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "魔導至尊"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -2845,7 +2855,11 @@
       "naming": {
         "primaryZhTW": "至尊",
         "nameEn": "Arc",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "魔導至尊",
+          "惡魔至尊"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -2963,7 +2977,10 @@
       "naming": {
         "primaryZhTW": "英仙",
         "nameEn": "Perseus",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "英仙幽冥"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -2994,7 +3011,11 @@
       "naming": {
         "primaryZhTW": "幽冥",
         "nameEn": "Dark",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "英仙幽冥",
+          "魔犬幽冥"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -3652,7 +3673,11 @@
       "naming": {
         "primaryZhTW": "天馬",
         "nameEn": "Pegasus",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "天馬爆擊",
+          "天馬九尾"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -3683,7 +3708,10 @@
       "naming": {
         "primaryZhTW": "爆擊",
         "nameEn": "Blast",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "天馬爆擊"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4042,7 +4070,12 @@
       "naming": {
         "primaryZhTW": "惡魔",
         "nameEn": "Hells",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "惡魔勇氣",
+          "惡魔獵魂",
+          "惡魔至尊"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4101,7 +4134,10 @@
       "naming": {
         "primaryZhTW": "焰神",
         "nameEn": "Sol",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "焰神滅世"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4132,7 +4168,10 @@
       "naming": {
         "primaryZhTW": "滅世",
         "nameEn": "Eclipse",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "焰神滅世"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4254,7 +4293,10 @@
       "naming": {
         "primaryZhTW": "銀狼",
         "nameEn": "Wolf",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "銀狼狩獵"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4285,7 +4327,10 @@
       "naming": {
         "primaryZhTW": "狩獵",
         "nameEn": "Hunt",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "銀狼狩獵"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4465,7 +4510,10 @@
       "naming": {
         "primaryZhTW": "鳳凰",
         "nameEn": "Phoenix",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "鳳凰閃焰"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4496,7 +4544,10 @@
       "naming": {
         "primaryZhTW": "閃焰",
         "nameEn": "Flare",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "鳳凰閃焰"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4645,7 +4696,10 @@
       "naming": {
         "primaryZhTW": "龍王",
         "nameEn": "Bahamut",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "龍王閃擊"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4676,7 +4730,10 @@
       "naming": {
         "primaryZhTW": "閃擊",
         "nameEn": "Blitz",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "龍王閃擊"
+        ]
       },
       "cxOverBlade": true,
       "provenance": {
@@ -4825,7 +4882,10 @@
       "naming": {
         "primaryZhTW": "騎士",
         "nameEn": "Knight",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "騎士堡壘"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -4856,7 +4916,10 @@
       "naming": {
         "primaryZhTW": "堡壘",
         "nameEn": "Fortress",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "騎士堡壘"
+        ]
       },
       "cxOverBlade": true,
       "provenance": {
@@ -4976,7 +5039,10 @@
       "naming": {
         "primaryZhTW": "邪神",
         "nameEn": "Ragna",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "邪神狂怒"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -5007,7 +5073,11 @@
       "naming": {
         "primaryZhTW": "狂怒",
         "nameEn": "Rage",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "邪神狂怒",
+          "迪卡狂怒"
+        ]
       },
       "cxOverBlade": true,
       "provenance": {
@@ -5474,7 +5544,10 @@
       "naming": {
         "primaryZhTW": "迪卡",
         "nameEn": "Tiga",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "迪卡狂怒"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6077,7 +6150,11 @@
       "naming": {
         "primaryZhTW": "九尾",
         "nameEn": "Brush",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "極狐九尾",
+          "天馬九尾"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6635,7 +6712,12 @@
       "naming": {
         "primaryZhTW": "獵魂",
         "nameEn": "Reaper",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "惡魔獵魂",
+          "戰犀獵魂",
+          "魔犬獵魂"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6667,7 +6749,10 @@
       "naming": {
         "primaryZhTW": "戰犀",
         "nameEn": "Rhino",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "戰犀獵魂"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6726,7 +6811,10 @@
       "naming": {
         "primaryZhTW": "極狐",
         "nameEn": "Fox",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "極狐九尾"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6786,7 +6874,12 @@
       "naming": {
         "primaryZhTW": "魔犬",
         "nameEn": "Cerberus",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "魔犬烈焰",
+          "魔犬幽冥",
+          "魔犬獵魂"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -6817,7 +6910,10 @@
       "naming": {
         "primaryZhTW": "烈焰",
         "nameEn": "Flame",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "魔犬烈焰"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -7136,7 +7232,10 @@
       "naming": {
         "primaryZhTW": "巨鱷",
         "nameEn": "Croco",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "巨鱷碾壓"
+        ]
       },
       "provenance": {
         "sourceUrls": [
@@ -7168,7 +7267,10 @@
       "naming": {
         "primaryZhTW": "碾壓",
         "nameEn": "Tread",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "aliasesZhTW": [
+          "巨鱷碾壓"
+        ]
       },
       "cxOverBlade": true,
       "provenance": {
