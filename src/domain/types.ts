@@ -443,6 +443,25 @@ export interface SavedCombo {
   createdAt: string
 }
 
+export type BattleRoundResult = 'a' | 'b' | 'tie'
+export type BattleFinish = 'spin' | 'over' | 'burst' | 'xtreme' | 'none'
+
+/**
+ * 使用者自己（或跟朋友）的 1v1 練習對戰紀錄。純本機資料，不同步、不宣稱
+ * 官方或社群共識，見 docs/superpowers/specs/2026-09-24-personal-battle-log-design.md。
+ */
+export interface BattleRound {
+  id: string
+  a: ComboSlots
+  b: ComboSlots
+  result: BattleRoundResult
+  finish: BattleFinish
+  playedAt: string
+  /** 自由文字，使用者自己標記情境，不參與任何運算。 */
+  notes?: string
+  createdAt: string
+}
+
 /** 第 32 節：3on3 隊伍。 */
 export interface Deck {
   id: string
