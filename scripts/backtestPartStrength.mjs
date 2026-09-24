@@ -18,6 +18,7 @@
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { mergePodiumCounts } from './buildPartStrength.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, '..')
@@ -158,8 +159,9 @@ function main() {
 
   // fallback 實際要用在冷門、沒有配置級證據的長尾配置——排除熱門零件後看
   // 剩下的長尾是否仍有排序鑑別力，避免相關係數只是被少數超熱門零件拉出來的。
+  let bottomRho
   if (bottom75.length >= 2) {
-    const bottomRho = spearman(bottom75.map((row) => [row.trainPercentile, row.holdoutCount]))
+    bottomRho = spearman(bottom75.map((row) => [row.trainPercentile, row.holdoutCount]))
     console.log('')
     console.log(`排除前 25% 熱門零件後，剩下長尾（n=${bottom75.length}）的 Spearman：${bottomRho === undefined ? '無法計算' : bottomRho.toFixed(3)}`)
     console.log('（這段才是 fallback 實際要用到的區間——熱門零件的具體配置通常早有配置級證據，不需要 fallback）')
@@ -194,6 +196,73 @@ function main() {
       console.log(`  ${row.partId}：驗證期出場 ${row.holdoutCount} 次`)
     }
   }
+
+  // 合併版回測（規格第 4 節）：bbxhub 資料只加進訓練期，不加進驗證期——
+  // bbxhub 是彙總到抓取當下的數字，沒有可切分的逐筆日期，這樣做剛好對應
+  // 真正想驗證的問題：「訓練期多了 bbxhub，有沒有更準地猜中 stan-yao 之後
+  // （驗證期）實際觀測到的結果」。
+  const bbxhubMetaPath = resolve(root, 'src/catalog/sources/bbxhub-meta.json')
+  let bbxhubMeta
+  try {
+    bbxhubMeta = JSON.parse(readFileSync(bbxhubMetaPath, 'utf8'))
+  } catch (error) {
+    console.log('')
+    console.log(`找不到 ${bbxhubMetaPath}，略過合併版回測。`)
+    console.log(`先跑 node scripts/fetchBbxhubMeta.mjs 產出這份檔案再重跑本腳本。`)
+    return
+  }
+
+  const mergedTrainCountByPart = mergePodiumCounts(trainCountByPart, bbxhubMeta, { mode: 'sum' })
+  const mergedTrainPercentiles = computePercentiles(mergedTrainCountByPart)
+
+  const mergedBothPeriods = []
+  for (const [partId, holdoutCount] of holdoutCountByPart) {
+    const trainPercentile = mergedTrainPercentiles.get(partId)
+    if (trainPercentile !== undefined) mergedBothPeriods.push({ partId, trainPercentile, holdoutCount })
+  }
+
+  console.log('')
+  console.log('========== 合併版（訓練期併入 bbxhub，驗證期維持純 stan-yao） ==========')
+  console.log(`可比較的零件數：${mergedBothPeriods.length}（純 stan-yao 版是 ${bothPeriods.length}）`)
+
+  if (mergedBothPeriods.length < 2) {
+    console.log('可比較的零件不足兩個，無法計算合併版相關係數。')
+    return
+  }
+
+  const mergedRho = spearman(mergedBothPeriods.map((row) => [row.trainPercentile, row.holdoutCount]))
+  console.log(`合併版 Spearman（n=${mergedBothPeriods.length}）：${mergedRho.toFixed(3)}`)
+  console.log(`（純 stan-yao 版是 ${rho.toFixed(3)}，供對照）`)
+
+  const mergedSorted = [...mergedBothPeriods].sort((a, b) => b.trainPercentile - a.trainPercentile)
+  const mergedTop25Count = Math.max(1, Math.round(mergedSorted.length * 0.25))
+  const mergedBottom75 = mergedSorted.slice(mergedTop25Count)
+  if (mergedBottom75.length >= 2) {
+    const mergedBottomRho = spearman(mergedBottom75.map((row) => [row.trainPercentile, row.holdoutCount]))
+    console.log(
+      `合併版排除前 25% 後的長尾 Spearman（n=${mergedBottom75.length}）：${mergedBottomRho === undefined ? '無法計算' : mergedBottomRho.toFixed(3)}`,
+    )
+    console.log(`（純 stan-yao 版長尾是 ${bottomRho === undefined ? '無法計算' : bottomRho.toFixed(3)}，供對照）`)
+  }
+
+  const mergedPartIds = mergedBothPeriods.map((row) => row.partId)
+  const mergedTrainValues = mergedBothPeriods.map((row) => row.trainPercentile)
+  const mergedHoldoutByPartId = new Map(mergedBothPeriods.map((row) => [row.partId, row.holdoutCount]))
+  const mergedShuffleResults = []
+  for (let t = 0; t < SHUFFLE_TRIALS; t++) {
+    const shuffledValues = shuffled(mergedTrainValues)
+    const pairs = mergedPartIds.map((partId, i) => [shuffledValues[i], mergedHoldoutByPartId.get(partId)])
+    const shuffledRho = spearman(pairs)
+    if (shuffledRho !== undefined) mergedShuffleResults.push(shuffledRho)
+  }
+  const mergedShuffleMax = Math.max(...mergedShuffleResults.map(Math.abs))
+  console.log(`合併版隨機打亂對照組｜值｜最大：${mergedShuffleMax.toFixed(3)}`)
+  console.log('')
+  console.log('判準（規格第 4 節）：合併版長尾 Spearman 不能明顯低於純 stan-yao 版' )
+  console.log('（容忍差距 0.05 以內算沒有明顯變差），且合併版 Spearman 要明顯超出' )
+  console.log('隨機打亂對照組的｜值｜最大——建議超出至少 2 倍。都符合才把合併寫進' )
+  console.log('buildPartStrength.mjs 的正式輸出（Task 3）；否則改試 percentile-average' )
+  console.log('備案（Task 4）。')
 }
 
 main()
