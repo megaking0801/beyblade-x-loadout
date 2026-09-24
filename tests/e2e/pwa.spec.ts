@@ -568,57 +568,84 @@ test('前台任何一頁都不得再提到重量', async ({ page }) => {
   expect(builderHits, `配裝器還在講重量：${builderHits.join(' | ')}`).toEqual([])
 })
 
-test('個人對戰紀錄：記一局後歷史列表與零件勝率簡表都會更新', async ({ page }) => {
-  // 存第一套配裝（不勾「已實際組裝」，避免需要先擁有庫存——見 repository.ts
-  // 的 assertComboSavable()，只有 physicallyBuilt 才檢查庫存可用量）。存檔
-  // 成功後會被導回首頁，所以每套配裝存完都要重新進 /builder。
-  await openApp(page, '/builder')
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', 'blade:ドランソード')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
-  await pickSlot(page, 'bitId', 'bit:F')
-  await page.getByTestId('combo-name').fill('對戰紀錄測試A')
-  await page.getByTestId('save-combo').click()
-  await expect(page.getByTestId('stat-combos-value')).toHaveText('1', { timeout: 15_000 })
-
-  await openApp(page, '/builder')
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
-  await pickSlot(page, 'bitId', 'bit:F')
-  await page.getByTestId('combo-name').fill('對戰紀錄測試B')
-  await page.getByTestId('save-combo').click()
-  await expect(page.getByTestId('stat-combos-value')).toHaveText('2', { timeout: 15_000 })
-
-  // 配裝器要先顯示「尚未記錄任何對戰」，記錄前狀態行不能誤導成已有資料
-  // （全分支審查 Important Finding 4：spec 第 4 節要求的狀態行）。
-  await openApp(page, '/builder')
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', 'blade:ドランソード')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
-  await pickSlot(page, 'bitId', 'bit:F')
-  await expect(page.getByText('個人對戰紀錄：尚未記錄任何對戰')).toBeVisible()
-
+test('個人對戰紀錄：現場選零件記分、打完存檔、歷史列表跟零件勝率簡表更新', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByLabel('配裝 A').selectOption({ label: '對戰紀錄測試A' })
-  await page.getByLabel('配裝 B').selectOption({ label: '對戰紀錄測試B' })
-  await page.getByLabel('結果').selectOption('a')
-  await page.getByLabel('終結方式').selectOption('spin')
-  // 日期欄位要能改（全分支審查 Important Finding 4：spec 第 5 節「日期
-  // （預設今天）」——預設值不代表不能改），改成一個過去的日期送出，
-  // 歷史列表要真的顯示改過的那天，不是硬寫死今天。
-  const dateInput = page.getByLabel('日期')
-  await expect(dateInput).not.toHaveValue('')
-  await dateInput.fill('2026-01-15')
-  await page.getByRole('button', { name: '記錄這一局' }).click()
 
-  await expect(page.getByTestId('battle-round').first()).toContainText('2026-01-15')
-  await expect(page.getByTestId('battle-round').first()).toContainText('A 贏')
-  // 只記了 1 局，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足，
-  // 不能顯示一個看起來精確、其實只憑 1 場就算出來的百分比。
+  // 兩邊都還沒選零件時，計分板不該出現（Review Focus 第 3 項）。
+  const scoreboard = page.getByTestId('scoreboard')
+  await expect(scoreboard).toHaveCount(0)
+
+  // 配裝 A：BX 三件式，直接用零件圖鑑的零件，不用先存配裝。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
+  await pickSlot(page, 'bitId', 'bit:F', 'a')
+
+  // A 選完、B 還沒選時，計分板還是不該出現。
+  await expect(scoreboard).toHaveCount(0)
+
+  // 配裝 B：另一顆上蓋，同款固鎖軸心。
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
+  await pickSlot(page, 'bitId', 'bit:F', 'b')
+
+  await expect(scoreboard).toBeVisible()
+
+  // 先打到剛好 4 分（轉停×4），確認打完鎖住按鈕，再用「復原上一分」退回
+  // 3 分，驗證按鈕真的重新解鎖（Review Focus 第 1 項——不能只退比分數字，
+  // 沒有真的把按鈕解鎖）。
+  for (let i = 0; i < 4; i++) await page.getByTestId('score-a-spin').click()
+  await expect(page.getByTestId('score-a')).toHaveText('A 4')
+  await expect(page.getByTestId('score-a-spin')).toBeDisabled()
+  await expect(page.getByTestId('score-b-xtreme')).toBeDisabled()
+  await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
+
+  await page.getByRole('button', { name: '復原上一分' }).click()
+  await expect(page.getByTestId('score-a')).toHaveText('A 3')
+  await expect(page.getByTestId('score-a-spin')).toBeEnabled()
+  await expect(page.getByTestId('score-b-xtreme')).toBeEnabled()
+  await expect(page.getByTestId('match-winner')).toHaveCount(0)
+
+  // 清除重來，改用極限＋轉停湊到 4 分，同時測極限一次跳 3 分正確累加。
+  await page.getByRole('button', { name: '清除重來' }).click()
+  await expect(page.getByTestId('score-a')).toHaveText('A 0')
+  await page.getByTestId('score-a-xtreme').click()
+  await expect(page.getByTestId('score-a')).toHaveText('A 3')
+  await page.getByTestId('score-a-spin').click()
+  await expect(page.getByTestId('score-a')).toHaveText('A 4')
+  await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
+
+  await page.getByTestId('save-match').click()
+
+  await expect(page.getByTestId('battle-match').first()).toContainText('比分 4:0')
+  await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')
+  await page.getByTestId('battle-match').first().locator('summary').click()
+  await expect(page.getByTestId('battle-match').first()).toContainText('第 1 分：A／極限')
+  await expect(page.getByTestId('battle-match').first()).toContainText('第 2 分：A／轉停')
+
+  // 只打完 1 場，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足。
   await expect(page.getByText(/樣本不足/).first()).toBeVisible()
 
-  // 記錄完回配裝器，狀態行要換成「有紀錄但樣本不足」，不是繼續顯示尚未記錄。
+  // 存檔後 points 要清空、配裝維持（Review Focus 第 4 項）：計分板回到
+  // 0:0 可以連續記下一場，且配裝 A 的零件選擇器仍顯示剛剛選的上蓋，
+  // 不用重選。
+  await expect(page.getByTestId('score-a')).toHaveText('A 0')
+  await expect(page.getByTestId('score-a-spin')).toBeEnabled()
+  await expect(page.getByTestId('slot-trigger-a-bladeId')).toContainText('蒼龍神劍')
+})
+
+test('個人對戰紀錄：配裝器狀態行反映樣本不足的狀態', async ({ page }) => {
+  await openApp(page, '/battle-log')
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
+  await pickSlot(page, 'bitId', 'bit:F', 'a')
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
+  await pickSlot(page, 'bitId', 'bit:F', 'b')
+  await page.getByTestId('score-a-xtreme').click()
+  await page.getByTestId('score-a-spin').click()
+  await page.getByTestId('save-match').click()
+  await expect(page.getByTestId('battle-match').first()).toBeVisible()
+
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
   await pickSlot(page, 'bladeId', 'blade:ドランソード')

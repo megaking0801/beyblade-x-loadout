@@ -60,30 +60,22 @@ test('capture', async ({ page }, testInfo) => {
   })
 
   /*
-   * 個人對戰紀錄要看有資料時的版面：存兩套配裝、記一局，再截 /battle-log。
-   * 存檔成功會被導回首頁，所以每套配裝存完都要重新進 /builder。
+   * 個人對戰紀錄要看有資料時的版面：現場選兩套零件、打完一場、截
+   * /battle-log。
    */
-  await page.getByTestId('combo-name').fill('截圖用配裝A')
-  await page.getByTestId('save-combo').click()
-  await expect(page.getByTestId('stat-combos-value')).toHaveText('1', { timeout: 15_000 })
-  await page.evaluate(() => {
-    window.location.hash = '/builder'
-  })
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
-  await pickSlot(page, 'bitId', 'bit:F')
-  await page.getByTestId('combo-name').fill('截圖用配裝B')
-  await page.getByTestId('save-combo').click()
-  await expect(page.getByTestId('stat-combos-value')).toHaveText('2', { timeout: 15_000 })
-
   await page.evaluate(() => {
     window.location.hash = '/battle-log'
   })
-  await page.getByLabel('配裝 A').selectOption({ label: '截圖用配裝A' })
-  await page.getByLabel('配裝 B').selectOption({ label: '截圖用配裝B' })
-  await page.getByRole('button', { name: '記錄這一局' }).click()
-  await expect(page.getByTestId('battle-round').first()).toContainText('A 贏')
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
+  await pickSlot(page, 'bitId', 'bit:F', 'a')
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
+  await pickSlot(page, 'bitId', 'bit:F', 'b')
+  await page.getByTestId('score-a-xtreme').click()
+  await page.getByTestId('score-a-spin').click()
+  await page.getByTestId('save-match').click()
+  await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')
   await page.waitForTimeout(400)
   await page.screenshot({
     path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log.png`,

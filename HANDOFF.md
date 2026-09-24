@@ -1,43 +1,44 @@
 # 交接筆記
 
 最後更新：2026-09-25 UTC+08:00
-交接原因：一般交接（個人對戰紀錄功能已完成、通過全分支審查修正、驗證、上線）
+交接原因：一般交接（對戰紀錄升級成逐分計分板，Task 1-6 完成，尚未收尾）
 
 ## 目前目標
 
-新增「個人對戰紀錄」功能：使用者在配裝器記錄自己（或跟朋友）的 1v1 練習
-對戰結果，累積成每顆零件的勝率，當成配裝評分第四種獨立訊號（跟賽事證據、
-零件強度 fallback、高手 T 表評級並列，不合併）。純本機 IndexedDB，刻意不做
-跨裝置同步或多人資料匯聚。Spec／Plan：
-`docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`／
-`docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
+把上一輪「個人對戰紀錄」的資料模型從「一局一個籠統結果」換成「一場個別
+對戰、逐分記錄」，符合 Beyblade X 官方個別對戰規則（先到 4 分獲勝：轉停
+1／出界爆裂 2／極限 3）。記錄畫面不再需要先存配裝，直接複用配裝器的零件
+選擇器現場選零件記分；加了即時計分板（含復原上一分／清除重來）；主分頁
+加了「對戰」。Spec／Plan：
+`docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md`／
+`docs/superpowers/plans/2026-09-25-battle-match-scoreboard.md`。
 
-Task 1-6 做完後跑了全分支 review（opus），抓到 4 個 Important，全部修完：
-零件輸多贏少反而加分的反向訊號、歷史列表看不出是哪兩套配裝打的、對戰紀錄
-沒被匯出匯入、配裝器缺狀態行跟日期改成寫死 UTC（該用本地時區）。細節見
-「踩過的坑」。**已完整走完收尾流程（commit → push → e2e → shots → deploy →
-test:live）**。下一步是用 `superpowers:finishing-a-development-branch`
-收尾這支 SDD（直接在 `main` 上做，不是獨立分支）。
+Task 1-6（型別、IndexedDB v7、repository、appStore、`BattleLogPage` 全頁
+重寫、e2e/截圖/文件）程式碼與測試都已完成，**尚未 commit 文件同步這批、
+尚未 push、尚未部署**。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 乾淨 |
-| 本機 HEAD | `3e7974c` |
-| `origin/main` | `3e7974c`（同步） |
-| 線上 Pages | 已部署，`gh-pages` commit `522b174`，`npm run test:live` 6/6 通過 |
+| 工作區 | 有未 commit 的文件變更（見下方 Step） |
+| 本機 HEAD | `220fa8a`（Task 5，程式碼部分） |
+| `origin/main` | `fd2e2ef`，落後本機 5 個 commit（Task 1-5 全部只在本機） |
+| 線上 Pages | 未變更，仍是 `522b174`（這輪還沒部署） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：477/477 全過。
-- `npm run test:e2e`：87 passed / 1 skipped（含新增與擴充的個人對戰紀錄
-  測試，涵蓋狀態行三種狀態、日期可改、歷史列表顯示配裝名稱）。
+- `npm test`：481/481 全過。
+- `npm run test:e2e`：新增的兩條個人對戰紀錄測試都過（手機／桌機各一次，
+  共 4 個），涵蓋：計分板要兩邊都選了零件才出現、復原上一分真的解鎖按鈕
+  （不是只退分數）、極限造成的超額跳分、存檔後配裝保留可連續記錄。全套
+  `npm run test:e2e` 這輪還沒跑。
 - `npm run shots`：已跑，已用 Read 工具看過
-  `test-results/shots/desktop-builder.png`／`desktop-battle-log.png`，
-  配裝器狀態行、歷史列表配裝名稱、日期欄位都正常顯示。
-- `npm run test:live`：6/6 通過。
+  `test-results/shots/desktop-battle-log.png`／`phone-battle-log.png`，
+  雙配裝選擇器、計分板、歷史列表、零件勝率表都正常顯示，「對戰」分頁也
+  正確出現在底部導覽。
+- push／deploy／test:live：**還沒做**，是下一步。
 
 ## 阻塞
 
@@ -45,64 +46,70 @@ test:live）**。下一步是用 `superpowers:finishing-a-development-branch`
 
 ## 下一個具體動作
 
-用 `superpowers:finishing-a-development-branch` 收尾這支 SDD——這輪全程在
-`main` 上做（沒有分支／worktree），收尾時要處理的是這件事本身怎麼標記完成，
-不是合併分支。
+1. commit 這輪文件變更（`BEYBLADE_X_codex_prompt.md`、spec 狀態列、
+   `tests/e2e/pwa.spec.ts`、`tests/e2e/screenshot.shots.ts`、這份 HANDOFF）。
+2. `git push origin main`（會一次推上 Task 1-6 全部 6 個 commit）。
+3. `npm run test:e2e` 跑一次全套（這輪只跑過過濾出個人對戰紀錄那兩條，
+   還沒跑全套確認沒有連帶破壞）。
+4. `npm run deploy:pages` → `npm run test:live`，結果補回 HANDOFF。
+5. 全部驗證過、確認線上真的換版後，用
+   `superpowers:finishing-a-development-branch` 收尾這支 SDD（直接在
+   `main` 上做，不是獨立分支）。
 
 ## 怎麼跑（非顯而易見的）
 
 - 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
   （沒有開 worktree／分支，延續本 session 一路的慣例）。Ledger 在
-  `.superpowers/sdd/2026-09-24-personal-battle-log/progress.md`，裡面記著
-  兩個 ruling（Task 1：`buildPartStrength.mjs` 那種 import 副作用問題這次
-  沒有重演；Task 4：測試用檔案裡既有的 `memberFor()`/`threeDistinct`
-  fixture 取代 brief 裡不存在的 `baseAnalysis`）。
+  `.superpowers/sdd/2026-09-25-battle-match-scoreboard/progress.md`，裡面
+  記著幾個 ruling（Task 1：測試裡「同一顆零件跨場輸贏」案例一開始建構錯
+  （兩批都放在贏方），修的是測試不是程式碼；Task 2：plan 預測的 `tsc`
+  excess-property 錯誤實際上不會發生（`new Map([[...]])` 巢狀物件字面值
+  不會觸發這個檢查，用 `tsc -b --force` 驗證過），還是照做清掉但跳過假紅燈；
+  Task 3：plan 漏寫 `DB_SCHEMA_VERSION` 要從 6 跳到 7，被匯出匯入的回歸測試
+  抓到）。
+- 上一輪（個人對戰紀錄 v1）的 Ledger 在
+  `.superpowers/sdd/2026-09-24-personal-battle-log/progress.md`，如果還在
+  可以刪，這輪的功能已經整個取代它。
 - 其餘沿用既有規則（見 `CLAUDE.md`）。
 
 ## 踩過的坑（這輪新增）
 
-- **加分訊號的原始值域不含負數時，直接加總等於「有資料就加分，不管資料
-  說的是好是壞」**——`personalWinRateGain` 一開始直接加總 `winRate`
-  （0～1，恆為正），導致一套配裝只要有紀錄、就算輸多贏少也比完全沒紀錄的
-  配裝分數高，等於使用者記錄「這套很爛」反而讓系統更推薦它，是全分支
-  審查抓到的 Important finding，不是邊角案例。修法是先找出這個值域裡
-  代表「中性、沒有訊號」的那個點（這裡是 0.5，不輸不贏），加總前先減掉
-  那個基準點，讓負面資料真的能扣分。以後任何新的「零件層級加分訊號」，
-  上線前都要先問一句「這個訊號的值域裡，0 分／中性點在哪裡？」，不能預設
-  「有資料 = 加分」。
-- **新增一個會員本機資料型別（IndexedDB 新表）時，匯出／匯入備份
-  （`exportBackup`／`importBackup`）不會自動涵蓋，要自己記得補**——這次
-  `battleRounds` 表 Task 2 就建好了，但一路到全分支審查才發現備份流程完全
-  沒碰它，使用者換裝置或重置手機會整批對戰紀錄消失不見。以後只要在
-  `db.ts` 加新表，`BackupPayload`／`exportBackup`／`importBackup` 三處
-  要一起檢查，不能假設「資料存進 IndexedDB 就等於安全」。
-- **舊表被刪除後又因為完全不同的新功能重新建立、還沿用同一個表名時，
-  舊備份裡同名欄位的資料形狀可能不相容**——`battleRounds` 這個名字在
-  v4 對應的是已刪除的「人工逐局紀錄」功能（完全不同的欄位），v6 對應的是
-  這次全新的個人對戰紀錄功能。匯入舊備份時如果沒有先判斷 `schemaVersion`，
-  舊格式的資料會被當新格式硬塞進去。表名重複使用前，要先想清楚匯入路徑
-  會不會把「同名但語意不同」的舊資料誤當新資料吃進來。
-- **寫 plan 時沒有實際讀 `ui.tsx` 元件的真實 prop 名稱，直接照 spec 討論時
-  的口語命名寫程式碼範例**——plan 草稿一開始用了 `titleZhTW`／`messageZhTW`
-  這種不存在的 prop（真正的是 `title`／`description`／`hint`），寫 plan 的
-  self-review 階段才抓到、改掉。以後 plan 裡任何「用既有元件」的程式碼範例，
-  寫之前一定要先讀那個元件的真實簽名，不能憑印象或憑語感編。
-- **e2e 斷言用純文字比對（`getByText('A 贏')`）在畫面上有 `<option>` 或
-  多筆重複資料時會撞到 strict mode violation**——這次配裝結果選單裡的
-  `<option value="a">A 贏</option>` 跟歷史列表裡的「A 贏」撞在一起；零件
-  勝率表 4 顆零件全部顯示「樣本不足」也撞了 4 次。兩個都不是功能壞了，是
-  選擇器不夠精確；補 `data-testid="battle-round"` 到清單項目上、對表格斷言
-  加 `.first()` 解決。新畫面只要有清單或表格，斷言前就該先想清楚會不會有
-  多筆同文字，不要等測試紅了才發現。
-- **裸 `<table>` 沒有任何樣式時，數字會直接貼著零件名稱擠成一團**（例如
-  「蒼龍神劍1 0 0」看起來像同一個字串）——這個專案目前沒有既有的 table
-  樣式可抄，是全站第一張表格。用 `var(--border)` 分隔線 + padding + 靠右對齊
-  數字欄位修掉，包一層 `overflow-x: auto` 的 `card` 容器避免手機寬度爆版。
-  之後如果要再加表格，先看這次 `BattleLogPage.tsx` 的寫法當範本，不用重新
-  試錯。
+- **測試檔案自己的建構邏輯也會有 bug，紅燈／綠燈都要讀懂為什麼，不能只看
+  過不過**——`computePartWinRateIndex` 的「同一顆零件跨場輸贏各自累加」
+  測試，第一版用展開運算子覆寫 `a`／`b` 欄位時把兩批案例都覆寫成同一邊
+  贏，實際測出 wins:6/losses:0，程式碼本身是對的，是測試資料建構錯了。
+  綠燈／紅燈都要看懂數字為什麼是那樣，不能只看 pass/fail 兩個字。
+- **plan 預測的編譯錯誤不一定真的會發生**——plan 寫「拿掉 `PartWinRateEntry`
+  的 `ties` 欄位後，`deck.test.ts` 裡多餘的 `ties: 0` 會讓 `tsc` 報 excess
+  property 錯誤」，但巢狀在 `new Map([[...]])` 陣列字面值裡的物件不會觸發
+  這個檢查（用 `tsc -b --force` 全量重建驗證過，兩次都乾淨）。TDD 的
+  「先看紅燈」步驟如果實測沒有紅燈，不要硬掰一個紅燈出來，誠實記录、
+  還是照原本的目標做修正就好。
+- **改 IndexedDB schema 版本時，`DB_SCHEMA_VERSION` 常數要跟 `db.version(N)`
+  同步升級，两者是分開的兩個地方**——這次只顧著加 `db.version(7).stores({...})`，
+  忘記把 `export const DB_SCHEMA_VERSION` 從 6 改成 7，被匯出匯入的
+  round-trip 測試（`exportBackup()` 蓋章的版本號跟 `importBackup()` 的
+  版本判斷對不起來）抓到。以後改 schema 版本，這兩個地方要一起改，改完
+  可以直接 `grep DB_SCHEMA_VERSION` 確認只有一個數字、跟最新的
+  `db.version()` 一致。
 
 ## 踩過的坑（沿用既有，仍然有效）
 
+- **加分訊號的原始值域不含負數時，直接加總等於「有資料就加分，不管資料
+  說的是好是壞」**——先找出值域裡代表「中性、沒有訊號」的那個點，加總前
+  先減掉那個基準點，負面資料才真的能扣分，不能預設「有資料 = 加分」。
+- **新增一個 IndexedDB 新表時，匯出／匯入備份不會自動涵蓋，要自己記得
+  補**——`db.ts` 加新表，`BackupPayload`／`exportBackup`／`importBackup`
+  三處要一起檢查，不能假設「資料存進 IndexedDB 就等於安全」。
+- **舊表刪除後沿用同一個表名做完全不同的新功能時，舊備份裡同名欄位的
+  資料形狀可能不相容**——匯入舊備份一定要先判斷 `schemaVersion` 再決定
+  要不要讀那個欄位，不能同名就照單全收。
+- **寫 plan 的程式碼範例前，一定要先讀元件的真實簽名（prop 名、參數順序），
+  不能憑印象或憑語感編**——self-review 階段抓到過不存在的 prop 名。
+- **e2e 斷言用純文字比對在畫面上有 `<option>` 或多筆重複資料時會撞到
+  strict mode violation**——這輪已經全面改用 `data-testid` 而不是
+  `getByText()` 來定位互動元件跟需要唯一識別的清單項目，之後新畫面延續
+  這個慣例，斷言前先想清楚會不會有多筆同文字。
 - `stanyao-raw-records.json` 只有正例沒有負例，也沒有「零件總共被用了幾次」
   的分母，算不出真正的機率——任何想拿這批資料做「預測」的功能，先檢查有沒有
   負例（規格第 50.1 節）。
@@ -118,10 +125,19 @@ test:live）**。下一步是用 `superpowers:finishing-a-development-branch`
 
 ## 已知缺口
 
+- **個人對戰紀錄不做 3on3 團體賽整場比分／重複對戰邏輯**——這輪只記單場
+  個別對戰（先到 4 分獲勝），3on3 團體賽脈絡下「三隻打完還沒分勝負要
+  重複挑一隻打」這件事本身不記錄，是這輪 spec（第 7 節）刻意排除的範圍。
+  之後真的要記團體賽整場比分，是完全獨立的一輪工作。
+- **`FINISH_POINTS`（轉停 1／出界爆裂 2／極限 3）之後如果要調整，舊紀錄
+  的比分會跟著重算變動**——這次沒有把每一分的實際點值存進 `BattlePoint`，
+  歷史紀錄的比分是即時用目前的 `FINISH_POINTS` 常數算出來的，不是存檔當下
+  凍結的快照。只要這個常數本身不變就沒事，但如果之後官方規則改了、要調
+  這幾個數字，舊紀錄的比分顯示會跟著變，這輪沒有做版本化快照。
 - **個人對戰紀錄不做跨裝置同步／多人資料匯聚**——純本機 IndexedDB，別人裝
-  這個 PWA 記錄的對戰你完全拿不到，是這輪 spec（第 1 節）刻意排除的範圍，
-  不是遺漏。如果之後想把多人資料匯聚成共用訊號，需要匯出／匯入流程或
-  後端，是完全獨立的一輪工作。
+  這個 PWA 記錄的對戰你完全拿不到，是上一輪 spec 刻意排除的範圍，不是
+  遺漏。如果之後想把多人資料匯聚成共用訊號，需要匯出／匯入流程或後端，
+  是完全獨立的一輪工作。
 - **BBXHub 資料併進零件強度 fallback 已試過，兩種合併策略都沒通過回測，
   這輪沒有合併**（詳細設計見
   `docs/superpowers/specs/2026-09-24-bbxhub-part-strength-merge-design.md`）。

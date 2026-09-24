@@ -1,6 +1,7 @@
 # 對戰紀錄升級：逐分計分板（取代單局結果）
 
-**狀態**：設計已跟使用者逐段確認，待書面 spec 審核。
+**狀態**：已實作並上線，實作計畫見
+`docs/superpowers/plans/2026-09-25-battle-match-scoreboard.md`。
 **規格對照**：`docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`
 （上一輪設計，這輪整個取代它的資料模型，其餘決策——純本機、不同步、不做
 統計模型——沿用不變）。
