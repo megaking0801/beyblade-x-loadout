@@ -1,41 +1,30 @@
 # 交接筆記
 
-最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（使用者要求先暫停、寫交接、commit、推上去）
+最後更新：2026-09-24 UTC+08:00（部署驗證輪）
+交接原因：一般交接（部署前檢查全數補跑完成並上線）
 
 ## 目前目標
 
-零件層級強度分數（規格第 50 節）：讓「下一包推薦」與「3on3 組隊」對沒有完整配置賽事
-紀錄的型錄配置也能拿到非零、但明確弱於真實證據的分數。用 Subagent-Driven Development
-跑完 7 個任務（資料管線 → 讀取層＋估算函式 → deck.ts 整合 → recommendations.ts 獨立
-訊號 → DecksPage 接線＋文字 → HomePage/RecommendationsPage 接線 → 回測腳本），全部
-task review 過，最終整支分支 review 抓到 1 個 Critical＋2 個 Important，已修完並
-re-review 過（見「已驗證與未驗證」）。
+零件層級強度分數（規格第 50 節）已完成開發、審核並上線。下一步是待使用者對 0.3
+權重（回測沒驗證出前瞻相關性）的答覆，以及非阻塞的長期缺口（見下方「已知缺口」）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 乾淨，這支分支在 git worktree `.claude/worktrees/part-strength-fallback`（branch `worktree-part-strength-fallback`） |
-| 本機 HEAD（此 worktree） | `92757b5` |
-| `origin/main` | 落後，還停在 `c8adbe1`（這輪的 commit 尚未推送） |
-| 線上 Pages | 未變更——這輪還沒推、沒部署，線上仍是 `origin/main`＝`c8adbe1` 那個版本 |
-
-**注意**：本機還有另一個 worktree（repo 根目錄）的 `main` 分支領先 `origin/main` 5 個
-commit（上一輪 deck 分數修正＋截圖工具修好＋規格文件），這輪 worktree 又在那之上加了
-9 個 commit。這份 HANDOFF 準備直接把這個 worktree 的 HEAD 推到 `origin/main`
-（`git push origin HEAD:main`），推完後根目錄那個 worktree 的本地 `main` 會落後，
-下次要用 `git pull` 或 `git fetch && git merge origin/main` 補上，不會衝突（是
-fast-forward 關係）。
+| 工作區 | 乾淨，僅根目錄一份 worktree（SDD 用的 `.claude/worktrees/part-strength-fallback` 已不存在，分支已併入 `main`） |
+| 本機 HEAD | `351da8f` |
+| `origin/main` | `351da8f`，與本機一致 |
+| 線上 Pages | 已部署，`gh-pages` commit `853a340`（建置來源 `main` HEAD `351da8f`），`npm run test:live` 6/6 通過 |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過。
-- `npm test`：25 files / 467 tests 通過。
-- `npm run test:e2e`：**這輪跑到一半使用者要求暫停，沒等到結果**——已在背景啟動但
-  被中斷，未驗證。下一個 session 要接手時記得重跑一次完整 e2e。
-- `npm run shots`：**未跑**。
-- `npm run test:live`：未跑（還沒部署，這條本來就不適用）。
+- `npx tsc -b`：通過（隨 e2e/build 流程一併跑過）。
+- `npm run test:e2e`：87 passed / 1 skipped（skip 為既有的斷網情境測試，非本輪新增）。
+- `npm run shots`：2 passed，並人工看過 phone/desktop 的 decks、home、buildable 等圖，
+  確認「模型推估」標籤、「完整配置賽事證據：出現 N 次」文字正常顯示，無假名、無編造數字。
+- `npm run deploy:pages`：成功，`gh-pages` HEAD `853a340`。
+- `npm run test:live`：6/6 通過（phone + desktop）。
 - SDD 7 個任務逐一 task review 都過（Task 2 有一輪 fix：補 CX 四件式測試覆蓋）。
 - 最終整支分支 review（`docs/superpowers/plans/2026-09-24-part-strength-fallback.md`
   對應的 SDD ledger：`.claude/worktrees/part-strength-fallback/.superpowers/sdd/2026-09-24-part-strength-fallback/progress.md`）抓到：
@@ -59,24 +48,21 @@ fast-forward 關係）。
 
 ## 阻塞
 
-無功能性阻塞。但**部署前必須補跑 `npm run test:e2e` 跟 `npm run shots`**——這輪被使用者
-要求中途暫停，這兩項還沒跑完，不能跳過直接部署。另外**零件強度 fallback 的 0.3 權重
-要不要調整，還等使用者答覆**（見上方回測結果），不影響部署可行性，但下次接手要先問。
+無。部署前檢查（e2e／shots／deploy／live）全數跑完並通過。**零件強度 fallback 的 0.3
+權重要不要調整，還等使用者答覆**（見上方回測結果），不影響已上線版本，但下次調整前
+要先問。
 
 ## 下一個具體動作
 
-1. 補跑 `npm run test:e2e`（完整跑完）與 `npm run shots`（phone + desktop 都跑、人工
-   看圖），確認新的三種前台文字（完整證據／零件推估／無資料）在兩種寬度都正常顯示。
-2. 確認都過之後：這個 worktree 的 `92757b5` 推到 `origin/main`（`git push origin HEAD:main`，
-   已在這輪 session 做過，見上方發布狀態），接 `npm run deploy:pages`，再
-   `npm run test:live`。
-3. 部署完成後，用 `superpowers:finishing-a-development-branch` 收尾這支 SDD 分支
-   （worktree 清理、判斷要不要留副本）。
+1. 等使用者對 0.3 權重的答覆（維持／降低／拔除三選項，見「已知缺口」）；沒有新指示
+   前不用主動再改這個數字。
+2. 六軸評估系統整組存廢——待評估，非阻塞（見下方排序）。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這輪在 git worktree 裡做的：`.claude/worktrees/part-strength-fallback`。新 session
-  接手若要繼續改這批程式碼，直接在這個 worktree 裡工作，不要在根目錄的 `main` 上重做。
+- 這批程式碼原本在 git worktree `.claude/worktrees/part-strength-fallback` 開發，
+  分支已 fast-forward 併入 `main` 並推送，worktree 已不存在。之後改這批程式碼直接
+  在根目錄 `main` 上做。
 - `npm run build:part-strength`：重新跑零件強度資料管線（讀
   `stanyao-raw-records.json`，輸出 `part-strength.generated.json`）。
 - `npm run backtest:part-strength`：跑 Task 7 的時間切分回測，純 console 輸出，不寫檔。
@@ -130,11 +116,9 @@ fast-forward 關係）。
 
 ## 下一步（排序）
 
-1. 補跑 `npm run test:e2e` 與 `npm run shots`（這輪中斷、尚未完成）——阻塞部署，排最前面。
-2. Push＋deploy＋`test:live`（第 1 項過了才能做）。
-3. `finishing-a-development-branch` 收尾這支 SDD 分支。
-4. 六軸評估系統整組存廢——待評估，非阻塞。
-5. BBXHub 比對率／逐配置明細補強（低優先，非阻塞）。
+1. 等使用者對零件強度 0.3 權重的答覆（維持／降低／拔除）。
+2. 六軸評估系統整組存廢——待評估，非阻塞。
+3. BBXHub 比對率／逐配置明細補強（低優先，非阻塞）。
 
 ## 資料管線表
 
