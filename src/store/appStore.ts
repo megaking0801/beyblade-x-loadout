@@ -11,7 +11,7 @@ import { db, type AppSettings } from '../data/db.ts'
 import { createRepository, type Repository } from '../data/repository.ts'
 import type { AccessoryStock, PartAvailability, PartStock } from '../domain/inventory.ts'
 import type {
-  BattleRound,
+  BattleMatch,
   CompatibilityRule,
   Deck,
   ImageAsset,
@@ -54,7 +54,7 @@ export interface AppState {
   combos: SavedCombo[]
   decks: Deck[]
   wishlist: WishlistItem[]
-  battleRounds: BattleRound[]
+  battleMatches: BattleMatch[]
   summary: InventorySummary
 
   catalogVersion: string | null
@@ -98,7 +98,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   combos: [],
   decks: [],
   wishlist: [],
-  battleRounds: [],
+  battleMatches: [],
   summary: EMPTY_SUMMARY,
 
   catalogVersion: null,
@@ -137,7 +137,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       combos,
       decks,
       wishlist,
-      battleRounds,
+      battleMatches,
       summary,
       catalogVersion,
     ] = await Promise.all([
@@ -159,7 +159,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       repo.listCombos(),
       repo.listDecks(),
       repo.listWishlist(),
-      repo.listBattleRounds(),
+      repo.listBattleMatches(),
       repo.getInventorySummary(),
       repo.getCatalogVersion(),
     ])
@@ -182,7 +182,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       combos,
       decks,
       wishlist,
-      battleRounds,
+      battleMatches,
       summary,
       catalogVersion,
     })
