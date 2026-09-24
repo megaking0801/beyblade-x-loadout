@@ -384,6 +384,17 @@ test('配裝器會顯示對應上蓋的專家 T 表，且清楚標成社群意�
   await expect(sources.nth(1)).toHaveAttribute('href', 'https://beybladehub.app/t/NAu9mbLh')
 })
 
+test('配裝器顯示零件類型比重，不再顯示六軸評估或分數字樣', async ({ page }) => {
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await expect(page.getByText('零件類型比重')).toBeVisible()
+  await expect(page.getByText('六軸評估')).toHaveCount(0)
+  await expect(page.getByText('攻擊型', { exact: true })).toBeVisible()
+})
+
 test('部分映射的 G1 牌組只顯示來源觀測，不灌入賽事統計', async ({ page }) => {
   await openApp(page, '/builder')
   await page.getByRole('button', { name: '顯示全部圖鑑' }).click()

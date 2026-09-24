@@ -556,25 +556,23 @@ export function ComboResult({
 
         <div>
           <Row>
-            <strong style={{ fontSize: 14 }}>六軸評估</strong>
+            <strong style={{ fontSize: 14 }}>零件類型比重</strong>
             <EstimateBadge />
           </Row>
           <div style={{ height: 6 }} />
           {/*
-            每軸自己的顏色，對齊零件類型色：攻＝紅、防＝藍、久＝綠。
-            爆發／抗爆／穩定／操作難度不屬於任何類型，用中性色，
-            免得七條都上色反而看不出重點。
+            每個類型自己的顏色，對齊零件類型色：攻＝紅、防＝藍、久＝綠、均衡＝中性色。
+            這是零件本身 type 標籤按槽位權重算出的組成比例，不是強度分數——
+            四個百分比加總一定是 100（規格第 50.7 節）。
           */}
-          <ScoreBar label="攻擊" value={analysis.scores?.attack} color="var(--type-attack)" />
-          <ScoreBar label="防守" value={analysis.scores?.defense} color="var(--type-defense)" />
-          <ScoreBar label="持久" value={analysis.scores?.stamina} color="var(--type-stamina)" />
-          <ScoreBar label="爆發" value={analysis.scores?.burst} />
-          <ScoreBar label="抗爆" value={analysis.scores?.burstResistance} />
-          <ScoreBar label="穩定" value={analysis.scores?.stability} color="var(--type-balance)" />
+          <ScoreBar label="攻擊型" value={analysis.typeWeight?.attack} color="var(--type-attack)" unit="%" />
+          <ScoreBar label="防守型" value={analysis.typeWeight?.defense} color="var(--type-defense)" unit="%" />
+          <ScoreBar label="持久型" value={analysis.typeWeight?.stamina} color="var(--type-stamina)" unit="%" />
+          <ScoreBar label="均衡型" value={analysis.typeWeight?.balance} color="var(--type-balance)" unit="%" />
           <ScoreBar label="操作難度" value={analysis.operationDifficulty} />
-          {analysis.scores ? null : (
+          {analysis.typeWeight ? null : (
             <div style={{ fontSize: 13, color: 'var(--warn)' }}>
-              官方尚未公布這些零件的類型與旋向，因此不給推估分數，避免誤導。
+              官方尚未公布這些零件的類型與旋向，因此不給類型比重，避免誤導。
             </div>
           )}
         </div>
@@ -693,7 +691,7 @@ export function ComboResult({
               ))}
             </ul>
             <div className="meta" style={{ marginTop: 4 }}>
-              上面的六軸與類型只描述其中一種模式；換到另一面攻防型態會變，圖鑑沒有分開記錄。
+              上面的零件類型比重只描述其中一種模式；換到另一面攻防型態會變，圖鑑沒有分開記錄。
             </div>
           </div>
         ) : null}
@@ -804,7 +802,7 @@ export function ComboResult({
               {competitiveEvidence.sourceUrls[0] ? <a href={competitiveEvidence.sourceUrls[0]} target="_blank" rel="noreferrer">來源</a> : null}
             </>
           ) : (
-            '尚無此完整配置的賽事證據；六軸僅為結構模型推估，建議先實測。'
+            '尚無此完整配置的賽事證據；零件類型比重僅為結構模型推估，建議先實測。'
           )}
           {evidenceReport.partial.length > 0 ? (
             <div style={{ marginTop: 6 }}>

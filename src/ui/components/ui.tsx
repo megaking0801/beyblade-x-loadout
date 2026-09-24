@@ -342,16 +342,19 @@ export function ScoreBar({
   label,
   value,
   color,
+  unit = '',
 }: {
   label: string
   value?: number
   color?: string
+  /** 數值後面要不要加單位（例如「%」），預設空字串維持舊行為不變。 */
+  unit?: string
 }) {
   return (
     <div style={{ marginBottom: 6 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
         <span>{label}</span>
-        <span style={{ color: 'var(--ink-dim)' }}>{value === undefined ? '資料不足' : value}</span>
+        <span style={{ color: 'var(--ink-dim)' }}>{value === undefined ? '資料不足' : `${value}${unit}`}</span>
       </div>
       <div
         style={{
