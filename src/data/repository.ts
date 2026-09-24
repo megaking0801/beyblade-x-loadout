@@ -22,6 +22,7 @@ import {
 } from '../domain/inventory.ts'
 import { resolveDisplayName } from '../domain/naming.ts'
 import type {
+  BattleRound,
   CompatibilityRule,
   Deck,
   ImageAsset,
@@ -149,6 +150,10 @@ export interface Repository {
   saveCombo(input: SaveComboInput): Promise<string>
   updateCombo(id: string, patch: Partial<SaveComboInput>): Promise<void>
   deleteCombo(id: string): Promise<void>
+
+  listBattleRounds(): Promise<BattleRound[]>
+  saveBattleRound(input: Omit<BattleRound, 'id' | 'createdAt'>): Promise<string>
+  deleteBattleRound(id: string): Promise<void>
 
   listDecks(): Promise<Deck[]>
   saveDeck(input: SaveDeckInput): Promise<string>
@@ -681,6 +686,20 @@ export function createRepository(db: BeybladeDb): Repository {
 
     async deleteCombo(id) {
       await db.savedCombos.delete(id)
+    },
+
+    /* -------------------------------------------------------- 個人對戰紀錄 */
+
+    listBattleRounds: () => db.battleRounds.toArray(),
+
+    async saveBattleRound(input) {
+      const round: BattleRound = { id: newId(), createdAt: nowIso(), ...input }
+      await db.battleRounds.add(round)
+      return round.id
+    },
+
+    async deleteBattleRound(id) {
+      await db.battleRounds.delete(id)
     },
 
     /* ------------------------------------------------------------- 3on3 */
