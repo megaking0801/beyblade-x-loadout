@@ -1,9 +1,17 @@
 /**
  * 時間切分回測：用較早的賽事日期算零件強度分數，驗證分數高的零件在「較晚」
- * 賽事裡的進前三傾向是否真的比較高。
+ * 賽事裡是否仍然常常上頒獎台（不分名次，只看有沒有出現）。
  *
  * 規格對照：第 50.6 節。**不得**把這裡的輸出包裝成「準確率」或「模型評分」——
  * 這是相關性／分組比較，資料沒有負例（第 50.1 節），算不出真正的預測準確度。
+ *
+ * 2026-09-24 方法修正：舊版只比較驗證期裡「已進前三」的第 1／2／3 名三組平均
+ * 分數，這三組全部已經進前三、用的本來就是熱門零件，天花板效應讓這個比較法
+ * 測不出東西（曾經測出 87.0／89.2／87.0，看起來像沒有訊號，其實是問錯了
+ * 問題）。改成測「訓練期分數高的零件，驗證期出場次數是否仍然偏高」——這才是
+ * fallback 實際要回答的問題：型錄裡一堆沒有配置級證據的零件，哪個比較該被
+ * 推薦。用 Spearman 排名相關係數＋前 25%／後 75% 出場次數佔比兩個角度看，
+ * 並用隨機打亂訓練期分數做對照組，確認結果不是方法上的假訊號。
  *
  * 用法：node scripts/backtestPartStrength.mjs
  */
@@ -16,7 +24,12 @@ const root = resolve(here, '..')
 const RAW_FILE = resolve(root, 'src/catalog/sources/stanyao-raw-records.json')
 
 const TRAIN_FRACTION = 0.8
+const SHUFFLE_TRIALS = 20
 
+/**
+ * 跟 src/domain/competitiveMeta.ts 的 computePercentiles() 是同一套算法，
+ * 理由見 buildPartStrength.mjs 同名函式的註解。
+ */
 function computePercentiles(countByKey) {
   const sorted = [...countByKey.values()].sort((a, b) => a - b)
   const percentileOf = (value) => {
@@ -28,6 +41,50 @@ function computePercentiles(countByKey) {
   const result = new Map()
   for (const [key, value] of countByKey) result.set(key, percentileOf(value))
   return result
+}
+
+/** Spearman 排名相關係數，同分用平均名次（tie-corrected）。 */
+function spearman(pairs) {
+  const n = pairs.length
+  if (n < 2) return undefined
+  const rankOf = (values) => {
+    const sorted = values.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0])
+    const ranks = new Array(values.length)
+    let i = 0
+    while (i < sorted.length) {
+      let j = i
+      while (j + 1 < sorted.length && sorted[j + 1][0] === sorted[i][0]) j++
+      const avgRank = (i + j) / 2 + 1
+      for (let k = i; k <= j; k++) ranks[sorted[k][1]] = avgRank
+      i = j + 1
+    }
+    return ranks
+  }
+  const rx = rankOf(pairs.map((p) => p[0]))
+  const ry = rankOf(pairs.map((p) => p[1]))
+  const meanRx = rx.reduce((a, b) => a + b, 0) / n
+  const meanRy = ry.reduce((a, b) => a + b, 0) / n
+  let num = 0
+  let denomX = 0
+  let denomY = 0
+  for (let i = 0; i < n; i++) {
+    const dx = rx[i] - meanRx
+    const dy = ry[i] - meanRy
+    num += dx * dy
+    denomX += dx * dx
+    denomY += dy * dy
+  }
+  if (denomX === 0 || denomY === 0) return undefined
+  return num / Math.sqrt(denomX * denomY)
+}
+
+function shuffled(values) {
+  const copy = [...values]
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j], copy[i]]
+  }
+  return copy
 }
 
 function main() {
@@ -48,46 +105,95 @@ function main() {
     return
   }
 
-  const podiumCountByPart = new Map()
-  for (const record of trainRecords) {
-    for (const partId of record.comboPartIds ?? []) {
-      podiumCountByPart.set(partId, (podiumCountByPart.get(partId) ?? 0) + 1)
+  const trainCountByPart = new Map()
+  for (const r of trainRecords) {
+    for (const partId of r.comboPartIds ?? []) {
+      trainCountByPart.set(partId, (trainCountByPart.get(partId) ?? 0) + 1)
     }
   }
-  const percentiles = computePercentiles(podiumCountByPart)
+  const trainPercentiles = computePercentiles(trainCountByPart)
 
-  const scoreForRecord = (record) => {
-    const scores = (record.comboPartIds ?? [])
-      .map((partId) => percentiles.get(partId))
-      .filter((score) => score !== undefined)
-    if (scores.length === 0) return undefined
-    return scores.reduce((sum, s) => sum + s, 0) / scores.length
+  const holdoutCountByPart = new Map()
+  for (const r of holdoutRecords) {
+    for (const partId of r.comboPartIds ?? []) {
+      holdoutCountByPart.set(partId, (holdoutCountByPart.get(partId) ?? 0) + 1)
+    }
   }
 
-  const byRank = { 1: [], 2: [], 3: [] }
-  for (const record of holdoutRecords) {
-    const score = scoreForRecord(record)
-    if (score === undefined) continue
-    byRank[record.rank]?.push(score)
+  // 兩期都出現過的零件才能比較；只在驗證期出現的零件（新品或訓練期樣本沒中）
+  // 分開報告，不能混進相關係數——否則等於用「有沒有上市」在預測，跟零件強弱無關。
+  const bothPeriods = []
+  const newInHoldout = []
+  for (const [partId, holdoutCount] of holdoutCountByPart) {
+    const trainPercentile = trainPercentiles.get(partId)
+    if (trainPercentile === undefined) newInHoldout.push({ partId, holdoutCount })
+    else bothPeriods.push({ partId, trainPercentile, holdoutCount })
   }
 
-  const average = (values) => (values.length === 0 ? undefined : values.reduce((s, v) => s + v, 0) / values.length)
-
-  console.log('驗證期內，用訓練期零件強度分數，對「已進前三」的紀錄按名次分組平均：')
-  for (const rank of [1, 2, 3]) {
-    const scores = byRank[rank]
-    const avg = average(scores)
-    console.log(
-      `  第 ${rank} 名（樣本數 ${scores.length}）：平均零件強度分數 ${avg === undefined ? '無樣本' : avg.toFixed(1)}`,
-    )
-  }
   console.log('')
-  console.log(
-    '解讀方式：如果第 1 名組的平均分數明顯高於第 3 名組，代表零件強度分數在時間上有' +
-      '一定的前瞻相關性，可以支持繼續用目前的 fallback 權重；如果三組數字接近或第 3 名' +
-      '組反而更高，代表這個訊號在這份資料上沒有前瞻性，fallback 權重應該調低或本節' +
-      '整個重新評估——不得無視這個結果硬是維持原權重。',
-  )
+  console.log(`驗證期出現過的零件共 ${holdoutCountByPart.size} 個`)
+  console.log(`  訓練期也出現過（可比較持續性）：${bothPeriods.length} 個`)
+  console.log(`  訓練期完全沒出現（新品或訓練期樣本沒中，排除在相關係數外）：${newInHoldout.length} 個`)
+
+  if (bothPeriods.length < 2) {
+    console.log('可比較的零件不足兩個，無法計算相關係數。')
+    return
+  }
+
+  const rho = spearman(bothPeriods.map((row) => [row.trainPercentile, row.holdoutCount]))
+  console.log('')
+  console.log(`Spearman 排名相關係數（訓練期百分位 vs 驗證期出場次數，n=${bothPeriods.length}）：${rho.toFixed(3)}`)
+
+  // 集中度檢查：訓練期分數前 25%／後 75% 的零件，各佔驗證期出場次數的比例。
+  const sortedByTrainPercentile = [...bothPeriods].sort((a, b) => b.trainPercentile - a.trainPercentile)
+  const top25Count = Math.max(1, Math.round(sortedByTrainPercentile.length * 0.25))
+  const top25 = sortedByTrainPercentile.slice(0, top25Count)
+  const bottom75 = sortedByTrainPercentile.slice(top25Count)
+  const totalHoldoutAppearances = bothPeriods.reduce((sum, row) => sum + row.holdoutCount, 0)
+  const top25Share = (100 * top25.reduce((sum, row) => sum + row.holdoutCount, 0)) / totalHoldoutAppearances
+
+  console.log('')
+  console.log(`訓練期分數前 25%（${top25Count}／${sortedByTrainPercentile.length} 個零件）佔驗證期總出場次數的 ${top25Share.toFixed(1)}%`)
+  console.log('（對照基準：如果分數跟持續性完全無關，佔比「應該」接近 25%）')
+
+  // fallback 實際要用在冷門、沒有配置級證據的長尾配置——排除熱門零件後看
+  // 剩下的長尾是否仍有排序鑑別力，避免相關係數只是被少數超熱門零件拉出來的。
+  if (bottom75.length >= 2) {
+    const bottomRho = spearman(bottom75.map((row) => [row.trainPercentile, row.holdoutCount]))
+    console.log('')
+    console.log(`排除前 25% 熱門零件後，剩下長尾（n=${bottom75.length}）的 Spearman：${bottomRho === undefined ? '無法計算' : bottomRho.toFixed(3)}`)
+    console.log('（這段才是 fallback 實際要用到的區間——熱門零件的具體配置通常早有配置級證據，不需要 fallback）')
+  }
+
+  // 隨機打亂對照組：把訓練期分數隨機重新分配給同一批零件，重跑幾次，
+  // 確認上面的相關係數不是計算方法本身必然產生的假訊號。
+  const partIds = bothPeriods.map((row) => row.partId)
+  const trainValues = bothPeriods.map((row) => row.trainPercentile)
+  const holdoutByPartId = new Map(bothPeriods.map((row) => [row.partId, row.holdoutCount]))
+  const shuffleResults = []
+  for (let t = 0; t < SHUFFLE_TRIALS; t++) {
+    const shuffledValues = shuffled(trainValues)
+    const pairs = partIds.map((partId, i) => [shuffledValues[i], holdoutByPartId.get(partId)])
+    const shuffledRho = spearman(pairs)
+    if (shuffledRho !== undefined) shuffleResults.push(shuffledRho)
+  }
+  const shuffleMean = shuffleResults.reduce((a, b) => a + b, 0) / shuffleResults.length
+  const shuffleMax = Math.max(...shuffleResults.map(Math.abs))
+  console.log('')
+  console.log(`隨機打亂對照組（${SHUFFLE_TRIALS} 次）：平均 ${shuffleMean.toFixed(3)}，|值| 最大 ${shuffleMax.toFixed(3)}`)
+  console.log('（真實 Spearman 需要明顯超出這個範圍，才能說是真訊號而不是方法上的假結果）')
+
+  console.log('')
+  console.log('解讀方式：這是「零件會不會繼續出現在賽果」的持續性檢查，不是名次預測或準確率。')
+  console.log('每次資料更新後重跑一次，確認持續性沒有隨 meta（新品發售、規則調整）消失。')
+
+  if (newInHoldout.length > 0) {
+    console.log('')
+    console.log('訓練期完全沒紀錄、驗證期才出現的零件（前 10 個依驗證期出場數排序，不計入上面的相關係數）：')
+    for (const row of [...newInHoldout].sort((a, b) => b.holdoutCount - a.holdoutCount).slice(0, 10)) {
+      console.log(`  ${row.partId}：驗證期出場 ${row.holdoutCount} 次`)
+    }
+  }
 }
 
 main()
