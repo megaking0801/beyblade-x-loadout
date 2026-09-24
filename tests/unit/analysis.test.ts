@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   ESTIMATE_LABEL,
   analyzeCombo,
-  estimateScores,
+  estimateTypeWeight,
   type AnalyzeArgs,
 } from '../../src/domain/analysis.ts'
 import type { InventoryLot, Part } from '../../src/domain/types.ts'
@@ -207,37 +207,48 @@ describe('配裝協同性層必須標示模型推估（第 20 節 B）', () => {
     expect(ESTIMATE_LABEL).toBe('模型推估')
   })
 
-  it('攻擊型配裝的攻擊分數高於持久型', () => {
-    const attack = estimateScores({ blade: attackBlade, ratchet: ratchetLow, bit: bitFlat, extras: [] })
-    const stamina = estimateScores({ blade: staminaBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] })
-    expect(attack.attack).toBeGreaterThan(stamina.attack)
-    expect(stamina.stamina).toBeGreaterThan(attack.stamina)
+  it('攻擊型配裝的攻擊比重高於持久型', () => {
+    const attack = estimateTypeWeight({ blade: attackBlade, ratchet: ratchetLow, bit: bitFlat, extras: [] })
+    const stamina = estimateTypeWeight({ blade: staminaBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] })
+    expect(attack!.attack).toBeGreaterThan(stamina!.attack)
+    expect(stamina!.stamina).toBeGreaterThan(attack!.stamina)
   })
 
-  it('防守型配裝的防守分數高於攻擊型', () => {
-    const defense = estimateScores({ blade: defenseBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] })
-    const attack = estimateScores({ blade: attackBlade, ratchet: ratchetLow, bit: bitFlat, extras: [] })
-    expect(defense.defense).toBeGreaterThan(attack.defense)
+  it('防守型配裝的防守比重高於攻擊型', () => {
+    const defense = estimateTypeWeight({ blade: defenseBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] })
+    const attack = estimateTypeWeight({ blade: attackBlade, ratchet: ratchetLow, bit: bitFlat, extras: [] })
+    expect(defense!.defense).toBeGreaterThan(attack!.defense)
   })
 
-  it('重量不影響分數：同類型只差重量的兩顆上蓋分數相同', () => {
+  it('重量不影響比重：同類型只差重量的兩顆上蓋比重相同', () => {
     // 來源只有單顆實測值，同款零件的個體差異常比配裝差異還大，
     // 拿去加減分數是把雜訊當訊號，所以模型刻意不看重量。
-    const heavy = estimateScores({ blade: heavyBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
-    const light = estimateScores({ blade: lightBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
+    const heavy = estimateTypeWeight({ blade: heavyBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
+    const light = estimateTypeWeight({ blade: lightBlade, ratchet: ratchetLow, bit: bitBall, extras: [] })
     expect(heavy).toEqual(light)
   })
 
-  it('所有分數都落在 0 到 100 之間', () => {
-    for (const scores of [
-      estimateScores({ blade: heavyBlade, ratchet: ratchetLow, bit: bitRubber, extras: [] }),
-      estimateScores({ blade: lightBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] }),
+  it('四個類型比重都落在 0 到 100 之間、且加總剛好是 100', () => {
+    for (const weight of [
+      estimateTypeWeight({ blade: heavyBlade, ratchet: ratchetLow, bit: bitRubber, extras: [] }),
+      estimateTypeWeight({ blade: lightBlade, ratchet: ratchetHigh, bit: bitBall, extras: [] }),
+      // 只有一顆零件帶類型資料（固鎖軸心都沒類型）：加權混合的邊界情況，
+      // 容易漏測「只有一份權重貢獻」時還能不能湊出剛好 100。
+      estimateTypeWeight({ blade: attackBlade, extras: [] }),
     ]) {
-      for (const value of Object.values(scores)) {
+      expect(weight).toBeDefined()
+      let sum = 0
+      for (const value of Object.values(weight!)) {
         expect(value).toBeGreaterThanOrEqual(0)
         expect(value).toBeLessThanOrEqual(100)
+        sum += value
       }
+      expect(sum).toBe(100)
     }
+  })
+
+  it('沒有任何零件帶官方類型資料時回傳 undefined，不得假裝算得出均衡型', () => {
+    expect(estimateTypeWeight({ extras: [] })).toBeUndefined()
   })
 
   it('高度碼只保留為對位資料，不把低位固鎖換算成靜態優勢', () => {
@@ -338,7 +349,7 @@ describe('無法安裝的配置', () => {
 
   it('無法安裝時不提供估算分數，避免誤導', () => {
     const r = analyzeCombo(args({ slots: { bladeId: attackBlade.id } }))
-    expect(r.scores).toBeUndefined()
+    expect(r.typeWeight).toBeUndefined()
   })
 })
 
@@ -398,7 +409,7 @@ describe('缺少官方資料時不得給出估算分數（第 1.5、49 節）', 
       }),
     )
     expect(r.compatibility.ok).toBe(true)
-    expect(r.scores).toBeUndefined()
+    expect(r.typeWeight).toBeUndefined()
     expect(r.typeZhTW).toBe('資料不足')
   })
 
@@ -414,7 +425,7 @@ describe('缺少官方資料時不得給出估算分數（第 1.5、49 節）', 
 
   it('資料齊全時仍正常提供分數與操作難度', () => {
     const r = analyzeCombo(args())
-    expect(r.scores).toBeDefined()
+    expect(r.typeWeight).toBeDefined()
     expect(typeof r.operationDifficulty).toBe('number')
   })
 })

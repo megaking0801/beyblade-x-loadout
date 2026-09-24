@@ -38,46 +38,48 @@ export const ESTIMATE_LABEL = '模型推估'
 /** 第 24 節：賽事資料不足時的固定訊息。 */
 export const EVIDENCE_NOTICE = '賽事資料仍在建置中'
 
-export interface ComboScores {
+export interface TypeWeight {
   attack: number
   defense: number
   stamina: number
-  burst: number
-  burstResistance: number
-  stability: number
-}
-
-/** 官方類型對應的基礎分數向量（模型推估的起點，非官方數據）。 */
-const BASE_BY_TYPE: Record<BeyType, ComboScores> = {
-  attack: { attack: 80, defense: 30, stamina: 30, burst: 75, burstResistance: 35, stability: 35 },
-  defense: { attack: 35, defense: 80, stamina: 55, burst: 35, burstResistance: 75, stability: 70 },
-  stamina: { attack: 30, defense: 50, stamina: 85, burst: 30, burstResistance: 60, stability: 65 },
-  balance: { attack: 55, defense: 55, stamina: 55, burst: 50, burstResistance: 55, stability: 55 },
+  balance: number
 }
 
 /** 各槽位在類型混合時的權重。 */
 const TYPE_WEIGHT = { blade: 0.5, bit: 0.3, ratchet: 0.2 } as const
 
-const SCORE_AXES: (keyof ComboScores)[] = [
-  'attack',
-  'defense',
-  'stamina',
-  'burst',
-  'burstResistance',
-  'stability',
-]
+const TYPE_WEIGHT_CATEGORIES: BeyType[] = ['attack', 'defense', 'stamina', 'balance']
 
-const AXIS_ZH: Record<keyof ComboScores, string> = {
+const TYPE_WEIGHT_ZH: Record<BeyType, string> = {
   attack: '攻擊',
   defense: '防守',
   stamina: '持久',
-  burst: '爆發',
-  burstResistance: '抗爆',
-  stability: '穩定',
+  balance: '均衡',
 }
 
 function clampScore(value: number): number {
   return Math.round(Math.min(100, Math.max(0, value)))
+}
+
+/**
+ * 把四個不一定剛好加總為 100 的原始百分比，用最大餘數法分配成整數且保證
+ * 加總剛好是 100（不會因為各自四捨五入變成 99 或 101，也不會有負值）。
+ */
+function distributeToHundred(raw: Record<BeyType, number>): TypeWeight {
+  const floors = TYPE_WEIGHT_CATEGORIES.map((type) => Math.floor(raw[type]))
+  const remainders = TYPE_WEIGHT_CATEGORIES.map((type, index) => raw[type] - floors[index]!)
+  const leftover = 100 - floors.reduce((sum, value) => sum + value, 0)
+  const order = TYPE_WEIGHT_CATEGORIES.map((_, index) => index).sort(
+    (a, b) => remainders[b]! - remainders[a]!,
+  )
+  const result = [...floors]
+  for (let i = 0; i < leftover; i++) result[order[i]!] += 1
+  return {
+    attack: result[0]!,
+    defense: result[1]!,
+    stamina: result[2]!,
+    balance: result[3]!,
+  }
 }
 
 export interface EstimateArgs {
@@ -89,55 +91,34 @@ export interface EstimateArgs {
 }
 
 /**
- * 依零件官方類型推估六軸分數。
+ * 依零件官方類型估算「零件類型比重」（不是強度分數）。
  *
- * 公式（模型推估，固定可驗算）：
- *  1. 以各零件官方類型的基礎向量按權重混合，權重只在有類型的零件之間正規化。
+ * 直接把零件本身的 `type` 標籤按槽位權重（上蓋 0.5／軸心 0.3／固鎖 0.2）加權
+ * 混合，是零件真實組成的比例，不是編出來的分數——舊版 `BASE_BY_TYPE` 對四種
+ * 類型各手填一組六個數字，被驗算出攻擊型系統性排最後（見規格第 50.5 節），
+ * 已經整個拔除。
  *
- * 高度、重量與單一零件的靜態數值都不進分數；它們必須在完整對位與實戰
- * 證據中判讀，不能讓缺少高度碼的一體式結構被算成 0。
+ * 高度、重量、CX 槽位權重都不進這個估算，理由跟舊版相同：重量的個體差異比
+ * 配裝差異還大（見下方 `buildSynergyNotes` 的說明），高度要配合對手配置與
+ * 盤型才有意義，不能被偷偷塞進單一數字。
  */
-export function estimateScores(args: EstimateArgs): ComboScores {
+export function estimateTypeWeight(args: EstimateArgs): TypeWeight | undefined {
   const { blade, ratchet, bit, extras } = args
-  const typed: { part: Part; weight: number }[] = []
-  if (blade?.type) typed.push({ part: blade, weight: TYPE_WEIGHT.blade })
-  if (bit?.type) typed.push({ part: bit, weight: TYPE_WEIGHT.bit })
-  if (ratchet?.type) typed.push({ part: ratchet, weight: TYPE_WEIGHT.ratchet })
+  const typed: { type: BeyType; weight: number }[] = []
+  if (blade?.type) typed.push({ type: blade.type, weight: TYPE_WEIGHT.blade })
+  if (bit?.type) typed.push({ type: bit.type, weight: TYPE_WEIGHT.bit })
+  if (ratchet?.type) typed.push({ type: ratchet.type, weight: TYPE_WEIGHT.ratchet })
   for (const extra of extras) {
-    if (extra.type) typed.push({ part: extra, weight: TYPE_WEIGHT.blade })
+    if (extra.type) typed.push({ type: extra.type, weight: TYPE_WEIGHT.blade })
   }
 
-  const scores: ComboScores = { ...BASE_BY_TYPE.balance }
   const totalWeight = typed.reduce((sum, row) => sum + row.weight, 0)
-  if (totalWeight > 0) {
-    for (const axis of SCORE_AXES) {
-      scores[axis] = typed.reduce(
-        (sum, row) => sum + BASE_BY_TYPE[row.part.type as BeyType][axis] * (row.weight / totalWeight),
-        0,
-      )
-    }
-  }
+  if (totalWeight === 0) return undefined
 
-  /*
-   * 重量不進模型。
-   *
-   * 來源只給得出「某一顆的實測值」，但同款零件的個體差異（模具批次、塗裝）
-   * 常常比配裝之間的差異還大。拿單一數字去加減分數，等於把雜訊當訊號，
-   * 還會讓使用者以為那是官方規格。寧可少一個修正項（第 1.5 節）。
-   */
+  const raw: Record<BeyType, number> = { attack: 0, defense: 0, stamina: 0, balance: 0 }
+  for (const row of typed) raw[row.type] += (100 * row.weight) / totalWeight
 
-  // 高度不是獨立的能力值：同一高度會因上蓋接觸面、固鎖凸點、軸心與
-  // 對手配置而產生相反結果。實戰比較在 practice.ts 以完整雙方配置處理，
-  // 這裡不能先偷偷把「低＝攻擊、高＝持久」塞進靜態分數。
-
-  return {
-    attack: clampScore(scores.attack),
-    defense: clampScore(scores.defense),
-    stamina: clampScore(scores.stamina),
-    burst: clampScore(scores.burst),
-    burstResistance: clampScore(scores.burstResistance),
-    stability: clampScore(scores.stability),
-  }
+  return distributeToHundred(raw)
 }
 
 /* ------------------------------------------------------------- 操作難度 */
@@ -221,10 +202,10 @@ export interface ComboAnalysis {
   compatibility: CompatibilityResult
   objective: ObjectiveData
   /**
-   * 第 20 節 B：無法安裝、或缺少官方類型資料時都不提供分數。
+   * 第 20 節 B：無法安裝、或缺少官方類型資料時都不提供類型比重。
    * 官方沒公布的東西不補值，寧可顯示資料不足（第 1.5、49 節）。
    */
-  scores?: ComboScores
+  typeWeight?: TypeWeight
   estimateLabelZhTW: string
   synergyNotesZhTW: string[]
   /** 缺少軸心特性資料時為 undefined，前台顯示資料不足。 */
@@ -320,9 +301,9 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
   /* --- B 配裝協同性（模型推估）--- */
   // 沒有官方類型就無法推估，否則會退化成一組毫無依據的平均值。
   const canEstimate = compatibility.ok && Boolean(blade?.type)
-  const scores = canEstimate ? estimateScores({ blade, ratchet, bit, extras }) : undefined
+  const typeWeight = canEstimate ? estimateTypeWeight({ blade, ratchet, bit, extras }) : undefined
   const operationDifficulty = estimateOperationDifficulty(bit, ratchet, blade)
-  const synergyNotesZhTW = buildSynergyNotes({ blade, ratchet, bit, scores, spinDirectionZhTW })
+  const synergyNotesZhTW = buildSynergyNotes({ blade, ratchet, bit, typeWeight, spinDirectionZhTW })
 
   /* --- 名稱與發射建議（第 19 節）--- */
   const fullCode = buildFullCode(slotParts.map((row) => row.part))
@@ -349,7 +330,7 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
         : 'medium'
       : 'low'
 
-  const { prosZhTW, consZhTW } = buildProsCons({ scores, synergyNotesZhTW, operationDifficulty })
+  const { prosZhTW, consZhTW } = buildProsCons({ typeWeight, synergyNotesZhTW, operationDifficulty })
 
   return {
     system,
@@ -358,7 +339,7 @@ export function analyzeCombo(args: AnalyzeArgs): ComboAnalysis {
     typeZhTW,
     compatibility,
     objective,
-    ...(scores ? { scores } : {}),
+    ...(typeWeight ? { typeWeight } : {}),
     estimateLabelZhTW: ESTIMATE_LABEL,
     synergyNotesZhTW,
     ...(operationDifficulty === undefined ? {} : { operationDifficulty }),
@@ -397,10 +378,10 @@ function buildSynergyNotes(args: {
   blade?: Part
   ratchet?: Part
   bit?: Part
-  scores?: ComboScores
+  typeWeight?: TypeWeight
   spinDirectionZhTW?: string
 }): string[] {
-  const { blade, ratchet, scores, spinDirectionZhTW } = args
+  const { blade, ratchet, typeWeight, spinDirectionZhTW } = args
   const notes: string[] = []
   const heightCode = ratchet?.heightCode
 
@@ -412,9 +393,9 @@ function buildSynergyNotes(args: {
   if (blade?.type === 'stamina') notes.push('持久協同：低耗損接地配上持久上蓋，適合拖時間')
   if (blade?.type === 'defense') notes.push('防守協同：重心集中，適合承受撞擊')
 
-  if (scores) {
-    if (scores.stamina >= 70) notes.push('持久協同良好')
-    if (scores.defense >= 70) notes.push('防守協同良好')
+  if (typeWeight) {
+    if (typeWeight.stamina >= 70) notes.push('持久協同良好')
+    if (typeWeight.defense >= 70) notes.push('防守協同良好')
   }
 
   if (spinDirectionZhTW && spinDirectionZhTW !== '雙旋') {
@@ -457,20 +438,20 @@ function buildEvidence(evidence: EvidenceInput): EvidenceOutput {
 }
 
 function buildProsCons(args: {
-  scores?: ComboScores
+  typeWeight?: TypeWeight
   synergyNotesZhTW: string[]
   operationDifficulty?: number
 }): { prosZhTW: string[]; consZhTW: string[] } {
-  const { scores, synergyNotesZhTW, operationDifficulty } = args
+  const { typeWeight, synergyNotesZhTW, operationDifficulty } = args
   const prosZhTW: string[] = []
   const consZhTW: string[] = []
-  if (!scores) return { prosZhTW, consZhTW }
+  if (!typeWeight) return { prosZhTW, consZhTW }
 
-  const sorted = [...SCORE_AXES].sort((a, b) => scores[b] - scores[a])
+  const sorted = [...TYPE_WEIGHT_CATEGORIES].sort((a, b) => typeWeight[b] - typeWeight[a])
   const best = sorted[0]!
   const worst = sorted[sorted.length - 1]!
-  prosZhTW.push(`${AXIS_ZH[best]}表現最突出（${scores[best]} 分，${ESTIMATE_LABEL}）`)
-  consZhTW.push(`${AXIS_ZH[worst]}最弱（${scores[worst]} 分，${ESTIMATE_LABEL}）`)
+  prosZhTW.push(`${TYPE_WEIGHT_ZH[best]}型佔比最高（${typeWeight[best]}%，${ESTIMATE_LABEL}）`)
+  consZhTW.push(`${TYPE_WEIGHT_ZH[worst]}型佔比最低（${typeWeight[worst]}%，${ESTIMATE_LABEL}）`)
 
   if (operationDifficulty !== undefined) {
     if (operationDifficulty >= 70) consZhTW.push('操作難度偏高，需要練發射')
