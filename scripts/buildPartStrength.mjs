@@ -46,7 +46,23 @@ function computePercentiles(countByKey) {
  */
 export function mergePodiumCounts(baseCountByPart, bbxhubMeta, { mode }) {
   if (mode === 'percentile-average') {
-    throw new Error('percentile-average 模式待 Task 4 實作')
+    const bbxhubCountByPart = new Map()
+    for (const part of bbxhubMeta.parts) {
+      const p = part.placements
+      if (!p) continue
+      bbxhubCountByPart.set(part.partId, (p.first ?? 0) + (p.second ?? 0) + (p.third ?? 0))
+    }
+    const basePercentiles = computePercentiles(baseCountByPart)
+    const bbxhubPercentiles = computePercentiles(bbxhubCountByPart)
+    const allPartIds = new Set([...basePercentiles.keys(), ...bbxhubPercentiles.keys()])
+    const merged = new Map()
+    for (const partId of allPartIds) {
+      const values = [basePercentiles.get(partId), bbxhubPercentiles.get(partId)].filter(
+        (v) => v !== undefined,
+      )
+      merged.set(partId, values.reduce((a, b) => a + b, 0) / values.length)
+    }
+    return merged
   }
   if (mode !== 'sum') {
     throw new Error(`不支援的合併模式：${mode}`)

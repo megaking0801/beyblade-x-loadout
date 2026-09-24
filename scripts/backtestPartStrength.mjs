@@ -212,8 +212,11 @@ function main() {
     return
   }
 
-  const mergedTrainCountByPart = mergePodiumCounts(trainCountByPart, bbxhubMeta, { mode: 'sum' })
-  const mergedTrainPercentiles = computePercentiles(mergedTrainCountByPart)
+  const mergeMode = 'percentile-average'
+  const mergedTrainPercentiles =
+    mergeMode === 'sum'
+      ? computePercentiles(mergePodiumCounts(trainCountByPart, bbxhubMeta, { mode: 'sum' }))
+      : mergePodiumCounts(trainCountByPart, bbxhubMeta, { mode: 'percentile-average' })
 
   const mergedBothPeriods = []
   for (const [partId, holdoutCount] of holdoutCountByPart) {
