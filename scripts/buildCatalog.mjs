@@ -374,6 +374,11 @@ function applyHubStats(parts, hubStats, audit, cxHubKeyByPartId = new Map()) {
     if (row.descriptionZhTW && !part.plainDescriptionZhTW) {
       part.plainDescriptionZhTW = row.descriptionZhTW
     }
+    // 社群站對固鎖／軸心／輔助戰刃這幾類只給英文名（中文就是代號本身），
+    // 這幾類原本比對上了數值卻沒帶到英文名，是 BBXHub 天梯比對失敗的根源之一。
+    if (row.nameEn && !part.naming.nameEn) {
+      part.naming = { ...part.naming, nameEn: row.nameEn }
+    }
     if (JSON.stringify(part) !== before) {
       part.statsProvenance = statsProvenance
       matched += 1

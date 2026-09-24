@@ -222,7 +222,8 @@
       "naming": {
         "primaryZhTW": "蒼龍神劍",
         "nameJa": "ドランソード",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "DranSword"
       },
       "provenance": {
         "sourceUrls": [
@@ -281,7 +282,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "F",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Flat"
       },
       "provenance": {
         "sourceUrls": [
@@ -311,7 +313,8 @@
       "naming": {
         "primaryZhTW": "惡魔紅鐮",
         "nameJa": "ヘルズサイズ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "HellsScythe"
       },
       "provenance": {
         "sourceUrls": [
@@ -370,7 +373,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "T",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Taper"
       },
       "provenance": {
         "sourceUrls": [
@@ -400,7 +404,8 @@
       "naming": {
         "primaryZhTW": "魔導幻箭",
         "nameJa": "ウィザードアロー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "WizardArrow"
       },
       "provenance": {
         "sourceUrls": [
@@ -459,7 +464,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "B",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Ball"
       },
       "provenance": {
         "sourceUrls": [
@@ -489,7 +495,8 @@
       "naming": {
         "primaryZhTW": "騎士重盾",
         "nameJa": "ナイトシールド",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "KnightShield"
       },
       "provenance": {
         "sourceUrls": [
@@ -548,7 +555,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "N",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Needle"
       },
       "provenance": {
         "sourceUrls": [
@@ -578,7 +586,8 @@
       "naming": {
         "primaryZhTW": "烈焰飛鳳S",
         "nameJa": "ドランザースパイラル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Dranzer Spiral"
       },
       "provenance": {
         "sourceUrls": [
@@ -608,7 +617,8 @@
       "naming": {
         "primaryZhTW": "騎士長槍",
         "nameJa": "ナイトランス",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "KnightLance"
       },
       "provenance": {
         "sourceUrls": [
@@ -638,7 +648,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "HN",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "High Needle"
       },
       "provenance": {
         "sourceUrls": [
@@ -668,7 +679,8 @@
       "naming": {
         "primaryZhTW": "雄獅獵爪",
         "nameJa": "レオンクロー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "LeonClaw"
       },
       "provenance": {
         "sourceUrls": [
@@ -727,7 +739,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "P",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Point"
       },
       "provenance": {
         "sourceUrls": [
@@ -757,7 +770,8 @@
       "naming": {
         "primaryZhTW": "戰犀號角",
         "nameJa": "ライノホーン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "RhinoHorn"
       },
       "provenance": {
         "sourceUrls": [
@@ -787,7 +801,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "S",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Spike"
       },
       "provenance": {
         "sourceUrls": [
@@ -817,7 +832,8 @@
       "naming": {
         "primaryZhTW": "蒼龍利刃",
         "nameJa": "ドランダガー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "DranDagger"
       },
       "provenance": {
         "sourceUrls": [
@@ -847,7 +863,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "R",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Rush"
       },
       "provenance": {
         "sourceUrls": [
@@ -877,7 +894,8 @@
       "naming": {
         "primaryZhTW": "鮫鯊鋒鰭",
         "nameJa": "シャークエッジ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "SharkEdge"
       },
       "provenance": {
         "sourceUrls": [
@@ -937,7 +955,8 @@
       "naming": {
         "primaryZhTW": "惡魔鎖鏈",
         "nameJa": "ヘルズチェイン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "HellsChain"
       },
       "provenance": {
         "sourceUrls": [
@@ -967,7 +986,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "HT",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "High Taper"
       },
       "provenance": {
         "sourceUrls": [
@@ -996,7 +1016,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "LF",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Low Flat"
       },
       "provenance": {
         "sourceUrls": [
@@ -1026,7 +1047,8 @@
       "naming": {
         "primaryZhTW": "鳳凰飛翼",
         "nameJa": "フェニックスウイング",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "PhoenixWing"
       },
       "provenance": {
         "sourceUrls": [
@@ -1085,7 +1107,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GF",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide Flat"
       },
       "provenance": {
         "sourceUrls": [
@@ -1115,7 +1138,8 @@
       "naming": {
         "primaryZhTW": "獨角刺心",
         "nameJa": "ユニコーンスティング",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "UnicornSting"
       },
       "provenance": {
         "sourceUrls": [
@@ -1145,7 +1169,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GP",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide Point"
       },
       "provenance": {
         "sourceUrls": [
@@ -1175,7 +1200,8 @@
       "naming": {
         "primaryZhTW": "蒼龍爆刃",
         "nameJa": "ドランバスター",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "DranBuster"
       },
       "provenance": {
         "sourceUrls": [
@@ -1234,7 +1260,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "A",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Accel"
       },
       "provenance": {
         "sourceUrls": [
@@ -1264,7 +1291,8 @@
       "naming": {
         "primaryZhTW": "惡魔戰鎚",
         "nameJa": "ヘルズハンマー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "HellsHammer"
       },
       "provenance": {
         "sourceUrls": [
@@ -1323,7 +1351,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "H",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Hexa"
       },
       "provenance": {
         "sourceUrls": [
@@ -1353,7 +1382,8 @@
       "naming": {
         "primaryZhTW": "魔導神杖",
         "nameJa": "ウィザードロッド",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "WizardRod"
       },
       "provenance": {
         "sourceUrls": [
@@ -1412,7 +1442,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "DB",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Disk Ball"
       },
       "provenance": {
         "sourceUrls": [
@@ -1442,7 +1473,8 @@
       "naming": {
         "primaryZhTW": "銀牙烈虎S",
         "nameJa": "ドライガースラッシュ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Driger Slash"
       },
       "provenance": {
         "sourceUrls": [
@@ -1472,7 +1504,8 @@
       "naming": {
         "primaryZhTW": "皓戰猛虎",
         "nameJa": "ヴァイスタイガー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Weiss Tiger"
       },
       "provenance": {
         "sourceUrls": [
@@ -1502,7 +1535,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "U",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Unite"
       },
       "provenance": {
         "sourceUrls": [
@@ -1532,7 +1566,8 @@
       "naming": {
         "primaryZhTW": "蒼穹龍騎士",
         "nameJa": "コバルトドラグーン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Cobalt Dragoon"
       },
       "provenance": {
         "sourceUrls": [
@@ -1591,7 +1626,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "C",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Cyclone"
       },
       "provenance": {
         "sourceUrls": [
@@ -1650,7 +1686,8 @@
       "naming": {
         "primaryZhTW": "雄獅巔峰",
         "nameJa": "レオンクレスト",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "LeonCrest"
       },
       "provenance": {
         "sourceUrls": [
@@ -1709,7 +1746,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GN",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Gear Needle"
       },
       "provenance": {
         "sourceUrls": [
@@ -1739,7 +1777,8 @@
       "naming": {
         "primaryZhTW": "鳳凰尾翼",
         "nameJa": "フェニックスラダー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "PhoenixRudder"
       },
       "provenance": {
         "sourceUrls": [
@@ -1798,7 +1837,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "G",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide"
       },
       "provenance": {
         "sourceUrls": [
@@ -1828,7 +1868,8 @@
       "naming": {
         "primaryZhTW": "飛龍旋翼",
         "nameJa": "ワイバーンゲイル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "WyvernGale"
       },
       "provenance": {
         "sourceUrls": [
@@ -1859,7 +1900,8 @@
       "naming": {
         "primaryZhTW": "幻神護甲",
         "nameJa": "スフィンクスカウル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "SphinxCowl"
       },
       "provenance": {
         "sourceUrls": [
@@ -1919,7 +1961,8 @@
       "naming": {
         "primaryZhTW": "霜輝銀狼",
         "nameJa": "シルバーウルフ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Silver Wolf"
       },
       "provenance": {
         "sourceUrls": [
@@ -1949,7 +1992,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "FB",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Free Ball"
       },
       "provenance": {
         "sourceUrls": [
@@ -1979,7 +2023,8 @@
       "naming": {
         "primaryZhTW": "赫燃天鳳",
         "nameJa": "クリムゾンガルーダ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Crimson Garuda"
       },
       "provenance": {
         "sourceUrls": [
@@ -2038,7 +2083,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "TP",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Taper Point"
       },
       "provenance": {
         "sourceUrls": [
@@ -2068,7 +2114,8 @@
       "naming": {
         "primaryZhTW": "武士星劍",
         "nameJa": "サムライセイバー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "SamuraiSaber"
       },
       "provenance": {
         "sourceUrls": [
@@ -2127,7 +2174,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "L",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Level"
       },
       "provenance": {
         "sourceUrls": [
@@ -2157,7 +2205,8 @@
       "naming": {
         "primaryZhTW": "騎士圓甲",
         "nameJa": "ナイトメイル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "KnightMail"
       },
       "provenance": {
         "sourceUrls": [
@@ -2188,7 +2237,8 @@
       "naming": {
         "primaryZhTW": "翼龍神翼",
         "nameJa": "プテラスイング",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "PteraSwing"
       },
       "provenance": {
         "sourceUrls": [
@@ -2219,7 +2269,8 @@
       "naming": {
         "primaryZhTW": "暴龍霸擊",
         "nameJa": "ティラノビート",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "TyrannoBeat"
       },
       "provenance": {
         "sourceUrls": [
@@ -2307,7 +2358,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "BS",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Bound Spike"
       },
       "provenance": {
         "sourceUrls": [
@@ -2336,7 +2388,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "RA",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Rubber Accel"
       },
       "provenance": {
         "sourceUrls": [
@@ -2365,7 +2418,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "MN",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Metal Needle"
       },
       "provenance": {
         "sourceUrls": [
@@ -2395,7 +2449,8 @@
       "naming": {
         "primaryZhTW": "蒼穹龍神",
         "nameJa": "コバルトドレイク",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Cobalt Drake"
       },
       "provenance": {
         "sourceUrls": [
@@ -2426,7 +2481,8 @@
       "naming": {
         "primaryZhTW": "猛獁獠牙",
         "nameJa": "マンモスタスク",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "MammothTusk"
       },
       "provenance": {
         "sourceUrls": [
@@ -2456,7 +2512,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "E",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Elevate"
       },
       "provenance": {
         "sourceUrls": [
@@ -2486,7 +2543,8 @@
       "naming": {
         "primaryZhTW": "衝擊龍神",
         "nameJa": "インパクトドレイク",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Impact Drake"
       },
       "provenance": {
         "sourceUrls": [
@@ -2516,7 +2574,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "LR",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Low Rush"
       },
       "provenance": {
         "sourceUrls": [
@@ -2546,7 +2605,8 @@
       "naming": {
         "primaryZhTW": "堅甲戰龜S",
         "nameJa": "ドラシエルシールド",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Draciel Shield"
       },
       "provenance": {
         "sourceUrls": [
@@ -2575,7 +2635,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "D",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Dot"
       },
       "provenance": {
         "sourceUrls": [
@@ -2605,7 +2666,8 @@
       "naming": {
         "primaryZhTW": "魔像奇岩",
         "nameJa": "ゴーレムロック",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "GolemRock"
       },
       "provenance": {
         "sourceUrls": [
@@ -2635,7 +2697,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "UN",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Under Needle"
       },
       "provenance": {
         "sourceUrls": [
@@ -2734,7 +2797,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "S",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Slash"
       },
       "provenance": {
         "sourceUrls": [
@@ -2762,7 +2826,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "V",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Vortex"
       },
       "provenance": {
         "sourceUrls": [
@@ -2890,7 +2955,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "R",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Round"
       },
       "provenance": {
         "sourceUrls": [
@@ -2918,7 +2984,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "LO",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Low Orb"
       },
       "provenance": {
         "sourceUrls": [
@@ -3046,7 +3113,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "B",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Bumper"
       },
       "provenance": {
         "sourceUrls": [
@@ -3074,7 +3142,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "W",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Wedge"
       },
       "provenance": {
         "sourceUrls": [
@@ -3133,7 +3202,8 @@
       "naming": {
         "primaryZhTW": "神力聖劍",
         "nameJa": "ゼノエクスカリバー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Xeno Xcalibur"
       },
       "provenance": {
         "sourceUrls": [
@@ -3164,7 +3234,8 @@
       "naming": {
         "primaryZhTW": "鋼鐵人",
         "nameJa": "アイアンマン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Ironman"
       },
       "provenance": {
         "sourceUrls": [
@@ -3194,7 +3265,8 @@
       "naming": {
         "primaryZhTW": "薩諾斯",
         "nameJa": "サノス",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Thanos"
       },
       "provenance": {
         "sourceUrls": [
@@ -3224,7 +3296,8 @@
       "naming": {
         "primaryZhTW": "蜘蛛人",
         "nameJa": "スパイダーマン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Spiderman"
       },
       "provenance": {
         "sourceUrls": [
@@ -3254,7 +3327,8 @@
       "naming": {
         "primaryZhTW": "猛毒",
         "nameJa": "ヴェノム",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Venom"
       },
       "provenance": {
         "sourceUrls": [
@@ -3284,7 +3358,8 @@
       "naming": {
         "primaryZhTW": "路克天行者",
         "nameJa": "ルーク・スカイウォーカー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Luke Skywalker"
       },
       "provenance": {
         "sourceUrls": [
@@ -3314,7 +3389,8 @@
       "naming": {
         "primaryZhTW": "達斯維達",
         "nameJa": "ダース・ベイダー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Darth Vader"
       },
       "provenance": {
         "sourceUrls": [
@@ -3344,7 +3420,8 @@
       "naming": {
         "primaryZhTW": "曼達洛人",
         "nameJa": "マンダロリアン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "The Mandalorian"
       },
       "provenance": {
         "sourceUrls": [
@@ -3374,7 +3451,8 @@
       "naming": {
         "primaryZhTW": "星區長吉迪恩",
         "nameJa": "モフ・ギデオン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Moff Gideon"
       },
       "provenance": {
         "sourceUrls": [
@@ -3404,7 +3482,8 @@
       "naming": {
         "primaryZhTW": "天蠍長矛",
         "nameJa": "スコーピオスピア",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "ScorpioSpear"
       },
       "provenance": {
         "sourceUrls": [
@@ -3463,7 +3542,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "Z",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Zap"
       },
       "provenance": {
         "sourceUrls": [
@@ -3493,7 +3573,8 @@
       "naming": {
         "primaryZhTW": "柯博文",
         "nameJa": "オプティマスプライム",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Optimus Prime"
       },
       "provenance": {
         "sourceUrls": [
@@ -3523,7 +3604,8 @@
       "naming": {
         "primaryZhTW": "密卡登",
         "nameJa": "メガトロン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Megatron"
       },
       "provenance": {
         "sourceUrls": [
@@ -3553,7 +3635,8 @@
       "naming": {
         "primaryZhTW": "金剛王",
         "nameJa": "オプティマスプライマル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Optimus Primal"
       },
       "provenance": {
         "sourceUrls": [
@@ -3583,7 +3666,8 @@
       "naming": {
         "primaryZhTW": "天王星",
         "nameJa": "スタースクリーム",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Starscream"
       },
       "provenance": {
         "sourceUrls": [
@@ -3613,7 +3697,8 @@
       "naming": {
         "primaryZhTW": "三角強襲",
         "nameJa": "トリケラプレス",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "TriceraPress"
       },
       "provenance": {
         "sourceUrls": [
@@ -3742,7 +3827,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "A",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Assault"
       },
       "provenance": {
         "sourceUrls": [
@@ -3770,7 +3856,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "Tr",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Turbo"
       },
       "integratedRatchet": true,
       "provenance": {
@@ -3801,7 +3888,8 @@
       "naming": {
         "primaryZhTW": "巨岩雄獅",
         "nameJa": "ロックレオーネ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Rock Leone"
       },
       "provenance": {
         "sourceUrls": [
@@ -3832,7 +3920,8 @@
       "naming": {
         "primaryZhTW": "武士魂斬",
         "nameJa": "サムライカリバー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "SamuraiCalibur"
       },
       "provenance": {
         "sourceUrls": [
@@ -3891,7 +3980,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "M",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Merge"
       },
       "provenance": {
         "sourceUrls": [
@@ -3921,7 +4011,8 @@
       "naming": {
         "primaryZhTW": "鮫鯊狂鱗",
         "nameJa": "シャークスケイル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "SharkScale"
       },
       "provenance": {
         "sourceUrls": [
@@ -3980,7 +4071,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "UF",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Under Flat"
       },
       "provenance": {
         "sourceUrls": [
@@ -4010,7 +4102,8 @@
       "naming": {
         "primaryZhTW": "暴龍咆哮",
         "nameJa": "ティラノロア",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "TyrannoRoar"
       },
       "provenance": {
         "sourceUrls": [
@@ -4105,7 +4198,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "J",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Jaggy"
       },
       "provenance": {
         "sourceUrls": [
@@ -4219,7 +4313,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "D",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Dual"
       },
       "provenance": {
         "sourceUrls": [
@@ -4263,7 +4358,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "TK",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Taper Kick"
       },
       "provenance": {
         "sourceUrls": [
@@ -4361,7 +4457,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "F",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Free"
       },
       "provenance": {
         "sourceUrls": [
@@ -4419,7 +4516,8 @@
       "naming": {
         "primaryZhTW": "隕星龍騎士",
         "nameJa": "メテオドラグーン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Meteor Dragoon"
       },
       "provenance": {
         "sourceUrls": [
@@ -4449,7 +4547,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "J",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Jolt"
       },
       "provenance": {
         "sourceUrls": [
@@ -4479,7 +4578,8 @@
       "naming": {
         "primaryZhTW": "暴風龍騎士",
         "nameJa": "ドラグーンストーム",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Dragoon Storm"
       },
       "provenance": {
         "sourceUrls": [
@@ -4578,7 +4678,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "Z",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Zillion"
       },
       "provenance": {
         "sourceUrls": [
@@ -4606,7 +4707,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "WW",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Wall Wedge"
       },
       "provenance": {
         "sourceUrls": [
@@ -4665,7 +4767,8 @@
       "naming": {
         "primaryZhTW": "空力天馬",
         "nameJa": "エアロペガサス",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Aero Pegasus"
       },
       "provenance": {
         "sourceUrls": [
@@ -4764,7 +4867,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "B",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Break"
       },
       "provenance": {
         "sourceUrls": [
@@ -4794,7 +4898,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "K",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Knuckle"
       },
       "provenance": {
         "sourceUrls": [
@@ -4823,7 +4928,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "I",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Ignition"
       },
       "provenance": {
         "sourceUrls": [
@@ -4950,7 +5056,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "G",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Guard"
       },
       "provenance": {
         "sourceUrls": [
@@ -4980,7 +5087,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "V",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Vertical"
       },
       "provenance": {
         "sourceUrls": [
@@ -5108,7 +5216,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "F",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Flow"
       },
       "provenance": {
         "sourceUrls": [
@@ -5138,7 +5247,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "E",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Erase"
       },
       "provenance": {
         "sourceUrls": [
@@ -5167,7 +5277,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "Y",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Yielding"
       },
       "provenance": {
         "sourceUrls": [
@@ -5197,7 +5308,8 @@
       "naming": {
         "primaryZhTW": "暴風巨神",
         "nameJa": "ストームスプリガン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Storm Spriggan"
       },
       "provenance": {
         "sourceUrls": [
@@ -5227,7 +5339,8 @@
       "naming": {
         "primaryZhTW": "子彈獅鷲",
         "nameJa": "バレットグリフォン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Bullet Griffon"
       },
       "integratedRatchet": true,
       "provenance": {
@@ -5260,7 +5373,8 @@
       "naming": {
         "primaryZhTW": "蒼龍突擊",
         "nameJa": "ドランストライク",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "DranStrike"
       },
       "provenance": {
         "sourceUrls": [
@@ -5290,7 +5404,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "FF",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Free Flat"
       },
       "provenance": {
         "sourceUrls": [
@@ -5319,7 +5434,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "K",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Kick"
       },
       "provenance": {
         "sourceUrls": [
@@ -5386,7 +5502,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "O",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Orb"
       },
       "provenance": {
         "sourceUrls": [
@@ -5453,7 +5570,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "G",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "G"
       },
       "provenance": {
         "sourceUrls": [
@@ -5482,7 +5600,8 @@
       "naming": {
         "primaryZhTW": "暴風天馬",
         "nameJa": "ストームペガシス",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Storm Pegasis"
       },
       "provenance": {
         "sourceUrls": [
@@ -5512,7 +5631,8 @@
       "naming": {
         "primaryZhTW": "榮耀戰神",
         "nameJa": "グローリーワルキューレ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glory Valkyrie"
       },
       "integratedRatchet": true,
       "provenance": {
@@ -5578,7 +5698,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "T",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Turn"
       },
       "provenance": {
         "sourceUrls": [
@@ -5608,7 +5729,8 @@
       "naming": {
         "primaryZhTW": "光耀龍騎士",
         "nameJa": "ラスタードラグーン",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Luster Dragoon"
       },
       "provenance": {
         "sourceUrls": [
@@ -5637,7 +5759,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "LC",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Low Cyclone"
       },
       "provenance": {
         "sourceUrls": [
@@ -5831,7 +5954,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "H",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Heavy"
       },
       "provenance": {
         "sourceUrls": [
@@ -5859,7 +5983,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "Op",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Operate"
       },
       "integratedRatchet": true,
       "provenance": {
@@ -6255,7 +6380,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GB",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide Ball"
       },
       "provenance": {
         "sourceUrls": [
@@ -6390,7 +6516,8 @@
       "naming": {
         "primaryZhTW": "王蛇鞭尾",
         "nameJa": "ヴァイパーテイル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "ViperTail"
       },
       "provenance": {
         "sourceUrls": [
@@ -6420,7 +6547,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "Q",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Quake"
       },
       "provenance": {
         "sourceUrls": [
@@ -6450,7 +6578,8 @@
       "naming": {
         "primaryZhTW": "忍者闇影",
         "nameJa": "シノビシャドウ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "ShinobiShadow"
       },
       "provenance": {
         "sourceUrls": [
@@ -6481,7 +6610,8 @@
       "naming": {
         "primaryZhTW": "玄冥戰甲",
         "nameJa": "ブラックシェル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Black Shell"
       },
       "provenance": {
         "sourceUrls": [
@@ -6530,7 +6660,8 @@
       "naming": {
         "primaryZhTW": "巨鯨怒濤",
         "nameJa": "ホエールウェーブ",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "WhaleWave"
       },
       "provenance": {
         "sourceUrls": [
@@ -6561,7 +6692,8 @@
       "naming": {
         "primaryZhTW": "幽靈元魂",
         "nameJa": "ゴーストサークル",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "GhostCircle"
       },
       "provenance": {
         "sourceUrls": [
@@ -6621,7 +6753,8 @@
       "naming": {
         "primaryZhTW": "鳳凰翔羽",
         "nameJa": "フェニックスフェザー",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "PhoenixFeather"
       },
       "provenance": {
         "sourceUrls": [
@@ -6652,7 +6785,8 @@
       "naming": {
         "primaryZhTW": "護城龍神",
         "nameJa": "シェルタードレイク",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Shelter Drake"
       },
       "provenance": {
         "sourceUrls": [
@@ -6782,7 +6916,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "C",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Charge"
       },
       "provenance": {
         "sourceUrls": [
@@ -6844,7 +6979,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GR",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide Rush"
       },
       "provenance": {
         "sourceUrls": [
@@ -6944,7 +7080,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "WB",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Wall Ball"
       },
       "provenance": {
         "sourceUrls": [
@@ -6992,7 +7129,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "M",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Massive"
       },
       "provenance": {
         "sourceUrls": [
@@ -7058,7 +7196,8 @@
       "naming": {
         "primaryZhTW": "獨角刺心",
         "nameJa": "ユニコーンスティング",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "UnicornSting"
       },
       "cxFused": true,
       "provenance": {
@@ -7106,7 +7245,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "GU",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Glide Unite"
       },
       "provenance": {
         "sourceUrls": [
@@ -7183,7 +7323,8 @@
       "system": "BX",
       "naming": {
         "primaryZhTW": "DS",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Disk Spike"
       },
       "provenance": {
         "sourceUrls": [
@@ -7302,7 +7443,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "T",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Tough"
       },
       "provenance": {
         "sourceUrls": [
@@ -7332,7 +7474,8 @@
       "system": "CX",
       "naming": {
         "primaryZhTW": "Q",
-        "isProvisionalZhTW": false
+        "isProvisionalZhTW": false,
+        "nameEn": "Quell"
       },
       "provenance": {
         "sourceUrls": [
