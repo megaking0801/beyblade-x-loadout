@@ -1,43 +1,39 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（Task 8 全部完成，SDD 主線已上線，待做收尾流程）
+交接原因：一般交接（BBXHub 零件對照覆蓋率修復已完成並驗證上線）
 
 ## 目前目標
 
-六軸評估系統換成「零件類型比重」的 SDD（8 個 Task）已全部完成並驗證上線，
-且已用 `superpowers:finishing-a-development-branch` 確認收尾（全程直接在
-`main` 上做，沒有分支／worktree 要清）。
+六軸評估系統換成「零件類型比重」的 SDD（8 個 Task）已全部完成、驗證上線，
+且已用 `superpowers:finishing-a-development-branch` 確認收尾。
 
-這之後接著處理「BBXHub 零件對照覆蓋率」這個已知缺口：查出比對失敗的三個
-真正根因並修掉（見下面「已知缺口」的完整說明），比對成功率從 45/167 修到
-82/167。**這批改動（`buildCatalog.mjs`／`fetchBbxhubMeta.mjs` 及重新產出的
-`catalog.generated.json`）還沒 commit**，下一步先做完收尾三件套
-（commit → push → 因為 `catalog.generated.json` 變了，接著 deploy + test:live）。
+這之後處理了「BBXHub 零件對照覆蓋率」這個已知缺口：查出比對失敗的三個真正
+根因並修掉（見下面「已知缺口」的完整說明），比對成功率從 45/167 修到
+82/167，**已完整走完收尾流程（commit → push → e2e → shots → deploy →
+test:live）**。目前沒有進行中的工作。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | **不乾淨**——BBXHub 覆蓋率修復尚未 commit（見上） |
-| 本機 HEAD | `698bc53` |
-| `origin/main` | `698bc53`（同步，本機沒有未推的 commit，只有未 commit 的工作區變更） |
-| 線上 Pages | 已部署，`gh-pages` commit `1129d0b`（六軸→類型比重那批），
-  **不含這輪 BBXHub 修復**——`catalog.generated.json` 有改，commit+push 後要
-  接著部署 |
+| 工作區 | 乾淨 |
+| 本機 HEAD | `8d50d4e` |
+| `origin/main` | `8d50d4e`（同步） |
+| 線上 Pages | 已部署，`gh-pages` commit `dd6fe45`，`npm run test:live` 6/6 通過 |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過（本輪重跑，乾淨無輸出，在 BBXHub 修復之後）。
-- `npm test`：463/463 全過（本輪重跑，在 BBXHub 修復之後）。
-- `node scripts/fetchBbxhubMeta.mjs`：重新抓過，比對成功數 45→82（輸出見
+- `npx tsc -b`：通過，乾淨無輸出。
+- `npm test`：463/463 全過。
+- `node scripts/fetchBbxhubMeta.mjs`：比對成功數 45→82（見
   `src/catalog/sources/bbxhub-meta.json`），但這份資料**沒有任何程式消費**，
   改善不影響任何使用者看得到的畫面（見「已知缺口」）。
-- `npm run test:e2e`：**這輪未跑**——BBXHub 修復沒動到任何 UI／路由，風險低，
-  但收尾三件套的上線前關卡（`CLAUDE.md` 規定）還是要在 commit 之後補跑一次，
-  不能省。
-- `npm run shots`：上一輪（六軸→類型比重）跑過，這輪未重跑，同上理由。
-- `npm run test:live`：上一輪 6/6 通過，這輪部署後要重跑。
+- `npm run test:e2e`：85 passed / 1 skipped。
+- `npm run shots`：已跑，已用 Read 工具看過
+  `test-results/shots/desktop-builder.png`，畫面跟上一輪一致（這輪只改零件
+  `nameEn`／孤兒資料檔，前台沒有任何地方顯示這兩者，符合預期）。
+- `npm run test:live`：6/6 通過。
 
 ## 阻塞
 
@@ -45,15 +41,9 @@
 
 ## 下一個具體動作
 
-1. `git add scripts/buildCatalog.mjs scripts/fetchBbxhubMeta.mjs
-   src/catalog/catalog.generated.json src/catalog/sources/bbxhub-meta.json
-   HANDOFF.md`，commit（`catalog-audit.json` 這輪內容沒變，不用加）。
-2. `git push origin main`。
-3. `npm run test:e2e`（上線前關卡第一步，這輪還沒跑過）。
-4. `npm run shots` 看一眼截圖（這輪只改零件資料的 `nameEn`／`bbxhub-meta.json`，
-   前台沒有任何地方顯示這兩個欄位，理論上截圖會跟上一輪一樣，但規則要求
-   一個可部署批次要完整走一次，不能因為「應該沒差」就跳過）。
-5. `npm run deploy:pages` → `npm run test:live`，把結果補回這份 HANDOFF。
+沒有進行中的工作。下一個 session 若要繼續深挖 BBXHub 覆蓋率剩下的 85 筆，
+或評估要不要把 `bbxhub-meta.json` 接進評分／顯示邏輯，看「已知缺口」那一節
+的完整說明再決定，屬於架構層級的決定，不是接手就能直接動手的小修。
 
 ## 怎麼跑（非顯而易見的）
 
