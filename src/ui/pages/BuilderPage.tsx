@@ -34,7 +34,7 @@ import {
 import { PART_FAMILY_ZH } from '../../domain/types.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import type { ComboSlots, Part } from '../../domain/types.ts'
-import { navigate, useRoute } from '../router.tsx'
+import { Link, navigate, useRoute } from '../router.tsx'
 import {
   Badge,
   ConfidenceBadge,
@@ -553,6 +553,10 @@ export function ComboResult({
           </Badge>
           <ConfidenceBadge confidence={analysis.confidence} />
         </Row>
+
+        <Link to="/battle-log" className="btn btn-compact">
+          記錄一場對戰
+        </Link>
 
         <div>
           <Row>

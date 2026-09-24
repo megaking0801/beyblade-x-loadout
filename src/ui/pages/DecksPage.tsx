@@ -11,6 +11,7 @@ import { createCompetitiveEvidenceByCode, competitiveMetaSnapshot } from '../../
 import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { getExpertPartRatingIndex } from '../../catalog/tierLists.ts'
 import { getPartStrengthIndex } from '../../catalog/partStrength.ts'
+import { computePartWinRateIndex } from '../../domain/battleRecords.ts'
 import {
   DECK_STRATEGY_ZH,
   DEFAULT_DECK_RULES,
@@ -52,6 +53,7 @@ export function DecksPage() {
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const decks = useAppStore((state) => state.decks)
+  const battleRounds = useAppStore((state) => state.battleRounds)
   const run = useAppStore((state) => state.run)
 
   const [strategy, setStrategy] = useState<DeckStrategy>('balanced')
@@ -63,6 +65,7 @@ export function DecksPage() {
   )
   const expertPartRatingIndex = useMemo(() => getExpertPartRatingIndex(), [])
   const partStrengthIndex = useMemo(() => getPartStrengthIndex(), [])
+  const winRateIndex = useMemo(() => computePartWinRateIndex(battleRounds), [battleRounds])
 
   const candidates = useMemo(() => {
     const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }
@@ -90,8 +93,9 @@ export function DecksPage() {
         evidenceByCode,
         expertPartRatingIndex,
         partStrengthIndex,
+        winRateIndex,
       }),
-    [candidates, parts, lots, combos, strategy, evidenceByCode, expertPartRatingIndex, partStrengthIndex],
+    [candidates, parts, lots, combos, strategy, evidenceByCode, expertPartRatingIndex, partStrengthIndex, winRateIndex],
   )
 
   const savedComboDecks = useMemo(

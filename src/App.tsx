@@ -17,6 +17,7 @@ import { BuildablePage } from './ui/pages/BuildablePage.tsx'
 import { DecksPage } from './ui/pages/DecksPage.tsx'
 import { RecommendationsPage } from './ui/pages/RecommendationsPage.tsx'
 import { WishlistPage } from './ui/pages/WishlistPage.tsx'
+import { BattleLogPage } from './ui/pages/BattleLogPage.tsx'
 import { SettingsPage } from './ui/pages/SettingsPage.tsx'
 
 const TABS: { path: string; label: string }[] = [
@@ -94,6 +95,8 @@ function Page({ path, query }: { path: string; query: Record<string, string> }) 
       return <RecommendationsPage />
     case '/wishlist':
       return <WishlistPage />
+    case '/battle-log':
+      return <BattleLogPage />
     case '/settings':
       return <SettingsPage />
     default:
