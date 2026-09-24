@@ -1,39 +1,43 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（BBXHub 零件對照覆蓋率修復已完成並驗證上線）
+交接原因：一般交接（BBXHub 零件強度合併 SDD 已完成——結論是不合併）
 
 ## 目前目標
 
-六軸評估系統換成「零件類型比重」的 SDD（8 個 Task）已全部完成、驗證上線，
-且已用 `superpowers:finishing-a-development-branch` 確認收尾。
+六軸評估系統換成「零件類型比重」的 SDD、BBXHub 零件對照覆蓋率修復
+（45/167→82/167）都已完成、驗證上線。
 
-這之後處理了「BBXHub 零件對照覆蓋率」這個已知缺口：查出比對失敗的三個真正
-根因並修掉（見下面「已知缺口」的完整說明），比對成功率從 45/167 修到
-82/167，**已完整走完收尾流程（commit → push → e2e → shots → deploy →
-test:live）**。目前沒有進行中的工作。
+這之後跑了一輪 SDD：把 BBXHub 的進前三名次資料併進 `buildPartStrength.mjs`
+的零件強度 fallback，目標是讓 CX 配置第一次拿到 fallback（目前完全沒有）。
+**結論是不合併**——兩種合併策略（直接加總、百分位平均）都沒通過規格訂的
+回測判準，細節見下面「已知缺口」。程式碼保留了 `mergePodiumCounts()` 純
+函式供之後重試，但沒有接進 `main()`，`part-strength.generated.json`
+沒有變化，不需要部署。Spec／Plan：
+`docs/superpowers/specs/2026-09-24-bbxhub-part-strength-merge-design.md`／
+`docs/superpowers/plans/2026-09-24-bbxhub-part-strength-merge.md`。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨 |
-| 本機 HEAD | `8d50d4e` |
-| `origin/main` | `8d50d4e`（同步） |
-| 線上 Pages | 已部署，`gh-pages` commit `dd6fe45`，`npm run test:live` 6/6 通過 |
+| 本機 HEAD | `95044d3` |
+| `origin/main` | `95044d3`（同步） |
+| 線上 Pages | 未變更，仍是 `dd6fe45`（這輪沒有改任何型錄產物或前台程式，
+  不需要部署） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：463/463 全過。
-- `node scripts/fetchBbxhubMeta.mjs`：比對成功數 45→82（見
-  `src/catalog/sources/bbxhub-meta.json`），但這份資料**沒有任何程式消費**，
-  改善不影響任何使用者看得到的畫面（見「已知缺口」）。
-- `npm run test:e2e`：85 passed / 1 skipped。
-- `npm run shots`：已跑，已用 Read 工具看過
-  `test-results/shots/desktop-builder.png`，畫面跟上一輪一致（這輪只改零件
-  `nameEn`／孤兒資料檔，前台沒有任何地方顯示這兩者，符合預期）。
-- `npm run test:live`：6/6 通過。
+- `npm test`：463/463 全過（每個 Task 完成後都重跑過）。
+- `node scripts/backtestPartStrength.mjs`：兩輪合併版回測都跑過，數字見
+  「已知缺口」。
+- `npm run test:e2e`／`npm run shots`／`npm run test:live`：**這輪未跑**——
+  這輪只改了兩支手動執行的建置腳本（`buildPartStrength.mjs`／
+  `backtestPartStrength.mjs`），沒有改任何前台程式或會被打包進 App 的資料
+  檔（`part-strength.generated.json` 內容跟合併前逐位元組相同），不影響
+  任何使用者看得到的東西，符合 `CLAUDE.md`「僅文件變更則不部署」的例外。
 
 ## 阻塞
 
@@ -41,15 +45,23 @@ test:live）**。目前沒有進行中的工作。
 
 ## 下一個具體動作
 
-沒有進行中的工作。下一個 session 若要繼續深挖 BBXHub 覆蓋率剩下的 85 筆，
-或評估要不要把 `bbxhub-meta.json` 接進評分／顯示邏輯，看「已知缺口」那一節
-的完整說明再決定，屬於架構層級的決定，不是接手就能直接動手的小修。
+沒有進行中的工作。CX 配置目前仍然完全沒有零件強度 fallback（跟這輪開始前
+一樣）——如果之後累積了更多 bbxhub 或 stan-yao 資料想再試一次合併，
+`mergePodiumCounts()`（`buildPartStrength.mjs`）兩種模式都已經寫好，直接
+重跑 `node scripts/backtestPartStrength.mjs` 看數字有沒有變，不用重新設計。
+BBXHub 覆蓋率剩下的 85 筆、要不要把 `bbxhub-meta.json` 接進其他評分／顯示
+邏輯，看「已知缺口」那一節的完整說明再決定，屬於架構層級的決定，不是接手
+就能直接動手的小修。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
-  （沒有開 worktree／分支，使用者持續同意，見 ledger 開頭的 ruling）。Task 8
-  的 Step-by-step 對照
+- 這輪（BBXHub 零件強度合併）用 `superpowers:executing-plans` 執行，直接在
+  `main` 上做（沒有開 worktree／分支，延續本 session 一路的慣例）。Ledger
+  在 `.superpowers/sdd/2026-09-24-bbxhub-part-strength-merge/progress.md`，
+  裡面記著兩輪回測的判準數字跟一個 ruling（`buildPartStrength.mjs` 補了
+  `if (process.argv[1] === fileURLToPath(import.meta.url))` 守衛，避免
+  `import { mergePodiumCounts }` 時被動觸發整套 `main()` 的檔案讀寫副作用）。
+- 六軸→類型比重那輪的 Task 8 對照
   `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md` 的 Task 8。
 - 其餘沿用既有規則（見 `CLAUDE.md`）。
 
@@ -93,15 +105,39 @@ test:live）**。目前沒有進行中的工作。
 
 ## 已知缺口
 
-- **`bbxhub-meta.json`（`scripts/fetchBbxhubMeta.mjs` 的輸出）目前沒有任何
+- **BBXHub 資料併進零件強度 fallback 已試過，兩種合併策略都沒通過回測，
+  這輪沒有合併**（詳細設計見
+  `docs/superpowers/specs/2026-09-24-bbxhub-part-strength-merge-design.md`）。
+  背景：CX 配置目前完全沒有零件強度 fallback（`stan-yao` 資料只收 BX／UX
+  三件式），bbxhub 天梯榜單同時收 BX/UX/CX，理論上可以填補這塊空白，
+  也能給 BX/UX 已有資料的零件補第二個來源。實測結果：
+  - **直接加總（sum 模式）**：長尾 Spearman 從純 stan-yao 版的 0.661
+    掉到 0.567（n=53→54，差距 0.094），超過規格訂的 0.05 容忍值，判準沒過。
+    bbxhub 規模遠大於 stan-yao（單一零件數千筆 vs 全部 14,743 筆），直接
+    相加會被 bbxhub 的排名蓋過去，反而讓「猜中 stan-yao 未來賽果」的能力
+    變差。
+  - **百分位平均（percentile-average 模式，備案）**：長尾 Spearman
+    0.661→0.595（差距 0.066），一樣超過容忍值，判準也沒過，只是掉得
+    比 sum 模式少一點。
+  - 兩種模式都在自己的隨機打亂對照組之上（都超出 3 倍以上，不是雜訊），
+    但「長尾 Spearman 沒有明顯低於基準」這個判準才是真正決定 fallback
+    品質的關鍵，兩者都沒過。
+  - **結論**：`mergePodiumCounts()`（`scripts/buildPartStrength.mjs`）兩種
+    模式都已經寫好、保留在檔案裡，但沒有接進 `main()`。CX 配置維持沒有
+    fallback 的現狀。之後如果 bbxhub 或 stan-yao 累積更多資料、或有第三種
+    合併策略的想法，可以直接重跑
+    `node scripts/backtestPartStrength.mjs` 看數字，不用重新設計流程。
+  - 這個結論本身的限制：只驗證過「bbxhub 訓練期 + stan-yao 驗證期」這個
+    切分方式，沒有反過來驗證「stan-yao 訓練期 + bbxhub 驗證期」（bbxhub
+    沒有逐筆日期，沒辦法切）。如果之後 bbxhub 開始提供逐場日期資料，值得
+    重新設計一次更對稱的驗證。
+- **`bbxhub-meta.json`（`scripts/fetchBbxhubMeta.mjs` 的輸出）本身沒有任何
   程式消費它**——`grep -rln "bbxhub-meta" src/` 沒有結果，前台的 T 表／高手
   評級走的是完全不同的 `beybladehub-tier-lists.json`／`beybladehub-tier-ratings.json`
-  （見 `catalog/tierLists.ts`）。這份 BBXHub（bbxhub.net，WBO 賽事統計）資料
-  抓完之後從沒接進任何評分或顯示邏輯，是個孤兒管線。2026-09-24 這輪把它的
-  比對成功率從 45/167 修到 82/167（見下），但這個數字目前**不影響任何使用者
-  看得到的東西**——除非未來真的把它接進 `deck.ts`／`recommendations.ts`，
-  否則後續要不要再花力氣提升這個比對率，先評估「接進來」這件事本身值不值得
-  （屬於架構決策，不是這輪修的範圍）。
+  （見 `catalog/tierLists.ts`）。2026-09-24 這輪把它的比對成功率從 45/167
+  修到 82/167（見下），但上面已經試過把它接進零件強度 fallback，沒通過
+  回測；除非之後有別的接法（例如當一個完全獨立、不跟 stan-yao 合併的
+  第三方訊號），這份資料目前還是孤兒管線，不影響任何使用者看得到的東西。
 - **BBXHub 比對失敗根因已查清，不是「冷門零件沒對照表」這麼簡單**：
   1. 原本的比對邏輯把整個 BBXHub 條目字串（可能是「融合上蓋 輔助戰刃」兩段式，
      例：`PegasusBlast Heavy`）當一個名字去查橋接表，橋接表只收得到融合上蓋
