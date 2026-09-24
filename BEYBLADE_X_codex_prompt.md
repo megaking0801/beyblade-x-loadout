@@ -1474,15 +1474,17 @@ Random Booster 開封：
   是憑感覺定的常數，沒有真實勝率或分母可以回推「正確」的乘數。不要嘗試進一步校準
   這個數字——這不是資料不夠，是這個問題定義上就沒有唯一解。
 
-## 50.7 待辦：「判定位」改用類型比重（尚未動工）
+## 50.7 「判定位」改用類型比重（已完成）
 
-- 2026-09-24 分析：`BASE_BY_TYPE` 目前用四種類型（攻擊／防守／持久／均衡）各查一組
+- 2026-09-24 分析：`BASE_BY_TYPE` 原本用四種類型（攻擊／防守／持久／均衡）各查一組
   寫死的六個數字再加權混合，本質上只有「類型比重」這一份資訊，六個軸永遠同升同降
   （標準三件式 64 種類型組合只會產生 58 種不同六軸向量），數字本身沒有來源，是
   第 50.5 節已經拔除的「整體強度」加總偏差的根源。
-- 計畫：把 `BASE_BY_TYPE` 整張表刪掉，`estimateScores()` 改成直接回傳「攻／防／久
-  各佔幾成」的類型比重，不再假裝是實測分數；`assignRoles()`、`vs_attack`／
-  `vs_stamina` 策略與配裝器的六條分數條都要跟著改介面。
-- 範圍涉及 `analysis.ts`／`builder.ts`／`deck.ts`／`recommendations.ts`、三個 UI 頁面
-  與至少 5 個單元測試檔，屬於架構調整，動工前需要先過 `brainstorming` → 書面 spec
-  → `writing-plans` 的流程，不得直接動手。
+- 實作：`BASE_BY_TYPE` 整張表已刪除，`analysis.ts` 改成 `estimateTypeWeight()` 直接
+  回傳「攻／防／久／均衡各佔幾成」的類型比重（加總 100），不再假裝是實測分數；
+  `assignRoles()`、`vs_attack`／`vs_stamina` 策略與配裝器的分數條（六軸六條 →
+  類型比重四條）都已改用新介面。
+- 範圍涉及 `analysis.ts`／`builder.ts`／`buildableRows.ts`／`deck.ts`／
+  `recommendations.ts`／`reasons.ts`、`BuilderPage.tsx` 與 8 個單元測試檔。詳細設計見
+  `docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`，執行紀錄見
+  `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md`。

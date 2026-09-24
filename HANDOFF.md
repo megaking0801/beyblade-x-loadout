@@ -1,82 +1,62 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（使用者要求暫停，SDD 計畫執行到一半，本機領先 origin 尚未推送）
+交接原因：一般交接（Task 8 收尾流程進行中）
 
 ## 目前目標
 
-正在照 SDD 計畫把六軸評估系統換成「零件類型比重」，8 個 Task 做到 **Task 7**
-（code 已完成，還差人工看截圖這一步）。
+六軸評估系統換成「零件類型比重」的 SDD 計畫（8 個 Task）功能與驗證已全部完成
+（Task 7 的 `npm run shots` 已人工看過截圖，四條類型比重分數條顯示正常、有 `%`、
+無「六軸」殘留字樣）。目前在做 Task 8 收尾：規格文件第 50.7 節與 spec 狀態列已
+改為「已完成」，`tsc -b`／`npm test` 已重跑確認乾淨，準備 commit + push +
+deploy + test:live。
 
 - Spec：`docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`
 - Plan：`docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md`
-- Ledger：`.superpowers/sdd/2026-09-24-six-axis-to-type-weight/progress.md`
-  （下一個 session 要接手，先讀這份 ledger，裡面記著每個 Task 的 commit 範圍、
-  跑過的測試指令與結果、還有中途做的幾個 ruling）
-
-**Task 1–6（已完成，各自獨立 commit）**：`analysis.ts` 的 `ComboScores`／
-`BASE_BY_TYPE` 換成 `TypeWeight`（攻擊／防守／持久／均衡四個百分比，加總 100）
-與 `estimateTypeWeight()`；`builder.ts`／`buildableRows.ts`／`deck.ts`／
-`recommendations.ts`／`reasons.ts` 全部跟著改用新介面，原本的 `stability` 軸
-統一改對應 `typeWeight.defense`。`deck.ts` 的 `vs_attack`／`vs_stamina` 策略
-第一次有了測試（原本零覆蓋）。
-
-**Task 7（配裝器 UI，已 commit `917081d`，尚未跑完整套驗證）**：配裝器的
-「六軸評估」六條分數條換成「零件類型比重」四條（攻擊型／防守型／持久型／
-均衡型，帶 `%`）。已確認：`tsc -b` 乾淨、`npm test` 463/463、
-`npm run test:e2e` 85 passed / 1 skipped（跑兩次，第一次一個無關的 flaky
-測試單獨重跑後過）。**`npm run shots` 還沒跑、沒人工看過截圖**——這是計畫
-Step 7 的後半段，被使用者中途叫停，是接手後第一件事。
-
-**Task 8（尚未開始）**：文件同步（規格第 50.7 節改「已完成」、spec 狀態列、
-這份 HANDOFF）→ push → `npm run deploy:pages` → `npm run test:live`。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 乾淨（Task 7 的改動已 commit） |
-| 本機 HEAD | `917081d` |
-| `origin/main` | `9b44139`，**落後本機 7 個 commit**（Task 1–7 全部只在本機，還沒推） |
-| 線上 Pages | **未變更**，仍是上一輪 HANDOFF 記錄的 `aafefac`（六軸→類型比重這批全部還沒上線） |
+| 工作區 | 有未 commit 的文件變更（`BEYBLADE_X_codex_prompt.md`、spec 狀態列） |
+| 本機 HEAD | `c5e8ecc` |
+| `origin/main` | `c5e8ecc`（同步，Task 1–7 程式碼已在上一輪推送過） |
+| 線上 Pages | **未變更**，尚未部署本輪（Task 1–7 的類型比重介面還沒上線） |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過（Task 7 之後跑過，乾淨無輸出）。
-- `npm test`：463/463 全過。
-- `npm run test:e2e`：85 passed / 1 skipped，跑兩次都過（第一次
-  `acceptance.spec.ts` 的「Case 7：標記已實際組裝後」桌機寬度那條偶發失敗，
-  單獨重跑過確認是計時 flake，跟這輪改動無關，不是迴歸）。
-- `npm run shots`：**未跑**（Task 7 Step 7 後半段，被中途叫停）。
-- push／deploy／test:live：**都還沒做**（Task 8）。
+- `npx tsc -b`：通過（本輪重跑，乾淨無輸出）。
+- `npm test`：463/463 全過（本輪重跑）。
+- `npm run test:e2e`：85 passed / 1 skipped（上一輪跑過，本輪未重跑，文件變更
+  不影響程式邏輯）。
+- `npm run shots`：已跑，已用 Read 工具人工看過
+  `test-results/shots/desktop-builder.png`／`phone-builder.png`，確認顯示正常。
+- push／deploy／test:live：**還沒做**，是下一步。
 
 ## 阻塞
 
-無功能性阻塞，純粹是流程還沒跑完。**下一步照順序做完 Task 7 剩下的驗證，
-再接 Task 8**，不要跳過 shots 直接 push+deploy。
+無。
 
 ## 下一個具體動作
 
-1. `npm run shots`，跑完用 Read 工具打開
-   `test-results/shots/desktop-builder.png` 與 `phone-builder.png`，確認
-   「零件類型比重」四條分數條顯示正常、數字後面有 `%`、沒有殘留「六軸」字樣
-   （早一輪跑過一次類似的檢查，這次要對著 Task 7 最終版本重新看一次，因為
-   Step 8 grep 之後又多改了兩處文字）。
-2. 看過沒問題後，照計畫 Task 8：更新 `BEYBLADE_X_codex_prompt.md` 第 50.7
-   節、spec 文件狀態列、這份 HANDOFF，然後 `git push origin main`（會一次
-   推上 Task 1–8 全部 8 個 commit）、`npm run deploy:pages`、
-   `npm run test:live`。
-3. 全部驗證過、確認線上真的換版後，用 `superpowers:finishing-a-development-branch`
-   收尾這支 SDD（這次是直接在 `main` 上做的，不是獨立分支，收尾時注意這點）。
+1. commit 這輪文件變更（`BEYBLADE_X_codex_prompt.md`、
+   `docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`、
+   `HANDOFF.md`），訊息：
+   `docs: mark six-axis-to-type-weight spec and plan as implemented`。
+2. `git push origin main`。
+3. `npm run deploy:pages`，記下輸出的 `gh-pages` commit SHA。
+4. `npm run test:live`，全部通過後把結果與 SHA 補回這份 HANDOFF 的「發布狀態」
+   表格（純文件變更，不用再部署一次）。
+5. 全部驗證過、確認線上真的換版後，用
+   `superpowers:finishing-a-development-branch` 收尾這支 SDD（這次直接在
+   `main` 上做，不是獨立分支，收尾時注意這點）。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，**直接在 `main` 上做**
-  （沒有開 worktree／分支——這輪 session 一路都在 `main` 上工作，使用者持續
-  同意，見 ledger 開頭的 ruling）。接手時如果要繼續跑 Task 8，直接用
-  `.claude/plugins/cache/claude-plugins-official/superpowers/6.4.1/skills/executing-plans/scripts/task-start`
-  / `task-done`，plan 檔案路徑是
-  `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md`，Task 編號 8。
+- 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
+  （沒有開 worktree／分支，使用者持續同意，見 ledger 開頭的 ruling）。Task 8
+  的 Step-by-step 對照
+  `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md` 的 Task 8。
 - 其餘沿用既有規則（見 `CLAUDE.md`）。
 
 ## 踩過的坑（這輪 SDD 新增）
@@ -125,6 +105,9 @@ Step 7 的後半段，被使用者中途叫停，是接手後第一件事。
   切分成立，賽事 meta 會隨新品發售、規則調整改變，之後要重跑回測再確認。
 - `TYPE_WEIGHT`（上蓋 0.5／軸心 0.3／固鎖 0.2 的槽位權重）已測試過不支持用
   零件強度那套方法校正（見規格第 5 節），維持現狀，不用再花時間。
+- `.claude/worktrees/part-strength-fallback` 與根目錄 `context-audit-v2.md`
+  是未追蹤檔案，跟本輪 SDD 無關（分別是另一支功能的 worktree、另一份審計
+  請求），本輪沒有動它們，接手時不要誤以為是本輪產物。
 
 ## 資料管線表
 
