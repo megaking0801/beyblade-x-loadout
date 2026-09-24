@@ -50,7 +50,8 @@ export function mergePodiumCounts(baseCountByPart, bbxhubMeta, { mode }) {
     for (const part of bbxhubMeta.parts) {
       const p = part.placements
       if (!p) continue
-      bbxhubCountByPart.set(part.partId, (p.first ?? 0) + (p.second ?? 0) + (p.third ?? 0))
+      const podiumCount = (p.first ?? 0) + (p.second ?? 0) + (p.third ?? 0)
+      bbxhubCountByPart.set(part.partId, (bbxhubCountByPart.get(part.partId) ?? 0) + podiumCount)
     }
     const basePercentiles = computePercentiles(baseCountByPart)
     const bbxhubPercentiles = computePercentiles(bbxhubCountByPart)
