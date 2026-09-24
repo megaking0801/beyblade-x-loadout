@@ -39,11 +39,11 @@ export function describeSortMetric(
 
   switch (sortBy) {
     case 'attack':
-      return axis('攻', analysis.scores?.attack, 'var(--type-attack)')
+      return axis('攻', analysis.typeWeight?.attack, 'var(--type-attack)')
     case 'stamina':
-      return axis('久', analysis.scores?.stamina, 'var(--type-stamina)')
+      return axis('久', analysis.typeWeight?.stamina, 'var(--type-stamina)')
     case 'stability':
-      return axis('穩', analysis.scores?.stability, 'var(--type-defense)')
+      return axis('穩', analysis.typeWeight?.defense, 'var(--type-defense)')
     case 'beginner':
     case 'simplest': {
       const difficulty = analysis.operationDifficulty

@@ -23,27 +23,25 @@ function analysis(over: Partial<ComboAnalysis>): ComboAnalysis {
   } as ComboAnalysis
 }
 
-const scores = {
-  attack: 82,
-  defense: 30,
-  stamina: 28,
-  burst: 75,
-  burstResistance: 35,
-  stability: 41,
+const typeWeight = {
+  attack: 62,
+  defense: 15,
+  stamina: 8,
+  balance: 15,
 }
 
 describe('我能組什麼的每列顯示（第 29 節）', () => {
   it('依排序顯示對應的那一軸並畫條', () => {
-    const r = describeSortMetric(analysis({ scores }), 'attack')
+    const r = describeSortMetric(analysis({ typeWeight }), 'attack')
     expect(r).toEqual({
       labelZhTW: '攻',
-      valueZhTW: '82',
-      percent: 82,
+      valueZhTW: '62',
+      percent: 62,
       color: 'var(--type-attack)',
     })
   })
 
-  it('沒有六軸分數時寫「資料不足」，而且不畫條', () => {
+  it('沒有類型比重時寫「資料不足」，而且不畫條', () => {
     const r = describeSortMetric(analysis({}), 'attack')
     expect(r.valueZhTW).toBe('資料不足')
     expect(r.percent).toBeUndefined()
@@ -51,8 +49,18 @@ describe('我能組什麼的每列顯示（第 29 節）', () => {
     expect(r.color).toBeUndefined()
   })
 
+  it('最穩排序顯示防守比重並畫條', () => {
+    const r = describeSortMetric(analysis({ typeWeight }), 'stability')
+    expect(r).toEqual({
+      labelZhTW: '穩',
+      valueZhTW: '15',
+      percent: 15,
+      color: 'var(--type-defense)',
+    })
+  })
+
   it('操作難度不畫條：越低越好，畫出來會跟數字互相矛盾', () => {
-    const r = describeSortMetric(analysis({ operationDifficulty: 20, scores }), 'simplest')
+    const r = describeSortMetric(analysis({ operationDifficulty: 20, typeWeight }), 'simplest')
     expect(r.labelZhTW).toBe('操作難度')
     expect(r.valueZhTW).toBe('20')
     expect(r.percent).toBeUndefined()
