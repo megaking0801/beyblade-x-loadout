@@ -66,11 +66,12 @@ export function DecksPage() {
 
   const candidates = useMemo(() => {
     const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }
-    // 不再以「新手」當唯一候選池。實戰證據候選與模型強度候選聯集，
-    // 保留沒有資料的新零件，卻不會把已驗證配置先截斷在池外。
+    // 不再以「新手」當唯一候選池，但也保留它當補足來源：實戰證據候選優先，
+    // 「整體強度」候選已下線（第 50.5 節：整體強度加總系統性偏向防守型、不可信），
+    // 新手難度候選不依賴六軸假精度，一樣能補齊沒有賽事資料的新零件。
     const evidence = generateBuildableCombos({ ...base, sortBy: 'evidence' })
-    const strength = generateBuildableCombos({ ...base, sortBy: 'strength' })
-    return [...evidence, ...strength].filter((row, index, rows) =>
+    const beginner = generateBuildableCombos({ ...base, sortBy: 'beginner' })
+    return [...evidence, ...beginner].filter((row, index, rows) =>
       rows.findIndex((candidate) => candidate.analysis.fullCode === row.analysis.fullCode) === index,
     )
   }, [parts, rules, lots, combos, evidenceByCode])

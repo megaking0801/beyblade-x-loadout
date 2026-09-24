@@ -22,7 +22,6 @@ import {
 } from '../components/ui.tsx'
 
 const SORT_LABEL: Record<BuildableSortKey, string> = {
-  strength: '整體強度',
   beginner: '最適合新手',
   attack: '攻擊最高',
   stamina: '持久最高',

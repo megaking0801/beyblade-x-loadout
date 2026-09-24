@@ -41,7 +41,6 @@ export interface PurchaseRecommendation {
    * 弱得多（那是完整配置被賽事記錄過，這只是零件拼湊推估）。
    */
   partStrengthGain: number
-  overallStrengthGain: number
   axisGains: { attack: number; stamina: number; stability: number }
   isAdditionalCopy: boolean
 }
@@ -62,7 +61,6 @@ interface StrengthProfile {
   attack: number
   stamina: number
   stability: number
-  overall: number
   deckScore: number
   competitiveEvidence: number
 }
@@ -81,21 +79,17 @@ function profileCacheKey(args: {
   return `${lots}#${combos}#${evidence}`
 }
 
-function score(row: BuildableCombo): number {
-  const value = row.analysis.scores
-  if (!value) return 0
-  return Math.round(value.attack * 0.2 + value.defense * 0.15 + value.stamina * 0.2 + value.burst * 0.15 + value.burstResistance * 0.15 + value.stability * 0.15)
-}
-
 function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: InventoryLot[]; combos: SavedCombo[]; evidenceByCode?: Record<string, EvidenceInput> }): StrengthProfile {
   const cacheKey = profileCacheKey(args)
   const cached = profileCache.get(cacheKey)
   if (cached) return cached
   const base = { ...args, mode: 'owned' as const, limit: CANDIDATE_LIMIT }
-  // 競技優先：完整配置的證據候選先進池，再以強度候選補足尚未被賽事收錄的新組合。
+  // 競技優先：完整配置的證據候選先進池，再以新手難度候選補足尚未被賽事收錄的
+  // 新組合（原本用「整體強度」候選補足，已下線——第 50.5 節：整體強度加總系統性
+  // 偏向防守型、不可信；新手難度候選不依賴六軸假精度）。
   const candidates = [
     ...generateBuildableCombos({ ...base, sortBy: 'evidence' }),
-    ...generateBuildableCombos({ ...base, sortBy: 'strength' }),
+    ...generateBuildableCombos({ ...base, sortBy: 'beginner' }),
   ].filter((row, index, rows) => rows.findIndex((candidate) => candidate.analysis.fullCode === row.analysis.fullCode) === index)
   const maximum = (axis: 'attack' | 'stamina' | 'stability') => Math.max(0, ...candidates.map((row) => row.analysis.scores?.[axis] ?? 0))
   const deck = suggestDecks({
@@ -115,7 +109,6 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     attack: maximum('attack'),
     stamina: maximum('stamina'),
     stability: maximum('stability'),
-    overall: Math.max(0, ...candidates.map(score)),
     // deck.ts 的 scoreDeck() 現在真的會把證據的 log2 加成算進去（之前這個加成
     // 一直是 0，見 evidenceByCode 傳遞的修正），分數會帶一長串小數；這裡是
     // 使用者看得到的「分數可提升 +N」文字用到的值，要整數化才不會把浮點數
@@ -209,7 +202,6 @@ export function recommendNextProducts(args: {
       stamina: Math.max(0, after.stamina - baseline.stamina),
       stability: Math.max(0, after.stability - baseline.stability),
     }
-    const overallStrengthGain = Math.max(0, after.overall - baseline.overall)
     const deckScoreGain = Math.max(0, after.deckScore - baseline.deckScore)
     const competitiveEvidenceGain = Math.max(0, after.competitiveEvidence - baseline.competitiveEvidence)
     const unlocked = after.candidates.filter((row) => !baseline.codes.has(row.analysis.fullCode))
@@ -261,7 +253,6 @@ export function recommendNextProducts(args: {
       axisGains.stability > 0 ? `穩定峰值 +${axisGains.stability}` : '',
     ].filter(Boolean)
     if (roleGains.length > 0) reasonsZhTW.push(`補強角色：${roleGains.join('、')}。`)
-    if (overallStrengthGain > 0) reasonsZhTW.push(`可用配裝的整體強度峰值 +${overallStrengthGain}。`)
     if (unlocked.length > 0) reasonsZhTW.push(`新增主力候選：${unlocked.slice(0, 2).map((row) => row.analysis.fullNameZhTW).join('、')}。`)
     if (isPureBreadth) {
       reasonsZhTW.push(
@@ -280,7 +271,6 @@ export function recommendNextProducts(args: {
       competitiveEvidenceGain,
       expertTierGain,
       partStrengthGain,
-      overallStrengthGain,
       axisGains,
       isAdditionalCopy: ownedIds.has(product.id),
     })
@@ -291,7 +281,6 @@ export function recommendNextProducts(args: {
     || b.expertTierGain - a.expertTierGain
     || b.partStrengthGain - a.partStrengthGain
     || b.deckScoreGain - a.deckScoreGain
-    || b.overallStrengthGain - a.overallStrengthGain
     || (b.axisGains.attack + b.axisGains.stamina + b.axisGains.stability) - (a.axisGains.attack + a.axisGains.stamina + a.axisGains.stability)
     || b.unlockedExamplesZhTW.length - a.unlockedExamplesZhTW.length
     || (a.product.sku ?? a.product.id).localeCompare(b.product.sku ?? b.product.id),

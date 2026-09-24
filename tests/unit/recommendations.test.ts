@@ -237,4 +237,31 @@ describe('下一包推薦', () => {
       expect(rec).toBeUndefined()
     }
   })
+
+  it('不再有「整體強度」話術：六軸加總對純攻擊型系統性偏低（防守 57／攻擊 48），已整段下線（規格第 50.5、50.7 節）', () => {
+    // bladeD 跟 bladeA 同型（attack）；六軸加總公式代入純攻擊型只有 48 分，
+    // 純防守型有 57 分，舊版「整體強度」候選池與 overallStrengthGain 話術
+    // 會系統性把純攻擊型商品排到純防守型後面，即使兩者對合法配置的貢獻相同。
+    const bladeD = part('blade-d', 'blade', 'attack')
+    const productD: Product = {
+      id: 'product-d', line: 'BX', category: 'starter', naming: { primaryZhTW: '備用攻擊組' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bladeD.id, quantity: 1 }], provenance,
+    }
+    const result = recommendNextProducts({
+      products: [productD],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, bladeD, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC],
+      rules: [],
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(bladeC.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      evidenceByCode: {
+        'blade-d 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+    })
+    for (const rec of result.recommendations) {
+      expect('overallStrengthGain' in rec).toBe(false)
+      expect(rec.reasonsZhTW.some((line) => line.includes('整體強度'))).toBe(false)
+    }
+  })
 })

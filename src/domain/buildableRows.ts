@@ -38,13 +38,6 @@ export function describeSortMetric(
   })
 
   switch (sortBy) {
-    case 'strength': {
-      const scores = analysis.scores
-      const value = scores
-        ? Math.round(scores.attack * 0.2 + scores.defense * 0.15 + scores.stamina * 0.2 + scores.burst * 0.15 + scores.burstResistance * 0.15 + scores.stability * 0.15)
-        : undefined
-      return axis('整體強度', value, 'var(--signal)')
-    }
     case 'attack':
       return axis('攻', analysis.scores?.attack, 'var(--type-attack)')
     case 'stamina':
