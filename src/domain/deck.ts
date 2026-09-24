@@ -12,6 +12,7 @@ import { resolveDisplayName } from './naming.ts'
 import type { BuildableCombo } from './builder.ts'
 import type { ExpertPartRatingRank } from '../catalog/tierLists.ts'
 import type { PartStrengthEntry } from '../catalog/partStrength.ts'
+import type { PartWinRateEntry } from './battleRecords.ts'
 import {
   PART_FAMILY_ZH,
   type CompatibilityRule,
@@ -350,6 +351,8 @@ export interface SuggestDecksArgs {
   expertPartRatingIndex?: Map<string, ExpertPartRatingRank>
   /** 零件層級賽果聲量聚合，見 `catalog/partStrength.ts` 的 `getPartStrengthIndex()`；第 50 節。 */
   partStrengthIndex?: Map<string, PartStrengthEntry>
+  /** 個人對戰紀錄的零件勝率，見 domain/battleRecords.ts 的 computePartWinRateIndex()。 */
+  winRateIndex?: Map<string, PartWinRateEntry>
 }
 
 const DEFAULT_CANDIDATE_CAP = 60
@@ -381,11 +384,19 @@ const PART_STRENGTH_FALLBACK_WEIGHT = 0.3
  */
 const PART_STRENGTH_FALLBACK_FLOOR = 100 * PART_STRENGTH_FALLBACK_WEIGHT
 
+/**
+ * 個人對戰紀錄的權重。不需要像 PART_STRENGTH_FALLBACK_WEIGHT 那樣回測校準——
+ * 這份資料是使用者自己的第一手經驗，沒有「準不準」的問題，只有「該佔多重」
+ * 的產品判斷。刻意設得比 EXPERT_TIER_WEIGHT 小，見個人對戰紀錄規格第 4 節。
+ */
+const PERSONAL_WIN_RATE_WEIGHT = 2
+
 export function scoreDeck(
   strategy: DeckStrategy,
   members: DeckMember[],
   expertPartRatingIndex?: Map<string, ExpertPartRatingRank>,
   partStrengthIndex?: Map<string, PartStrengthEntry>,
+  winRateIndex?: Map<string, PartWinRateEntry>,
 ): number {
   const weights = members.map((m) => m.analysis.typeWeight)
   const axis = (key: 'attack' | 'defense' | 'stamina' | 'balance') =>
@@ -422,6 +433,21 @@ export function scoreDeck(
       )
     : 0
 
+  // 個人對戰紀錄勝率：每套配裝先把有資料的零件平均成一個 0～1 的值
+  // （避免 CX 5 槽位配裝只因為零件數量多就贏過 BX/UX 3 槽位配裝），
+  // 再跨隊員加總——跟 estimateComboPartStrength() 同一種「先平均再加總」
+  // 的形狀，不是 expertTierGain 那種「全部零件直接加總」的形狀。
+  const personalWinRateGain = winRateIndex
+    ? members.reduce((sum, member) => {
+        const rates = OCCUPYING_SLOT_KEYS.map((key) => member.slots[key])
+          .filter((partId): partId is string => Boolean(partId))
+          .map((partId) => winRateIndex.get(partId)?.winRate)
+          .filter((rate): rate is number => rate !== undefined)
+        if (rates.length === 0) return sum
+        return sum + rates.reduce((a, b) => a + b, 0) / rates.length
+      }, 0)
+    : 0
+
   switch (strategy) {
     case 'aggressive':
       return average(axis('attack'))
@@ -438,7 +464,8 @@ export function scoreDeck(
         Math.max(...axis('stamina')) +
         Math.max(...axis('defense')) +
         competitiveEvidenceWithFallback +
-        expertTierGain * EXPERT_TIER_WEIGHT
+        expertTierGain * EXPERT_TIER_WEIGHT +
+        personalWinRateGain * PERSONAL_WIN_RATE_WEIGHT
       )
     case 'evidence':
       return competitiveEvidence
@@ -447,9 +474,19 @@ export function scoreDeck(
       // 資訊的裝飾（見規格第 1 節），現在只剩 defense 單軸，乘 2 是為了保留
       // 這一項在總分裡原本的量級，不讓拿掉裝飾軸之後這個策略的排序權重被
       // competitiveEvidenceWithFallback／expertTierGain 蓋過去。
-      return average(axis('defense')) * 2 + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      return (
+        average(axis('defense')) * 2 +
+        competitiveEvidenceWithFallback * 0.35 +
+        expertTierGain * EXPERT_TIER_WEIGHT +
+        personalWinRateGain * PERSONAL_WIN_RATE_WEIGHT
+      )
     case 'vs_stamina':
-      return average(axis('attack')) * 2 + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      return (
+        average(axis('attack')) * 2 +
+        competitiveEvidenceWithFallback * 0.35 +
+        expertTierGain * EXPERT_TIER_WEIGHT +
+        personalWinRateGain * PERSONAL_WIN_RATE_WEIGHT
+      )
   }
 }
 
@@ -466,6 +503,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
     evidenceByCode,
     expertPartRatingIndex,
     partStrengthIndex,
+    winRateIndex,
   } = args
 
   if (candidates.length < ruleSet.teamSize) return []
@@ -514,7 +552,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
           roleZhTW: '',
           reasonZhTW: '',
         }))
-        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members, expertPartRatingIndex, partStrengthIndex) })
+        rough.push({ indexes: [i, j, k], score: scoreDeck(strategy, members, expertPartRatingIndex, partStrengthIndex, winRateIndex) })
       }
     }
   }
@@ -532,7 +570,7 @@ export function suggestDecks(args: SuggestDecksArgs): DeckSuggestion[] {
       strategyZhTW: DECK_STRATEGY_ZH[strategy],
       slotsList,
       validation,
-      score: scoreDeck(strategy, validation.members, expertPartRatingIndex, partStrengthIndex),
+      score: scoreDeck(strategy, validation.members, expertPartRatingIndex, partStrengthIndex, winRateIndex),
       alternativesZhTW: buildAlternatives(pool, slotsList),
     })
     if (suggestions.length >= limit) break

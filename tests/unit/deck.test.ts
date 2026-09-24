@@ -513,6 +513,30 @@ describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () 
     const partStrengthIndex = new Map([['b-atk', { podiumAppearances: 50, percentileScore: 100 }]])
     expect(scoreDeck('evidence', members, undefined, partStrengthIndex)).toBe(scoreDeck('evidence', members))
   })
+
+  it('balanced 策略：個人對戰紀錄勝率高的配裝分數比沒有紀錄的配裝高（個人對戰紀錄規格第 4 節）', () => {
+    const memberWithData = memberFor(threeDistinct[0]!) // b-atk
+    const memberWithoutData = memberFor(threeDistinct[1]!) // b-sta，winRateIndex 裡沒有這顆
+    const winRateIndex = new Map([['b-atk', { wins: 8, losses: 2, ties: 0, winRate: 0.8 }]])
+    const scoreWithData = scoreDeck('balanced', [memberWithData], undefined, undefined, winRateIndex)
+    const scoreWithoutData = scoreDeck('balanced', [memberWithoutData], undefined, undefined, winRateIndex)
+    expect(scoreWithData).toBeGreaterThan(scoreWithoutData)
+  })
+
+  it('沒有任何對戰紀錄時（winRateIndex 是 undefined 或空），不影響總分，不能懲罰沒記錄過的配裝', () => {
+    const member = memberFor(threeDistinct[0]!)
+    const scoreWithoutIndex = scoreDeck('balanced', [member])
+    const scoreWithEmptyIndex = scoreDeck('balanced', [member], undefined, undefined, new Map())
+    expect(scoreWithoutIndex).toBe(scoreWithEmptyIndex)
+  })
+
+  it('evidence 策略不吃個人對戰紀錄勝率，跟不吃 expertTierGain 同一個理由：策略名稱承諾最高賽事證據', () => {
+    const member = memberFor(threeDistinct[0]!)
+    const winRateIndex = new Map([['b-atk', { wins: 8, losses: 2, ties: 0, winRate: 0.8 }]])
+    const scoreWith = scoreDeck('evidence', [member], undefined, undefined, winRateIndex)
+    const scoreWithout = scoreDeck('evidence', [member])
+    expect(scoreWith).toBe(scoreWithout)
+  })
 })
 
 describe('estimateComboPartStrength（零件層級強度 fallback，第 50 節）', () => {
