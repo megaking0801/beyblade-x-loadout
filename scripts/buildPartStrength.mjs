@@ -39,6 +39,28 @@ function computePercentiles(countByKey) {
   return result
 }
 
+/**
+ * 把 bbxhub-meta.json 的進前三名次併進既有的 podiumCountByPart。
+ * mode: 'sum' 直接相加（不設換算係數，規格第 3 節）；'percentile-average'
+ * 是規格第 3 節的備案，只有 'sum' 沒過回測驗證才會用到（Task 4 實作）。
+ */
+export function mergePodiumCounts(baseCountByPart, bbxhubMeta, { mode }) {
+  if (mode === 'percentile-average') {
+    throw new Error('percentile-average 模式待 Task 4 實作')
+  }
+  if (mode !== 'sum') {
+    throw new Error(`不支援的合併模式：${mode}`)
+  }
+  const merged = new Map(baseCountByPart)
+  for (const part of bbxhubMeta.parts) {
+    const p = part.placements
+    if (!p) continue
+    const podiumCount = (p.first ?? 0) + (p.second ?? 0) + (p.third ?? 0)
+    merged.set(part.partId, (merged.get(part.partId) ?? 0) + podiumCount)
+  }
+  return merged
+}
+
 function main() {
   const raw = JSON.parse(readFileSync(RAW_FILE, 'utf8'))
   const catalog = JSON.parse(readFileSync(CATALOG_FILE, 'utf8'))
@@ -89,4 +111,9 @@ function main() {
   console.log(`型錄裡完全沒有賽果紀錄的零件：${unmatchedCatalogPartIds.length} 個`)
 }
 
-main()
+// import 這個模組拿 mergePodiumCounts() 時不能連帶跑整套 main()（會有讀寫
+// 檔案的副作用）——backtestPartStrength.mjs／驗證腳本都會 import 這個檔案，
+// 只有直接執行 `node scripts/buildPartStrength.mjs` 才該真的跑 main()。
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main()
+}
