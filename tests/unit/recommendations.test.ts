@@ -264,4 +264,30 @@ describe('下一包推薦', () => {
       expect(rec.reasonsZhTW.some((line) => line.includes('整體強度'))).toBe(false)
     }
   })
+
+  it('axisGains 用防守比重取代舊的穩定分數，且鍵名是 defense 不是 stability', () => {
+    // bladeC 是既有 fixture 裡的防守型上蓋；這裡刻意不把它放進 lots，
+    // 讓「買含 bladeC 的商品」變成新增的防守型候選，藉此觸發非零的
+    // axisGains.defense。
+    const productDefense: Product = {
+      id: 'product-defense-2', line: 'BX', category: 'starter', naming: { primaryZhTW: '備用防禦組 2' }, region: ['JP'], isRandom: false,
+      contents: [{ partId: bladeC.id, quantity: 1 }], provenance,
+    }
+    const result = recommendNextProducts({
+      products: [productDefense],
+      variants: [],
+      ownedProducts: [],
+      parts: [bladeA, bladeB, bladeC, ratchetA, ratchetB, ratchetC, bitA, bitB, bitC],
+      rules: [],
+      lots: [lot(bladeA.id), lot(bladeB.id), lot(ratchetA.id), lot(ratchetB.id), lot(ratchetC.id), lot(bitA.id), lot(bitB.id), lot(bitC.id)],
+      combos: [],
+      evidenceByCode: {
+        'blade-c 1-60R': { appearances: 0, top4: 0, championships: 0, totalDecks: 0, sourceTier: 'community' },
+      },
+    })
+    for (const rec of result.recommendations) {
+      expect('stability' in rec.axisGains).toBe(false)
+      expect(typeof rec.axisGains.defense).toBe('number')
+    }
+  })
 })

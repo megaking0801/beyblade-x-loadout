@@ -41,7 +41,7 @@ export interface PurchaseRecommendation {
    * 弱得多（那是完整配置被賽事記錄過，這只是零件拼湊推估）。
    */
   partStrengthGain: number
-  axisGains: { attack: number; stamina: number; stability: number }
+  axisGains: { attack: number; stamina: number; defense: number }
   isAdditionalCopy: boolean
 }
 
@@ -60,7 +60,7 @@ interface StrengthProfile {
   codes: Set<string>
   attack: number
   stamina: number
-  stability: number
+  defense: number
   deckScore: number
   competitiveEvidence: number
 }
@@ -91,7 +91,7 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     ...generateBuildableCombos({ ...base, sortBy: 'evidence' }),
     ...generateBuildableCombos({ ...base, sortBy: 'beginner' }),
   ].filter((row, index, rows) => rows.findIndex((candidate) => candidate.analysis.fullCode === row.analysis.fullCode) === index)
-  const maximum = (axis: 'attack' | 'stamina' | 'stability') => Math.max(0, ...candidates.map((row) => row.analysis.scores?.[axis] ?? 0))
+  const maximum = (axis: 'attack' | 'stamina' | 'defense') => Math.max(0, ...candidates.map((row) => row.analysis.typeWeight?.[axis] ?? 0))
   const deck = suggestDecks({
     candidates,
     parts: args.parts,
@@ -108,7 +108,7 @@ function profile(args: { parts: Part[]; rules: CompatibilityRule[]; lots: Invent
     codes: new Set(candidates.map((row) => row.analysis.fullCode)),
     attack: maximum('attack'),
     stamina: maximum('stamina'),
-    stability: maximum('stability'),
+    defense: maximum('defense'),
     // deck.ts 的 scoreDeck() 現在真的會把證據的 log2 加成算進去（之前這個加成
     // 一直是 0，見 evidenceByCode 傳遞的修正），分數會帶一長串小數；這裡是
     // 使用者看得到的「分數可提升 +N」文字用到的值，要整數化才不會把浮點數
@@ -200,7 +200,7 @@ export function recommendNextProducts(args: {
     const axisGains = {
       attack: Math.max(0, after.attack - baseline.attack),
       stamina: Math.max(0, after.stamina - baseline.stamina),
-      stability: Math.max(0, after.stability - baseline.stability),
+      defense: Math.max(0, after.defense - baseline.defense),
     }
     const deckScoreGain = Math.max(0, after.deckScore - baseline.deckScore)
     const competitiveEvidenceGain = Math.max(0, after.competitiveEvidence - baseline.competitiveEvidence)
@@ -248,9 +248,9 @@ export function recommendNextProducts(args: {
       reasonsZhTW.push(`零件歷史戰績推估（非完整配置實測）：${detail}。`)
     }
     const roleGains = [
-      axisGains.attack > 0 ? `攻擊峰值 +${axisGains.attack}` : '',
-      axisGains.stamina > 0 ? `持久峰值 +${axisGains.stamina}` : '',
-      axisGains.stability > 0 ? `穩定峰值 +${axisGains.stability}` : '',
+      axisGains.attack > 0 ? `攻擊型佔比峰值 +${axisGains.attack}` : '',
+      axisGains.stamina > 0 ? `持久型佔比峰值 +${axisGains.stamina}` : '',
+      axisGains.defense > 0 ? `防守型佔比峰值 +${axisGains.defense}` : '',
     ].filter(Boolean)
     if (roleGains.length > 0) reasonsZhTW.push(`補強角色：${roleGains.join('、')}。`)
     if (unlocked.length > 0) reasonsZhTW.push(`新增主力候選：${unlocked.slice(0, 2).map((row) => row.analysis.fullNameZhTW).join('、')}。`)
@@ -281,7 +281,7 @@ export function recommendNextProducts(args: {
     || b.expertTierGain - a.expertTierGain
     || b.partStrengthGain - a.partStrengthGain
     || b.deckScoreGain - a.deckScoreGain
-    || (b.axisGains.attack + b.axisGains.stamina + b.axisGains.stability) - (a.axisGains.attack + a.axisGains.stamina + a.axisGains.stability)
+    || (b.axisGains.attack + b.axisGains.stamina + b.axisGains.defense) - (a.axisGains.attack + a.axisGains.stamina + a.axisGains.defense)
     || b.unlockedExamplesZhTW.length - a.unlockedExamplesZhTW.length
     || (a.product.sku ?? a.product.id).localeCompare(b.product.sku ?? b.product.id),
   )
