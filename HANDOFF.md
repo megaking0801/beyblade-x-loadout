@@ -1,43 +1,38 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（BBXHub 零件強度合併 SDD 已完成——結論是不合併）
+交接原因：一般交接（個人對戰紀錄功能已實作，Task 1-6 完成，尚未收尾）
 
 ## 目前目標
 
-六軸評估系統換成「零件類型比重」的 SDD、BBXHub 零件對照覆蓋率修復
-（45/167→82/167）都已完成、驗證上線。
+新增「個人對戰紀錄」功能：使用者在配裝器記錄自己（或跟朋友）的 1v1 練習
+對戰結果，累積成每顆零件的勝率，當成配裝評分第四種獨立訊號（跟賽事證據、
+零件強度 fallback、高手 T 表評級並列，不合併）。純本機 IndexedDB，刻意不做
+跨裝置同步或多人資料匯聚。Spec／Plan：
+`docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`／
+`docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
 
-這之後跑了一輪 SDD：把 BBXHub 的進前三名次資料併進 `buildPartStrength.mjs`
-的零件強度 fallback，目標是讓 CX 配置第一次拿到 fallback（目前完全沒有）。
-**結論是不合併**——兩種合併策略（直接加總、百分位平均）都沒通過規格訂的
-回測判準，細節見下面「已知缺口」。程式碼保留了 `mergePodiumCounts()` 純
-函式供之後重試，但沒有接進 `main()`，`part-strength.generated.json`
-沒有變化，不需要部署。Spec／Plan：
-`docs/superpowers/specs/2026-09-24-bbxhub-part-strength-merge-design.md`／
-`docs/superpowers/plans/2026-09-24-bbxhub-part-strength-merge.md`。
+Task 1-6（型別、IndexedDB、appStore、deck.ts 計分、UI、e2e/截圖/文件）
+程式碼與測試都已完成，**尚未 commit 文件同步這批、尚未 push、尚未部署**。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 乾淨 |
-| 本機 HEAD | `b0f08b6` + 這次 HANDOFF commit（commit 後跑 `git rev-parse --short HEAD` 確認） |
-| `origin/main` | push 完跟本機同步 |
-| 線上 Pages | 未變更，仍是 `dd6fe45`（這輪沒有改任何型錄產物或前台程式，
-  不需要部署） |
+| 工作區 | 有未 commit 的文件變更（見下方 Step） |
+| 本機 HEAD | `641c2aa`（Task 5，程式碼部分） |
+| `origin/main` | `00d8869`，落後本機 5 個 commit（Task 1-5 全部只在本機） |
+| 線上 Pages | 未變更，仍是 `dd6fe45`（這輪還沒部署） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：463/463 全過（每個 Task 完成後都重跑過）。
-- `node scripts/backtestPartStrength.mjs`：兩輪合併版回測都跑過，數字見
-  「已知缺口」。
-- `npm run test:e2e`／`npm run shots`／`npm run test:live`：**這輪未跑**——
-  這輪只改了兩支手動執行的建置腳本（`buildPartStrength.mjs`／
-  `backtestPartStrength.mjs`），沒有改任何前台程式或會被打包進 App 的資料
-  檔（`part-strength.generated.json` 內容跟合併前逐位元組相同），不影響
-  任何使用者看得到的東西，符合 `CLAUDE.md`「僅文件變更則不部署」的例外。
+- `npm test`：474/474 全過。
+- `npm run test:e2e`：87 passed / 1 skipped（含新增的個人對戰紀錄測試）。
+- `npm run shots`：已跑，已用 Read 工具看過
+  `test-results/shots/desktop-battle-log.png`／`phone-battle-log.png`，
+  表單／歷史列表／零件勝率表都正常顯示，手機寬度會換行但不跑版。
+- push／deploy／test:live：**還沒做**，是下一步。
 
 ## 阻塞
 
@@ -45,48 +40,45 @@
 
 ## 下一個具體動作
 
-沒有進行中的工作。CX 配置目前仍然完全沒有零件強度 fallback（跟這輪開始前
-一樣）——如果之後累積了更多 bbxhub 或 stan-yao 資料想再試一次合併，
-`mergePodiumCounts()`（`buildPartStrength.mjs`）兩種模式都已經寫好，直接
-重跑 `node scripts/backtestPartStrength.mjs` 看數字有沒有變，不用重新設計。
-BBXHub 覆蓋率剩下的 85 筆、要不要把 `bbxhub-meta.json` 接進其他評分／顯示
-邏輯，看「已知缺口」那一節的完整說明再決定，屬於架構層級的決定，不是接手
-就能直接動手的小修。
+1. commit 這輪文件變更（`BEYBLADE_X_codex_prompt.md`、spec 狀態列、
+   `src/ui/pages/BattleLogPage.tsx` 的表格樣式修正、`tests/e2e/pwa.spec.ts`、
+   `tests/e2e/screenshot.shots.ts`、這份 HANDOFF）。
+2. `git push origin main`（會一次推上 Task 1-6 全部 6 個 commit）。
+3. `npm run deploy:pages` → `npm run test:live`，結果補回 HANDOFF。
+4. 全部驗證過、確認線上真的換版後，用
+   `superpowers:finishing-a-development-branch` 收尾這支 SDD（直接在 `main`
+   上做，不是獨立分支）。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這輪（BBXHub 零件強度合併）用 `superpowers:executing-plans` 執行，直接在
-  `main` 上做（沒有開 worktree／分支，延續本 session 一路的慣例）。Ledger
-  在 `.superpowers/sdd/2026-09-24-bbxhub-part-strength-merge/progress.md`，
-  裡面記著兩輪回測的判準數字跟一個 ruling（`buildPartStrength.mjs` 補了
-  `if (process.argv[1] === fileURLToPath(import.meta.url))` 守衛，避免
-  `import { mergePodiumCounts }` 時被動觸發整套 `main()` 的檔案讀寫副作用）。
-- 六軸→類型比重那輪的 Task 8 對照
-  `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md` 的 Task 8。
+- 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
+  （沒有開 worktree／分支，延續本 session 一路的慣例）。Ledger 在
+  `.superpowers/sdd/2026-09-24-personal-battle-log/progress.md`，裡面記著
+  兩個 ruling（Task 1：`buildPartStrength.mjs` 那種 import 副作用問題這次
+  沒有重演；Task 4：測試用檔案裡既有的 `memberFor()`/`threeDistinct`
+  fixture 取代 brief 裡不存在的 `baseAnalysis`）。
 - 其餘沿用既有規則（見 `CLAUDE.md`）。
 
-## 踩過的坑（這輪 SDD 新增）
+## 踩過的坑（這輪新增）
 
-- **改共用測試 fixture 會連帶影響同一個 describe block 裡沒被明講要改的既有
-  測試**——Task 2 的 brief 要求把 `bladeDefense` 加進 `builder.test.ts` 共用的
-  `lots`，這個改動讓另一條原本寫死「產生 8 個配置」的既有測試變成產生 12 個
-  （3 顆上蓋 × 2 固鎖 × 2 軸心）。這不是 bug，是 fixture 變大的必然結果，但
-  brief 沒提到，是跑紅了才發現。改共用 fixture 前，先搜一下同一個 describe
-  block裡還有誰在用同一個變數、有沒有寫死數量的斷言。
-- **重構期間，`.某舊欄位` 在 TS 型別上不存在，但 Vitest（esbuild transform）
-  不做型別檢查，執行期照樣跑、只是欄位讀出來是 `undefined`**——這會讓「這個
-  測試現在該紅」的預期落空：deck.ts 還沒改掉 `.scores` 的時候，讀
-  `member.analysis.typeWeight`（Task 1 已經有的新欄位）的新測試反而因為
-  `scoreDeck()`／`assignRoles()` 內部退化成到處都是 tie（`-1 - -1 = 0`）而
-  「碰巧」全部綠燈，不是邏輯正確，是每個候選都被打成平局。這輪用一支臨時
-  Node 腳本（跑完就刪）額外驗證了實作完之後這幾條比較式是真的有分出高下、
-  不是巧合平局，才敢放心進下一步。以後遇到「這個測試現在該紅，結果是綠的」，
-  先懷疑退化 tie，不要照單全收。
-- **Step 8 的收尾 grep 不能只查計畫列出的檔案**——「六軸」這個字眼在
-  `BuilderPage.tsx` 裡除了計畫明確列出的分數條區塊，還藏在另外兩處使用者
-  看得到的提示文字（沒有賽事證據時的提示、可切換模式的提示），是全域 grep
-  才抓到的，不在 Task 7 brief 原本列的行號範圍內。收尾用的全域搜尋一定要
-  對著整個 `src/` 跑，不能只看計畫寫的檔案清單。
+- **寫 plan 時沒有實際讀 `ui.tsx` 元件的真實 prop 名稱，直接照 spec 討論時
+  的口語命名寫程式碼範例**——plan 草稿一開始用了 `titleZhTW`／`messageZhTW`
+  這種不存在的 prop（真正的是 `title`／`description`／`hint`），寫 plan 的
+  self-review 階段才抓到、改掉。以後 plan 裡任何「用既有元件」的程式碼範例，
+  寫之前一定要先讀那個元件的真實簽名，不能憑印象或憑語感編。
+- **e2e 斷言用純文字比對（`getByText('A 贏')`）在畫面上有 `<option>` 或
+  多筆重複資料時會撞到 strict mode violation**——這次配裝結果選單裡的
+  `<option value="a">A 贏</option>` 跟歷史列表裡的「A 贏」撞在一起；零件
+  勝率表 4 顆零件全部顯示「樣本不足」也撞了 4 次。兩個都不是功能壞了，是
+  選擇器不夠精確；補 `data-testid="battle-round"` 到清單項目上、對表格斷言
+  加 `.first()` 解決。新畫面只要有清單或表格，斷言前就該先想清楚會不會有
+  多筆同文字，不要等測試紅了才發現。
+- **裸 `<table>` 沒有任何樣式時，數字會直接貼著零件名稱擠成一團**（例如
+  「蒼龍神劍1 0 0」看起來像同一個字串）——這個專案目前沒有既有的 table
+  樣式可抄，是全站第一張表格。用 `var(--border)` 分隔線 + padding + 靠右對齊
+  數字欄位修掉，包一層 `overflow-x: auto` 的 `card` 容器避免手機寬度爆版。
+  之後如果要再加表格，先看這次 `BattleLogPage.tsx` 的寫法當範本，不用重新
+  試錯。
 
 ## 踩過的坑（沿用既有，仍然有效）
 
@@ -105,6 +97,10 @@ BBXHub 覆蓋率剩下的 85 筆、要不要把 `bbxhub-meta.json` 接進其他�
 
 ## 已知缺口
 
+- **個人對戰紀錄不做跨裝置同步／多人資料匯聚**——純本機 IndexedDB，別人裝
+  這個 PWA 記錄的對戰你完全拿不到，是這輪 spec（第 1 節）刻意排除的範圍，
+  不是遺漏。如果之後想把多人資料匯聚成共用訊號，需要匯出／匯入流程或
+  後端，是完全獨立的一輪工作。
 - **BBXHub 資料併進零件強度 fallback 已試過，兩種合併策略都沒通過回測，
   這輪沒有合併**（詳細設計見
   `docs/superpowers/specs/2026-09-24-bbxhub-part-strength-merge-design.md`）。

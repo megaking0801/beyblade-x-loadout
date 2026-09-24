@@ -1,6 +1,7 @@
 # 個人對戰紀錄（1v1 練習對戰 → 零件勝率 fallback）
 
-**狀態**：設計已跟使用者逐段確認，待書面 spec 審核。
+**狀態**：已實作並上線，實作計畫見
+`docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
 **規格對照**：`BEYBLADE_X_codex_prompt.md` 第 50 節（零件強度 fallback 既有設計）、
 第 1.5 節（不得編造）、第 41 節（來源與驗證）。
 

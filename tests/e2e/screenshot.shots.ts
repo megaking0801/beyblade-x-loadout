@@ -59,6 +59,37 @@ test('capture', async ({ page }, testInfo) => {
     path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-builder.png`,
   })
 
+  /*
+   * 個人對戰紀錄要看有資料時的版面：存兩套配裝、記一局，再截 /battle-log。
+   * 存檔成功會被導回首頁，所以每套配裝存完都要重新進 /builder。
+   */
+  await page.getByTestId('combo-name').fill('截圖用配裝A')
+  await page.getByTestId('save-combo').click()
+  await expect(page.getByTestId('stat-combos-value')).toHaveText('1', { timeout: 15_000 })
+  await page.evaluate(() => {
+    window.location.hash = '/builder'
+  })
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await page.getByTestId('combo-name').fill('截圖用配裝B')
+  await page.getByTestId('save-combo').click()
+  await expect(page.getByTestId('stat-combos-value')).toHaveText('2', { timeout: 15_000 })
+
+  await page.evaluate(() => {
+    window.location.hash = '/battle-log'
+  })
+  await page.getByLabel('配裝 A').selectOption({ label: '截圖用配裝A' })
+  await page.getByLabel('配裝 B').selectOption({ label: '截圖用配裝B' })
+  await page.getByRole('button', { name: '記錄這一局' }).click()
+  await expect(page.getByTestId('battle-round').first()).toContainText('A 贏')
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log.png`,
+    fullPage: true,
+  })
+
   for (const shot of SHOTS) {
     // 用 location.hash 觸發 hashchange；goto 同文件的 hash 變更不一定會觸發路由。
     await page.evaluate((hash) => {

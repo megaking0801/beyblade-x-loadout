@@ -128,7 +128,7 @@ export function BattleLogPage() {
             {[...battleRounds]
               .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
               .map((round) => (
-                <li key={round.id}>
+                <li key={round.id} data-testid="battle-round">
                   {round.playedAt} · {round.result === 'tie' ? '平手' : round.result === 'a' ? 'A 贏' : 'B 贏'} ·{' '}
                   {FINISH_ZH[round.finish]}
                   {round.notes ? ` · ${round.notes}` : ''}
@@ -145,32 +145,34 @@ export function BattleLogPage() {
         {winRateRows.length === 0 ? (
           <EmptyState title="累積對戰紀錄後這裡會顯示每顆零件的勝率" />
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>零件</th>
-                <th>贏</th>
-                <th>輸</th>
-                <th>平手</th>
-                <th>勝率</th>
-              </tr>
-            </thead>
-            <tbody>
-              {winRateRows.map((row) => (
-                <tr key={row.partId}>
-                  <td>{row.nameZhTW}</td>
-                  <td>{row.wins}</td>
-                  <td>{row.losses}</td>
-                  <td>{row.ties}</td>
-                  <td>
-                    {row.winRate === undefined
-                      ? `樣本不足（需 ${LOW_SAMPLE_THRESHOLD} 場以上）`
-                      : `${Math.round(row.winRate * 100)}%`}
-                  </td>
+          <div className="card" style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>零件</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>贏</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>輸</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>平手</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>勝率</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {winRateRows.map((row) => (
+                  <tr key={row.partId}>
+                    <td style={{ padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.nameZhTW}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.wins}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.losses}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.ties}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>
+                      {row.winRate === undefined
+                        ? `樣本不足（需 ${LOW_SAMPLE_THRESHOLD} 場以上）`
+                        : `${Math.round(row.winRate * 100)}%`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </Section>
     </div>

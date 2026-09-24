@@ -1488,3 +1488,25 @@ Random Booster 開封：
   `recommendations.ts`／`reasons.ts`、`BuilderPage.tsx` 與 8 個單元測試檔。詳細設計見
   `docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`，執行紀錄見
   `docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md`。
+
+---
+
+# 51. 個人對戰紀錄（1v1 練習對戰 → 零件勝率）
+
+詳細設計見
+`docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`，執行紀錄見
+`docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
+
+- 使用者可以在配裝器記錄自己（或跟朋友）的 1v1 練習對戰結果：配裝 A、配裝 B、
+  誰贏（或平手）、終結方式（轉出／出界／爆裂／超越／未知）、日期、可選備註。
+  純本機 IndexedDB（`battleRounds` 表，schema v6），不同步、不匯聚多人資料，
+  不宣稱官方或社群共識。
+- `domain/battleRecords.ts` 的 `computePartWinRateIndex()` 把紀錄聚合成每顆
+  零件的勝率（贏 ÷（贏＋輸），平手不進分母），樣本數（贏＋輸）低於 5 場時
+  回傳 `undefined`，不顯示看起來精確但其實樣本太少的數字。
+- 這是 3on3 配裝評分裡第四種獨立訊號，跟既有的賽事證據、零件強度 fallback
+  （第 50 節）、高手 T 表評級（社群主觀意見）並列，各自加分、不相加換算。
+  `deck.ts` 的 `PERSONAL_WIN_RATE_WEIGHT = 2` 不需要回測校準——這份資料是
+  使用者自己的第一手經驗，沒有「準不準」的問題，只有「該佔多重」的產品判斷。
+  `evidence` 策略刻意不吃這個訊號，跟不吃高手評級同一個理由：策略名稱承諾
+  「最高賽事證據」。

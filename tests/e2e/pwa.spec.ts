@@ -567,3 +567,38 @@ test('前台任何一頁都不得再提到重量', async ({ page }) => {
     .filter((line) => line.includes('重量'))
   expect(builderHits, `配裝器還在講重量：${builderHits.join(' | ')}`).toEqual([])
 })
+
+test('個人對戰紀錄：記一局後歷史列表與零件勝率簡表都會更新', async ({ page }) => {
+  // 存第一套配裝（不勾「已實際組裝」，避免需要先擁有庫存——見 repository.ts
+  // 的 assertComboSavable()，只有 physicallyBuilt 才檢查庫存可用量）。存檔
+  // 成功後會被導回首頁，所以每套配裝存完都要重新進 /builder。
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await page.getByTestId('combo-name').fill('對戰紀錄測試A')
+  await page.getByTestId('save-combo').click()
+  await expect(page.getByTestId('stat-combos-value')).toHaveText('1', { timeout: 15_000 })
+
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await page.getByTestId('combo-name').fill('對戰紀錄測試B')
+  await page.getByTestId('save-combo').click()
+  await expect(page.getByTestId('stat-combos-value')).toHaveText('2', { timeout: 15_000 })
+
+  await openApp(page, '/battle-log')
+  await page.getByLabel('配裝 A').selectOption({ label: '對戰紀錄測試A' })
+  await page.getByLabel('配裝 B').selectOption({ label: '對戰紀錄測試B' })
+  await page.getByLabel('結果').selectOption('a')
+  await page.getByLabel('終結方式').selectOption('spin')
+  await page.getByRole('button', { name: '記錄這一局' }).click()
+
+  await expect(page.getByTestId('battle-round').first()).toContainText('A 贏')
+  // 只記了 1 局，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足，
+  // 不能顯示一個看起來精確、其實只憑 1 場就算出來的百分比。
+  await expect(page.getByText(/樣本不足/).first()).toBeVisible()
+})
