@@ -247,13 +247,33 @@ describe('3on3 推薦（第 32 節推薦模式）', () => {
     expect(r.every((deck) => deck.validation.ok)).toBe(true)
   })
 
-  it('最暴力策略不會選到比最穩定策略更低的平均攻擊分數', () => {
+  it('最暴力策略不會選到比最穩定策略更低的平均攻擊比重', () => {
     const args = { candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES }
     const aggressive = suggestDecks({ ...args, strategy: 'aggressive' })[0]!
     const stable = suggestDecks({ ...args, strategy: 'stable' })[0]!
     const avgAttack = (deck: typeof aggressive) =>
-      deck.validation.members.reduce((s, m) => s + (m.analysis.scores?.attack ?? 0), 0) / 3
+      deck.validation.members.reduce((s, m) => s + (m.analysis.typeWeight?.attack ?? 0), 0) / 3
     expect(avgAttack(aggressive)).toBeGreaterThanOrEqual(avgAttack(stable))
+  })
+
+  it('對攻擊策略選出的隊伍，平均防守比重不會低於對持久策略', () => {
+    // vs_attack 想找「防守佔比高」的隊伍去對付攻擊型對手；防守型零件只有
+    // b-def／bit-p，避免測試在候選池碰巧沒有防守型配置時變成沒有鑑別力的假測試。
+    const args = { candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES }
+    const vsAttack = suggestDecks({ ...args, strategy: 'vs_attack' })[0]!
+    const vsStamina = suggestDecks({ ...args, strategy: 'vs_stamina' })[0]!
+    const avgDefense = (deck: typeof vsAttack) =>
+      deck.validation.members.reduce((s, m) => s + (m.analysis.typeWeight?.defense ?? 0), 0) / 3
+    expect(avgDefense(vsAttack)).toBeGreaterThanOrEqual(avgDefense(vsStamina))
+  })
+
+  it('對持久策略選出的隊伍，平均攻擊比重不會低於對攻擊策略', () => {
+    const args = { candidates, parts, lots: fullStock, combos: [], ruleSet: DEFAULT_DECK_RULES }
+    const vsAttack = suggestDecks({ ...args, strategy: 'vs_attack' })[0]!
+    const vsStamina = suggestDecks({ ...args, strategy: 'vs_stamina' })[0]!
+    const avgAttack = (deck: typeof vsAttack) =>
+      deck.validation.members.reduce((s, m) => s + (m.analysis.typeWeight?.attack ?? 0), 0) / 3
+    expect(avgAttack(vsStamina)).toBeGreaterThanOrEqual(avgAttack(vsAttack))
   })
 
   it('最適合新手策略不會比最暴力策略更難操作', () => {

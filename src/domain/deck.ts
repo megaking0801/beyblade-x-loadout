@@ -218,7 +218,7 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
     slotsList.length === ruleSet.teamSize && analyses.every((a) => a.compatibility.ok)
 
   const members = structurallyValid ? assignRoles(slotsList, analyses) : []
-  if (members.length > 0 && members.every((member) => !member.analysis.scores)) {
+  if (members.length > 0 && members.every((member) => !member.analysis.typeWeight)) {
     warningsZhTW.push(
       '這幾套配裝都缺少官方類型與旋向資料，角色分配只依可組性，不代表強弱',
     )
@@ -259,35 +259,35 @@ function assignRoles(slotsList: ComboSlots[], analyses: ComboAnalysis[]): DeckMe
   const members: DeckMember[] = []
 
   const attacker = pick(
-    (a, b) => (b.analysis.scores?.attack ?? -1) - (a.analysis.scores?.attack ?? -1),
+    (a, b) => (b.analysis.typeWeight?.attack ?? -1) - (a.analysis.typeWeight?.attack ?? -1),
   )
   if (attacker) {
     members.push({
       ...attacker,
       roleZhTW: '主攻',
-      reasonZhTW: reasonFor(attacker.analysis.scores?.attack, '攻擊', '負責主動撞擊'),
+      reasonZhTW: reasonFor(attacker.analysis.typeWeight?.attack, '攻擊型佔比', '負責主動撞擊'),
     })
   }
 
   const stamina = pick(
-    (a, b) => (b.analysis.scores?.stamina ?? -1) - (a.analysis.scores?.stamina ?? -1),
+    (a, b) => (b.analysis.typeWeight?.stamina ?? -1) - (a.analysis.typeWeight?.stamina ?? -1),
   )
   if (stamina) {
     members.push({
       ...stamina,
       roleZhTW: '持久',
-      reasonZhTW: reasonFor(stamina.analysis.scores?.stamina, '持久', '負責拖時間比轉久'),
+      reasonZhTW: reasonFor(stamina.analysis.typeWeight?.stamina, '持久型佔比', '負責拖時間比轉久'),
     })
   }
 
   const stable = pick(
-    (a, b) => (b.analysis.scores?.stability ?? -1) - (a.analysis.scores?.stability ?? -1),
+    (a, b) => (b.analysis.typeWeight?.defense ?? -1) - (a.analysis.typeWeight?.defense ?? -1),
   )
   if (stable) {
     members.push({
       ...stable,
       roleZhTW: '穩定／抗攻',
-      reasonZhTW: reasonFor(stable.analysis.scores?.stability, '穩定', '負責接下對手的攻擊'),
+      reasonZhTW: reasonFor(stable.analysis.typeWeight?.defense, '防守型佔比', '負責接下對手的攻擊'),
     })
   }
 
@@ -387,9 +387,9 @@ export function scoreDeck(
   expertPartRatingIndex?: Map<string, ExpertPartRatingRank>,
   partStrengthIndex?: Map<string, PartStrengthEntry>,
 ): number {
-  const scores = members.map((m) => m.analysis.scores)
-  const axis = (key: 'attack' | 'defense' | 'stamina' | 'stability' | 'burst' | 'burstResistance') =>
-    scores.map((s) => s?.[key] ?? 0)
+  const weights = members.map((m) => m.analysis.typeWeight)
+  const axis = (key: 'attack' | 'defense' | 'stamina' | 'balance') =>
+    weights.map((w) => w?.[key] ?? 0)
   // 完整配置在自己來源分布裡的百分位（0～100，見 evidence.percentileScore 的
   // 註解），不是原始出場筆數——不同來源量級差很多，直接加總原始筆數會讓查得到
   // 大量社群出場數的配置系統性蓋過真正在本地賽事拿過名次的配置，跟
@@ -426,26 +426,30 @@ export function scoreDeck(
     case 'aggressive':
       return average(axis('attack'))
     case 'stable':
-      return average(axis('stability'))
+      return average(axis('defense'))
     case 'beginner':
       return -average(members.map((m) => m.analysis.operationDifficulty ?? 100))
     case 'balanced':
       // 三個面向各取隊中最高值鼓勵角色互補；完整配置的實戰證據（含零件強度
-      // fallback）與高手評級則作為次要加分，不能用零件類型分數蓋過賽場已驗證
+      // fallback）與高手評級則作為次要加分，不能用零件類型比重蓋過賽場已驗證
       // 的組合。
       return (
         Math.max(...axis('attack')) +
         Math.max(...axis('stamina')) +
-        Math.max(...axis('stability')) +
+        Math.max(...axis('defense')) +
         competitiveEvidenceWithFallback +
         expertTierGain * EXPERT_TIER_WEIGHT
       )
     case 'evidence':
       return competitiveEvidence
     case 'vs_attack':
-      return average(axis('defense')) + average(axis('burstResistance')) + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      // 舊版把 defense 與 burstResistance 兩個相關軸加總，兩者本來就是同一份
+      // 資訊的裝飾（見規格第 1 節），現在只剩 defense 單軸，乘 2 是為了保留
+      // 這一項在總分裡原本的量級，不讓拿掉裝飾軸之後這個策略的排序權重被
+      // competitiveEvidenceWithFallback／expertTierGain 蓋過去。
+      return average(axis('defense')) * 2 + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
     case 'vs_stamina':
-      return average(axis('attack')) + average(axis('burst')) + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
+      return average(axis('attack')) * 2 + competitiveEvidenceWithFallback * 0.35 + expertTierGain * EXPERT_TIER_WEIGHT
   }
 }
 
