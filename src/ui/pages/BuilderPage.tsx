@@ -88,8 +88,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const availability = useAppStore((state) => state.availability)
   const images = useAppStore((state) => state.images)
   const run = useAppStore((state) => state.run)
-  const battleRounds = useAppStore((state) => state.battleRounds)
-  const winRateIndex = useMemo(() => computePartWinRateIndex(battleRounds), [battleRounds])
+  const battleMatches = useAppStore((state) => state.battleMatches)
+  const winRateIndex = useMemo(() => computePartWinRateIndex(battleMatches), [battleMatches])
 
   const [mode, setMode] = useState<BuilderMode>('owned')
   const [structure, setStructure] = useState<Structure>('standard')

@@ -53,7 +53,7 @@ export function DecksPage() {
   const tournamentEvents = useAppStore((state) => state.tournamentEvents)
   const tournamentDecks = useAppStore((state) => state.tournamentDecks)
   const decks = useAppStore((state) => state.decks)
-  const battleRounds = useAppStore((state) => state.battleRounds)
+  const battleMatches = useAppStore((state) => state.battleMatches)
   const run = useAppStore((state) => state.run)
 
   const [strategy, setStrategy] = useState<DeckStrategy>('balanced')
@@ -65,7 +65,7 @@ export function DecksPage() {
   )
   const expertPartRatingIndex = useMemo(() => getExpertPartRatingIndex(), [])
   const partStrengthIndex = useMemo(() => getPartStrengthIndex(), [])
-  const winRateIndex = useMemo(() => computePartWinRateIndex(battleRounds), [battleRounds])
+  const winRateIndex = useMemo(() => computePartWinRateIndex(battleMatches), [battleMatches])
 
   const candidates = useMemo(() => {
     const base = { parts, rules, lots, combos, mode: 'owned' as const, limit: 72, evidenceByCode }

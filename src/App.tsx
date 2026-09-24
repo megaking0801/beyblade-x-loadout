@@ -26,6 +26,7 @@ const TABS: { path: string; label: string }[] = [
   { path: '/parts', label: '零件' },
   { path: '/builder', label: '配裝' },
   { path: '/decks', label: '3on3' },
+  { path: '/battle-log', label: '對戰' },
 ]
 
 export function App() {
