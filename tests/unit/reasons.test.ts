@@ -138,9 +138,9 @@ describe('整顆陀螺的一句話結論', () => {
     expect(buildComboVerdict({})).toBeUndefined()
   })
 
-  it('講得出最強與最弱的面向', () => {
+  it('講得出最強與最弱的類型佔比', () => {
     const verdict = buildComboVerdict({
-      scores: { attack: 88, defense: 30, stamina: 28, burst: 70, burstResistance: 35, stability: 32 },
+      scores: { attack: 62, defense: 15, stamina: 8, balance: 15 },
       typeZhTW: '攻擊',
     })
     expect(verdict).toContain('攻擊型配置')
@@ -148,10 +148,20 @@ describe('整顆陀螺的一句話結論', () => {
     expect(verdict).toContain('弱在')
   })
 
-  it('六軸差距太小時說是平均型，不硬講擅長什麼', () => {
+  it('四個類型佔比差距太小時說是平均型，不硬講擅長什麼', () => {
     const verdict = buildComboVerdict({
-      scores: { attack: 50, defense: 52, stamina: 48, burst: 51, burstResistance: 49, stability: 50 },
+      scores: { attack: 27, defense: 25, stamina: 24, balance: 24 },
     })
     expect(verdict).toContain('沒有明顯偏向')
+  })
+
+  it('最強最弱差距剛好等於門檻（15）時，判定成「有明確偏向」而不是平均型', () => {
+    // attack 35、balance 20，差距剛好 15——門檻判斷式是 `< 15` 才算打平，
+    // 15 本身不成立，所以要能正確判成「有偏向」，釘住這個邊界不被改壞。
+    const verdict = buildComboVerdict({
+      scores: { attack: 35, defense: 24, stamina: 21, balance: 20 },
+    })
+    expect(verdict).not.toContain('沒有明顯偏向')
+    expect(verdict).toContain('強在')
   })
 })

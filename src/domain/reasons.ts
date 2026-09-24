@@ -3,9 +3,9 @@
  *
  * 規格對照：第 20 節 C（賽事／社群證據）、第 21 節（樣本限制）、第 22 節（來源可查）。
  *
- * 為什麼要有這一層：六軸評估是本站的模型推估，它說得出「這套的結構偏持久」，
- * 說不出「賽場上真的有人這樣打」。本模組只做一件事 —— 把已經收進來的兩種外部資料
- * （高手逐件評級、台灣賽事名次觀測）翻成一句一句可回查的理由。
+ * 為什麼要有這一層：零件類型比重是本站算出來的組成比例，它說得出「這套的結構偏
+ * 持久」，說不出「賽場上真的有人這樣打」。本模組只做一件事 —— 把已經收進來的
+ * 兩種外部資料（高手逐件評級、台灣賽事名次觀測）翻成一句一句可回查的理由。
  *
  * 界線（重要）：
  *  - 這些理由**不進入**六軸分數，也不改變可信度。模型歸模型、證據歸證據，
@@ -198,42 +198,36 @@ export const NO_EVIDENCE_NOTE_ZH =
 
 /* ------------------------------------------------- 整顆陀螺的一句話結論 */
 
-/** 六軸分數的最小輸入形狀，避免這一層依賴 analysis 模組。 */
+/** 類型比重的最小輸入形狀，避免這一層依賴 analysis 模組。 */
 export interface ComboScoreInput {
   attack: number
   defense: number
   stamina: number
-  burst: number
-  burstResistance: number
-  stability: number
+  balance: number
 }
 
 const AXIS_STRENGTH_ZH: Record<keyof ComboScoreInput, string> = {
   attack: '正面撞擊',
   defense: '硬吃攻擊',
   stamina: '拖到最後',
-  burst: '打爆對手',
-  burstResistance: '不被打爆',
-  stability: '站得住',
+  balance: '攻守持久都不差',
 }
 
 const AXIS_WEAKNESS_ZH: Record<keyof ComboScoreInput, string> = {
   attack: '撞不動人',
   defense: '被撞就吃虧',
   stamina: '拖不久',
-  burst: '很難打爆對手',
-  burstResistance: '容易被打爆',
-  stability: '姿勢容易亂',
+  balance: '沒有明顯強項',
 }
 
 /**
  * 用一句話講完這顆陀螺是什麼打法。
  *
- * 為什麼需要：六軸給的是六個數字，逐條讀完才拼得出「所以這顆是幹嘛的」；
- * 而證據理由列的是一顆顆零件，讀起來像三份零件報告而不是一顆陀螺的分析。
- * 這一句把最強與最弱的軸翻成人話，放在所有細節之前。
+ * 為什麼需要：零件類型比重給的是四個百分比，逐條讀完才拼得出「所以這顆是幹嘛
+ * 的」；而證據理由列的是一顆顆零件，讀起來像三份零件報告而不是一顆陀螺的分析。
+ * 這一句把佔比最高與最低的類型翻成人話，放在所有細節之前。
  *
- * 只講模型算得出來的東西；沒有分數就回 undefined，不要硬湊一句廢話。
+ * 只講模型算得出來的東西；沒有比重就回 undefined，不要硬湊一句廢話。
  */
 export function buildComboVerdict(args: {
   scores?: ComboScoreInput
@@ -248,9 +242,11 @@ export function buildComboVerdict(args: {
   const worst = entries[entries.length - 1]
   if (!best || !worst) return undefined
 
-  // 六軸差距太小時不要硬講「擅長什麼」，那只是模型的雜訊。
-  if (best.value - worst.value < 12) {
-    return '六個面向分數接近，是沒有明顯偏向的平均型配置。'
+  // 四個類型佔比差距太小時不要硬講「擅長什麼」，那只是雜訊。四個百分比加總
+  // 是 100，平均值 25；門檻抓「最高與最低差不到 15 個百分點」，比舊版 0–100
+  // 假分數的 12 分門檻略寬，因為百分比的分布天然比舊版分數更集中在 25 附近。
+  if (best.value - worst.value < 15) {
+    return '四個類型佔比接近，是沒有明顯偏向的平均型配置。'
   }
   const typePrefix = args.typeZhTW && args.typeZhTW !== '資料不足' ? `${args.typeZhTW}型配置：` : ''
   return `${typePrefix}強在${AXIS_STRENGTH_ZH[best.axis]}，弱在${AXIS_WEAKNESS_ZH[worst.axis]}。`

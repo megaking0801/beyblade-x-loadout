@@ -524,7 +524,7 @@ export function ComboResult({
       Boolean(row.modes),
     )
   const comboVerdictZhTW = buildComboVerdict({
-    scores: analysis.scores,
+    scores: analysis.typeWeight,
     typeZhTW: analysis.typeZhTW,
   })
 
