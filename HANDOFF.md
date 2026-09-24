@@ -1,15 +1,13 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（Task 8 收尾流程進行中）
+交接原因：一般交接（Task 8 全部完成，SDD 主線已上線，待做收尾流程）
 
 ## 目前目標
 
-六軸評估系統換成「零件類型比重」的 SDD 計畫（8 個 Task）功能與驗證已全部完成
-（Task 7 的 `npm run shots` 已人工看過截圖，四條類型比重分數條顯示正常、有 `%`、
-無「六軸」殘留字樣）。目前在做 Task 8 收尾：規格文件第 50.7 節與 spec 狀態列已
-改為「已完成」，`tsc -b`／`npm test` 已重跑確認乾淨，準備 commit + push +
-deploy + test:live。
+六軸評估系統換成「零件類型比重」的 SDD 計畫（8 個 Task）**已全部完成並驗證上線**。
+下一步是用 `superpowers:finishing-a-development-branch` 收尾這支 SDD（這次直接在
+`main` 上做，不是獨立分支，收尾時注意這點）。
 
 - Spec：`docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`
 - Plan：`docs/superpowers/plans/2026-09-24-six-axis-to-type-weight.md`
@@ -18,10 +16,10 @@ deploy + test:live。
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 有未 commit 的文件變更（`BEYBLADE_X_codex_prompt.md`、spec 狀態列） |
-| 本機 HEAD | `c5e8ecc` |
-| `origin/main` | `c5e8ecc`（同步，Task 1–7 程式碼已在上一輪推送過） |
-| 線上 Pages | **未變更**，尚未部署本輪（Task 1–7 的類型比重介面還沒上線） |
+| 工作區 | 乾淨（文件收尾已 commit） |
+| 本機 HEAD | `698bc53` |
+| `origin/main` | `698bc53`（同步） |
+| 線上 Pages | 已部署，`gh-pages` commit `1129d0b`，`npm run test:live` 6/6 通過 |
 
 ## 已驗證與未驗證
 
@@ -30,8 +28,10 @@ deploy + test:live。
 - `npm run test:e2e`：85 passed / 1 skipped（上一輪跑過，本輪未重跑，文件變更
   不影響程式邏輯）。
 - `npm run shots`：已跑，已用 Read 工具人工看過
-  `test-results/shots/desktop-builder.png`／`phone-builder.png`，確認顯示正常。
-- push／deploy／test:live：**還沒做**，是下一步。
+  `test-results/shots/desktop-builder.png`／`phone-builder.png`，確認四條類型
+  比重分數條顯示正常、有 `%`、無「六軸」殘留字樣。
+- `npm run test:live`：6/6 通過（手機／桌機各 3 條：可開啟＋個人資料歸零、
+  service worker 註冊、圖片載得到）。
 
 ## 阻塞
 
@@ -39,17 +39,9 @@ deploy + test:live。
 
 ## 下一個具體動作
 
-1. commit 這輪文件變更（`BEYBLADE_X_codex_prompt.md`、
-   `docs/superpowers/specs/2026-09-24-six-axis-to-type-weight-design.md`、
-   `HANDOFF.md`），訊息：
-   `docs: mark six-axis-to-type-weight spec and plan as implemented`。
-2. `git push origin main`。
-3. `npm run deploy:pages`，記下輸出的 `gh-pages` commit SHA。
-4. `npm run test:live`，全部通過後把結果與 SHA 補回這份 HANDOFF 的「發布狀態」
-   表格（純文件變更，不用再部署一次）。
-5. 全部驗證過、確認線上真的換版後，用
-   `superpowers:finishing-a-development-branch` 收尾這支 SDD（這次直接在
-   `main` 上做，不是獨立分支，收尾時注意這點）。
+用 `superpowers:finishing-a-development-branch` 收尾這支 SDD——這輪全程在
+`main` 上做（沒有分支／worktree），收尾時要處理的是這件事本身怎麼標記完成，
+不是合併分支。
 
 ## 怎麼跑（非顯而易見的）
 
