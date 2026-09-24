@@ -475,47 +475,49 @@ describe('匯出與匯入（第 37 節）', () => {
         'schemaVersion',
         'settings',
         'wishlist',
-        'battleRounds',
+        'battleMatches',
       ].sort(),
     )
   })
 
   it('個人對戰紀錄會被匯出，匯入後完整回復（全分支審查 Important Finding 3 回歸測試）', async () => {
-    await repo.saveBattleRound({
+    await repo.saveBattleMatch({
       a: { bladeId: 'test-blade-a' },
       b: { bladeId: 'test-bit-b' },
-      result: 'a',
-      finish: 'spin',
+      points: [
+        { scorer: 'a', finish: 'xtreme' },
+        { scorer: 'a', finish: 'spin' },
+      ],
       playedAt: '2026-09-24',
     })
     const backup = await repo.exportBackup()
 
-    const otherDb = createDb('beyblade-test-import-battle-rounds')
+    const otherDb = createDb('beyblade-test-import-battle-matches')
     const otherRepo = createRepository(otherDb)
     await otherDb.open()
     await otherRepo.loadCatalog(catalog)
     await otherRepo.importBackup(backup)
 
-    const rounds = await otherRepo.listBattleRounds()
-    expect(rounds).toHaveLength(1)
-    expect(rounds[0]!.a.bladeId).toBe('test-blade-a')
+    const matches = await otherRepo.listBattleMatches()
+    expect(matches).toHaveLength(1)
+    expect(matches[0]!.a.bladeId).toBe('test-blade-a')
     await otherDb.delete()
   })
 
-  it('舊版（沒有 battleRounds 欄位）的備份可以照常匯入，個人對戰紀錄留空', async () => {
+  it('舊版（沒有 battleMatches 欄位）的備份可以照常匯入，個人對戰紀錄留空', async () => {
     await repo.addOwnedProduct({ productId: fixedProduct.id, quantity: 1, status: 'owned' })
     const backup = await repo.exportBackup()
     const legacyBackup = { ...backup } as Partial<typeof backup>
-    delete legacyBackup.battleRounds
+    delete legacyBackup.battleMatches
 
-    const otherDb = createDb('beyblade-test-import-legacy-no-battle-rounds')
+    const otherDb = createDb('beyblade-test-import-legacy-no-battle-matches')
     const otherRepo = createRepository(otherDb)
     await otherDb.open()
     await otherRepo.loadCatalog(catalog)
     await otherRepo.importBackup(legacyBackup as typeof backup)
 
     expect(await otherRepo.listOwnedProducts()).toHaveLength(1)
-    expect(await otherRepo.listBattleRounds()).toHaveLength(0)
+    expect(await otherRepo.listBattleMatches()).toHaveLength(0)
     await otherDb.delete()
   })
 
@@ -578,11 +580,10 @@ describe('匯出與匯入（第 37 節）', () => {
 
     expect(await otherRepo.listOwnedProducts()).toHaveLength(1)
     expect((await otherRepo.listCombos()).map((combo) => combo.nameZhTW)).toEqual(['保留的配裝'])
-    // v6 已經重新加回 battleRounds 表（這次是全新的個人對戰紀錄功能，見
-    // docs/superpowers/specs/2026-09-24-personal-battle-log-design.md），
-    // 表本身存在是預期的；這裡驗證的是 importBackup() 真的沒有讀取備份裡
-    // 的舊版 battleRounds 欄位寫進新表，不是驗證表不存在。
-    expect(await otherDb.battleRounds.toArray()).toHaveLength(0)
+    // battleRounds 表這輪（v7）已經整個刪掉，這裡驗證的是 importBackup()
+    // 真的沒有讀取備份裡的舊版 battleRounds 欄位寫進 battleMatches。
+    expect(otherDb.tables.map((table) => table.name)).not.toContain('battleRounds')
+    expect(await otherDb.battleMatches.toArray()).toHaveLength(0)
     await otherDb.delete()
   })
 
@@ -624,17 +625,18 @@ describe('IndexedDB v5 migration', () => {
 
     const migrated = createDb(name)
     await migrated.open()
-    // v6 把 battleRounds 加回來（全新的個人對戰紀錄功能，見
-    // docs/superpowers/specs/2026-09-24-personal-battle-log-design.md），
-    // 所以目前最新版本是 6，不是這條測試原本寫的 5；表本身存在也是預期的。
-    expect(migrated.verno).toBe(6)
+    // v6 曾經把 battleRounds 加回來，但 v7 這輪又整個刪掉（換成全新的
+    // battleMatches，見 docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md），
+    // 所以目前最新版本是 7。
+    expect(migrated.verno).toBe(7)
     expect(await migrated.ownedProducts.get('owned-1')).toMatchObject({ productId: 'product-1' })
     expect(await migrated.inventoryLots.get('lot-1')).toMatchObject({ partId: 'bit-1', quantity: 2 })
     expect(await migrated.savedCombos.get('combo-1')).toMatchObject({ nameZhTW: '舊配裝' })
-    // v5 把舊版 battleRounds 表整個刪掉（連同 v4 遺留的 'round-1'），v6 重新
-    // 建立的是全新、跟舊資料無關的空表——這裡驗證舊資料真的沒有穿越過去，
-    // 不是驗證表不存在。
-    expect(await migrated.battleRounds.toArray()).toHaveLength(0)
+    // v5 把 v4 的 battleRounds 表整個刪掉（連同遺留的 'round-1'），v6 重新
+    // 建了一次，v7 又整個刪掉換成 battleMatches——這裡驗證表真的不存在，
+    // 不是空表。
+    expect(migrated.tables.map((table) => table.name)).not.toContain('battleRounds')
+    expect(await migrated.battleMatches.toArray()).toHaveLength(0)
     await migrated.delete()
   })
 })
@@ -876,30 +878,43 @@ describe('零件 id 搬遷（第 3 節：圖鑑更新不得弄丟個人資料）
   })
 })
 
-describe('對戰紀錄（個人 1v1 練習對戰，第 3 節）', () => {
-  it('可以新增、列出、刪除對戰紀錄', async () => {
-    const repo = createRepository(createDb(`test-battle-${Date.now()}`))
-    const id = await repo.saveBattleRound({
+describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
+  it('可以新增、列出、刪除一場打完的對戰', async () => {
+    const repo = createRepository(createDb(`test-battle-match-${Date.now()}`))
+    const id = await repo.saveBattleMatch({
       a: { bladeId: 'blade-a' },
       b: { bladeId: 'blade-b' },
-      result: 'a',
-      finish: 'spin',
-      playedAt: '2026-09-24',
+      points: [
+        { scorer: 'a', finish: 'xtreme' },
+        { scorer: 'a', finish: 'spin' },
+      ],
+      playedAt: '2026-09-25',
     })
-    const rounds = await repo.listBattleRounds()
-    expect(rounds).toHaveLength(1)
-    expect(rounds[0]!.id).toBe(id)
-    expect(rounds[0]!.a.bladeId).toBe('blade-a')
+    const matches = await repo.listBattleMatches()
+    expect(matches).toHaveLength(1)
+    expect(matches[0]!.id).toBe(id)
+    expect(matches[0]!.a.bladeId).toBe('blade-a')
 
-    await repo.deleteBattleRound(id)
-    expect(await repo.listBattleRounds()).toHaveLength(0)
+    await repo.deleteBattleMatch(id)
+    expect(await repo.listBattleMatches()).toHaveLength(0)
   })
 
-  it('v5 升級到 v6 不會動到既有配裝與庫存資料', async () => {
-    const dbName = `test-migration-battle-${Date.now()}`
-    // 先用舊版本（沒有 battleRounds 表）寫一些既有資料。
+  it('沒有一邊到 4 分的比賽不能存檔', async () => {
+    const repo = createRepository(createDb(`test-battle-match-incomplete-${Date.now()}`))
+    await expect(
+      repo.saveBattleMatch({
+        a: { bladeId: 'blade-a' },
+        b: { bladeId: 'blade-b' },
+        points: [{ scorer: 'a', finish: 'over_burst' }],
+        playedAt: '2026-09-25',
+      }),
+    ).rejects.toThrow('這場對戰還沒打完')
+  })
+
+  it('v6 升級到 v7 會把舊的 battleRounds 表整個刪掉，不轉換資料，且不影響其他既有資料', async () => {
+    const dbName = `test-migration-v7-${Date.now()}`
     const oldDb = new Dexie(dbName) as BeybladeDb
-    oldDb.version(5).stores({
+    oldDb.version(6).stores({
       parts: 'id, family, system, code',
       partVariants: 'id, partId',
       products: 'id, line, category, sku',
@@ -912,6 +927,7 @@ describe('對戰紀錄（個人 1v1 練習對戰，第 3 節）', () => {
       savedCombos: 'id, favorite, physicallyBuilt',
       decks: 'id',
       wishlist: 'id, productId',
+      battleRounds: 'id, playedAt',
       tournamentEvents: 'id, date, country',
       tournamentDecks: 'id, eventId',
       tournamentObservations: 'id, eventId',
@@ -927,16 +943,23 @@ describe('對戰紀錄（個人 1v1 練習對戰，第 3 節）', () => {
       condition: 'new',
       createdAt: '2026-01-01',
     })
+    await oldDb.table('battleRounds').add({
+      id: 'old-round-1',
+      a: { bladeId: 'blade-a' },
+      b: { bladeId: 'blade-b' },
+      result: 'a',
+      finish: 'spin',
+      playedAt: '2026-09-20',
+      createdAt: '2026-09-20T00:00:00.000Z',
+    })
     oldDb.close()
 
-    // 用目前的 schema（含 battleRounds）重新開啟同一個資料庫名稱，觸發升級。
     const upgraded = createDb(dbName)
     await upgraded.open()
-    const lots = await upgraded.inventoryLots.toArray()
-    expect(lots).toHaveLength(1)
-    expect(lots[0]!.id).toBe('lot-1')
-    const rounds = await upgraded.battleRounds.toArray()
-    expect(rounds).toHaveLength(0)
+    expect(upgraded.verno).toBe(7)
+    expect(await upgraded.inventoryLots.get('lot-1')).toMatchObject({ partId: 'blade-a' })
+    expect(upgraded.tables.map((table) => table.name)).not.toContain('battleRounds')
+    expect(await upgraded.battleMatches.toArray()).toHaveLength(0)
     upgraded.close()
   })
 })

@@ -21,8 +21,9 @@ import {
   type PartStock,
 } from '../domain/inventory.ts'
 import { resolveDisplayName } from '../domain/naming.ts'
+import { isMatchComplete } from '../domain/battleRecords.ts'
 import type {
-  BattleRound,
+  BattleMatch,
   CompatibilityRule,
   Deck,
   ImageAsset,
@@ -86,7 +87,7 @@ export interface BackupPayload {
   savedCombos: SavedCombo[]
   decks: Deck[]
   wishlist: WishlistItem[]
-  battleRounds: BattleRound[]
+  battleMatches: BattleMatch[]
   settings: AppSettings
 }
 
@@ -152,9 +153,9 @@ export interface Repository {
   updateCombo(id: string, patch: Partial<SaveComboInput>): Promise<void>
   deleteCombo(id: string): Promise<void>
 
-  listBattleRounds(): Promise<BattleRound[]>
-  saveBattleRound(input: Omit<BattleRound, 'id' | 'createdAt'>): Promise<string>
-  deleteBattleRound(id: string): Promise<void>
+  listBattleMatches(): Promise<BattleMatch[]>
+  saveBattleMatch(input: Omit<BattleMatch, 'id' | 'createdAt'>): Promise<string>
+  deleteBattleMatch(id: string): Promise<void>
 
   listDecks(): Promise<Deck[]>
   saveDeck(input: SaveDeckInput): Promise<string>
@@ -691,16 +692,19 @@ export function createRepository(db: BeybladeDb): Repository {
 
     /* -------------------------------------------------------- 個人對戰紀錄 */
 
-    listBattleRounds: () => db.battleRounds.toArray(),
+    listBattleMatches: () => db.battleMatches.toArray(),
 
-    async saveBattleRound(input) {
-      const round: BattleRound = { id: newId(), createdAt: nowIso(), ...input }
-      await db.battleRounds.add(round)
-      return round.id
+    async saveBattleMatch(input) {
+      if (!isMatchComplete(input.points)) {
+        throw new Error('這場對戰還沒打完（還沒有一邊到 4 分），不能存檔')
+      }
+      const match: BattleMatch = { id: newId(), createdAt: nowIso(), ...input }
+      await db.battleMatches.add(match)
+      return match.id
     },
 
-    async deleteBattleRound(id) {
-      await db.battleRounds.delete(id)
+    async deleteBattleMatch(id) {
+      await db.battleMatches.delete(id)
     },
 
     /* ------------------------------------------------------------- 3on3 */
@@ -762,7 +766,7 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
-        battleRounds,
+        battleMatches,
         settings,
         catalogVersion,
       ] =
@@ -773,7 +777,7 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos.toArray(),
           db.decks.toArray(),
           db.wishlist.toArray(),
-          db.battleRounds.toArray(),
+          db.battleMatches.toArray(),
           (async () => (await getMeta<AppSettings>(META_SETTINGS)) ?? DEFAULT_SETTINGS)(),
           getMeta<string>(META_CATALOG_VERSION),
         ])
@@ -786,7 +790,7 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
-        battleRounds,
+        battleMatches,
         settings,
       }
     },
@@ -799,14 +803,11 @@ export function createRepository(db: BeybladeDb): Repository {
         throw new Error(`備份版本過新（${payload.schemaVersion}），請先更新 App`)
       }
       /*
-       * schemaVersion < 6 的備份可能帶著同名的 battleRounds 欄位，但那是
-       * 舊版「人工逐局紀錄」功能（已刪除）的資料形狀，跟這次全新功能的
-       * BattleRound 型別完全不同——絕對不能原樣塞進新表，一律當作沒有這個
-       * 欄位、匯入後留空（跟 partPreferences 對 schema v1 的既有處理同一個
-       * 「舊版沒有這個概念，留空即可」精神，只是這裡的原因是「同名異義」，
-       * 不是「單純沒有」）。
+       * schemaVersion < 7 的備份不會有（相容的）battleMatches 欄位——v6 以前
+       * 這個位置要嘛沒有這個概念，要嘛是舊版 BattleRound 的資料形狀，跟這次
+       * BattleMatch 完全不同，一律當作沒有這個欄位、匯入後留空。
        */
-      const battleRounds = payload.schemaVersion >= 6 ? (payload.battleRounds ?? []) : []
+      const battleMatches = payload.schemaVersion >= 7 ? (payload.battleMatches ?? []) : []
       const arrays: [string, unknown][] = [
         ['ownedProducts', payload.ownedProducts],
         ['inventoryLots', payload.inventoryLots],
@@ -815,7 +816,7 @@ export function createRepository(db: BeybladeDb): Repository {
         ['savedCombos', payload.savedCombos],
         ['decks', payload.decks],
         ['wishlist', payload.wishlist],
-        ['battleRounds', battleRounds],
+        ['battleMatches', battleMatches],
       ]
       for (const [name, value] of arrays) {
         if (!Array.isArray(value)) throw new Error(`備份格式不正確：${name} 不是陣列`)
@@ -830,7 +831,7 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos,
           db.decks,
           db.wishlist,
-          db.battleRounds,
+          db.battleMatches,
           db.meta,
         ],
         async () => {
@@ -841,7 +842,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.clear(),
             db.decks.clear(),
             db.wishlist.clear(),
-            db.battleRounds.clear(),
+            db.battleMatches.clear(),
           ])
           await Promise.all([
             db.ownedProducts.bulkAdd(payload.ownedProducts),
@@ -850,7 +851,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.bulkAdd(payload.savedCombos),
             db.decks.bulkAdd(payload.decks),
             db.wishlist.bulkAdd(payload.wishlist),
-            db.battleRounds.bulkAdd(battleRounds),
+            db.battleMatches.bulkAdd(battleMatches),
           ])
           if (payload.settings) {
             await db.meta.put({ key: META_SETTINGS, value: payload.settings })
