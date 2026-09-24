@@ -530,6 +530,18 @@ describe('scoreDeck 強度定義（社群證據百分位 + 高手評級）', () 
     expect(scoreWithoutIndex).toBe(scoreWithEmptyIndex)
   })
 
+  it('balanced 策略：個人對戰紀錄輸多贏少的配裝分數要比沒有紀錄的配裝低（全分支審查 Important Finding 1 回歸測試）', () => {
+    // 原本的實作直接加總原始 winRate（0～1，永遠非負），代表「不管輸贏，
+    // 只要有紀錄就加分」——輸得越多還是比沒紀錄的配裝分數高，跟直覺相反。
+    // 正確做法要以 0.5（不輸不贏）為基準，低於 0.5 要扣分。
+    const memberLosing = memberFor(threeDistinct[0]!) // b-atk
+    const memberNoData = memberFor(threeDistinct[1]!) // b-sta，winRateIndex 裡沒有這顆
+    const winRateIndex = new Map([['b-atk', { wins: 1, losses: 9, ties: 0, winRate: 0.1 }]])
+    const scoreLosing = scoreDeck('balanced', [memberLosing], undefined, undefined, winRateIndex)
+    const scoreNoData = scoreDeck('balanced', [memberNoData], undefined, undefined, winRateIndex)
+    expect(scoreLosing).toBeLessThan(scoreNoData)
+  })
+
   it('evidence 策略不吃個人對戰紀錄勝率，跟不吃 expertTierGain 同一個理由：策略名稱承諾最高賽事證據', () => {
     const member = memberFor(threeDistinct[0]!)
     const winRateIndex = new Map([['b-atk', { wins: 8, losses: 2, ties: 0, winRate: 0.8 }]])

@@ -135,7 +135,7 @@ export function SettingsPage() {
       <Section title="備份">
         <div className="card" style={{ display: 'grid', gap: 10 }}>
           <div style={{ fontSize: 14, color: 'var(--text-dim)' }}>
-            匯出內容包含我的商品、零件批次、配裝、3on3、想買清單與設定，不含公共圖鑑。
+            匯出內容包含我的商品、零件批次、配裝、3on3、想買清單、個人對戰紀錄與設定，不含公共圖鑑。
           </div>
           <Row>
             <button

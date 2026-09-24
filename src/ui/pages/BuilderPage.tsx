@@ -13,6 +13,7 @@ import { getCommunityEvidenceSource } from '../../catalog/communityRecords.ts'
 import { expertPartRatingMeta, getExpertPartRatings, getExpertTierMatches } from '../../catalog/tierLists.ts'
 import { getObservedComboMatches, getTournamentEvidenceReport } from '../../domain/tournament.ts'
 import { getPartSources, NO_SOURCE_NOTE_ZH } from '../../domain/sources.ts'
+import { computePartWinRateIndex, LOW_SAMPLE_THRESHOLD } from '../../domain/battleRecords.ts'
 import {
   buildComboVerdict,
   buildEvidenceReasons,
@@ -56,6 +57,26 @@ const MODE_LABEL: Record<BuilderMode, string> = {
   hypothetical: '假想購買',
 }
 
+/**
+ * 這套配裝目前的個人對戰紀錄狀態，三種：完全沒記錄過、有記錄但樣本不足、
+ * 有足夠樣本可看勝率。跟其他零件層級的模型推估同一種「誠實分級」精神，
+ * 不把樣本不足的數字裝成看起來精確（個人對戰紀錄規格第 4 節）。
+ */
+function personalWinRateStatusZhTW(
+  slots: ComboSlots,
+  winRateIndex: ReturnType<typeof computePartWinRateIndex>,
+): string {
+  const entries = Object.values(slots)
+    .filter((partId): partId is string => Boolean(partId))
+    .map((partId) => winRateIndex.get(partId))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+  if (entries.length === 0) return '尚未記錄任何對戰'
+  const rates = entries.map((entry) => entry.winRate).filter((rate): rate is number => rate !== undefined)
+  if (rates.length === 0) return `已有對戰紀錄，樣本還不夠（少於 ${LOW_SAMPLE_THRESHOLD} 場）`
+  const average = rates.reduce((a, b) => a + b, 0) / rates.length
+  return `個人紀錄勝率約 ${Math.round(average * 100)}%（非賽事證據）`
+}
+
 export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const parts = useAppStore((state) => state.parts)
   const rules = useAppStore((state) => state.rules)
@@ -67,6 +88,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
   const availability = useAppStore((state) => state.availability)
   const images = useAppStore((state) => state.images)
   const run = useAppStore((state) => state.run)
+  const battleRounds = useAppStore((state) => state.battleRounds)
+  const winRateIndex = useMemo(() => computePartWinRateIndex(battleRounds), [battleRounds])
 
   const [mode, setMode] = useState<BuilderMode>('owned')
   const [structure, setStructure] = useState<Structure>('standard')
@@ -374,6 +397,8 @@ export function BuilderPage({ initialComboId }: { initialComboId?: string }) {
         slotParts={selectedParts}
         hasAnySelection={hasAnySelection}
         observedMatches={observedMatches}
+        slots={slots}
+        winRateIndex={winRateIndex}
       />
 
       <Section title="儲存這套配裝">
@@ -502,6 +527,8 @@ export function ComboResult({
   slotParts,
   hasAnySelection,
   observedMatches,
+  slots,
+  winRateIndex,
 }: {
   analysis: ReturnType<typeof analyzeCombo>
   evidenceReport: ReturnType<typeof getTournamentEvidenceReport>
@@ -513,6 +540,8 @@ export function ComboResult({
   slotParts: Part[]
   hasAnySelection: boolean
   observedMatches: ReturnType<typeof getObservedComboMatches>
+  slots: ComboSlots
+  winRateIndex: ReturnType<typeof computePartWinRateIndex>
 }) {
   // 整套命中與單件證據分開呈現；結論句由六軸算出來，沒有分數就不硬湊。
   const comboReasons = evidenceReasons.filter((reason) => reason.scope === 'combo')
@@ -554,9 +583,14 @@ export function ComboResult({
           <ConfidenceBadge confidence={analysis.confidence} />
         </Row>
 
-        <Link to="/battle-log" className="btn btn-compact">
-          記錄一場對戰
-        </Link>
+        <Row>
+          <span className="meta">
+            個人對戰紀錄：{personalWinRateStatusZhTW(slots, winRateIndex)}
+          </span>
+          <Link to="/battle-log" className="btn btn-compact">
+            記錄一場對戰
+          </Link>
+        </Row>
 
         <div>
           <Row>

@@ -86,6 +86,7 @@ export interface BackupPayload {
   savedCombos: SavedCombo[]
   decks: Deck[]
   wishlist: WishlistItem[]
+  battleRounds: BattleRound[]
   settings: AppSettings
 }
 
@@ -761,6 +762,7 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
+        battleRounds,
         settings,
         catalogVersion,
       ] =
@@ -771,6 +773,7 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos.toArray(),
           db.decks.toArray(),
           db.wishlist.toArray(),
+          db.battleRounds.toArray(),
           (async () => (await getMeta<AppSettings>(META_SETTINGS)) ?? DEFAULT_SETTINGS)(),
           getMeta<string>(META_CATALOG_VERSION),
         ])
@@ -783,6 +786,7 @@ export function createRepository(db: BeybladeDb): Repository {
         savedCombos,
         decks,
         wishlist,
+        battleRounds,
         settings,
       }
     },
@@ -794,6 +798,15 @@ export function createRepository(db: BeybladeDb): Repository {
       if (payload.schemaVersion > DB_SCHEMA_VERSION) {
         throw new Error(`備份版本過新（${payload.schemaVersion}），請先更新 App`)
       }
+      /*
+       * schemaVersion < 6 的備份可能帶著同名的 battleRounds 欄位，但那是
+       * 舊版「人工逐局紀錄」功能（已刪除）的資料形狀，跟這次全新功能的
+       * BattleRound 型別完全不同——絕對不能原樣塞進新表，一律當作沒有這個
+       * 欄位、匯入後留空（跟 partPreferences 對 schema v1 的既有處理同一個
+       * 「舊版沒有這個概念，留空即可」精神，只是這裡的原因是「同名異義」，
+       * 不是「單純沒有」）。
+       */
+      const battleRounds = payload.schemaVersion >= 6 ? (payload.battleRounds ?? []) : []
       const arrays: [string, unknown][] = [
         ['ownedProducts', payload.ownedProducts],
         ['inventoryLots', payload.inventoryLots],
@@ -802,6 +815,7 @@ export function createRepository(db: BeybladeDb): Repository {
         ['savedCombos', payload.savedCombos],
         ['decks', payload.decks],
         ['wishlist', payload.wishlist],
+        ['battleRounds', battleRounds],
       ]
       for (const [name, value] of arrays) {
         if (!Array.isArray(value)) throw new Error(`備份格式不正確：${name} 不是陣列`)
@@ -816,6 +830,7 @@ export function createRepository(db: BeybladeDb): Repository {
           db.savedCombos,
           db.decks,
           db.wishlist,
+          db.battleRounds,
           db.meta,
         ],
         async () => {
@@ -826,6 +841,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.clear(),
             db.decks.clear(),
             db.wishlist.clear(),
+            db.battleRounds.clear(),
           ])
           await Promise.all([
             db.ownedProducts.bulkAdd(payload.ownedProducts),
@@ -834,6 +850,7 @@ export function createRepository(db: BeybladeDb): Repository {
             db.savedCombos.bulkAdd(payload.savedCombos),
             db.decks.bulkAdd(payload.decks),
             db.wishlist.bulkAdd(payload.wishlist),
+            db.battleRounds.bulkAdd(battleRounds),
           ])
           if (payload.settings) {
             await db.meta.put({ key: META_SETTINGS, value: payload.settings })

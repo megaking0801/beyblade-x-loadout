@@ -437,6 +437,11 @@ export function scoreDeck(
   // （避免 CX 5 槽位配裝只因為零件數量多就贏過 BX/UX 3 槽位配裝），
   // 再跨隊員加總——跟 estimateComboPartStrength() 同一種「先平均再加總」
   // 的形狀，不是 expertTierGain 那種「全部零件直接加總」的形狀。
+  //
+  // 減掉 0.5 把訊號以「不輸不贏」為基準對齊到 -0.5～+0.5：原始 winRate
+  // 永遠非負，直接加總等於「不管輸贏、有紀錄就加分」，一套配裝就算輸多贏少
+  // 也會比完全沒紀錄的配裝分數高，跟直覺相反（全分支審查 Important Finding
+  // 1）。對齊後贏多才加分、輸多真的扣分，沒有紀錄的配裝維持 0 分不受影響。
   const personalWinRateGain = winRateIndex
     ? members.reduce((sum, member) => {
         const rates = OCCUPYING_SLOT_KEYS.map((key) => member.slots[key])
@@ -444,7 +449,7 @@ export function scoreDeck(
           .map((partId) => winRateIndex.get(partId)?.winRate)
           .filter((rate): rate is number => rate !== undefined)
         if (rates.length === 0) return sum
-        return sum + rates.reduce((a, b) => a + b, 0) / rates.length
+        return sum + (rates.reduce((a, b) => a + b, 0) / rates.length - 0.5)
       }, 0)
     : 0
 

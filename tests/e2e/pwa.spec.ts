@@ -590,15 +590,39 @@ test('個人對戰紀錄：記一局後歷史列表與零件勝率簡表都會�
   await page.getByTestId('save-combo').click()
   await expect(page.getByTestId('stat-combos-value')).toHaveText('2', { timeout: 15_000 })
 
+  // 配裝器要先顯示「尚未記錄任何對戰」，記錄前狀態行不能誤導成已有資料
+  // （全分支審查 Important Finding 4：spec 第 4 節要求的狀態行）。
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await expect(page.getByText('個人對戰紀錄：尚未記錄任何對戰')).toBeVisible()
+
   await openApp(page, '/battle-log')
   await page.getByLabel('配裝 A').selectOption({ label: '對戰紀錄測試A' })
   await page.getByLabel('配裝 B').selectOption({ label: '對戰紀錄測試B' })
   await page.getByLabel('結果').selectOption('a')
   await page.getByLabel('終結方式').selectOption('spin')
+  // 日期欄位要能改（全分支審查 Important Finding 4：spec 第 5 節「日期
+  // （預設今天）」——預設值不代表不能改），改成一個過去的日期送出，
+  // 歷史列表要真的顯示改過的那天，不是硬寫死今天。
+  const dateInput = page.getByLabel('日期')
+  await expect(dateInput).not.toHaveValue('')
+  await dateInput.fill('2026-01-15')
   await page.getByRole('button', { name: '記錄這一局' }).click()
 
+  await expect(page.getByTestId('battle-round').first()).toContainText('2026-01-15')
   await expect(page.getByTestId('battle-round').first()).toContainText('A 贏')
   // 只記了 1 局，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足，
   // 不能顯示一個看起來精確、其實只憑 1 場就算出來的百分比。
   await expect(page.getByText(/樣本不足/).first()).toBeVisible()
+
+  // 記錄完回配裝器，狀態行要換成「有紀錄但樣本不足」，不是繼續顯示尚未記錄。
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await expect(page.getByText(/個人對戰紀錄：已有對戰紀錄，樣本還不夠/)).toBeVisible()
 })

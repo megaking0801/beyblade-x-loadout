@@ -461,7 +461,7 @@ describe('匯出與匯入（第 37 節）', () => {
     await repo.loadCatalog(catalog)
   })
 
-  it('匯出內容包含商品、零件、配裝、3on3、想買清單與設定', async () => {
+  it('匯出內容包含商品、零件、配裝、3on3、想買清單、個人對戰紀錄與設定', async () => {
     await repo.addOwnedProduct({ productId: fixedProduct.id, quantity: 1, status: 'owned' })
     const backup = await repo.exportBackup()
     expect(Object.keys(backup).sort()).toEqual(
@@ -475,8 +475,48 @@ describe('匯出與匯入（第 37 節）', () => {
         'schemaVersion',
         'settings',
         'wishlist',
+        'battleRounds',
       ].sort(),
     )
+  })
+
+  it('個人對戰紀錄會被匯出，匯入後完整回復（全分支審查 Important Finding 3 回歸測試）', async () => {
+    await repo.saveBattleRound({
+      a: { bladeId: 'test-blade-a' },
+      b: { bladeId: 'test-bit-b' },
+      result: 'a',
+      finish: 'spin',
+      playedAt: '2026-09-24',
+    })
+    const backup = await repo.exportBackup()
+
+    const otherDb = createDb('beyblade-test-import-battle-rounds')
+    const otherRepo = createRepository(otherDb)
+    await otherDb.open()
+    await otherRepo.loadCatalog(catalog)
+    await otherRepo.importBackup(backup)
+
+    const rounds = await otherRepo.listBattleRounds()
+    expect(rounds).toHaveLength(1)
+    expect(rounds[0]!.a.bladeId).toBe('test-blade-a')
+    await otherDb.delete()
+  })
+
+  it('舊版（沒有 battleRounds 欄位）的備份可以照常匯入，個人對戰紀錄留空', async () => {
+    await repo.addOwnedProduct({ productId: fixedProduct.id, quantity: 1, status: 'owned' })
+    const backup = await repo.exportBackup()
+    const legacyBackup = { ...backup } as Partial<typeof backup>
+    delete legacyBackup.battleRounds
+
+    const otherDb = createDb('beyblade-test-import-legacy-no-battle-rounds')
+    const otherRepo = createRepository(otherDb)
+    await otherDb.open()
+    await otherRepo.loadCatalog(catalog)
+    await otherRepo.importBackup(legacyBackup as typeof backup)
+
+    expect(await otherRepo.listOwnedProducts()).toHaveLength(1)
+    expect(await otherRepo.listBattleRounds()).toHaveLength(0)
+    await otherDb.delete()
   })
 
   it('匯入備份後資料完整回復', async () => {
@@ -523,7 +563,11 @@ describe('匯出與匯入（第 37 節）', () => {
     const legacyBackup = {
       ...backup,
       schemaVersion: 4,
-      battleRounds: [{ id: 'legacy-round', notes: '應忽略且不驗證' }],
+      // 這是舊版「人工逐局紀錄」功能的資料形狀（早就跟功能一起刪掉了），
+      // 跟這次 BattleRound 的新型別完全不同，故意用 as never 繞過型別
+      // 檢查——真實世界匯入的 JSON 本來就不會先過 TypeScript，這裡就是要
+      // 驗證 importBackup() 面對這種同名異義的舊格式不會照單全收。
+      battleRounds: [{ id: 'legacy-round', notes: '應忽略且不驗證' }] as never,
     }
 
     const otherDb = createDb('beyblade-test-import-v4')

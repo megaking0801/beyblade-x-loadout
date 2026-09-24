@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
 import { computePartWinRateIndex, LOW_SAMPLE_THRESHOLD } from '../../domain/battleRecords.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
-import type { BattleFinish, BattleRoundResult } from '../../domain/types.ts'
+import type { BattleFinish, BattleRoundResult, ComboSlots } from '../../domain/types.ts'
 import { EmptyState, PageHeader, Section } from '../components/ui.tsx'
 
 const FINISH_ZH: Record<BattleFinish, string> = {
@@ -16,6 +16,18 @@ const FINISH_ZH: Record<BattleFinish, string> = {
   burst: '爆裂',
   xtreme: '超越',
   none: '未知',
+}
+
+/**
+ * 本地時區的今天日期（YYYY-MM-DD）。`new Date().toISOString()` 是 UTC，
+ * 台灣（UTC+8）午夜到早上 8 點前記錄的對戰會被標成昨天，跟使用者實際
+ * 打的那天對不上（全分支審查 Important Finding 4 回歸）。
+ */
+function localDateString(date: Date): string {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 export function BattleLogPage() {
@@ -28,6 +40,7 @@ export function BattleLogPage() {
   const [comboBId, setComboBId] = useState('')
   const [result, setResult] = useState<BattleRoundResult>('a')
   const [finish, setFinish] = useState<BattleFinish>('spin')
+  const [playedAt, setPlayedAt] = useState(() => localDateString(new Date()))
   const [notes, setNotes] = useState('')
 
   const partsById = useMemo(() => new Map(parts.map((part) => [part.id, part])), [parts])
@@ -35,6 +48,14 @@ export function BattleLogPage() {
     const part = partsById.get(partId)
     return part ? resolveDisplayName(part.naming).titleZhTW : partId
   }
+  // 歷史列表要看得出「這一局是哪兩套打」——slots 是存檔時的快照，不是存
+  // savedComboId 參照，所以直接把槽位裡的零件名稱串起來顯示，不查目前的
+  // 已存配裝清單（配裝可能事後被改名或刪除，快照仍要如實顯示當時打的內容）。
+  const comboLabel = (slots: ComboSlots) =>
+    Object.values(slots)
+      .filter((partId): partId is string => Boolean(partId))
+      .map(nameOf)
+      .join('+')
 
   const winRateIndex = useMemo(() => computePartWinRateIndex(battleRounds), [battleRounds])
 
@@ -49,7 +70,7 @@ export function BattleLogPage() {
         b: comboB.slots,
         result,
         finish,
-        playedAt: new Date().toISOString().slice(0, 10),
+        playedAt,
         ...(notes ? { notes } : {}),
       }),
     )
@@ -112,6 +133,10 @@ export function BattleLogPage() {
               </select>
             </label>
             <label>
+              日期
+              <input type="date" value={playedAt} onChange={(event) => setPlayedAt(event.target.value)} required />
+            </label>
+            <label>
               備註
               <input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="例如：跟阿翔在店裡打的" />
             </label>
@@ -129,10 +154,18 @@ export function BattleLogPage() {
               .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
               .map((round) => (
                 <li key={round.id} data-testid="battle-round">
-                  {round.playedAt} · {round.result === 'tie' ? '平手' : round.result === 'a' ? 'A 贏' : 'B 贏'} ·{' '}
+                  {round.playedAt} · {comboLabel(round.a)}（A）vs {comboLabel(round.b)}（B） ·{' '}
+                  {round.result === 'tie' ? '平手' : round.result === 'a' ? 'A 贏' : 'B 贏'} ·{' '}
                   {FINISH_ZH[round.finish]}
                   {round.notes ? ` · ${round.notes}` : ''}
-                  <button type="button" onClick={() => run(() => repo.deleteBattleRound(round.id))}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('確定要刪除這筆對戰紀錄嗎？')) {
+                        void run(() => repo.deleteBattleRound(round.id))
+                      }
+                    }}
+                  >
                     刪除
                   </button>
                 </li>
