@@ -1,7 +1,7 @@
 # 交接筆記
 
 最後更新：2026-09-24 UTC+08:00
-交接原因：一般交接（個人對戰紀錄功能已實作，Task 1-6 完成，尚未收尾）
+交接原因：一般交接（個人對戰紀錄功能已完成、驗證、上線）
 
 ## 目前目標
 
@@ -12,17 +12,18 @@
 `docs/superpowers/specs/2026-09-24-personal-battle-log-design.md`／
 `docs/superpowers/plans/2026-09-24-personal-battle-log.md`。
 
-Task 1-6（型別、IndexedDB、appStore、deck.ts 計分、UI、e2e/截圖/文件）
-程式碼與測試都已完成，**尚未 commit 文件同步這批、尚未 push、尚未部署**。
+**已完整走完收尾流程（commit → push → e2e → shots → deploy → test:live）**。
+下一步是用 `superpowers:finishing-a-development-branch` 收尾這支 SDD（直接
+在 `main` 上做，不是獨立分支）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 有未 commit 的文件變更（見下方 Step） |
-| 本機 HEAD | `641c2aa`（Task 5，程式碼部分） |
-| `origin/main` | `00d8869`，落後本機 5 個 commit（Task 1-5 全部只在本機） |
-| 線上 Pages | 未變更，仍是 `dd6fe45`（這輪還沒部署） |
+| 工作區 | 乾淨 |
+| 本機 HEAD | `f07e878` |
+| `origin/main` | `f07e878`（同步） |
+| 線上 Pages | 已部署，`gh-pages` commit `d815275`，`npm run test:live` 6/6 通過 |
 
 ## 已驗證與未驗證
 
@@ -32,7 +33,7 @@ Task 1-6（型別、IndexedDB、appStore、deck.ts 計分、UI、e2e/截圖/文�
 - `npm run shots`：已跑，已用 Read 工具看過
   `test-results/shots/desktop-battle-log.png`／`phone-battle-log.png`，
   表單／歷史列表／零件勝率表都正常顯示，手機寬度會換行但不跑版。
-- push／deploy／test:live：**還沒做**，是下一步。
+- `npm run test:live`：6/6 通過。
 
 ## 阻塞
 
@@ -40,14 +41,9 @@ Task 1-6（型別、IndexedDB、appStore、deck.ts 計分、UI、e2e/截圖/文�
 
 ## 下一個具體動作
 
-1. commit 這輪文件變更（`BEYBLADE_X_codex_prompt.md`、spec 狀態列、
-   `src/ui/pages/BattleLogPage.tsx` 的表格樣式修正、`tests/e2e/pwa.spec.ts`、
-   `tests/e2e/screenshot.shots.ts`、這份 HANDOFF）。
-2. `git push origin main`（會一次推上 Task 1-6 全部 6 個 commit）。
-3. `npm run deploy:pages` → `npm run test:live`，結果補回 HANDOFF。
-4. 全部驗證過、確認線上真的換版後，用
-   `superpowers:finishing-a-development-branch` 收尾這支 SDD（直接在 `main`
-   上做，不是獨立分支）。
+用 `superpowers:finishing-a-development-branch` 收尾這支 SDD——這輪全程在
+`main` 上做（沒有分支／worktree），收尾時要處理的是這件事本身怎麼標記完成，
+不是合併分支。
 
 ## 怎麼跑（非顯而易見的）
 
