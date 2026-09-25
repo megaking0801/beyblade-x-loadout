@@ -2,7 +2,7 @@
 
 最後更新：2026-09-25 UTC+08:00
 交接原因：正式交接（對戰紀錄逐分計分板重寫 + final review 修復 + 計分板
-視覺重新設計，全部完成並已上線）
+視覺重新設計 + 間距修復，全部完成並已上線）
 
 ## 目前目標
 
@@ -27,14 +27,22 @@ brainstorming bounded path、對話中approval）：原本單頁塞選裝＋六�
 **整輪都已完整完成並上線。** 沒有下一步待辦，只有下面「已知缺口」列的
 刻意排除範圍。
 
+**上線後使用者回報「記分板 UI 都黏在一起」**：原因是 `Row` 元件本身沒有
+上下 margin，只有 `Section` 元件有 `marginBottom: 22`；計分畫面拆兩畫面
+時直接用裸 `Row` 疊 `.battle-scoreboard` 疊 `Row`，中間完全沒留間距。
+已修：計分畫面內容包進 `.stack`（18px gap），選裝畫面的「開始對戰」CTA
+補上 22px 底部間距跟其他 `Section` 一致。順便截圖巡查了全站其他頁面
+（首頁、商品、零件、配裝、3on3、想買清單、設定、我能組什麼、零件／商品
+詳情頁），沒發現同樣的漏間距問題，這個 bug 只出在這次新拆的計分畫面。
+
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `b2203c1` |
-| `origin/main` | `b2203c1`（一致） |
-| 線上 Pages | `833176d`（計分板重新設計已部署） |
+| 本機 HEAD | `c3bd1b6` |
+| `origin/main` | `c3bd1b6`（一致） |
+| 線上 Pages | `033c2f2`（間距修復已部署） |
 
 ## 已驗證與未驗證
 
@@ -48,7 +56,7 @@ brainstorming bounded path、對話中approval）：原本單頁塞選裝＋六�
   （計分畫面）都正常顯示，沒跑版；桌機 fullPage 截圖底部 tabbar 疊到
   「開始對戰」按鈕一小段是截圖已知現象（見下方踩過的坑），不是真的擋住
   點擊。
-- `npm run deploy:pages`：完成，gh-pages `833176d`。
+- `npm run deploy:pages`：完成，gh-pages `033c2f2`。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
@@ -119,6 +127,13 @@ Important 已修，Minor 記錄 deferred：
   `"A 4"`（前綴字母＋數字），改成獨立大字數字磚後只剩 `"4"`。原本
   `toHaveText('A 4')` 這種斷言全部要跟著改成 `toHaveText('4')`，不能只改
   程式碼不改測試字串，兩邊要當一組一起看。
+- **`Row` 元件本身沒有上下 margin，只有 `Section` 有**——`ui.tsx` 的
+  `Row()` 只是 `display:flex; gap; flexWrap`，垂直間距全靠外層
+  `Section` 的 `marginBottom: 22` 或父層 `.stack`／`.card` 的 grid
+  `gap`。在 `Section` 外面裸放連續好幾個 `Row` 或自訂 `div`，中間會是
+  0 間距、疊在一起。新畫面／新區塊只要沒包在 `Section` 或帶 gap 的容器
+  裡，一定要自己補間距（`className="stack"` 或外層 `div` 加
+  `marginBottom`），寫完務必截圖核對，不能只看 `tsc`／單元測試過。
 - **`fullPage: true` 的截圖會把 `position: fixed` 的底部 tabbar 畫在畫面
   中段，疊住底下的按鈕**——這是既有教訓（HANDOFF 舊版寫過一次），這輪
   計分板重新設計的截圖又踩到一次：`desktop-battle-log.png` 裡「開始對戰」
