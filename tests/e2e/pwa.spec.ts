@@ -633,6 +633,25 @@ test('個人對戰紀錄：現場選零件記分、打完存檔、歷史列表�
   await expect(page.getByTestId('slot-trigger-a-bladeId')).toContainText('蒼龍神劍')
 })
 
+test('個人對戰紀錄：切換 A 結構（三件式→CX）要清掉殘留零件，不能讓舊零件混進計分板或存檔', async ({ page }) => {
+  await openApp(page, '/battle-log')
+
+  // A 先選三件式的上蓋。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
+
+  // 切到 CX，殘留的三件式 bladeId 不能還算「已選零件」——CX picker 畫面上
+  // 明明什麼都沒選，不能讓 hasAnyPart(slotsA) 還是 true。
+  await page.getByRole('button', { name: 'CX 模組化' }).first().click()
+
+  // B 選滿三件式，讓 B 這邊 ready；此時如果 A 的殘留零件沒被清掉，
+  // 計分板會誤判 A 也 ready 而跳出來。
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
+  await pickSlot(page, 'bitId', 'bit:F', 'b')
+
+  await expect(page.getByTestId('scoreboard')).toHaveCount(0)
+})
+
 test('個人對戰紀錄：配裝器狀態行反映樣本不足的狀態', async ({ page }) => {
   await openApp(page, '/battle-log')
   await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')

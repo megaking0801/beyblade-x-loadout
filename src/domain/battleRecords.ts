@@ -10,7 +10,13 @@ export const LOW_SAMPLE_THRESHOLD = 5
 /** 先到這個分數獲勝（官方規則：Beyblade X 個別對戰先到 4 分）。 */
 export const MATCH_WIN_SCORE = 4
 
-/** 轉停 1 分、出界／爆裂 2 分（官方同分，合併成一個選項）、極限 3 分。 */
+/**
+ * 轉停 1 分、出界／爆裂 2 分（官方同分，合併成一個選項）、極限 3 分。
+ *
+ * 歷史紀錄的比分、贏家、零件勝率都是拿存好的 `points` 即時用這個常數重算，
+ * 沒有把點值存進 `BattlePoint` 當快照。改這裡的數字會連舊紀錄的比分一起變，
+ * 要調整先做版本化（例如把點值也存進 `BattlePoint`）。
+ */
 export const FINISH_POINTS: Record<BattleFinish, number> = {
   spin: 1,
   over_burst: 2,

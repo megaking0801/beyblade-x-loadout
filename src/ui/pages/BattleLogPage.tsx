@@ -103,10 +103,24 @@ export function BattleLogPage() {
 
       <Section title="配裝 A">
         <Row>
-          <button type="button" className={structureA === 'standard' ? 'btn btn-primary' : 'btn'} onClick={() => setStructureA('standard')}>
+          <button
+            type="button"
+            className={structureA === 'standard' ? 'btn btn-primary' : 'btn'}
+            onClick={() => {
+              setStructureA('standard')
+              setSlotsA({})
+            }}
+          >
             三件式（BX／UX）
           </button>
-          <button type="button" className={structureA === 'cx' ? 'btn btn-primary' : 'btn'} onClick={() => setStructureA('cx')}>
+          <button
+            type="button"
+            className={structureA === 'cx' ? 'btn btn-primary' : 'btn'}
+            onClick={() => {
+              setStructureA('cx')
+              setSlotsA({})
+            }}
+          >
             CX 模組化
           </button>
         </Row>
@@ -128,10 +142,24 @@ export function BattleLogPage() {
 
       <Section title="配裝 B">
         <Row>
-          <button type="button" className={structureB === 'standard' ? 'btn btn-primary' : 'btn'} onClick={() => setStructureB('standard')}>
+          <button
+            type="button"
+            className={structureB === 'standard' ? 'btn btn-primary' : 'btn'}
+            onClick={() => {
+              setStructureB('standard')
+              setSlotsB({})
+            }}
+          >
             三件式（BX／UX）
           </button>
-          <button type="button" className={structureB === 'cx' ? 'btn btn-primary' : 'btn'} onClick={() => setStructureB('cx')}>
+          <button
+            type="button"
+            className={structureB === 'cx' ? 'btn btn-primary' : 'btn'}
+            onClick={() => {
+              setStructureB('cx')
+              setSlotsB({})
+            }}
+          >
             CX 模組化
           </button>
         </Row>
