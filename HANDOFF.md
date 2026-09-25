@@ -1,7 +1,8 @@
 # 交接筆記
 
 最後更新：2026-09-25 UTC+08:00
-交接原因：正式交接（對戰紀錄逐分計分板重寫，Task 1-6 全部完成並已上線）
+交接原因：正式交接（對戰紀錄逐分計分板重寫，Task 1-6 + final review 修復
+全部完成並已上線）
 
 ## 目前目標
 
@@ -13,45 +14,71 @@
 `docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md`／
 `docs/superpowers/plans/2026-09-25-battle-match-scoreboard.md`。
 
-**這輪功能已完整完成並上線**，SDD 六個 Task 全部 complete，final review
-與 `finishing-a-development-branch` 收尾尚待執行（下一步見下方）。
+**這輪功能已完整完成並上線，final review 也已跑完並修好發現的問題。**
+只剩 `superpowers:finishing-a-development-branch` 收尾（見下方下一個具體
+動作），以及一件需要使用者手動處理的小事（見「阻塞」）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅兩個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `7faeb88` |
-| `origin/main` | `7faeb88`（一致） |
-| 線上 Pages | `bf04d05`（本輪已部署） |
+| 本機 HEAD | `de023fa` |
+| `origin/main` | `de023fa`（一致） |
+| 線上 Pages | `208dcad`（本輪 final review 修復已部署） |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：全過（Task 6 前最後一次確認 481/481）。
-- `npm run test:e2e` 全套（非過濾）：**89 passed, 1 skipped**（skip 是既有
-  WebKit 離線測試已知 flake，跟本輪無關）。
-- `npm run shots`：已跑，已用 Read 工具確認
+- `npx tsc -b`：通過，乾淨無輸出（final review 修復後再次確認）。
+- `npm test`：**481/481 全過**（final review 修復後再次確認）。
+- `npm run test:e2e` 全套（非過濾，final review 修復後跑的最新一次）：
+  **91 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
+  無關）。
+- `npm run shots`：final review 修復後重跑，已用 Read 工具確認
   `desktop-battle-log.png`／`phone-battle-log.png` 雙配裝選擇器、計分板、
-  歷史列表、零件勝率表正常顯示。
-- `npm run deploy:pages`：完成，gh-pages `bf04d05`。
+  歷史列表、零件勝率表正常顯示，沒跑版。
+- `npm run deploy:pages`：完成，gh-pages `208dcad`。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
 ## 阻塞
 
-無。
+無測試／部署層級阻塞。**有一件收尾動作需要使用者手動執行**：final
+review 乾淨後照計畫要刪除 `.superpowers/sdd/2026-09-25-battle-match-
+scoreboard/` 這個 ledger 目錄，但 `rm -rf` 被 auto mode classifier
+擋下（Irreversible Local Destruction），這個目錄本身有 `.gitignore`
+排除、不影響 git 狀態，純粹是本地收尾動作，使用者可以自己刪除或授權後
+讓下個 session 刪。
 
 ## 下一個具體動作
 
-1. 跑 final review：`review-package` 產出全分支審查包，派一個 fresh opus
-   subagent 對照 plan 的 Review Focus 段落與 ledger 的 Ruling 做審查。
-2. 有 Critical／Important 發現就 TDD 修掉；Minor 記錄到 ledger 當
-   deferred，不用修。
-3. Final review 乾淨後刪除
+1.（可選，使用者決定）手動刪除
    `.superpowers/sdd/2026-09-25-battle-match-scoreboard/`。
-4. 跑 `superpowers:finishing-a-development-branch` 收尾（預期跟本 session
+2. 跑 `superpowers:finishing-a-development-branch` 收尾（預期跟本 session
    前面每一輪一樣：直接在 `main` 上做，沒有東西要 merge）。
+
+## Final review 發現與修復（這輪新增）
+
+派 fresh opus subagent 對照 plan 的 Review Focus 段落審查
+`416b84f..18bfe5d`（Task 1-6 全部 commit），結論：無 Critical，2 個
+Important 已修，Minor 記錄 deferred：
+
+- **Important 1**：`FINISH_POINTS` 缺 Review Focus 第 5 項要求的隱性假設
+  註解（歷史紀錄比分是即時算的，沒存快照）——已在
+  `src/domain/battleRecords.ts` 的 `FINISH_POINTS` 宣告補上註解。
+- **Important 2**（真 bug）：`BattleLogPage` 切換 A／B 結構（三件式↔CX）
+  沒清 `slotsA`／`slotsB`，殘留的零件 id 會讓 `hasAnyPart()` 誤判、計分板
+  可能在其中一邊實際上沒選零件時就跳出來，存檔後還會把看不到的零件混進
+  歷史紀錄與 `computePartWinRateIndex` 的零件勝率（污染
+  `BuilderPage`／`DecksPage` 的建議邏輯）——已修成跟 `BuilderPage` 既有
+  模式一致：切結構按鈕 `onClick` 同時呼叫 `setSlotsA({})`／
+  `setSlotsB({})`。先寫失敗的 e2e 測試確認真的會紅（A 選三件式上蓋、切到
+  CX、B 選滿零件，計分板不該出現但確實出現），修完再確認變綠。
+- Minor 記錄到 ledger 當 deferred（不修）：比賽中途換配裝會把已記的分數
+  算到新零件頭上；匯入未驗證資料在贏家 undefined 時會誤顯示「B 獲勝」；
+  切到別分頁會遺失進行中的比賽狀態（沒有草稿持久化）；缺日期編輯／5:0
+  顯示／spec 第 8 節案例的測試；CX 內建固鎖零件仍可被選（跟 `BuilderPage`
+  既有行為一致，spec 本來就排除相容性檢查）。
 
 ## 怎麼跑（非顯而易見的）
 
