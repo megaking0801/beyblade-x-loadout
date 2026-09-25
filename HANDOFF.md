@@ -1,61 +1,65 @@
 # 交接筆記
 
 最後更新：2026-09-25 UTC+08:00
-交接原因：正式交接（對戰紀錄逐分計分板重寫，Task 1-6 + final review 修復
-全部完成並已上線）
+交接原因：正式交接（對戰紀錄逐分計分板重寫 + final review 修復 + 計分板
+視覺重新設計，全部完成並已上線）
 
 ## 目前目標
 
 把「個人對戰紀錄」的資料模型從「一局一個籠統結果」換成「一場個別對戰、
 逐分記錄」，符合 Beyblade X 官方個別對戰規則（先到 4 分獲勝：轉停 1／
-出界爆裂 2／極限 3）。記錄畫面不再需要先存配裝，直接複用配裝器的零件
-選擇器現場選零件記分；加了即時計分板（含復原上一分／清除重來）；主分頁
-加了「對戰」。Spec／Plan：
+出界爆裂 2／極限 3）。Spec／Plan：
 `docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md`／
 `docs/superpowers/plans/2026-09-25-battle-match-scoreboard.md`。
 
-**這輪功能已完整完成並上線，final review 也已跑完並修好發現的問題。**
-只剩 `superpowers:finishing-a-development-branch` 收尾（見下方下一個具體
-動作），以及一件需要使用者手動處理的小事（見「阻塞」）。
+**這輪額外做了一次計分板 UI 重新設計**（沒有另外的 spec 文件，走
+brainstorming bounded path、對話中approval）：原本單頁塞選裝＋六顆小按鈕＋
+純文字比分，視覺沒有焦點。改成同一個 `BattleLogPage` 元件內部兩個畫面
+（`view: 'setup' | 'scoring'`，不開新 route、資料模型完全沒變）：
+
+- 選裝畫面：跟以前一樣選 A／B 配裝，兩邊都選好才出現「開始對戰」CTA，
+  歷史紀錄／零件勝率表留在這頁。
+- 計分畫面：兩側並排卡片（手機疊上下），巨大置中分數數字 + 進度條 +
+  各自三個終結技按鈕分組；復原／清除移到卡片外單獨一排；達陣那側卡片
+  整張高亮；存檔成功後自動切回選裝畫面。「← 回選裝」不清 `points`，只有
+  「清除重來」才清。
+
+**整輪都已完整完成並上線。** 沒有下一步待辦，只有下面「已知缺口」列的
+刻意排除範圍。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
-| 工作區 | 乾淨，僅兩個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `de023fa` |
-| `origin/main` | `de023fa`（一致） |
-| 線上 Pages | `208dcad`（本輪 final review 修復已部署） |
+| 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
+| 本機 HEAD | `b2203c1` |
+| `origin/main` | `b2203c1`（一致） |
+| 線上 Pages | `833176d`（計分板重新設計已部署） |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過，乾淨無輸出（final review 修復後再次確認）。
-- `npm test`：**481/481 全過**（final review 修復後再次確認）。
-- `npm run test:e2e` 全套（非過濾，final review 修復後跑的最新一次）：
-  **91 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
-  無關）。
-- `npm run shots`：final review 修復後重跑，已用 Read 工具確認
-  `desktop-battle-log.png`／`phone-battle-log.png` 雙配裝選擇器、計分板、
-  歷史列表、零件勝率表正常顯示，沒跑版。
-- `npm run deploy:pages`：完成，gh-pages `208dcad`。
+- `npx tsc -b`：通過，乾淨無輸出。
+- `npm test`：**481/481 全過**。
+- `npm run test:e2e` 全套（非過濾）：**91 passed, 1 skipped**（skip 是既有
+  WebKit 離線測試已知 flake，跟本輪無關）。
+- `npm run shots`：已用 Read 工具確認
+  `desktop-battle-log.png`／`phone-battle-log.png`（選裝畫面）跟
+  `desktop-battle-log-scoring.png`／`phone-battle-log-scoring.png`
+  （計分畫面）都正常顯示，沒跑版；桌機 fullPage 截圖底部 tabbar 疊到
+  「開始對戰」按鈕一小段是截圖已知現象（見下方踩過的坑），不是真的擋住
+  點擊。
+- `npm run deploy:pages`：完成，gh-pages `833176d`。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
 ## 阻塞
 
-無測試／部署層級阻塞。**有一件收尾動作需要使用者手動執行**：final
-review 乾淨後照計畫要刪除 `.superpowers/sdd/2026-09-25-battle-match-
-scoreboard/` 這個 ledger 目錄，但 `rm -rf` 被 auto mode classifier
-擋下（Irreversible Local Destruction），這個目錄本身有 `.gitignore`
-排除、不影響 git 狀態，純粹是本地收尾動作，使用者可以自己刪除或授權後
-讓下個 session 刪。
+無。
 
 ## 下一個具體動作
 
-1.（可選，使用者決定）手動刪除
-   `.superpowers/sdd/2026-09-25-battle-match-scoreboard/`。
-2. 跑 `superpowers:finishing-a-development-branch` 收尾（預期跟本 session
-   前面每一輪一樣：直接在 `main` 上做，沒有東西要 merge）。
+無待辦。若要繼續優化，可以考慮 final review 那輪記錄的 deferred Minor
+項目（見下方「Final review 發現與修復」），或使用者提出的新需求。
 
 ## Final review 發現與修復（這輪新增）
 
@@ -83,14 +87,14 @@ Important 已修，Minor 記錄 deferred：
 ## 怎麼跑（非顯而易見的）
 
 - 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
-  （沒有開 worktree／分支）。Ledger 在
-  `.superpowers/sdd/2026-09-25-battle-match-scoreboard/progress.md`，記著
-  三個 ruling（Task 1：測試裡「同一顆零件跨場輸贏」案例一開始建構錯（兩批
-  都放在贏方），修的是測試不是程式碼；Task 2：plan 預測的 `tsc`
-  excess-property 錯誤實際上不會發生，用 `tsc -b --force` 驗證過，還是
-  照做清掉但跳過假紅燈；Task 3：plan 漏寫 `DB_SCHEMA_VERSION` 要從 6 跳到
-  7，被匯出匯入的回歸測試抓到）。final review 尚未跑，ledger 裡還沒有
-  `Final:` 開頭的行。
+  （沒有開 worktree／分支）。Ledger（`.superpowers/sdd/2026-09-25-battle-
+  match-scoreboard/progress.md`）final review 乾淨後已依計畫刪除，三個
+  ruling 摘要見上一版 HANDOFF 歷史／`git log` 這幾個 commit 的說明：Task 1
+  測試建構錯（跟程式碼無關）、Task 2 plan 預測的 tsc 錯誤沒真的發生、
+  Task 3 漏改 `DB_SCHEMA_VERSION`。
+- 計分板 UI 重新設計走的是 `superpowers:brainstorming` 的 bounded path，
+  沒有走 SDD 全套（沒開 ledger、沒寫 plan 文件），對話紀錄本身就是設計
+  依據，改動範圍只有 `BattleLogPage.tsx`／`index.css`／兩個 e2e 檔案。
 
 ## 踩過的坑（這輪新增）
 
@@ -110,6 +114,17 @@ Important 已修，Minor 記錄 deferred：
   從 6 改成 7，被匯出匯入的 round-trip 測試抓到。以後改 schema 版本，這兩
   個地方要一起改，改完可以直接 `grep DB_SCHEMA_VERSION` 確認只有一個數字、
   跟最新的 `db.version()` 一致。
+- **UI 改版把「比分文字」的 DOM 結構換掉時，e2e 斷言的比對字串要跟著全部
+  改**——計分板重新設計前 `data-testid="score-a"` 的 `textContent` 是
+  `"A 4"`（前綴字母＋數字），改成獨立大字數字磚後只剩 `"4"`。原本
+  `toHaveText('A 4')` 這種斷言全部要跟著改成 `toHaveText('4')`，不能只改
+  程式碼不改測試字串，兩邊要當一組一起看。
+- **`fullPage: true` 的截圖會把 `position: fixed` 的底部 tabbar 畫在畫面
+  中段，疊住底下的按鈕**——這是既有教訓（HANDOFF 舊版寫過一次），這輪
+  計分板重新設計的截圖又踩到一次：`desktop-battle-log.png` 裡「開始對戰」
+  CTA 被 tabbar 疊到一角。純粹是全頁截圖的算圖方式問題，實機（不用
+  fullPage、或用真的瀏覽器滑動）不會有這個現象，看截圖核對版面時記得
+  這一條，不要誤判成真的 bug。
 
 ## 踩過的坑（沿用既有，仍然有效）
 
