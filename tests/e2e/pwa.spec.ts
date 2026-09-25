@@ -571,50 +571,58 @@ test('前台任何一頁都不得再提到重量', async ({ page }) => {
 test('個人對戰紀錄：現場選零件記分、打完存檔、歷史列表跟零件勝率簡表更新', async ({ page }) => {
   await openApp(page, '/battle-log')
 
-  // 兩邊都還沒選零件時，計分板不該出現（Review Focus 第 3 項）。
-  const scoreboard = page.getByTestId('scoreboard')
-  await expect(scoreboard).toHaveCount(0)
+  // 兩邊都還沒選零件時，「開始對戰」CTA 不該出現。
+  const startScoring = page.getByTestId('start-scoring')
+  await expect(startScoring).toHaveCount(0)
 
   // 配裝 A：BX 三件式，直接用零件圖鑑的零件，不用先存配裝。
   await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
   await pickSlot(page, 'bitId', 'bit:F', 'a')
 
-  // A 選完、B 還沒選時，計分板還是不該出現。
-  await expect(scoreboard).toHaveCount(0)
+  // A 選完、B 還沒選時，CTA 還是不該出現。
+  await expect(startScoring).toHaveCount(0)
 
   // 配裝 B：另一顆上蓋，同款固鎖軸心。
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
   await pickSlot(page, 'bitId', 'bit:F', 'b')
 
+  await expect(startScoring).toBeVisible()
+  await startScoring.click()
+
+  const scoreboard = page.getByTestId('scoreboard')
   await expect(scoreboard).toBeVisible()
 
   // 先打到剛好 4 分（轉停×4），確認打完鎖住按鈕，再用「復原上一分」退回
   // 3 分，驗證按鈕真的重新解鎖（Review Focus 第 1 項——不能只退比分數字，
   // 沒有真的把按鈕解鎖）。
   for (let i = 0; i < 4; i++) await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('score-a')).toHaveText('A 4')
+  await expect(page.getByTestId('score-a')).toHaveText('4')
   await expect(page.getByTestId('score-a-spin')).toBeDisabled()
   await expect(page.getByTestId('score-b-xtreme')).toBeDisabled()
   await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
 
   await page.getByRole('button', { name: '復原上一分' }).click()
-  await expect(page.getByTestId('score-a')).toHaveText('A 3')
+  await expect(page.getByTestId('score-a')).toHaveText('3')
   await expect(page.getByTestId('score-a-spin')).toBeEnabled()
   await expect(page.getByTestId('score-b-xtreme')).toBeEnabled()
   await expect(page.getByTestId('match-winner')).toHaveCount(0)
 
   // 清除重來，改用極限＋轉停湊到 4 分，同時測極限一次跳 3 分正確累加。
   await page.getByRole('button', { name: '清除重來' }).click()
-  await expect(page.getByTestId('score-a')).toHaveText('A 0')
+  await expect(page.getByTestId('score-a')).toHaveText('0')
   await page.getByTestId('score-a-xtreme').click()
-  await expect(page.getByTestId('score-a')).toHaveText('A 3')
+  await expect(page.getByTestId('score-a')).toHaveText('3')
   await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('score-a')).toHaveText('A 4')
+  await expect(page.getByTestId('score-a')).toHaveText('4')
   await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
 
   await page.getByTestId('save-match').click()
+
+  // 存檔成功後（Review Focus 第 4 項）：回到選裝畫面，points 清空、配裝維持。
+  await expect(startScoring).toBeVisible()
+  await expect(page.getByTestId('slot-trigger-a-bladeId')).toContainText('蒼龍神劍')
 
   await expect(page.getByTestId('battle-match').first()).toContainText('比分 4:0')
   await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')
@@ -625,12 +633,18 @@ test('個人對戰紀錄：現場選零件記分、打完存檔、歷史列表�
   // 只打完 1 場，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足。
   await expect(page.getByText(/樣本不足/).first()).toBeVisible()
 
-  // 存檔後 points 要清空、配裝維持（Review Focus 第 4 項）：計分板回到
-  // 0:0 可以連續記下一場，且配裝 A 的零件選擇器仍顯示剛剛選的上蓋，
-  // 不用重選。
-  await expect(page.getByTestId('score-a')).toHaveText('A 0')
+  // 可以直接連續記下一場：CTA 還在、進計分板分數回到 0:0。
+  await startScoring.click()
+  await expect(page.getByTestId('score-a')).toHaveText('0')
   await expect(page.getByTestId('score-a-spin')).toBeEnabled()
-  await expect(page.getByTestId('slot-trigger-a-bladeId')).toContainText('蒼龍神劍')
+
+  // 「← 回選裝」不會清掉已經記的分數，只是切回選裝畫面看配裝／歷史。
+  await page.getByTestId('score-a-spin').click()
+  await expect(page.getByTestId('score-a')).toHaveText('1')
+  await page.getByTestId('back-to-setup').click()
+  await expect(startScoring).toBeVisible()
+  await startScoring.click()
+  await expect(page.getByTestId('score-a')).toHaveText('1')
 })
 
 test('個人對戰紀錄：切換 A 結構（三件式→CX）要清掉殘留零件，不能讓舊零件混進計分板或存檔', async ({ page }) => {
@@ -644,12 +658,12 @@ test('個人對戰紀錄：切換 A 結構（三件式→CX）要清掉殘留零
   await page.getByRole('button', { name: 'CX 模組化' }).first().click()
 
   // B 選滿三件式，讓 B 這邊 ready；此時如果 A 的殘留零件沒被清掉，
-  // 計分板會誤判 A 也 ready 而跳出來。
+  // 「開始對戰」CTA 會誤判 A 也 ready 而跳出來。
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
   await pickSlot(page, 'bitId', 'bit:F', 'b')
 
-  await expect(page.getByTestId('scoreboard')).toHaveCount(0)
+  await expect(page.getByTestId('start-scoring')).toHaveCount(0)
 })
 
 test('個人對戰紀錄：配裝器狀態行反映樣本不足的狀態', async ({ page }) => {
@@ -660,6 +674,7 @@ test('個人對戰紀錄：配裝器狀態行反映樣本不足的狀態', async
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
   await pickSlot(page, 'bitId', 'bit:F', 'b')
+  await page.getByTestId('start-scoring').click()
   await page.getByTestId('score-a-xtreme').click()
   await page.getByTestId('score-a-spin').click()
   await page.getByTestId('save-match').click()

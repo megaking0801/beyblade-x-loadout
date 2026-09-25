@@ -60,8 +60,8 @@ test('capture', async ({ page }, testInfo) => {
   })
 
   /*
-   * 個人對戰紀錄要看有資料時的版面：現場選兩套零件、打完一場、截
-   * /battle-log。
+   * 個人對戰紀錄兩畫面都要截：選裝畫面（先看計分板出現前的版面，再打完一場
+   * 看歷史／零件勝率）跟計分畫面（現場截兩側計分卡、進度條、終結技按鈕）。
    */
   await page.evaluate(() => {
     window.location.hash = '/battle-log'
@@ -72,7 +72,13 @@ test('capture', async ({ page }, testInfo) => {
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
   await pickSlot(page, 'bitId', 'bit:F', 'b')
+  await page.getByTestId('start-scoring').click()
   await page.getByTestId('score-a-xtreme').click()
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log-scoring.png`,
+    fullPage: true,
+  })
   await page.getByTestId('score-a-spin').click()
   await page.getByTestId('save-match').click()
   await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')

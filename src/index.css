@@ -1015,3 +1015,94 @@ ul {
   border-style: dashed;
   background: transparent;
 }
+
+/*
+ * 對戰計分板：兩側並排（手機疊成上下），大字比分是唯一的視覺焦點。
+ *
+ * 原本 A/B 分數擠在同一行小字裡（"A 4 - 0 B"），跟旁邊六顆得分按鈕搶注意力，
+ * 復原／清除跟計分按鈕又貼在一起容易誤觸。現在拆成獨立畫面：每側一張卡，
+ * 巨大數字置中、進度條顯示離獲勝還差多少、按鈕分組更清楚，
+ * 復原／清除移到卡片外的次要區域。
+ */
+.battle-scoreboard {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .battle-scoreboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.battle-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+
+.battle-side.is-winner {
+  border-color: var(--signal);
+  background: color-mix(in srgb, var(--signal) 10%, var(--surface));
+}
+
+.battle-side-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-dim);
+}
+
+.battle-side-combo {
+  min-height: 2.6em;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.battle-score-digit {
+  font-size: 56px;
+  line-height: 1;
+  font-stretch: 125%;
+}
+
+.battle-side.is-winner .battle-score-digit {
+  color: var(--signal);
+}
+
+.battle-score-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.battle-score-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+}
+
+.battle-finish-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.battle-finish-row .btn {
+  flex-direction: column;
+  gap: 0;
+  min-height: 52px;
+  padding: 6px 2px;
+  font-size: 12px;
+  line-height: 1.3;
+}
