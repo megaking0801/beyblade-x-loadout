@@ -149,62 +149,64 @@ export function BattleLogPage() {
     return (
       <div>
         <PageHeader title="計分板" description="先到 4 分獲勝，非賽事證據" />
-        <Row>
-          <button type="button" className="btn" data-testid="back-to-setup" onClick={() => setView('setup')}>
-            ← 回選裝
-          </button>
-        </Row>
+        <div className="stack" style={{ gap: 18 }}>
+          <Row>
+            <button type="button" className="btn" data-testid="back-to-setup" onClick={() => setView('setup')}>
+              ← 回選裝
+            </button>
+          </Row>
 
-        <div className="battle-scoreboard" data-testid="scoreboard">
-          <BattleSide
-            side="a"
-            label="配裝 A"
-            comboLabel={comboLabel(slotsA)}
-            score={score.a}
-            isWinner={winner === 'a'}
-            complete={complete}
-            onScore={(finish) => setPoints([...points, { scorer: 'a', finish }])}
-          />
-          <BattleSide
-            side="b"
-            label="配裝 B"
-            comboLabel={comboLabel(slotsB)}
-            score={score.b}
-            isWinner={winner === 'b'}
-            complete={complete}
-            onScore={(finish) => setPoints([...points, { scorer: 'b', finish }])}
-          />
+          <div className="battle-scoreboard" data-testid="scoreboard">
+            <BattleSide
+              side="a"
+              label="配裝 A"
+              comboLabel={comboLabel(slotsA)}
+              score={score.a}
+              isWinner={winner === 'a'}
+              complete={complete}
+              onScore={(finish) => setPoints([...points, { scorer: 'a', finish }])}
+            />
+            <BattleSide
+              side="b"
+              label="配裝 B"
+              comboLabel={comboLabel(slotsB)}
+              score={score.b}
+              isWinner={winner === 'b'}
+              complete={complete}
+              onScore={(finish) => setPoints([...points, { scorer: 'b', finish }])}
+            />
+          </div>
+
+          <Row>
+            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints(points.slice(0, -1))}>
+              復原上一分
+            </button>
+            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints([])}>
+              清除重來
+            </button>
+          </Row>
+
+          {complete ? (
+            <Section title="存檔">
+              <div className="card stack">
+                <strong data-testid="match-winner">{winner === 'a' ? 'A 獲勝' : 'B 獲勝'}</strong>
+                <Row>
+                  <label>
+                    日期
+                    <input type="date" value={playedAt} onChange={(event) => setPlayedAt(event.target.value)} required />
+                  </label>
+                  <label>
+                    備註
+                    <input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="例如：跟阿翔在店裡打的" />
+                  </label>
+                </Row>
+                <button type="button" className="btn btn-primary" data-testid="save-match" onClick={() => void handleSave()}>
+                  存檔
+                </button>
+              </div>
+            </Section>
+          ) : null}
         </div>
-
-        <Row>
-          <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints(points.slice(0, -1))}>
-            復原上一分
-          </button>
-          <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints([])}>
-            清除重來
-          </button>
-        </Row>
-
-        {complete ? (
-          <Section title="存檔">
-            <div className="card stack">
-              <strong data-testid="match-winner">{winner === 'a' ? 'A 獲勝' : 'B 獲勝'}</strong>
-              <Row>
-                <label>
-                  日期
-                  <input type="date" value={playedAt} onChange={(event) => setPlayedAt(event.target.value)} required />
-                </label>
-                <label>
-                  備註
-                  <input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="例如：跟阿翔在店裡打的" />
-                </label>
-              </Row>
-              <button type="button" className="btn btn-primary" data-testid="save-match" onClick={() => void handleSave()}>
-                存檔
-              </button>
-            </div>
-          </Section>
-        ) : null}
       </div>
     )
   }
@@ -292,11 +294,11 @@ export function BattleLogPage() {
       </Section>
 
       {ready ? (
-        <Row>
+        <div style={{ marginBottom: 22 }}>
           <button type="button" className="btn btn-primary" data-testid="start-scoring" onClick={() => setView('scoring')}>
             開始對戰 →
           </button>
-        </Row>
+        </div>
       ) : null}
 
       <Section title="歷史紀錄">
