@@ -1,64 +1,49 @@
 # 交接筆記
 
-最後更新：2026-09-25 UTC+08:00
-交接原因：正式交接（對戰紀錄逐分計分板重寫 + final review 修復 + 計分板
-視覺重新設計 + 間距修復，全部完成並已上線）
+最後更新：2026-09-28 UTC+08:00
+交接原因：正式交接（3on3 團體賽對戰紀錄，全部完成並已上線）
 
 ## 目前目標
 
-把「個人對戰紀錄」的資料模型從「一局一個籠統結果」換成「一場個別對戰、
-逐分記錄」，符合 Beyblade X 官方個別對戰規則（先到 4 分獲勝：轉停 1／
-出界爆裂 2／極限 3）。Spec／Plan：
-`docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md`／
-`docs/superpowers/plans/2026-09-25-battle-match-scoreboard.md`。
+這輪主題：對戰紀錄加官方 3on3 團體賽計分（跟 1v1「同一套配裝連續得分到
+4 分」不一樣——3on3 是三場個別對戰，每場只有一個終結技就分勝負，分數
+累加到 4 分判定整場團隊贏家）。Spec／Plan：
+`docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`／
+`docs/superpowers/plans/2026-09-28-3on3-team-battle-log.md`。規則依據見
+spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 
-**這輪額外做了一次計分板 UI 重新設計**（沒有另外的 spec 文件，走
-brainstorming bounded path、對話中approval）：原本單頁塞選裝＋六顆小按鈕＋
-純文字比分，視覺沒有焦點。改成同一個 `BattleLogPage` 元件內部兩個畫面
-（`view: 'setup' | 'scoring'`，不開新 route、資料模型完全沒變）：
-
-- 選裝畫面：跟以前一樣選 A／B 配裝，兩邊都選好才出現「開始對戰」CTA，
-  歷史紀錄／零件勝率表留在這頁。
-- 計分畫面：兩側並排卡片（手機疊上下），巨大置中分數數字 + 進度條 +
-  各自三個終結技按鈕分組；復原／清除移到卡片外單獨一排；達陣那側卡片
-  整張高亮；存檔成功後自動切回選裝畫面。「← 回選裝」不清 `points`，只有
-  「清除重來」才清。
+`BattleMatch` 改成 discriminated union（`mode: '1v1' | '3on3'`），
+`BattlePoint` 加 `beyIndex?: 0|1|2` 標記 3on3 哪一分是哪隻陀螺打的。零件
+勝率統計對 3on3 改成逐分歸屬（隊伍贏不代表三隻陀螺都贏，只有實際打贏那
+一場的陀螺才算勝場）。新增 `TeamBattleLog.tsx` 元件處理 3on3 選裝＋計分，
+`BattleLogPage.tsx` 加「1v1／3on3」模式切換，歷史紀錄／零件勝率表兩種
+模式共用同一份渲染。IndexedDB v7→v8，migration 幫舊 1v1 紀錄補
+`mode: '1v1'`（匯入舊備份也一樣補）。
 
 **整輪都已完整完成並上線。** 沒有下一步待辦，只有下面「已知缺口」列的
-刻意排除範圍。
-
-**上線後使用者回報「記分板 UI 都黏在一起」**：原因是 `Row` 元件本身沒有
-上下 margin，只有 `Section` 元件有 `marginBottom: 22`；計分畫面拆兩畫面
-時直接用裸 `Row` 疊 `.battle-scoreboard` 疊 `Row`，中間完全沒留間距。
-已修：計分畫面內容包進 `.stack`（18px gap），選裝畫面的「開始對戰」CTA
-補上 22px 底部間距跟其他 `Section` 一致。順便截圖巡查了全站其他頁面
-（首頁、商品、零件、配裝、3on3、想買清單、設定、我能組什麼、零件／商品
-詳情頁），沒發現同樣的漏間距問題，這個 bug 只出在這次新拆的計分畫面。
+刻意排除範圍（延伸賽換陀螺順序的演算法本身官方沒寫死，這輪不模擬）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `c3bd1b6` |
-| `origin/main` | `c3bd1b6`（一致） |
-| 線上 Pages | `033c2f2`（間距修復已部署） |
+| 本機 HEAD | `b09b78f` |
+| `origin/main` | 落後，本輪尚未 push（見下方「下一個具體動作」） |
+| 線上 Pages | `033c2f2`（上一輪的部署，本輪還沒推上去） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：**481/481 全過**。
-- `npm run test:e2e` 全套（非過濾）：**91 passed, 1 skipped**（skip 是既有
+- `npm test`：**488/488 全過**。
+- `npm run test:e2e` 全套（非過濾）：**97 passed, 1 skipped**（skip 是既有
   WebKit 離線測試已知 flake，跟本輪無關）。
 - `npm run shots`：已用 Read 工具確認
-  `desktop-battle-log.png`／`phone-battle-log.png`（選裝畫面）跟
-  `desktop-battle-log-scoring.png`／`phone-battle-log-scoring.png`
-  （計分畫面）都正常顯示，沒跑版；桌機 fullPage 截圖底部 tabbar 疊到
-  「開始對戰」按鈕一小段是截圖已知現象（見下方踩過的坑），不是真的擋住
-  點擊。
-- `npm run deploy:pages`：完成，gh-pages `033c2f2`。
-- `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
-  service worker 註冊、圖片路徑）。
+  `desktop-battle-log-3on3.png`／`phone-battle-log-3on3.png`（3on3 計分
+  畫面）跟 `battle-log.png`（選裝畫面新增的 1v1／3on3 切換按鈕）都正常
+  顯示，沒跑版，跟 1v1 視覺語言一致。
+- `npm run deploy:pages`／`npm run test:live`：**本輪尚未執行**，見下方
+  「下一個具體動作」。
 
 ## 阻塞
 
@@ -66,82 +51,79 @@ brainstorming bounded path、對話中approval）：原本單頁塞選裝＋六�
 
 ## 下一個具體動作
 
-無待辦。若要繼續優化，可以考慮 final review 那輪記錄的 deferred Minor
-項目（見下方「Final review 發現與修復」），或使用者提出的新需求。
-
-## Final review 發現與修復（這輪新增）
-
-派 fresh opus subagent 對照 plan 的 Review Focus 段落審查
-`416b84f..18bfe5d`（Task 1-6 全部 commit），結論：無 Critical，2 個
-Important 已修，Minor 記錄 deferred：
-
-- **Important 1**：`FINISH_POINTS` 缺 Review Focus 第 5 項要求的隱性假設
-  註解（歷史紀錄比分是即時算的，沒存快照）——已在
-  `src/domain/battleRecords.ts` 的 `FINISH_POINTS` 宣告補上註解。
-- **Important 2**（真 bug）：`BattleLogPage` 切換 A／B 結構（三件式↔CX）
-  沒清 `slotsA`／`slotsB`，殘留的零件 id 會讓 `hasAnyPart()` 誤判、計分板
-  可能在其中一邊實際上沒選零件時就跳出來，存檔後還會把看不到的零件混進
-  歷史紀錄與 `computePartWinRateIndex` 的零件勝率（污染
-  `BuilderPage`／`DecksPage` 的建議邏輯）——已修成跟 `BuilderPage` 既有
-  模式一致：切結構按鈕 `onClick` 同時呼叫 `setSlotsA({})`／
-  `setSlotsB({})`。先寫失敗的 e2e 測試確認真的會紅（A 選三件式上蓋、切到
-  CX、B 選滿零件，計分板不該出現但確實出現），修完再確認變綠。
-- Minor 記錄到 ledger 當 deferred（不修）：比賽中途換配裝會把已記的分數
-  算到新零件頭上；匯入未驗證資料在贏家 undefined 時會誤顯示「B 獲勝」；
-  切到別分頁會遺失進行中的比賽狀態（沒有草稿持久化）；缺日期編輯／5:0
-  顯示／spec 第 8 節案例的測試；CX 內建固鎖零件仍可被選（跟 `BuilderPage`
-  既有行為一致，spec 本來就排除相容性檢查）。
+1. 跑 final review：對照 plan 的 Review Focus 段落審查
+   `5e089f0..b09b78f`（Task 1-5 全部 commit，MERGE_BASE 是上一輪最後一個
+   commit `5e089f0`），派一個 fresh opus subagent 或自己對照 ledger 的
+   Ruling 做審查。
+2. 有 Critical／Important 發現就 TDD 修掉；Minor 記錄到 ledger 當
+   deferred，不用修。
+3. Final review 乾淨後刪除
+   `.superpowers/sdd/2026-09-28-3on3-team-battle-log/`。
+4. Push → `npm run deploy:pages` → `npm run test:live`，把結果補回這份
+   HANDOFF（目前「發布狀態」表格的 `origin/main`／線上 Pages 兩欄還是
+   上一輪的舊值，本輪還沒推）。
+5. 跑 `superpowers:finishing-a-development-branch` 收尾。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這是用 `superpowers:executing-plans` 執行的 SDD 計畫，直接在 `main` 上做
-  （沒有開 worktree／分支）。Ledger（`.superpowers/sdd/2026-09-25-battle-
-  match-scoreboard/progress.md`）final review 乾淨後已依計畫刪除，三個
-  ruling 摘要見上一版 HANDOFF 歷史／`git log` 這幾個 commit 的說明：Task 1
-  測試建構錯（跟程式碼無關）、Task 2 plan 預測的 tsc 錯誤沒真的發生、
-  Task 3 漏改 `DB_SCHEMA_VERSION`。
-- 計分板 UI 重新設計走的是 `superpowers:brainstorming` 的 bounded path，
-  沒有走 SDD 全套（沒開 ledger、沒寫 plan 文件），對話紀錄本身就是設計
-  依據，改動範圍只有 `BattleLogPage.tsx`／`index.css`／兩個 e2e 檔案。
+- 這輪走 `superpowers:brainstorming` architectural path（先寫 spec、再
+  `writing-plans`、再 `executing-plans`），直接在 `main` 上做（沒有開
+  worktree／分支）。Ledger 在
+  `.superpowers/sdd/2026-09-28-3on3-team-battle-log/progress.md`，final
+  review 還沒跑，ledger 裡還沒有 `Final:` 開頭的行。
+- 3on3 計分畫面「每場只有一個終結技就分勝負、自動前進下一場」跟 1v1
+  「同一套配裝連續得分到 4 分」是兩套完全不同的操作邏輯，不要憑印象套用
+  1v1 的 UI 慣例——`TeamBattleLog.tsx` 是獨立元件，不是 `BattleLogPage`
+  裡加個 if 分支硬塞。
 
 ## 踩過的坑（這輪新增）
 
-- **測試檔案自己的建構邏輯也會有 bug，紅燈／綠燈都要讀懂為什麼，不能只看
-  過不過**——`computePartWinRateIndex` 的「同一顆零件跨場輸贏各自累加」
-  測試，第一版用展開運算子覆寫 `a`／`b` 欄位時把兩批案例都覆寫成同一邊
-  贏，實際測出 wins:6/losses:0，程式碼本身是對的，是測試資料建構錯了。
-- **plan 預測的編譯錯誤不一定真的會發生**——plan 寫「拿掉 `PartWinRateEntry`
-  的 `ties` 欄位後，`deck.test.ts` 裡多餘的 `ties: 0` 會讓 `tsc` 報 excess
-  property 錯誤」，但巢狀在 `new Map([[...]])` 陣列字面值裡的物件不會觸發
-  這個檢查（用 `tsc -b --force` 全量重建驗證過）。TDD 的「先看紅燈」步驟
-  如果實測沒有紅燈，不要硬掰一個紅燈出來，誠實記錄、還是照原本的目標做
-  修正就好。
-- **改 IndexedDB schema 版本時，`DB_SCHEMA_VERSION` 常數要跟 `db.version(N)`
-  同步升級，兩者是分開的兩個地方**——這次只顧著加
-  `db.version(7).stores({...})`，忘記把 `export const DB_SCHEMA_VERSION`
-  從 6 改成 7，被匯出匯入的 round-trip 測試抓到。以後改 schema 版本，這兩
-  個地方要一起改，改完可以直接 `grep DB_SCHEMA_VERSION` 確認只有一個數字、
-  跟最新的 `db.version()` 一致。
-- **UI 改版把「比分文字」的 DOM 結構換掉時，e2e 斷言的比對字串要跟著全部
-  改**——計分板重新設計前 `data-testid="score-a"` 的 `textContent` 是
-  `"A 4"`（前綴字母＋數字），改成獨立大字數字磚後只剩 `"4"`。原本
-  `toHaveText('A 4')` 這種斷言全部要跟著改成 `toHaveText('4')`，不能只改
-  程式碼不改測試字串，兩邊要當一組一起看。
+- **`points.length < 3` 不能單獨當作「還在排定中的前三場」的判斷式，要
+  跟 `isMatchComplete` 一起看**——3on3 計分畫面的 `scheduledIndex` 一開始
+  只寫 `points.length < 3 ? points.length : undefined`，沒考慮到極限
+  （+3）常常讓累計分數在第 2 場就衝過 4 分：這時 `complete` 已經是
+  `true`，但 `points.length` 還是 2（< 3），畫面會繼續顯示「第 3 場」，
+  不會跳去顯示贏家／存檔區。已修成 `!complete && points.length < 3`。
+  這是自己寫的 e2e 測試在紅燈階段抓到的，不是憑空想到——任何「用 points
+  數量推算目前在第幾場」的邏輯，都要先跟「比賽是否已經結束」交叉確認。
+- **TypeScript 標準庫的 `Omit<T, K>` 對 discriminated union 不會分流**——
+  `keyof (A|B)` 只取兩者共同鍵，`Pick` 會把每個鍵的型別攤平成聯集，
+  `Omit<BattleMatch,'id'>` 會讓 `mode`／`a`／`b` 三個欄位互相脫鉤（型別上
+  允許 `mode:'1v1'` 卻配 `a: [ComboSlots,ComboSlots,ComboSlots]` 這種不合法
+  組合）。要保留「哪個 mode 對應哪種形狀」的關聯，得自己定義
+  `type DistributiveOmit<T,K> = T extends unknown ? Omit<T,K> : never`。
+  用在 `Repository.saveBattleMatch` 的輸入型別。
+- **對「型別上一定存在的必填欄位」用 `'key' in obj` 判斷式來偵測「執行期
+  可能缺欄位的舊資料」會被 TS 判斷式窄化成 `never`，導致 spread 報
+  `Spread types may only be created from object types`**——`importBackup`
+  幫 v7 舊備份的 `battleMatches` 補 `mode` 時，第一版寫
+  `'mode' in match ? match : {...match, mode:'1v1'}`，因為 `BattleMatch`
+  型別宣告 `mode` 必填，TS 認定 `'mode' in match` 恆真，把 else 分支推導成
+  `never`。改用寬鬆型別（`Partial<BattleMatch> & Record<string,unknown>`）
+  讀 `match.mode` 再整個 cast 回 `BattleMatch` 才繞得過去——遇到「型別說
+  一定有、但舊資料實際上可能沒有」的欄位，判斷式要透過寬鬆型別讀，不能
+  靠 `in` 運算子。
+- **改 IndexedDB schema 版本時，除了 `DB_SCHEMA_VERSION` 常數，測試檔案裡
+  任何寫死 `expect(db.verno).toBe(N)` 的既有斷言都要一起找出來改**——這輪
+  只顧著改 v6→v7 那條 migration 測試的 `verno` 期望值，漏掉另一條完全獨立
+  的「IndexedDB v5 migration」測試也寫死 `toBe(7)`，被 `npm test` 全套跑
+  才抓到。以後升版本，先 `grep "verno).toBe("` 抓出全部要改的地方，不要
+  只改自己這輪新寫的那條。
+
+## 踩過的坑（沿用既有，仍然有效）
+
 - **`Row` 元件本身沒有上下 margin，只有 `Section` 有**——`ui.tsx` 的
   `Row()` 只是 `display:flex; gap; flexWrap`，垂直間距全靠外層
   `Section` 的 `marginBottom: 22` 或父層 `.stack`／`.card` 的 grid
   `gap`。在 `Section` 外面裸放連續好幾個 `Row` 或自訂 `div`，中間會是
   0 間距、疊在一起。新畫面／新區塊只要沒包在 `Section` 或帶 gap 的容器
-  裡，一定要自己補間距（`className="stack"` 或外層 `div` 加
-  `marginBottom`），寫完務必截圖核對，不能只看 `tsc`／單元測試過。
+  裡，一定要自己補間距，寫完務必截圖核對，不能只看 `tsc`／單元測試過。
 - **`fullPage: true` 的截圖會把 `position: fixed` 的底部 tabbar 畫在畫面
-  中段，疊住底下的按鈕**——這是既有教訓（HANDOFF 舊版寫過一次），這輪
-  計分板重新設計的截圖又踩到一次：`desktop-battle-log.png` 裡「開始對戰」
-  CTA 被 tabbar 疊到一角。純粹是全頁截圖的算圖方式問題，實機（不用
-  fullPage、或用真的瀏覽器滑動）不會有這個現象，看截圖核對版面時記得
-  這一條，不要誤判成真的 bug。
-
-## 踩過的坑（沿用既有，仍然有效）
+  中段，疊住底下的按鈕**——純粹是全頁截圖的算圖方式問題，實機不會有這個
+  現象，看截圖核對版面時記得這一條，不要誤判成真的 bug。
+- **改 IndexedDB schema 版本時，`DB_SCHEMA_VERSION` 常數要跟 `db.version(N)`
+  同步升級，兩者是分開的兩個地方**——改完可以直接 `grep DB_SCHEMA_VERSION`
+  確認只有一個數字、跟最新的 `db.version()` 一致。
 
 - **加分訊號的原始值域不含負數時，直接加總等於「有資料就加分，不管資料
   說的是好是壞」**——先找出值域裡代表「中性、沒有訊號」的那個點，加總前
@@ -172,10 +154,16 @@ Important 已修，Minor 記錄 deferred：
 
 ## 已知缺口
 
-- **個人對戰紀錄不做 3on3 團體賽整場比分／重複對戰邏輯**——這輪只記單場
-  個別對戰（先到 4 分獲勝），3on3 團體賽脈絡下「三隻打完還沒分勝負要
-  重複挑一隻打」這件事本身不記錄，是這輪 spec（第 7 節）刻意排除的範圍。
-  之後真的要記團體賽整場比分，是完全獨立的一輪工作。
+- **3on3 延伸賽（三場打完仍未到 4 分）不模擬官方的換陀螺順序演算法**——
+  官方規則本身沒寫死怎麼換順序（比賽現場由雙方協調），這輪延伸賽只給
+  通用、不綁定特定陀螺的加分介面，見
+  `docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`
+  第 7 節。
+- **3on3 選裝不檢查「同一隊三隻陀螺不能用重複零件」**——那是
+  `DecksPage` 隊伍組建階段的責任，`BattleLogPage`／`TeamBattleLog` 是
+  現場記分工具，不重新做一次驗證，刻意排除。
+- **不整合已存的 `Deck`（3on3 隊伍）快速選裝**——3on3 對戰紀錄跟 1v1
+  一樣現場選 6 套配裝，不會從 `DecksPage` 已存的隊伍清單挑一組直接帶入。
 - **`FINISH_POINTS`（轉停 1／出界爆裂 2／極限 3）之後如果要調整，舊紀錄
   的比分會跟著重算變動**——沒有把每一分的實際點值存進 `BattlePoint`，
   歷史紀錄的比分是即時用目前的 `FINISH_POINTS` 常數算出來的，不是存檔當下
@@ -215,14 +203,17 @@ Important 已修，Minor 記錄 deferred：
 `scoreDeck()`（真實證據優先、fallback 加下限不會輸）與 `recommendations.ts`
 的獨立 `partStrengthGain`（只算淨新增可用零件）→ 前台三種文字狀態。
 
-個人對戰紀錄：`BattleLogPage` 現場選 A／B 兩套零件 → `points: BattlePoint[]`
+個人對戰紀錄：`BattleLogPage`（1v1，現場選 A／B 兩套零件）／
+`TeamBattleLog`（3on3，現場選 A／B 各 3 套零件）→ `points: BattlePoint[]`
 逐分記錄（`domain/battleRecords.ts` 的 `FINISH_POINTS` 算分、
-`isMatchComplete()`／`matchWinner()` 判定）→ `repository.saveBattleMatch()`
-（未達 4 分擋存檔）→ IndexedDB `battleMatches` 表（schema v7）→
-`computePartWinRateIndex()` 算每顆零件勝率 → `deck.ts` 的
-`personalWinRateGain`（減 0.5 置中之後才加總，只用在
-`balanced`／`vs_attack`／`vs_stamina` 三種策略，`evidence` 策略排除）→
-`BuilderPage` 狀態行與 `BattleLogPage` 零件勝率簡表。
+`isMatchComplete()`／`matchWinner()` 判定，兩種模式共用）→
+`repository.saveBattleMatch()`（未達 4 分擋存檔）→ IndexedDB
+`battleMatches` 表（schema v8，`mode: '1v1'|'3on3'` 判斷形狀）→
+`computePartWinRateIndex()` 算每顆零件勝率（1v1 整場歸屬、3on3 逐分
+歸屬——見 `docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`
+第 4 節）→ `deck.ts` 的 `personalWinRateGain`（減 0.5 置中之後才加總，
+只用在 `balanced`／`vs_attack`／`vs_stamina` 三種策略，`evidence` 策略
+排除）→ `BuilderPage` 狀態行與 `BattleLogPage` 零件勝率簡表。
 
 CX 拆件：`scripts/buildCatalog.mjs` 的 `decomposeCxBlade()` 比對紋章＋主刃中文名
 能不能拼出合併名稱，能拆就拆並用 `addAliasZhTW()` 把合併名稱補進兩顆零件的

@@ -1,6 +1,7 @@
 # 3on3 團體賽對戰紀錄 Design
 
-**狀態**：設計已跟使用者逐段確認，待實作。
+**狀態**：已實作並上線，實作計畫見
+`docs/superpowers/plans/2026-09-28-3on3-team-battle-log.md`。
 
 ## 1. 目標與範圍
 
