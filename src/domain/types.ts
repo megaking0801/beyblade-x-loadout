@@ -450,15 +450,23 @@ export interface BattlePoint {
   scorer: 'a' | 'b'
   finish: BattleFinish
   /**
-   * 3on3 專用：這一分是三隻陀螺裡第幾隻打的（0=1st／1=2nd／2=3rd）。
-   * 只有 3on3 的前三場個別對戰會填，延伸賽（第四場起）不綁定特定陀螺、
-   * 留空；1v1 對戰永遠不填。零件勝率統計靠這個欄位分辨要不要歸屬。
+   * 這一分是三隻陀螺裡第幾隻打的（0=1st／1=2nd／2=3rd）。只有前三場
+   * 個別對戰會填，延伸賽（第四場起）不綁定特定陀螺、留空。零件勝率統計
+   * 靠這個欄位分辨要不要歸屬。
    */
   beyIndex?: 0 | 1 | 2
 }
 
-interface BattleMatchBase {
+/**
+ * 一場 3on3 團體賽（先到 4 分獲勝，分數是三場個別對戰累加，不是三戰
+ * 兩勝，見官方規則）。`a`／`b` 固定 3 套，索引對應 1st／2nd／3rd 出場
+ * 順序，賽中不換順序。純本機資料，不同步、不宣稱官方或社群共識，見
+ * docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md。
+ */
+export interface BattleMatch {
   id: string
+  a: [ComboSlots, ComboSlots, ComboSlots]
+  b: [ComboSlots, ComboSlots, ComboSlots]
   /** 依序記錄每一分怎麼來的，贏家由這裡算出來，不另外存。 */
   points: BattlePoint[]
   playedAt: string
@@ -466,37 +474,6 @@ interface BattleMatchBase {
   notes?: string
   createdAt: string
 }
-
-/**
- * 1v1 個別對戰（先到 4 分獲勝，見官方規則）。A、B 兩邊配裝全程固定，
- * 不會中途換零件。純本機資料，不同步、不宣稱官方或社群共識，見
- * docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md。
- */
-export interface OneVOneBattleMatch extends BattleMatchBase {
-  mode: '1v1'
-  a: ComboSlots
-  b: ComboSlots
-}
-
-/**
- * 3on3 團體賽（先到 4 分獲勝，分數是三場個別對戰累加，不是三戰兩勝）。
- * `a`／`b` 固定 3 套，索引對應 1st／2nd／3rd 出場順序，賽中不換順序。
- * 見 docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md。
- */
-export interface TeamBattleMatch extends BattleMatchBase {
-  mode: '3on3'
-  a: [ComboSlots, ComboSlots, ComboSlots]
-  b: [ComboSlots, ComboSlots, ComboSlots]
-}
-
-export type BattleMatch = OneVOneBattleMatch | TeamBattleMatch
-
-/**
- * 標準庫 `Omit<T, K>` 對 union type 不會分流（`keyof (A|B)` 只取共同鍵，
- * `Pick` 會把每個鍵的型別攤平成聯集，失去「哪個 mode 對應哪種 a/b 形狀」
- * 的關聯）。存檔輸入型別需要保留這個關聯，所以自己定義會分流的版本。
- */
-export type DistributiveOmit<T, K extends keyof any> = T extends unknown ? Omit<T, K> : never
 
 /** 第 32 節：3on3 隊伍。 */
 export interface Deck {

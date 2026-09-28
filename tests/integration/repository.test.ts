@@ -487,12 +487,11 @@ describe('匯出與匯入（第 37 節）', () => {
 
   it('個人對戰紀錄會被匯出，匯入後完整回復（全分支審查 Important Finding 3 回歸測試）', async () => {
     await repo.saveBattleMatch({
-      mode: '1v1',
-      a: { bladeId: 'test-blade-a' },
-      b: { bladeId: 'test-bit-b' },
+      a: [{ bladeId: 'test-blade-a' }, { bladeId: 'test-blade-a2' }, { bladeId: 'test-blade-a3' }],
+      b: [{ bladeId: 'test-bit-b' }, { bladeId: 'test-blade-b2' }, { bladeId: 'test-blade-b3' }],
       points: [
-        { scorer: 'a', finish: 'xtreme' },
-        { scorer: 'a', finish: 'spin' },
+        { scorer: 'a', finish: 'xtreme', beyIndex: 0 },
+        { scorer: 'a', finish: 'spin', beyIndex: 1 },
       ],
       playedAt: '2026-09-24',
     })
@@ -506,9 +505,7 @@ describe('匯出與匯入（第 37 節）', () => {
 
     const matches = await otherRepo.listBattleMatches()
     expect(matches).toHaveLength(1)
-    const imported = matches[0]!
-    if (imported.mode !== '1v1') throw new Error('expected 1v1 match')
-    expect(imported.a.bladeId).toBe('test-blade-a')
+    expect(matches[0]!.a[0].bladeId).toBe('test-blade-a')
     await otherDb.delete()
   })
 
@@ -641,11 +638,11 @@ describe('IndexedDB v5 migration', () => {
     const migrated = createDb(name)
     await migrated.open()
     // v6 曾經把 battleRounds 加回來，但 v7 這輪又整個刪掉（換成全新的
-    // battleMatches，見 docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md），
-    // v8 幫 battleMatches 補上 mode 欄位（見
-    // docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md），
-    // 所以目前最新版本是 8。
-    expect(migrated.verno).toBe(8)
+    // battleMatches）、v8 補上 mode 欄位、v9 拿掉 1v1 把 battleMatches
+    // 收斂回單一 3on3 形狀（見
+    // docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md），
+    // 所以目前最新版本是 9。
+    expect(migrated.verno).toBe(9)
     expect(await migrated.ownedProducts.get('owned-1')).toMatchObject({ productId: 'product-1' })
     expect(await migrated.inventoryLots.get('lot-1')).toMatchObject({ partId: 'bit-1', quantity: 2 })
     expect(await migrated.savedCombos.get('combo-1')).toMatchObject({ nameZhTW: '舊配裝' })
@@ -899,21 +896,18 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
   it('可以新增、列出、刪除一場打完的對戰', async () => {
     const repo = createRepository(createDb(`test-battle-match-${Date.now()}`))
     const id = await repo.saveBattleMatch({
-      mode: '1v1',
-      a: { bladeId: 'blade-a' },
-      b: { bladeId: 'blade-b' },
+      a: [{ bladeId: 'blade-a' }, { bladeId: 'blade-a2' }, { bladeId: 'blade-a3' }],
+      b: [{ bladeId: 'blade-b' }, { bladeId: 'blade-b2' }, { bladeId: 'blade-b3' }],
       points: [
-        { scorer: 'a', finish: 'xtreme' },
-        { scorer: 'a', finish: 'spin' },
+        { scorer: 'a', finish: 'xtreme', beyIndex: 0 },
+        { scorer: 'a', finish: 'spin', beyIndex: 1 },
       ],
       playedAt: '2026-09-25',
     })
     const matches = await repo.listBattleMatches()
     expect(matches).toHaveLength(1)
     expect(matches[0]!.id).toBe(id)
-    const saved = matches[0]!
-    if (saved.mode !== '1v1') throw new Error('expected 1v1 match')
-    expect(saved.a.bladeId).toBe('blade-a')
+    expect(matches[0]!.a[0].bladeId).toBe('blade-a')
 
     await repo.deleteBattleMatch(id)
     expect(await repo.listBattleMatches()).toHaveLength(0)
@@ -923,10 +917,9 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
     const repo = createRepository(createDb(`test-battle-match-incomplete-${Date.now()}`))
     await expect(
       repo.saveBattleMatch({
-        mode: '1v1',
-        a: { bladeId: 'blade-a' },
-        b: { bladeId: 'blade-b' },
-        points: [{ scorer: 'a', finish: 'over_burst' }],
+        a: [{ bladeId: 'blade-a' }, { bladeId: 'blade-a2' }, { bladeId: 'blade-a3' }],
+        b: [{ bladeId: 'blade-b' }, { bladeId: 'blade-b2' }, { bladeId: 'blade-b3' }],
+        points: [{ scorer: 'a', finish: 'over_burst', beyIndex: 0 }],
         playedAt: '2026-09-25',
       }),
     ).rejects.toThrow('這場對戰還沒打完')
@@ -977,17 +970,17 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
 
     const upgraded = createDb(dbName)
     await upgraded.open()
-    expect(upgraded.verno).toBe(8)
+    expect(upgraded.verno).toBe(9)
     expect(await upgraded.inventoryLots.get('lot-1')).toMatchObject({ partId: 'blade-a' })
     expect(upgraded.tables.map((table) => table.name)).not.toContain('battleRounds')
     expect(await upgraded.battleMatches.toArray()).toHaveLength(0)
     upgraded.close()
   })
 
-  it('v7 升級到 v8 會幫沒有 mode 欄位的舊 1v1 紀錄自動補 mode: \'1v1\'，不影響其他資料', async () => {
-    const dbName = `test-migration-v8-${Date.now()}`
+  it('v8 升級到 v9 會把 battleMatches 表整個清空（拿掉 1v1，收斂回單一 3on3 形狀），不影響其他資料', async () => {
+    const dbName = `test-migration-v9-${Date.now()}`
     const oldDb = new Dexie(dbName) as BeybladeDb
-    oldDb.version(7).stores({
+    oldDb.version(8).stores({
       parts: 'id, family, system, code',
       partVariants: 'id, partId',
       products: 'id, line, category, sku',
@@ -1007,9 +1000,18 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
       meta: 'key',
     })
     await oldDb.open()
+    await oldDb.table('inventoryLots').add({
+      id: 'lot-keep',
+      sourceType: 'manual_adjustment',
+      partId: 'blade-a',
+      quantity: 1,
+      status: 'available',
+      condition: 'new',
+      createdAt: '2026-01-01',
+    })
     await oldDb.table('battleMatches').add({
-      id: 'old-1v1-1',
-      // 沒有 mode 欄位，模擬 v7 時代存的舊紀錄。
+      id: 'old-v8-1',
+      mode: '1v1',
       a: { bladeId: 'blade-a' },
       b: { bladeId: 'blade-b' },
       points: [
@@ -1023,16 +1025,15 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
 
     const upgraded = createDb(dbName)
     await upgraded.open()
-    expect(upgraded.verno).toBe(8)
-    const migrated = await upgraded.battleMatches.get('old-1v1-1')
-    expect(migrated?.mode).toBe('1v1')
+    expect(upgraded.verno).toBe(9)
+    expect(await upgraded.inventoryLots.get('lot-keep')).toMatchObject({ partId: 'blade-a' })
+    expect(await upgraded.battleMatches.toArray()).toHaveLength(0)
     upgraded.close()
   })
 
   it('可以新增、列出一場打完的 3on3 對戰', async () => {
     const repo = createRepository(createDb(`test-battle-3on3-${Date.now()}`))
     const id = await repo.saveBattleMatch({
-      mode: '3on3',
       a: [{ bladeId: 'a1' }, { bladeId: 'a2' }, { bladeId: 'a3' }],
       b: [{ bladeId: 'b1' }, { bladeId: 'b2' }, { bladeId: 'b3' }],
       points: [
@@ -1044,14 +1045,13 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
     const matches = await repo.listBattleMatches()
     expect(matches).toHaveLength(1)
     expect(matches[0]!.id).toBe(id)
-    expect(matches[0]!.mode).toBe('3on3')
+    expect(matches[0]!.a[0].bladeId).toBe('a1')
   })
 
-  it('3on3 沒到 4 分不能存檔（isMatchComplete 檢查兩種 mode 共用）', async () => {
+  it('3on3 沒到 4 分不能存檔', async () => {
     const repo = createRepository(createDb(`test-battle-3on3-incomplete-${Date.now()}`))
     await expect(
       repo.saveBattleMatch({
-        mode: '3on3',
         a: [{ bladeId: 'a1' }, { bladeId: 'a2' }, { bladeId: 'a3' }],
         b: [{ bladeId: 'b1' }, { bladeId: 'b2' }, { bladeId: 'b3' }],
         points: [{ scorer: 'a', finish: 'spin', beyIndex: 0 }],
@@ -1060,10 +1060,10 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
     ).rejects.toThrow('這場對戰還沒打完')
   })
 
-  it('匯入 schemaVersion 7 的舊備份時，battleMatches 裡沒有 mode 欄位的紀錄會自動補 mode: \'1v1\'', async () => {
-    const repo = createRepository(createDb(`test-import-v7-backfill-${Date.now()}`))
+  it('匯入 schemaVersion 8 以前的舊備份時，battleMatches 一律當作沒有這個欄位、匯入後留空', async () => {
+    const repo = createRepository(createDb(`test-import-legacy-shape-${Date.now()}`))
     const legacyBackup = {
-      schemaVersion: 7,
+      schemaVersion: 8,
       catalogVersion: null,
       ownedProducts: [],
       inventoryLots: [],
@@ -1074,7 +1074,7 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
       battleMatches: [
         {
           id: 'legacy-1v1',
-          // v7 匯出格式本來就沒有 mode 欄位。
+          mode: '1v1',
           a: { bladeId: 'blade-a' },
           b: { bladeId: 'blade-b' },
           points: [
@@ -1089,7 +1089,6 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
     }
     await repo.importBackup(legacyBackup as unknown as BackupPayload)
     const matches = await repo.listBattleMatches()
-    expect(matches).toHaveLength(1)
-    expect(matches[0]!.mode).toBe('1v1')
+    expect(matches).toHaveLength(0)
   })
 })

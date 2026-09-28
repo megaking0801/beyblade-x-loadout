@@ -26,7 +26,6 @@ import type {
   BattleMatch,
   CompatibilityRule,
   Deck,
-  DistributiveOmit,
   ImageAsset,
   InventoryLot,
   OwnedProduct,
@@ -155,7 +154,7 @@ export interface Repository {
   deleteCombo(id: string): Promise<void>
 
   listBattleMatches(): Promise<BattleMatch[]>
-  saveBattleMatch(input: DistributiveOmit<BattleMatch, 'id' | 'createdAt'>): Promise<string>
+  saveBattleMatch(input: Omit<BattleMatch, 'id' | 'createdAt'>): Promise<string>
   deleteBattleMatch(id: string): Promise<void>
 
   listDecks(): Promise<Deck[]>
@@ -804,28 +803,15 @@ export function createRepository(db: BeybladeDb): Repository {
         throw new Error(`備份版本過新（${payload.schemaVersion}），請先更新 App`)
       }
       /*
-       * schemaVersion < 7 的備份不會有（相容的）battleMatches 欄位——v6 以前
-       * 這個位置要嘛沒有這個概念，要嘛是舊版 BattleRound 的資料形狀，跟這次
-       * BattleMatch 完全不同，一律當作沒有這個欄位、匯入後留空。
-       * schemaVersion < 8 的備份（v7 時代）有 battleMatches 但每筆都沒有
-       * mode 欄位，比照 db.ts 的 v8 migration 補上 '1v1'，不然匯入後這些
-       * 紀錄會沒有 mode 可供判斷是哪種比賽類型。
+       * schemaVersion < 9 的備份不會有相容的 battleMatches 欄位——v8 以前
+       * 這個位置要嘛沒有這個概念，要嘛是舊版 1v1／3on3 混合 union 的資料
+       * 形狀，跟這輪收斂回單一 3on3 形狀完全不同，一律當作沒有這個欄位、
+       * 匯入後留空（使用者已同意這批舊資料整批清空，不做欄位轉換）。
        */
-      /*
-       * `payload.battleMatches` 宣告型別是 BattleMatch[]（一定有 mode），但
-       * schemaVersion 7 的舊備份實際上沒有這個欄位——型別系統看不出這個
-       * 落差，`match.mode` 用寬鬆型別讀，不能用 `'mode' in match` 判斷式
-       * （那樣 TS 會把 mode 一定存在的假設帶進來，else 分支被推導成
-       * never，spread 會報錯）。
-       */
-      const rawBattleMatchesSource = payload.schemaVersion >= 7 ? (payload.battleMatches ?? []) : []
-      if (!Array.isArray(rawBattleMatchesSource)) {
+      const battleMatches = payload.schemaVersion >= 9 ? (payload.battleMatches ?? []) : []
+      if (!Array.isArray(battleMatches)) {
         throw new Error('備份格式不正確：battleMatches 不是陣列')
       }
-      const rawBattleMatches = rawBattleMatchesSource as Array<Partial<BattleMatch> & Record<string, unknown>>
-      const battleMatches = rawBattleMatches.map(
-        (match) => (match.mode ? match : { ...match, mode: '1v1' as const }) as BattleMatch,
-      )
       const arrays: [string, unknown][] = [
         ['ownedProducts', payload.ownedProducts],
         ['inventoryLots', payload.inventoryLots],

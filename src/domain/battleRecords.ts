@@ -1,7 +1,7 @@
 /**
  * 個人對戰紀錄聚合（純函式）。
  *
- * 規格對照：docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md。
+ * 規格對照：docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md。
  */
 import type { BattleFinish, BattleMatch, BattlePoint, ComboSlots } from './types.ts'
 
@@ -84,29 +84,16 @@ export function computePartWinRateIndex(matches: BattleMatch[]): Map<string, Par
   const counts = new Map<string, MutableCount>()
 
   for (const battleMatch of matches) {
-    if (battleMatch.mode === '3on3') {
-      // 3on3 逐分歸屬：每一分只算給那一分實際打的陀螺，不是整場贏家的
-      // 三隻陀螺全部算贏——隊伍贏了不代表每一場個別對戰都贏。
-      for (const point of battleMatch.points) {
-        if (point.beyIndex === undefined) continue // 延伸賽不綁定陀螺，不歸屬任何零件。
-        const loserScorer = point.scorer === 'a' ? 'b' : 'a'
-        const winnerParts = partIdsOf(battleMatch[point.scorer][point.beyIndex])
-        const loserParts = partIdsOf(battleMatch[loserScorer][point.beyIndex])
-        for (const partId of winnerParts) ensure(counts, partId).wins += 1
-        for (const partId of loserParts) ensure(counts, partId).losses += 1
-      }
-      continue
+    // 逐分歸屬：每一分只算給那一分實際打的陀螺，不是整場贏家的三隻陀螺
+    // 全部算贏——隊伍贏了不代表每一場個別對戰都贏。
+    for (const point of battleMatch.points) {
+      if (point.beyIndex === undefined) continue // 延伸賽不綁定陀螺，不歸屬任何零件。
+      const loserScorer = point.scorer === 'a' ? 'b' : 'a'
+      const winnerParts = partIdsOf(battleMatch[point.scorer][point.beyIndex])
+      const loserParts = partIdsOf(battleMatch[loserScorer][point.beyIndex])
+      for (const partId of winnerParts) ensure(counts, partId).wins += 1
+      for (const partId of loserParts) ensure(counts, partId).losses += 1
     }
-
-    const winner = matchWinner(battleMatch.points)
-    if (!winner) continue // 未完成的比賽不貢獻任何零件的輸贏。
-
-    const aParts = partIdsOf(battleMatch.a)
-    const bParts = partIdsOf(battleMatch.b)
-    const winners = winner === 'a' ? aParts : bParts
-    const losers = winner === 'a' ? bParts : aParts
-    for (const partId of winners) ensure(counts, partId).wins += 1
-    for (const partId of losers) ensure(counts, partId).losses += 1
   }
 
   const result = new Map<string, PartWinRateEntry>()

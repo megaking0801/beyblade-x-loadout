@@ -26,7 +26,7 @@ import type {
 } from '../domain/types.ts'
 
 export const DB_NAME = 'beyblade-x-loadout'
-export const DB_SCHEMA_VERSION = 8
+export const DB_SCHEMA_VERSION = 9
 
 /** 第 38 節：新手模式／進階模式。 */
 export interface AppSettings {
@@ -149,6 +149,14 @@ export function createDb(name: string = DB_NAME): BeybladeDb {
           if (!match.mode) match.mode = '1v1'
         }),
     )
+  db.version(9)
+    .stores({
+      // 索引不變。這輪拿掉 1v1，BattleMatch 收斂回單一 3on3 形狀
+      // （不再有 mode 欄位），舊資料（不管是 1v1 還是 3on3）形狀都跟
+      // 新形狀不相容，整表清空、不做欄位轉換（使用者已同意清空舊紀錄）。
+      battleMatches: 'id, playedAt',
+    })
+    .upgrade((tx) => tx.table('battleMatches').clear())
   return db
 }
 
