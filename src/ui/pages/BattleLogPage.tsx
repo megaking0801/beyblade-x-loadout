@@ -21,6 +21,7 @@ import { getBuilderSlotSchema, type BuilderStructure } from '../../domain/compat
 import type { BattleFinish, BattlePoint, ComboSlots } from '../../domain/types.ts'
 import { EmptyState, PageHeader, Row, Section } from '../components/ui.tsx'
 import { PartPickerField } from '../components/PartPicker.tsx'
+import { TeamBattleLog } from '../components/TeamBattleLog.tsx'
 
 const FINISH_ZH: Record<BattleFinish, string> = {
   spin: '轉停',
@@ -91,6 +92,7 @@ export function BattleLogPage() {
   const battleMatches = useAppStore((state) => state.battleMatches)
   const run = useAppStore((state) => state.run)
 
+  const [matchMode, setMatchMode] = useState<'1v1' | '3on3'>('1v1')
   const [view, setView] = useState<'setup' | 'scoring'>('setup')
   const [structureA, setStructureA] = useState<BuilderStructure>('standard')
   const [structureB, setStructureB] = useState<BuilderStructure>('standard')
@@ -125,6 +127,7 @@ export function BattleLogPage() {
     if (!complete) return
     const ok = await run(() =>
       repo.saveBattleMatch({
+        mode: '1v1',
         a: slotsA,
         b: slotsB,
         points,
@@ -144,6 +147,118 @@ export function BattleLogPage() {
     nameZhTW: nameOf(partId),
     ...entry,
   }))
+
+  const modeToggle = (
+    <Row>
+      <button
+        type="button"
+        className={matchMode === '1v1' ? 'btn btn-primary' : 'btn'}
+        onClick={() => setMatchMode('1v1')}
+      >
+        1v1
+      </button>
+      <button
+        type="button"
+        className={matchMode === '3on3' ? 'btn btn-primary' : 'btn'}
+        onClick={() => setMatchMode('3on3')}
+      >
+        3on3
+      </button>
+    </Row>
+  )
+
+  const historyAndWinRate = (
+    <>
+      <Section title="歷史紀錄">
+        {battleMatches.length === 0 ? (
+          <EmptyState title="還沒有任何對戰紀錄" />
+        ) : (
+          <ul>
+            {[...battleMatches]
+              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+              .map((battleMatch) => {
+                const finalScore = computeMatchScore(battleMatch.points)
+                const finalWinner = matchWinner(battleMatch.points)
+                return (
+                  <li key={battleMatch.id} data-testid="battle-match">
+                    {battleMatch.playedAt} ·{' '}
+                    {battleMatch.mode === '3on3'
+                      ? '3on3'
+                      : `${comboLabel(battleMatch.a)}（A）vs ${comboLabel(battleMatch.b)}（B）`}{' '}
+                    · 比分 {finalScore.a}:{finalScore.b} ·{' '}
+                    {finalWinner === 'a'
+                      ? battleMatch.mode === '3on3' ? 'A 隊獲勝' : 'A 獲勝'
+                      : battleMatch.mode === '3on3' ? 'B 隊獲勝' : 'B 獲勝'}
+                    {battleMatch.notes ? ` · ${battleMatch.notes}` : ''}
+                    <details>
+                      <summary>逐分紀錄</summary>
+                      <ul>
+                        {battleMatch.points.map((point, index) => (
+                          <li key={index}>
+                            第 {index + 1} 分
+                            {battleMatch.mode === '3on3'
+                              ? `（${point.beyIndex !== undefined ? `第 ${point.beyIndex + 1} 隻陀螺` : '延伸賽'}）`
+                              : ''}
+                            ：{point.scorer === 'a' ? 'A' : 'B'}／{FINISH_ZH[point.finish]}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('確定要刪除這筆對戰紀錄嗎？')) {
+                          void run(() => repo.deleteBattleMatch(battleMatch.id))
+                        }
+                      }}
+                    >
+                      刪除
+                    </button>
+                  </li>
+                )
+              })}
+          </ul>
+        )}
+      </Section>
+
+      <Section title="零件勝率（個人紀錄，非賽事證據）">
+        {winRateRows.length === 0 ? (
+          <EmptyState title="累積對戰紀錄後這裡會顯示每顆零件的勝率" />
+        ) : (
+          <div className="card" style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>零件</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>贏</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>輸</th>
+                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>勝率</th>
+                </tr>
+              </thead>
+              <tbody>
+                {winRateRows.map((row) => (
+                  <tr key={row.partId}>
+                    <td style={{ padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.nameZhTW}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.wins}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.losses}</td>
+                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>
+                      {row.winRate === undefined
+                        ? `樣本不足（需 ${LOW_SAMPLE_THRESHOLD} 場以上）`
+                        : `${Math.round(row.winRate * 100)}%`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Section>
+    </>
+  )
+
+  if (matchMode === '3on3') {
+    return <TeamBattleLog modeToggle={modeToggle} historyAndWinRate={historyAndWinRate} comboLabel={comboLabel} />
+  }
 
   if (view === 'scoring') {
     return (
@@ -214,6 +329,7 @@ export function BattleLogPage() {
   return (
     <div>
       <PageHeader title="個人對戰紀錄" description="記錄自己或跟朋友的 1v1 對戰，先到 4 分獲勝，非賽事證據" />
+      {modeToggle}
 
       <Section title="配裝 A">
         <Row>
@@ -301,81 +417,7 @@ export function BattleLogPage() {
         </div>
       ) : null}
 
-      <Section title="歷史紀錄">
-        {battleMatches.length === 0 ? (
-          <EmptyState title="還沒有任何對戰紀錄" />
-        ) : (
-          <ul>
-            {[...battleMatches]
-              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-              .map((battleMatch) => {
-                const finalScore = computeMatchScore(battleMatch.points)
-                const finalWinner = matchWinner(battleMatch.points)
-                return (
-                  <li key={battleMatch.id} data-testid="battle-match">
-                    {battleMatch.playedAt} · {comboLabel(battleMatch.a)}（A）vs {comboLabel(battleMatch.b)}（B） ·{' '}
-                    比分 {finalScore.a}:{finalScore.b} ·{' '}
-                    {finalWinner === 'a' ? 'A 獲勝' : 'B 獲勝'}
-                    {battleMatch.notes ? ` · ${battleMatch.notes}` : ''}
-                    <details>
-                      <summary>逐分紀錄</summary>
-                      <ul>
-                        {battleMatch.points.map((point, index) => (
-                          <li key={index}>
-                            第 {index + 1} 分：{point.scorer === 'a' ? 'A' : 'B'}／{FINISH_ZH[point.finish]}
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (window.confirm('確定要刪除這筆對戰紀錄嗎？')) {
-                          void run(() => repo.deleteBattleMatch(battleMatch.id))
-                        }
-                      }}
-                    >
-                      刪除
-                    </button>
-                  </li>
-                )
-              })}
-          </ul>
-        )}
-      </Section>
-
-      <Section title="零件勝率（個人紀錄，非賽事證據）">
-        {winRateRows.length === 0 ? (
-          <EmptyState title="累積對戰紀錄後這裡會顯示每顆零件的勝率" />
-        ) : (
-          <div className="card" style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
-              <thead>
-                <tr>
-                  <th style={{ textAlign: 'left', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>零件</th>
-                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>贏</th>
-                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>輸</th>
-                  <th style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>勝率</th>
-                </tr>
-              </thead>
-              <tbody>
-                {winRateRows.map((row) => (
-                  <tr key={row.partId}>
-                    <td style={{ padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.nameZhTW}</td>
-                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.wins}</td>
-                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{row.losses}</td>
-                    <td style={{ textAlign: 'right', padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>
-                      {row.winRate === undefined
-                        ? `樣本不足（需 ${LOW_SAMPLE_THRESHOLD} 場以上）`
-                        : `${Math.round(row.winRate * 100)}%`}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </Section>
+      {historyAndWinRate}
     </div>
   )
 }
