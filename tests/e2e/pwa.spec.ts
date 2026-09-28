@@ -568,214 +568,113 @@ test('前台任何一頁都不得再提到重量', async ({ page }) => {
   expect(builderHits, `配裝器還在講重量：${builderHits.join(' | ')}`).toEqual([])
 })
 
-test('個人對戰紀錄：現場選零件記分、打完存檔、歷史列表跟零件勝率簡表更新', async ({ page }) => {
+/** 展開某一側某一隻陀螺的手風琴列（index 0 兩側預設就是展開的）。 */
+async function expandBey(page: Page, side: 'a' | 'b', index: 0 | 1 | 2): Promise<void> {
+  await page.getByTestId(`bey-toggle-${side}-${index}`).click()
+}
+
+/** 依序展開＋選滿 A、B 兩側各 3 隻陀螺（index 0 沿用預設展開，不用先點）。 */
+async function fillAllBeys(
+  page: Page,
+  picks: readonly (readonly ['a' | 'b', 0 | 1 | 2, string])[],
+): Promise<void> {
+  for (const [side, index, blade] of picks) {
+    if (index !== 0) await expandBey(page, side, index)
+    const prefix = `${side}-${index}`
+    await pickSlot(page, 'bladeId', blade, prefix)
+    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
+    await pickSlot(page, 'bitId', 'bit:F', prefix)
+  }
+}
+
+const STANDARD_TEAM_PICKS = [
+  ['a', 0, 'blade:ドランソード'],
+  ['a', 1, 'blade:ドランバスター'],
+  ['a', 2, 'blade:ドランソード'],
+  ['b', 0, 'blade:ドランバスター'],
+  ['b', 1, 'blade:ドランソード'],
+  ['b', 2, 'blade:ドランバスター'],
+] as const
+
+test('3on3 團體賽：手風琴選裝現場選六隻陀螺、三場個別對戰累加分數、打完存檔、歷史列表跟零件勝率簡表更新', async ({ page }) => {
   await openApp(page, '/battle-log')
 
-  // 兩邊都還沒選零件時，「開始對戰」CTA 不該出現。
+  // 六隻都還沒選滿時，「開始對戰」CTA 不該出現。
   const startScoring = page.getByTestId('start-scoring')
   await expect(startScoring).toHaveCount(0)
 
-  // 配裝 A：BX 三件式，直接用零件圖鑑的零件，不用先存配裝。
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
-  await pickSlot(page, 'bitId', 'bit:F', 'a')
-
-  // A 選完、B 還沒選時，CTA 還是不該出現。
+  await fillAllBeys(page, STANDARD_TEAM_PICKS.slice(0, 5))
+  // 5 隻選完、還差 B 第 3 隻時，CTA 還是不該出現。
   await expect(startScoring).toHaveCount(0)
-
-  // 配裝 B：另一顆上蓋，同款固鎖軸心。
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
-  await pickSlot(page, 'bitId', 'bit:F', 'b')
-
-  await expect(startScoring).toBeVisible()
-  await startScoring.click()
-
-  const scoreboard = page.getByTestId('scoreboard')
-  await expect(scoreboard).toBeVisible()
-
-  // 先打到剛好 4 分（轉停×4），確認打完鎖住按鈕，再用「復原上一分」退回
-  // 3 分，驗證按鈕真的重新解鎖（Review Focus 第 1 項——不能只退比分數字，
-  // 沒有真的把按鈕解鎖）。
-  for (let i = 0; i < 4; i++) await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('score-a')).toHaveText('4')
-  await expect(page.getByTestId('score-a-spin')).toBeDisabled()
-  await expect(page.getByTestId('score-b-xtreme')).toBeDisabled()
-  await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
-
-  await page.getByRole('button', { name: '復原上一分' }).click()
-  await expect(page.getByTestId('score-a')).toHaveText('3')
-  await expect(page.getByTestId('score-a-spin')).toBeEnabled()
-  await expect(page.getByTestId('score-b-xtreme')).toBeEnabled()
-  await expect(page.getByTestId('match-winner')).toHaveCount(0)
-
-  // 清除重來，改用極限＋轉停湊到 4 分，同時測極限一次跳 3 分正確累加。
-  await page.getByRole('button', { name: '清除重來' }).click()
-  await expect(page.getByTestId('score-a')).toHaveText('0')
-  await page.getByTestId('score-a-xtreme').click()
-  await expect(page.getByTestId('score-a')).toHaveText('3')
-  await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('score-a')).toHaveText('4')
-  await expect(page.getByTestId('match-winner')).toHaveText('A 獲勝')
-
-  await page.getByTestId('save-match').click()
-
-  // 存檔成功後（Review Focus 第 4 項）：回到選裝畫面，points 清空、配裝維持。
-  await expect(startScoring).toBeVisible()
-  await expect(page.getByTestId('slot-trigger-a-bladeId')).toContainText('蒼龍神劍')
-
-  await expect(page.getByTestId('battle-match').first()).toContainText('比分 4:0')
-  await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')
-  await page.getByTestId('battle-match').first().locator('summary').click()
-  await expect(page.getByTestId('battle-match').first()).toContainText('第 1 分：A／極限')
-  await expect(page.getByTestId('battle-match').first()).toContainText('第 2 分：A／轉停')
-
-  // 只打完 1 場，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足。
-  await expect(page.getByText(/樣本不足/).first()).toBeVisible()
-
-  // 可以直接連續記下一場：CTA 還在、進計分板分數回到 0:0。
-  await startScoring.click()
-  await expect(page.getByTestId('score-a')).toHaveText('0')
-  await expect(page.getByTestId('score-a-spin')).toBeEnabled()
-
-  // 「← 回選裝」不會清掉已經記的分數，只是切回選裝畫面看配裝／歷史。
-  await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('score-a')).toHaveText('1')
-  await page.getByTestId('back-to-setup').click()
-  await expect(startScoring).toBeVisible()
-  await startScoring.click()
-  await expect(page.getByTestId('score-a')).toHaveText('1')
-})
-
-test('個人對戰紀錄：切換 A 結構（三件式→CX）要清掉殘留零件，不能讓舊零件混進計分板或存檔', async ({ page }) => {
-  await openApp(page, '/battle-log')
-
-  // A 先選三件式的上蓋。
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
-
-  // 切到 CX，殘留的三件式 bladeId 不能還算「已選零件」——CX picker 畫面上
-  // 明明什麼都沒選，不能讓 hasAnyPart(slotsA) 還是 true。
-  await page.getByRole('button', { name: 'CX 模組化' }).first().click()
-
-  // B 選滿三件式，讓 B 這邊 ready；此時如果 A 的殘留零件沒被清掉，
-  // 「開始對戰」CTA 會誤判 A 也 ready 而跳出來。
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
-  await pickSlot(page, 'bitId', 'bit:F', 'b')
-
-  await expect(page.getByTestId('start-scoring')).toHaveCount(0)
-})
-
-test('個人對戰紀錄：配裝器狀態行反映樣本不足的狀態', async ({ page }) => {
-  await openApp(page, '/battle-log')
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
-  await pickSlot(page, 'bitId', 'bit:F', 'a')
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
-  await pickSlot(page, 'bitId', 'bit:F', 'b')
-  await page.getByTestId('start-scoring').click()
-  await page.getByTestId('score-a-xtreme').click()
-  await page.getByTestId('score-a-spin').click()
-  await page.getByTestId('save-match').click()
-  await expect(page.getByTestId('battle-match').first()).toBeVisible()
-
-  await openApp(page, '/builder')
-  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
-  await pickSlot(page, 'bladeId', 'blade:ドランソード')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
-  await pickSlot(page, 'bitId', 'bit:F')
-  await expect(page.getByText(/個人對戰紀錄：已有對戰紀錄，樣本還不夠/)).toBeVisible()
-})
-
-test('3on3 團體賽：三場個別對戰累加分數，先到 4 分判定隊伍贏家', async ({ page }) => {
-  await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
-
-  // A、B 各 3 隻陀螺都要選滿才出現「開始對戰」。
-  const startScoring = page.getByTestId('team-start-scoring')
-  await expect(startScoring).toHaveCount(0)
-
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-a-0')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-a-0')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-a-0')
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'team-a-1')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-a-1')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-a-1')
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-a-2')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-a-2')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-a-2')
-
-  // A 三隻選完、B 還沒選時，CTA 還是不該出現。
-  await expect(startScoring).toHaveCount(0)
-
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'team-b-0')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-b-0')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-b-0')
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-b-1')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-b-1')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-b-1')
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'team-b-2')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'team-b-2')
-  await pickSlot(page, 'bitId', 'bit:F', 'team-b-2')
+  await fillAllBeys(page, [STANDARD_TEAM_PICKS[5]])
 
   await expect(startScoring).toBeVisible()
   await startScoring.click()
 
   // 第 1 場（1st 陀螺）：A 極限（+3）。累計 A 3 - 0 B，還沒到 4 分。
   await expect(page.getByText('第 1 場：第 1 隻陀螺對戰')).toBeVisible()
-  await page.getByTestId('team-score-a-xtreme').click()
+  await page.getByTestId('score-a-xtreme').click()
   await expect(page.getByTestId('team-score')).toContainText('A 3 - 0 B')
 
-  // 第 2 場（2nd 陀螺）：A 轉停（+1），累計 4 分，立刻判定結束，
-  // 不該還跳出第 3 場（Review Focus 第 1 項）。
+  // 第 2 場（2nd 陀螺）：A 轉停（+1），累計 4 分，立刻判定結束，不該還跳出
+  // 第 3 場（Review Focus 第 1 項）。
   await expect(page.getByText('第 2 場：第 2 隻陀螺對戰')).toBeVisible()
-  await page.getByTestId('team-score-a-spin').click()
+  await page.getByTestId('score-a-spin').click()
   await expect(page.getByText('第 3 場：第 3 隻陀螺對戰')).toHaveCount(0)
-  await expect(page.getByTestId('team-match-winner')).toHaveText('A 隊獲勝')
+  await expect(page.getByTestId('match-winner')).toHaveText('A 隊獲勝')
 
-  await page.getByTestId('team-save-match').click()
+  // 「復原上一分」退回第 2 場，確認按鈕真的重新解鎖。
+  await page.getByRole('button', { name: '復原上一分' }).click()
+  await expect(page.getByTestId('team-score')).toContainText('A 3 - 0 B')
+  await expect(page.getByTestId('match-winner')).toHaveCount(0)
+  await page.getByTestId('score-a-spin').click()
+  await expect(page.getByTestId('match-winner')).toHaveText('A 隊獲勝')
 
-  await expect(page.getByTestId('battle-match').first()).toContainText('3on3')
+  await page.getByTestId('save-match').click()
+
+  // 存檔成功後：回到選裝畫面，points 清空。
+  await expect(startScoring).toBeVisible()
+
   await expect(page.getByTestId('battle-match').first()).toContainText('比分 4:0')
   await expect(page.getByTestId('battle-match').first()).toContainText('A 隊獲勝')
   await page.getByTestId('battle-match').first().locator('summary').click()
   await expect(page.getByTestId('battle-match').first()).toContainText('第 1 分（第 1 隻陀螺）：A／極限')
   await expect(page.getByTestId('battle-match').first()).toContainText('第 2 分（第 2 隻陀螺）：A／轉停')
+
+  // 只打完 1 場，遠低於 LOW_SAMPLE_THRESHOLD（5），零件勝率簡表要顯示樣本不足。
+  await expect(page.getByText(/樣本不足/).first()).toBeVisible()
+
+  // 可以直接連續記下一場：CTA 還在、進計分板分數回到 0:0。
+  await startScoring.click()
+  await expect(page.getByTestId('team-score')).toContainText('A 0 - 0 B')
+
+  // 「← 回選裝」不會清掉已經記的分數，只是切回選裝畫面看配裝／歷史。
+  await page.getByTestId('score-a-spin').click()
+  await expect(page.getByTestId('team-score')).toContainText('A 1 - 0 B')
+  await page.getByTestId('back-to-setup').click()
+  await expect(startScoring).toBeVisible()
+  await startScoring.click()
+  await expect(page.getByTestId('team-score')).toContainText('A 1 - 0 B')
 })
 
 test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數不歸屬零件勝率', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
-
-  for (const [prefix, blade] of [
-    ['team-a-0', 'blade:ドランソード'],
-    ['team-a-1', 'blade:ドランバスター'],
-    ['team-a-2', 'blade:ドランソード'],
-    ['team-b-0', 'blade:ドランバスター'],
-    ['team-b-1', 'blade:ドランソード'],
-    ['team-b-2', 'blade:ドランバスター'],
-  ] as const) {
-    await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
-  }
-
-  await page.getByTestId('team-start-scoring').click()
+  await fillAllBeys(page, STANDARD_TEAM_PICKS)
+  await page.getByTestId('start-scoring').click()
 
   // 三場都用轉停（+1），三場後累計 A 2 - 1 B，還沒到 4 分。
-  await page.getByTestId('team-score-a-spin').click()
-  await page.getByTestId('team-score-b-spin').click()
-  await page.getByTestId('team-score-a-spin').click()
+  await page.getByTestId('score-a-spin').click()
+  await page.getByTestId('score-b-spin').click()
+  await page.getByTestId('score-a-spin').click()
 
   await expect(page.getByText('未分勝負，需要延伸賽')).toBeVisible()
   await expect(page.getByTestId('team-score')).toContainText('A 2 - 1 B')
 
   // 延伸賽用極限直接讓 A 到 4 分以上。
-  await page.getByTestId('team-ext-a-xtreme').click()
-  await expect(page.getByTestId('team-match-winner')).toHaveText('A 隊獲勝')
+  await page.getByTestId('ext-a-xtreme').click()
+  await expect(page.getByTestId('match-winner')).toHaveText('A 隊獲勝')
 
-  await page.getByTestId('team-save-match').click()
+  await page.getByTestId('save-match').click()
   await expect(page.getByTestId('battle-match').first()).toContainText('比分 5:1')
   await page.getByTestId('battle-match').first().locator('summary').click()
   await expect(page.getByTestId('battle-match').first()).toContainText('第 4 分（延伸賽）：A／極限')
@@ -795,105 +694,67 @@ test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數
 
 test('3on3 團體賽：切換某一隻陀螺的結構要清掉那一隻的殘留零件，不能讓舊零件混進「開始對戰」判定', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
 
-  // A 隊第 1 隻先選三件式的上蓋。
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-a-0')
+  // A 隊第 1 隻（預設展開）先選三件式的上蓋。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
 
-  // 切到 CX，殘留的三件式 bladeId 不能還算「已選零件」。A 隊三張卡在
-  // DOM 順序上排在 B 隊之前，第一顆「CX 模組化」按鈕就是 A 隊第 1 隻。
+  // 切到 CX，殘留的三件式 bladeId 不能還算「已選零件」。
   await page.getByRole('button', { name: 'CX 模組化' }).first().click()
 
   // 其餘 5 隻都選滿，讓其他 5 隻 ready；此時如果 A 隊第 1 隻的殘留零件
   // 沒被清掉，「開始對戰」CTA 會誤判全部 6 隻都 ready 而跳出來。
-  for (const [prefix, blade] of [
-    ['team-a-1', 'blade:ドランバスター'],
-    ['team-a-2', 'blade:ドランソード'],
-    ['team-b-0', 'blade:ドランバスター'],
-    ['team-b-1', 'blade:ドランソード'],
-    ['team-b-2', 'blade:ドランバスター'],
-  ] as const) {
-    await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
-  }
+  await fillAllBeys(page, STANDARD_TEAM_PICKS.slice(1))
 
-  await expect(page.getByTestId('team-start-scoring')).toHaveCount(0)
+  await expect(page.getByTestId('start-scoring')).toHaveCount(0)
 })
 
 test('3on3 團體賽：點擊已經選中的結構按鈕不該清掉零件（全分支審查 Minor 6 回歸測試）', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
 
-  // A 隊第 1 隻預設就是三件式，選一顆上蓋。
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-a-0')
-  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toContainText('蒼龍神劍')
+  // A 隊第 1 隻（預設展開、預設就是三件式）選一顆上蓋。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
+  await expect(page.getByTestId('slot-trigger-a-0-bladeId')).toContainText('蒼龍神劍')
 
   // 再點一次「三件式」（已經選中的結構），零件不該被清掉。
   await page.getByRole('button', { name: '三件式（BX／UX）' }).first().click()
-  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toContainText('蒼龍神劍')
+  await expect(page.getByTestId('slot-trigger-a-0-bladeId')).toContainText('蒼龍神劍')
 })
 
 test('3on3 團體賽：陀螺打完那一場後，回選裝畫面不能再改那一隻的配裝（官方規則：對戰之間不能交換陀螺／零件，全分支審查 Minor 3 回歸測試）', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
+  await fillAllBeys(page, STANDARD_TEAM_PICKS)
 
-  for (const [prefix, blade] of [
-    ['team-a-0', 'blade:ドランソード'],
-    ['team-a-1', 'blade:ドランバスター'],
-    ['team-a-2', 'blade:ドランソード'],
-    ['team-b-0', 'blade:ドランバスター'],
-    ['team-b-1', 'blade:ドランソード'],
-    ['team-b-2', 'blade:ドランバスター'],
-  ] as const) {
-    await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
-  }
-
-  await page.getByTestId('team-start-scoring').click()
+  await page.getByTestId('start-scoring').click()
   // 打完第 1 場（轉停 +1，還沒到 4 分，match 不會提早結束）。
-  await page.getByTestId('team-score-a-spin').click()
-  await page.getByTestId('team-back-to-setup').click()
+  await page.getByTestId('score-a-spin').click()
+  await page.getByTestId('back-to-setup').click()
 
-  // 第 1 隻（A、B 都）已經上場，選擇器要鎖住；第 2、3 隻還沒上場，正常可改。
-  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toBeDisabled()
-  await expect(page.getByTestId('slot-trigger-team-b-0-bladeId')).toBeDisabled()
-  await expect(page.getByTestId('slot-trigger-team-a-1-bladeId')).toBeEnabled()
-  await expect(page.getByTestId('slot-trigger-team-b-1-bladeId')).toBeEnabled()
+  // 第 1 隻（A、B 都）已經上場，手風琴列要鎖住（不能點開）；第 2 隻還沒
+  // 上場，正常可以展開。
+  await expect(page.getByTestId('bey-toggle-a-0')).toBeDisabled()
+  await expect(page.getByTestId('bey-toggle-b-0')).toBeDisabled()
+  await expect(page.getByTestId('bey-toggle-a-1')).toBeEnabled()
+  await expect(page.getByTestId('bey-toggle-b-1')).toBeEnabled()
+  // 鎖住那格的收合摘要仍看得到已選的配裝名稱，不是被清空。
+  await expect(page.getByTestId('bey-toggle-a-0')).toContainText('蒼龍神劍')
 })
 
-test('3on3 團體賽：有還沒存檔的分數時切去 1v1 要先確認，取消就留在原地（全分支審查 Minor 2 回歸測試）', async ({ page }) => {
+test('3on3 選裝手風琴：展開新的一格會收合原本展開的格子，收合摘要看得到已選配裝', async ({ page }) => {
   await openApp(page, '/battle-log')
-  await page.getByRole('button', { name: '3on3' }).click()
 
-  for (const [prefix, blade] of [
-    ['team-a-0', 'blade:ドランソード'],
-    ['team-a-1', 'blade:ドランバスター'],
-    ['team-a-2', 'blade:ドランソード'],
-    ['team-b-0', 'blade:ドランバスター'],
-    ['team-b-1', 'blade:ドランソード'],
-    ['team-b-2', 'blade:ドランバスター'],
-  ] as const) {
-    await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
-  }
+  // A 第 1 隻（預設展開）選一顆上蓋。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
+  await expect(page.getByTestId('slot-trigger-a-0-bladeId')).toBeVisible()
 
-  await page.getByTestId('team-start-scoring').click()
-  await page.getByTestId('team-score-a-spin').click()
-  await page.getByTestId('team-back-to-setup').click()
+  // 展開 A 第 2 隻，第 1 隻應該自動收合（同一側同時只會有一格展開）。
+  await expandBey(page, 'a', 1)
+  await expect(page.getByTestId('slot-trigger-a-0-bladeId')).toHaveCount(0)
+  await expect(page.getByTestId('slot-trigger-a-1-bladeId')).toBeVisible()
 
-  // 有 1 分還沒存檔，點「1v1」要跳確認；取消的話還是留在 3on3 選裝畫面
-  // （第 1 隻鎖住的痕跡還在，證明分數沒被清掉）。
-  page.once('dialog', (dialog) => dialog.dismiss())
-  await page.getByRole('button', { name: '1v1' }).click()
-  await expect(page.getByText('（已上場，賽中不能更換）').first()).toBeVisible()
+  // 收合的第 1 隻摘要要看得到剛剛選的配裝名稱與結構標籤。
+  await expect(page.getByTestId('bey-toggle-a-0')).toContainText('蒼龍神劍')
+  await expect(page.getByTestId('bey-toggle-a-0')).toContainText('三件式')
 
-  // 按確認才真的切走，分數才會被清掉（切回 3on3 後鎖住的痕跡消失）。
-  page.once('dialog', (dialog) => dialog.accept())
-  await page.getByRole('button', { name: '1v1' }).click()
-  await expect(page.getByRole('heading', { name: '個人對戰紀錄' })).toBeVisible()
-  await page.getByRole('button', { name: '3on3' }).click()
-  await expect(page.getByText('（已上場，賽中不能更換）')).toHaveCount(0)
+  // B 側獨立：B 第 1 隻預設也是展開的，不受 A 側切換影響。
+  await expect(page.getByTestId('slot-trigger-b-0-bladeId')).toBeVisible()
 })

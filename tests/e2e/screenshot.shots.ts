@@ -60,18 +60,41 @@ test('capture', async ({ page }, testInfo) => {
   })
 
   /*
-   * 個人對戰紀錄兩畫面都要截：選裝畫面（先看計分板出現前的版面，再打完一場
-   * 看歷史／零件勝率）跟計分畫面（現場截兩側計分卡、進度條、終結技按鈕）。
+   * 個人對戰紀錄（3on3）兩畫面都要截：選裝手風琴（先展開第 2 隻看展開態，
+   * 收合第 1 隻看摘要態，再選滿看歷史／零件勝率）跟計分畫面。
    */
   await page.evaluate(() => {
     window.location.hash = '/battle-log'
   })
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a')
-  await pickSlot(page, 'bitId', 'bit:F', 'a')
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b')
-  await pickSlot(page, 'bitId', 'bit:F', 'b')
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-0')
+  await pickSlot(page, 'bitId', 'bit:F', 'a-0')
+  // 展開 A 第 2 隻（第 1 隻自動收合），截到手風琴收合＋展開並存的樣子。
+  await page.getByTestId('bey-toggle-a-1').click()
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log-setup.png`,
+    fullPage: true,
+  })
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'a-1')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-1')
+  await pickSlot(page, 'bitId', 'bit:F', 'a-1')
+  await page.getByTestId('bey-toggle-a-2').click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-2')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-2')
+  await pickSlot(page, 'bitId', 'bit:F', 'a-2')
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b-0')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-0')
+  await pickSlot(page, 'bitId', 'bit:F', 'b-0')
+  await page.getByTestId('bey-toggle-b-1').click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'b-1')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-1')
+  await pickSlot(page, 'bitId', 'bit:F', 'b-1')
+  await page.getByTestId('bey-toggle-b-2').click()
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b-2')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-2')
+  await pickSlot(page, 'bitId', 'bit:F', 'b-2')
+
   await page.getByTestId('start-scoring').click()
   await page.getByTestId('score-a-xtreme').click()
   await page.waitForTimeout(400)
@@ -81,34 +104,10 @@ test('capture', async ({ page }, testInfo) => {
   })
   await page.getByTestId('score-a-spin').click()
   await page.getByTestId('save-match').click()
-  await expect(page.getByTestId('battle-match').first()).toContainText('A 獲勝')
+  await expect(page.getByTestId('battle-match').first()).toContainText('A 隊獲勝')
   await page.waitForTimeout(400)
   await page.screenshot({
     path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log.png`,
-    fullPage: true,
-  })
-
-  /*
-   * 3on3 團體賽也要截一張：切模式、六邊選滿、打完第 1 場看畫面版面。
-   */
-  await page.getByRole('button', { name: '3on3' }).click()
-  for (const [prefix, blade] of [
-    ['team-a-0', 'blade:ドランソード'],
-    ['team-a-1', 'blade:ドランバスター'],
-    ['team-a-2', 'blade:ドランソード'],
-    ['team-b-0', 'blade:ドランバスター'],
-    ['team-b-1', 'blade:ドランソード'],
-    ['team-b-2', 'blade:ドランバスター'],
-  ] as const) {
-    await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
-  }
-  await page.getByTestId('team-start-scoring').click()
-  await page.getByTestId('team-score-a-xtreme').click()
-  await page.waitForTimeout(400)
-  await page.screenshot({
-    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log-3on3.png`,
     fullPage: true,
   })
 
