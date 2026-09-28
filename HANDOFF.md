@@ -20,31 +20,32 @@ spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 模式共用同一份渲染。IndexedDB v7→v8，migration 幫舊 1v1 紀錄補
 `mode: '1v1'`（匯入舊備份也一樣補）。
 
-**整輪都已完整完成並上線。** 沒有下一步待辦，只有下面「已知缺口」列的
-刻意排除範圍（延伸賽換陀螺順序的演算法本身官方沒寫死，這輪不模擬）。
+**整輪都已完整完成並上線，final review 的全部 6 個 Minor 也都補修了**
+（使用者明確要求「有問題的都修」，逐一讀 code 驗證是真問題後才動手，不是
+盲目照單全修）。沒有下一步待辦，只有下面「已知缺口」列的刻意排除範圍
+（延伸賽換陀螺順序的演算法本身官方沒寫死，這輪不模擬）。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `1a813af` |
-| `origin/main` | `1a813af`（一致） |
-| 線上 Pages | `d7d1b9b`（本輪已部署） |
+| 本機 HEAD | `d207e33` |
+| `origin/main` | `d207e33`（一致） |
+| 線上 Pages | `a56fe50`（本輪已部署，含全部 Minor 修復） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：**489/489 全過**（final review 修復後再次確認）。
-- `npm run test:e2e` 全套（非過濾，final review 修復後跑的最新一次）：
-  **97 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
+- `npm test`：**490/490 全過**（Minor 修復後再次確認）。
+- `npm run test:e2e` 全套（非過濾，Minor 修復後跑的最新一次）：
+  **103 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
   無關）。
-- `npm run shots`：final review 修復前跑的（修復只動 `db.ts`／測試檔，
-  沒動任何畫面），已用 Read 工具確認
-  `desktop-battle-log-3on3.png`／`phone-battle-log-3on3.png`（3on3 計分
-  畫面）跟 `battle-log.png`（選裝畫面新增的 1v1／3on3 切換按鈕）都正常
-  顯示，沒跑版，跟 1v1 視覺語言一致。
-- `npm run deploy:pages`：完成，gh-pages `d7d1b9b`。
+- `npm run shots`：已用 Read 工具確認 `desktop-battle-log-3on3.png`／
+  `phone-battle-log-3on3.png`（3on3 計分畫面）正常顯示，沒跑版；鎖定陀螺
+  的「已上場」視覺（Minor 3 修復）截圖腳本沒涵蓋到（截圖流程沒走
+  「回選裝」那一步），已用 e2e 測試驗證過，不是漏了沒測。
+- `npm run deploy:pages`：完成，gh-pages `a56fe50`。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
@@ -54,41 +55,51 @@ spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 
 ## 下一個具體動作
 
-無待辦。若要繼續優化，可以考慮 final review 記錄的 deferred Minor 項目
-（見下方「Final review 發現與修復」），或使用者提出的新需求。
+無待辦。
 
-## Final review 發現與修復（這輪新增）
+## Final review 發現與修復
 
 派 fresh opus subagent 對照 plan 的 Review Focus 段落審查
 `5e089f0..0ae4a9a`（Task 1-5 全部 commit），結論：無 Critical，1 個
-Important 已修，6 個 Minor 記錄 deferred：
+Important、6 個 Minor。Important 當場修掉，6 個 Minor 原本記錄 deferred，
+使用者事後要求「有問題的都修」，逐一驗證後全部補修：
 
 - **Important（真 bug，且是自己記錄過的坑又踩一次）**：`db.ts` 加了
   `db.version(8)` 卻忘記把 `export const DB_SCHEMA_VERSION` 從 7 改成
   8——這正是本檔案「踩過的坑（沿用既有）」那條「兩者是分開的兩個地方」
-  講的事，這輪自己又犯了一次。後果：`exportBackup()` 的 `schemaVersion`
-  是拿這個常數蓋章，蓋成 7 會讓「備份版本過新」防呆失效（舊版 v7 app，
-  例如另一台裝置上還沒更新的 PWA 快取，會被騙去讀含 3on3 陣列形狀
-  `a`／`b` 的備份，`comboLabel()` 會印出 `[object Object]`、零件勝率會
-  悄悄漏算）。已修：常數改成 8，新增測試
-  `exportBackup 的 schemaVersion 要跟最新的 db.version() 一致`
-  （`expect(backup.schemaVersion).toBe(db.verno)`），先紅（7≠8）後綠。
-- Minor 記錄到 ledger 當 deferred（不修）：匯入時陣列型別檢查順序在
-  `.map()` 之後，格式錯的備份會噴原始 TypeError 而不是友善訊息；切換
-  1v1／3on3 模式會無聲丟掉 3on3 進行中的分數（1v1 端反而完全不清狀態，
-  兩邊不對稱）；某一隻陀螺打完那一場後配裝還能再改，存檔時會把那一分
-  歸屬到改過的新配裝；延伸賽按鈕有一個永遠不會是 `true` 的
-  `disabled={complete}` 死程式碼；延伸賽 e2e 測試標題講零件勝率但測試本身
-  沒斷言勝率表；點擊「已經選中」的結構按鈕還是會清空那隻陀螺（跟 1v1
-  既有行為一致）。
+  講的事，這輪自己又犯了一次。已修：常數改成 8，新增測試
+  `expect(backup.schemaVersion).toBe(db.verno)`，先紅（7≠8）後綠。
+- **Minor 1**：`importBackup` 的陣列形狀檢查在 `.map()` 之後，格式錯的
+  備份會噴原始 `TypeError` 而不是友善訊息——已改成先檢查
+  `Array.isArray`，錯的話拋 `備份格式不正確：battleMatches 不是陣列`。
+- **Minor 2**：切模式會無聲丟掉 3on3 進行中的分數（`TeamBattleLog` 的
+  state 活在元件本身，unmount 就沒了；1v1 反而活在 `BattleLogPage`，切走
+  不會消失）——已改成切去 1v1 前，若有還沒存檔的分數就跳
+  `window.confirm` 二次確認（跟既有刪除紀錄用同一套模式），取消就留在
+  原地。只有這個方向需要擋，因為只有這個方向會真的遺失資料。
+- **Minor 3**（跟官方規則本身矛盾，不只是 UX 瑕疵）：官方 Regulations
+  明講「You cannot exchange Beys or parts between battles」，但陀螺打完
+  那一場後，回選裝畫面還能再改配裝，存檔時那一分會被歸屬到改過的新
+  配裝——已改成用 `<fieldset disabled>` 鎖住已經上場那幾隻的結構切換
+  按鈕與零件選擇器（`foughtCount = Math.min(points.length, 3)`），標籤
+  加註「（已上場，賽中不能更換）」。
+- **Minor 4**：延伸賽按鈕的 `disabled={complete}` 永遠是 false 的死
+  程式碼（那段本來就只在 `!complete` 時渲染）——已刪除。
+- **Minor 5**：延伸賽的 e2e 測試標題講「延伸賽分數不歸屬零件勝率」但
+  測試本身沒斷言零件勝率表——已補上零件勝率表格值斷言（蒼龍神劍 3 勝 0
+  敗、蒼龍爆刃 0 勝 3 敗，證明延伸賽那一分沒被算進去）。
+- **Minor 6**：點擊「已經選中」的結構按鈕還是會清空那隻陀螺的零件（誤觸
+  陷阱）——已改成 `onClick` 先判斷 `structure` 有沒有真的改變，沒改變就
+  直接 return。
 
 ## 怎麼跑（非顯而易見的）
 
 - 這輪走 `superpowers:brainstorming` architectural path（先寫 spec、再
   `writing-plans`、再 `executing-plans`），直接在 `main` 上做（沒有開
-  worktree／分支）。Ledger 在
-  `.superpowers/sdd/2026-09-28-3on3-team-battle-log/progress.md`，final
-  review 還沒跑，ledger 裡還沒有 `Final:` 開頭的行。
+  worktree／分支）。SDD ledger 已在 final review 乾淨後刪除，三個實作期
+  ruling（`DistributiveOmit`、`'mode' in match` 窄化成 `never`、既有 v5
+  migration 測試的 `verno` 也要一起改）與 final review 的細節都已經寫進
+  上面「Final review 發現與修復」，不用回頭翻 ledger。
 - 3on3 計分畫面「每場只有一個終結技就分勝負、自動前進下一場」跟 1v1
   「同一套配裝連續得分到 4 分」是兩套完全不同的操作邏輯，不要憑印象套用
   1v1 的 UI 慣例——`TeamBattleLog.tsx` 是獨立元件，不是 `BattleLogPage`
@@ -96,6 +107,18 @@ Important 已修，6 個 Minor 記錄 deferred：
 
 ## 踩過的坑（這輪新增）
 
+- **代理審查報告裡的具體數字要自己重算一次再信，不能照抄**——final review
+  的 Minor 5 建議測試斷言用「2 勝 1 敗」，自己照題目資料重新推算逐分過程
+  （前三場個別對戰誰贏誰輸），算出來是「3 勝 0 敗」，用 e2e 實測也證實是
+  3:0。審查代理找出「這裡缺一個斷言」這件事是對的，但它自己算的數字是
+  錯的——代理報告的「問題存在」判斷可信，报告裡附的「具體數值」不能直接
+  抄，要自己重新推一次。
+- **`disabledReasonZhTW` 這種「這格不用選」的鎖定機制，不能拿來鎖
+  「已經選了、只是現在不准改」的欄位**——它會把顯示文字蓋成「不需要選」，
+  蓋掉使用者原本選好的零件名稱，語意不對（那是給 CX 一體成型鎖死固鎖那種
+  「這格本來就不存在」的情境用的）。要鎖「已選但不准改」，用
+  `<fieldset disabled>` 包住整組欄位，選到的值還看得到，只是不能再點開
+  選擇器。
 - **`points.length < 3` 不能單獨當作「還在排定中的前三場」的判斷式，要
   跟 `isMatchComplete` 一起看**——3on3 計分畫面的 `scheduledIndex` 一開始
   只寫 `points.length < 3 ? points.length : undefined`，沒考慮到極限
