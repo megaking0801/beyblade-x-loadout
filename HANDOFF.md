@@ -1,51 +1,56 @@
 # 交接筆記
 
 最後更新：2026-09-28 UTC+08:00
-交接原因：正式交接（3on3 團體賽對戰紀錄，全部完成並已上線）
+交接原因：正式交接（拿掉 1v1、對戰紀錄收斂成純 3on3＋選裝手風琴重新設計，
+全部完成並已上線；final review 進行中，見下方「阻塞」）
 
 ## 目前目標
 
-這輪主題：對戰紀錄加官方 3on3 團體賽計分（跟 1v1「同一套配裝連續得分到
-4 分」不一樣——3on3 是三場個別對戰，每場只有一個終結技就分勝負，分數
-累加到 4 分判定整場團隊贏家）。Spec／Plan：
-`docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`／
-`docs/superpowers/plans/2026-09-28-3on3-team-battle-log.md`。規則依據見
-spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
+這輪兩件事：
 
-`BattleMatch` 改成 discriminated union（`mode: '1v1' | '3on3'`），
-`BattlePoint` 加 `beyIndex?: 0|1|2` 標記 3on3 哪一分是哪隻陀螺打的。零件
-勝率統計對 3on3 改成逐分歸屬（隊伍贏不代表三隻陀螺都贏，只有實際打贏那
-一場的陀螺才算勝場）。新增 `TeamBattleLog.tsx` 元件處理 3on3 選裝＋計分，
-`BattleLogPage.tsx` 加「1v1／3on3」模式切換，歷史紀錄／零件勝率表兩種
-模式共用同一份渲染。IndexedDB v7→v8，migration 幫舊 1v1 紀錄補
-`mode: '1v1'`（匯入舊備份也一樣補）。
+1. **拿掉 1v1**：使用者決定對戰紀錄只留官方 3on3 團體賽，1v1 練習模式
+   整個刪掉。`BattleMatch` 從上一輪的 discriminated union
+   （`mode: '1v1' | '3on3'`）收斂回單一形狀（沒有 `mode` 欄位，`a`／`b`
+   固定是 3 套配裝陣列）。使用者明確同意**舊資料整批清空**（不管是舊的
+   1v1 紀錄還是上一輪的 3on3 紀錄，形狀都跟新形狀不相容）——IndexedDB
+   v8→v9，migration 直接清空 `battleMatches` 表。
+2. **選裝畫面改手風琴**：原本 A、B 各 3 隻陀螺全部展開（六張完整卡片），
+   手機上非常長，改成收合列 + 點開才展開該格，同一側同時只有一格展開，
+   已上場鎖住的格子永遠收合。查了 Pokémon team builder 手機版案例等
+   UX 參考才定案，見 spec 第 2 節。
 
-**整輪都已完整完成並上線，final review 的全部 6 個 Minor 也都補修了**
-（使用者明確要求「有問題的都修」，逐一讀 code 驗證是真問題後才動手，不是
-盲目照單全修）。沒有下一步待辦，只有下面「已知缺口」列的刻意排除範圍
-（延伸賽換陀螺順序的演算法本身官方沒寫死，這輪不模擬）。
+Spec：`docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md`
+（這輪的型別收斂、migration、手風琴設計）＋
+`docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`
+（上一輪的 3on3 計分規則本身，仍然有效，這輪沒改計分邏輯）。
+
+`TeamBattleLog.tsx` 併回 `BattleLogPage.tsx`（不再需要因為兩種模式拆成
+兩個元件），沒有模式切換按鈕，`BattleLogPage` 就是整個對戰紀錄功能。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `d207e33` |
-| `origin/main` | `d207e33`（一致） |
-| 線上 Pages | `a56fe50`（本輪已部署，含全部 Minor 修復） |
+| 本機 HEAD | `1c24167` |
+| `origin/main` | `1c24167`（一致） |
+| 線上 Pages | `07ae350`（`1c24167` 只改測試檔跟 spec 文件，沒有前台程式
+  變更，不用再部署，線上版本維持不變） |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：**490/490 全過**（Minor 修復後再次確認）。
-- `npm run test:e2e` 全套（非過濾，Minor 修復後跑的最新一次）：
-  **103 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
-  無關）。
-- `npm run shots`：已用 Read 工具確認 `desktop-battle-log-3on3.png`／
-  `phone-battle-log-3on3.png`（3on3 計分畫面）正常顯示，沒跑版；鎖定陀螺
-  的「已上場」視覺（Minor 3 修復）截圖腳本沒涵蓋到（截圖流程沒走
-  「回選裝」那一步），已用 e2e 測試驗證過，不是漏了沒測。
-- `npm run deploy:pages`：完成，gh-pages `a56fe50`。
+- `npx tsc -b`：通過，乾淨無輸出（final review 修復後再次確認）。
+- `npm test`：**487/487 全過**（final review 修復後再次確認；1v1 相關
+  測試刪除後總數下降是預期的）。
+- `npm run test:e2e` 全套（非過濾，final review 修復後重跑）：
+  **99 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，
+  跟本輪無關）。
+- `npm run shots`：final review 修復**之前**跑的，已用 Read 工具確認
+  `phone-battle-log-setup.png`（手風琴展開＋收合並存的樣子）、
+  `battle-log-scoring.png`、`battle-log.png`（存檔後歷史紀錄／零件勝率表）
+  都正常顯示，沒跑版；final review 修復沒動畫面，截圖不用重跑。
+- `npm run deploy:pages`：完成，gh-pages `07ae350`（final review 修復
+  沒有前台程式變更，這個部署版本仍是最新）。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
@@ -59,97 +64,62 @@ spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 
 ## Final review 發現與修復
 
-派 fresh opus subagent 對照 plan 的 Review Focus 段落審查
-`5e089f0..0ae4a9a`（Task 1-5 全部 commit），結論：無 Critical，1 個
-Important、6 個 Minor。Important 當場修掉，6 個 Minor 原本記錄 deferred，
-使用者事後要求「有問題的都修」，逐一驗證後全部補修：
+fresh opus subagent 審查 `e308e8e..a003c0f`（3 個 commit：型別收斂、UI
+併入手風琴、e2e 改寫），結論：**無 Critical、無 Important，可以合併**，
+7 個 Minor。逐一驗證後修了 3 個真的有價值的，其餘記錄 deferred：
 
-- **Important（真 bug，且是自己記錄過的坑又踩一次）**：`db.ts` 加了
-  `db.version(8)` 卻忘記把 `export const DB_SCHEMA_VERSION` 從 7 改成
-  8——這正是本檔案「踩過的坑（沿用既有）」那條「兩者是分開的兩個地方」
-  講的事，這輪自己又犯了一次。已修：常數改成 8，新增測試
-  `expect(backup.schemaVersion).toBe(db.verno)`，先紅（7≠8）後綠。
-- **Minor 1**：`importBackup` 的陣列形狀檢查在 `.map()` 之後，格式錯的
-  備份會噴原始 `TypeError` 而不是友善訊息——已改成先檢查
-  `Array.isArray`，錯的話拋 `備份格式不正確：battleMatches 不是陣列`。
-- **Minor 2**：切模式會無聲丟掉 3on3 進行中的分數（`TeamBattleLog` 的
-  state 活在元件本身，unmount 就沒了；1v1 反而活在 `BattleLogPage`，切走
-  不會消失）——已改成切去 1v1 前，若有還沒存檔的分數就跳
-  `window.confirm` 二次確認（跟既有刪除紀錄用同一套模式），取消就留在
-  原地。只有這個方向需要擋，因為只有這個方向會真的遺失資料。
-- **Minor 3**（跟官方規則本身矛盾，不只是 UX 瑕疵）：官方 Regulations
-  明講「You cannot exchange Beys or parts between battles」，但陀螺打完
-  那一場後，回選裝畫面還能再改配裝，存檔時那一分會被歸屬到改過的新
-  配裝——已改成用 `<fieldset disabled>` 鎖住已經上場那幾隻的結構切換
-  按鈕與零件選擇器（`foughtCount = Math.min(points.length, 3)`），標籤
-  加註「（已上場，賽中不能更換）」。
-- **Minor 4**：延伸賽按鈕的 `disabled={complete}` 永遠是 false 的死
-  程式碼（那段本來就只在 `!complete` 時渲染）——已刪除。
-- **Minor 5**：延伸賽的 e2e 測試標題講「延伸賽分數不歸屬零件勝率」但
-  測試本身沒斷言零件勝率表——已補上零件勝率表格值斷言（蒼龍神劍 3 勝 0
-  敗、蒼龍爆刃 0 勝 3 敗，證明延伸賽那一分沒被算進去）。
-- **Minor 6**：點擊「已經選中」的結構按鈕還是會清空那隻陀螺的零件（誤觸
-  陷阱）——已改成 `onClick` 先判斷 `structure` 有沒有真的改變，沒改變就
-  直接 return。
+- **Minor 1（已修）**：拿掉 1v1 那批測試時，連帶刪掉了唯一驗證
+  `battleMatches` 真的能流到 `BuilderPage` 零件勝率狀態行的 e2e 測試——
+  那條測試本身不是 1v1 專屬，是共用路徑，補回來（3on3 版本）。
+- **Minor 5（已修）**：v8→v9 migration 測試原本只塞一筆舊 1v1 形狀的
+  紀錄，spec 講的是「不管 1v1 還是 3on3 都要清空」，兩種形狀都要測到，
+  補了一筆舊版 union 形狀的 3on3 紀錄；另外補了「點擊已展開的格子會
+  收合」的 e2e 斷言（原本只測過「切到別格」，沒測過「收合原本那格」）。
+- **Minor 2（已修，改 spec 不改程式碼）**：spec 原本寫收合列要有縮圖，
+  實作沒做——三個零件名稱本身就有辨識度，縮圖要選三顆裡哪一顆代表也沒
+  明顯答案，判定不補縮圖，改 spec 文字跟實作對齊，並記下為什麼。
+- Minor 記錄到 deferred（不修）：匯入舊版備份時沒有提示使用者舊對戰
+  紀錄會被丟棄（跟既有匯入行為一致，非本輪新問題）；升版後歷史紀錄
+  UI 直接顯示空清單，沒有額外提示「舊資料已清空」（使用者已同意清空，
+  UI 沒有誤導成「還在」，屬於可以接受的沉默）；`aria-expanded` 沒配對
+  `aria-controls`（無障礙細節，跟核心正確性無關）。
 
 ## 怎麼跑（非顯而易見的）
 
-- 這輪走 `superpowers:brainstorming` architectural path（先寫 spec、再
-  `writing-plans`、再 `executing-plans`），直接在 `main` 上做（沒有開
-  worktree／分支）。SDD ledger 已在 final review 乾淨後刪除，三個實作期
-  ruling（`DistributiveOmit`、`'mode' in match` 窄化成 `never`、既有 v5
-  migration 測試的 `verno` 也要一起改）與 final review 的細節都已經寫進
-  上面「Final review 發現與修復」，不用回頭翻 ledger。
-- 3on3 計分畫面「每場只有一個終結技就分勝負、自動前進下一場」跟 1v1
-  「同一套配裝連續得分到 4 分」是兩套完全不同的操作邏輯，不要憑印象套用
-  1v1 的 UI 慣例——`TeamBattleLog.tsx` 是獨立元件，不是 `BattleLogPage`
-  裡加個 if 分支硬塞。
+- 這輪沒有走完整 SDD（沒開 `.superpowers/sdd/` ledger、沒寫獨立 plan
+  文件）——brainstorming 對話定案後直接照 TDD 紀律做（每個檔案改完跑
+  `tsc -b`／對應測試，紅燈先確認再修），plan 相關的細節（migration 設計、
+  手風琴互動規則）都寫進了 spec 本身，不是分散在 ledger。
+- `BattleLogPage.tsx` 現在是整個對戰紀錄功能唯一的檔案（沒有
+  `TeamBattleLog.tsx` 這個獨立元件了），`TeamSideEditor` 是這個檔案內部的
+  手風琴子元件，不是共用元件，不要去 `ui/components/` 找。
+- 手風琴的「展開」狀態（`expandedA`／`expandedB`）跟「鎖定」狀態
+  （`foughtCount` 算出來的 `lockedCount`）是兩個獨立變數：`expanded`
+  的判斷式是 `!locked && expandedIndex === index`——鎖定永遠贏，不管
+  `expandedIndex` 剛好是不是那個索引，已上場的格子都不會顯示成展開。
 
 ## 踩過的坑（這輪新增）
 
-- **代理審查報告裡的具體數字要自己重算一次再信，不能照抄**——final review
-  的 Minor 5 建議測試斷言用「2 勝 1 敗」，自己照題目資料重新推算逐分過程
-  （前三場個別對戰誰贏誰輸），算出來是「3 勝 0 敗」，用 e2e 實測也證實是
-  3:0。審查代理找出「這裡缺一個斷言」這件事是對的，但它自己算的數字是
-  錯的——代理報告的「問題存在」判斷可信，报告裡附的「具體數值」不能直接
-  抄，要自己重新推一次。
-- **`disabledReasonZhTW` 這種「這格不用選」的鎖定機制，不能拿來鎖
-  「已經選了、只是現在不准改」的欄位**——它會把顯示文字蓋成「不需要選」，
-  蓋掉使用者原本選好的零件名稱，語意不對（那是給 CX 一體成型鎖死固鎖那種
-  「這格本來就不存在」的情境用的）。要鎖「已選但不准改」，用
-  `<fieldset disabled>` 包住整組欄位，選到的值還看得到，只是不能再點開
-  選擇器。
-- **`points.length < 3` 不能單獨當作「還在排定中的前三場」的判斷式，要
-  跟 `isMatchComplete` 一起看**——3on3 計分畫面的 `scheduledIndex` 一開始
-  只寫 `points.length < 3 ? points.length : undefined`，沒考慮到極限
-  （+3）常常讓累計分數在第 2 場就衝過 4 分：這時 `complete` 已經是
-  `true`，但 `points.length` 還是 2（< 3），畫面會繼續顯示「第 3 場」，
-  不會跳去顯示贏家／存檔區。已修成 `!complete && points.length < 3`。
-  這是自己寫的 e2e 測試在紅燈階段抓到的，不是憑空想到——任何「用 points
-  數量推算目前在第幾場」的邏輯，都要先跟「比賽是否已經結束」交叉確認。
-- **TypeScript 標準庫的 `Omit<T, K>` 對 discriminated union 不會分流**——
-  `keyof (A|B)` 只取兩者共同鍵，`Pick` 會把每個鍵的型別攤平成聯集，
-  `Omit<BattleMatch,'id'>` 會讓 `mode`／`a`／`b` 三個欄位互相脫鉤（型別上
-  允許 `mode:'1v1'` 卻配 `a: [ComboSlots,ComboSlots,ComboSlots]` 這種不合法
-  組合）。要保留「哪個 mode 對應哪種形狀」的關聯，得自己定義
-  `type DistributiveOmit<T,K> = T extends unknown ? Omit<T,K> : never`。
-  用在 `Repository.saveBattleMatch` 的輸入型別。
-- **對「型別上一定存在的必填欄位」用 `'key' in obj` 判斷式來偵測「執行期
-  可能缺欄位的舊資料」會被 TS 判斷式窄化成 `never`，導致 spread 報
-  `Spread types may only be created from object types`**——`importBackup`
-  幫 v7 舊備份的 `battleMatches` 補 `mode` 時，第一版寫
-  `'mode' in match ? match : {...match, mode:'1v1'}`，因為 `BattleMatch`
-  型別宣告 `mode` 必填，TS 認定 `'mode' in match` 恆真，把 else 分支推導成
-  `never`。改用寬鬆型別（`Partial<BattleMatch> & Record<string,unknown>`）
-  讀 `match.mode` 再整個 cast 回 `BattleMatch` 才繞得過去——遇到「型別說
-  一定有、但舊資料實際上可能沒有」的欄位，判斷式要透過寬鬆型別讀，不能
-  靠 `in` 運算子。
-- **改 IndexedDB schema 版本時，除了 `DB_SCHEMA_VERSION` 常數，測試檔案裡
-  任何寫死 `expect(db.verno).toBe(N)` 的既有斷言都要一起找出來改**——這輪
-  只顧著改 v6→v7 那條 migration 測試的 `verno` 期望值，漏掉另一條完全獨立
-  的「IndexedDB v5 migration」測試也寫死 `toBe(7)`，被 `npm test` 全套跑
-  才抓到。以後升版本，先 `grep "verno).toBe("` 抓出全部要改的地方，不要
-  只改自己這輪新寫的那條。
+- **這是這個檔案第三次記錄同一類坑：改 IndexedDB schema 版本時，除了
+  `DB_SCHEMA_VERSION` 常數，測試檔案裡每一條寫死 `expect(db.verno).toBe(N)`
+  的既有斷言都要一起找出來改**——這輪 v8→v9，又漏了一條完全獨立的
+  「IndexedDB v5 migration」測試（寫死 `toBe(8)`），被 `npm test` 全套跑
+  才抓到。這次有記取教訓：改完立刻 `grep "verno).toBe("` 確認全部一致，
+  這條指令值得寫進日常改 schema 版本的固定動作，不要每次都等測試爆炸
+  才想到要 grep。
+- **Dexie 的 `.upgrade()` 裡直接 `tx.table(x).clear()` 就能整表清空**——
+  不用先 `.toCollection().toArray()` 再逐筆刪，一行 `clear()` 搞定，
+  跟 v5 那次「battleRounds: null」（整表刪除定義）不同——這次要保留表
+  結構（下一版還要用同一張表存新形狀的資料），只是清空內容，用
+  `.stores({...})` 保留表定義 + `.upgrade()` 裡 `clear()` 清內容，兩者
+  分開處理。
+- **拿掉一個 discriminated union、把型別收斂回單一形狀時，要記得回頭刪
+  當初為了那個 union 才新增的周邊型別工具**——`DistributiveOmit`（標準庫
+  `Omit` 對 union 不分流才需要的自訂型別）跟著 union 一起刪掉，
+  `Repository.saveBattleMatch` 的參數型別改回普通 `Omit`。如果只刪 union
+  本身、忘記清這些周邊工具，會留下「型別上合法但語意上死掉」的程式碼
+  （`DistributiveOmit<NonUnionType, K>` 在數學上等價於 `Omit<...>`，
+  tsc 不會報錯，但讀的人看不懂為什麼這裡需要一個「處理 union」的型別）。
 
 ## 踩過的坑（沿用既有，仍然有效）
 
@@ -201,10 +171,10 @@ Important、6 個 Minor。Important 當場修掉，6 個 Minor 原本記錄 defe
   `docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`
   第 7 節。
 - **3on3 選裝不檢查「同一隊三隻陀螺不能用重複零件」**——那是
-  `DecksPage` 隊伍組建階段的責任，`BattleLogPage`／`TeamBattleLog` 是
-  現場記分工具，不重新做一次驗證，刻意排除。
-- **不整合已存的 `Deck`（3on3 隊伍）快速選裝**——3on3 對戰紀錄跟 1v1
-  一樣現場選 6 套配裝，不會從 `DecksPage` 已存的隊伍清單挑一組直接帶入。
+  `DecksPage` 隊伍組建階段的責任，`BattleLogPage` 是現場記分工具，不
+  重新做一次驗證，刻意排除。
+- **不整合已存的 `Deck`（3on3 隊伍）快速選裝**——對戰紀錄一律現場選
+  6 套配裝，不會從 `DecksPage` 已存的隊伍清單挑一組直接帶入。
 - **`FINISH_POINTS`（轉停 1／出界爆裂 2／極限 3）之後如果要調整，舊紀錄
   的比分會跟著重算變動**——沒有把每一分的實際點值存進 `BattlePoint`，
   歷史紀錄的比分是即時用目前的 `FINISH_POINTS` 常數算出來的，不是存檔當下
