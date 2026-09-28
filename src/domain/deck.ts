@@ -146,6 +146,41 @@ function partName(part: Part): string {
   return resolveDisplayName(part.naming).titleZhTW
 }
 
+/**
+ * 重複零件限制（第 32 節）：同一隊伍（`slotsList` 這一批）裡，
+ * `ruleSet.noDuplicateFamilies` 涵蓋的家族或 `noDuplicatePartCodes`
+ * 例外清單裡的零件，不能出現在一批裡的兩套（或以上）配裝。
+ *
+ * 拆成獨立函式是因為 `validateDeck()` 還綁了相容性檢查跟庫存檢查，
+ * 只想檢查重複零件的呼叫端（例如現場記分、不牽涉庫存的場景）不需要
+ * 背那些額外檢查的成本。
+ */
+export function findDuplicatePartErrorsZhTW(slotsList: ComboSlots[], parts: Part[], ruleSet: DeckRuleSet): string[] {
+  const byId = new Map(parts.map((part) => [part.id, part]))
+  const partCounts = new Map<string, number>()
+  for (const slots of slotsList) {
+    for (const key of OCCUPYING_SLOT_KEYS) {
+      const partId = slots[key]
+      if (!partId) continue
+      const part = byId.get(partId)
+      if (!part) continue
+      const isRestricted =
+        ruleSet.noDuplicateFamilies.includes(part.family) ||
+        ruleSet.noDuplicatePartCodes?.some((row) => row.code === part.code)
+      if (!isRestricted) continue
+      partCounts.set(partId, (partCounts.get(partId) ?? 0) + 1)
+    }
+  }
+  const errorsZhTW: string[] = []
+  for (const [partId, count] of partCounts) {
+    if (count <= 1) continue
+    const part = byId.get(partId)
+    if (!part) continue
+    errorsZhTW.push(`同一隊伍不可重複使用相同${PART_FAMILY_ZH[part.family]}：${partName(part)}`)
+  }
+  return errorsZhTW
+}
+
 export function validateDeck(args: ValidateDeckArgs): DeckValidation {
   const { slotsList, parts, rules, lots, combos, ruleSet, evidenceByCode } = args
   const byId = new Map(parts.map((part) => [part.id, part]))
@@ -171,28 +206,7 @@ export function validateDeck(args: ValidateDeckArgs): DeckValidation {
   })
 
   // 重複零件限制（第 32 節）
-  const familyPartCounts = new Map<string, number>()
-  for (const slots of slotsList) {
-    for (const key of OCCUPYING_SLOT_KEYS) {
-      const partId = slots[key]
-      if (!partId) continue
-      const part = byId.get(partId)
-      if (!part) continue
-      const isRestricted =
-        ruleSet.noDuplicateFamilies.includes(part.family) ||
-        ruleSet.noDuplicatePartCodes?.some((row) => row.code === part.code)
-      if (!isRestricted) continue
-      familyPartCounts.set(partId, (familyPartCounts.get(partId) ?? 0) + 1)
-    }
-  }
-  for (const [partId, count] of familyPartCounts) {
-    if (count <= 1) continue
-    const part = byId.get(partId)
-    if (!part) continue
-    errorsZhTW.push(
-      `同一隊伍不可重複使用相同${PART_FAMILY_ZH[part.family]}：${partName(part)}`,
-    )
-  }
+  errorsZhTW.push(...findDuplicatePartErrorsZhTW(slotsList, parts, ruleSet))
 
   // 庫存檢查（第 16、45 節 Case 9）
   const availability = computeAvailabilityMap(lots, combos)

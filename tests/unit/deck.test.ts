@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   DEFAULT_DECK_RULES,
   estimateComboPartStrength,
+  findDuplicatePartErrorsZhTW,
   scoreDeck,
   suggestDecks,
   validateDeck,
@@ -92,6 +93,42 @@ describe('預設隊伍規則（第 32 節）', () => {
   it('規則有官方規章來源', () => {
     expect(DEFAULT_DECK_RULES.provenance.verificationStatus).toBe('official_verified')
     expect(DEFAULT_DECK_RULES.provenance.sourceUrls[0]).toContain('regulation.pdf')
+  })
+})
+
+describe('findDuplicatePartErrorsZhTW（重複零件限制，抽成獨立函式給不牽涉庫存的呼叫端用）', () => {
+  it('三套完全不重複時回傳空陣列', () => {
+    expect(findDuplicatePartErrorsZhTW(threeDistinct, parts, DEFAULT_DECK_RULES)).toEqual([])
+  })
+
+  it('同一隻上蓋在兩套裡重複使用時回報中文錯誤，標明是哪個家族哪個零件', () => {
+    const withDuplicateBlade: ComboSlots[] = [
+      { bladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f' },
+      { bladeId: 'b-atk', ratchetId: 'r-80', bitId: 'bit-b' },
+      { bladeId: 'b-def', ratchetId: 'r-70', bitId: 'bit-p' },
+    ]
+    const errors = findDuplicatePartErrorsZhTW(withDuplicateBlade, parts, DEFAULT_DECK_RULES)
+    expect(errors).toHaveLength(1)
+    expect(errors[0]).toContain('不可重複使用相同')
+    expect(errors[0]).toContain('中文-b-atk')
+  })
+
+  it('CX 鎖定紋章例外清單裡的零件（戰神／帝王）重複時也要報錯，即使不屬於 noDuplicateFamilies 涵蓋的家族', () => {
+    const withDuplicateValkyrie: ComboSlots[] = [
+      { lockChipId: 'chip-valkyrie', ratchetId: 'r-60', bitId: 'bit-f' },
+      { lockChipId: 'chip-valkyrie', ratchetId: 'r-80', bitId: 'bit-b' },
+    ]
+    const errors = findDuplicatePartErrorsZhTW(withDuplicateValkyrie, parts, DEFAULT_DECK_RULES)
+    expect(errors).toHaveLength(1)
+    expect(errors[0]).toContain('中文-chip-valkyrie')
+  })
+
+  it('lock_chip 家族不在 noDuplicateFamilies 裡，重複的鎖定紋章只要不是戰神／帝王例外清單裡的零件就不報錯', () => {
+    const withDuplicateOtherLockChip: ComboSlots[] = [
+      { lockChipId: 'chip-other', mainBladeId: 'b-atk', ratchetId: 'r-60', bitId: 'bit-f' },
+      { lockChipId: 'chip-other', mainBladeId: 'b-sta', ratchetId: 'r-80', bitId: 'bit-b' },
+    ]
+    expect(findDuplicatePartErrorsZhTW(withDuplicateOtherLockChip, parts, DEFAULT_DECK_RULES)).toEqual([])
   })
 })
 
