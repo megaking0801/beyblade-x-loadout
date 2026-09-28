@@ -126,7 +126,9 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
   const score = computeMatchScore(points)
   const complete = isMatchComplete(points)
   const winner = matchWinner(points)
-  const scheduledIndex: 0 | 1 | 2 | undefined = points.length < 3 ? (points.length as 0 | 1 | 2) : undefined
+  // complete 一旦成立（哪怕才打完第 2 場），就不該再顯示排定中的下一場——
+  // isMatchComplete 用「達到」判定，累計分數可能提早在第 2 場就過 4 分。
+  const scheduledIndex: 0 | 1 | 2 | undefined = !complete && points.length < 3 ? (points.length as 0 | 1 | 2) : undefined
 
   function updateSlot(setSlots: typeof setSlotsA, index: 0 | 1 | 2, next: ComboSlots) {
     setSlots((current) => {
