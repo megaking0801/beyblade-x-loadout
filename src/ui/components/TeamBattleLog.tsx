@@ -41,12 +41,14 @@ interface TeamSideEditorProps {
   idPrefix: string
   structures: [BuilderStructure, BuilderStructure, BuilderStructure]
   slots: [ComboSlots, ComboSlots, ComboSlots]
+  /** 已經打完幾場個別對戰（0-3）——那幾隻陀螺官方規則不准對戰之間再換。 */
+  lockedCount: number
   onChangeStructure: (index: 0 | 1 | 2, structure: BuilderStructure) => void
   onChangeSlots: (index: 0 | 1 | 2, slots: ComboSlots) => void
 }
 
 /** 一側（A 或 B）的三隻陀螺選裝，每隻獨立的結構切換＋零件選擇器。 */
-function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure, onChangeSlots }: TeamSideEditorProps) {
+function TeamSideEditor({ label, idPrefix, structures, slots, lockedCount, onChangeStructure, onChangeSlots }: TeamSideEditorProps) {
   const parts = useAppStore((state) => state.parts)
   const images = useAppStore((state) => state.images)
 
@@ -57,14 +59,19 @@ function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure,
           const structure = structures[index]
           const beySlots = slots[index]
           const schema = getBuilderSlotSchema(structure, beySlots, parts)
+          const locked = index < lockedCount
           return (
             <div key={index} className="card">
-              <div className="battle-side-label">{BEY_LABELS[index]}陀螺</div>
+              <div className="battle-side-label">
+                {BEY_LABELS[index]}陀螺{locked ? '（已上場，賽中不能更換）' : ''}
+              </div>
               <Row>
                 <button
                   type="button"
                   className={structure === 'standard' ? 'btn btn-primary' : 'btn'}
+                  disabled={locked}
                   onClick={() => {
+                    if (structure === 'standard') return
                     onChangeStructure(index, 'standard')
                     onChangeSlots(index, {})
                   }}
@@ -74,7 +81,9 @@ function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure,
                 <button
                   type="button"
                   className={structure === 'cx' ? 'btn btn-primary' : 'btn'}
+                  disabled={locked}
                   onClick={() => {
+                    if (structure === 'cx') return
                     onChangeStructure(index, 'cx')
                     onChangeSlots(index, {})
                   }}
@@ -82,7 +91,7 @@ function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure,
                   CX 模組化
                 </button>
               </Row>
-              <div className="stack">
+              <fieldset disabled={locked} className="stack" style={{ border: 0, padding: 0, margin: 0 }}>
                 {schema.map((def) => (
                   <PartPickerField
                     key={def.key}
@@ -95,7 +104,7 @@ function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure,
                     onChange={(next) => onChangeSlots(index, { ...beySlots, [def.key]: next || undefined })}
                   />
                 ))}
-              </div>
+              </fieldset>
             </div>
           )
         })}
@@ -105,12 +114,13 @@ function TeamSideEditor({ label, idPrefix, structures, slots, onChangeStructure,
 }
 
 export interface TeamBattleLogProps {
-  modeToggle: ReactNode
+  /** 傳 true 代表目前有還沒存檔的分數，切去 1v1 前要先跟使用者確認。 */
+  renderModeToggle: (hasUnsavedProgress: boolean) => ReactNode
   historyAndWinRate: ReactNode
   comboLabel: (slots: ComboSlots) => string
 }
 
-export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: TeamBattleLogProps) {
+export function TeamBattleLog({ renderModeToggle, historyAndWinRate, comboLabel }: TeamBattleLogProps) {
   const run = useAppStore((state) => state.run)
 
   const [view, setView] = useState<'setup' | 'scoring'>('setup')
@@ -129,6 +139,10 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
   // complete 一旦成立（哪怕才打完第 2 場），就不該再顯示排定中的下一場——
   // isMatchComplete 用「達到」判定，累計分數可能提早在第 2 場就過 4 分。
   const scheduledIndex: 0 | 1 | 2 | undefined = !complete && points.length < 3 ? (points.length as 0 | 1 | 2) : undefined
+  // 已經打完幾場排定中的個別對戰（0-3）——官方規則不准對戰之間交換陀螺／
+  // 零件，回選裝畫面要鎖住這幾隻，延伸賽（第四分起，沒有 beyIndex）不會
+  // 再讓這個數字超過 3。
+  const foughtCount = Math.min(points.length, 3)
 
   function updateSlot(setSlots: typeof setSlotsA, index: 0 | 1 | 2, next: ComboSlots) {
     setSlots((current) => {
@@ -237,7 +251,6 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
                         key={finish}
                         type="button"
                         className="btn btn-compact"
-                        disabled={complete}
                         data-testid={`team-ext-a-${finish}`}
                         onClick={() => setPoints([...points, { scorer: 'a', finish }])}
                       >
@@ -256,7 +269,6 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
                         key={finish}
                         type="button"
                         className="btn btn-compact"
-                        disabled={complete}
                         data-testid={`team-ext-b-${finish}`}
                         onClick={() => setPoints([...points, { scorer: 'b', finish }])}
                       >
@@ -308,13 +320,14 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
   return (
     <div>
       <PageHeader title="個人對戰紀錄" description="記錄自己或跟朋友的 3on3 團體賽，先到 4 分獲勝，非賽事證據" />
-      {modeToggle}
+      {renderModeToggle(points.length > 0)}
 
       <TeamSideEditor
         label="配裝 A"
         idPrefix="team-a"
         structures={structuresA}
         slots={slotsA}
+        lockedCount={foughtCount}
         onChangeStructure={(index, structure) => updateStructure(setStructuresA, index, structure)}
         onChangeSlots={(index, slots) => updateSlot(setSlotsA, index, slots)}
       />
@@ -323,6 +336,7 @@ export function TeamBattleLog({ modeToggle, historyAndWinRate, comboLabel }: Tea
         idPrefix="team-b"
         structures={structuresB}
         slots={slotsB}
+        lockedCount={foughtCount}
         onChangeStructure={(index, structure) => updateStructure(setStructuresB, index, structure)}
         onChangeSlots={(index, slots) => updateSlot(setSlotsB, index, slots)}
       />

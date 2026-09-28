@@ -818,9 +818,11 @@ export function createRepository(db: BeybladeDb): Repository {
        * （那樣 TS 會把 mode 一定存在的假設帶進來，else 分支被推導成
        * never，spread 會報錯）。
        */
-      const rawBattleMatches = (payload.schemaVersion >= 7 ? (payload.battleMatches ?? []) : []) as Array<
-        Partial<BattleMatch> & Record<string, unknown>
-      >
+      const rawBattleMatchesSource = payload.schemaVersion >= 7 ? (payload.battleMatches ?? []) : []
+      if (!Array.isArray(rawBattleMatchesSource)) {
+        throw new Error('備份格式不正確：battleMatches 不是陣列')
+      }
+      const rawBattleMatches = rawBattleMatchesSource as Array<Partial<BattleMatch> & Record<string, unknown>>
       const battleMatches = rawBattleMatches.map(
         (match) => (match.mode ? match : { ...match, mode: '1v1' as const }) as BattleMatch,
       )

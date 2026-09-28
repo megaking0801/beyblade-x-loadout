@@ -3,7 +3,7 @@ import Dexie from 'dexie'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createDb, type BeybladeDb } from '../../src/data/db.ts'
 import { createRepository, type BackupPayload, type Repository } from '../../src/data/repository.ts'
-import type { Part } from '../../src/domain/types.ts'
+import type { BattleMatch, Part } from '../../src/domain/types.ts'
 import {
   deckSetProduct,
   fixedProduct,
@@ -604,6 +604,13 @@ describe('匯出與匯入（第 37 節）', () => {
     await expect(repo.importBackup({ ...backup, schemaVersion: 999 })).rejects.toThrow(
       '備份版本過新',
     )
+  })
+
+  it('battleMatches 不是陣列時要拋友善錯誤，不是原始 TypeError（全分支審查 Minor 2 回歸測試）', async () => {
+    const backup = await repo.exportBackup()
+    await expect(
+      repo.importBackup({ ...backup, battleMatches: '不是陣列' as unknown as BattleMatch[] }),
+    ).rejects.toThrow('battleMatches 不是陣列')
   })
 })
 

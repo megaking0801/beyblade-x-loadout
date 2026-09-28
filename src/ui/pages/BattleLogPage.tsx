@@ -148,12 +148,22 @@ export function BattleLogPage() {
     ...entry,
   }))
 
-  const modeToggle = (
+  /**
+   * 3on3 的進行中分數活在 `TeamBattleLog` 內部 state，切去 1v1 會讓它
+   * unmount、無聲丟掉——1v1 這邊的 state 活在這個元件本身，切走不會消失，
+   * 不用擋。`hasUnsavedProgress` 由呼叫端（`TeamBattleLog`）回報它自己是否
+   * 有還沒存檔的分數，只有「切去 1v1」這個方向需要擋。
+   */
+  const renderModeToggle = (hasUnsavedProgress: boolean) => (
     <Row>
       <button
         type="button"
         className={matchMode === '1v1' ? 'btn btn-primary' : 'btn'}
-        onClick={() => setMatchMode('1v1')}
+        onClick={() => {
+          if (matchMode === '1v1') return
+          if (hasUnsavedProgress && !window.confirm('目前這場對戰還沒存檔，切換模式會清空已記錄的分數，確定要切換嗎？')) return
+          setMatchMode('1v1')
+        }}
       >
         1v1
       </button>
@@ -257,7 +267,7 @@ export function BattleLogPage() {
   )
 
   if (matchMode === '3on3') {
-    return <TeamBattleLog modeToggle={modeToggle} historyAndWinRate={historyAndWinRate} comboLabel={comboLabel} />
+    return <TeamBattleLog renderModeToggle={renderModeToggle} historyAndWinRate={historyAndWinRate} comboLabel={comboLabel} />
   }
 
   if (view === 'scoring') {
@@ -329,7 +339,7 @@ export function BattleLogPage() {
   return (
     <div>
       <PageHeader title="個人對戰紀錄" description="記錄自己或跟朋友的 1v1 對戰，先到 4 分獲勝，非賽事證據" />
-      {modeToggle}
+      {renderModeToggle(false)}
 
       <Section title="配裝 A">
         <Row>

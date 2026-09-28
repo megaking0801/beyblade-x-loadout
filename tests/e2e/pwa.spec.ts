@@ -779,6 +779,18 @@ test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數
   await expect(page.getByTestId('battle-match').first()).toContainText('比分 5:1')
   await page.getByTestId('battle-match').first().locator('summary').click()
   await expect(page.getByTestId('battle-match').first()).toContainText('第 4 分（延伸賽）：A／極限')
+
+  // 標題講的「延伸賽分數不歸屬零件勝率」要真的斷言到零件勝率表，不能只看
+  // 逐分紀錄文字（全分支審查 Minor 5 回歸測試）：蒼龍神劍（ドランソード）在
+  // 前三場個別對戰各出現一次且都在贏的那一側（1st／3rd 是 A 隊、2nd 是
+  // B 隊），沒有輸過，延伸賽的極限（+3，沒有 beyIndex）不歸屬任何零件，
+  // 所以應該是 3 勝 0 敗，不是被延伸賽污染成別的數字。
+  const dransword = page.locator('tr', { hasText: '蒼龍神劍' })
+  await expect(dransword.locator('td').nth(1)).toHaveText('3')
+  await expect(dransword.locator('td').nth(2)).toHaveText('0')
+  const dranbuster = page.locator('tr', { hasText: '蒼龍爆刃' })
+  await expect(dranbuster.locator('td').nth(1)).toHaveText('0')
+  await expect(dranbuster.locator('td').nth(2)).toHaveText('3')
 })
 
 test('3on3 團體賽：切換某一隻陀螺的結構要清掉那一隻的殘留零件，不能讓舊零件混進「開始對戰」判定', async ({ page }) => {
@@ -807,4 +819,81 @@ test('3on3 團體賽：切換某一隻陀螺的結構要清掉那一隻的殘留
   }
 
   await expect(page.getByTestId('team-start-scoring')).toHaveCount(0)
+})
+
+test('3on3 團體賽：點擊已經選中的結構按鈕不該清掉零件（全分支審查 Minor 6 回歸測試）', async ({ page }) => {
+  await openApp(page, '/battle-log')
+  await page.getByRole('button', { name: '3on3' }).click()
+
+  // A 隊第 1 隻預設就是三件式，選一顆上蓋。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'team-a-0')
+  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toContainText('蒼龍神劍')
+
+  // 再點一次「三件式」（已經選中的結構），零件不該被清掉。
+  await page.getByRole('button', { name: '三件式（BX／UX）' }).first().click()
+  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toContainText('蒼龍神劍')
+})
+
+test('3on3 團體賽：陀螺打完那一場後，回選裝畫面不能再改那一隻的配裝（官方規則：對戰之間不能交換陀螺／零件，全分支審查 Minor 3 回歸測試）', async ({ page }) => {
+  await openApp(page, '/battle-log')
+  await page.getByRole('button', { name: '3on3' }).click()
+
+  for (const [prefix, blade] of [
+    ['team-a-0', 'blade:ドランソード'],
+    ['team-a-1', 'blade:ドランバスター'],
+    ['team-a-2', 'blade:ドランソード'],
+    ['team-b-0', 'blade:ドランバスター'],
+    ['team-b-1', 'blade:ドランソード'],
+    ['team-b-2', 'blade:ドランバスター'],
+  ] as const) {
+    await pickSlot(page, 'bladeId', blade, prefix)
+    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
+    await pickSlot(page, 'bitId', 'bit:F', prefix)
+  }
+
+  await page.getByTestId('team-start-scoring').click()
+  // 打完第 1 場（轉停 +1，還沒到 4 分，match 不會提早結束）。
+  await page.getByTestId('team-score-a-spin').click()
+  await page.getByTestId('team-back-to-setup').click()
+
+  // 第 1 隻（A、B 都）已經上場，選擇器要鎖住；第 2、3 隻還沒上場，正常可改。
+  await expect(page.getByTestId('slot-trigger-team-a-0-bladeId')).toBeDisabled()
+  await expect(page.getByTestId('slot-trigger-team-b-0-bladeId')).toBeDisabled()
+  await expect(page.getByTestId('slot-trigger-team-a-1-bladeId')).toBeEnabled()
+  await expect(page.getByTestId('slot-trigger-team-b-1-bladeId')).toBeEnabled()
+})
+
+test('3on3 團體賽：有還沒存檔的分數時切去 1v1 要先確認，取消就留在原地（全分支審查 Minor 2 回歸測試）', async ({ page }) => {
+  await openApp(page, '/battle-log')
+  await page.getByRole('button', { name: '3on3' }).click()
+
+  for (const [prefix, blade] of [
+    ['team-a-0', 'blade:ドランソード'],
+    ['team-a-1', 'blade:ドランバスター'],
+    ['team-a-2', 'blade:ドランソード'],
+    ['team-b-0', 'blade:ドランバスター'],
+    ['team-b-1', 'blade:ドランソード'],
+    ['team-b-2', 'blade:ドランバスター'],
+  ] as const) {
+    await pickSlot(page, 'bladeId', blade, prefix)
+    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
+    await pickSlot(page, 'bitId', 'bit:F', prefix)
+  }
+
+  await page.getByTestId('team-start-scoring').click()
+  await page.getByTestId('team-score-a-spin').click()
+  await page.getByTestId('team-back-to-setup').click()
+
+  // 有 1 分還沒存檔，點「1v1」要跳確認；取消的話還是留在 3on3 選裝畫面
+  // （第 1 隻鎖住的痕跡還在，證明分數沒被清掉）。
+  page.once('dialog', (dialog) => dialog.dismiss())
+  await page.getByRole('button', { name: '1v1' }).click()
+  await expect(page.getByText('（已上場，賽中不能更換）').first()).toBeVisible()
+
+  // 按確認才真的切走，分數才會被清掉（切回 3on3 後鎖住的痕跡消失）。
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: '1v1' }).click()
+  await expect(page.getByRole('heading', { name: '個人對戰紀錄' })).toBeVisible()
+  await page.getByRole('button', { name: '3on3' }).click()
+  await expect(page.getByText('（已上場，賽中不能更換）')).toHaveCount(0)
 })
