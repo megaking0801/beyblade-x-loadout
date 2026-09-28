@@ -19,9 +19,15 @@ import {
 } from '../../domain/battleRecords.ts'
 import { resolveDisplayName } from '../../domain/naming.ts'
 import { getBuilderSlotSchema, type BuilderStructure } from '../../domain/compatibility.ts'
+import { DEFAULT_DECK_RULES, findDuplicatePartErrorsZhTW } from '../../domain/deck.ts'
 import type { BattleFinish, BattlePoint, ComboSlots } from '../../domain/types.ts'
-import { EmptyState, PageHeader, Row, Section } from '../components/ui.tsx'
+import { EmptyState, PageHeader, Row, Section, useJustAdded } from '../components/ui.tsx'
 import { PartPickerField } from '../components/PartPicker.tsx'
+
+/** 手機上安靜震一下當回饋；桌機瀏覽器沒有這個 API 是正常的，跳過即可。 */
+function vibrateLightly(): void {
+  navigator.vibrate?.(15)
+}
 
 const FINISH_ZH: Record<BattleFinish, string> = {
   spin: '轉停',
@@ -176,6 +182,8 @@ export function BattleLogPage() {
   const [points, setPoints] = useState<BattlePoint[]>([])
   const [playedAt, setPlayedAt] = useState(() => localDateString(new Date()))
   const [notes, setNotes] = useState('')
+  const [pulseA, markPulseA] = useJustAdded(450)
+  const [pulseB, markPulseB] = useJustAdded(450)
 
   const partsById = useMemo(() => new Map(parts.map((part) => [part.id, part])), [parts])
   const nameOf = (partId: string) => {
@@ -195,7 +203,16 @@ export function BattleLogPage() {
     ...entry,
   }))
 
-  const ready = slotsA.every(hasAnyPart) && slotsB.every(hasAnyPart)
+  // 官方規則：同一隊伍三顆陀螺不能重複使用相同零件（CX 鎖定紋章只有
+  // 戰神／帝王例外）。A、B 各自獨立檢查，不是跨隊比對。
+  const duplicateErrorsA = useMemo(() => findDuplicatePartErrorsZhTW(slotsA, parts, DEFAULT_DECK_RULES), [slotsA, parts])
+  const duplicateErrorsB = useMemo(() => findDuplicatePartErrorsZhTW(slotsB, parts, DEFAULT_DECK_RULES), [slotsB, parts])
+
+  const ready =
+    slotsA.every(hasAnyPart) &&
+    slotsB.every(hasAnyPart) &&
+    duplicateErrorsA.length === 0 &&
+    duplicateErrorsB.length === 0
   const score = computeMatchScore(points)
   const complete = isMatchComplete(points)
   const winner = matchWinner(points)
@@ -256,9 +273,27 @@ export function BattleLogPage() {
             </button>
           </Row>
 
-          <div className="meta" data-testid="team-score">
-            隊伍累計比分 A {score.a} - {score.b} B（先到 {MATCH_WIN_SCORE} 分獲勝）
+          <div className="battle-scoreboard" data-testid="team-score">
+            <div className={winner === 'a' ? 'battle-side is-winner' : 'battle-side'}>
+              <div className="battle-side-label">A 隊</div>
+              <div className={pulseA ? 'battle-score-digit code is-pulsing' : 'battle-score-digit code'} data-testid="team-score-a">
+                {score.a}
+              </div>
+              <div className="battle-score-bar" aria-hidden="true">
+                <span style={{ width: `${(Math.min(score.a, MATCH_WIN_SCORE) / MATCH_WIN_SCORE) * 100}%` }} />
+              </div>
+            </div>
+            <div className={winner === 'b' ? 'battle-side is-winner' : 'battle-side'}>
+              <div className="battle-side-label">B 隊</div>
+              <div className={pulseB ? 'battle-score-digit code is-pulsing' : 'battle-score-digit code'} data-testid="team-score-b">
+                {score.b}
+              </div>
+              <div className="battle-score-bar" aria-hidden="true">
+                <span style={{ width: `${(Math.min(score.b, MATCH_WIN_SCORE) / MATCH_WIN_SCORE) * 100}%` }} />
+              </div>
+            </div>
           </div>
+          <div className="meta" style={{ textAlign: 'center' }}>先到 {MATCH_WIN_SCORE} 分獲勝</div>
 
           {scheduledIndex !== undefined ? (
             <Section title={`第 ${points.length + 1} 場：${BEY_LABELS[scheduledIndex]}陀螺對戰`}>
@@ -273,7 +308,11 @@ export function BattleLogPage() {
                         type="button"
                         className="btn btn-compact"
                         data-testid={`score-a-${finish}`}
-                        onClick={() => setPoints([...points, { scorer: 'a', finish, beyIndex: scheduledIndex }])}
+                        onClick={() => {
+                          setPoints([...points, { scorer: 'a', finish, beyIndex: scheduledIndex }])
+                          markPulseA()
+                          vibrateLightly()
+                        }}
                       >
                         {FINISH_ZH[finish]}
                         <br />
@@ -292,7 +331,11 @@ export function BattleLogPage() {
                         type="button"
                         className="btn btn-compact"
                         data-testid={`score-b-${finish}`}
-                        onClick={() => setPoints([...points, { scorer: 'b', finish, beyIndex: scheduledIndex }])}
+                        onClick={() => {
+                          setPoints([...points, { scorer: 'b', finish, beyIndex: scheduledIndex }])
+                          markPulseB()
+                          vibrateLightly()
+                        }}
                       >
                         {FINISH_ZH[finish]}
                         <br />
@@ -318,7 +361,11 @@ export function BattleLogPage() {
                         type="button"
                         className="btn btn-compact"
                         data-testid={`ext-a-${finish}`}
-                        onClick={() => setPoints([...points, { scorer: 'a', finish }])}
+                        onClick={() => {
+                          setPoints([...points, { scorer: 'a', finish }])
+                          markPulseA()
+                          vibrateLightly()
+                        }}
                       >
                         {FINISH_ZH[finish]}
                         <br />
@@ -336,7 +383,11 @@ export function BattleLogPage() {
                         type="button"
                         className="btn btn-compact"
                         data-testid={`ext-b-${finish}`}
-                        onClick={() => setPoints([...points, { scorer: 'b', finish }])}
+                        onClick={() => {
+                          setPoints([...points, { scorer: 'b', finish }])
+                          markPulseB()
+                          vibrateLightly()
+                        }}
                       >
                         {FINISH_ZH[finish]}
                         <br />
@@ -399,6 +450,12 @@ export function BattleLogPage() {
         onChangeStructure={(index, structure) => updateStructure(setStructuresA, index, structure)}
         onChangeSlots={(index, slots) => updateSlot(setSlotsA, index, slots)}
       />
+      {duplicateErrorsA.length > 0 ? (
+        <p className="meta" style={{ color: 'var(--danger)', marginTop: -6, marginBottom: 16 }} data-testid="duplicate-warning-a">
+          {duplicateErrorsA.join('；')}
+        </p>
+      ) : null}
+
       <TeamSideEditor
         label="配裝 B"
         idPrefix="b"
@@ -411,6 +468,11 @@ export function BattleLogPage() {
         onChangeStructure={(index, structure) => updateStructure(setStructuresB, index, structure)}
         onChangeSlots={(index, slots) => updateSlot(setSlotsB, index, slots)}
       />
+      {duplicateErrorsB.length > 0 ? (
+        <p className="meta" style={{ color: 'var(--danger)', marginTop: -6, marginBottom: 16 }} data-testid="duplicate-warning-b">
+          {duplicateErrorsB.join('；')}
+        </p>
+      ) : null}
 
       {ready ? (
         <div style={{ marginBottom: 22 }}>

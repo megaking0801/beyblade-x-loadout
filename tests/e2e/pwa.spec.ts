@@ -568,32 +568,44 @@ test('前台任何一頁都不得再提到重量', async ({ page }) => {
   expect(builderHits, `配裝器還在講重量：${builderHits.join(' | ')}`).toEqual([])
 })
 
+/** 斷言隊伍累計比分（大字比分＋進度條那組，各側獨立的 testid）。 */
+async function expectTeamScore(page: Page, a: number, b: number): Promise<void> {
+  await expect(page.getByTestId('team-score-a')).toHaveText(String(a))
+  await expect(page.getByTestId('team-score-b')).toHaveText(String(b))
+}
+
 /** 展開某一側某一隻陀螺的手風琴列（index 0 兩側預設就是展開的）。 */
 async function expandBey(page: Page, side: 'a' | 'b', index: 0 | 1 | 2): Promise<void> {
   await page.getByTestId(`bey-toggle-${side}-${index}`).click()
 }
 
-/** 依序展開＋選滿 A、B 兩側各 3 隻陀螺（index 0 沿用預設展開，不用先點）。 */
+/**
+ * 依序展開＋選滿 A、B 兩側各 3 隻陀螺（index 0 沿用預設展開，不用先點）。
+ * 每筆要給獨立的 blade／ratchet／bit——官方規則同一隊三隻不能重複使用
+ * 同一顆零件，隨便三隻都套同一套零件會被新的重複零件檢查擋下來。
+ */
 async function fillAllBeys(
   page: Page,
-  picks: readonly (readonly ['a' | 'b', 0 | 1 | 2, string])[],
+  picks: readonly (readonly ['a' | 'b', 0 | 1 | 2, string, string, string])[],
 ): Promise<void> {
-  for (const [side, index, blade] of picks) {
+  for (const [side, index, blade, ratchet, bit] of picks) {
     if (index !== 0) await expandBey(page, side, index)
     const prefix = `${side}-${index}`
     await pickSlot(page, 'bladeId', blade, prefix)
-    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
-    await pickSlot(page, 'bitId', 'bit:F', prefix)
+    await pickSlot(page, 'ratchetId', ratchet, prefix)
+    await pickSlot(page, 'bitId', bit, prefix)
   }
 }
 
+// A、B 兩側各自三隻陀螺的 blade／ratchet／bit 都不重複（同一隊內不重複；
+// 兩隊之間可以重複，官方規則只限制「同一隊伍」）。
 const STANDARD_TEAM_PICKS = [
-  ['a', 0, 'blade:ドランソード'],
-  ['a', 1, 'blade:ドランバスター'],
-  ['a', 2, 'blade:ドランソード'],
-  ['b', 0, 'blade:ドランバスター'],
-  ['b', 1, 'blade:ドランソード'],
-  ['b', 2, 'blade:ドランバスター'],
+  ['a', 0, 'blade:ドランソード', 'ratchet:1-60', 'bit:F'],
+  ['a', 1, 'blade:ドランバスター', 'ratchet:3-60', 'bit:FB'],
+  ['a', 2, 'blade:ウィザードロッド', 'ratchet:9-60', 'bit:H'],
+  ['b', 0, 'blade:ドランバスター', 'ratchet:1-60', 'bit:F'],
+  ['b', 1, 'blade:ドランソード', 'ratchet:3-60', 'bit:FB'],
+  ['b', 2, 'blade:シャークスケイル', 'ratchet:9-60', 'bit:H'],
 ] as const
 
 test('3on3 團體賽：手風琴選裝現場選六隻陀螺、三場個別對戰累加分數、打完存檔、歷史列表跟零件勝率簡表更新', async ({ page }) => {
@@ -614,7 +626,7 @@ test('3on3 團體賽：手風琴選裝現場選六隻陀螺、三場個別對戰
   // 第 1 場（1st 陀螺）：A 極限（+3）。累計 A 3 - 0 B，還沒到 4 分。
   await expect(page.getByText('第 1 場：第 1 隻陀螺對戰')).toBeVisible()
   await page.getByTestId('score-a-xtreme').click()
-  await expect(page.getByTestId('team-score')).toContainText('A 3 - 0 B')
+  await expectTeamScore(page, 3, 0)
 
   // 第 2 場（2nd 陀螺）：A 轉停（+1），累計 4 分，立刻判定結束，不該還跳出
   // 第 3 場（Review Focus 第 1 項）。
@@ -625,7 +637,7 @@ test('3on3 團體賽：手風琴選裝現場選六隻陀螺、三場個別對戰
 
   // 「復原上一分」退回第 2 場，確認按鈕真的重新解鎖。
   await page.getByRole('button', { name: '復原上一分' }).click()
-  await expect(page.getByTestId('team-score')).toContainText('A 3 - 0 B')
+  await expectTeamScore(page, 3, 0)
   await expect(page.getByTestId('match-winner')).toHaveCount(0)
   await page.getByTestId('score-a-spin').click()
   await expect(page.getByTestId('match-winner')).toHaveText('A 隊獲勝')
@@ -646,15 +658,15 @@ test('3on3 團體賽：手風琴選裝現場選六隻陀螺、三場個別對戰
 
   // 可以直接連續記下一場：CTA 還在、進計分板分數回到 0:0。
   await startScoring.click()
-  await expect(page.getByTestId('team-score')).toContainText('A 0 - 0 B')
+  await expectTeamScore(page, 0, 0)
 
   // 「← 回選裝」不會清掉已經記的分數，只是切回選裝畫面看配裝／歷史。
   await page.getByTestId('score-a-spin').click()
-  await expect(page.getByTestId('team-score')).toContainText('A 1 - 0 B')
+  await expectTeamScore(page, 1, 0)
   await page.getByTestId('back-to-setup').click()
   await expect(startScoring).toBeVisible()
   await startScoring.click()
-  await expect(page.getByTestId('team-score')).toContainText('A 1 - 0 B')
+  await expectTeamScore(page, 1, 0)
 })
 
 test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數不歸屬零件勝率', async ({ page }) => {
@@ -668,7 +680,7 @@ test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數
   await page.getByTestId('score-a-spin').click()
 
   await expect(page.getByText('未分勝負，需要延伸賽')).toBeVisible()
-  await expect(page.getByTestId('team-score')).toContainText('A 2 - 1 B')
+  await expectTeamScore(page, 2, 1)
 
   // 延伸賽用極限直接讓 A 到 4 分以上。
   await page.getByTestId('ext-a-xtreme').click()
@@ -680,16 +692,17 @@ test('3on3 團體賽：三場打完未到 4 分要進延伸賽，延伸賽分數
   await expect(page.getByTestId('battle-match').first()).toContainText('第 4 分（延伸賽）：A／極限')
 
   // 標題講的「延伸賽分數不歸屬零件勝率」要真的斷言到零件勝率表，不能只看
-  // 逐分紀錄文字（全分支審查 Minor 5 回歸測試）：蒼龍神劍（ドランソード）在
-  // 前三場個別對戰各出現一次且都在贏的那一側（1st／3rd 是 A 隊、2nd 是
-  // B 隊），沒有輸過，延伸賽的極限（+3，沒有 beyIndex）不歸屬任何零件，
-  // 所以應該是 3 勝 0 敗，不是被延伸賽污染成別的數字。
+  // 逐分紀錄文字（全分支審查 Minor 5 回歸測試）：蒼龍神劍（ドランソード）
+  // 在 1st（A 隊 a-0）跟 2nd（B 隊 b-1）兩場個別對戰都在贏的那一側，沒有
+  // 輸過；蒼龍爆刃（ドランバスター）在 1st（B 隊 b-0）跟 2nd（A 隊 a-1）
+  // 都在輸的那一側。延伸賽的極限（+3，沒有 beyIndex）不歸屬任何零件，
+  // 所以應該是 2 勝 0 敗／0 勝 2 敗，不是被延伸賽污染成別的數字。
   const dransword = page.locator('tr', { hasText: '蒼龍神劍' })
-  await expect(dransword.locator('td').nth(1)).toHaveText('3')
+  await expect(dransword.locator('td').nth(1)).toHaveText('2')
   await expect(dransword.locator('td').nth(2)).toHaveText('0')
   const dranbuster = page.locator('tr', { hasText: '蒼龍爆刃' })
   await expect(dranbuster.locator('td').nth(1)).toHaveText('0')
-  await expect(dranbuster.locator('td').nth(2)).toHaveText('3')
+  await expect(dranbuster.locator('td').nth(2)).toHaveText('2')
 })
 
 test('3on3 團體賽：切換某一隻陀螺的結構要清掉那一隻的殘留零件，不能讓舊零件混進「開始對戰」判定', async ({ page }) => {
@@ -779,4 +792,36 @@ test('配裝器狀態行反映對戰紀錄樣本不足的狀態（全分支審�
   await pickSlot(page, 'ratchetId', 'ratchet:3-60')
   await pickSlot(page, 'bitId', 'bit:F')
   await expect(page.getByText(/個人對戰紀錄：已有對戰紀錄，樣本還不夠/)).toBeVisible()
+})
+
+test('3on3 選裝：同一隊三隻陀螺重複使用同一顆零件要擋住「開始對戰」並顯示警告（官方規則：同一隊伍不可重複使用相同零件）', async ({ page }) => {
+  await openApp(page, '/battle-log')
+
+  // A 第 1、2 隻都用同一顆上蓋（蒼龍神劍），軸心／軸承刻意選不同的，
+  // 才能只單獨測到「上蓋重複」這一條，不會被其他家族的重複訊息混進來。
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
+  await pickSlot(page, 'ratchetId', 'ratchet:1-60', 'a-0')
+  await pickSlot(page, 'bitId', 'bit:F', 'a-0')
+  await expandBey(page, 'a', 1)
+  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-1')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-1')
+  await pickSlot(page, 'bitId', 'bit:FB', 'a-1')
+
+  await expect(page.getByTestId('duplicate-warning-a')).toContainText('不可重複使用相同')
+  await expect(page.getByTestId('duplicate-warning-a')).toContainText('蒼龍神劍')
+
+  // A 第 3 隻跟 B 三隻都選完、不重複，CTA 還是要被 A 的重複問題擋住。
+  await expandBey(page, 'a', 2)
+  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'a-2')
+  await pickSlot(page, 'ratchetId', 'ratchet:9-60', 'a-2')
+  await pickSlot(page, 'bitId', 'bit:H', 'a-2')
+  await fillAllBeys(page, STANDARD_TEAM_PICKS.filter(([side]) => side === 'b'))
+  await expect(page.getByTestId('start-scoring')).toHaveCount(0)
+
+  // 把 A 第 2 隻的上蓋換成不重複的（第 3 隻已經是蒼龍爆刃，不能再選它），
+  // 警告消失、CTA 出現。
+  await expandBey(page, 'a', 1)
+  await pickSlot(page, 'bladeId', 'blade:シャークスケイル', 'a-1')
+  await expect(page.getByTestId('duplicate-warning-a')).toHaveCount(0)
+  await expect(page.getByTestId('start-scoring')).toBeVisible()
 })

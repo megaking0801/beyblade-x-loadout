@@ -1051,6 +1051,41 @@ ul {
 .battle-side.is-winner {
   border-color: var(--signal);
   background: color-mix(in srgb, var(--signal) 10%, var(--surface));
+  animation: winner-reveal 0.5s ease-out;
+}
+
+/*
+ * 贏家揭曉：卡片跳一下再定住。CSS class 一出現瀏覽器就會自己播放，
+ * 不用額外 JS 去偵測「剛剛才變贏家」。
+ */
+@keyframes winner-reveal {
+  0% {
+    transform: scale(0.96);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*
+ * 得分脈動：`.is-pulsing` 由 `useJustAdded()` 短暫加上再拿掉，數字放大
+ * 一下再彈回去，讓「這一下真的有算到分」看得出來，不用等進度條慢慢動。
+ */
+@keyframes score-pulse {
+  0% {
+    transform: scale(1.4);
+    color: var(--signal);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.battle-score-digit.is-pulsing {
+  animation: score-pulse 0.4s ease-out;
 }
 
 .battle-side-label {

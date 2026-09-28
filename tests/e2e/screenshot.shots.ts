@@ -66,8 +66,10 @@ test('capture', async ({ page }, testInfo) => {
   await page.evaluate(() => {
     window.location.hash = '/battle-log'
   })
+  // A、B 兩側各自三隻陀螺的 blade／ratchet／bit 都不重複（官方規則：同一
+  // 隊伍不能重複使用相同零件；兩隊之間可以重複）。
   await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-0')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-0')
+  await pickSlot(page, 'ratchetId', 'ratchet:1-60', 'a-0')
   await pickSlot(page, 'bitId', 'bit:F', 'a-0')
   // 展開 A 第 2 隻（第 1 隻自動收合），截到手風琴收合＋展開並存的樣子。
   await page.getByTestId('bey-toggle-a-1').click()
@@ -78,22 +80,22 @@ test('capture', async ({ page }, testInfo) => {
   })
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'a-1')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-1')
-  await pickSlot(page, 'bitId', 'bit:F', 'a-1')
+  await pickSlot(page, 'bitId', 'bit:FB', 'a-1')
   await page.getByTestId('bey-toggle-a-2').click()
-  await pickSlot(page, 'bladeId', 'blade:ドランソード', 'a-2')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'a-2')
-  await pickSlot(page, 'bitId', 'bit:F', 'a-2')
+  await pickSlot(page, 'bladeId', 'blade:ウィザードロッド', 'a-2')
+  await pickSlot(page, 'ratchetId', 'ratchet:9-60', 'a-2')
+  await pickSlot(page, 'bitId', 'bit:H', 'a-2')
   await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b-0')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-0')
+  await pickSlot(page, 'ratchetId', 'ratchet:1-60', 'b-0')
   await pickSlot(page, 'bitId', 'bit:F', 'b-0')
   await page.getByTestId('bey-toggle-b-1').click()
   await pickSlot(page, 'bladeId', 'blade:ドランソード', 'b-1')
   await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-1')
-  await pickSlot(page, 'bitId', 'bit:F', 'b-1')
+  await pickSlot(page, 'bitId', 'bit:FB', 'b-1')
   await page.getByTestId('bey-toggle-b-2').click()
-  await pickSlot(page, 'bladeId', 'blade:ドランバスター', 'b-2')
-  await pickSlot(page, 'ratchetId', 'ratchet:3-60', 'b-2')
-  await pickSlot(page, 'bitId', 'bit:F', 'b-2')
+  await pickSlot(page, 'bladeId', 'blade:シャークスケイル', 'b-2')
+  await pickSlot(page, 'ratchetId', 'ratchet:9-60', 'b-2')
+  await pickSlot(page, 'bitId', 'bit:H', 'b-2')
 
   await page.getByTestId('start-scoring').click()
   await page.getByTestId('score-a-xtreme').click()
