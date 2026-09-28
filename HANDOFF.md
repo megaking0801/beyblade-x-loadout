@@ -28,22 +28,25 @@ spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `b09b78f` |
-| `origin/main` | 落後，本輪尚未 push（見下方「下一個具體動作」） |
-| 線上 Pages | `033c2f2`（上一輪的部署，本輪還沒推上去） |
+| 本機 HEAD | `1a813af` |
+| `origin/main` | `1a813af`（一致） |
+| 線上 Pages | `d7d1b9b`（本輪已部署） |
 
 ## 已驗證與未驗證
 
 - `npx tsc -b`：通過，乾淨無輸出。
-- `npm test`：**488/488 全過**。
-- `npm run test:e2e` 全套（非過濾）：**97 passed, 1 skipped**（skip 是既有
-  WebKit 離線測試已知 flake，跟本輪無關）。
-- `npm run shots`：已用 Read 工具確認
+- `npm test`：**489/489 全過**（final review 修復後再次確認）。
+- `npm run test:e2e` 全套（非過濾，final review 修復後跑的最新一次）：
+  **97 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，跟本輪
+  無關）。
+- `npm run shots`：final review 修復前跑的（修復只動 `db.ts`／測試檔，
+  沒動任何畫面），已用 Read 工具確認
   `desktop-battle-log-3on3.png`／`phone-battle-log-3on3.png`（3on3 計分
   畫面）跟 `battle-log.png`（選裝畫面新增的 1v1／3on3 切換按鈕）都正常
   顯示，沒跑版，跟 1v1 視覺語言一致。
-- `npm run deploy:pages`／`npm run test:live`：**本輪尚未執行**，見下方
-  「下一個具體動作」。
+- `npm run deploy:pages`：完成，gh-pages `d7d1b9b`。
+- `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
+  service worker 註冊、圖片路徑）。
 
 ## 阻塞
 
@@ -51,18 +54,33 @@ spec 第 2 節（官方 Regulations 6th edition PDF 逐字節錄）。
 
 ## 下一個具體動作
 
-1. 跑 final review：對照 plan 的 Review Focus 段落審查
-   `5e089f0..b09b78f`（Task 1-5 全部 commit，MERGE_BASE 是上一輪最後一個
-   commit `5e089f0`），派一個 fresh opus subagent 或自己對照 ledger 的
-   Ruling 做審查。
-2. 有 Critical／Important 發現就 TDD 修掉；Minor 記錄到 ledger 當
-   deferred，不用修。
-3. Final review 乾淨後刪除
-   `.superpowers/sdd/2026-09-28-3on3-team-battle-log/`。
-4. Push → `npm run deploy:pages` → `npm run test:live`，把結果補回這份
-   HANDOFF（目前「發布狀態」表格的 `origin/main`／線上 Pages 兩欄還是
-   上一輪的舊值，本輪還沒推）。
-5. 跑 `superpowers:finishing-a-development-branch` 收尾。
+無待辦。若要繼續優化，可以考慮 final review 記錄的 deferred Minor 項目
+（見下方「Final review 發現與修復」），或使用者提出的新需求。
+
+## Final review 發現與修復（這輪新增）
+
+派 fresh opus subagent 對照 plan 的 Review Focus 段落審查
+`5e089f0..0ae4a9a`（Task 1-5 全部 commit），結論：無 Critical，1 個
+Important 已修，6 個 Minor 記錄 deferred：
+
+- **Important（真 bug，且是自己記錄過的坑又踩一次）**：`db.ts` 加了
+  `db.version(8)` 卻忘記把 `export const DB_SCHEMA_VERSION` 從 7 改成
+  8——這正是本檔案「踩過的坑（沿用既有）」那條「兩者是分開的兩個地方」
+  講的事，這輪自己又犯了一次。後果：`exportBackup()` 的 `schemaVersion`
+  是拿這個常數蓋章，蓋成 7 會讓「備份版本過新」防呆失效（舊版 v7 app，
+  例如另一台裝置上還沒更新的 PWA 快取，會被騙去讀含 3on3 陣列形狀
+  `a`／`b` 的備份，`comboLabel()` 會印出 `[object Object]`、零件勝率會
+  悄悄漏算）。已修：常數改成 8，新增測試
+  `exportBackup 的 schemaVersion 要跟最新的 db.version() 一致`
+  （`expect(backup.schemaVersion).toBe(db.verno)`），先紅（7≠8）後綠。
+- Minor 記錄到 ledger 當 deferred（不修）：匯入時陣列型別檢查順序在
+  `.map()` 之後，格式錯的備份會噴原始 TypeError 而不是友善訊息；切換
+  1v1／3on3 模式會無聲丟掉 3on3 進行中的分數（1v1 端反而完全不清狀態，
+  兩邊不對稱）；某一隻陀螺打完那一場後配裝還能再改，存檔時會把那一分
+  歸屬到改過的新配裝；延伸賽按鈕有一個永遠不會是 `true` 的
+  `disabled={complete}` 死程式碼；延伸賽 e2e 測試標題講零件勝率但測試本身
+  沒斷言勝率表；點擊「已經選中」的結構按鈕還是會清空那隻陀螺（跟 1v1
+  既有行為一致）。
 
 ## 怎麼跑（非顯而易見的）
 
