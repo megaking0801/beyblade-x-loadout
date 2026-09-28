@@ -26,7 +26,7 @@ import type {
 } from '../domain/types.ts'
 
 export const DB_NAME = 'beyblade-x-loadout'
-export const DB_SCHEMA_VERSION = 7
+export const DB_SCHEMA_VERSION = 8
 
 /** 第 38 節：新手模式／進階模式。 */
 export interface AppSettings {

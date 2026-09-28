@@ -480,6 +480,11 @@ describe('匯出與匯入（第 37 節）', () => {
     )
   })
 
+  it('exportBackup 的 schemaVersion 要跟最新的 db.version() 一致（全分支審查 Important Finding 1 回歸測試）', async () => {
+    const backup = await repo.exportBackup()
+    expect(backup.schemaVersion).toBe(db.verno)
+  })
+
   it('個人對戰紀錄會被匯出，匯入後完整回復（全分支審查 Important Finding 3 回歸測試）', async () => {
     await repo.saveBattleMatch({
       mode: '1v1',
