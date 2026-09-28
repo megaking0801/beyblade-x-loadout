@@ -1,9 +1,10 @@
 /**
- * 個人對戰紀錄：逐分計分板，記一場個別對戰（先到 4 分獲勝）。
+ * 個人對戰紀錄：官方 3on3 團體賽（三場個別對戰累加分數，先到 4 分贏整場）。
  *
- * 規格對照：docs/superpowers/specs/2026-09-25-battle-match-scoreboard-design.md。
- * 兩畫面設計（選配裝／計分）是後續視覺優化，沒有另外的 spec 文件——
- * 決策過程見 brainstorming 對話紀錄，資料模型與規則本身完全沒變。
+ * 規格對照：docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md。
+ * 這輪拿掉 1v1 練習模式、選裝改手風琴收合——決策過程見 brainstorming 對話
+ * 紀錄。上一輪的兩份 3on3 spec（型別、逐分歸屬、鎖定規則）仍然有效，見
+ * docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md。
  */
 import { useMemo, useState } from 'react'
 import { repo, useAppStore } from '../../store/appStore.ts'
@@ -21,7 +22,6 @@ import { getBuilderSlotSchema, type BuilderStructure } from '../../domain/compat
 import type { BattleFinish, BattlePoint, ComboSlots } from '../../domain/types.ts'
 import { EmptyState, PageHeader, Row, Section } from '../components/ui.tsx'
 import { PartPickerField } from '../components/PartPicker.tsx'
-import { TeamBattleLog } from '../components/TeamBattleLog.tsx'
 
 const FINISH_ZH: Record<BattleFinish, string> = {
   spin: '轉停',
@@ -30,8 +30,8 @@ const FINISH_ZH: Record<BattleFinish, string> = {
 }
 
 const EMPTY_AVAILABILITY = new Map<string, { free: number }>()
+const BEY_LABELS = ['第 1 隻', '第 2 隻', '第 3 隻'] as const
 
-/** 本地時區的今天日期（YYYY-MM-DD），不用 UTC（見上一輪的既有教訓）。 */
 function localDateString(date: Date): string {
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -43,61 +43,136 @@ function hasAnyPart(slots: ComboSlots): boolean {
   return Object.values(slots).some(Boolean)
 }
 
-interface BattleSideProps {
-  side: 'a' | 'b'
-  label: string
-  comboLabel: string
-  score: number
-  isWinner: boolean
-  complete: boolean
-  onScore: (finish: BattleFinish) => void
+function emptyTriple(): [ComboSlots, ComboSlots, ComboSlots] {
+  return [{}, {}, {}]
 }
 
-/** 計分板一側：配裝名、巨大分數、進度條、三個終結技按鈕。 */
-function BattleSide({ side, label, comboLabel, score, isWinner, complete, onScore }: BattleSideProps) {
-  const progressPercent = Math.min(score, MATCH_WIN_SCORE) / MATCH_WIN_SCORE * 100
+interface TeamSideEditorProps {
+  label: string
+  idPrefix: string
+  structures: [BuilderStructure, BuilderStructure, BuilderStructure]
+  slots: [ComboSlots, ComboSlots, ComboSlots]
+  /** 已經打完幾場個別對戰（0-3）——那幾隻陀螺官方規則不准對戰之間再換。 */
+  lockedCount: number
+  /** 目前展開哪一格；null 代表這一側全部收合。 */
+  expandedIndex: 0 | 1 | 2 | null
+  comboLabel: (slots: ComboSlots) => string
+  onToggleExpand: (index: 0 | 1 | 2) => void
+  onChangeStructure: (index: 0 | 1 | 2, structure: BuilderStructure) => void
+  onChangeSlots: (index: 0 | 1 | 2, slots: ComboSlots) => void
+}
+
+/**
+ * 一側（A 或 B）的三隻陀螺選裝：手風琴收合列，點開才展開該格的結構切換與
+ * 三個零件選擇器，其他格自動收合（同一側同時只會有一格展開）。已上場
+ * 鎖住的格子整行不可點，收合摘要仍看得到已選的配裝名稱。
+ */
+function TeamSideEditor({
+  label,
+  idPrefix,
+  structures,
+  slots,
+  lockedCount,
+  expandedIndex,
+  comboLabel,
+  onToggleExpand,
+  onChangeStructure,
+  onChangeSlots,
+}: TeamSideEditorProps) {
+  const parts = useAppStore((state) => state.parts)
+  const images = useAppStore((state) => state.images)
+
   return (
-    <div className={isWinner ? 'battle-side is-winner' : 'battle-side'}>
-      <div className="battle-side-label">{label}</div>
-      <div className="battle-side-combo clamp-2">{comboLabel || '（未選配裝）'}</div>
-      <div className="battle-score-digit code" data-testid={`score-${side}`}>
-        {score}
+    <Section title={label}>
+      <div className="stack" style={{ gap: 10 }}>
+        {([0, 1, 2] as const).map((index) => {
+          const structure = structures[index]
+          const beySlots = slots[index]
+          const schema = getBuilderSlotSchema(structure, beySlots, parts)
+          const locked = index < lockedCount
+          const expanded = !locked && expandedIndex === index
+          const structureZh = structure === 'standard' ? '三件式' : 'CX'
+          const summary = hasAnyPart(beySlots) ? `${comboLabel(beySlots)}・${structureZh}` : '未選'
+
+          return (
+            <div key={index} className="card">
+              <button
+                type="button"
+                className="accordion-row-trigger"
+                disabled={locked}
+                aria-expanded={expanded}
+                data-testid={`bey-toggle-${idPrefix}-${index}`}
+                onClick={() => onToggleExpand(index)}
+              >
+                <span className="battle-side-label">
+                  {BEY_LABELS[index]}陀螺{locked ? '（已上場，賽中不能更換）' : ''}
+                </span>
+                <span className="meta accordion-row-summary">{summary}</span>
+                <span aria-hidden className="meta">{locked ? '已鎖定' : expanded ? '收合' : '展開'}</span>
+              </button>
+
+              {expanded ? (
+                <div className="accordion-row-body stack">
+                  <Row>
+                    <button
+                      type="button"
+                      className={structure === 'standard' ? 'btn btn-primary' : 'btn'}
+                      onClick={() => {
+                        if (structure === 'standard') return
+                        onChangeStructure(index, 'standard')
+                        onChangeSlots(index, {})
+                      }}
+                    >
+                      三件式（BX／UX）
+                    </button>
+                    <button
+                      type="button"
+                      className={structure === 'cx' ? 'btn btn-primary' : 'btn'}
+                      onClick={() => {
+                        if (structure === 'cx') return
+                        onChangeStructure(index, 'cx')
+                        onChangeSlots(index, {})
+                      }}
+                    >
+                      CX 模組化
+                    </button>
+                  </Row>
+                  <div className="stack">
+                    {schema.map((def) => (
+                      <PartPickerField
+                        key={def.key}
+                        def={def}
+                        options={parts.filter((part) => def.families.includes(part.family))}
+                        selectedPart={parts.find((part) => part.id === beySlots[def.key])}
+                        availability={EMPTY_AVAILABILITY}
+                        images={images}
+                        idPrefix={`${idPrefix}-${index}`}
+                        onChange={(next) => onChangeSlots(index, { ...beySlots, [def.key]: next || undefined })}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )
+        })}
       </div>
-      <div className="battle-score-bar" aria-hidden="true">
-        <span style={{ width: `${progressPercent}%` }} />
-      </div>
-      <div className="battle-finish-row">
-        {(Object.keys(FINISH_POINTS) as BattleFinish[]).map((finish) => (
-          <button
-            key={finish}
-            type="button"
-            className="btn btn-compact"
-            disabled={complete}
-            data-testid={`score-${side}-${finish}`}
-            onClick={() => onScore(finish)}
-          >
-            {FINISH_ZH[finish]}
-            <br />
-            +{FINISH_POINTS[finish]}
-          </button>
-        ))}
-      </div>
-    </div>
+    </Section>
   )
 }
 
 export function BattleLogPage() {
-  const parts = useAppStore((state) => state.parts)
-  const images = useAppStore((state) => state.images)
   const battleMatches = useAppStore((state) => state.battleMatches)
+  const parts = useAppStore((state) => state.parts)
   const run = useAppStore((state) => state.run)
 
-  const [matchMode, setMatchMode] = useState<'1v1' | '3on3'>('1v1')
   const [view, setView] = useState<'setup' | 'scoring'>('setup')
-  const [structureA, setStructureA] = useState<BuilderStructure>('standard')
-  const [structureB, setStructureB] = useState<BuilderStructure>('standard')
-  const [slotsA, setSlotsA] = useState<ComboSlots>({})
-  const [slotsB, setSlotsB] = useState<ComboSlots>({})
+  const [structuresA, setStructuresA] = useState<[BuilderStructure, BuilderStructure, BuilderStructure]>(['standard', 'standard', 'standard'])
+  const [structuresB, setStructuresB] = useState<[BuilderStructure, BuilderStructure, BuilderStructure]>(['standard', 'standard', 'standard'])
+  const [slotsA, setSlotsA] = useState<[ComboSlots, ComboSlots, ComboSlots]>(emptyTriple())
+  const [slotsB, setSlotsB] = useState<[ComboSlots, ComboSlots, ComboSlots]>(emptyTriple())
+  const [expandedA, setExpandedA] = useState<0 | 1 | 2 | null>(0)
+  const [expandedB, setExpandedB] = useState<0 | 1 | 2 | null>(0)
   const [points, setPoints] = useState<BattlePoint[]>([])
   const [playedAt, setPlayedAt] = useState(() => localDateString(new Date()))
   const [notes, setNotes] = useState('')
@@ -113,21 +188,49 @@ export function BattleLogPage() {
       .map(nameOf)
       .join('+')
 
-  const schemaA = useMemo(() => getBuilderSlotSchema(structureA, slotsA, parts), [structureA, slotsA, parts])
-  const schemaB = useMemo(() => getBuilderSlotSchema(structureB, slotsB, parts), [structureB, slotsB, parts])
-
   const winRateIndex = useMemo(() => computePartWinRateIndex(battleMatches), [battleMatches])
+  const winRateRows = [...winRateIndex.entries()].map(([partId, entry]) => ({
+    partId,
+    nameZhTW: nameOf(partId),
+    ...entry,
+  }))
 
-  const ready = hasAnyPart(slotsA) && hasAnyPart(slotsB)
+  const ready = slotsA.every(hasAnyPart) && slotsB.every(hasAnyPart)
   const score = computeMatchScore(points)
   const complete = isMatchComplete(points)
   const winner = matchWinner(points)
+  // complete 一旦成立（哪怕才打完第 2 場），就不該再顯示排定中的下一場——
+  // isMatchComplete 用「達到」判定，累計分數可能提早在第 2 場就過 4 分。
+  const scheduledIndex: 0 | 1 | 2 | undefined = !complete && points.length < 3 ? (points.length as 0 | 1 | 2) : undefined
+  // 已經打完幾場排定中的個別對戰（0-3）——官方規則不准對戰之間交換陀螺／
+  // 零件，回選裝畫面要鎖住這幾隻，延伸賽（第四分起，沒有 beyIndex）不會
+  // 再讓這個數字超過 3。
+  const foughtCount = Math.min(points.length, 3)
+
+  function updateSlot(setSlots: typeof setSlotsA, index: 0 | 1 | 2, next: ComboSlots) {
+    setSlots((current) => {
+      const updated = [...current] as [ComboSlots, ComboSlots, ComboSlots]
+      updated[index] = next
+      return updated
+    })
+  }
+
+  function updateStructure(setStructures: typeof setStructuresA, index: 0 | 1 | 2, next: BuilderStructure) {
+    setStructures((current) => {
+      const updated = [...current] as [BuilderStructure, BuilderStructure, BuilderStructure]
+      updated[index] = next
+      return updated
+    })
+  }
+
+  function toggleExpand(setExpanded: typeof setExpandedA, index: 0 | 1 | 2) {
+    setExpanded((current) => (current === index ? null : index))
+  }
 
   async function handleSave() {
     if (!complete) return
     const ok = await run(() =>
       repo.saveBattleMatch({
-        mode: '1v1',
         a: slotsA,
         b: slotsB,
         points,
@@ -142,43 +245,181 @@ export function BattleLogPage() {
     }
   }
 
-  const winRateRows = [...winRateIndex.entries()].map(([partId, entry]) => ({
-    partId,
-    nameZhTW: nameOf(partId),
-    ...entry,
-  }))
+  if (view === 'scoring') {
+    return (
+      <div>
+        <PageHeader title="3on3 計分板" description="三場個別對戰累加分數，先到 4 分贏整場，非賽事證據" />
+        <div className="stack" style={{ gap: 18 }}>
+          <Row>
+            <button type="button" className="btn" data-testid="back-to-setup" onClick={() => setView('setup')}>
+              ← 回選裝
+            </button>
+          </Row>
 
-  /**
-   * 3on3 的進行中分數活在 `TeamBattleLog` 內部 state，切去 1v1 會讓它
-   * unmount、無聲丟掉——1v1 這邊的 state 活在這個元件本身，切走不會消失，
-   * 不用擋。`hasUnsavedProgress` 由呼叫端（`TeamBattleLog`）回報它自己是否
-   * 有還沒存檔的分數，只有「切去 1v1」這個方向需要擋。
-   */
-  const renderModeToggle = (hasUnsavedProgress: boolean) => (
-    <Row>
-      <button
-        type="button"
-        className={matchMode === '1v1' ? 'btn btn-primary' : 'btn'}
-        onClick={() => {
-          if (matchMode === '1v1') return
-          if (hasUnsavedProgress && !window.confirm('目前這場對戰還沒存檔，切換模式會清空已記錄的分數，確定要切換嗎？')) return
-          setMatchMode('1v1')
-        }}
-      >
-        1v1
-      </button>
-      <button
-        type="button"
-        className={matchMode === '3on3' ? 'btn btn-primary' : 'btn'}
-        onClick={() => setMatchMode('3on3')}
-      >
-        3on3
-      </button>
-    </Row>
-  )
+          <div className="meta" data-testid="team-score">
+            隊伍累計比分 A {score.a} - {score.b} B（先到 {MATCH_WIN_SCORE} 分獲勝）
+          </div>
 
-  const historyAndWinRate = (
-    <>
+          {scheduledIndex !== undefined ? (
+            <Section title={`第 ${points.length + 1} 場：${BEY_LABELS[scheduledIndex]}陀螺對戰`}>
+              <div className="battle-scoreboard" data-testid="scoreboard">
+                <div className="battle-side">
+                  <div className="battle-side-label">配裝 A</div>
+                  <div className="battle-side-combo clamp-2">{comboLabel(slotsA[scheduledIndex]) || '（未選配裝）'}</div>
+                  <div className="battle-finish-row">
+                    {(Object.keys(FINISH_POINTS) as BattleFinish[]).map((finish) => (
+                      <button
+                        key={finish}
+                        type="button"
+                        className="btn btn-compact"
+                        data-testid={`score-a-${finish}`}
+                        onClick={() => setPoints([...points, { scorer: 'a', finish, beyIndex: scheduledIndex }])}
+                      >
+                        {FINISH_ZH[finish]}
+                        <br />
+                        +{FINISH_POINTS[finish]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="battle-side">
+                  <div className="battle-side-label">配裝 B</div>
+                  <div className="battle-side-combo clamp-2">{comboLabel(slotsB[scheduledIndex]) || '（未選配裝）'}</div>
+                  <div className="battle-finish-row">
+                    {(Object.keys(FINISH_POINTS) as BattleFinish[]).map((finish) => (
+                      <button
+                        key={finish}
+                        type="button"
+                        className="btn btn-compact"
+                        data-testid={`score-b-${finish}`}
+                        onClick={() => setPoints([...points, { scorer: 'b', finish, beyIndex: scheduledIndex }])}
+                      >
+                        {FINISH_ZH[finish]}
+                        <br />
+                        +{FINISH_POINTS[finish]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Section>
+          ) : null}
+
+          {points.length >= 3 && !complete ? (
+            <Section title="未分勝負，需要延伸賽">
+              <p className="meta">三場個別對戰打完仍未到 4 分，官方規則要重新排陀螺順序繼續打。這裡不綁定特定陀螺，直接用下面的按鈕繼續記分。</p>
+              <div className="battle-scoreboard">
+                <div className="battle-side">
+                  <div className="battle-side-label">A 隊</div>
+                  <div className="battle-finish-row">
+                    {(Object.keys(FINISH_POINTS) as BattleFinish[]).map((finish) => (
+                      <button
+                        key={finish}
+                        type="button"
+                        className="btn btn-compact"
+                        data-testid={`ext-a-${finish}`}
+                        onClick={() => setPoints([...points, { scorer: 'a', finish }])}
+                      >
+                        {FINISH_ZH[finish]}
+                        <br />
+                        +{FINISH_POINTS[finish]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="battle-side">
+                  <div className="battle-side-label">B 隊</div>
+                  <div className="battle-finish-row">
+                    {(Object.keys(FINISH_POINTS) as BattleFinish[]).map((finish) => (
+                      <button
+                        key={finish}
+                        type="button"
+                        className="btn btn-compact"
+                        data-testid={`ext-b-${finish}`}
+                        onClick={() => setPoints([...points, { scorer: 'b', finish }])}
+                      >
+                        {FINISH_ZH[finish]}
+                        <br />
+                        +{FINISH_POINTS[finish]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Section>
+          ) : null}
+
+          <Row>
+            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints(points.slice(0, -1))}>
+              復原上一分
+            </button>
+            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints([])}>
+              清除重來
+            </button>
+          </Row>
+
+          {complete ? (
+            <Section title="存檔">
+              <div className="card stack">
+                <strong data-testid="match-winner">{winner === 'a' ? 'A 隊獲勝' : 'B 隊獲勝'}</strong>
+                <Row>
+                  <label>
+                    日期
+                    <input type="date" value={playedAt} onChange={(event) => setPlayedAt(event.target.value)} required />
+                  </label>
+                  <label>
+                    備註
+                    <input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="例如：跟阿翔的隊伍打的" />
+                  </label>
+                </Row>
+                <button type="button" className="btn btn-primary" data-testid="save-match" onClick={() => void handleSave()}>
+                  存檔
+                </button>
+              </div>
+            </Section>
+          ) : null}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <PageHeader title="個人對戰紀錄" description="記錄自己或跟朋友的 3on3 團體賽，先到 4 分獲勝，非賽事證據" />
+
+      <TeamSideEditor
+        label="配裝 A"
+        idPrefix="a"
+        structures={structuresA}
+        slots={slotsA}
+        lockedCount={foughtCount}
+        expandedIndex={expandedA}
+        comboLabel={comboLabel}
+        onToggleExpand={(index) => toggleExpand(setExpandedA, index)}
+        onChangeStructure={(index, structure) => updateStructure(setStructuresA, index, structure)}
+        onChangeSlots={(index, slots) => updateSlot(setSlotsA, index, slots)}
+      />
+      <TeamSideEditor
+        label="配裝 B"
+        idPrefix="b"
+        structures={structuresB}
+        slots={slotsB}
+        lockedCount={foughtCount}
+        expandedIndex={expandedB}
+        comboLabel={comboLabel}
+        onToggleExpand={(index) => toggleExpand(setExpandedB, index)}
+        onChangeStructure={(index, structure) => updateStructure(setStructuresB, index, structure)}
+        onChangeSlots={(index, slots) => updateSlot(setSlotsB, index, slots)}
+      />
+
+      {ready ? (
+        <div style={{ marginBottom: 22 }}>
+          <button type="button" className="btn btn-primary" data-testid="start-scoring" onClick={() => setView('scoring')}>
+            開始對戰 →
+          </button>
+        </div>
+      ) : null}
+
       <Section title="歷史紀錄">
         {battleMatches.length === 0 ? (
           <EmptyState title="還沒有任何對戰紀錄" />
@@ -191,25 +432,17 @@ export function BattleLogPage() {
                 const finalWinner = matchWinner(battleMatch.points)
                 return (
                   <li key={battleMatch.id} data-testid="battle-match">
-                    {battleMatch.playedAt} ·{' '}
-                    {battleMatch.mode === '3on3'
-                      ? '3on3'
-                      : `${comboLabel(battleMatch.a)}（A）vs ${comboLabel(battleMatch.b)}（B）`}{' '}
-                    · 比分 {finalScore.a}:{finalScore.b} ·{' '}
-                    {finalWinner === 'a'
-                      ? battleMatch.mode === '3on3' ? 'A 隊獲勝' : 'A 獲勝'
-                      : battleMatch.mode === '3on3' ? 'B 隊獲勝' : 'B 獲勝'}
+                    {battleMatch.playedAt} · 比分 {finalScore.a}:{finalScore.b} ·{' '}
+                    {finalWinner === 'a' ? 'A 隊獲勝' : 'B 隊獲勝'}
                     {battleMatch.notes ? ` · ${battleMatch.notes}` : ''}
                     <details>
                       <summary>逐分紀錄</summary>
                       <ul>
                         {battleMatch.points.map((point, index) => (
                           <li key={index}>
-                            第 {index + 1} 分
-                            {battleMatch.mode === '3on3'
-                              ? `（${point.beyIndex !== undefined ? `第 ${point.beyIndex + 1} 隻陀螺` : '延伸賽'}）`
-                              : ''}
-                            ：{point.scorer === 'a' ? 'A' : 'B'}／{FINISH_ZH[point.finish]}
+                            第 {index + 1} 分（
+                            {point.beyIndex !== undefined ? `第 ${point.beyIndex + 1} 隻陀螺` : '延伸賽'}
+                            ）：{point.scorer === 'a' ? 'A' : 'B'}／{FINISH_ZH[point.finish]}
                           </li>
                         ))}
                       </ul>
@@ -263,171 +496,6 @@ export function BattleLogPage() {
           </div>
         )}
       </Section>
-    </>
-  )
-
-  if (matchMode === '3on3') {
-    return <TeamBattleLog renderModeToggle={renderModeToggle} historyAndWinRate={historyAndWinRate} comboLabel={comboLabel} />
-  }
-
-  if (view === 'scoring') {
-    return (
-      <div>
-        <PageHeader title="計分板" description="先到 4 分獲勝，非賽事證據" />
-        <div className="stack" style={{ gap: 18 }}>
-          <Row>
-            <button type="button" className="btn" data-testid="back-to-setup" onClick={() => setView('setup')}>
-              ← 回選裝
-            </button>
-          </Row>
-
-          <div className="battle-scoreboard" data-testid="scoreboard">
-            <BattleSide
-              side="a"
-              label="配裝 A"
-              comboLabel={comboLabel(slotsA)}
-              score={score.a}
-              isWinner={winner === 'a'}
-              complete={complete}
-              onScore={(finish) => setPoints([...points, { scorer: 'a', finish }])}
-            />
-            <BattleSide
-              side="b"
-              label="配裝 B"
-              comboLabel={comboLabel(slotsB)}
-              score={score.b}
-              isWinner={winner === 'b'}
-              complete={complete}
-              onScore={(finish) => setPoints([...points, { scorer: 'b', finish }])}
-            />
-          </div>
-
-          <Row>
-            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints(points.slice(0, -1))}>
-              復原上一分
-            </button>
-            <button type="button" className="btn btn-compact" disabled={points.length === 0} onClick={() => setPoints([])}>
-              清除重來
-            </button>
-          </Row>
-
-          {complete ? (
-            <Section title="存檔">
-              <div className="card stack">
-                <strong data-testid="match-winner">{winner === 'a' ? 'A 獲勝' : 'B 獲勝'}</strong>
-                <Row>
-                  <label>
-                    日期
-                    <input type="date" value={playedAt} onChange={(event) => setPlayedAt(event.target.value)} required />
-                  </label>
-                  <label>
-                    備註
-                    <input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="例如：跟阿翔在店裡打的" />
-                  </label>
-                </Row>
-                <button type="button" className="btn btn-primary" data-testid="save-match" onClick={() => void handleSave()}>
-                  存檔
-                </button>
-              </div>
-            </Section>
-          ) : null}
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <PageHeader title="個人對戰紀錄" description="記錄自己或跟朋友的 1v1 對戰，先到 4 分獲勝，非賽事證據" />
-      {renderModeToggle(false)}
-
-      <Section title="配裝 A">
-        <Row>
-          <button
-            type="button"
-            className={structureA === 'standard' ? 'btn btn-primary' : 'btn'}
-            onClick={() => {
-              setStructureA('standard')
-              setSlotsA({})
-            }}
-          >
-            三件式（BX／UX）
-          </button>
-          <button
-            type="button"
-            className={structureA === 'cx' ? 'btn btn-primary' : 'btn'}
-            onClick={() => {
-              setStructureA('cx')
-              setSlotsA({})
-            }}
-          >
-            CX 模組化
-          </button>
-        </Row>
-        <div className="stack">
-          {schemaA.map((def) => (
-            <PartPickerField
-              key={def.key}
-              def={def}
-              options={parts.filter((part) => def.families.includes(part.family))}
-              selectedPart={parts.find((part) => part.id === slotsA[def.key])}
-              availability={EMPTY_AVAILABILITY}
-              images={images}
-              idPrefix="a"
-              onChange={(next) => setSlotsA({ ...slotsA, [def.key]: next || undefined })}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <Section title="配裝 B">
-        <Row>
-          <button
-            type="button"
-            className={structureB === 'standard' ? 'btn btn-primary' : 'btn'}
-            onClick={() => {
-              setStructureB('standard')
-              setSlotsB({})
-            }}
-          >
-            三件式（BX／UX）
-          </button>
-          <button
-            type="button"
-            className={structureB === 'cx' ? 'btn btn-primary' : 'btn'}
-            onClick={() => {
-              setStructureB('cx')
-              setSlotsB({})
-            }}
-          >
-            CX 模組化
-          </button>
-        </Row>
-        <div className="stack">
-          {schemaB.map((def) => (
-            <PartPickerField
-              key={def.key}
-              def={def}
-              options={parts.filter((part) => def.families.includes(part.family))}
-              selectedPart={parts.find((part) => part.id === slotsB[def.key])}
-              availability={EMPTY_AVAILABILITY}
-              images={images}
-              idPrefix="b"
-              onChange={(next) => setSlotsB({ ...slotsB, [def.key]: next || undefined })}
-            />
-          ))}
-        </div>
-      </Section>
-
-      {ready ? (
-        <div style={{ marginBottom: 22 }}>
-          <button type="button" className="btn btn-primary" data-testid="start-scoring" onClick={() => setView('scoring')}>
-            開始對戰 →
-          </button>
-        </div>
-      ) : null}
-
-      {historyAndWinRate}
     </div>
   )
 }
