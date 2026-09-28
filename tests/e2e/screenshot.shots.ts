@@ -88,6 +88,30 @@ test('capture', async ({ page }, testInfo) => {
     fullPage: true,
   })
 
+  /*
+   * 3on3 團體賽也要截一張：切模式、六邊選滿、打完第 1 場看畫面版面。
+   */
+  await page.getByRole('button', { name: '3on3' }).click()
+  for (const [prefix, blade] of [
+    ['team-a-0', 'blade:ドランソード'],
+    ['team-a-1', 'blade:ドランバスター'],
+    ['team-a-2', 'blade:ドランソード'],
+    ['team-b-0', 'blade:ドランバスター'],
+    ['team-b-1', 'blade:ドランソード'],
+    ['team-b-2', 'blade:ドランバスター'],
+  ] as const) {
+    await pickSlot(page, 'bladeId', blade, prefix)
+    await pickSlot(page, 'ratchetId', 'ratchet:3-60', prefix)
+    await pickSlot(page, 'bitId', 'bit:F', prefix)
+  }
+  await page.getByTestId('team-start-scoring').click()
+  await page.getByTestId('team-score-a-xtreme').click()
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: `${testInfo.project.outputDir}/../shots/${testInfo.project.name}-battle-log-3on3.png`,
+    fullPage: true,
+  })
+
   for (const shot of SHOTS) {
     // 用 location.hash 觸發 hashchange；goto 同文件的 hash 變更不一定會觸發路由。
     await page.evaluate((hash) => {
