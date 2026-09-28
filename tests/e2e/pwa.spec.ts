@@ -757,4 +757,26 @@ test('3on3 選裝手風琴：展開新的一格會收合原本展開的格子，
 
   // B 側獨立：B 第 1 隻預設也是展開的，不受 A 側切換影響。
   await expect(page.getByTestId('slot-trigger-b-0-bladeId')).toBeVisible()
+
+  // 點擊「目前已展開」的那一格會收合它，不是永遠只能換到別格（全分支
+  // 審查 Minor 5 回歸測試）。
+  await expandBey(page, 'a', 1)
+  await expect(page.getByTestId('slot-trigger-a-1-bladeId')).toHaveCount(0)
+})
+
+test('配裝器狀態行反映對戰紀錄樣本不足的狀態（全分支審查 Minor 1 回歸測試：確認 battleMatches 真的能流到 BuilderPage）', async ({ page }) => {
+  await openApp(page, '/battle-log')
+  await fillAllBeys(page, STANDARD_TEAM_PICKS)
+  await page.getByTestId('start-scoring').click()
+  await page.getByTestId('score-a-xtreme').click()
+  await page.getByTestId('score-a-spin').click()
+  await page.getByTestId('save-match').click()
+  await expect(page.getByTestId('battle-match').first()).toBeVisible()
+
+  await openApp(page, '/builder')
+  await page.getByRole('button', { name: '顯示全部圖鑑' }).click()
+  await pickSlot(page, 'bladeId', 'blade:ドランソード')
+  await pickSlot(page, 'ratchetId', 'ratchet:3-60')
+  await pickSlot(page, 'bitId', 'bit:F')
+  await expect(page.getByText(/個人對戰紀錄：已有對戰紀錄，樣本還不夠/)).toBeVisible()
 })

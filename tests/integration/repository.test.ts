@@ -1010,7 +1010,7 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
       createdAt: '2026-01-01',
     })
     await oldDb.table('battleMatches').add({
-      id: 'old-v8-1',
+      id: 'old-v8-1v1',
       mode: '1v1',
       a: { bladeId: 'blade-a' },
       b: { bladeId: 'blade-b' },
@@ -1020,6 +1020,19 @@ describe('對戰紀錄（逐分計分板，2026-09-25）', () => {
       ],
       playedAt: '2026-09-25',
       createdAt: '2026-09-25T00:00:00.000Z',
+    })
+    // 上一輪（v8 union 形狀）的 3on3 紀錄也要一起清空，不是只有 1v1。
+    await oldDb.table('battleMatches').add({
+      id: 'old-v8-3on3',
+      mode: '3on3',
+      a: [{ bladeId: 'a1' }, { bladeId: 'a2' }, { bladeId: 'a3' }],
+      b: [{ bladeId: 'b1' }, { bladeId: 'b2' }, { bladeId: 'b3' }],
+      points: [
+        { scorer: 'a', finish: 'xtreme', beyIndex: 0 },
+        { scorer: 'a', finish: 'spin', beyIndex: 1 },
+      ],
+      playedAt: '2026-09-27',
+      createdAt: '2026-09-27T00:00:00.000Z',
     })
     oldDb.close()
 
