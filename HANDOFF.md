@@ -1,56 +1,65 @@
 # 交接筆記
 
 最後更新：2026-09-28 UTC+08:00
-交接原因：正式交接（拿掉 1v1、對戰紀錄收斂成純 3on3＋選裝手風琴重新設計，
-全部完成並已上線；final review 進行中，見下方「阻塞」）
+交接原因：正式交接（拿掉 1v1＋選裝手風琴＋這輪追加的重複零件檢查／計分板
+視覺還原／得分手感動畫，全部完成並已上線）
 
 ## 目前目標
 
-這輪兩件事：
+這輪分兩批做完：
 
-1. **拿掉 1v1**：使用者決定對戰紀錄只留官方 3on3 團體賽，1v1 練習模式
-   整個刪掉。`BattleMatch` 從上一輪的 discriminated union
-   （`mode: '1v1' | '3on3'`）收斂回單一形狀（沒有 `mode` 欄位，`a`／`b`
-   固定是 3 套配裝陣列）。使用者明確同意**舊資料整批清空**（不管是舊的
-   1v1 紀錄還是上一輪的 3on3 紀錄，形狀都跟新形狀不相容）——IndexedDB
-   v8→v9，migration 直接清空 `battleMatches` 表。
-2. **選裝畫面改手風琴**：原本 A、B 各 3 隻陀螺全部展開（六張完整卡片），
-   手機上非常長，改成收合列 + 點開才展開該格，同一側同時只有一格展開，
-   已上場鎖住的格子永遠收合。查了 Pokémon team builder 手機版案例等
-   UX 參考才定案，見 spec 第 2 節。
+**第一批（拿掉 1v1）**：使用者決定對戰紀錄只留官方 3on3 團體賽，1v1 練習
+模式整個刪掉。`BattleMatch` 從上一輪的 discriminated union
+（`mode: '1v1' | '3on3'`）收斂回單一形狀（沒有 `mode` 欄位，`a`／`b`
+固定是 3 套配裝陣列）。使用者明確同意**舊資料整批清空**——IndexedDB
+v8→v9，migration 直接清空 `battleMatches` 表。選裝畫面同時改手風琴：
+原本 A、B 各 3 隻陀螺全部展開（六張完整卡片）太長，改成收合列 + 點開才
+展開該格，同一側同時只有一格展開，已上場鎖住的格子永遠收合。查了
+Pokémon team builder 手機版案例等 UX 參考才定案。`TeamBattleLog.tsx`
+併回 `BattleLogPage.tsx`，沒有模式切換按鈕了。
+
+**第二批（使用者驗收後回報的三件事）**：
+1. **重複零件檢查**——使用者發現同一隊三隻陀螺可以選到同一顆零件，這是
+   真的漏掉的官方規則（同一隊伍不可重複使用相同零件）。把
+   `domain/deck.ts` 的 `validateDeck()` 裡的重複零件邏輯抽成獨立函式
+   `findDuplicatePartErrorsZhTW()`（不用背 `validateDeck` 的庫存／相容性
+   檢查），`BattleLogPage` 對 A、B 各自呼叫（官方規則是「同一隊伍」，不是
+   跨 A vs B），有重複就顯示紅字警告、擋住「開始對戰」。
+2. **計分板視覺還原**——上一輪拿掉 1v1 時，3on3 計分畫面只剩一行小字
+   「隊伍累計比分 A 3 - 0 B」，完全沒有視覺焦點，是漏套用了上一輪 1v1
+   計分板做得很成功的「巨大數字＋進度條」設計。這輪補回來，套在隊伍
+   累計比分上（不是個別陀螺，因為 3on3 的分數屬於隊伍）。
+3. **得分手感動畫**——查了幾個手遊／運動計分 app 的做法，加了三個小動畫：
+   得分瞬間比分數字脈動（沿用既有 `useJustAdded()` hook，不新增函式庫）、
+   贏家揭曉時卡片有進場動畫、手機上 `navigator.vibrate()` 短震動回饋
+   （桌機沒有這個 API 是正常的，不特別處理）。
 
 Spec：`docs/superpowers/specs/2026-09-28-3on3-only-accordion-design.md`
-（這輪的型別收斂、migration、手風琴設計）＋
+（型別收斂、migration、手風琴設計）＋
 `docs/superpowers/specs/2026-09-28-3on3-team-battle-log-design.md`
-（上一輪的 3on3 計分規則本身，仍然有效，這輪沒改計分邏輯）。
-
-`TeamBattleLog.tsx` 併回 `BattleLogPage.tsx`（不再需要因為兩種模式拆成
-兩個元件），沒有模式切換按鈕，`BattleLogPage` 就是整個對戰紀錄功能。
+（3on3 計分規則本身，一直沒變）。第二批是 brainstorming bounded path，
+沒有另外寫 spec 文件，設計依據見對話紀錄。
 
 ## 發布狀態
 
 | 層級 | 狀態 |
 |---|---|
 | 工作區 | 乾淨，僅一個跟本輪無關的既有殘留（見下方「已知缺口」最後一條） |
-| 本機 HEAD | `1c24167` |
-| `origin/main` | `1c24167`（一致） |
-| 線上 Pages | `07ae350`（`1c24167` 只改測試檔跟 spec 文件，沒有前台程式
-  變更，不用再部署，線上版本維持不變） |
+| 本機 HEAD | `715a18e` |
+| `origin/main` | `715a18e`（一致） |
+| 線上 Pages | `6ce725c`（本輪已部署） |
 
 ## 已驗證與未驗證
 
-- `npx tsc -b`：通過，乾淨無輸出（final review 修復後再次確認）。
-- `npm test`：**487/487 全過**（final review 修復後再次確認；1v1 相關
-  測試刪除後總數下降是預期的）。
-- `npm run test:e2e` 全套（非過濾，final review 修復後重跑）：
-  **99 passed, 1 skipped**（skip 是既有 WebKit 離線測試已知 flake，
-  跟本輪無關）。
-- `npm run shots`：final review 修復**之前**跑的，已用 Read 工具確認
-  `phone-battle-log-setup.png`（手風琴展開＋收合並存的樣子）、
-  `battle-log-scoring.png`、`battle-log.png`（存檔後歷史紀錄／零件勝率表）
-  都正常顯示，沒跑版；final review 修復沒動畫面，截圖不用重跑。
-- `npm run deploy:pages`：完成，gh-pages `07ae350`（final review 修復
-  沒有前台程式變更，這個部署版本仍是最新）。
+- `npx tsc -b`：通過，乾淨無輸出。
+- `npm test`：**491/491 全過**（新增 `findDuplicatePartErrorsZhTW` 測試）。
+- `npm run test:e2e` 全套（非過濾）：**101 passed, 1 skipped**（skip 是
+  既有 WebKit 離線測試已知 flake，跟本輪無關）。
+- `npm run shots`：已用 Read 工具確認 `battle-log-scoring.png`（大字比分
+  ＋進度條回來了，視覺焦點清楚）、`battle-log-setup.png`、
+  `battle-log.png` 都正常顯示，沒跑版。動畫（脈動、贏家揭曉、震動）
+  截圖看不出來，靠 e2e 測試跟目測（跑 `npm run dev` 手動點過）驗證。
+- `npm run deploy:pages`：完成，gh-pages `6ce725c`。
 - `npm run test:live`：**6/6 全過**（phone/desktop 各 3 條：可開啟＋加商品、
   service worker 註冊、圖片路徑）。
 
@@ -120,6 +129,15 @@ fresh opus subagent 審查 `e308e8e..a003c0f`（3 個 commit：型別收斂、UI
   本身、忘記清這些周邊工具，會留下「型別上合法但語意上死掉」的程式碼
   （`DistributiveOmit<NonUnionType, K>` 在數學上等價於 `Omit<...>`，
   tsc 不會報錯，但讀的人看不懂為什麼這裡需要一個「處理 union」的型別）。
+
+- **新加一條跨陀螺／跨配裝的驗證規則，要順手查既有 e2e／截圖 fixture 有沒有
+  早就違反這條規則**——這輪加重複零件檢查前，`STANDARD_TEAM_PICKS` 跟
+  `screenshot.shots.ts` 的 3on3 測資其實整批違規（同隊三隻陀螺共用同一顆
+  ratchet／bit，甚至同一片 blade 出現兩次），只是舊版沒有這條檢查所以
+  一直沒被抓到。規則一生效，幾乎所有 3on3 e2e 測試會一次性大量變紅
+  （`start-scoring` 按鈕再也不會出現）。下次加這類「零件／配裝之間互相
+  排斥」的規則時，先 grep 既有測資，不要等全套測試爆炸才發現 fixture
+  本身不合規。
 
 ## 踩過的坑（沿用既有，仍然有效）
 
