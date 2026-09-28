@@ -135,6 +135,20 @@ export function createDb(name: string = DB_NAME): BeybladeDb {
     battleRounds: null,
     battleMatches: 'id, playedAt',
   })
+  db.version(8)
+    .stores({
+      // 索引不變（還是用 id 當主鍵、playedAt 建索引），只是資料形狀多了
+      // 必填的 mode 欄位，用 .upgrade() 幫舊紀錄補上，不用改 .stores()。
+      battleMatches: 'id, playedAt',
+    })
+    .upgrade((tx) =>
+      tx
+        .table('battleMatches')
+        .toCollection()
+        .modify((match) => {
+          if (!match.mode) match.mode = '1v1'
+        }),
+    )
   return db
 }
 
